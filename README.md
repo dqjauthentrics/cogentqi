@@ -1,4 +1,4 @@
-SeeQI
+CogentQI
 =====================
 
-An application to track and visualize Continuous Quality Improvement.
+An application to intelligently track and visualize Continuous Quality Improvement.
