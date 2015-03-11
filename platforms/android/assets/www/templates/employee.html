@@ -1,0 +1,39 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="{{employee.name}}">
+    <ion-content class="padding detail" has-bouncing="false">
+        <div class="row">
+            <div class="col-35 padding">
+                <img ng-src="{{employee.face}}" class="avatar-large">
+
+                <div class="title">{{employee.name}}</div>
+                <div class="role">{{employee.role}}</div>
+            </div>
+            <div class="col-15 padding" style="text-align:center;">
+                <div style="font-weight:bold;">Badges</div>
+                <div>
+                    <div data-ng-repeat="badge in employee.badges">
+                        <micro-badge text="badge" size="'large'"></micro-badge>
+                    </div>
+                </div>
+            </div>
+            <div class="col-50 padding">
+                <div style="font-weight:bold;">Assessments To Date</div>
+                <div data-ng-repeat="assessment in a.assessments">
+                    <div data-ng-if="assessment.employeeId == employee.id">
+                        <a href="#/tab/assessments/{{assessment.id}}" style="color:#777; text-decoration: none;">
+                            <i class="{{i.icons.assessment}}"></i> Assessment on {{assessment.stamp}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+             <a class="button" href="#/tab/assessment/{{employee.id}}">New Assessment</a>
+        </div>
+    </ion-content>
+</ion-view>

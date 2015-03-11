@@ -1,0 +1,62 @@
+<ion-view view-title='Assessment'>
+    <ion-nav-buttons side="right">
+        <div class="score"><i class="logo level levelColor{{a.avg}} {{i.icons.levels[a.avg]}}">
+            {{a.scoreWord(a.avg)}}</i></div>
+        <a href="#tab/dashboard"><i class="logo fa fa-bullseye"></i></a>
+    </ion-nav-buttons>
+    <ion-content has-bouncing="false" overflow-scroll="true">
+        <div class="row">
+            <div class="col-25">
+                <img class="border border{{a.avg}}" src="{{employee.face}}" alt=""/><br/>
+                <h4>{{employee.name}}</h4>
+            </div>
+            <div class="col-75">
+                <h5>CogentQI&#8482; Recommended Modules</h5>
+
+                <div class="recommendationsPane">
+                    <div class="item" data-ng-repeat="recommendation in a.recommendations track by $index">
+                        <div data-ng-if="recommendation.weight > 0">
+                            <a href="#/tab/resources/{{recommendation.resourceId}}">
+                                <i class="{{i.icons.resource}}"></i>
+                                {{recommendation.number}} {{recommendation.name}}
+                            </a>
+                            <recommendation-ranking weight="recommendation.weight" range="getRange(recommendation.weight)"></recommendation-ranking>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="assessment" data-ng-init="a.recommend(employee)">
+            <div id="section{{$index}}" data-ng-repeat="section in a.competencies" data-ng-show="$index == a.currentSectionIdx" class="fadein fadeout">
+                <div style="float:left; margin-left:1em;" data-ng-show="!a.isFirstSlide($index)">
+                    <a ng-click="a.previousSlide($index)"><< {{section.previous}}</a>
+                </div>
+                <div style="float:right; margin-right:1em;">
+                    <a ng-click="a.nextSlide($index)" data-ng-show="!a.isLastSlide($index)">{{section.next}} >></a>
+                </div>
+                <div class="clearfix"></div>
+                <div style="height:1em;"></div>
+                <ion-list>
+                    <ion-item class="top"><h2>{{section.text}}</h2></ion-item>
+                    <ion-item class="item-remove-animate item-icon-right"
+                              data-ng-repeat="competency in a.getCompetencies(employee.competencies, assessmentId, section.id)"
+                              type="item-text-wrap">
+                        <div style="float:left; max-width: 80%;">
+                            <div class="number" data-ng-bind="competency.number"></div>
+                            <div class="text" data-ng-bind="competency.text"></div>
+                            <div class="clearfix"></div>
+                            <div class="description" data-ng-bind-html="competency.description"></div>
+                        </div>
+                        <slider id="competency_item_{{competency.id}}" class="slider{{competency.val}}"
+                                data-ng-model="competency.val" floor="0.0" ceiling="5" step-width="1"
+                                data-ng-change="a.sliderChange(employee, competency,this,true)"
+                                translate-fn="a.sliderChange(employee, competency,this,false)">
+                        </slider>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

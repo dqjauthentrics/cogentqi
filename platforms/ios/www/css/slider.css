@@ -1,0 +1,127 @@
+slider {
+    display: block;
+    position: relative;
+    height: 3em;
+    width: 10em;
+    margin: 1em 0 1em 1em;
+}
+
+.slider0 span.pointer, .slider0 span.bubble.low {
+    background: gray;
+    color: #FFF;
+}
+
+.slider1 span.pointer, .slider1 span.bubble.low {
+    background: #BB4444;
+    color: #FFF;
+}
+
+.slider2 span.pointer, .slider2 span.bubble.low {
+    background: #EE7A00;
+    color: #FFF;
+}
+
+.slider3 span.pointer, .slider3 span.bubble.low {
+    background: #68A;
+    color: #FFF;
+}
+
+.slider4 span.pointer, .slider4 span.bubble.low {
+    background: #6A8;
+    color: #FFF;
+}
+.slider5 span.pointer, .slider5 span.bubble.low {
+    background: green;
+    color: #FFF;
+}
+
+slider span.bar {
+    height: 10%;
+    z-index: 0;
+    background: linear-gradient(to right, gray, #BB4444, #EE7A00, #68A, #6A8, green);
+    left: 0;
+    top: 39%;
+    cursor: pointer;
+    border-radius: 0.5em;
+    box-shadow: 0 1px 1px 0 #666;
+}
+
+slider span.bar.selection, slider span.bar.unselected {
+}
+
+slider span.bar.selection {
+    background: #0a0;
+    opacity: 0.5;
+}
+
+slider span.bar.unselected {
+    width: auto;
+    background: #a00;
+    opacity: 0.5;
+}
+
+slider .triangle span.pointer {
+    cursor: pointer;
+    width: 1.5em;
+    height: 1.5em;
+    top: -1.6em;
+    opacity: 1;
+    border-style: dashed;
+    border-color: transparent;
+    border-width: 0.73em;
+    border-bottom-width: 1em;
+    border-bottom-style: solid;
+}
+
+slider span.pointer {
+    cursor: pointer;
+    width: 1.6em;
+    height: 1.6em;
+    top: 0.5em;
+    opacity: 0.8;
+    border-radius: 4em;
+    background: darkgray;
+}
+
+slider span.pointer:hover {
+}
+
+slider span.pointer.active {
+}
+
+slider span.bubble.low {
+    font-size: 0.8em;
+    font-weight: bold;
+    padding: 0.15em;
+    background: #EEE;
+    border: 0.15em solid gray;
+    border-radius: 0.5em;
+    line-height: 1.2em;
+    font-family: sans-serif;
+    text-align: center;
+    text-shadow: none;
+    top: -1.1em;
+    left: -0.5em;
+    cursor: pointer;
+}
+
+slider span.bubble.selection, slider span.bubble.limit {
+    top: 25%;
+}
+
+slider span.bubble.floor, slider span.bubble.ceiling {
+    color: transparent;
+}
+
+::-ms-tooltip {
+    display: none;
+}
+
+.slider-container {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+    user-select: none;
+}

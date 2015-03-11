@@ -1,0 +1,28 @@
+<ion-view view-title="Employees">
+    <ion-nav-buttons side="right"><a href="#tab/dashboard"><i class="logo fa fa-bullseye"></i></a></ion-nav-buttons>
+    <ion-content has-bouncing="false">
+        <ion-list>
+            <ion-item class="item-icon-right" ng-repeat="employee in e.employees"
+                      type="item-text-wrap" href="#/tab/employees/{{employee.id}}">
+                <div class="row">
+                    <div class="col col-30" style="white-space: normal;">
+                        <img class="border border{{employee.level}}" style="float:left; margin: 0 0.4em 0 0;" data-ng-src="{{employee.face}}">
+
+                        <div style="float:left;margin: 0.1em;">
+                            <div class="title" style="float:left;margin: 0.1em;">
+                                {{employee.name}}<br/>
+                                <span class="role">{{employee.role}}</span>
+                            </div>
+                         </div>
+                    </div>
+                    <div class="col col-35">
+                        <div style="float:left; margin-right: 1em;" data-ng-repeat="badge in employee.badges">
+                            <micro-badge text="badge" size="'small'"></micro-badge>
+                        </div>
+                    </div>
+                    <i class="icon ion-chevron-right icon-accessory"></i>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
