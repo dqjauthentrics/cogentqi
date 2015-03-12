@@ -16,7 +16,7 @@
                 <div class="recommendationsPane">
                     <div class="item" data-ng-repeat="recommendation in a.recommendations track by $index">
                         <div data-ng-if="recommendation.weight > 0">
-                            <a href="#/tab/resources/{{recommendation.resourceId}}">
+                            <a href="#/tab/resource/{{recommendation.resourceId}}">
                                 <i class="{{i.icons.resource}}"></i>
                                 {{recommendation.number}} {{recommendation.name}}
                             </a>

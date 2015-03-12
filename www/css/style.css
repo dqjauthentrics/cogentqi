@@ -213,7 +213,10 @@ table.cycle a {
 .recommendationRanking {
     color: darkgreen;
 }
-
+.resourceDoc {
+    font-size: 1.3em;
+    font-weight: bold;
+}
 .microBadge {
     background: transparent url(../img/badge.png) center center no-repeat;
     background-size: contain;
