@@ -1,4 +1,4 @@
-angular.module('app.assessments', ['app.utils', 'app.resources']).service('Assessments', function (Utility, Resources) {
+angular.module('app.assessments', ['app.utils', 'app.resources']).service('Assessments', function ($rootScope, Utility, Resources) {
 	svc = this;
 	svc.avg = 0;
 	svc.currentSectionIdx = 0;

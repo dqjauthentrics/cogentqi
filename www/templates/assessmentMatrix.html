@@ -23,7 +23,7 @@
             <tbody>
             <tr data-ng-repeat="employee in e.employees">
                 <td class="leftHeader">
-                    <img class="avatar-tiny" src="{{employee.face}}" alt="">
+                    <img class="avatar-tiny" data-ng-src="{{employee.face}}" alt="">
                     <a href="#/tab/employees/{{employee.id}}">{{employee.name}}</a>
                 </td>
                 <td>

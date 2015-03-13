@@ -87,7 +87,11 @@ angular.module('app.controllers', [])
 						if (Utility.empty(sectionIdx)) {
 							sectionIdx = 0;
 						}
-						$scope.employee = $scope.e.get($stateParams.employeeId);
+						var employeeId = $stateParams.employeeId;
+						if (Utility.empty(sectionIdx)) {
+							employeeId = 0;
+						}
+						$scope.employee = $scope.e.get(employeeId);
 						console.log("employee:", $scope.employee);
 					}
 					$scope.getRange = function (n) {
