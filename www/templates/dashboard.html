@@ -2,6 +2,7 @@
     <ion-nav-buttons side="left"><a href="/#/tab/dashbaord" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content class="padding" has-bouncing="false">
+        <div style="float:right;">{{installation.subdomain}}</div>
         <table class="cycle">
             <tr>
                 <td style="vertical-align: middle !important; padding-top:2em;"><a href="#/tab/assessments/matrix">Assessment</a></td>
