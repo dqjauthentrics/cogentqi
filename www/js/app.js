@@ -8,7 +8,10 @@
 angular.module('app',
 			   [
 				   'ionic',
+				   'firebase',
+				   'angularLoad',
 				   'app.icons',
+				   'app.auth',
 				   'app.employees',
 				   'app.assessments',
 				   'app.resources',
@@ -22,10 +25,24 @@ angular.module('app',
 				   'youtube-embed'
 			   ]
 )
-	.run(function ($ionicPlatform, $rootScope, Icons) {
+	.run(function ($ionicPlatform, $rootScope, $location, $window, angularLoad, Icons, Utility, Authentication) {
 			 $ionicPlatform.ready(function () {
 
-				 $rootScope.installation = {name: 'Target PHARMACY'};
+				 var host = $location.host();
+				 var parts = host.split('.');
+				 var subdomain = "default";
+				 if (parts.length == 2) {
+					 subdomain = parts[0];
+				 }
+				 angularLoad.loadCSS('css/themes/' + subdomain + '.css').then(function () {
+				 }).catch(function () {
+				 });
+				 angularLoad.loadScript('js/config/' + subdomain + '.js').then(function () {
+					 $rootScope.installation = installation;
+					 $rootScope.installation.subdomain = subdomain;
+				 }).catch(function () {
+				 });
+
 				 $rootScope.i = Icons;
 
 				 // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -37,8 +54,31 @@ angular.module('app',
 					 // org.apache.cordova.statusbar required
 					 StatusBar.styleDefault();
 				 }
+				 $rootScope.auth = null;
+
+				 $rootScope.checkSession = function () {
+					 Authentication.check();
+					 if (Utility.empty($rootScope.auth)) {
+						 $window.location.href = '/#/login';
+					 }
+					 else {
+						 $window.location.href = ('/#/tab/dashboard');
+					 }
+				 };
+				 $rootScope.logout = function () {
+					 console.log("logout");
+					 Authentication.logout();
+					 window.location.href = "/#/login";
+					 return 'logged out';
+				 };
+				 $rootScope.checkSession();
 			 });
 		 })
+	.value('FIREBASE_URL', 'https://cogentqi.firebaseio.com')
+
+	.directive('headerButtons', function () {
+				   return {restrict: 'E', templateUrl: 'templates/_headerButtons.html'};
+			   })
 	.directive('levelTag', function () {
 				   return {
 					   restrict: 'E',
@@ -76,6 +116,9 @@ angular.module('app',
 				$stateProvider
 
 					// setup an abstract state for the tabs directive
+					.state('login', {
+							   url: '/login', templateUrl: 'templates/login.html', controller: 'LoginController'
+						   })
 					.state('tab', {
 							   url: "/tab",
 							   abstract: true,

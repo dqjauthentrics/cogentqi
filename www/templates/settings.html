@@ -1,8 +1,9 @@
 <ion-view view-title="Settings">
-    <ion-nav-buttons side="right"><a href="#tab/dashboard"><i class="logo fa fa-bullseye"></i></a></ion-nav-buttons>
+    <ion-nav-buttons side="left"><a href="/#/tab/dashbaord" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
         <div class="row">
-           <div class="col-80 col-offset-5">
+            <div class="col-80 col-offset-5">
                 <ion-list type="card">
                     <ion-toggle ng-model="settings.sampleSetting">Sample Setting</ion-toggle>
                 </ion-list>

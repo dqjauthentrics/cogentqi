@@ -8,6 +8,7 @@
 angular.module('app',
 			   [
 				   'ionic',
+				   'firebase',
 				   'app.icons',
 				   'app.employees',
 				   'app.assessments',

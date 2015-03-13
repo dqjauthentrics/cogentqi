@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "fontawesome": "~4.3.0",
-    "angular-youtube-mb": "~1.0.0"
+    "angular-youtube-mb": "~1.0.0",
+    "angular-load": "~0.2.0"
   }
 }

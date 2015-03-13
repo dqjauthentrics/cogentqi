@@ -1,5 +1,25 @@
 angular.module('app.controllers', [])
 
+	.controller('LoginController', [
+					'$scope', '$rootScope', '$location', 'Authentication',
+					function ($scope, $rootScope, $location, Authentication) {
+						var email = null;
+						var password = null;
+
+						$scope.login = function (loginType) {
+							console.log("login");
+							Authentication.login(loginType, this.email, this.password);
+						};
+
+						$scope.logout = function () {
+							console.log("logout");
+							Authentication.logout();
+							window.location.href = "/#/login";
+							return 'logged out';
+						};
+					}
+				])
+
 	.controller('DashboardCtrl', function ($scope) {
 					$scope.foo = {competency: {id: 42, val: 3}};
 				})
@@ -29,22 +49,22 @@ angular.module('app.controllers', [])
 					$scope.a.all($scope.e);
 				})
 
-	.controller('ResourceCtrl', function ($scope, $stateParams, $appUtil, Resources) {
+	.controller('ResourceCtrl', function ($scope, $stateParams, Utility, Resources) {
 					$scope.playerVars = {controls: 2, autoplay: 0, modestbranding: 1, rel: 0, theme: 'light'};
 					$scope.r = Resources;
 					$scope.resource = null;
-					if (!$appUtil.empty($stateParams)) {
+					if (!Utility.empty($stateParams)) {
 						var resourceId = $stateParams.resourceId;
-						if (!$appUtil.empty(resourceId)) {
+						if (!Utility.empty(resourceId)) {
 							$scope.resource = $scope.r.get($stateParams.resourceId);
 						}
 					}
 				})
-	.controller('ClassCtrl', function ($scope, $stateParams, $appUtil, Classes) {
+	.controller('ClassCtrl', function ($scope, $stateParams, Utility, Classes) {
 					$scope.cl = Classes;
 				})
 
-	.controller('AssessmentCtrl', function ($scope, $stateParams, $appUtil, Assessments, Employees, Resources) {
+	.controller('AssessmentCtrl', function ($scope, $stateParams, Utility, Assessments, Employees, Resources) {
 					$scope.currentSectionIdx = 0;
 					$scope.a = Assessments;
 					$scope.e = Employees;
@@ -58,13 +78,13 @@ angular.module('app.controllers', [])
 					$scope.r5 = [1, 1, 1, 1, 1];
 
 
-					if (!$appUtil.empty($stateParams)) {
+					if (!Utility.empty($stateParams)) {
 						var assessmentId = $stateParams.assessmentId;
-						if ($appUtil.empty(assessmentId)) {
+						if (Utility.empty(assessmentId)) {
 							assessmentId = 0;
 						}
 						var sectionIdx = $stateParams.sectionIdx;
-						if ($appUtil.empty(sectionIdx)) {
+						if (Utility.empty(sectionIdx)) {
 							sectionIdx = 0;
 						}
 						$scope.employee = $scope.e.get($stateParams.employeeId);

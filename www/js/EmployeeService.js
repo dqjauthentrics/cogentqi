@@ -1,4 +1,4 @@
-angular.module('app.employees', ['app.utils', 'app.assessments']).service('Employees', function ($appUtil, Assessments) {
+angular.module('app.employees', ['app.utils', 'app.assessments']).service('Employees', function (Utility, Assessments) {
 	var svc = this;
 	svc.a = Assessments;
 	svc.initialized = false;
@@ -77,7 +77,7 @@ angular.module('app.employees', ['app.utils', 'app.assessments']).service('Emplo
 	};
 	svc.getCompetencies = function (employeeId) {
 		var employee = svc.get(employeeId);
-		if (!$appUtil.empty(employee)) {
+		if (!Utility.empty(employee)) {
 			return employee.competencies;
 		}
 		return null;

@@ -11,8 +11,15 @@
                     <div data-ng-switch="segment.type">
                         <div ng-switch-when="video">
                             <div class="embed-responsive embed-responsive-16by9">
-                                <youtube-video class="embed-responsive-video" video-url="segment.url"
-                                               player-vars="playerVars"></youtube-video>
+                                <youtube-video class="embed-responsive-video" video-url="segment.url" player-vars="playerVars"></youtube-video>
+                            </div>
+                        </div>
+                        <div ng-switch-when="inline">
+                            <div class="row" data-ng-bind-html="segment.content"></div>
+                        </div>
+                        <div ng-switch-when="pdf">
+                            <div class="row">
+                                <a class="resourceDoc" href="{{segment.url}}"><i class="fa fa-file-pdf-o"> {{resource.name}}</i></a>
                             </div>
                         </div>
                         <div data-ng-switch-default data-ng-bind-html="segment.content"></div>

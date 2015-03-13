@@ -21,7 +21,21 @@ angular.module('app.resources', ['app.utils']).service('Resources', function () 
 			name: 'Allergy Identification',
 			summary: 'This module provides basic information about allergy identification.',
 			tags: ['video'],
-			videoId: 'HDQhxrv2q78',
+			segments: [
+				{
+					type: 'inline',
+					content: 'ASHP Pharmacy Technician Initiative and Pharmacy Practice Model Initiative: The PDF document below is a case study resource that supports the goals of PPMI and the PTI and the critical roles pharmacy technicians have in patient care. Important characteristics of current and evolving advanced technician practice models include training through an ASHP accredited training program, PTCB certification, and licensure with a Board of Pharmacy.'
+				},
+				{
+					type: 'pdf',
+					url: 'http://www.ashpmedia.org/ppmi/docs/casestudy-South-Pointe-Hospital.pdf'
+				},
+				{
+					type: 'video',
+					url: 'https://www.youtube.com/watch?v=HDQhxrv2q78',
+					precis: 'This is a video that discusses allergy identification in general terms.'
+				}
+			],
 			alignments: [{competencyId: 1, weight: 3}],
 			contentUrl: null
 		},
@@ -30,7 +44,6 @@ angular.module('app.resources', ['app.utils']).service('Resources', function () 
 			number: 'PHT005',
 			name: 'Assessing Patients',
 			summary: 'Students will learn how to: <ul><li>Question the patient (parent or carer) or a health care professional to obtain information </li><li>Use a variety of information sources to gather information </li><li>Interpret records made by other health care professionals when appropriate</li><li>Identify if the patient has brought in their medicines and/or encourage medicines to be brought in</li></ul>',
-			tags: ['video'],
 			alignments: [{competencyId: 2, weight: 3}],
 			contentUrl: '/#/resource/patientAssessment.html'
 		},

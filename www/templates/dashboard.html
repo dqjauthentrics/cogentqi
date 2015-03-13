@@ -1,5 +1,6 @@
-<ion-view view-title='{{installation.name}}'>
-    <ion-nav-buttons side="right"><a href="/"><i class="logo fa fa-bullseye"></i></a></ion-nav-buttons>
+<ion-view view-title="{{installation.name}}">
+    <ion-nav-buttons side="left"><a href="/#/tab/dashbaord" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content class="padding" has-bouncing="false">
         <table class="cycle">
             <tr>

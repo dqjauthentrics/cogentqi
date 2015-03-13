@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.seeqi792288" version="0.0.1" xmlns="http://www.w3.org/ns/widgets"
+<widget id="com.cogentQI.cogentQI" version="0.0.1" xmlns="http://www.w3.org/ns/widgets"
         xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>seeqi</name>
+    <name>cogentQI</name>
     <description>
-        SeeQI. A Visionary Continuous Quality Improvement application.
+        A Visionary Continuous Quality Improvement application.
     </description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">
         Ionic Framework Team

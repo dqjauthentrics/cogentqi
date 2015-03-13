@@ -1,4 +1,4 @@
-angular.module('app.classes', ['app.utils', 'app.resources']).service('Classes', function ($appUtil, Resources) {
+angular.module('app.classes', ['app.utils', 'app.resources']).service('Classes', function (Utility, Resources) {
 	var svc = this;
 	svc.r = Resources;
 	svc.classes = [];

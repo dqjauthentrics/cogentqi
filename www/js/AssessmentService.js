@@ -1,4 +1,4 @@
-angular.module('app.assessments', ['app.utils', 'app.resources']).service('Assessments', function ($appUtil, Resources) {
+angular.module('app.assessments', ['app.utils', 'app.resources']).service('Assessments', function (Utility, Resources) {
 	svc = this;
 	svc.avg = 0;
 	svc.currentSectionIdx = 0;
@@ -233,7 +233,7 @@ angular.module('app.assessments', ['app.utils', 'app.resources']).service('Asses
 
 	svc.all = function (e) {
 		for (var i = 0; i < svc.assessments.length; i++) {
-			if ($appUtil.empty(svc.assessments[i].employee)) {
+			if (Utility.empty(svc.assessments[i].employee)) {
 				svc.assessments[i].employee = e.get(svc.assessments[i].employeeId);
 			}
 		}
@@ -281,7 +281,7 @@ angular.module('app.assessments', ['app.utils', 'app.resources']).service('Asses
 		var total = 0;
 		var compCount = 0;
 		//console.log("SCORIFY", employee);
-		if (!$appUtil.empty(employee) && !$appUtil.empty(employee.competencies)) {
+		if (!Utility.empty(employee) && !Utility.empty(employee.competencies)) {
 			for (i = 0; i < employee.competencies.length; i++) {
 				var section = employee.competencies[i];
 				for (j = 0; j < section.children.length; j++) {
@@ -340,7 +340,7 @@ angular.module('app.assessments', ['app.utils', 'app.resources']).service('Asses
 		for (var k = 0; k < Resources.resources.length; k++) {
 			Resources.resources[k].score = 0;
 			var resource = Resources.resources[k];
-			if ($appUtil.empty(resourceAlignmentCounts[resource.id])) {
+			if (Utility.empty(resourceAlignmentCounts[resource.id])) {
 				resourceAlignmentCounts[resource.id] = 0;
 			}
 			resourceAlignmentCounts[resource.id] += resource.alignments.length;
@@ -419,7 +419,7 @@ angular.module('app.assessments', ['app.utils', 'app.resources']).service('Asses
 	};
 	svc.getMatrixCompetencies = function (employee) {
 		var comps = [];
-		if (!$appUtil.empty(employee)) {
+		if (!Utility.empty(employee)) {
 			for (var i = 0; i < employee.competencies.length; i++) {
 				for (var j = 0; j < employee.competencies[i].children.length; j++) {
 					comps.push(employee.competencies[i].children[j]);
@@ -432,7 +432,7 @@ angular.module('app.assessments', ['app.utils', 'app.resources']).service('Asses
 		var names = [];
 		if (e.employees.length > 0) {
 			var comps = e.employees[0].competencies;
-			if (!$appUtil.empty(comps)) {
+			if (!Utility.empty(comps)) {
 				for (var i = 0; i < comps.length; i++) {
 					for (var j = 0; j < comps[i].children.length; j++) {
 						var name = comps[i].children[j].text;
@@ -450,14 +450,14 @@ angular.module('app.assessments', ['app.utils', 'app.resources']).service('Asses
 		var avgs = {};
 		var totals = {};
 		var counts = {};
-		if (!$appUtil.empty(e.employees) && e.employees.length > 0) {
+		if (!Utility.empty(e.employees) && e.employees.length > 0) {
 			for (var z = 0; z < e.employees.length; z++) {
 				var comps = e.employees[z].competencies;
 				for (var i = 0; i < comps.length; i++) {
-					if (!$appUtil.empty(comps[i].children)) {
+					if (!Utility.empty(comps[i].children)) {
 						for (var j = 0; j < comps[i].children.length; j++) {
 							var comp = comps[i].children[j];
-							if ($appUtil.empty(totals[comp.id])) {
+							if (Utility.empty(totals[comp.id])) {
 								totals[comp.id] = 0;
 								avgs[comp.id] = 0;
 								counts[comp.id] = 0;

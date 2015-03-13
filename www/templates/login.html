@@ -1,0 +1,35 @@
+<ion-view title="cogentQI Login">
+    <ion-content class="padding"  scroll="false" has-bouncing="false">
+        <ul class="list center-pane">
+            <li>
+                <a class="button button-block button-facebook icon-center ion-social-facebook"
+                   data-ng-click="login('facebook')"> Sign in with Facebook</a>
+            </li>
+            <li>
+                <a class="button button-block button-google icon-center ion-social-google"
+                   data-ng-click="login('google')"> Sign in with Google+</a>
+            </li>
+            <li>
+                <a class="button button-block button-twitter icon-center ion-social-twitter"
+                   data-ng-click="login('twitter')"> Sign in with Twitter</a>
+            </li>
+            <li>
+                <form>
+                    <label class="item item-input">
+                        <input type="text" placeholder="Email" ng-model="email">
+                    </label>
+                    <label class="item item-input">
+                        <input type="password" placeholder="Password" ng-model="password">
+                    </label>
+                    <button style="margin:1vmin;" class="button button-small" data-ng-click="login('password')">Log In</button>
+                </form>
+            </li>
+            <li>
+                <div style=" text-align: center; padding:1vmin;
+                    " class="large-font">
+                    Or <a href="/#/signup">Create an Account</a>
+                </div>
+            </li>
+        </ul>
+    </ion-content>
+</ion-view>

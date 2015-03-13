@@ -60,3 +60,20 @@
 2015-03-11 15:25:50.003 seeqi[6229:286603] [CDVTimer][TotalPluginStartup] 0.221968ms
 2015-03-11 15:25:50.175 seeqi[6229:286603] Resetting plugins due to page load.
 2015-03-11 15:25:50.961 seeqi[6229:286603] Finished load of: file:///Users/dqj/Library/Developer/CoreSimulator/Devices/0AEB9E86-9A71-4CF3-8563-CFC8B2D66D67/data/Containers/Bundle/Application/80389FBD-38A9-4BAE-A3E5-95D80909353A/seeqi.app/www/index.html#/tab/dashboard
+2015-03-12 09:55:31.282 seeqi[40180:494125] Apache Cordova native platform version 3.8.0 is starting.
+2015-03-12 09:55:31.284 seeqi[40180:494125] Multi-tasking -> Device: YES, App: YES
+2015-03-12 09:55:31.311 seeqi[40180:494125] Unlimited access to network resources
+2015-03-12 09:55:31.698 seeqi[40180:494125] [CDVTimer][keyboard] 0.063956ms
+2015-03-12 09:55:31.698 seeqi[40180:494125] [CDVTimer][TotalPluginStartup] 0.221014ms
+2015-03-12 09:55:31.909 seeqi[40180:494125] Resetting plugins due to page load.
+2015-03-12 09:55:32.871 seeqi[40180:494125] Finished load of: file:///Users/dqj/Library/Developer/CoreSimulator/Devices/0AEB9E86-9A71-4CF3-8563-CFC8B2D66D67/data/Containers/Bundle/Application/BD3956B2-79EE-4A61-B827-DBEF90A216DA/seeqi.app/www/index.html#/tab/dashboard
+2015-03-12 19:10:06.138 cogentQI[42713:684649] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/dqj/Library/Developer/CoreSimulator/Devices/0AEB9E86-9A71-4CF3-8563-CFC8B2D66D67/data/Containers/Data/Application/E13ED2E0-C737-4E20-9E15-6021FDCFAD4A/Library/Cookies/Cookies.binarycookies
+2015-03-12 19:10:06.421 cogentQI[42713:684649] Apache Cordova native platform version 3.8.0 is starting.
+2015-03-12 19:10:06.421 cogentQI[42713:684649] Multi-tasking -> Device: YES, App: YES
+2015-03-12 19:10:06.440 cogentQI[42713:684649] Unlimited access to network resources
+2015-03-12 19:10:06.735 cogentQI[42713:684649] [CDVTimer][keyboard] 0.088990ms
+2015-03-12 19:10:06.735 cogentQI[42713:684649] [CDVTimer][TotalPluginStartup] 0.774980ms
+2015-03-12 19:10:07.085 cogentQI[42713:684649] Resetting plugins due to page load.
+2015-03-12 19:10:07.710 cogentQI[42713:684649] Finished load of: file:///Users/dqj/Library/Developer/CoreSimulator/Devices/0AEB9E86-9A71-4CF3-8563-CFC8B2D66D67/data/Containers/Bundle/Application/10DC88C5-D212-4BA1-AD73-C5AFE00F5DBC/cogentQI.app/www/index.html#/tab/dashboard
+2015-03-12 19:10:18.151 cogentQI[42713:684649] Resetting plugins due to page load.
+2015-03-12 19:10:18.154 cogentQI[42713:684649] Failed to load webpage with error: Frame load interrupted
