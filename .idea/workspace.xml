@@ -2,136 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d363135-d755-4645-a82c-7b84e720bd47" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/.bower.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/.editorconfig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/.jshintrc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/.npmignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/.travis.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/CHANGELOG.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/Gruntfile.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/_headerButtons.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/angular-load.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/angular-load.min.js.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/angular-load.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/app.auth.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/bower.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/css/themes/default.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/config/default.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/dqj.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/karma.conf.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/login.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/css/themes/nursing.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/config/nursing.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/css/themes/target.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/config/target.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-load/tests.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi.xcodeproj/project.xcworkspace/xcshareddata/seeqi.xccheckout" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi.xcodeproj/project.xcworkspace/xcuserdata/dqj.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi.xcodeproj/xcuserdata/dqj.xcuserdatad/xcschemes/seeqi.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi.xcodeproj/xcuserdata/dqj.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Classes/AppDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Classes/AppDelegate.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Classes/MainViewController.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Classes/MainViewController.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Classes/MainViewController.xib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Plugins/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Plugins/com.ionic.keyboard/IonicKeyboard.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Plugins/com.ionic.keyboard/IonicKeyboard.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Plugins/com.ionic.keyboard/UIWebViewExtension.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Plugins/com.ionic.keyboard/UIWebViewExtension.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/icons/icon-40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/icons/icon-40@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/icons/icon-50.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/icons/icon-50@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/icons/icon-60.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/icons/icon-60@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/icons/icon-60@3x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/icons/icon-72.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/icons/icon-72@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/icons/icon-76.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/icons/icon-76@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/icons/icon-small.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/icons/icon-small@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/icons/icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/icons/icon@2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/splash/Default-568h@2x~iphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/splash/Default-667h.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/splash/Default-736h.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/splash/Default-Landscape-736h.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/splash/Default-Landscape@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/splash/Default-Landscape~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/splash/Default-Portrait@2x~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/splash/Default-Portrait~ipad.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/splash/Default@2x~iphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/Resources/splash/Default~iphone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/config.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/main.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/seeqi-Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/seeqi/seeqi-Prefix.pch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/www/templates/_levelIcon.html" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/www/js/appUtil.js" afterPath="$PROJECT_DIR$/www/js/app.util.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/MainActivity-debug-unaligned.apk" afterPath="$PROJECT_DIR$/platforms/android/ant-build/MainActivity-debug-unaligned.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/MainActivity-debug.apk" afterPath="$PROJECT_DIR$/platforms/android/ant-build/MainActivity-debug.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/MainActivity.ap_" afterPath="$PROJECT_DIR$/platforms/android/ant-build/MainActivity.ap_" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/classes.dex" afterPath="$PROJECT_DIR$/platforms/android/ant-build/classes.dex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/img/cycle2.png" afterPath="$PROJECT_DIR$/platforms/android/assets/www/img/cycle2.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/build/emulator/seeqi.app/www/img/cycle2.png" afterPath="$PROJECT_DIR$/platforms/ios/build/emulator/seeqi.app/www/img/cycle2.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/img/cycle2.png" afterPath="$PROJECT_DIR$/platforms/ios/www/img/cycle2.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/build/seeqi.build/Debug-iphonesimulator/seeqi.build/dgph" afterPath="$PROJECT_DIR$/platforms/ios/build/seeqi.build/Debug-iphonesimulator/seeqi.build/dgph" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/AndroidManifest.cordova.xml" afterPath="$PROJECT_DIR$/platforms/android/ant-build/AndroidManifest.cordova.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/ant-build/AndroidManifest.xml.d" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/ant-build/AndroidManifest.xml.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/AndroidManifest.xml.d" afterPath="$PROJECT_DIR$/platforms/android/ant-build/AndroidManifest.xml.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/AndroidManifest.xml" afterPath="$PROJECT_DIR$/platforms/android/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/AssessmentService.js" afterPath="$PROJECT_DIR$/www/js/AssessmentService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/ClassesService.js" afterPath="$PROJECT_DIR$/www/js/ClassesService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/EmployeeService.js" afterPath="$PROJECT_DIR$/www/js/EmployeeService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/MainActivity-debug-unaligned.apk.d" afterPath="$PROJECT_DIR$/platforms/android/ant-build/MainActivity-debug-unaligned.apk.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/MainActivity.ap_.d" afterPath="$PROJECT_DIR$/platforms/android/ant-build/MainActivity.ap_.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/ant-gen/R.java.d" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/ant-gen/R.java.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-gen/R.java.d" afterPath="$PROJECT_DIR$/platforms/android/ant-gen/R.java.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/js/ResourceService.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/js/ResourceService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/build/emulator/seeqi.app/www/js/ResourceService.js" afterPath="$PROJECT_DIR$/platforms/ios/build/emulator/seeqi.app/www/js/ResourceService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/js/ResourceService.js" afterPath="$PROJECT_DIR$/platforms/ios/www/js/ResourceService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugins/android.json" afterPath="$PROJECT_DIR$/plugins/android.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/js/app.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/js/app.js" afterPath="$PROJECT_DIR$/platforms/ios/www/js/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/app.js" afterPath="$PROJECT_DIR$/www/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bower.json" afterPath="$PROJECT_DIR$/bower.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/ant-build/build.prop" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/ant-build/build.prop" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/build.prop" afterPath="$PROJECT_DIR$/platforms/android/ant-build/build.prop" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/classes.dex.d" afterPath="$PROJECT_DIR$/platforms/android/ant-build/classes.dex.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/classes.html" afterPath="$PROJECT_DIR$/www/templates/classes.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.xml" afterPath="$PROJECT_DIR$/config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/res/xml/config.xml" afterPath="$PROJECT_DIR$/platforms/android/res/xml/config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/cordova/console.log" afterPath="$PROJECT_DIR$/platforms/ios/cordova/console.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers.js" afterPath="$PROJECT_DIR$/www/js/controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/templates/dashboard.html" afterPath="$PROJECT_DIR$/platforms/android/assets/www/templates/dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/build/emulator/seeqi.app/www/templates/dashboard.html" afterPath="$PROJECT_DIR$/platforms/ios/build/emulator/seeqi.app/www/templates/dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/templates/dashboard.html" afterPath="$PROJECT_DIR$/platforms/ios/www/templates/dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/dashboard.html" afterPath="$PROJECT_DIR$/www/templates/dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/employee.html" afterPath="$PROJECT_DIR$/www/templates/employee.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/employees.html" afterPath="$PROJECT_DIR$/www/templates/employees.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/index.html" afterPath="$PROJECT_DIR$/www/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugins/ios.json" afterPath="$PROJECT_DIR$/plugins/ios.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/outcomes.html" afterPath="$PROJECT_DIR$/www/templates/outcomes.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/proguard.txt" afterPath="$PROJECT_DIR$/platforms/android/ant-build/proguard.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/templates/resource.html" afterPath="$PROJECT_DIR$/platforms/android/assets/www/templates/resource.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/build/emulator/seeqi.app/www/templates/resource.html" afterPath="$PROJECT_DIR$/platforms/ios/build/emulator/seeqi.app/www/templates/resource.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/templates/resource.html" afterPath="$PROJECT_DIR$/platforms/ios/www/templates/resource.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/resource.html" afterPath="$PROJECT_DIR$/www/templates/resource.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/resources.html" afterPath="$PROJECT_DIR$/www/templates/resources.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/settings.html" afterPath="$PROJECT_DIR$/www/templates/settings.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/res/values/strings.xml" afterPath="$PROJECT_DIR$/platforms/android/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/css/style.css" afterPath="$PROJECT_DIR$/platforms/android/assets/www/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/build/emulator/seeqi.app/www/css/style.css" afterPath="$PROJECT_DIR$/platforms/ios/build/emulator/seeqi.app/www/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/css/style.css" afterPath="$PROJECT_DIR$/platforms/ios/www/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/css/style.css" afterPath="$PROJECT_DIR$/www/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="seeqi.iws" />
@@ -219,11 +90,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="classes.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="classes.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/templates/classes.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5650061" vertical-offset="0" max-vertical-offset="823">
+            <state vertical-scroll-proportion="-19.375" vertical-offset="0" max-vertical-offset="555">
               <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/www/js/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.37190083" vertical-offset="180" max-vertical-offset="3870">
+              <caret line="33" column="58" selection-start-line="33" selection-start-column="58" selection-end-line="33" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -234,16 +115,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-1.875" vertical-offset="0" max-vertical-offset="525">
               <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="employee.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/templates/employee.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.875" vertical-offset="0" max-vertical-offset="615">
-              <caret line="3" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -299,7 +170,6 @@
         <option value="$PROJECT_DIR$/www/index.html" />
         <option value="$PROJECT_DIR$/www/templates/_headerBar.html" />
         <option value="$PROJECT_DIR$/www/templates/_headerButtons.html" />
-        <option value="$PROJECT_DIR$/www/js/app.js" />
         <option value="$PROJECT_DIR$/www/templates/employee.html" />
         <option value="$PROJECT_DIR$/www/templates/employees.html" />
         <option value="$PROJECT_DIR$/www/templates/dashboard.html" />
@@ -308,6 +178,7 @@
         <option value="$PROJECT_DIR$/www/templates/resources.html" />
         <option value="$PROJECT_DIR$/www/templates/settings.html" />
         <option value="$PROJECT_DIR$/www/templates/classes.html" />
+        <option value="$PROJECT_DIR$/www/js/app.js" />
       </list>
     </option>
   </component>
@@ -673,7 +544,13 @@
       <option name="project" value="LOCAL" />
       <updated>1426168276655</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Ongoing development.">
+      <created>1426212707179</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1426212707179</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1076,14 +953,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="915" max-vertical-offset="3870">
-          <caret line="78" column="29" selection-start-line="78" selection-start-column="29" selection-end-line="78" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/employee.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.875" vertical-offset="0" max-vertical-offset="615">
@@ -1142,8 +1011,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/classes.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5650061" vertical-offset="0" max-vertical-offset="823">
+        <state vertical-scroll-proportion="-19.375" vertical-offset="0" max-vertical-offset="555">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37190083" vertical-offset="180" max-vertical-offset="3870">
+          <caret line="33" column="58" selection-start-line="33" selection-start-column="58" selection-end-line="33" selection-end-column="58" />
           <folding />
         </state>
       </provider>
