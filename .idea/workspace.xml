@@ -2,14 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d363135-d755-4645-a82c-7b84e720bd47" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/assessment.html" afterPath="$PROJECT_DIR$/www/templates/assessment.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/dashboard.html" afterPath="$PROJECT_DIR$/www/templates/dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/css/themes/default.css" afterPath="$PROJECT_DIR$/www/css/themes/default.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/config/default.js" afterPath="$PROJECT_DIR$/www/js/config/default.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/config/nursing.js" afterPath="$PROJECT_DIR$/www/js/config/nursing.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/css/style.css" afterPath="$PROJECT_DIR$/www/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/css/themes/target.css" afterPath="$PROJECT_DIR$/www/css/themes/target.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/config/target.js" afterPath="$PROJECT_DIR$/www/js/config/target.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="seeqi.iws" />
@@ -608,13 +600,20 @@
       <option name="project" value="LOCAL" />
       <updated>1426215153650</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Ongoing development.">
+      <created>1426255288894</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1426255288894</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="990" extended-state="6" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27463055" sideWeight="0.24539877" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298969" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32912844" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -632,7 +631,6 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.51605505" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39977092" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
