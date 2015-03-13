@@ -31,7 +31,7 @@ angular.module('app',
 				 var host = $location.host();
 				 var parts = host.split('.');
 				 var subdomain = "default";
-				 if (parts.length >= 2 && parts[0] != "www") {
+				 if (parts.length >= 2 && parts[0] != "www" && parts[0] != "app") {
 					 subdomain = parts[0];
 				 }
 				 angularLoad.loadCSS('css/themes/' + subdomain + '.css').then(function () {
