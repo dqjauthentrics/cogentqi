@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d363135-d755-4645-a82c-7b84e720bd47" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/app.js" afterPath="$PROJECT_DIR$/www/js/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/config/default.js" afterPath="$PROJECT_DIR$/www/js/config/default.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="seeqi.iws" />
@@ -100,22 +100,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.37190083" vertical-offset="180" max-vertical-offset="3870">
-              <caret line="33" column="35" selection-start-line="33" selection-start-column="35" selection-end-line="33" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="3870">
+              <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="employees.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/templates/employees.html">
+      <file leaf-file-name="default.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/www/js/config/default.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.875" vertical-offset="0" max-vertical-offset="525">
-              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.05312869" vertical-offset="0" max-vertical-offset="847">
+              <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+              <folding>
+                <marker date="1426213349000" expanded="true" signature="134:191" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -166,7 +168,6 @@
         <option value="$PROJECT_DIR$/www/css/themes/nursing.css" />
         <option value="$PROJECT_DIR$/www/js/config/target.js" />
         <option value="$PROJECT_DIR$/www/js/config/nursing.js" />
-        <option value="$PROJECT_DIR$/www/js/config/default.js" />
         <option value="$PROJECT_DIR$/www/index.html" />
         <option value="$PROJECT_DIR$/www/templates/_headerBar.html" />
         <option value="$PROJECT_DIR$/www/templates/_headerButtons.html" />
@@ -179,6 +180,7 @@
         <option value="$PROJECT_DIR$/www/templates/settings.html" />
         <option value="$PROJECT_DIR$/www/templates/classes.html" />
         <option value="$PROJECT_DIR$/www/js/app.js" />
+        <option value="$PROJECT_DIR$/www/js/config/default.js" />
       </list>
     </option>
   </component>
@@ -556,7 +558,13 @@
       <option name="project" value="LOCAL" />
       <updated>1426212844534</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Ongoing development.">
+      <created>1426213218407</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1426213218407</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -934,17 +942,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/config/default.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="150">
-          <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
-          <folding>
-            <marker date="1426210275000" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1426210275000" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/_levelTag.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="120">
@@ -1027,9 +1024,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37190083" vertical-offset="180" max-vertical-offset="3870">
-          <caret line="33" column="35" selection-start-line="33" selection-start-column="35" selection-end-line="33" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="3870">
+          <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/config/default.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.05312869" vertical-offset="0" max-vertical-offset="847">
+          <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+          <folding>
+            <marker date="1426213349000" expanded="true" signature="134:191" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
