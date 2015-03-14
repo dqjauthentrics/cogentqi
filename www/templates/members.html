@@ -1,23 +1,23 @@
-<ion-view view-title="Employees">
+<ion-view view-title="Members">
     <ion-nav-buttons side="left"><a href="/#/tab/dashbaord" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
         <ion-list>
-            <ion-item class="item-icon-right" data-ng-repeat="employee in e.employees"
-                      type="item-text-wrap" href="#/tab/employees/{{employee.id}}">
+            <ion-item class="item-icon-right" data-ng-repeat="member in e.members"
+                      type="item-text-wrap" href="#/tab/members/{{member.id}}">
                 <div class="row">
                     <div class="col col-30" style="white-space: normal;">
-                        <img class="border border{{employee.level}}" style="float:left; margin: 0 0.4em 0 0;" data-ng-src="{{employee.face}}"/>
+                        <img class="border border{{member.level}}" style="float:left; margin: 0 0.4em 0 0;" data-ng-src="{{member.face}}"/>
 
                         <div style="float:left;margin: 0.1em;">
                             <div class="title" style="float:left;margin: 0.1em;">
-                                {{employee.name}}<br/>
-                                <span class="role">{{employee.role}}</span>
+                                {{member.name}}<br/>
+                                <span class="role">{{member.role}}</span>
                             </div>
                          </div>
                     </div>
                     <div class="col col-35">
-                        <div style="float:left; margin-right: 1em;" data-ng-repeat="badge in employee.badges">
+                        <div style="float:left; margin-right: 1em;" data-ng-repeat="badge in member.badges">
                             <micro-badge text="badge" size="'small'"></micro-badge>
                         </div>
                     </div>

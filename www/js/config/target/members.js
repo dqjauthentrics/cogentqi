@@ -1,4 +1,6 @@
-var employees = [
+'use strict';
+
+var members = [
 	{
 		id: 0,
 		name: 'Melissa Franklin',

@@ -2,10 +2,14 @@
     <ion-nav-buttons side="left"><a href="/#/tab/dashbaord" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content class="padding" has-bouncing="false">
-        <div style="float:right;">{{installation.subdomain}}</div>
+        <div style="float:right;">
+            Theme:{{installation.subdomain}}<br/>
+            Mode: {{installation.operationalMode}}
+        </div>
         <table class="cycle">
             <tr>
-                <td style="vertical-align: middle !important; padding-top:2em;"><a href="#/tab/dashboard/matrix">Assessment</a></td>
+                <td style="vertical-align: middle !important; padding-top:2em;"><a href="#/tab/dashboard/matrix">Assessment</a>
+                </td>
                 <td style="vertical-align: bottom !important;"><a href="#/tab/outcomes">Outcomes<br/>Analysis</a></td>
             </tr>
             <tr>
@@ -16,7 +20,8 @@
                 </td>
             </tr>
             <tr>
-                <td style="vertical-align: top !important;"><a style="margin-top:-2em;" href="#/tab/resources">Professional<br/>Development</a></td>
+                <td style="vertical-align: top !important;"><a style="margin-top:-2em;" href="#/tab/resources">Professional<br/>Development</a>
+                </td>
                 <td style="vertical-align: top !important; padding-top:2em;"><a href="#/tab/classes">Planning</a></td>
             </tr>
         </table>

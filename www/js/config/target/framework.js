@@ -1,3 +1,5 @@
+'use strict';
+
 var competencies = [
 	{
 		id: 0, number: '1.0', text: 'Delivery of Patient Care', val: Math.floor((Math.random() * 5)), progress: 42,
@@ -125,7 +127,7 @@ var competencies = [
 				number: '2.1',
 				tags: ['Law'],
 				val: 3,
-				description: 'The employee is familiar with pharmacy laws and regulations, especially as they pertain to pharmacy technician responsibilities.'
+				description: 'The member is familiar with pharmacy laws and regulations, especially as they pertain to pharmacy technician responsibilities.'
 			},
 			{
 				id: 301,
@@ -133,7 +135,7 @@ var competencies = [
 				number: '2.2',
 				tags: ['Law'],
 				val: 3,
-				description: 'The employee is knowledgeable of the Drug Enforcement Administration (DEA) and state requirements for controlled substances: the candidate shall be able to identify controlled substance labels, understand the rationale for controlled substances, the need for proper inventory and accountability, and the proper storage of controlled substances. '
+				description: 'The member is knowledgeable of the Drug Enforcement Administration (DEA) and state requirements for controlled substances: the candidate shall be able to identify controlled substance labels, understand the rationale for controlled substances, the need for proper inventory and accountability, and the proper storage of controlled substances. '
 			},
 			{
 				id: 302,
@@ -141,7 +143,7 @@ var competencies = [
 				number: '2.3',
 				tags: ['Drugs'],
 				val: 3,
-				description: 'The employee is knowledgeable of the Drug Enforcement Administration (DEA) and state requirements for controlled substances: the candidate shall be able to identify controlled substance labels, understand the rationale for controlled substances, the need for proper inventory and accountability, and the proper storage of controlled substances. '
+				description: 'The member is knowledgeable of the Drug Enforcement Administration (DEA) and state requirements for controlled substances: the candidate shall be able to identify controlled substance labels, understand the rationale for controlled substances, the need for proper inventory and accountability, and the proper storage of controlled substances. '
 			},
 			{
 				id: 304,

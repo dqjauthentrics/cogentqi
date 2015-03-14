@@ -10,7 +10,7 @@
         <table class="matrix">
             <thead>
             <tr>
-                <th style="font-style: italic;">Most Recent<br/>Employee Assessments</th>
+                <th style="font-style: italic;">Most Recent<br/>Member Assessments</th>
                 <th class="rotate" data-ng-repeat="name in a.getMatrixCompetencyRowHeader(e,20,a.currentSectionIdx) track by $index">
                     <div><span>{{name}}</span></div>
                 </th>
@@ -20,15 +20,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-ng-repeat="employee in e.employees" data-ng-if="employee.assessmentId != undefined">
+            <tr data-ng-repeat="member in e.members" data-ng-if="member.assessmentId != undefined">
                 <td class="leftHeader">
-                    <img class="avatar-tiny" data-ng-src="{{employee.face}}" alt="">
-                    <a href="/#/tab/assessment/a/{{employee.assessmentId}}">{{employee.name}}</a>
+                    <img class="avatar-tiny" data-ng-src="{{member.face}}" alt="">
+                    <a href="/#/tab/assessment/a/{{member.assessmentId}}">{{member.name}}</a>
                 </td>
-                <td data-ng-repeat="employeeCompetency in a.getMatrixCompetencyRowValues(employee,a.currentSectionIdx)">
-                    <i class="levelColor{{employeeCompetency.val}} {{i.icons.levels[employeeCompetency.val]}}"></i>
+                <td data-ng-repeat="memberCompetency in a.getMatrixCompetencyRowValues(member,a.currentSectionIdx)">
+                    <i class="levelColor{{memberCompetency.val}} {{i.icons.levels[memberCompetency.val]}}"></i>
                 </td>
-                <td data-ng-init="zz = a.getMatrixRowAverage(employee,true,a.currentSectionIdx)">
+                <td data-ng-init="zz = a.getMatrixRowAverage(member,true,a.currentSectionIdx)">
                     <i class="levelColor{{zz}} {{i.icons.levels[zz]}}"></i>
                 </td>
             </tr>
@@ -37,7 +37,7 @@
                 <td data-ng-repeat="avgRound in a.getMatrixColAverages(e,true,a.currentSectionIdx) track by $index">
                     <i class="levelColor{{avgRound}} {{i.icons.levels[avgRound]}}"></i>
                 </td>
-                <td data-ng-init="avgRound = a.getMatrixOverallAverage(e.employees,true,a.currentSectionIdx)">
+                <td data-ng-init="avgRound = a.getMatrixOverallAverage(e.members,true,a.currentSectionIdx)">
                     <i class="levelColor{{avgRound}} {{i.icons.levels[avgRound]}}"></i>
                 </td>
             </tr>

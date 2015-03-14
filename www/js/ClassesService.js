@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('app.classes', ['app.utils', 'app.resources']).service('Classes', function (Utility, Resources) {
 	var svc = this;
 	svc.r = Resources;

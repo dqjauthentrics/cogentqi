@@ -28,7 +28,7 @@ angular.module('app.utils', [])
 						 },
 						 storeCallback: function (error) {
 							 if (error) {
-								 console.log('Synchronization failed');
+								 console.log('ERROR: Synchronization failed');
 							 }
 							 else {
 								 console.log('Synchronization succeeded');

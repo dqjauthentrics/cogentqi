@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('app.outcomes', ['app.utils']).factory('Outcomes', function () {
 	var outcomes = [
 		{

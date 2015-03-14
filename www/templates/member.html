@@ -1,18 +1,18 @@
-<ion-view view-title="{{employee.name}}">
+<ion-view view-title="{{member.name}}">
     <ion-nav-buttons side="left"><a href="/#/tab/dashbaord" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content class="padding detail" has-bouncing="false">
         <div class="row">
             <div class="col-35 padding">
-                <img data-ng-src="{{employee.face}}" class="avatar-large">
+                <img data-ng-src="{{member.face}}" class="avatar-large">
 
-                <div class="title">{{employee.name}}</div>
-                <div class="role">{{employee.role}}</div>
+                <div class="title">{{member.name}}</div>
+                <div class="role">{{member.role}}</div>
             </div>
             <div class="col-15 padding" style="text-align:center;">
                 <div style="font-weight:bold;">Badges</div>
                 <div>
-                    <div data-ng-repeat="badge in employee.badges">
+                    <div data-ng-repeat="badge in member.badges">
                         <micro-badge text="badge" size="'large'"></micro-badge>
                     </div>
                 </div>
@@ -20,8 +20,8 @@
             <div class="col-50 padding">
                 <div style="font-weight:bold;">Assessments To Date</div>
                 <div data-ng-repeat="assessment in a.assessments">
-                    <div data-ng-if="assessment.employeeId == employee.id">
-                        <a href="#/tab/assessments/a/{{assessment.id}}" style="color:#777; text-decoration: none;">
+                    <div data-ng-if="assessment.memberId == member.id">
+                        <a href="#/tab/assessment/a/{{assessment.id}}" style="color:#777; text-decoration: none;">
                             <i class="{{i.icons.assessment}}"></i> Assessment on {{assessment.stamp}}
                         </a>
                     </div>
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="row">
-             <a class="button" href="#/tab/assessment/e/{{employee.id}}">New Assessment</a>
+             <a class="button" href="#/tab/assessment/e/{{member.id}}">New Assessment</a>
         </div>
     </ion-content>
 </ion-view>

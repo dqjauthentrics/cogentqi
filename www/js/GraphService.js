@@ -1,3 +1,5 @@
+'use strict';
+
 app.service('GraphService', function () {
 	this.levelColors = ['gray', '#BB4444', '#EE7A00', '#68A', '#6A8'];
 	this.regularColors = ['#577', '#799', '#9BB', '#BDD', '#DFF'];

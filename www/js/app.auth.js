@@ -92,7 +92,6 @@ angular.module('app.auth', []).service('Authentication', function ($rootScope, U
 		if (!Utility.empty(user)) {
 			svc.userAddOrUpdate(user);
 		}
-		console.log("user auth:", user);
 		return user;
 	};
 
@@ -102,8 +101,6 @@ angular.module('app.auth', []).service('Authentication', function ($rootScope, U
 	};
 
 	svc.loginSecondTryHandler = function (error, authData) {
-		console.log("loginSecondTryHandler:: error:", error);
-		console.log("loginSecondTryHandler:: authData:", authData);
 		if (error == null) {
 			$rootScope.currentUser = svc.extractAuthData(authData);
 			$rootScope.checkSession();
@@ -112,8 +109,6 @@ angular.module('app.auth', []).service('Authentication', function ($rootScope, U
 	};
 
 	svc.loginResponseHandler = function (error, authData) {
-		console.log("loginResponseHandler:: error:", error);
-		console.log("loginResponseHandler:: authData:", authData);
 		if (error == null) {
 			$rootScope.currentUser = svc.extractAuthData(authData);
 			$rootScope.checkSession();
@@ -135,7 +130,7 @@ angular.module('app.auth', []).service('Authentication', function ($rootScope, U
 				alert(error.message);
 			}
 			else {
-				user = new User();
+				var user = new User();
 				user.provider = 'password';
 				user.uid = authData.uid;
 				user.firstName = 'David';

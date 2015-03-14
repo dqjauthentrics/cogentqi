@@ -1,3 +1,5 @@
+'use strict';
+
 var installation = {
 	appName: 'CogentQI',
 	trademarkName: 'CogentQI&#8482;',
