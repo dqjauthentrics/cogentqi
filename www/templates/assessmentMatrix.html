@@ -4,51 +4,59 @@
     </ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
         <div style="text-align:center; margin-top: 1em;">
-            <h2>Organization Overview as of {{'' | currentDateTime}}</h2>
+            <h3>{{a.sectionCurrentName()}}</h3>
+            <h4>Competency Summary Matrix</h4>
         </div>
         <table class="matrix">
             <thead>
             <tr>
                 <th style="font-style: italic;">Most Recent<br/>Employee Assessments</th>
-                <td style="border:none;">
-                    <table width="100%">
-                        <tr>
-                            <th class="rotate" data-ng-repeat="name in a.getMatrixCompetencyNames(e,20) track by $index">
-                                <div><span>{{name}}</span></div>
-                            </th>
-                        </tr>
-                    </table>
+                <th class="rotate" data-ng-repeat="name in a.getMatrixCompetencyRowHeader(e,20,a.currentSectionIdx) track by $index">
+                    <div><span>{{name}}</span></div>
+                </th>
+                <th class="rotate">
+                    <div><span>Average</span></div>
+                </th>
             </tr>
             </thead>
             <tbody>
-            <tr data-ng-repeat="employee in e.employees">
+            <tr data-ng-repeat="employee in e.employees" data-ng-if="employee.assessmentId != undefined">
                 <td class="leftHeader">
                     <img class="avatar-tiny" data-ng-src="{{employee.face}}" alt="">
-                    <a href="#/tab/employees/{{employee.id}}">{{employee.name}}</a>
+                    <a href="#/tab/assessment/a/{{employee.assessmentId}}">{{employee.name}}</a>
                 </td>
-                <td>
-                    <table width="100%">
-                        <tr>
-                            <td data-ng-repeat="employeeCompetency in a.getMatrixCompetencies(employee)">
-                                <i class="levelColor{{employeeCompetency.val}} {{i.icons.levels[employeeCompetency.val]}}"></i>
-                            </td>
-                        </tr>
-                    </table>
+                <td data-ng-repeat="employeeCompetency in a.getMatrixCompetencyRowValues(employee,a.currentSectionIdx)">
+                    <i class="levelColor{{employeeCompetency.val}} {{i.icons.levels[employeeCompetency.val]}}"></i>
                 </td>
-                <td style="width:4em; border:none; background:#FFF !important;"></td>
+                <td data-ng-init="zz = a.getMatrixRowAverage(employee,true,a.currentSectionIdx)">
+                    <i class="levelColor{{zz}} {{i.icons.levels[zz]}}"></i>
+                </td>
             </tr>
             <tr>
                 <th style="font-style: italic;">Averages</th>
-                <td style="border:none;">
-                    <table width="100%">
-                        <tr>
-                            <td data-ng-repeat="avg in a.getMatrixCompetencyAverages(e) track by $index">
-                                <i class="levelColor{{avg}} {{i.icons.levels[avg]}}"></i>
-                            </th>
-                        </tr>
-                    </table>
+                <td data-ng-repeat="avgRound in a.getMatrixColAverages(e,true,a.currentSectionIdx) track by $index">
+                    <i class="levelColor{{avgRound}} {{i.icons.levels[avgRound]}}"></i>
+                </td>
+                <td data-ng-init="avgRound = a.getMatrixOverallAverage(e.employees,true,a.currentSectionIdx)">
+                    <i class="levelColor{{avgRound}} {{i.icons.levels[avgRound]}}"></i>
+                </td>
             </tr>
             </tbody>
         </table>
+        <div class="row row-responsive-sm">
+            <div class="col col-45" style="text-align:right;">
+                <a data-ng-if="!a.sectionIsFirst()" data-ng-click="a.sectionPrevious()"><< {{a.sectionPreviousName()}}</a>
+            </div>
+            <div class="col col-10" style="text-align:center;"><span data-ng-if="!a.sectionIsFirst()">|</span></div>
+            <div class="col col-45" style="text-align:left;">
+                <a data-ng-if="!a.sectionIsLast()" data-ng-click="a.sectionNext()">{{a.sectionNextName()}} >></a>
+            </div>
+        </div>
+        <div class="row row-responsive-sm">
+            <div class="col" style="text-align:center;">
+                <a class="button" data-ng-if="!a.sectionIsAll()" data-ng-click="a.sectionViewAll()">View All Competencies</a>
+                <a class="button" data-ng-if="!a.sectionIsSummary()" data-ng-click="a.sectionViewSummary()">View Section Summary</a>
+            </div>
+        </div>
     </ion-content>
 </ion-view>

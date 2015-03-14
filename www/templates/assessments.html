@@ -2,8 +2,8 @@
     <ion-nav-buttons side="right"><a href="#tab/dashboard"><i class="logo fa fa-bullseye"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" data-ng-init="e.initialize()">
         <ion-list>
-            <ion-item class="item-remove-animate item-icon-right" ng-repeat="assessment in a.all(e)"
-                      type="item-text-wrap" href="#/tab/assessment/{{assessment.id}}/{{assessment.employeeId}}">
+            <ion-item class="item-remove-animate item-icon-right" ng-repeat="assessment in a.assessments"
+                      type="item-text-wrap" href="#/tab/assessment/a/{{assessment.id}}">
                 <div class="row">
                     <div class="col col-35">
                         <img class="border border{{assessment.employee.level}}" style="float:left; margin: 0 0.4em 0 0;"

@@ -3,6 +3,12 @@ a {
     text-decoration: none;
     color: #005090;
 }
+.customerBg, .tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
+    background-color: #FFF !important;
+}
+.card a.button, form .button, form .button-small {
+    margin: 0.2em !important;
+}
 
 i.logo {
     font-size: 34px !important;
@@ -10,10 +16,25 @@ i.logo {
     margin-right: 0.5em;
 }
 
+.colorFacebook {
+    color: #FFF;
+    background: #3b5998;
+}
+
+.colorGoogle {
+    color: #FFF;
+    background: #dd4b39;
+}
+
+.colorTwitter {
+    color: #FFF;
+    background: #55ACEE;
+}
+
 .tag {
     color: #468;
     font-size: 0.9em;
-    margin: 0.2em;
+    margin: 0.6em;
 }
 
 ::-ms-tooltip {
@@ -357,7 +378,7 @@ table.cycle {
 }
 
 .levelColor3 {
-    color: gold;
+    color: #CfB700;
 }
 
 .levelColor4 {
@@ -384,13 +405,14 @@ table.cycle {
     text-align: center;
     vertical-align: middle;
 }
-
-.matrix td td {
-    font-size: 1.8vmin;
-    padding: 0;
+.matrix table table {
     border: none;
+    padding: 0;
+    margin: 0;
 }
-
+.matrix td {
+    padding: 0.3em;
+}
 .matrix .leftHeader .avatar-tiny {
     vertical-align: middle;
     margin: 0.1em 0.3em 0.1em 0.1em;
@@ -403,19 +425,18 @@ table.cycle {
 
 th.rotate {
     height: 5.4em;
-    margin-left: -4em;
     text-overflow-ellipsis: ellipsis;
     white-space: nowrap;
+    border: none;
 }
 
 th.rotate > div {
-    transform: translate(1.1em, 3.4em) rotate(315deg);
-    width: 2em;
+    transform: translate(1.0em, 3.4em) rotate(315deg);
+    width: 1.4em;
 }
 
 th.rotate > div > span {
     border-bottom: 1px solid #ccc;
-    padding: 5px 10px;
 }
 
 .score {

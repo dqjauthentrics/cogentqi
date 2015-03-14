@@ -1,18 +1,20 @@
 angular.module('app.controllers', [])
 
 	.controller('LoginController', [
-					'$scope', '$rootScope', '$location', 'Authentication',
-					function ($scope, $rootScope, $location, Authentication) {
+					'$scope', '$rootScope', '$location', 'Authentication', function ($scope, $rootScope, $location, Authentication) {
 						var email = null;
 						var password = null;
+						var createEmail = null;
+						var createPassword = null;
+						$scope.auth = Authentication;
 
 						$scope.login = function (loginType) {
-							console.log("login");
 							Authentication.login(loginType, this.email, this.password);
 						};
-
+						$scope.createAccount = function () {
+							Authentication.createAccount(this.createEmail, this.createPassword);
+						};
 						$scope.logout = function () {
-							console.log("logout");
 							Authentication.logout();
 							window.location.href = "/#/login";
 							return 'logged out';
@@ -20,12 +22,21 @@ angular.module('app.controllers', [])
 					}
 				])
 
-	.controller('DashboardCtrl', function ($scope) {
-					$scope.foo = {competency: {id: 42, val: 3}};
+	.controller('DashboardCtrl', function ($scope, Employees) {
+					$scope.e = Employees;
+					Employees.initialize();
 				})
 
-	.controller('EmployeeCtrl', function ($scope, Employees, Assessments) {
+	.controller('EmployeeCtrl', function ($scope, $stateParams, Utility, Employees, Assessments) {
 					$scope.e = Employees;
+					$scope.a = Assessments;
+					$scope.employee = null;
+					Employees.initialize();
+					console.log("PARAMS:", $stateParams);
+					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.employeeId)) {
+						$scope.employee = Employees.get($stateParams.employeeId);
+						console.log("EMPLOYEE:", $scope.employee);
+					}
 				})
 
 	.controller('OutcomeCtrl', function ($scope, Outcomes, Resources) {
@@ -40,13 +51,6 @@ angular.module('app.controllers', [])
 						}
 						return null;
 					};
-				})
-
-	.controller('EmployeeDetailCtrl', function ($scope, $stateParams, Employees, Assessments) {
-					$scope.employee = Employees.get($stateParams.employeeId);
-					$scope.e = Employees;
-					$scope.a = Assessments;
-					$scope.a.all($scope.e);
 				})
 
 	.controller('ResourceCtrl', function ($scope, $stateParams, Utility, Resources) {
@@ -65,10 +69,10 @@ angular.module('app.controllers', [])
 				})
 
 	.controller('AssessmentCtrl', function ($scope, $stateParams, Utility, Assessments, Employees, Resources) {
-					$scope.currentSectionIdx = 0;
 					$scope.a = Assessments;
 					$scope.e = Employees;
 					$scope.r = Resources;
+					$scope.assessment = null;
 
 					$scope.r0 = [];
 					$scope.r1 = [1];
@@ -77,22 +81,17 @@ angular.module('app.controllers', [])
 					$scope.r4 = [1, 1, 1, 1];
 					$scope.r5 = [1, 1, 1, 1, 1];
 
-
+					Employees.initialize();
+					console.log("PARAMS:", $stateParams);
 					if (!Utility.empty($stateParams)) {
-						var assessmentId = $stateParams.assessmentId;
-						if (Utility.empty(assessmentId)) {
-							assessmentId = 0;
+						if (!Utility.empty($stateParams.assessmentId)) {
+							$scope.assessment = Assessments.get($stateParams.assessmentId);
+							console.log("ASSESSMENT:", $scope.assessment);
 						}
-						var sectionIdx = $stateParams.sectionIdx;
-						if (Utility.empty(sectionIdx)) {
-							sectionIdx = 0;
+						else if (!Utility.empty($stateParams.employeeid)) {
+							$scope.employee = Employees.get($stateParams.employeeid);
+							console.log("EMPLOYEE:", $scope.employee);
 						}
-						var employeeId = $stateParams.employeeId;
-						if (Utility.empty(sectionIdx)) {
-							employeeId = 0;
-						}
-						$scope.employee = $scope.e.get(employeeId);
-						console.log("employee:", $scope.employee);
 					}
 					$scope.getRange = function (n) {
 						switch (Math.round(n)) {

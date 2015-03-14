@@ -4,14 +4,14 @@
             {{a.scoreWord(a.avg)}}</i></div>
         <a href="#tab/dashboard"><i class="logo fa fa-bullseye"></i></a>
     </ion-nav-buttons>
-    <ion-content has-bouncing="false" overflow-scroll="true" data-ng-if="employee != undefined">
+    <ion-content has-bouncing="false" overflow-scroll="true">
         <div class="row">
             <div class="col-25">
-                <img class="border border{{a.avg}}" data-ng-src="{{employee.face}}" alt=""/><br/>
-                <h4>{{employee.name}}</h4>
+                <img class="border border{{a.avg}}" data-ng-src="{{assessment.employee.face}}" alt=""/><br/>
+                <h4>{{assessment.employee.name}}</h4>
             </div>
             <div class="col-75">
-                <h5>{{installation.trademarkName}} Recommended Modules</h5>
+                <h5 data-ng-bind-html="installation.trademarkName + ' Recommended Modules'"></h5>
 
                 <div class="recommendationsPane">
                     <div class="item" data-ng-repeat="recommendation in a.recommendations track by $index">
@@ -28,19 +28,20 @@
         </div>
 
         <div class="assessment" data-ng-init="a.recommend(employee)">
-            <div id="section{{$index}}" data-ng-repeat="section in a.competencies" data-ng-show="$index == a.currentSectionIdx" class="fadein fadeout">
-                <div style="float:left; margin-left:1em;" data-ng-show="!a.isFirstSlide($index)">
-                    <a ng-click="a.previousSlide($index)"><< {{section.previous}}</a>
+            <div id="section{{$index}}" data-ng-repeat="section in assessment.employee.competencies" data-ng-show="$index == a.currentSectionIdx"
+                 class="fadein fadeout">
+                <div style="float:left; margin-left:1em;" data-ng-show="!a.sectionIsFirst()">
+                    <a ng-click="a.sectionPrevious()"><< {{section.previous}}</a>
                 </div>
                 <div style="float:right; margin-right:1em;">
-                    <a ng-click="a.nextSlide($index)" data-ng-show="!a.isLastSlide($index)">{{section.next}} >></a>
+                    <a ng-click="a.sectionNext()" data-ng-show="!a.sectionIsLast()">{{section.next}} >></a>
                 </div>
                 <div class="clearfix"></div>
                 <div style="height:1em;"></div>
                 <ion-list>
                     <ion-item class="top"><h2>{{section.text}}</h2></ion-item>
                     <ion-item class="item-remove-animate item-icon-right"
-                              data-ng-repeat="competency in a.getCompetencies(employee.competencies, assessmentId, section.id)"
+                              data-ng-repeat="competency in section.children track by $index"
                               type="item-text-wrap">
                         <div style="float:left; max-width: 80%;">
                             <div class="number" data-ng-bind="competency.number"></div>
@@ -50,8 +51,8 @@
                         </div>
                         <slider id="competency_item_{{competency.id}}" class="slider{{competency.val}}"
                                 data-ng-model="competency.val" floor="0.0" ceiling="5" step-width="1"
-                                data-ng-change="a.sliderChange(employee, competency,this,true)"
-                                translate-fn="a.sliderChange(employee, competency,this,false)">
+                                data-ng-change="a.sliderChange(assessment.employee, competency,this,true)"
+                                translate-fn="a.sliderChange(assessment.employee, competency,this,false)">
                         </slider>
                     </ion-item>
                 </ion-list>

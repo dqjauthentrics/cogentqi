@@ -21,7 +21,7 @@
                 <div style="font-weight:bold;">Assessments To Date</div>
                 <div data-ng-repeat="assessment in a.assessments">
                     <div data-ng-if="assessment.employeeId == employee.id">
-                        <a href="#/tab/assessments/{{assessment.id}}" style="color:#777; text-decoration: none;">
+                        <a href="#/tab/assessments/a/{{assessment.id}}" style="color:#777; text-decoration: none;">
                             <i class="{{i.icons.assessment}}"></i> Assessment on {{assessment.stamp}}
                         </a>
                     </div>
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="row">
-             <a class="button" href="#/tab/assessment/{{employee.id}}">New Assessment</a>
+             <a class="button" href="#/tab/assessment/e/{{employee.id}}">New Assessment</a>
         </div>
     </ion-content>
 </ion-view>
