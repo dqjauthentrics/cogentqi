@@ -209,35 +209,41 @@ angular.module('app.assessments', ['app.utils', 'app.resources']).service('Asses
     };
     svc.sectionCurrentName = function () {
         var name = '';
-        if (svc.currentSectionIdx == svc.SECTION_ALL) {
-            return 'Section Summary';
-        }
-        if (svc.currentSectionIdx >= 0 && svc.currentSectionIdx < svc.competencies.length) {
-            name = svc.competencies[svc.currentSectionIdx].text;
+        if (!Utility.empty(svc.competencies)) {
+            if (svc.currentSectionIdx == svc.SECTION_ALL) {
+                return 'Section Summary';
+            }
+            if (svc.currentSectionIdx >= 0 && svc.currentSectionIdx < svc.competencies.length) {
+                name = svc.competencies[svc.currentSectionIdx].text;
+            }
         }
         return name;
     };
     svc.sectionPreviousName = function () {
         var name = '';
-        if (svc.currentSectionIdx > 0) {
-            name = svc.competencies[(svc.currentSectionIdx - 1)].text;
-        }
-        else {
-            name = svc.competencies[(svc.competencies.length - 1)].text;
+        if (!Utility.empty(svc.competencies)) {
+            if (svc.currentSectionIdx > 0) {
+                name = svc.competencies[(svc.currentSectionIdx - 1)].text;
+            }
+            else {
+                name = svc.competencies[0].text;
+            }
         }
         return name;
     };
     svc.sectionNextName = function () {
         var name = '';
-        var tmpIdx = svc.currentSectionIdx;
-        if (tmpIdx < 0) {
-            tmpIdx = -1;
-        }
-        if (tmpIdx < svc.competencies.length - 1) {
-            name = svc.competencies[(tmpIdx + 1)].text;
-        }
-        else {
-            name = svc.competencies[0].text;
+        if (!Utility.empty(svc.competencies)) {
+            var tmpIdx = svc.currentSectionIdx;
+            if (tmpIdx < 0) {
+                tmpIdx = -1;
+            }
+            if (tmpIdx < svc.competencies.length - 1) {
+                name = svc.competencies[(tmpIdx + 1)].text;
+            }
+            else {
+                name = svc.competencies[0].text;
+            }
         }
         return name;
     };
