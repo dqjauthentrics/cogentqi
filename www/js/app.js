@@ -31,7 +31,7 @@ angular.module('app',
             if (parts.length >= 2 && parts[0] != "www" && parts[0] != "app") {
                 subdomain = parts[0];
             }
-            if (parts.length > 1 && parts[(parts.length-1)] == ".com") {
+            if (parts.length > 1 && parts[(parts.length-1)] == "com") {
                 operationalMode = "Production";
             }
             angularLoad.loadCSS('css/themes/' + subdomain + '.css').then(function () {
