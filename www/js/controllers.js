@@ -88,6 +88,7 @@ angular.module('app.controllers', [])
             }
             else if (!Utility.empty($stateParams.memberid)) {
                 $scope.member = Members.get($stateParams.memberid);
+                $scope.assessment = member.assessment;
             }
         }
         $scope.getRange = function (n) {
