@@ -1,14 +1,14 @@
 'use strict';
 
-angular.module('app.members', ['app.utils', 'app.assessments']).service('Members', function (angularLoad, Utility, Assessments) {
+angular.module('app.members', ['app.utils', 'app.assessments']).service('Members', function ($rootScope, angularLoad, Utility, Assessments) {
 	var svc = this;
 	svc.a = Assessments;
 	svc.initialized = false;
 	svc.members = [];
 
 	svc.load = function (callback) {
-		if (Utility.empty(svc.members)) {
-			angularLoad.loadScript('js/config/target/members.js').then(function () {
+		if (Utility.empty(svc.members) && !Utility.empty($rootScope.installation) && !Utility.empty($rootScope.installation.subdomain)) {
+			angularLoad.loadScript('js/config/' + $rootScope.installation.subdomain + '/members.js').then(function () {
 				svc.members = members;
 				//console.log("members loaded", svc.members);
 				callback();

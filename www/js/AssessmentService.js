@@ -18,8 +18,8 @@ angular.module('app.assessments', ['app.utils', 'app.resources']).service('Asses
      * @param callback
      */
     svc.load = function (callback) {
-        if (Utility.empty(svc.competencies)) {
-            angularLoad.loadScript('js/config/target/framework.js').then(function () {
+        if (Utility.empty(svc.competencies) && !Utility.empty($rootScope.installation) && !Utility.empty($rootScope.installation.subdomain)) {
+            angularLoad.loadScript('js/config/' + $rootScope.installation.subdomain + '/framework.js').then(function () {
                 svc.competencies = competencies;
                 for (var i = 0; i < svc.competencies.length; i++) {
                     svc.competencies[i].previous = '';
@@ -31,7 +31,7 @@ angular.module('app.assessments', ['app.utils', 'app.resources']).service('Asses
                         svc.competencies[i].next = svc.competencies[(i + 1)].text;
                     }
                 }
-                angularLoad.loadScript('js/config/target/assessments.js').then(function () {
+                angularLoad.loadScript('js/config/' + $rootScope.installation.subdomain + '/assessments.js').then(function () {
                     svc.assessments = assessments;
                     callback();
                 }).catch(function () {

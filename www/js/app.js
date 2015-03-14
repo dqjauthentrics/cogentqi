@@ -8,11 +8,14 @@ angular.module('app',
         'app.routes',
         'app.icons',
         'app.auth',
+        'app.organizations',
         'app.members',
         'app.assessments',
         'app.resources',
         'app.classes',
-        'app.controllers',
+        'app.controllers.manager',
+        'app.controllers.administrator',
+        'app.controllers.professional',
         'app.outcomes',
         'ngSanitize',
         'ngTouch',
@@ -31,7 +34,7 @@ angular.module('app',
             if (parts.length >= 2 && parts[0] != "www" && parts[0] != "app") {
                 subdomain = parts[0];
             }
-            if (parts.length > 1 && parts[(parts.length-1)] == "com") {
+            if (parts.length > 1 && parts[(parts.length - 1)] == "com") {
                 operationalMode = "Production";
             }
             angularLoad.loadCSS('css/themes/' + subdomain + '.css').then(function () {
@@ -82,21 +85,21 @@ angular.module('app',
     .directive('levelTag', function () {
         return {
             restrict: 'E',
-            templateUrl: 'templates/_levelTag.html',
+            templateUrl: '../templates/common/levelTag.html',
             scope: {text: '=', level: '=', icon: '='}
         };
     })
     .directive('microBadge', function () {
         return {
             restrict: 'E',
-            templateUrl: 'templates/_microBadge.html',
+            templateUrl: '../templates/common/microBadge.html',
             scope: {text: '=', size: '='}
         };
     })
     .directive('recommendationRanking', function () {
         return {
             restrict: 'E',
-            templateUrl: 'templates/_recommendationRanking.html',
+            templateUrl: '../templates/common/recommendationRanking.html',
             scope: {weight: '=', range: '='}
         };
     })

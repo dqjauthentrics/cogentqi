@@ -8,142 +8,188 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
     // Each state's controller can be found in controllers.js
     $stateProvider
         .state('login', {
-            url: '/login', templateUrl: 'templates/login.html', controller: 'LoginController'
+            url: '/login', templateUrl: 'templates/manager/login.html', controller: 'LoginController'
         })
 
-        // setup an abstract state for the tabs directive
-        .state('tab', {url: "/tab", abstract: true, templateUrl: "templates/tabs.html"})
 
-        // Each tab has its own nav history stack:
-        .state('tab.dashboard', {
+    /**
+     * Administrator user states.
+     */
+        .state('administrator', {url: "/administrator", abstract: true, templateUrl: "templates/administrator/tabs.html"})
+
+        .state('administrator.dashboard', {
             url: '/dashboard',
             views: {
-                tabDashboard: {
-                    templateUrl: 'templates/dashboard.html', controller: 'DashboardCtrl'
+                administratorDashboard: {templateUrl: 'templates/administrator/dashboard.html', controller: 'AdminDashboardCtrl'}
+            }
+        })
+        .state('administrator.organizations', {
+            url: '/organizations',
+            views: {
+                administratorOrganizations: {templateUrl: 'templates/administrator/organizations.html', controller: 'AdminOrganizationCtrl'}
+            }
+        })
+        .state('administrator.settings', {
+            url: '/settings',
+            views: {administratorSettings: {templateUrl: 'templates/administrator/settings.html', controller: 'AdminSettingsCtrl'}}
+        })
+
+    /**
+     * Professional user states.
+     */
+        .state('professional', {url: "/professional", abstract: true, templateUrl: "templates/professional/tabs.html"})
+
+        .state('professional.dashboard', {
+            url: '/dashboard',
+            views: {
+                professionalDashboard: {templateUrl: 'templates/professional/dashboard.html', controller: 'ProfDashboardCtrl'}
+            }
+        })
+        .state('professional.help', {
+            url: '/help',
+            views: {
+                professionalHelp: {templateUrl: 'templates/professional/help.html', controller: 'ProfOrganizationCtrl'}
+            }
+        })
+        .state('professional.settings', {
+            url: '/settings',
+            views: {professionalSettings: {templateUrl: 'templates/professional/settings.html', controller: 'ProfSettingsCtrl'}}
+        })
+
+    /**
+     * Manager user states.
+     */
+        .
+        state('manager', {url: "/manager", abstract: true, templateUrl: "templates/manager/tabs.html"})
+
+        .state('manager.dashboard', {
+            url: '/dashboard',
+            views: {
+                managerDashboard: {
+                    templateUrl: 'templates/manager/dashboard.html', controller: 'DashboardCtrl'
                 }
             }
         })
-        .state('tab.assessmentMatrix', {
+        .state('manager.assessmentMatrix', {
             url: '/dashboard/matrix',
             views: {
-                tabDashboard: {
-                    templateUrl: 'templates/assessmentMatrix.html',
+                managerDashboard: {
+                    templateUrl: 'templates/manager/assessmentMatrix.html',
                     controller: 'AssessmentCtrl'
                 }
             }
         })
-
-        .state('tab.outcomes', {
+        .state('manager.outcomes', {
             url: '/outcomes',
             views: {
-                tabOutcomes: {
-                    templateUrl: 'templates/outcomes.html',
+                managerOutcomes: {
+                    templateUrl: 'templates/manager/outcomes.html',
                     controller: 'OutcomeCtrl'
                 }
             }
         })
-        .state('tab.members', {
+        .state('manager.members', {
             url: '/members',
             views: {
-                tabMembers: {
-                    templateUrl: 'templates/members.html',
+                managerMembers: {
+                    templateUrl: 'templates/manager/members.html',
                     controller: 'MemberCtrl'
                 }
             }
         })
-        .state('tab.member', {
+        .state('manager.member', {
             url: '/members/:memberId',
             views: {
-                tabMembers: {
-                    templateUrl: 'templates/member.html',
+                managerMembers: {
+                    templateUrl: 'templates/manager/member.html',
                     controller: 'MemberCtrl'
                 }
             }
         })
-        .state('tab.assessments', {
+        .state('manager.assessments', {
             url: '/assessments',
             views: {
-                tabAssessments: {
-                    templateUrl: 'templates/assessments.html',
+                managerAssessments: {
+                    templateUrl: 'templates/manager/assessments.html',
                     controller: 'AssessmentCtrl'
                 }
             }
         })
-        .state('tab.assessmentA', {
+        .state('manager.assessmentA', {
             url: '/assessment/a/:assessmentId',
             views: {
-                tabAssessments: {
-                    templateUrl: 'templates/assessment.html',
+                managerAssessments: {
+                    templateUrl: 'templates/manager/assessment.html',
                     controller: 'AssessmentCtrl'
                 }
             }
         })
 
-        .state('tab.assessmentE', {
+        .state('manager.assessmentE', {
             url: '/assessment/e/:memberId',
             views: {
-                tabAssessments: {
-                    templateUrl: 'templates/assessment.html',
+                managerAssessments: {
+                    templateUrl: 'templates/manager/assessment.html',
                     controller: 'AssessmentCtrl'
                 }
             }
         })
-        .state('tab.classes', {
+        .state('manager.classes', {
             url: '/classes',
             views: {
-                tabResources: {
-                    templateUrl: 'templates/classes.html',
+                managerResources: {
+                    templateUrl: 'templates/manager/classes.html',
                     controller: 'ClassCtrl'
                 }
             }
         })
-        .state('tab.resources', {
+        .state('manager.resources', {
             url: '/resources',
             views: {
-                tabResources: {
-                    templateUrl: 'templates/resources.html',
+                managerResources: {
+                    templateUrl: 'templates/manager/resources.html',
                     controller: 'ResourceCtrl'
                 }
             }
         })
-        .state('tab.resourceDetail', {
+        .state('manager.resourceDetail', {
             url: '/resource/:resourceId',
             views: {
-                tabResources: {
-                    templateUrl: 'templates/resource.html',
+                managerResources: {
+                    templateUrl: 'templates/manager/resource.html',
                     controller: 'ResourceCtrl'
                 }
             }
         })
-        .state('tab.assessmentEmpSection', {
+        .state('manager.assessmentEmpSection', {
             url: '/assessment/:assessmentId/:memberId/:sectionIdx',
             views: {
-                tabAssessments: {
-                    templateUrl: 'templates/assessment.html',
+                managerAssessments: {
+                    templateUrl: 'templates/manager/assessment.html',
                     controller: 'AssessmentCtrl'
                 }
             }
         })
-        .state('tab.latestAssessment', {
+        .state('manager.latestAssessment', {
             url: '/assessment/:memberId',
             views: {
-                tabAssessments: {
-                    templateUrl: 'templates/assessment.html',
+                managerAssessments: {
+                    templateUrl: 'templates/manager/assessment.html',
                     controller: 'AssessmentCtrl'
                 }
             }
         })
-        .state('tab.settings', {
+        .state('manager.settings', {
             url: '/settings',
             views: {
-                tabSettings: {
-                    templateUrl: 'templates/settings.html',
+                managerSettings: {
+                    templateUrl: 'templates/manager/settings.html',
                     controller: 'SettingsCtrl'
                 }
             }
         });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/dashboard');
+    $urlRouterProvider.otherwise('/manager/dashboard');
 
 });

@@ -7,6 +7,8 @@ angular.module('app.icons', ['app.utils']).service('Icons', function () {
 		addUser: "fa fa-plus-circle",
 		back: "fa fa-arrow-sans-left",
 		begin: "fa fa-rocket-1",
+        building: "fa fa-building-o",
+        buildingOn: "fa fa-building",
 		buttonError: "fa fa-alert",
 		buttonSpinner: "fa fa-spinner p3icon-spin",
 		checked: "fa fa-check-mark-2",
