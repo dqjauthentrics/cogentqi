@@ -7,8 +7,8 @@ angular.module('app.assessments', ['app.utils', 'app.resources']).service('Asses
 	svc.competencies = [];
 	svc.recommendations = [];
 	svc.assessments = [];
-	svc.SECTION_ALL = -1;
-	svc.SECTION_SUMMARY = -2;
+	svc.SECTION_ALL = -100;
+	svc.SECTION_SUMMARY = -101;
 
 	/**
 	 * NB: Assumes employees have been loaded.
@@ -211,6 +211,9 @@ angular.module('app.assessments', ['app.utils', 'app.resources']).service('Asses
 		if (svc.currentSectionIdx > 0) {
 			name = svc.competencies[(svc.currentSectionIdx - 1)].text;
 		}
+		else {
+			name = svc.competencies[(svc.competencies.length - 1)].text;
+		}
 		return name;
 	};
 	svc.sectionNextName = function () {
@@ -221,6 +224,9 @@ angular.module('app.assessments', ['app.utils', 'app.resources']).service('Asses
 		}
 		if (tmpIdx < svc.competencies.length - 1) {
 			name = svc.competencies[(tmpIdx + 1)].text;
+		}
+		else {
+			name = svc.competencies[0].text;
 		}
 		return name;
 	};

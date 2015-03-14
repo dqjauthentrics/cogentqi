@@ -44,12 +44,12 @@
             </tbody>
         </table>
         <div class="row row-responsive-sm">
-            <div class="col col-45" style="text-align:right;">
-                <a data-ng-if="!a.sectionIsFirst()" data-ng-click="a.sectionPrevious()"><< {{a.sectionPreviousName()}}</a>
+            <div class="col col-40" style="text-align:right;">
+                <a data-ng-click="a.sectionPrevious()"><< {{a.sectionPreviousName()}}</a>
             </div>
-            <div class="col col-10" style="text-align:center;"><span data-ng-if="!a.sectionIsFirst()">|</span></div>
-            <div class="col col-45" style="text-align:left;">
-                <a data-ng-if="!a.sectionIsLast()" data-ng-click="a.sectionNext()">{{a.sectionNextName()}} >></a>
+            <div class="col col-10" style="text-align:center;">|</div>
+            <div class="col col-40" style="text-align:left;">
+                <a data-ng-click="a.sectionNext()">{{a.sectionNextName()}} >></a>
             </div>
         </div>
         <div class="row row-responsive-sm">
