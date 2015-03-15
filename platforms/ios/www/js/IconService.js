@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('app.icons', ['app.utils']).service('Icons', function () {
 	this.icons = {
 		add: "fa fa-plus-circle",
@@ -5,6 +7,8 @@ angular.module('app.icons', ['app.utils']).service('Icons', function () {
 		addUser: "fa fa-plus-circle",
 		back: "fa fa-arrow-sans-left",
 		begin: "fa fa-rocket-1",
+        building: "fa fa-building-o",
+        buildingOn: "fa fa-building",
 		buttonError: "fa fa-alert",
 		buttonSpinner: "fa fa-spinner p3icon-spin",
 		checked: "fa fa-check-mark-2",
@@ -13,8 +17,8 @@ angular.module('app.icons', ['app.utils']).service('Icons', function () {
 		dragHandle: "fa fa-thumbnails",
 		edit: "fa fa-pencil ",
 		email: "fa fa-mail",
-		employee: "fa fa-user-2",
-		employees: "ion-person-stalker",
+		member: "fa fa-user-2",
+		members: "ion-person-stalker",
 		assessment: "fa fa-sliders",
 		grades: "fa fa-tag-2",
 		home: "fa fa-home",

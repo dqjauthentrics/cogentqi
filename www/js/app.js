@@ -5,6 +5,7 @@ angular.module('app',
         'ionic',
         'firebase',
         'angularLoad',
+        'app.installation',
         'app.routes',
         'app.icons',
         'app.auth',
@@ -24,7 +25,7 @@ angular.module('app',
         'youtube-embed'
     ]
 )
-    .run(function ($ionicPlatform, $rootScope, $location, $window, angularLoad, Icons, Utility, Authentication) {
+    .run(function ($ionicPlatform, $rootScope, $location, $window, angularLoad, Installation, Icons, Utility, Authentication) {
         $ionicPlatform.ready(function () {
 
             var host = $location.host();

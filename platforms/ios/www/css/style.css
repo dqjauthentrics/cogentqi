@@ -1,22 +1,44 @@
-/* Empty. Add your own CSS if you like */
+a {
+    cursor: pointer;
+    text-decoration: none;
+    color: #005090;
+}
+.customerBg, .tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
+    background-color: #FFF !important;
+}
+.card a.button, form .button, form .button-small {
+    margin: 0.2em !important;
+}
+
 i.logo {
     font-size: 34px !important;
     font-weight: bold !important;
     margin-right: 0.5em;
 }
 
+.colorFacebook {
+    color: #FFF;
+    background: #3b5998;
+}
+
+.colorGoogle {
+    color: #FFF;
+    background: #dd4b39;
+}
+
+.colorTwitter {
+    color: #FFF;
+    background: #55ACEE;
+}
+
 .tag {
     color: #468;
     font-size: 0.9em;
-    margin: 0.2em;
+    margin: 0.6em;
 }
 
 ::-ms-tooltip {
     display: none;
-}
-
-.customerBg, .tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
-    background-color: #c70002 !important;
 }
 
 .bar-assertive.customerBg .title {
@@ -105,7 +127,6 @@ ion-item .listIcon {
 
 ion-item .title a, .list .title a:visited, .detail .title, ion-item .title {
     text-decoration: none;
-    color: #777;
     vertical-align: middle;
     font-weight: bold !important;
     font-size: 1.2em;
@@ -185,6 +206,22 @@ ion-content {
     padding: 1em;
 }
 
+div.poweredBy a, .cycle a {
+    color: #066eb7 !important;
+}
+
+.cycle a {
+    color: #005090 !important;
+}
+
+div.poweredBy {
+    width: 8em;
+    text-align: center;
+    margin: 0 auto;
+    line-height: 1.0em;
+    font-size: 0.45em !important;
+}
+
 table.cycle {
     margin: 1em auto;
     width: 600px;
@@ -194,11 +231,6 @@ table.cycle {
     background: url(../img/cycle2.png) top center no-repeat;
     background-size: contain;
     font-size: 1.8vmin;
-}
-
-table.cycle a {
-    color: #444;
-    text-decoration: none;
 }
 
 .cycle td {
@@ -213,10 +245,12 @@ table.cycle a {
 .recommendationRanking {
     color: darkgreen;
 }
+
 .resourceDoc {
     font-size: 1.3em;
     font-weight: bold;
 }
+
 .microBadge {
     background: transparent url(../img/badge.png) center center no-repeat;
     background-size: contain;
@@ -344,7 +378,7 @@ table.cycle a {
 }
 
 .levelColor3 {
-    color: gold;
+    color: #CfB700;
 }
 
 .levelColor4 {
@@ -371,13 +405,14 @@ table.cycle a {
     text-align: center;
     vertical-align: middle;
 }
-
-.matrix td td {
-    font-size: 1.8vmin;
-    padding: 0;
+.matrix table table {
     border: none;
+    padding: 0;
+    margin: 0;
 }
-
+.matrix td {
+    padding: 0.3em;
+}
 .matrix .leftHeader .avatar-tiny {
     vertical-align: middle;
     margin: 0.1em 0.3em 0.1em 0.1em;
@@ -390,19 +425,18 @@ table.cycle a {
 
 th.rotate {
     height: 5.4em;
-    margin-left: -4em;
     text-overflow-ellipsis: ellipsis;
     white-space: nowrap;
+    border: none;
 }
 
 th.rotate > div {
-    transform: translate(1.1em, 3.4em) rotate(315deg);
-    width: 2em;
+    transform: translate(1.0em, 3.4em) rotate(315deg);
+    width: 1.4em;
 }
 
 th.rotate > div > span {
     border-bottom: 1px solid #ccc;
-    padding: 5px 10px;
 }
 
 .score {
@@ -468,12 +502,6 @@ ion-item.top h2 {
 .fadein.ng-hide-remove.ng-hide-remove-active {
     opacity: 1;
     display: block !important;
-}
-
-a {
-    cursor: pointer;
-    text-decoration: none;
-    color: #777;
 }
 
 .embed-responsive {

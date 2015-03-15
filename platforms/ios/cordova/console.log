@@ -77,3 +77,55 @@
 2015-03-12 19:10:07.710 cogentQI[42713:684649] Finished load of: file:///Users/dqj/Library/Developer/CoreSimulator/Devices/0AEB9E86-9A71-4CF3-8563-CFC8B2D66D67/data/Containers/Bundle/Application/10DC88C5-D212-4BA1-AD73-C5AFE00F5DBC/cogentQI.app/www/index.html#/tab/dashboard
 2015-03-12 19:10:18.151 cogentQI[42713:684649] Resetting plugins due to page load.
 2015-03-12 19:10:18.154 cogentQI[42713:684649] Failed to load webpage with error: Frame load interrupted
+2015-03-14 23:37:15.842 cogentQI[71766:1691104] Apache Cordova native platform version 3.8.0 is starting.
+2015-03-14 23:37:15.843 cogentQI[71766:1691104] Multi-tasking -> Device: YES, App: YES
+2015-03-14 23:37:15.858 cogentQI[71766:1691104] Unlimited access to network resources
+2015-03-14 23:37:16.200 cogentQI[71766:1691104] [CDVTimer][keyboard] 0.059009ms
+2015-03-14 23:37:16.200 cogentQI[71766:1691104] [CDVTimer][TotalPluginStartup] 0.209987ms
+2015-03-14 23:37:16.399 cogentQI[71766:1691104] Resetting plugins due to page load.
+2015-03-14 23:37:17.423 cogentQI[71766:1691104] Finished load of: file:///Users/dqj/Library/Developer/CoreSimulator/Devices/0AEB9E86-9A71-4CF3-8563-CFC8B2D66D67/data/Containers/Bundle/Application/3162FFE8-03C7-4CDF-8CFA-E9ADE83FCF4F/cogentQI.app/www/index.html#/manager/dashboard
+2015-03-14 23:37:17.488 cogentQI[71766:1691104] Resetting plugins due to page load.
+2015-03-14 23:37:17.493 cogentQI[71766:1691104] Failed to load webpage with error: Frame load interrupted
+2015-03-14 23:37:46.291 cogentQI[71766:1691104] Resetting plugins due to page load.
+2015-03-14 23:37:46.299 cogentQI[71766:1691104] Failed to load webpage with error: Frame load interrupted
+2015-03-14 23:37:47.450 cogentQI[71766:1691104] Resetting plugins due to page load.
+2015-03-14 23:37:47.453 cogentQI[71766:1691104] Failed to load webpage with error: Frame load interrupted
+2015-03-14 23:40:05.353 cogentQI[72474:1694437] Apache Cordova native platform version 3.8.0 is starting.
+2015-03-14 23:40:05.354 cogentQI[72474:1694437] Multi-tasking -> Device: YES, App: YES
+2015-03-14 23:40:05.355 cogentQI[72474:1694437] Unlimited access to network resources
+2015-03-14 23:40:05.417 cogentQI[72474:1694437] [CDVTimer][keyboard] 0.046015ms
+2015-03-14 23:40:05.417 cogentQI[72474:1694437] [CDVTimer][TotalPluginStartup] 0.176013ms
+2015-03-14 23:40:05.457 cogentQI[72474:1694437] Resetting plugins due to page load.
+2015-03-14 23:40:05.904 cogentQI[72474:1694437] Failed to load webpage with error: The operation couldn’t be completed. (NSURLErrorDomain error -999.)
+2015-03-14 23:40:05.904 cogentQI[72474:1694437] Resetting plugins due to page load.
+2015-03-14 23:40:05.961 cogentQI[72474:1694437] Failed to load webpage with error: Frame load interrupted
+2015-03-14 23:40:46.461 cogentQI[73017:1695966] Apache Cordova native platform version 3.8.0 is starting.
+2015-03-14 23:40:46.462 cogentQI[73017:1695966] Multi-tasking -> Device: YES, App: YES
+2015-03-14 23:40:46.463 cogentQI[73017:1695966] Unlimited access to network resources
+2015-03-14 23:40:46.522 cogentQI[73017:1695966] [CDVTimer][keyboard] 0.050962ms
+2015-03-14 23:40:46.522 cogentQI[73017:1695966] [CDVTimer][TotalPluginStartup] 0.185013ms
+2015-03-14 23:40:46.558 cogentQI[73017:1695966] Resetting plugins due to page load.
+2015-03-14 23:40:47.048 cogentQI[73017:1695966] Finished load of: file:///Users/dqj/Library/Developer/CoreSimulator/Devices/0AEB9E86-9A71-4CF3-8563-CFC8B2D66D67/data/Containers/Bundle/Application/07364B36-104F-488E-9EC1-E1F5CFE4B115/cogentQI.app/www/index.html#/manager/dashboard
+2015-03-14 23:40:47.049 cogentQI[73017:1695966] Resetting plugins due to page load.
+2015-03-14 23:40:47.140 cogentQI[73017:1695966] Failed to load webpage with error: Frame load interrupted
+2015-03-14 23:41:25.230 cogentQI[73017:1695966] Resetting plugins due to page load.
+2015-03-14 23:41:25.231 cogentQI[73017:1695966] Failed to load webpage with error: Frame load interrupted
+2015-03-14 23:41:26.360 cogentQI[73017:1695966] Resetting plugins due to page load.
+2015-03-14 23:41:26.363 cogentQI[73017:1695966] Failed to load webpage with error: Frame load interrupted
+2015-03-14 23:41:26.764 cogentQI[73017:1695966] Resetting plugins due to page load.
+2015-03-14 23:41:26.765 cogentQI[73017:1695966] Failed to load webpage with error: Frame load interrupted
+2015-03-14 23:41:28.555 cogentQI[73017:1695966] Resetting plugins due to page load.
+2015-03-14 23:41:28.556 cogentQI[73017:1695966] Failed to load webpage with error: Frame load interrupted
+2015-03-14 23:41:28.779 cogentQI[73017:1695966] Resetting plugins due to page load.
+2015-03-14 23:41:28.781 cogentQI[73017:1695966] Failed to load webpage with error: Frame load interrupted
+2015-03-14 23:41:33.130 cogentQI[73017:1695966] Resetting plugins due to page load.
+2015-03-14 23:41:33.136 cogentQI[73017:1695966] Failed to load webpage with error: Frame load interrupted
+2015-03-14 23:42:56.092 cogentQI[73650:1698220] Apache Cordova native platform version 3.8.0 is starting.
+2015-03-14 23:42:56.092 cogentQI[73650:1698220] Multi-tasking -> Device: YES, App: YES
+2015-03-14 23:42:56.094 cogentQI[73650:1698220] Unlimited access to network resources
+2015-03-14 23:42:56.156 cogentQI[73650:1698220] [CDVTimer][keyboard] 0.045002ms
+2015-03-14 23:42:56.156 cogentQI[73650:1698220] [CDVTimer][TotalPluginStartup] 0.190020ms
+2015-03-14 23:42:56.192 cogentQI[73650:1698220] Resetting plugins due to page load.
+2015-03-14 23:42:56.632 cogentQI[73650:1698220] Finished load of: file:///Users/dqj/Library/Developer/CoreSimulator/Devices/0AEB9E86-9A71-4CF3-8563-CFC8B2D66D67/data/Containers/Bundle/Application/D647449B-1B39-4172-8CF1-FBAE7CF8E8C0/cogentQI.app/www/index.html#/manager/dashboard
+2015-03-14 23:42:56.633 cogentQI[73650:1698220] Resetting plugins due to page load.
+2015-03-14 23:42:56.716 cogentQI[73650:1698220] Failed to load webpage with error: Frame load interrupted
