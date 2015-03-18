@@ -2,7 +2,9 @@
   <dictionary name="dqj">
     <words>
       <w>averagify</w>
+      <w>faux</w>
       <w>firebase</w>
+      <w>firestore</w>
       <w>subdomain</w>
     </words>
   </dictionary>

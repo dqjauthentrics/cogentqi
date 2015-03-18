@@ -29,10 +29,11 @@ angular.module('app.controllers.manager', [])
         Members.initialize();
     })
 
-    .controller('MemberCtrl', function ($scope, $stateParams, Utility, Members, Assessments) {
+    .controller('MemberCtrl', function ($scope, $stateParams, Utility, Organizations, Members, Assessments) {
         $scope.e = Members;
         $scope.a = Assessments;
         $scope.member = null;
+        Organizations.initialize();
         Members.initialize();
         if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
             $scope.member = Members.get($stateParams.memberId);

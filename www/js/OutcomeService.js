@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.outcomes', ['app.utils']).factory('Outcomes', function () {
+angular.module('app.outcomes', ['app.utility']).factory('Outcomes', function () {
 	var outcomes = [
 		{
 			id: 0,

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.assessments', ['app.utils', 'app.resources']).service('Assessments', function ($filter, $rootScope, angularLoad, Utility, Resources) {
+angular.module('app.assessments', ['app.utility', 'app.resources']).service('Assessments', function ($filter, $rootScope, angularLoad, Utility, Resources) {
     var svc = this;
     svc.avg = 0.0;
     svc.avgRound = 0;

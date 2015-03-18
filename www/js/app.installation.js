@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.installation', ['app.utils']).factory('Installation', function ($location, angularLoad, Utility) {
+angular.module('app.installation', ['app.utility']).factory('Installation', function ($location, angularLoad, Utility) {
     var host = $location.host();
     var parts = host.split('.');
     var subdomain = "default";
@@ -31,6 +31,9 @@ angular.module('app.installation', ['app.utils']).factory('Installation', functi
     return {
         get: function () {
             return installation;
+        },
+        path: function() {
+            return "js/config/" + subdomain;
         }
     };
 });

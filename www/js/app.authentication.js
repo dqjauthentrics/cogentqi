@@ -1,11 +1,10 @@
 'use strict';
 
-angular.module('app.auth', []).service('Authentication', function ($rootScope, Installation, Utility, Log, FIREBASE_URL) {
-    var installation = Installation.get();
-    console.log("INST", installation);
+angular.module('app.authentication', []).service('Authentication', function ($rootScope, Installation, Utility, Log, FIREBASE_URL) {
     var svc = this;
     svc.resultMsg = "HELLO";
-    svc.fbRootRef = new Firebase(installation.fireBaseUrl);
+	var installation = Installation.get();
+	svc.fbRootRef = new Firebase(installation.fireBaseUrl);
     svc.fbUsersRef = svc.fbRootRef.child("users");
 
     var User = function () {
@@ -89,7 +88,7 @@ angular.module('app.auth', []).service('Authentication', function ($rootScope, I
             }
         }
         catch (exception) {
-            Log(exception.message);
+            Log.log(exception.message);
         }
         if (!Utility.empty(user)) {
             svc.userAddOrUpdate(user);
