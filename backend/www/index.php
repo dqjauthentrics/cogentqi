@@ -1,24 +1,15 @@
 <?php
 require_once "../lib/Api.php";
-require_once "../vendor/notorm/NotORM.php";
-require_once "../vendor/slim/slim/Slim/Slim.php";
-
-use \Slim\Slim;
-
-\Slim\Slim::registerAutoloader();
 
 $dsn = "mysql:dbname=cogentqi;host=localhost";
 $username = "cogentqiapp";
 $password = "cogentqi42app";
 
-$pdo = new PDO($dsn, $username, $password);
-$db = new NotORM($pdo);
+$api = new Api($dsn, $username, $password, ["MODE" => "development", "TEMPLATES.PATH" => "./templates"]);
 
-$app = new Slim(["MODE" => "development", "TEMPLATES.PATH" => "./templates"]);
-
-$app->get("/", function () use ($app, $db) {
+$api->get("/", function () use ($api) {
 	$books = [];
-	foreach ($db->books() as $book) {
+	foreach ($api->db->books() as $book) {
 		$books[] = [
 			"id"      => $book["id"],
 			"title"   => $book["title"],
@@ -26,13 +17,13 @@ $app->get("/", function () use ($app, $db) {
 			"summary" => $book["summary"]
 		];
 	}
-	Api::sendResult($app, $books);
+	$api->sendResult($books);
 });
 
-$app->get("/books", function () use ($app, $db) {
+$api->get("/books", function () use ($api) {
 	echo "BOOKS";
 	$books = [];
-	foreach ($db->books() as $book) {
+	foreach ($api->db->books() as $book) {
 		$books[] = [
 			"id"      => $book["id"],
 			"title"   => $book["title"],
@@ -40,13 +31,12 @@ $app->get("/books", function () use ($app, $db) {
 			"summary" => $book["summary"]
 		];
 	}
-	Api::sendResult($app, $books);
+	$api->sendResult($books);
 });
 
 
-$app->get("/book/:id", function ($id) use ($app, $db) {
-	$app->response()->header("Content-Type", "application/json");
-	$book = $db->books()->where("id", $id);
+$api->get("/book/:id", function ($id) use ($api) {
+	$book = $api->db->books()->where("id", $id);
 	if ($data = $book->fetch()) {
 		echo json_encode([
 			"id"      => $data["id"],
@@ -56,40 +46,37 @@ $app->get("/book/:id", function ($id) use ($app, $db) {
 		]);
 	}
 	else {
-		Api::sendResult($app, ["status" => FALSE, "message" => "Book ID $id does not exist"]);
+		$api->sendResult(["status" => FALSE, "message" => "Book ID $id does not exist"]);
 	}
 });
 
-$app->post("/book", function () use ($app, $db) {
-	$app->response()->header("Content-Type", "application/json");
-	$book = $app->request()->post();
-	$result = $db->books->insert($book);
-	Api::sendResult($app, ["id" => $result["id"]]);
+$api->post("/book", function () use ($api) {
+	$book = $api->request()->post();
+	$result = $api->db->books->insert($book);
+	$api->sendResult(["id" => $result["id"]]);
 });
 
-$app->put("/book/:id", function ($id) use ($app, $db) {
-	$app->response()->header("Content-Type", "application/json");
-	$book = $db->books()->where("id", $id);
+$api->put("/book/:id", function ($id) use ($api) {
+	$book = $api->db->books()->where("id", $id);
 	if ($book->fetch()) {
-		$post = $app->request()->put();
+		$post = $api->request()->put();
 		$result = $book->update($post);
-		Api::sendResult($app, ["status" => (bool)$result, "message" => "Book updated successfully"]);
+		$api->sendResult(["status" => (bool)$result, "message" => "Book updated successfully"]);
 	}
 	else {
-		Api::sendResult($app, ["status" => FALSE, "message" => "Book id $id does not exist"]);
+		$api->sendResult(["status" => FALSE, "message" => "Book id $id does not exist"]);
 	}
 });
 
-$app->delete("/book/:id", function ($id) use ($app, $db) {
-	$app->response()->header("Content-Type", "application/json");
-	$book = $db->books()->where("id", $id);
+$api->delete("/book/:id", function ($id) use ($api) {
+	$book = $api->db->books()->where("id", $id);
 	if ($book->fetch()) {
 		$result = $book->delete();
-		Api::sendResult($app, ["status" => TRUE, "message" => "Book deleted successfully"]);
+		$api->sendResult(["status" => TRUE, "message" => "Book deleted successfully"]);
 	}
 	else {
-		Api::sendResult($app, ["status" => FALSE, "message" => "Book id $id does not exist"]);
+		$api->sendResult(["status" => FALSE, "message" => "Book id $id does not exist"]);
 	}
 });
 
-$app->run();
+$api->run();
