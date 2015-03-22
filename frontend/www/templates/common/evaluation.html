@@ -1,0 +1,82 @@
+<ion-view view-title="Evaluation">
+    <ion-nav-buttons side="left"><a href="/#/manager/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <div class="score">
+            <i class="logo level levelColor{{e.avgRound}} {{i.icons.levels[e.avgRound]}}">
+                {{e.scoreWord(e.avgRound)}} <span style="font-size:0.6em;">({{e.avg}})</span>
+            </i>
+        </div>
+        <a data-ng-click="logout()"><i class="logo ion-log-out"></i></a>
+    </ion-nav-buttons>
+    <ion-content has-bouncing="false" overflow-scroll="true">
+        <div class="row responsive-sm">
+            <div class="col col-100"><h3 style="text-align: center; margin:0 auto;">{{e.currentEval.instrument.name}}</h3></div>
+        </div>
+        <div class="row responsive-sm detail">
+            <div class="col-25" style="text-align:center;">
+                <img class="border border{{e.avgRound}}" data-ng-src="{{e.currentEval.member.avatar}}" alt=""/><br/>
+                <div class="name">{{e.currentEval.member.lastName}} {{e.currentEval.member.firstName}}</div>
+                <div class="role">{{m.roleName(e.currentEval.member)}}</div>
+            </div>
+            <div class="col-75">
+                <h5 data-ng-bind-html="installation.trademarkName + ' Recommended Modules'"></h5>
+
+                <div class="recommendationsPane">
+                     <div class="item" data-ng-repeat="recommendation in e.recommendations track by $index">
+                        <div data-ng-if="recommendation.weight > 0">
+                            <a href="/#/manager/resource/{{recommendation.resourceId}}">
+                                <i class="{{i.icons.resource}}"></i>
+                                {{recommendation.number}} {{recommendation.name}}
+                            </a>
+                            <recommendation-ranking weight="recommendation.weight" range="getRange(recommendation.weight)"></recommendation-ranking>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="evaluation" data-ng-init="e.recommend(evaluation, e.sections)">
+            <div id="section{{$index}}" data-ng-repeat="section in e.sections" data-ng-show="$index == e.currentSectionIdx" class="fadein fadeout">
+                <div style="float:left; margin-left:1em;" data-ng-show="!e.sectionIsFirst()">
+                    <a ng-click="e.sectionPrevious()"><< {{section.previous}}</a>
+                </div>
+                <div style="float:right; margin-right:1em;">
+                    <a ng-click="e.sectionNext()" data-ng-show="!e.sectionIsLast()">{{section.next}} >></a>
+                </div>
+                <div class="clearfix"></div>
+                <div style="height:1em;"></div>
+                <ion-list>
+                    <ion-item class="top"><h2>{{section.name}}</h2></ion-item>
+                    <ion-item class="item-remove-animate item-icon-right" data-ng-repeat="question in section.questions" type="item-text-wrap">
+                        <div style="float:left; max-width: 80%;">
+                            <div class="number" data-ng-bind="section.number + '.' + question.number"></div>
+                            <div class="text" data-ng-bind="question.name"></div>
+                            <div class="clearfix"></div>
+                            <div class="description" data-ng-bind-html="question.description"></div>
+                        </div>
+                        <div data-ng-switch="question.questionTypeId" style="float:right;">
+                             <div data-ng-switch-when="2">
+                                <div class="button-bar" style="max-width:12em; min-width:12em;">
+                                    <a class="button" data-ng-class="{'gray': question.responseRecord.responseIndex == 0}"
+                                       data-ng-click="question.responseRecord.responseIndex=0">N/A</a>
+                                    <a class="button" data-ng-class="{'green': question.responseRecord.responseIndex == 1}"
+                                       data-ng-click="question.responseRecord.responseIndex=1">Yes</a>
+                                    <a class="button" data-ng-class="{'red': question.responseRecord.responseIndex == 2}"
+                                       data-ng-click="question.responseRecord.responseIndex=2">No</a>
+                                </div>
+                            </div>
+                            <div data-ng-switch-default=>
+                                <slider id="question_item_{{question.id}}" class="slider{question.responseRecord.responseIndex}}"
+                                        data-ng-model="question.responseRecord.responseIndex" floor="0.0" ceiling="5" step-width="1"
+                                        data-ng-change="e.sliderChange(e.currentEval.member, question, this, true)"
+                                        translate-fn="e.sliderChange(e.currentEval.member, question, this, false)">
+                                </slider>
+                            </div>
+                        </div>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

@@ -8,7 +8,7 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
     // Each state's controller can be found in controllers.js
     $stateProvider
         .state('login', {
-            url: '/login', templateUrl: 'templates/manager/login.html', controller: 'LoginController'
+            url: '/login', templateUrl: 'templates/common/login.html', controller: 'LoginController'
         })
 
 
@@ -70,12 +70,12 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
                 }
             }
         })
-        .state('manager.assessmentMatrix', {
+        .state('manager.evaluationMatrix', {
             url: '/dashboard/matrix',
             views: {
                 managerDashboard: {
-                    templateUrl: 'templates/manager/assessmentMatrix.html',
-                    controller: 'AssessmentCtrl'
+                    templateUrl: 'templates/common/evaluationMatrix.html',
+                    controller: 'EvaluationCtrl'
                 }
             }
         })
@@ -106,31 +106,31 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
                 }
             }
         })
-        .state('manager.assessments', {
-            url: '/assessments',
+        .state('manager.evaluations', {
+            url: '/evaluations',
             views: {
-                managerAssessments: {
-                    templateUrl: 'templates/manager/assessments.html',
-                    controller: 'AssessmentCtrl'
+                managerEvaluations: {
+                    templateUrl: 'templates/common/evaluations.html',
+                    controller: 'EvaluationCtrl'
                 }
             }
         })
-        .state('manager.assessmentA', {
-            url: '/assessment/a/:assessmentId',
+        .state('manager.evaluationA', {
+            url: '/evaluation/a/:evaluationId',
             views: {
-                managerAssessments: {
-                    templateUrl: 'templates/manager/assessment.html',
-                    controller: 'AssessmentCtrl'
+                managerEvaluations: {
+                    templateUrl: 'templates/common/evaluation.html',
+                    controller: 'EvaluationCtrl'
                 }
             }
         })
 
-        .state('manager.assessmentE', {
-            url: '/assessment/e/:memberId',
+        .state('manager.evaluationE', {
+            url: '/evaluation/e/:memberId',
             views: {
-                managerAssessments: {
-                    templateUrl: 'templates/manager/assessment.html',
-                    controller: 'AssessmentCtrl'
+                managerEvaluations: {
+                    templateUrl: 'templates/common/evaluation.html',
+                    controller: 'EvaluationCtrl'
                 }
             }
         })
@@ -161,21 +161,21 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
                 }
             }
         })
-        .state('manager.assessmentEmpSection', {
-            url: '/assessment/:assessmentId/:memberId/:sectionIdx',
+        .state('manager.evaluationEmpSection', {
+            url: '/evaluation/:evaluationId/:memberId/:sectionIdx',
             views: {
-                managerAssessments: {
-                    templateUrl: 'templates/manager/assessment.html',
-                    controller: 'AssessmentCtrl'
+                managerEvaluations: {
+                    templateUrl: 'templates/common/evaluation.html',
+                    controller: 'EvaluationCtrl'
                 }
             }
         })
-        .state('manager.latestAssessment', {
-            url: '/assessment/:memberId',
+        .state('manager.latestEvaluation', {
+            url: '/evaluation/:memberId',
             views: {
-                managerAssessments: {
-                    templateUrl: 'templates/manager/assessment.html',
-                    controller: 'AssessmentCtrl'
+                managerEvaluations: {
+                    templateUrl: 'templates/common/evaluation.html',
+                    controller: 'EvaluationCtrl'
                 }
             }
         })

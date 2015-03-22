@@ -7,7 +7,7 @@ var members = [
         name: 'Clarice Bartholomew',
         role: 'Head Nurse',
         face: 'img/faux/users/1.jpg',
-        badges: ['Patient Assessment', 'Patient Consent'],
+        badges: ['Patient Evaluation', 'Patient Consent'],
         level: 2
     },
     {
@@ -25,7 +25,7 @@ var members = [
         name: 'Sandy Mason',
         role: 'Nurse',
         face: 'img/faux/users/3.jpg',
-        badges: ['Patient Assessment', 'Patient Consent', 'Allergy Identification'],
+        badges: ['Patient Evaluation', 'Patient Consent', 'Allergy Identification'],
         level: 5
     },
     {
@@ -51,7 +51,7 @@ var members = [
         name: 'Jonathon Holcomb',
         role: 'Nurse',
         face: 'img/faux/users/6.jpg',
-        badges: ['Patient Assessment'],
+        badges: ['Patient Evaluation'],
         level: 0
     },
     {

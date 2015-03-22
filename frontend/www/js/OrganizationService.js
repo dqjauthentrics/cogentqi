@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app.organizations', ['app.members']).
-	service('Organizations', function ($http, $cookieStore, $rootScope, Utility, Installation) {
+	service('Organizations', function ($http, $cookieStore, $rootScope, Utility) {
 				var svc = this;
 				svc.apiUrl = '/api/organization';
 				svc.mine = null;

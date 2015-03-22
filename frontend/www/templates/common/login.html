@@ -1,6 +1,6 @@
 <ion-view title="cogentQI Login">
     <ion-content class="padding" scroll="false" has-bouncing="false">
-        <div class="row responsive-sm">
+        <div class="row responsive-sm" data-ng-if="installation.social">
             <div class="col">
                 <div class="card">
                     <div class="item item-text-wrap">
@@ -20,15 +20,15 @@
             </div>
         </div>
         <div class="row responsive-sm">
-            <div class="col col-50">
+            <div class="col {{installation.register? 'col-50' : 'col-100'}} padding" style="text-align:left;">
                 <div class="card">
                     <div class="item item-text-wrap">
                         <div class="item item-divider">
                             Sign in with your {{installation.name}} credentials:
                         </div>
-                        <div class="clearfix" style="height:0.5em;"></div>
-                        <div class="item item-text-wrap">
-                            <form>
+                         <div class="item item-text-wrap">
+                             <div style="float:left;"><img src="/img/cycle2.png" alt="" style="max-height:10em; margin-right:1em;"/></div>
+                             <form>
                                 <label class="item item-input">
                                     <input type="text" placeholder="Email" data-ng-model="email">
                                 </label>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col col-50">
+            <div class="col col-50" data-ng-if="installation.register">
                 <div class="card">
                     <div class="item item-text-wrap">
                         <div class="item item-divider">

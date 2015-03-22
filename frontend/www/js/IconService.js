@@ -19,7 +19,7 @@ angular.module('app.icons', ['app.utility']).service('Icons', function () {
 		email: "fa fa-mail",
 		member: "fa fa-user-2",
 		members: "ion-person-stalker",
-		assessment: "fa fa-sliders",
+		evaluation: "fa fa-sliders",
 		grades: "fa fa-tag-2",
 		home: "fa fa-home",
 		info: "fa fa-question-circle",

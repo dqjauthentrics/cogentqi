@@ -1,16 +1,16 @@
 'use strict';
 
-angular.module('app.members', ['app.assessments']).service('Members', function ($http, $cookieStore, $rootScope, Utility, Assessments) {
+angular.module('app.members', ['app.evaluations']).service('Members', function ($http, $cookieStore, Installation, Utility, Evaluations) {
 	var svc = this;
-	svc.a = Assessments;
+	svc.a = Evaluations;
 	svc.initialized = false;
 	svc.members = [];
 	svc.apiUrl = "/api/member";
 
-	svc.load = function (callback) {
+	svc.initialize = function () {
 		console.log("member load start");
 		var user = $cookieStore.get('user');
-		if (Utility.empty(svc.members) && !Utility.empty(user) && !Utility.empty($rootScope.installation) && !Utility.empty($rootScope.installation.subdomain)) {
+		if (Utility.empty(svc.members) && !Utility.empty(user)) {
 			svc.members = ['zz'];
 			var organizationId = user.organizationId;
 			console.log("member load call for ", organizationId);
@@ -18,24 +18,16 @@ angular.module('app.members', ['app.assessments']).service('Members', function (
 				success(function (data, status, headers, config) {
 							console.log("members retrieved:", data);
 							svc.members = data.result;
-							console.log("rmembers retrieved:", svc.members);
-							if (!Utility.empty(callback)) {
-								callback();
-							}
+							Evaluations.initialize();
 						}).
 				error(function (data, status, headers, config) {
 						  console.log("ERROR: unable to retrieve members.");
 					  });
 		}
-		else {
-			if (!Utility.empty(callback)) {
-				callback();
-			}
-		}
 	};
 
 	svc.getMembers = function () {
-		svc.load(null);
+		svc.initialize();
 		return svc.members;
 	};
 
@@ -58,7 +50,6 @@ angular.module('app.members', ['app.assessments']).service('Members', function (
 			totScore += val;
 		}
 		var level = totScore > 0 && competencies.length > 0 ? Math.round(totScore / competencies.length) : 0;
-		//console.log("retrieveCompetencies(" + member.id + "):", competencies);
 		return {competencies: competencies, level: level};
 	};
 
@@ -85,10 +76,10 @@ angular.module('app.members', ['app.assessments']).service('Members', function (
 					svc.members[i].level = compInfo.level;
 					//console.log("e.getCompetencies(" + svc.members[i].id + "):", svc.members[i].competencies);
 
-					for (var j = 0; j < svc.a.assessments.length; j++) {
-						if (svc.a.assessments[j].memberId == svc.members[i].id) {
-							svc.a.assessments[j].member = svc.members[i];
-							svc.members[i].assessmentId = svc.a.assessments[j].id;
+					for (var j = 0; j < svc.a.evaluations.length; j++) {
+						if (svc.a.evaluations[j].memberId == svc.members[i].id) {
+							svc.a.evaluations[j].member = svc.members[i];
+							svc.members[i].evaluationId = svc.a.evaluations[j].id;
 						}
 					}
 					if (memberId !== null) {
@@ -107,25 +98,13 @@ angular.module('app.members', ['app.assessments']).service('Members', function (
 	};
 
 	svc.get = function (memberId) {
-		console.log("looking for member", memberId);
 		for (var i = 0; i < svc.members.length; i++) {
-			console.log("compare member", memberId, svc.members[i].id);
 			if (parseInt(svc.members[i].id) === parseInt(memberId)) {
 				svc.getCompetencies(memberId);
-				console.log("member return", svc.members[i]);
 				return svc.members[i];
 			}
 		}
 		return null;
-	};
-
-	svc.initialize = function () {
-		svc.load(function () {
-			Assessments.load(function () {
-				svc.getAllCompetencies(function () {
-				});
-			});
-		});
 	};
 
 	svc.numBadges = function (member) {

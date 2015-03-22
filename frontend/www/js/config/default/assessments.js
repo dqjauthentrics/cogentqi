@@ -1,6 +1,6 @@
 'use strict';
 
-var assessments = [
+var evaluations = [
 	{id: 1, memberId: 1, stamp: '2015-03-06 10:15AM'},
 	{id: 3, memberId: 3, stamp: '2015-03-05 13:15PM'},
 	{id: 4, memberId: 4, stamp: '2015-03-05 10:10AM'},

@@ -8,14 +8,22 @@ namespace App;
  * Time: 10:10 PM
  */
 class Model {
+	/** @var Api $api */
 	protected $api = NULL;
+
+	/** @var array $mapExcludes */
+	protected $mapExcludes = [];
 
 	/**
 	 * @param Api $api
 	 */
 	function __construct($api) {
 		$this->api = $api;
-		$this->initializeRoutes($api);
+		$this->initialize();
+	}
+
+	public function initialize() {
+		$this->initializeRoutes($this->api);
 	}
 
 	/**
@@ -28,11 +36,11 @@ class Model {
 
 	protected function colNameToJsonName($colName) {
 		$jsonName = "";
-		for ($i=0; $i<strlen($colName); $i++) {
-			$ch = substr($colName,$i,1);
+		for ($i = 0; $i < strlen($colName); $i++) {
+			$ch = substr($colName, $i, 1);
 			if ($ch == "_") {
 				$i++;
-				$ch = strtoupper(substr($colName,$i,1));
+				$ch = strtoupper(substr($colName, $i, 1));
 			}
 			$jsonName .= $ch;
 		}
@@ -41,17 +49,18 @@ class Model {
 
 	/**
 	 * @param array $dbRecord
-	 * @param bool  $full
 	 *
 	 * @return array
 	 */
-	public function map($dbRecord, $full = FALSE) {
+	public function map($dbRecord) {
 		$columnNames = array_keys(iterator_to_array($dbRecord));
 		$jsonRecord = [];
 		for ($i = 0; $i < count($columnNames); $i++) {
 			$colName = $columnNames[$i];
-			$jsonName = $this->colNameToJsonName($colName);
-			$jsonRecord[$jsonName] = $dbRecord[$colName];
+			if (empty($this->mapExcludes) || !in_array($colName, $this->mapExcludes)) {
+				$jsonName = $this->colNameToJsonName($colName);
+				$jsonRecord[$jsonName] = $dbRecord[$colName];
+			}
 		}
 		return $jsonRecord;
 	}

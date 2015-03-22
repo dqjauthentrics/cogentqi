@@ -4,6 +4,29 @@ a {
     color: #005090;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
+h3 {
+    color: darkslategray;
+}
+
+.gray {
+    background: gray;
+    color: #FFF;
+}
+
+.green {
+    background: darkgreen;
+    color: #FFF;
+}
+
+.red {
+    background: red;
+    color: #FFF;
+}
+
 .customerBg, .tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
     background-color: #FFF !important;
 }
@@ -70,8 +93,8 @@ ion-list img {
 }
 
 .avatar-large {
-    width: 10em;
-    height: 10em;
+    width: 14vmin;
+    height: 14vmin;
 }
 
 .avatar-tiny {
@@ -119,8 +142,22 @@ ion-item .listIcon {
 }
 
 .detail .title {
-    font-size: 1.3em;
+    font-size: 3vmin !important;
+    line-height: 3vmin !important;
+    font-weight: normal;
+}
+
+.detail .name {
+    font-size: 4vmin;
+    line-height: 3.2vmin !important;
     font-weight: bold;
+    color: darkslategray;
+}
+
+.detail .role {
+    font-size: 2.4vmin;
+    line-height: 3.5vmin !important;
+    font-weight: normal;
 }
 
 .detail .row {
@@ -129,8 +166,9 @@ ion-item .listIcon {
 
 ion-item {
     cursor: pointer;
+    text-wrap: normal !important;
+    white-space: normal !important;
 }
-
 
 ion-item .name {
     font-size: 1.0em;
@@ -275,24 +313,24 @@ table.cycle {
 }
 
 .microBadge.count {
-    height: 36px;
-    width: 36px;
+    height: 5vmin;
+    width: 5vmin;
     font-size: 1.0em;
     line-height: 0.9em;
 }
 
 .microBadge.small {
-    height: 72px;
-    width: 72px;
-    font-size: 0.6em;
-    line-height: 1.0em;
+    height: 10vmin;
+    width: 10vmin;
+    font-size: 1.3vmin;
+    line-height: 1.3vmin;
 }
 
 .microBadge.large {
-    height: 88px;
-    width: 88px;
-    font-size: 0.8em;
-    line-height: 1.4em;
+    height: 15vmin;
+    width: 15vmin;
+    font-size: 2vmin;
+    line-height: 2vmin;
 }
 
 .levelBadge i {
@@ -514,10 +552,10 @@ ion-item.top h2 {
 
 .fadein,
 .fadeout {
-    -webkit-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
-    -moz-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
-    -o-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
-    transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
+    -webkit-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    -moz-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    -o-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
 }
 
 .fadein.ng-hide-remove,

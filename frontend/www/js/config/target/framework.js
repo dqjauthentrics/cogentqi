@@ -14,7 +14,7 @@ var competencies = [
 			},
 			{
 				id: 2,
-				text: 'Patient Assessment',
+				text: 'Patient Evaluation',
 				number: '1.2',
 				tags: ['Initial Patient Contact'],
 				val: 3,
@@ -78,7 +78,7 @@ var competencies = [
 			},
 			{
 				id: 10,
-				text: 'Assessment of PODs',
+				text: 'Evaluation of PODs',
 				number: '1.9',
 				tags: ["Patient’s Own Drugs"],
 				val: 3,

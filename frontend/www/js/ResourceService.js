@@ -47,16 +47,16 @@ angular.module('app.resources', ['app.utility']).service('Resources', function (
 			name: 'Assessing Patients',
 			summary: 'Students will learn how to: <ul><li>Question the patient (parent or carer) or a health care professional to obtain information </li><li>Use a variety of information sources to gather information </li><li>Interpret records made by other health care professionals when appropriate</li><li>Identify if the patient has brought in their medicines and/or encourage medicines to be brought in</li></ul>',
 			alignments: [{competencyId: 2, weight: 3}],
-			contentUrl: '/#/resource/patientAssessment.html'
+			contentUrl: '/#/resource/patientEvaluation.html'
 		},
 		{
 			id: 3,
 			number: 'PHT009',
-			name: 'Adherence Assessment',
+			name: 'Adherence Evaluation',
 			summary: 'In this module, students will learn to identify patient non-adherence to their medicines, such as an inability to use inhalers correctly, a fear of taking medications, or an inability to open clic locs or blister packs.',
 			tags: ['video'],
 			alignments: [{competencyId: 5, weight: 3}],
-			contentUrl: '/#/resource/adherenceAssessment.html'
+			contentUrl: '/#/resource/adherenceEvaluation.html'
 		},
 		{
 			id: 4,

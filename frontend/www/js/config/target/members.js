@@ -7,7 +7,7 @@ var members = [
         name: 'Melissa Franklin',
         role: 'Head Pharmacist',
         face: 'img/faux/users/1.jpg',
-        badges: ['Patient Assessment', 'Patient Consent'],
+        badges: ['Patient Evaluation', 'Patient Consent'],
         level: 2
     },
     {
@@ -24,7 +24,7 @@ var members = [
         name: 'Andrea Jostlin',
         role: 'Pharmacy Technician',
         face: 'img/faux/users/3.jpg',
-        badges: ['Patient Assessment', 'Patient Consent', 'Allergy Identification'],
+        badges: ['Patient Evaluation', 'Patient Consent', 'Allergy Identification'],
         level: 5
     },
     {

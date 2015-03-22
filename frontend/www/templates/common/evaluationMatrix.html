@@ -1,6 +1,6 @@
-<ion-view view-title='Assessment Matrix'>
+<ion-view view-title='Evaluation Matrix'>
     <ion-nav-buttons side="right">
-        <a href="/#tab/assessments" style="font-size:1.2em;">Assessments >></a>
+        <a href="/#tab/evaluations" style="font-size:1.2em;">Evaluations >></a>
     </ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
         <div style="text-align:center; margin-top: 1em;">
@@ -10,7 +10,7 @@
         <table class="matrix">
             <thead>
             <tr>
-                <th style="font-style: italic;">Most Recent<br/>Member Assessments</th>
+                <th style="font-style: italic;">Most Recent<br/>Member Evaluations</th>
                 <th class="rotate" data-ng-repeat="name in a.getMatrixCompetencyRowHeader(e,20,a.currentSectionIdx) track by $index">
                     <div><span>{{name}}</span></div>
                 </th>
@@ -20,10 +20,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-ng-repeat="member in e.members" data-ng-if="member.assessmentId != undefined">
+            <tr data-ng-repeat="member in e.members" data-ng-if="member.evaluationId != undefined">
                 <td class="leftHeader">
                     <img class="avatar-tiny" data-ng-src="{{member.avatar}}" alt="">
-                    <a href="/#/manager/assessment/a/{{member.assessmentId}}">{{member.name}}</a>
+                    <a href="/#/manager/evaluation/a/{{member.evaluationId}}">{{member.name}}</a>
                 </td>
                 <td data-ng-repeat="memberCompetency in a.getMatrixCompetencyRowValues(member,a.currentSectionIdx)">
                     <i class="levelColor{{memberCompetency.val}} {{i.icons.levels[memberCompetency.val]}}"></i>

@@ -1,27 +1,28 @@
 <?php
 namespace App;
+require_once "../lib/Evaluation.php";
 require_once "../lib/Badge.php";
 
 class Member extends Model {
 
-	function __construct($api) {
-		parent::__construct($api);
+	function initialize() {
+		parent::initialize();
 
 		$urlName = $this->urlName();
-		$api->get("/$urlName/organization/:orgId/role/:roleId", function ($orgId = NULL, $role = NULL) use ($api, $urlName) {
+		$this->api->get("/$urlName/organization/:orgId/role/:roleId", function ($orgId = NULL, $role = NULL) use ($urlName) {
 			$jsonRecords = [];
-			$dbRecords = $api->db->{$urlName}()->where("role_id=? AND organization_id=?", $role, $orgId);
+			$dbRecords = $this->api->db->{$urlName}()->where("role_id=? AND organization_id=?", $role, $orgId);
 			foreach ($dbRecords as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
-			$api->sendResult($jsonRecords);
+			$this->api->sendResult($jsonRecords);
 		});
-		$api->get("/$urlName/organization/:orgId", function ($orgId = NULL) use ($api, $urlName) {
+		$this->api->get("/$urlName/organization/:orgId", function ($orgId = NULL) use ($urlName) {
 			$jsonRecords = [];
-			foreach ($api->db->{$urlName}()->where("organization_id=?", $orgId) as $dbRecord) {
+			foreach ($this->api->db->{$urlName}()->where("organization_id=?", $orgId) as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
-			$api->sendResult($jsonRecords);
+			$this->api->sendResult($jsonRecords);
 		});
 	}
 
@@ -34,23 +35,28 @@ class Member extends Model {
 
 	/**
 	 * @param array $member
-	 * @param bool  $full
 	 *
 	 * @return array
 	 */
-	public function map($member, $full = TRUE) {
+	public function map($member) {
 		$associative = parent::map($member);
 		$associative["lastEvalStamp"] = $this->randomDate("2015-01-01", "2015-04-21");
 
-		if ($full) {
-			$badgeRecords = $this->api->db->member_badge()->where('member_id', $member["id"]);
-			$jsonBadges = [];
-			$badge = new Badge($this->api);
-			foreach ($badgeRecords as $badgeRecord) {
-				$jsonBadges[] = $badge->map($badgeRecord);
-			}
-			$associative["badges"] = $jsonBadges;
+		$badgeRecords = $this->api->db->member_badge()->where('member_id', $member["id"]);
+		$jsonBadges = [];
+		$badge = new Badge($this->api);
+		foreach ($badgeRecords as $badgeRecord) {
+			$jsonBadges[] = $badge->map($badgeRecord);
 		}
+		$associative["badges"] = $jsonBadges;
+		$evalRecords = $this->api->db->evaluation()->where('member_id', $member["id"]);
+		$jsonEvals = [];
+		$eval = new Evaluation($this->api);
+		foreach ($evalRecords as $evalRecord) {
+			$eval->mapExcludes = ["responses"];
+			$jsonEvals[] = $eval->map($evalRecord);
+		}
+		$associative["evaluations"] = $jsonEvals;
 		return $associative;
 	}
 }

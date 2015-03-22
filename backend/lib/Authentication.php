@@ -12,21 +12,21 @@ require_once "../lib/Member.php";
 class Authentication extends Model {
 	public $cookie_time = 14400;
 
-	function __construct($api) {
+	function initialize() {
 		if (!isset($_SESSION)) {
 			session_start();
 		}
 		$urlName = $this->urlName();
-		$api->post("/authentication", function () use ($api, $urlName) {
-			$args = $api->request()->post();
-			$record = $api->db->member()->where('username=?', $args["username"])->fetch();
-			$user = null;
+		$this->api->post("/authentication", function () use ($urlName) {
+			$args = $this->api->request()->post();
+			$record = $this->api->db->member()->where('username=?', $args["username"])->fetch();
+			$user = NULL;
 			if (!empty($record)) {
-				$member = new Member($api);
+				$member = new Member($this->api);
 				$user = $member->map($record);
 			}
 			$this->set($user);
-			$api->sendResult($user);
+			$this->api->sendResult($user);
 		});
 	}
 
@@ -34,14 +34,7 @@ class Authentication extends Model {
 		$_SESSION["user"] = $user;
 	}
 
-	function __destruct() {
-		//if (isset($_SESSION)) {
-		//	session_destroy();
-		//}
-	}
-
 	function check() {
-		$uri = $_SERVER["REQUEST_URI"];
 		if (!empty($_SESSION["user"])) {
 			return $_SESSION["user"];
 		}

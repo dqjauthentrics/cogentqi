@@ -4,15 +4,15 @@
     <ion-content has-bouncing="false">
         <ion-list class="members">
             <ion-item class="item-icon-right" data-ng-repeat="member in m.getMembers()" type="item-text-wrap" href="#/manager/members/{{member.id}}">
-                <div class="row">
+                <div class="row row-responsive-sm">
                     <div class="col col-30" style="white-space: normal;">
                         <img class="border border{{member.level}}" style="float:left; margin: 0 0.4em 0 0;" data-ng-src="{{member.avatar}}"/>
 
                         <div style="float:left;margin: 0.1em;">
                             <div class="name" style="float:left;margin: 0.1em;">
                                 {{member.firstName}} {{member.lastName}}<br/>
-                                <span class="title">{{member.title}}</span>
-                                <div class="role">({{m.roleName(member)}})</div>
+                                <span class="title">{{member.jobTitle}}</span>
+                                <div class="role" data-ng-if="m.roleName(member) != member.jobTitle">({{m.roleName(member)}})</div>
                             </div>
                          </div>
                     </div>
