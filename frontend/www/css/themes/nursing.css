@@ -1,0 +1,3 @@
+.customerBg, .tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
+    background-color: navy !important;
+}

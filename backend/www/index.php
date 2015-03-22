@@ -1,72 +1,41 @@
 <?php
-require_once "../lib/Api.php";
+namespace App;
+$parts = explode("/", $_SERVER["REQUEST_URI"]);
+$object = @ucfirst($parts[2]);
+if (strstr($object, "XDEBUG")) {
+	$object = NULL;
+}
+$objectNS = !empty($object) ? "App\\" . $object : NULL;
+$objPath = !empty($object) ? "../lib/$object.php" : NULL;
 
-$dsn = "mysql:dbname=cogentqi;host=localhost";
+require_once "../lib/Api.php";
+require_once "../lib/Model.php";
+require_once "../lib/Authentication.php";
+if (!empty($objPath)) {
+	if (!@file_exists($objPath)) {
+		echo "Invalid invocation ($objPath)";
+		exit();
+	}
+}
+require_once $objPath;
+
+$dsn = "mysql:dbname=cogentqi_v1_target;host=localhost";
 $username = "cogentqiapp";
 $password = "cogentqi42app";
 
 $api = new Api($dsn, $username, $password, ["MODE" => "development", "TEMPLATES.PATH" => "./templates"]);
+$auth = new Authentication($api);
+$user = $auth->check();
+if (!empty($user)) {
+	$api->get("/", function () use ($api) {
+		$api->sendResult("Welcome to the API.");
+	});
+	$api->get("/test", function () use ($api) {
+		$api->sendResult("TEST");
+	});
 
-$api->get("/", function () use ($api) {
-	$api->sendResult("Welcome to the API.");
-});
-
-$api->get("/books", function () use ($api) {
-	$books = [];
-	foreach ($api->db->books() as $book) {
-		$books[] = [
-			"id"      => $book["id"],
-			"title"   => $book["title"],
-			"author"  => $book["author"],
-			"summary" => $book["summary"]
-		];
+	if (strlen($objectNS) > 0) {
+		new $objectNS($api);
 	}
-	$api->sendResult($books);
-});
-
-
-$api->get("/book/:id", function ($id) use ($api) {
-	$book = $api->db->books()->where("id", $id);
-	if ($data = $book->fetch()) {
-		$api->sendResult([
-			"id"      => $data["id"],
-			"title"   => $data["title"],
-			"author"  => $data["author"],
-			"summary" => $data["summary"]
-		]);
-	}
-	else {
-		$api->sendResult("Book ID $id does not exist", Api::STATUS_ERROR);
-	}
-});
-
-$api->post("/book", function () use ($api) {
-	$book = $api->request()->post();
-	$result = $api->db->books->insert($book);
-	$api->sendResult(["id" => $result["id"]]);
-});
-
-$api->put("/book/:id", function ($id) use ($api) {
-	$book = $api->db->books()->where("id", $id);
-	if ($book->fetch()) {
-		$post = $api->request()->put();
-		$result = $book->update($post);
-		$api->sendResult("Book updated.", (bool)$result);
-	}
-	else {
-		$api->sendResult("Book id $id does not exist", Api::STATUS_ERROR);
-	}
-});
-
-$api->delete("/book/:id", function ($id) use ($api) {
-	$book = $api->db->books()->where("id", $id);
-	if ($book->fetch()) {
-		$result = $book->delete();
-		$api->sendResult("Book deleted.");
-	}
-	else {
-		$api->sendResult("Book id $id does not exist.", Api::STATUS_ERROR);
-	}
-});
-
+}
 $api->run();

@@ -1,0 +1,69 @@
+<ion-view view-title='Assessment'>
+    <ion-nav-buttons side="left"><a href="/#/manager/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <div class="score">
+            <i class="logo level levelColor{{a.avgRound}} {{i.icons.levels[a.avgRound]}}">
+                {{a.scoreWord(a.avgRound)}} <span style="font-size:0.6em;">({{a.avg}})</span>
+            </i>
+        </div>
+        <a data-ng-click="logout()"><i class="logo ion-log-out"></i></a>
+    </ion-nav-buttons>
+    <ion-content has-bouncing="false" overflow-scroll="true">
+        <div class="row">
+            <div class="col-25">
+                <img class="border border{{a.avgRound}}" data-ng-src="{{assessment.member.avatar}}" alt=""/><br/>
+                <h4>{{assessment.member.name}}</h4>
+            </div>
+            <div class="col-75">
+                <h5 data-ng-bind-html="installation.trademarkName + ' Recommended Modules'"></h5>
+
+                <div class="recommendationsPane">
+                    <div class="item" data-ng-repeat="recommendation in a.recommendations track by $index">
+                        <div data-ng-if="recommendation.weight > 0">
+                            <a href="/#/manager/resource/{{recommendation.resourceId}}">
+                                <i class="{{i.icons.resource}}"></i>
+                                {{recommendation.number}} {{recommendation.name}}
+                            </a>
+                            <recommendation-ranking weight="recommendation.weight"
+                                                    range="getRange(recommendation.weight)"></recommendation-ranking>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="assessment" data-ng-init="a.recommend(member)">
+            <div id="section{{$index}}" data-ng-repeat="section in assessment.member.competencies"
+                 data-ng-show="$index == a.currentSectionIdx"
+                 class="fadein fadeout">
+                <div style="float:left; margin-left:1em;" data-ng-show="!a.sectionIsFirst()">
+                    <a ng-click="a.sectionPrevious()"><< {{section.previous}}</a>
+                </div>
+                <div style="float:right; margin-right:1em;">
+                    <a ng-click="a.sectionNext()" data-ng-show="!a.sectionIsLast()">{{section.next}} >></a>
+                </div>
+                <div class="clearfix"></div>
+                <div style="height:1em;"></div>
+                <ion-list>
+                    <ion-item class="top"><h2>{{section.text}}</h2></ion-item>
+                    <ion-item class="item-remove-animate item-icon-right"
+                              data-ng-repeat="competency in section.children track by $index"
+                              type="item-text-wrap">
+                        <div style="float:left; max-width: 80%;">
+                            <div class="number" data-ng-bind="competency.number"></div>
+                            <div class="text" data-ng-bind="competency.text"></div>
+                            <div class="clearfix"></div>
+                            <div class="description" data-ng-bind-html="competency.description"></div>
+                        </div>
+                        <slider id="competency_item_{{competency.id}}" class="slider{{competency.val}}"
+                                data-ng-model="competency.val" floor="0.0" ceiling="5" step-width="1"
+                                data-ng-change="a.sliderChange(assessment.member, competency,this,true)"
+                                translate-fn="a.sliderChange(assessment.member, competency,this,false)">
+                        </slider>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>
