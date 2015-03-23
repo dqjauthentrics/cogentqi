@@ -108,6 +108,7 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 
 	svc.scorify = function (member) {
 		svc.avg = 0;
+		svc.avgRound = 0;
 		var total = 0;
 		var compCount = 0;
 		if (!Utility.empty(svc.sections)) {
@@ -166,53 +167,56 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 		}
 		return score;
 	};
-	svc.recommend = function (evaluation, sections) {
-		svc.recommendations = [];
-		var resourceAlignmentCounts = {};
-		for (var k = 0; k < Resources.resources.length; k++) {
-			Resources.resources[k].score = 0;
-			var resource = Resources.resources[k];
-			if (Utility.empty(resourceAlignmentCounts[resource.id])) {
-				resourceAlignmentCounts[resource.id] = 0;
-			}
-			resourceAlignmentCounts[resource.id] += resource.alignments.length;
-		}
+	svc.recommend = function (sections) {
 		if (!Utility.empty(sections)) {
-			for (var i = 0; i < sections.length; i++) {
-				for (var j = 0; j < sections[i].questions.length; j++) {
-					var question = sections[i].questions[j];
-					for (k = 0; k < Resources.resources.length; k++) {
-						var resource = Resources.resources[k];
-						var nAlignments = resource.alignments.length;
-						for (var z = 0; z < nAlignments; z++) {
-							var alignment = resource.alignments[z];
-							var resQuestionId = parseInt(alignment.competencyId);
-							var questionId = parseInt(question.id);
-							if (resQuestionId == questionId) {
-								Resources.resources[k].score += svc.resourceScore(alignment.weight, question.responseRecord.responseIndex, resourceAlignmentCounts[resource.id]);
+			svc.recommendations = [];
+			var resourceAlignmentCounts = {};
+			for (var k = 0; k < Resources.resources.length; k++) {
+				Resources.resources[k].score = 0;
+				var resource = Resources.resources[k];
+				if (Utility.empty(resourceAlignmentCounts[resource.id])) {
+					resourceAlignmentCounts[resource.id] = 0;
+				}
+				resourceAlignmentCounts[resource.id] += resource.alignments.length;
+			}
+			if (!Utility.empty(sections)) {
+				for (var i = 0; i < sections.length; i++) {
+					for (var j = 0; j < sections[i].questions.length; j++) {
+						var question = sections[i].questions[j];
+						for (k = 0; k < Resources.resources.length; k++) {
+							resource = Resources.resources[k];
+							var nAlignments = resource.alignments.length;
+							for (var z = 0; z < nAlignments; z++) {
+								var alignment = resource.alignments[z];
+								var resQuestionId = parseInt(alignment.competencyId);
+								var questionId = parseInt(question.id);
+								if (resQuestionId == questionId) {
+									Resources.resources[k].score += svc.resourceScore(alignment.weight, question.responseRecord.responseIndex, resourceAlignmentCounts[resource.id]);
+								}
 							}
 						}
 					}
 				}
 			}
-		}
-		if (!Utility.empty(Resources.resources)) {
-			for (k = 0; k < Resources.resources.length; k++) {
-				resource = Resources.resources[k];
-				if (resource.score > 5) {
-					resource.score = 5;
-				}
-				if (resource.score < 0) {
-					resource.score = 0;
-				}
-				if (resource.score > 0) {
-					svc.recommendations.push({resourceId: resource.id, number: resource.number, name: resource.name, weight: resource.score});
+			if (!Utility.empty(Resources.resources)) {
+				for (k = 0; k < Resources.resources.length; k++) {
+					resource = Resources.resources[k];
+					if (resource.score > 5) {
+						resource.score = 5;
+					}
+					if (resource.score < 0) {
+						resource.score = 0;
+					}
+					if (resource.score > 0) {
+						svc.recommendations.push({resourceId: resource.id, number: resource.number, name: resource.name, weight: resource.score});
+					}
 				}
 			}
+			svc.recommendations = svc.recommendations.sort(function (a, b) {
+				return a["weight"] > b["weight"] ? -1 : a["weight"] < b["weight"] ? 1 : 0;
+			});
 		}
-		svc.recommendations = svc.recommendations.sort(function (a, b) {
-			return a["weight"] > b["weight"] ? -1 : a["weight"] < b["weight"] ? 1 : 0;
-		});
+		return svc.recommendations;
 	};
 	svc.sliderTransform = function (member, question, idx, isUpdate) {
 		if (!Utility.empty(question) && !Utility.empty(question.responseRecord)) {
@@ -224,8 +228,8 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 				return (css.match(/(^|\s)slider\S+/g) || []).join(' ');
 			}).addClass("slider" + question.responseRecord.responseIndex);
 			svc.scorify(member);
-			if (!Utility.empty(member) && isUpdate) {
-				svc.recommend(member, svc.sections);
+			if (isUpdate) {
+				svc.recommend(svc.sections);
 			}
 		}
 	};

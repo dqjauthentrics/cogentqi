@@ -1,13 +1,6 @@
 <ion-view view-title="Evaluation">
     <ion-nav-buttons side="left"><a href="/#/manager/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
-    <ion-nav-buttons side="right">
-        <div class="score">
-            <i class="logo level levelColor{{e.avgRound}} {{i.icons.levels[e.avgRound]}}">
-                {{e.scoreWord(e.avgRound)}} <span style="font-size:0.6em;">({{e.avg}})</span>
-            </i>
-        </div>
-        <a data-ng-click="logout()"><i class="logo ion-log-out"></i></a>
-    </ion-nav-buttons>
+    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
         <div class="row responsive-sm">
             <div class="col col-100"><h3 style="text-align: center; margin:0 auto;">{{e.currentEval.instrument.name}}</h3></div>
@@ -17,6 +10,11 @@
                 <img class="border border{{e.avgRound}}" data-ng-src="{{e.currentEval.member.avatar}}" alt=""/><br/>
                 <div class="name">{{e.currentEval.member.lastName}} {{e.currentEval.member.firstName}}</div>
                 <div class="role">{{m.roleName(e.currentEval.member)}}</div>
+                <div class="score">
+                    <i class="logo level levelColor{{e.avgRound}} {{i.icons.levels[e.avgRound]}}">
+                        {{e.scoreWord(e.avgRound)}} <span style="font-size:0.6em;">({{e.avg}})</span>
+                    </i>
+                </div>
             </div>
             <div class="col-75">
                 <h5 data-ng-bind-html="installation.trademarkName + ' Recommended Modules'"></h5>
@@ -35,7 +33,7 @@
             </div>
         </div>
 
-        <div class="evaluation" data-ng-init="e.recommend(evaluation, e.sections)">
+        <div class="evaluation">
             <div id="section{{$index}}" data-ng-repeat="section in e.sections" data-ng-show="$index == e.currentSectionIdx" class="fadein fadeout">
                 <div style="float:left; margin-left:1em;" data-ng-show="!e.sectionIsFirst()">
                     <a ng-click="e.sectionPrevious()"><< {{section.previous}}</a>
@@ -69,7 +67,7 @@
                                 <slider id="question_item_{{question.id}}" class="slider{question.responseRecord.responseIndex}}"
                                         data-ng-model="question.responseRecord.responseIndex" floor="0.0" ceiling="5" step-width="1"
                                         data-ng-change="e.sliderChange(e.currentEval.member, question, this, true)"
-                                        translate-fn="e.sliderChange(e.currentEval.member, question, this, false)">
+                                        translate-fn="e.sliderChange(e.currentEval.member, question, this, $index == 0)">
                                 </slider>
                             </div>
                         </div>
