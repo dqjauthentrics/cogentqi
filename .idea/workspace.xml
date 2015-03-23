@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d363135-d755-4645-a82c-7b84e720bd47" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/EvaluationService.js" afterPath="$PROJECT_DIR$/frontend/www/js/EvaluationService.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/common/evaluation.html" afterPath="$PROJECT_DIR$/frontend/www/templates/common/evaluation.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/css/style.css" afterPath="$PROJECT_DIR$/frontend/www/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="seeqi.iws" />
@@ -85,11 +85,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="evaluation.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="evaluation.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/evaluation.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.69015795" vertical-offset="467" max-vertical-offset="1290">
-              <caret line="69" column="118" selection-start-line="69" selection-start-column="118" selection-end-line="69" selection-end-column="118" />
+            <state vertical-scroll-proportion="-14.291667" vertical-offset="47" max-vertical-offset="1290">
+              <caret line="26" column="81" selection-start-line="26" selection-start-column="81" selection-end-line="26" selection-end-column="81" />
               <folding>
                 <element signature="n#style#0;n#h3#0;n#div#0;n#div#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#1;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
@@ -101,6 +101,16 @@
                 <element signature="n#style#0;n#div#1;n#ion-item#1;n#ion-list#0;n#div#0;n#div#2;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#ion-item#1;n#ion-list#0;n#div#0;n#div#2;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frontend/www/css/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.49756098" vertical-offset="3372" max-vertical-offset="9150">
+              <caret line="252" column="18" selection-start-line="252" selection-start-column="15" selection-end-line="252" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -140,16 +150,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2160">
               <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ResourceService.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/www/js/ResourceService.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2415">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -215,13 +215,13 @@
         <option value="$PROJECT_DIR$/backend/lib/Member.php" />
         <option value="$PROJECT_DIR$/backend/lib/Organization.php" />
         <option value="db-console:/9b06ebdf/dda61865-1688-4307-9a21-8ec577337f7a/" />
-        <option value="$PROJECT_DIR$/frontend/www/css/style.css" />
         <option value="$PROJECT_DIR$/frontend/www/modules/pht001.html" />
         <option value="$PROJECT_DIR$/backend/lib/Evaluation.php" />
         <option value="$PROJECT_DIR$/frontend/www/templates/manager/member.html" />
         <option value="$PROJECT_DIR$/frontend/www/js/app.controllers.common.js" />
         <option value="$PROJECT_DIR$/frontend/www/js/EvaluationService.js" />
         <option value="$PROJECT_DIR$/frontend/www/templates/common/evaluation.html" />
+        <option value="$PROJECT_DIR$/frontend/www/css/style.css" />
       </list>
     </option>
   </component>
@@ -494,6 +494,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="seeqi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cogentQI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -884,7 +906,13 @@
       <option name="project" value="LOCAL" />
       <updated>1427067629433</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Ongoing development.">
+      <created>1427084694589</created>
+      <option name="number" value="00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1427084694589</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1293,14 +1321,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/www/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1097561" vertical-offset="15" max-vertical-offset="9150">
-          <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/lib/Question.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.054678008" vertical-offset="0" max-vertical-offset="823">
@@ -1396,8 +1416,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/evaluation.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.69015795" vertical-offset="467" max-vertical-offset="1290">
-          <caret line="69" column="118" selection-start-line="69" selection-start-column="118" selection-end-line="69" selection-end-column="118" />
+        <state vertical-scroll-proportion="-14.291667" vertical-offset="47" max-vertical-offset="1290">
+          <caret line="26" column="81" selection-start-line="26" selection-start-column="81" selection-end-line="26" selection-end-column="81" />
           <folding>
             <element signature="n#style#0;n#h3#0;n#div#0;n#div#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
@@ -1409,6 +1429,14 @@
             <element signature="n#style#0;n#div#1;n#ion-item#1;n#ion-list#0;n#div#0;n#div#2;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#ion-item#1;n#ion-list#0;n#div#0;n#div#2;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/www/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49756098" vertical-offset="3372" max-vertical-offset="9150">
+          <caret line="252" column="18" selection-start-line="252" selection-start-column="15" selection-end-line="252" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>

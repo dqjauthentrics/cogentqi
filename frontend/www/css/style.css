@@ -250,7 +250,7 @@ ion-item .stamp {
 
 .recommendationsPane .item {
     background: #EEFFEE;
-    font-size: 2.0vmin;
+    font-size: max(1em, 2.0vmin);;
 }
 
 ion-content {

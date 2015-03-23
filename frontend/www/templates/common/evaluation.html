@@ -6,9 +6,9 @@
             <div class="col col-100"><h3 style="text-align: center; margin:0 auto;">{{e.currentEval.instrument.name}}</h3></div>
         </div>
         <div class="row responsive-sm detail">
-            <div class="col-25" style="text-align:center;">
+            <div class="col col-25 padding" style="text-align:center;">
                 <img class="border border{{e.avgRound}}" data-ng-src="{{e.currentEval.member.avatar}}" alt=""/><br/>
-                <div class="name">{{e.currentEval.member.lastName}} {{e.currentEval.member.firstName}}</div>
+                <div class="name">{{e.currentEval.member.firstName}} {{e.currentEval.member.lastName}}</div>
                 <div class="role">{{m.roleName(e.currentEval.member)}}</div>
                 <div class="score">
                     <i class="logo level levelColor{{e.avgRound}} {{i.icons.levels[e.avgRound]}}">
@@ -16,7 +16,7 @@
                     </i>
                 </div>
             </div>
-            <div class="col-75">
+            <div class="col col-75">
                 <h5 data-ng-bind-html="installation.trademarkName + ' Recommended Modules'"></h5>
 
                 <div class="recommendationsPane">
