@@ -1,27 +1,27 @@
-<ion-view view-title='Professional Development Classes'>
+<ion-view view-title="Planning">
     <ion-nav-buttons side="left"><a href="/#/manager/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <ion-list>
-            <ion-item class="item-icon-right" ng-repeat="class in cl.classes" type="item-text-wrap" href="#/manager/class/{{class.id}}">
+        <ion-list data-ng-init="l.getAll()">
+            <ion-item class="item-icon-right" ng-repeat="learningObject in l.learningObjects" type="item-text-wrap" href="#/manager/resource/{{learningObject.resource.id}}">
                 <div class="row">
                     <div class="col">
-                        <div class="number"><i class="{{i.icons.class}} fa-lg"></i> {{class.resource.number}}</div>
+                        <div class="number"><i class="{{i.icons.learningObject}} fa-lg"></i> {{learningObject.resource.number}}</div>
                         <div class="title">
-                            <a href="#/manager/class/{{class.id}}" title="">{{class.resource.name}}</a>
+                            <a href="#/manager/resource/{{learningObject.resource.id}}" title="">{{learningObject.resource.name}}</a>
                         </div>
                     </div>
                     <div class="col">
                         <div style="font-weight:bold;">Open Enrollment, Start Any Time, Online</div>
-                        <div>From: {{class.starts}} to {{class.ends}}</div>
-                        <a class="button" href="#/manager/resource/{{class.resource.resourceId}}">Enroll</a>
+                        <div>From: {{learningObject.starts}} to {{learningObject.ends}}</div>
+                        <a class="button" href="#/manager/resource/{{learningObject.resource.id}}">Enroll</a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="description" data-ng-bind-html="class.resource.summary"></div>
+                    <div class="description" data-ng-bind-html="learningObject.resource.summary"></div>
                 </div>
                 <div class="row">
-                    <div data-ng-repeat="tag in class.resource.tags">
+                    <div data-ng-repeat="tag in learningObject.resource.tags">
                         <div class="tag"><i class="{{i.icons.tag}}"></i> {{tag}}</div>
                     </div>
                 </div>

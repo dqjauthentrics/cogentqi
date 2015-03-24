@@ -10,6 +10,7 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 	svc.instruments = [];
 	svc.currentInstrumentId = null;
 	svc.sections = [];
+	svc.matrix = false;
 	svc.recommendations = [];
 	svc.evaluations = [];
 	svc.currentEval = null;
@@ -43,16 +44,6 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 					  });
 		}
 	};
-
-	svc.findInstrument = function (instrumentId) {
-		for (var i = 0; i < svc.instruments.length; i++) {
-			if (svc.instruments[i].id == instrumentId) {
-				return svc.instruments[i];
-			}
-		}
-		return null;
-	};
-
 	svc.getSections = function (instrumentId) {
 		if (!Utility.empty(instrumentId) && svc.currentInstrumentId !== instrumentId) {
 			svc.currentInstrumentId = instrumentId;
@@ -77,6 +68,45 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 			}
 		}
 		return svc.sections;
+	};
+
+	svc.getMatrixData = function (instrumentId) {
+		svc.getSections(instrumentId);
+		var user = $cookieStore.get('user');
+		if (!Utility.empty(user) && svc.matrix === false && !Utility.empty(instrumentId)) {
+			svc.matrix = true;
+			$http.get('/api/evaluation/matrix/' + user.organizationId + '/' + instrumentId).
+				success(function (data, status, headers, config) {
+							svc.matrix = data.result;
+							svc.calcMatrixAverages(svc.matrix);
+						}).
+				error(function (data, status, headers, config) {
+						  console.log("ERROR: unable to retrieve matrix data.");
+					  });
+		}
+	};
+
+	svc.findInstrument = function (instrumentId) {
+		if (!Utility.empty(svc.instruments)) {
+			for (var i = 0; i < svc.instruments.length; i++) {
+				if (svc.instruments[i].id == instrumentId) {
+					return svc.instruments[i];
+				}
+			}
+		}
+		return null;
+	};
+	svc.findQuestion = function (questionId) {
+		if (!Utility.empty(svc.instruments) && svc.instruments[0] != 'zz') {
+			for (var i = 0; i < svc.instruments.length; i++) {
+				for (var j = 0; j < svc.instruments[i].questions.length; j++) {
+					if (svc.instruments[i].questions[j].id == questionId) {
+						return svc.instruments[i].questions[j];
+					}
+				}
+			}
+		}
+		return null;
 	};
 
 	svc.get = function (m, evaluationId) {
@@ -157,8 +187,10 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 	svc.resourceScore = function (alignmentWeight, memberScore, nAlignments) {
 		var score = 0;
 		if (memberScore > 0 && nAlignments > 0) {
-			score = (alignmentWeight * Math.pow((5 - memberScore), 2)) / nAlignments;
+			//score = (alignmentWeight * Math.pow((5 - memberScore), 2)) / nAlignments;
+			score = (alignmentWeight * (5 - memberScore)) / nAlignments;
 		}
+		console.log("RESOURCE SCORE: alignmentWeight=", alignmentWeight, ", memberScore=", memberScore, ", nAlignments=", nAlignments, ", => score: ", score);
 		if (score > 5) {
 			score = 5;
 		}
@@ -168,37 +200,27 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 		return score;
 	};
 	svc.recommend = function (sections) {
-		if (!Utility.empty(sections)) {
-			svc.recommendations = [];
-			var resourceAlignmentCounts = {};
-			for (var k = 0; k < Resources.resources.length; k++) {
-				Resources.resources[k].score = 0;
-				var resource = Resources.resources[k];
-				if (Utility.empty(resourceAlignmentCounts[resource.id])) {
-					resourceAlignmentCounts[resource.id] = 0;
-				}
-				resourceAlignmentCounts[resource.id] += resource.alignments.length;
-			}
-			if (!Utility.empty(sections)) {
+		try {
+			Resources.initialize();
+			if (!Utility.empty(sections) && sections[0] != 'zz' && !Utility.empty(Resources.resources) && Resources.resources[0] != 'zz') {
+				svc.recommendations = [];
 				for (var i = 0; i < sections.length; i++) {
 					for (var j = 0; j < sections[i].questions.length; j++) {
 						var question = sections[i].questions[j];
-						for (k = 0; k < Resources.resources.length; k++) {
-							resource = Resources.resources[k];
+						for (var k = 0; k < Resources.resources.length; k++) {
+							var resource = Resources.resources[k];
 							var nAlignments = resource.alignments.length;
 							for (var z = 0; z < nAlignments; z++) {
 								var alignment = resource.alignments[z];
-								var resQuestionId = parseInt(alignment.competencyId);
+								var resQuestionId = parseInt(alignment.questionId);
 								var questionId = parseInt(question.id);
 								if (resQuestionId == questionId) {
-									Resources.resources[k].score += svc.resourceScore(alignment.weight, question.responseRecord.responseIndex, resourceAlignmentCounts[resource.id]);
+									Resources.resources[k].score += svc.resourceScore(alignment.weight, question.responseRecord.responseIndex, nAlignments)
 								}
 							}
 						}
 					}
 				}
-			}
-			if (!Utility.empty(Resources.resources)) {
 				for (k = 0; k < Resources.resources.length; k++) {
 					resource = Resources.resources[k];
 					if (resource.score > 5) {
@@ -211,10 +233,13 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 						svc.recommendations.push({resourceId: resource.id, number: resource.number, name: resource.name, weight: resource.score});
 					}
 				}
+				svc.recommendations = svc.recommendations.sort(function (a, b) {
+					return a["weight"] > b["weight"] ? -1 : a["weight"] < b["weight"] ? 1 : 0;
+				});
 			}
-			svc.recommendations = svc.recommendations.sort(function (a, b) {
-				return a["weight"] > b["weight"] ? -1 : a["weight"] < b["weight"] ? 1 : 0;
-			});
+		}
+		catch (exception) {
+			console.log("EXCEPTION:", exception);
 		}
 		return svc.recommendations;
 	};
@@ -316,44 +341,25 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 		return svc.currentSectionIdx >= svc.sections.length - 1;
 	};
 
-	svc.getMatrixResponseRowValues = function (currentSectionIdx) {
-		var comps = [];
-		for (var i = 0; i < member.sections.length; i++) {
-			if (currentSectionIdx > svc.SECTION_SUMMARY) {
-				if (i == currentSectionIdx || currentSectionIdx == svc.SECTION_ALL) {
-					for (var j = 0; j < svc.sections[i].responses.length; j++) {
-						comps.push(svc.sections[i].responses[j]);
-					}
-				}
-			}
-			else {
-				comps.push(svc.sections[i]);
-			}
-		}
-		return comps;
-	};
 	svc.matrixName = function (name, maxLength) {
 		if (name.length > maxLength) {
 			name = name.substr(0, maxLength) + '...';
 		}
 		return name;
 	};
-	svc.getMatrixResponseRowHeader = function (m, maxLength, currentSectionIdx) {
+	svc.findMatrixResponseRowHeader = function (maxLength, currentSectionIdx) {
 		var names = [];
-		if (m.members.length > 0) {
-			var comps = m.members[0].competencies;
-			if (!Utility.empty(comps)) {
-				for (var i = 0; i < comps.length; i++) {
-					if (currentSectionIdx > svc.SECTION_SUMMARY) {
-						if (i == currentSectionIdx || currentSectionIdx == svc.SECTION_ALL) {
-							for (var j = 0; j < comps[i].children.length; j++) {
-								names.push(svc.matrixName(comps[i].children[j].text, maxLength));
-							}
+		if (!Utility.empty(svc.sections) && svc.sections[0] != 'zz') {
+			for (var i = 0; i < svc.sections.length; i++) {
+				if (currentSectionIdx > svc.SECTION_SUMMARY) {
+					if (i == currentSectionIdx || currentSectionIdx == svc.SECTION_ALL) {
+						for (var j = 0; j < svc.sections[i].questions.length; j++) {
+							names.push(svc.matrixName(svc.sections[i].questions[j].name, maxLength));
 						}
 					}
-					else {
-						names.push(svc.matrixName(comps[i].text, maxLength));
-					}
+				}
+				else {
+					names.push(svc.matrixName(sections[i].name, maxLength));
 				}
 			}
 		}
@@ -375,28 +381,18 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 		}
 		return averageAll;
 	};
-	svc.getMatrixRowAverage = function (member, doRounding, currentSectionIdx) {
+	svc.calcMatrixAverages = function (matrix) {
 		var total = 0;
 		var average = 0.0;
 		var nItems = 0;
-		if (!Utility.empty(member) && !Utility.empty(member.competencies)) {
-			for (var i = 0; i < member.competencies.length; i++) {
-				if (currentSectionIdx > svc.SECTION_SUMMARY) {
-					if (i == currentSectionIdx || currentSectionIdx == svc.SECTION_ALL) {
-						if (!Utility.empty(member.competencies[i]) && !Utility.empty(member.competencies[i].children)) {
-							for (var j = 0; j < member.competencies[i].children.length; j++) {
-								var comp = member.competencies[i].children[j];
-								if (comp.val !== null && comp.val !== undefined) {
-									nItems++;
-									total += comp.val;
-								}
-							}
-						}
-					}
-				}
-				else {
+		if (!Utility.empty(svc.sections) && svc.sections[0] != 'zz') {
+			var pos = 0;
+			for (var i = 0; i < svc.sections.length; i++) {
+				for (var j = 0; j < svc.sections[i].questions.length; j++) {
+					var question = svc.sections[i].questions[j];
 					nItems++;
-					total += member.competencies[i].val;
+					total += matrix.responses[pos];
+					pos++;
 				}
 			}
 		}
@@ -423,6 +419,26 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 			}
 		}
 		return avgInfo;
+	};
+	svc.findMatrixResponseRowValues = function (currentSectionIdx, allResponses) {
+		var responses = [];
+		if (!Utility.empty(svc.sections) && svc.sections[0] != 'zz') {
+			var pos = 0;
+			for (var i = 0; i < svc.sections.length; i++) {
+				if (currentSectionIdx > svc.SECTION_SUMMARY) {
+					for (var j = 0; j < svc.sections[i].questions.length; j++) {
+						if (i == currentSectionIdx || currentSectionIdx == svc.SECTION_ALL) {
+							responses.push(allResponses[pos]);
+						}
+						pos++;
+					}
+				}
+				else {
+					responses.push(svc.sections[i].avgRound);
+				}
+			}
+		}
+		return responses;
 	};
 	svc.getMatrixColAverages = function (e, doRounding, currentSectionIdx) {
 		var avgInfo = {averages: {}, totals: {}, counts: {}};

@@ -1,32 +1,15 @@
-<ion-view view-title='Resource'>
+<ion-view view-title='Resource' ng-cloak>
     <ion-nav-buttons side="left"><a href="/#/manager/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <div class="detail" data-ng-init="r.get(resourceId)">
-            <div class="number"><i class="{{i.icons.resource}} fa-lg"></i> {{resource.number}}</div>
-            <div class="title">
-                {{resource.name}}
-            </div>
-            <div class="summary" data-ng-bind-html="resource.summary"></div>
+        <div class="detail">
             <div class="content">
-                <div data-ng-repeat="segment in resource.segments">
-                    <div data-ng-switch="segment.type">
-                        <div ng-switch-when="video">
-                            <div class="embed-responsive embed-responsive-16by9">
-                                <youtube-video class="embed-responsive-video" video-url="segment.url" player-vars="playerVars"></youtube-video>
-                            </div>
-                        </div>
-                        <div ng-switch-when="inline">
-                            <div class="row" data-ng-bind-html="segment.content"></div>
-                        </div>
-                        <div ng-switch-when="pdf">
-                            <div class="row">
-                                <a class="resourceDoc" href="{{segment.url}}"><i class="fa fa-file-pdf-o"> {{resource.name}}</i></a>
-                            </div>
-                        </div>
-                        <div data-ng-switch-default data-ng-bind-html="segment.content"></div>
-                    </div>
+                <div style="margin: 1em 0.1em">
+                    <div class="number"><i class="{{i.icons.resource}} fa-lg"></i> {{resource.number}}</div>
+                    <div class="title">{{resource.name}}</div>
+                    <div class="clearfix"></div>
                 </div>
+                <ng-include src="resource.location"></ng-include>
             </div>
         </div>
     </ion-content>

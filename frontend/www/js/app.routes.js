@@ -134,12 +134,12 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
                 }
             }
         })
-        .state('manager.classes', {
-            url: '/classes',
+        .state('manager.planning', {
+            url: '/planning',
             views: {
                 managerResources: {
-                    templateUrl: 'templates/manager/classes.html',
-                    controller: 'ClassCtrl'
+                    templateUrl: 'templates/manager/planning.html',
+                    controller: 'PlanningCtrl'
                 }
             }
         })

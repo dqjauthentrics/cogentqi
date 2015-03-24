@@ -15,7 +15,7 @@ angular.module('app',
 				   'app.members',
 				   'app.evaluations',
 				   'app.resources',
-				   'app.classes',
+				   'app.learningobjects',
 				   'app.controllers.common',
 				   'app.controllers.manager',
 				   'app.controllers.administrator',
@@ -90,6 +90,13 @@ angular.module('app',
 				   return {
 					   restrict: 'E',
 					   templateUrl: '../templates/common/levelTag.html',
+					   scope: {text: '=', level: '=', icon: '='}
+				   };
+			   })
+	.directive('outcomeLevelTag', function () {
+				   return {
+					   restrict: 'E',
+					   templateUrl: '../templates/common/outcomeLevelTag.html',
 					   scope: {text: '=', level: '=', icon: '='}
 				   };
 			   })

@@ -31,6 +31,7 @@ angular.module('app.controllers.common', [])
 					$scope.r = Resources;
 					$scope.evaluation = null;
 					$scope.member = null;
+					$scope.instrumentId = false;
 
 					$scope.r0 = [];
 					$scope.r1 = [1];
@@ -44,6 +45,12 @@ angular.module('app.controllers.common', [])
 						if (!Utility.empty($stateParams.evaluationId)) {
 							$scope.evaluation = Evaluations.get(Members, $stateParams.evaluationId);
 						}
+						if (!Utility.empty($stateParams.instrumentId)) {
+							$scope.instrumentId = $stateParams.instrumentId;
+						}
+					}
+					if ($scope.instrumentId === false) {
+						$scope.instrumentId = 1;
 					}
 					$scope.getRange = function (n) {
 						switch (Math.round(n)) {

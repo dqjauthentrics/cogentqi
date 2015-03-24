@@ -2,19 +2,18 @@
     <ion-nav-buttons side="left"><a href="/#/manager/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <ion-list>
-            <ion-item class="item-icon-right" ng-repeat="resource in r.resources" type="item-text-wrap"
+        <ion-list data-ng-init="r.getAll(l)">
+            <ion-item class="item-icon-right" data-ng-repeat="resource in r.resources" type="item-text-wrap"
                       href="#/manager/resource/{{resource.id}}">
-                <div style="float:left;">
-                    <div class="number"><i class="{{i.icons.resource}} fa-lg"></i> {{resource.number}}</div>
-                    <div class="title">
-                        <a href="#/manager/resource/{{resource.id}}" title="">{{resource.name}}</a>
-                    </div>
-                    <div class="description" data-ng-bind-html="resource.summary"></div>
-                    <div data-ng-repeat="tag in resource.tags">
-                        <div class="tag"><i class="{{i.icons.tag}}"></i> {{tag}}</div>
-                    </div>
+                <div class="number"><i class="{{i.icons.resource}} fa-lg"></i> {{resource.number}}</div>
+                <div class="title">
+                    <a href="#/manager/resource/{{resource.id}}" title="">{{resource.name}}</a>
                 </div>
+                <div class="description" data-ng-bind-html="resource.summary"></div>
+                <div data-ng-repeat="tag in resource.tags">
+                    <div class="tag"><i class="{{i.icons.tag}}"></i> {{tag}}</div>
+                </div>
+                <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
         </ion-list>
     </ion-content>

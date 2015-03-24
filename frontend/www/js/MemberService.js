@@ -8,15 +8,12 @@ angular.module('app.members', ['app.evaluations']).service('Members', function (
 	svc.apiUrl = "/api/member";
 
 	svc.initialize = function () {
-		console.log("member load start");
 		var user = $cookieStore.get('user');
 		if (Utility.empty(svc.members) && !Utility.empty(user)) {
 			svc.members = ['zz'];
 			var organizationId = user.organizationId;
-			console.log("member load call for ", organizationId);
 			$http.get(svc.apiUrl + '/organization/' + organizationId).
 				success(function (data, status, headers, config) {
-							console.log("members retrieved:", data);
 							svc.members = data.result;
 							Evaluations.initialize();
 						}).

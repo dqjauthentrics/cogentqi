@@ -333,13 +333,13 @@ table.cycle {
     line-height: 2vmin;
 }
 
-.levelBadge i {
+.levelBadge i, .outcomeLevel i {
     font-size: 1.5em;
     font-weight: bold;
     width: 3em;
 }
 
-.levelBadge {
+.levelBadge, .outcomeLevel {
     padding: 0.4em;
     border-radius: 0.3em;
     font-size: 0.8em !important;
@@ -348,9 +348,14 @@ table.cycle {
     line-height: 1.5em;
     vertical-align: middle;
     float: left;
-    margin: 0.1em;
-    width: 15em;
+    margin: 0.4em;
+    max-width: 50vmin;
     white-space: normal !important;
+}
+
+.outcomeLevel {
+    border: 1px solid darkslategray;
+    border-radius: 0.5em;
 }
 
 .level {
@@ -397,6 +402,79 @@ table.cycle {
 .levelBg5 {
     background: green;
     color: #FFF;
+}
+
+outcome-level-tag {
+    float: left;
+}
+
+.circleNumber {
+    font-size: 2vmin;
+    padding: 0.8vmin 1.3vmin;
+    border-radius: 5vmin;
+    float: left;
+    margin: 0 0.5em 0.5em 0;
+}
+
+.matrixCircle {
+    font-size: 1.4vmin;
+    padding: 0.2vmin 0.9vmin;
+    border-radius: 3vmin;
+    margin: 0;
+}
+
+.outcomeLevelBg0 {
+    background: #EEE;
+    color: #FFF;
+}
+
+.outcomeLevelBg1 {
+    background: #BBB;
+    color: #444;
+}
+
+.outcomeLevelBg2 {
+    background: #999;
+    color: #444;
+}
+
+.outcomeLevelBg3 {
+    background: #666;
+    color: #FFF;
+}
+
+.outcomeLevelBg4 {
+    background: #333;
+    color: #FFF;
+}
+
+.outcomeLevelBg5 {
+    background: #000;
+    color: #FFF;
+}
+
+.outcomeLevelText0 {
+    color: #EEE;
+}
+
+.outcomeLevelText1 {
+    color: #BBB;
+}
+
+.outcomeLevelText2 {
+    color: #999;
+}
+
+.outcomeLevelText3 {
+    color: #666;
+}
+
+.outcomeLevelText4 {
+    color: #333;
+}
+
+.outcomeLevelText5 {
+    color: #000;
 }
 
 .border0 {

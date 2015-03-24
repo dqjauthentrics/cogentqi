@@ -1,22 +1,17 @@
 <ion-view view-title="Outcomes">
     <ion-nav-buttons side="left"><a href="/#/manager/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
-    <ion-content has-bouncing="false">
+    <ion-content has-bouncing="false" data-ng-init="o.getAll(e)">
         <ion-list>
-            <ion-item data-ng-repeat="outcome in o.all()" type="item-text-wrap">
-                <div style="float:left; margin-right: 1em;">
-                    <i class="listIcon icon ion-log-out"></i>
-                </div>
-                <div style="float:left; margin-right: 1em;">
-                    <div class="title">{{outcome.title}}</div>
+            <ion-item data-ng-repeat="outcome in o.outcomes" type="item-text-wrap">
+                <div class="detail">
+                    <div class="title">{{outcome.name}}</div>
                     <div class="description">{{outcome.summary}}</div>
                     <div>
                         <div data-ng-repeat="alignment in outcome.alignments">
-                            <level-tag data-ng-init="resource = getResource(alignment.resourceId)"
-                                      text="resource.name" level="alignment.weight"
-                                      icon="i.icons.resource"
-                                    >
-                            </level-tag>
+                            <outcome-level-tag text="e.findQuestion(alignment.questionId).name" level="alignment.weight"
+                                               icon="i.icons.evaluation">
+                            </outcome-level-tag>
                         </div>
                     </div>
                 </div>

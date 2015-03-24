@@ -15,7 +15,6 @@ angular.module('app.organizations', ['app.members']).
 						var organizationId = user.organizationId;
 						$http.get(svc.apiUrl + '/' + organizationId).
 							success(function (data, status, headers, config) {
-										console.log("my org retrieved:", data);
 										svc.mine = data.result;
 										svc.getChildOrganizationsAndMine();
 									}).
@@ -48,13 +47,11 @@ angular.module('app.organizations', ['app.members']).
 					return svc.mine;
 				};
 				svc.setCurrentOrg = function (organization) {
-					console.log("SET CURRENT", organization);
 					if (!Utility.empty(organization) && (Utility.empty(svc.currentOrgMembers) || svc.currentOrg.id != organization.id)) {
 						svc.currentOrgMembers = ['zz'];
 						svc.currentOrg = organization;
 						$http.get('/api/member/organization/' + organization.id).
 							success(function (data, status, headers, config) {
-										console.log("org members retrieved:", data);
 										svc.currentOrgMembers = data.result;
 									}).
 							error(function (data, status, headers, config) {

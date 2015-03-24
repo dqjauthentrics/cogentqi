@@ -2,7 +2,7 @@
     <ion-nav-buttons side="right">
         <a href="/#tab/evaluations" style="font-size:1.2em;">Evaluations >></a>
     </ion-nav-buttons>
-    <ion-content has-bouncing="false" overflow-scroll="true">
+    <ion-content has-bouncing="false" overflow-scroll="true" data-ng-init="e.getMatrixData(instrumentId)">
         <div style="text-align:center; margin-top: 1em;">
             <h3>{{a.sectionCurrentName()}}</h3>
             <h4>Competency Summary Matrix</h4>
@@ -11,7 +11,7 @@
             <thead>
             <tr>
                 <th style="font-style: italic;">Most Recent<br/>Member Evaluations</th>
-                <th class="rotate" data-ng-repeat="name in a.getMatrixCompetencyRowHeader(e,20,a.currentSectionIdx) track by $index">
+                <th class="rotate" data-ng-repeat="name in e.findMatrixResponseRowHeader(20,e.currentSectionIdx)">
                     <div><span>{{name}}</span></div>
                 </th>
                 <th class="rotate">
@@ -20,24 +20,26 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-ng-repeat="member in e.members" data-ng-if="member.evaluationId != undefined">
-                <td class="leftHeader">
+            <tr data-ng-repeat="dataRow in e.matrix">
+                <td class="leftHeader" data-ng-init="member = m.get(dataRow.memberId)">
                     <img class="avatar-tiny" data-ng-src="{{member.avatar}}" alt="">
-                    <a href="/#/manager/evaluation/a/{{member.evaluationId}}">{{member.name}}</a>
+                    <a href="/#/manager/member/{{dataRow.memberId}}">{{member.lastName}}, {{member.firstName}}</a>
                 </td>
-                <td data-ng-repeat="memberCompetency in a.getMatrixCompetencyRowValues(member,a.currentSectionIdx)">
-                    <i class="levelColor{{memberCompetency.val}} {{i.icons.levels[memberCompetency.val]}}"></i>
+                <td data-ng-repeat="response in e.findMatrixResponseRowValues(e.currentSectionIdx, dataRow.responses) track by $index">
+                    <div class="matrixCircle levelBg{{response}}">{{response}}</div>
+                    <!--i class="levelColor{{response}} {{i.icons.levels[response]}}"></i-->
                 </td>
-                <td data-ng-init="zz = a.getMatrixRowAverage(member,true,a.currentSectionIdx)">
-                    <i class="levelColor{{zz}} {{i.icons.levels[zz]}}"></i>
+                <td data-ng-init="zz = 0">
+                    <!--i class="levelColor{{zz}} {{i.icons.levels[zz]}}"></i-->
+                    <div class="matrixCircle levelBg{{zz}}">{{zz}}</div>
                 </td>
             </tr>
             <tr>
                 <th style="font-style: italic;">Averages</th>
-                <td data-ng-repeat="avgRound in a.getMatrixColAverages(e,true,a.currentSectionIdx) track by $index">
+                <td>
                     <i class="levelColor{{avgRound}} {{i.icons.levels[avgRound]}}"></i>
                 </td>
-                <td data-ng-init="avgRound = a.getMatrixOverallAverage(e.members,true,a.currentSectionIdx)">
+                <td>
                     <i class="levelColor{{avgRound}} {{i.icons.levels[avgRound]}}"></i>
                 </td>
             </tr>
@@ -45,17 +47,17 @@
         </table>
         <div class="row row-responsive-sm">
             <div class="col col-40" style="text-align:right;">
-                <a data-ng-click="a.sectionPrevious()"><< {{a.sectionPreviousName()}}</a>
+                <a data-ng-click="e.sectionPrevious()"><< {{e.sectionPreviousName()}}</a>
             </div>
             <div class="col col-10" style="text-align:center;">|</div>
             <div class="col col-40" style="text-align:left;">
-                <a data-ng-click="a.sectionNext()">{{a.sectionNextName()}} >></a>
+                <a data-ng-click="e.sectionNext()">{{e.sectionNextName()}} >></a>
             </div>
         </div>
         <div class="row row-responsive-sm">
             <div class="col" style="text-align:center;">
-                <a class="button" data-ng-if="!a.sectionIsAll()" data-ng-click="a.sectionViewAll()">View All Competencies</a>
-                <a class="button" data-ng-if="!a.sectionIsSummary()" data-ng-click="a.sectionViewSummary()">View Section Summary</a>
+                <a class="button" data-ng-if="!e.sectionIsAll()" data-ng-click="e.sectionViewAll()">View All Competencies</a>
+                <a class="button" data-ng-if="!e.sectionIsSummary()" data-ng-click="e.sectionViewSummary()">View Section Summary</a>
             </div>
         </div>
     </ion-content>

@@ -35,6 +35,7 @@ angular.module('app.icons', ['app.utility']).service('Icons', function () {
 		remove: "fa fa-trash-bin",
 		reports: "fa fa-graph",
 		resource: "ion-university",
+		learningObject: "ion-university",
 		save: "fa fa-flash",
 		signIn: "fa fa-entrance",
 		signOut: "fa fa-logout",

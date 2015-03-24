@@ -2,8 +2,8 @@
     <ion-nav-buttons side="left"><a href="/#/manager/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
-        <ion-list class="members">
-            <ion-item class="item-icon-right" data-ng-repeat="member in m.getMembers()" type="item-text-wrap" href="#/manager/members/{{member.id}}">
+        <ion-list class="members" data-ng-init="m.getMembers()">
+            <ion-item class="item-icon-right" data-ng-repeat="member in m.members" type="item-text-wrap" href="#/manager/members/{{member.id}}">
                 <div class="row row-responsive-sm">
                     <div class="col col-30" style="white-space: normal;">
                         <img class="border border{{member.level}}" style="float:left; margin: 0 0.4em 0 0;" data-ng-src="{{member.avatar}}"/>
