@@ -45,7 +45,7 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 		}
 	};
 	svc.getSections = function (instrumentId) {
-		if (!Utility.empty(instrumentId) && svc.currentInstrumentId !== instrumentId) {
+		if (!Utility.empty(instrumentId) && !Utility.empty(svc.instruments) && svc.currentInstrumentId !== instrumentId) {
 			svc.currentInstrumentId = instrumentId;
 			svc.sections = [];
 			for (var i = 0; i < svc.instruments.length; i++) {
