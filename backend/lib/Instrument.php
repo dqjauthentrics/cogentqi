@@ -12,22 +12,27 @@ class Instrument extends Model {
 	 */
 	public function map($instrument) {
 		$associative = parent::map($instrument);
-		$questionGroupRecords = $this->api->db->question_group()->where('instrument_id=?', $instrument["id"])->order('sort_order');
-		$jsonQuestionGroups = [];
-		$questionGroup = new QuestionGroup($this->api);
-		foreach ($questionGroupRecords as $questionGroupRecord) {
-			$jsonQuestionGroups[] = $questionGroup->map($questionGroupRecord);
-		}
-		$associative["questionGroups"] = $jsonQuestionGroups;
 
-		$questionRecords = $this->api->db->question()->where('question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?)', $instrument["id"])->order('sort_order');
-		$jsonQuestions = [];
-		$question = new Question($this->api);
-		foreach ($questionRecords as $questionRecord) {
-			$jsonQuestions[] = $question->map($questionRecord);
-		}
-		$associative["questions"] = $jsonQuestions;
+		try {
+			$questionGroupRecords = $this->api->db->question_group()->where('instrument_id=?', $instrument["id"])->order('sort_order');
+			$jsonQuestionGroups = [];
+			$questionGroup = new QuestionGroup($this->api);
+			foreach ($questionGroupRecords as $questionGroupRecord) {
+				$jsonQuestionGroups[] = $questionGroup->map($questionGroupRecord);
+			}
+			$associative["questionGroups"] = $jsonQuestionGroups;
 
+			$questionRecords = $this->api->db->question()->where('question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?)', $instrument["id"])->order('sort_order');
+			$jsonQuestions = [];
+			$question = new Question($this->api);
+			foreach ($questionRecords as $questionRecord) {
+				$jsonQuestions[] = $question->map($questionRecord);
+			}
+			$associative["questions"] = $jsonQuestions;
+		}
+		catch (\Exception $exception) {
+			var_dump($exception);
+		}
 		return $associative;
 	}
 }
