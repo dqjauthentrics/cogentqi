@@ -45,7 +45,7 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 		}
 	};
 	svc.getSections = function (instrumentId) {
-		if (!Utility.empty(instrumentId) && !Utility.empty(svc.instruments)) {
+		if (!Utility.empty(instrumentId) && svc.currentInstrumentId !== instrumentId) {
 			svc.currentInstrumentId = instrumentId;
 			svc.sections = [];
 			for (var i = 0; i < svc.instruments.length; i++) {
@@ -72,6 +72,7 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 
 	svc.getMatrixData = function (instrumentId) {
 		console.log("getting matrix data:", instrumentId);
+		svc.currentInstrumentId = null;
 		svc.getSections(instrumentId);
 		console.log("getting matrix data, sections done:", instrumentId);
 		var user = $cookieStore.get('user');

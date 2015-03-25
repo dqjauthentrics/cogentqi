@@ -15,7 +15,7 @@
             <thead>
             <tr>
                 <th style="font-style: italic;">Most Recent<br/>Member Evaluations</th>
-                <th class="rotate" data-ng-repeat="name in e.findMatrixResponseRowHeader(20,e.currentSectionIdx)">
+                <th class="rotate" data-ng-repeat="name in e.findMatrixResponseRowHeader(20,e.currentSectionIdx) track by $index">
                     <div><span>{{name}}</span></div>
                 </th>
                 <th class="rotate">
