@@ -53,14 +53,19 @@ class Model {
 	 * @return array
 	 */
 	public function map($dbRecord) {
-		$columnNames = array_keys(iterator_to_array($dbRecord));
 		$jsonRecord = [];
-		for ($i = 0; $i < count($columnNames); $i++) {
-			$colName = $columnNames[$i];
-			if (empty($this->mapExcludes) || !in_array($colName, $this->mapExcludes)) {
-				$jsonName = $this->colNameToJsonName($colName);
-				$jsonRecord[$jsonName] = $dbRecord[$colName];
+		try {
+			$columnNames = array_keys(iterator_to_array($dbRecord));
+			for ($i = 0; $i < count($columnNames); $i++) {
+				$colName = $columnNames[$i];
+				if (empty($this->mapExcludes) || !in_array($colName, $this->mapExcludes)) {
+					$jsonName = $this->colNameToJsonName($colName);
+					$jsonRecord[$jsonName] = $dbRecord[$colName];
+				}
 			}
+		}
+		catch (\Exception $exception) {
+			var_dump($exception);
 		}
 		return $jsonRecord;
 	}
