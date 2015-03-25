@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS role ;
+DROP TABLE IF EXISTS organization ;
+DROP TABLE IF EXISTS member ;
+DROP TABLE IF EXISTS algorithm_usage ;
+DROP TABLE IF EXISTS question_type ;
+DROP TABLE IF EXISTS question_type_response ;
+DROP TABLE IF EXISTS instrument ;
+DROP TABLE IF EXISTS question_group ;
+DROP TABLE IF EXISTS question ;
+DROP TABLE IF EXISTS evaluation ;
+DROP TABLE IF EXISTS evaluation_response ;
+DROP TABLE IF EXISTS resource_type ;
+DROP TABLE IF EXISTS resource ;
+DROP TABLE IF EXISTS resource_alignment ;

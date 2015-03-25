@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="CogentQI" uuid="dda61865-1688-4307-9a21-8ec577337f7a">
+    <database-info product="MySQL" version="5.6.23-72.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper"/>
+    <schema name="" catalog="cogentqi"/>
+    <schema name="" catalog="cogentqi_v1_target"/>
+    <table name="books" schema="" catalog="cogentqi" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="title" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="author" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="summary" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="algorithm_usage" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="5000" scale="0" nullable="true" jdbcType="12"/>
+      <column name="summary" sqlType="VARCHAR" precision="500" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="instrument_ibfk_2" table="instrument" schema="" catalog="cogentqi_v1_target" columns="usage_id"/>
+    </table>
+    <table name="evaluation" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="instrument_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="member_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="by_member_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="last_saved" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="last_modified" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="evaluator_comments" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="member_comments" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="evaluation_ibfk_1" columns="member_id" ref-table="member" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="evaluation_ibfk_2" columns="by_member_id" ref-table="member" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="evaluation_ibfk_3" columns="instrument_id" ref-table="instrument" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="evaluation_response_ibfk_1" table="evaluation_response" schema="" catalog="cogentqi_v1_target" columns="evaluation_id"/>
+    </table>
+    <table name="evaluation_response" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="evaluation_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="question_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="response" sqlType="VARCHAR" precision="500" scale="0" nullable="true" jdbcType="12"/>
+      <column name="evaluator_comments" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="member_comments" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="response_index" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="evaluation_response_ibfk_1" columns="evaluation_id" ref-table="evaluation" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="evaluation_response_ibfk_2" columns="question_id" ref-table="question" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="unique_evaluation_responses" unique="true" columns="evaluation_id,question_id"/>
+    </table>
+    <table name="instrument" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="role_id" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1" def="J1An"/>
+      <column name="usage_id" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1" def="J1In"/>
+      <column name="description" sqlType="VARCHAR" precision="5000" scale="0" nullable="true" jdbcType="12"/>
+      <column name="summary" sqlType="VARCHAR" precision="500" scale="0" nullable="true" jdbcType="12"/>
+      <column name="is_uniform" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" def="MQ=="/>
+      <column name="question_type_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="instrument_ibfk_1" columns="role_id" ref-table="role" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="instrument_ibfk_2" columns="usage_id" ref-table="algorithm_usage" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="evaluation_ibfk_3" table="evaluation" schema="" catalog="cogentqi_v1_target" columns="instrument_id"/>
+      <exported-key name="question_group_ibfk_1" table="question_group" schema="" catalog="cogentqi_v1_target" columns="instrument_id"/>
+    </table>
+    <table name="member" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="organization_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="role_id" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1" def="J1An"/>
+      <column name="first_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="job_title" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="username" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="avatar" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="level" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="member_ibfk_1" columns="organization_id" ref-table="organization" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="evaluation_ibfk_1" table="evaluation" schema="" catalog="cogentqi_v1_target" columns="member_id"/>
+      <exported-key name="evaluation_ibfk_2" table="evaluation" schema="" catalog="cogentqi_v1_target" columns="by_member_id"/>
+      <index name="username" unique="true" columns="username"/>
+    </table>
+    <table name="member_badge" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="title" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="member_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="earned" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="unique_id" unique="true" columns="id"/>
+    </table>
+    <table name="organization" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="parent_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="summary" sqlType="VARCHAR" precision="5000" scale="0" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="organization_ibfk_1" columns="parent_id" ref-table="organization" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="member_ibfk_1" table="member" schema="" catalog="cogentqi_v1_target" columns="organization_id"/>
+      <exported-key name="organization_ibfk_1" table="organization" schema="" catalog="cogentqi_v1_target" columns="parent_id"/>
+    </table>
+    <table name="outcome" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="number" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="500" scale="0" nullable="false" jdbcType="12"/>
+      <column name="summary" sqlType="VARCHAR" precision="5000" scale="0" nullable="true" jdbcType="12"/>
+      <column name="outcome_method_id" sqlType="CHAR" precision="1" scale="0" nullable="true" jdbcType="1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="outcome_alignment_ibfk_1" table="outcome_alignment" schema="" catalog="cogentqi_v1_target" columns="outcome_id"/>
+      <index name="unique_id" unique="true" columns="id"/>
+    </table>
+    <table name="outcome_alignment" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="outcome_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="question_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="weight" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ=="/>
+      <column name="rel_wt" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8" def="MC41"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="outcome_alignment_ibfk_1" columns="outcome_id" ref-table="outcome" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="outcome_alignment_ibfk_2" columns="question_id" ref-table="question" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="question" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="question_group_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="question_type_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="sort_order" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="number" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="summary" sqlType="VARCHAR" precision="500" scale="0" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="5000" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="question_ibfk_1" columns="question_group_id" ref-table="question_group" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="evaluation_response_ibfk_2" table="evaluation_response" schema="" catalog="cogentqi_v1_target" columns="question_id"/>
+      <exported-key name="outcome_alignment_ibfk_2" table="outcome_alignment" schema="" catalog="cogentqi_v1_target" columns="question_id"/>
+      <exported-key name="resource_alignment_ibfk_2" table="resource_alignment" schema="" catalog="cogentqi_v1_target" columns="question_id"/>
+    </table>
+    <table name="question_group" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="instrument_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="tag" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="number" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="sort_order" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="summary" sqlType="VARCHAR" precision="500" scale="0" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="5000" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="question_group_ibfk_1" columns="instrument_id" ref-table="instrument" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="question_ibfk_1" table="question" schema="" catalog="cogentqi_v1_target" columns="question_group_id"/>
+    </table>
+    <table name="question_type" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="summary" sqlType="VARCHAR" precision="500" scale="0" nullable="true" jdbcType="12"/>
+      <column name="min_range" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8" def="MA=="/>
+      <column name="max_range" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="question_type_response_ibfk_1" table="question_type_response" schema="" catalog="cogentqi_v1_target" columns="question_type_id"/>
+      <index name="name" unique="true" columns="name"/>
+    </table>
+    <table name="question_type_response" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="question_type_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="sort_order" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="value" sqlType="VARCHAR" precision="500" scale="0" nullable="true" jdbcType="12"/>
+      <column name="rubric" sqlType="VARCHAR" precision="500" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="question_type_response_ibfk_1" columns="question_type_id" ref-table="question_type" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="resource" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="resource_type_id" sqlType="CHAR" precision="1" scale="0" nullable="true" jdbcType="1" def="J1Qn"/>
+      <column name="role_ids" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12" def="J1BNJw=="/>
+      <column name="number" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="location" sqlType="VARCHAR" precision="500" scale="0" nullable="true" jdbcType="12"/>
+      <column name="summary" sqlType="VARCHAR" precision="5000" scale="0" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="5000" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="resource_ibfk_1" columns="resource_type_id" ref-table="resource_type" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="resource_alignment_ibfk_1" table="resource_alignment" schema="" catalog="cogentqi_v1_target" columns="resource_id"/>
+    </table>
+    <table name="resource_alignment" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="resource_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="question_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="weight" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="resource_alignment_ibfk_1" columns="resource_id" ref-table="resource" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="resource_alignment_ibfk_2" columns="question_id" ref-table="question" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="resource_type" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="summary" sqlType="VARCHAR" precision="500" scale="0" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="5000" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="resource_ibfk_1" table="resource" schema="" catalog="cogentqi_v1_target" columns="resource_type_id"/>
+      <index name="id" unique="true" columns="id"/>
+    </table>
+    <table name="role" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="summary" sqlType="VARCHAR" precision="500" scale="0" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="5000" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="instrument_ibfk_1" table="instrument" schema="" catalog="cogentqi_v1_target" columns="role_id"/>
+    </table>
+    <procedure name="RandomInt" schema="" catalog="cogentqi_v1_target" type="2">
+      <prototype>
+        <parameter name="minVal" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
+        <parameter name="maxVal" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" type="1" index="2"/>
+        <parameter name="" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" type="5" index="0"/>
+      </prototype>
+    </procedure>
+  </data-source>
+</component>
