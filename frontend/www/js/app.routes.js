@@ -98,7 +98,7 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
             }
         })
         .state('manager.member', {
-            url: '/members/:memberId',
+            url: '/member/:memberId',
             views: {
                 managerMembers: {
                     templateUrl: 'templates/manager/member.html',

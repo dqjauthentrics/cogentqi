@@ -403,7 +403,13 @@ table.cycle {
     background: green;
     color: #FFF;
 }
-
+select {
+    cursor: pointer;
+}
+select.large {
+    font-size: 3.4vmin;
+    background: #CCC;
+}
 outcome-level-tag {
     float: left;
 }

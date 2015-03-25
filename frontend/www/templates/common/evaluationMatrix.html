@@ -6,6 +6,10 @@
         <div style="text-align:center; margin-top: 1em;">
             <h3>{{a.sectionCurrentName()}}</h3>
             <h4>Competency Summary Matrix</h4>
+
+            <select class="large" data-ng-change="e.getMatrixData(e.currentInstrumentId)" data-ng-model="e.currentInstrumentId">
+                <option data-ng-repeat="instrument in e.instruments" value="{{instrument.id}}">{{instrument.name}}</option>
+            </select>
         </div>
         <table class="matrix">
             <thead>
@@ -22,25 +26,21 @@
             <tbody>
             <tr data-ng-repeat="dataRow in e.matrix">
                 <td class="leftHeader" data-ng-init="member = m.get(dataRow.memberId)">
-                    <img class="avatar-tiny" data-ng-src="{{member.avatar}}" alt="">
-                    <a href="/#/manager/member/{{dataRow.memberId}}">{{member.lastName}}, {{member.firstName}}</a>
+                    <div data-ng-switch="dataRow.memberId">
+                        <div data-ng-switch-when="-1">
+                            Averages
+                        </div>
+                        <div data-ng-switch-default>
+                            <img class="avatar-tiny" data-ng-src="{{member.avatar}}" alt="">
+                            <a href="/#/manager/member/{{dataRow.memberId}}">{{member.lastName}}, {{member.firstName}}</a>
+                        </div>
+                    </div>
                 </td>
                 <td data-ng-repeat="response in e.findMatrixResponseRowValues(e.currentSectionIdx, dataRow.responses) track by $index">
-                    <div class="matrixCircle levelBg{{response}}">{{response}}</div>
-                    <!--i class="levelColor{{response}} {{i.icons.levels[response]}}"></i-->
-                </td>
-                <td data-ng-init="zz = 0">
-                    <!--i class="levelColor{{zz}} {{i.icons.levels[zz]}}"></i-->
-                    <div class="matrixCircle levelBg{{zz}}">{{zz}}</div>
-                </td>
-            </tr>
-            <tr>
-                <th style="font-style: italic;">Averages</th>
-                <td>
-                    <i class="levelColor{{avgRound}} {{i.icons.levels[avgRound]}}"></i>
+                    <div class="matrixCircle levelBg{{response | number:0}}">{{response|number:0}}</div>
                 </td>
                 <td>
-                    <i class="levelColor{{avgRound}} {{i.icons.levels[avgRound]}}"></i>
+                    <div class="matrixCircle levelBg{{dataRow.avgRound}}">{{dataRow.avg|number:0}}</div>
                 </td>
             </tr>
             </tbody>

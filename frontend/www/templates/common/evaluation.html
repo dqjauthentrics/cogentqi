@@ -7,8 +7,9 @@
         </div>
         <div class="row responsive-sm detail">
             <div class="col col-25 padding" style="text-align:center;">
-                <img class="border border{{e.avgRound}}" data-ng-src="{{e.currentEval.member.avatar}}" alt=""/><br/>
-                <div class="name">{{e.currentEval.member.firstName}} {{e.currentEval.member.lastName}}</div>
+                <a href="#/manager/member/{{e.currentEval.member.id}}"><img class="border border{{e.avgRound}}" data-ng-src="{{e.currentEval.member.avatar}}" alt=""/></a><br/>
+
+                <div class="name"><a href="#/manager/member/{{e.currentEval.member.id}}">{{e.currentEval.member.firstName}} {{e.currentEval.member.lastName}}</a></div>
                 <div class="role">{{m.roleName(e.currentEval.member)}}</div>
                 <div class="score">
                     <i class="logo level levelColor{{e.avgRound}} {{i.icons.levels[e.avgRound]}}">
@@ -20,7 +21,7 @@
                 <h5 data-ng-bind-html="installation.trademarkName + ' Recommended Modules'"></h5>
 
                 <div class="recommendationsPane">
-                     <div class="item" data-ng-repeat="recommendation in e.recommendations track by $index">
+                    <div class="item" data-ng-repeat="recommendation in e.recommendations track by $index">
                         <div data-ng-if="recommendation.weight > 0">
                             <a href="/#/manager/resource/{{recommendation.resourceId}}">
                                 <i class="{{i.icons.resource}}"></i>
@@ -53,7 +54,7 @@
                             <div class="description" data-ng-bind-html="question.description"></div>
                         </div>
                         <div data-ng-switch="question.questionTypeId" style="float:right;">
-                             <div data-ng-switch-when="2">
+                            <div data-ng-switch-when="2">
                                 <div class="button-bar" style="max-width:12em; min-width:12em;">
                                     <a class="button" data-ng-class="{'gray': question.responseRecord.responseIndex == 0}"
                                        data-ng-click="question.responseRecord.responseIndex=0">N/A</a>

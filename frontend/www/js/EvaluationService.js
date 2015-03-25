@@ -45,7 +45,7 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 		}
 	};
 	svc.getSections = function (instrumentId) {
-		if (!Utility.empty(instrumentId) && svc.currentInstrumentId !== instrumentId) {
+		if (!Utility.empty(instrumentId)) {
 			svc.currentInstrumentId = instrumentId;
 			svc.sections = [];
 			for (var i = 0; i < svc.instruments.length; i++) {
@@ -55,7 +55,7 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 					var gLen = instrument.questionGroups.length;
 					for (var j = 0; j < gLen; j++) {
 						var questionGroup = groups[j];
-						var previous = j > 0 ? groups[(j - 1)].tag : groups[0].tag;
+						var previous = (j > 0 ? groups[(j - 1)].tag : groups[(groups.length - 1)].tag);
 						var next = j < gLen - 1 ? groups[(j + 1)].tag : groups[0].tag;
 						svc.sections[j] = {id: questionGroup.id, number: questionGroup.number, name: questionGroup.tag, next: next, previous: previous, questions: []};
 						for (var k = 0; k < instrument.questions.length; k++) {
@@ -71,14 +71,19 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 	};
 
 	svc.getMatrixData = function (instrumentId) {
+		console.log("getting matrix data:", instrumentId);
 		svc.getSections(instrumentId);
+		console.log("getting matrix data, sections done:", instrumentId);
 		var user = $cookieStore.get('user');
-		if (!Utility.empty(user) && svc.matrix === false && !Utility.empty(instrumentId)) {
+		if (!Utility.empty(user) && !Utility.empty(instrumentId)) {
 			svc.matrix = true;
+			console.log("retrieving matrix data:", instrumentId);
 			$http.get('/api/evaluation/matrix/' + user.organizationId + '/' + instrumentId).
 				success(function (data, status, headers, config) {
+							console.log("retrieved matrix data:", data);
 							svc.matrix = data.result;
-							svc.calcMatrixAverages(svc.matrix);
+							svc.getSections(instrumentId);
+							svc.calcMatrixAverages();
 						}).
 				error(function (data, status, headers, config) {
 						  console.log("ERROR: unable to retrieve matrix data.");
@@ -190,7 +195,7 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 			//score = (alignmentWeight * Math.pow((5 - memberScore), 2)) / nAlignments;
 			score = (alignmentWeight * (5 - memberScore)) / nAlignments;
 		}
-		console.log("RESOURCE SCORE: alignmentWeight=", alignmentWeight, ", memberScore=", memberScore, ", nAlignments=", nAlignments, ", => score: ", score);
+		//console.log("RESOURCE SCORE: alignmentWeight=", alignmentWeight, ", memberScore=", memberScore, ", nAlignments=", nAlignments, ", => score: ", score);
 		if (score > 5) {
 			score = 5;
 		}
@@ -277,7 +282,7 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 	};
 	svc.sectionCurrentName = function () {
 		var name = '';
-		if (!Utility.empty(svc.competencies)) {
+		if (!Utility.empty(svc.sections)) {
 			if (svc.currentSectionIdx == svc.SECTION_ALL) {
 				return 'Section Summary';
 			}
@@ -288,32 +293,16 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 		return name;
 	};
 	svc.sectionPreviousName = function () {
-		var name = '';
-		if (!Utility.empty(svc.competencies)) {
-			if (svc.currentSectionIdx > 0) {
-				name = svc.sections[(svc.currentSectionIdx - 1)].name;
-			}
-			else {
-				name = svc.sections[0].text;
-			}
+		if (svc.sections != undefined && svc.currentSectionIdx != undefined && svc.currentSectionIdx > 0) {
+			return svc.sections[svc.currentSectionIdx].previous;
 		}
-		return name;
+		return null;
 	};
 	svc.sectionNextName = function () {
-		var name = '';
-		if (!Utility.empty(svc.sections)) {
-			var tmpIdx = svc.currentSectionIdx;
-			if (tmpIdx < 0) {
-				tmpIdx = -1;
-			}
-			if (tmpIdx < svc.sections.length - 1) {
-				name = svc.sections[(tmpIdx + 1)].name;
-			}
-			else {
-				name = svc.sections[0].name;
-			}
+		if (svc.sections != undefined && svc.currentSectionIdx != undefined && svc.currentSectionIdx > 0) {
+			return svc.sections[svc.currentSectionIdx].next;
 		}
-		return name;
+		return null;
 	};
 	svc.sectionNext = function () {
 		if (svc.currentSectionIdx < svc.sections.length - 1) {
@@ -359,66 +348,11 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 					}
 				}
 				else {
-					names.push(svc.matrixName(sections[i].name, maxLength));
+					names.push(svc.matrixName(svc.sections[i].name, maxLength));
 				}
 			}
 		}
 		return names;
-	};
-	svc.getMatrixOverallAverage = function (members, doRounding, currentSectionIdx) {
-		var averageAll = 0.0;
-		if (!Utility.empty(members)) {
-			var total = 0;
-			for (var i = 0; i < members.length; i++) {
-				total += svc.getMatrixRowAverage(members[i], false, currentSectionIdx);
-			}
-			if (total > 0 && members.length > 0) {
-				averageAll = total / members.length;
-				if (doRounding) {
-					averageAll = Math.round(averageAll);
-				}
-			}
-		}
-		return averageAll;
-	};
-	svc.calcMatrixAverages = function (matrix) {
-		var total = 0;
-		var average = 0.0;
-		var nItems = 0;
-		if (!Utility.empty(svc.sections) && svc.sections[0] != 'zz') {
-			var pos = 0;
-			for (var i = 0; i < svc.sections.length; i++) {
-				for (var j = 0; j < svc.sections[i].questions.length; j++) {
-					var question = svc.sections[i].questions[j];
-					nItems++;
-					total += matrix.responses[pos];
-					pos++;
-				}
-			}
-		}
-		if (total > 0) {
-			average = total / nItems;
-			if (doRounding) {
-				average = Math.round(average);
-			}
-		}
-		return average;
-	};
-	svc.averagify = function (avgInfo, comp, doRounding) {
-		if (Utility.empty(avgInfo.totals[comp.id])) {
-			avgInfo.totals[comp.id] = 0;
-			avgInfo.averages[comp.id] = 0;
-			avgInfo.counts[comp.id] = 0;
-		}
-		avgInfo.totals[comp.id] += comp.val;
-		avgInfo.counts[comp.id] += 1;
-		if (comp.val > 0) {
-			avgInfo.averages[comp.id] = avgInfo.totals[comp.id] / avgInfo.counts[comp.id];
-			if (doRounding) {
-				avgInfo.averages[comp.id] = Math.round(avgInfo.averages[comp.id]);
-			}
-		}
-		return avgInfo;
 	};
 	svc.findMatrixResponseRowValues = function (currentSectionIdx, allResponses) {
 		var responses = [];
@@ -440,27 +374,73 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 		}
 		return responses;
 	};
-	svc.getMatrixColAverages = function (e, doRounding, currentSectionIdx) {
-		var avgInfo = {averages: {}, totals: {}, counts: {}};
-		if (!Utility.empty(e.members) && e.members.length > 0) {
-			for (var z = 0; z < e.members.length; z++) {
-				var comps = e.members[z].competencies;
-				if (!Utility.empty(comps)) {
-					for (var i = 0; i < comps.length; i++) {
-						if (currentSectionIdx > svc.SECTION_SUMMARY) {
-							if (i == currentSectionIdx || currentSectionIdx == svc.SECTION_ALL) {
-								for (var j = 0; j < comps[i].children.length; j++) {
-									avgInfo = svc.averagify(avgInfo, comps[i].children[j], doRounding);
-								}
-							}
-						}
-						else {
-							avgInfo = svc.averagify(avgInfo, comps[i], doRounding);
-						}
-					}
-				}
+	svc.findSectionIndex = function (responseIndex) {
+		var len = 0;
+		for (var k = 0; k < svc.sections.length; k++) {
+			len += svc.sections[k].questions.length;
+			if (responseIndex < len) {
+				return k;
 			}
 		}
-		return avgInfo.averages;
+		return 0;
+	};
+	svc.calcMatrixAverages = function () {
+		var total = 0;
+		var average = 0.0;
+		var nItems = 0;
+		if (!Utility.empty(svc.matrix)) {
+			var colTotals = [];
+			var colNs = [];
+			var sectionTotals = [];
+			var sectionNs = [];
+			for (var j = 0; j < svc.matrix[0].responses.length; j++) {
+				colTotals[j] = 0;
+				colNs[j] = 0;
+			}
+			for (j = 0; j < svc.sections.length; j++) {
+				sectionTotals[j] = 0;
+				sectionNs[j] = 0;
+			}
+			for (var i = 0; i < svc.matrix.length; i++) {
+				var rowTotal = 0;
+				var rowN = 0;
+				for (j = 0; j < svc.matrix[i].responses.length; j++) {
+					var response = parseInt(svc.matrix[i].responses[j]);
+					if (response > 0) {
+						rowN++;
+						rowTotal += response;
+						colNs[j]++;
+						colTotals[j] += response;
+						var sectionIndex = svc.findSectionIndex(j);
+						sectionNs[j]++;
+						sectionTotals[j] += response;
+					}
+				}
+				svc.matrix[i].avg = (rowTotal > 0 && rowN > 0 ? Utility.round(rowTotal / rowN, 1) : 0);
+				svc.matrix[i].avgRound = Math.round(svc.matrix[i].avg);
+			}
+			for (j = 0; j < svc.sections.length; j++) {
+				svc.sections[j].avg = (sectionTotals[j] > 0 && sectionNs[j] > 0 ? Utility.round(sectionTotals[j] / sectionNs[j], 1) : 0);
+				svc.sections[j].avgRound = Math.round(svc.sections[j].avg);
+				svc.sections[j].response = svc.sections[j].avgRound;
+			}
+			var mLen = svc.matrix.length;
+			svc.matrix[mLen] = {memberId: -1, responses: [], colAvgs: []};
+			svc.matrixAvg = 0.0;
+			total = 0;
+			nItems = 0;
+			for (j = 0; j < colTotals.length; j++) {
+				var avg = (colTotals[j] > 0 && colNs[j] > 0 ? Utility.round(colTotals[j] / colNs[j], 1) : 0);
+				var avgRound = Math.round(avg);
+				svc.matrix[mLen].responses[j] = avg;
+				svc.matrix[mLen].colAvgs[j] = {avg: avg, avgRound: avgRound};
+				if (avg > 0) {
+					total += avg;
+					nItems++;
+				}
+			}
+			svc.matrix[mLen].avg = (total > 0 && nItems > 0 ? Utility.round(total / nItems, 1) : 0);
+			svc.matrix[mLen].avgRound = Math.round(svc.matrix[mLen].avg);
+		}
 	};
 });
