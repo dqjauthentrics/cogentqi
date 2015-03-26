@@ -19,7 +19,7 @@ if (!empty($objPath)) {
 }
 require_once $objPath;
 
-$dsn = "mysql:dbname=cogentqi_v1_target;host=localhost";
+$dsn = "mysql:dbname=cogentqi_v1_target;host=localhost;charset=utf8";
 $username = "cogentqiapp";
 $password = "cogentqi42app";
 
