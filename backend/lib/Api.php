@@ -49,6 +49,7 @@ class Api extends \Slim\Slim {
 			exit(0);
 		}
 		$result = json_encode(['status' => $status, 'result' => $data]);
+		echo "ERROR:".json_last_error()."\n";
 		echo "RETURNING: <pre>"; var_dump($result); echo "\n";
 		echo $result;
 	}
