@@ -2,7 +2,7 @@
     <ion-nav-buttons side="right">
         <a href="/#tab/evaluations" style="font-size:1.2em;">Evaluations >></a>
     </ion-nav-buttons>
-    <ion-content has-bouncing="false" overflow-scroll="true" data-ng-init="e.getMatrixData(instrumentId)">
+    <ion-content has-bouncing="false" data-ng-init="e.getMatrixData(instrumentId)"">
         <div style="text-align:center; margin-top: 1em;">
             <h3>{{a.sectionCurrentName()}}</h3>
             <h4>Competency Summary Matrix</h4>
@@ -11,6 +11,7 @@
                 <option data-ng-repeat="instrument in e.instruments" value="{{instrument.id}}">{{instrument.name}}</option>
             </select>
         </div>
+    <div style="overflow: auto !important;">
         <table class="matrix">
             <thead>
             <tr>
@@ -45,6 +46,7 @@
             </tr>
             </tbody>
         </table>
+    </div>
         <div class="row row-responsive-sm">
             <div class="col col-40" style="text-align:right;">
                 <a data-ng-click="e.sectionPrevious()"><< {{e.sectionPreviousName()}}</a>

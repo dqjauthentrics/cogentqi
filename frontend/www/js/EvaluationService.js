@@ -294,14 +294,24 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 		return name;
 	};
 	svc.sectionPreviousName = function () {
-		if (svc.sections != undefined && svc.currentSectionIdx != undefined && svc.currentSectionIdx > 0) {
-			return svc.sections[svc.currentSectionIdx].previous;
+		if (svc.sections != undefined && svc.currentSectionIdx != undefined) {
+			if (svc.currentSectionIdx >= 0) {
+				return svc.sections[svc.currentSectionIdx].previous;
+			}
+			else {
+				return svc.sections[0].previous;
+			}
 		}
 		return null;
 	};
 	svc.sectionNextName = function () {
-		if (svc.sections != undefined && svc.currentSectionIdx != undefined && svc.currentSectionIdx > 0) {
-			return svc.sections[svc.currentSectionIdx].next;
+		if (svc.sections != undefined && svc.currentSectionIdx != undefined) {
+			if (svc.currentSectionIdx >= 0) {
+				return svc.sections[svc.currentSectionIdx].next;
+			}
+			else {
+				return svc.sections[(svc.sections.length-1)].next;
+			}
 		}
 		return null;
 	};
