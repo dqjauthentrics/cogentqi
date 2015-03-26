@@ -18,7 +18,13 @@ class Question extends Model {
 				$colName = $columnNames[$i];
 				if (empty($this->mapExcludes) || !in_array($colName, $this->mapExcludes)) {
 					$jsonName = $this->colNameToJsonName($colName);
-					$jsonRecord[$jsonName] = iconv('UTF-8', 'UTF-8//IGNORE', utf8_encode($dbRecord[$colName]));
+
+					//if (iconv('UTF-8', 'UTF-8//IGNORE', utf8_encode($dbRecord[$colName])) !== $dbRecord[$colName]) {
+					//	echo "COLUMN: $colName"; exit();
+					//}
+
+					//$jsonRecord[$jsonName] = iconv('UTF-8', 'UTF-8//IGNORE', utf8_encode($dbRecord[$colName]));
+					$jsonRecord[$jsonName] = $dbRecord[$colName];
 				}
 			}
 		}
