@@ -2,7 +2,7 @@
 namespace App;
 $parts = explode("/", $_SERVER["REQUEST_URI"]);
 $object = @ucfirst($parts[2]);
-if (strstr($object, "XDEBUG")) {
+if (strstr($object, "XDEBUG") || $object == "Test") {
 	$object = NULL;
 }
 $objectNS = !empty($object) ? "App\\" . $object : NULL;
@@ -13,7 +13,7 @@ require_once "../lib/Model.php";
 require_once "../lib/Authentication.php";
 if (!empty($objPath)) {
 	if (!@file_exists($objPath)) {
-		echo "Invalid invocation ($objPath)";
+		header('HTTP/1.0 400 BAD REQUEST');
 		exit();
 	}
 }
@@ -27,7 +27,7 @@ $password = "cogentqi42app";
 
 $api = new Api($dsn, $username, $password, ["MODE" => "development", "TEMPLATES.PATH" => "./templates"]);
 $api->get("/", function () use ($api) {
-	$api->sendResult("Welcome to the API.");
+	$api->sendResult("CogentQI API.");
 });
 $api->get("/test", function () use ($api) {
 	$api->sendResult("OK");
@@ -40,7 +40,13 @@ if (!empty($objectNS)) {
 		new $objectNS($api);
 	}
 	else {
-		$api->halt(403, 'Permission Denied');
+		try {
+			header('HTTP/1.0 403 Forbidden');
+			exit();
+		}
+		catch (\Exception $exception) {
+
+		}
 	}
 }
 $api->run();
