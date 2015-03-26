@@ -48,8 +48,6 @@ class Api extends \Slim\Slim {
 			}
 			exit(0);
 		}
-		$data = iconv('UTF-8', 'UTF-8//IGNORE', utf8_encode($data));
-
 		$result = json_encode(['status' => $status, 'result' => $data]);
 		echo "ERROR:".json_last_error()."\n";
 		echo "RETURNING: <pre>"; var_dump($result); echo "\n";
