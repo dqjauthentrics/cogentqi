@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../cogentQI/.idea/cogentqi.iml" filepath="$PROJECT_DIR$/../cogentQI/.idea/cogentqi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/cogentqi.iml" filepath="$PROJECT_DIR$/.idea/cogentqi.iml" />
     </modules>
   </component>
 </project>
