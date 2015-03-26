@@ -32,9 +32,14 @@ $api->get("/", function () use ($api) {
 $api->get("/test", function () use ($api) {
 	$api->sendResult("TEST");
 });
-
-if (strlen($objectNS) > 0) {
-	new $objectNS($api);
+if (!empty($objectNS)) {
+	$auth = new Authentication($api);
+	$user = $auth->check();
+	if (!empty($user)) {
+		new $objectNS($api);
+	}
+	else {
+		$api->halt(403);
+	}
 }
-
 $api->run();
