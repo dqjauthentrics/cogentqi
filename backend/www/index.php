@@ -35,7 +35,7 @@ $api->get("/test", function () use ($api) {
 if (!empty($objectNS)) {
 	$auth = new Authentication($api);
 	$user = $auth->check();
-	if (!empty($user)) {
+	if (!empty($user) || $object = "Authentication") {
 		new $objectNS($api);
 	}
 	else {
