@@ -12,7 +12,6 @@ class Instrument extends Model {
 	 */
 	public function map($instrument) {
 		$associative = parent::map($instrument);
-		return $associative;
 		try {
 			$questionGroupRecords = $this->api->db->question_group()->where('instrument_id=?', $instrument["id"])->order('sort_order');
 			$jsonQuestionGroups = [];
@@ -21,7 +20,7 @@ class Instrument extends Model {
 				$jsonQuestionGroups[] = $questionGroup->map($questionGroupRecord);
 			}
 			$associative["questionGroups"] = $jsonQuestionGroups;
-
+/**
 			$questionRecords = $this->api->db->question()->where('question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?)', $instrument["id"])->order('sort_order');
 			$jsonQuestions = [];
 			$question = new Question($this->api);
@@ -29,6 +28,7 @@ class Instrument extends Model {
 				$jsonQuestions[] = $question->map($questionRecord);
 			}
 			$associative["questions"] = $jsonQuestions;
+ **/
 		}
 		catch (\Exception $exception) {
 			echo "\nERROR\n";

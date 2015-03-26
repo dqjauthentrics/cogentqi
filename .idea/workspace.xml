@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d363135-d755-4645-a82c-7b84e720bd47" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/lib/Api.php" afterPath="$PROJECT_DIR$/backend/lib/Api.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/lib/Instrument.php" afterPath="$PROJECT_DIR$/backend/lib/Instrument.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -65,8 +64,8 @@
       <file leaf-file-name="Instrument.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/lib/Instrument.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25925925" vertical-offset="0" max-vertical-offset="810">
-              <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.5555556" vertical-offset="0" max-vertical-offset="810">
+              <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -494,12 +493,6 @@
       <option name="number" value="Default" />
       <updated>1425653813105</updated>
     </task>
-    <task id="LOCAL-00006" summary="Ongoing development.">
-      <created>1426094690845</created>
-      <option name="number" value="00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1426094690845</updated>
-    </task>
     <task id="LOCAL-00007" summary="Ongoing development.">
       <created>1426098176834</created>
       <option name="number" value="00007" />
@@ -788,7 +781,13 @@
       <option name="project" value="LOCAL" />
       <updated>1427386487287</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Ongoing development.">
+      <created>1427387531661</created>
+      <option name="number" value="00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1427387531661</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1302,8 +1301,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/lib/Instrument.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25925925" vertical-offset="0" max-vertical-offset="810">
-          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.5555556" vertical-offset="0" max-vertical-offset="810">
+          <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
           <folding />
         </state>
       </provider>
