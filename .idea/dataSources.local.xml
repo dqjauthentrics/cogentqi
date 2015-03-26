@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="CogentQI" uuid="dda61865-1688-4307-9a21-8ec577337f7a">
+    <data-source name="CogentQI Local" uuid="dda61865-1688-4307-9a21-8ec577337f7a">
       <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
       <schema-pattern>cogentqi.* cogentqi_v1_target.*</schema-pattern>
       <default-schemas>tztmp.*</default-schemas>
+    </data-source>
+    <data-source name="CogentQI-Production" uuid="ad7bac3c-740f-4170-97a6-fd848aa51cb7">
+      <secret-storage>master_key</secret-storage>
+      <first-sync>true</first-sync>
     </data-source>
   </component>
 </project>

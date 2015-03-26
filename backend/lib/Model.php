@@ -18,7 +18,6 @@ class Model {
 	 * @param Api $this->api
 	 */
 	function __construct($api) {
-		echo "CONSTRUCT!\n";
 		$this->api = $api;
 		$this->initialize();
 	}
@@ -75,7 +74,6 @@ class Model {
 	 */
 	public function initializeRoutes() {
 		$urlName = $this->urlName();
-		echo "INIT ROUTES: $urlName\n";
 		$this->api->get("/$urlName/all", function ($parentId = NULL) use ($urlName) {
 			$jsonRecords = [];
 			foreach ($this->api->db->{$urlName}() as $dbRecord) {

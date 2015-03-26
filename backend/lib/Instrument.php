@@ -12,8 +12,6 @@ class Instrument extends Model {
 	 */
 	public function map($instrument) {
 		$associative = parent::map($instrument);
-		echo "ASSOCIATIVE:<pre>"; var_dump($associative)."\n";
-
 		try {
 			$questionGroupRecords = $this->api->db->question_group()->where('instrument_id=?', $instrument["id"])->order('sort_order');
 			$jsonQuestionGroups = [];
@@ -32,6 +30,7 @@ class Instrument extends Model {
 			$associative["questions"] = $jsonQuestions;
 		}
 		catch (\Exception $exception) {
+			echo "\nERROR\n";
 			var_dump($exception);
 		}
 		return $associative;
