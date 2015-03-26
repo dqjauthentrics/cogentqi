@@ -12,6 +12,7 @@ class Instrument extends Model {
 	 */
 	public function map($instrument) {
 		$associative = parent::map($instrument);
+		echo "ASSOCIATIVE:<pre>"; var_dump($associative)."\n";
 
 		try {
 			$questionGroupRecords = $this->api->db->question_group()->where('instrument_id=?', $instrument["id"])->order('sort_order');

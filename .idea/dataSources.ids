@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="CogentQI" uuid="dda61865-1688-4307-9a21-8ec577337f7a">
+  <data-source name="CogentQI Local" uuid="dda61865-1688-4307-9a21-8ec577337f7a">
     <database-info product="MySQL" version="5.6.23-72.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
@@ -216,5 +216,8 @@
         <parameter name="" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" type="5" index="0"/>
       </prototype>
     </procedure>
+  </data-source>
+  <data-source name="CogentQI-Production" uuid="ad7bac3c-740f-4170-97a6-fd848aa51cb7">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
   </data-source>
 </component>

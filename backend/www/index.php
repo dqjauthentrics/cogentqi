@@ -17,7 +17,6 @@ if (!empty($objPath)) {
 		exit();
 	}
 }
-echo "objPath: $objPath ($objectNS)\n";
 require_once $objPath;
 
 $dsn = "mysql:dbname=cogentqi_v1_target;host=localhost";
