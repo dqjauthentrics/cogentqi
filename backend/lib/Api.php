@@ -48,7 +48,8 @@ class Api extends \Slim\Slim {
 			}
 			exit(0);
 		}
-		echo "RETURNING: ".count($data)."\n";
-		echo json_encode(['status' => $status, 'result' => $data]);
+		$result = json_encode(['status' => $status, 'result' => $data]);
+		echo "RETURNING: <pre>"; var_dump($result); echo "\n";
+		echo $result;
 	}
 }

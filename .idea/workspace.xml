@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4d363135-d755-4645-a82c-7b84e720bd47" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/lib/Api.php" afterPath="$PROJECT_DIR$/backend/lib/Api.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/lib/Instrument.php" afterPath="$PROJECT_DIR$/backend/lib/Instrument.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/lib/Model.php" afterPath="$PROJECT_DIR$/backend/lib/Model.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/lib/Question.php" afterPath="$PROJECT_DIR$/backend/lib/Question.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -97,8 +94,8 @@
       <file leaf-file-name="Api.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/lib/Api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.81773996" vertical-offset="47" max-vertical-offset="885">
-              <caret line="48" column="20" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
+            <state vertical-scroll-proportion="0.872418" vertical-offset="62" max-vertical-offset="900">
+              <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -506,12 +503,6 @@
       <option name="number" value="Default" />
       <updated>1425653813105</updated>
     </task>
-    <task id="LOCAL-00002" summary="Ongoing development.">
-      <created>1425871836482</created>
-      <option name="number" value="00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1425871836482</updated>
-    </task>
     <task id="LOCAL-00003" summary="Ongoing development.">
       <created>1425938631477</created>
       <option name="number" value="00003" />
@@ -800,7 +791,13 @@
       <option name="project" value="LOCAL" />
       <updated>1427383460881</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Ongoing development.">
+      <created>1427386035002</created>
+      <option name="number" value="00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1427386035002</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1318,8 +1315,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/lib/Api.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.81773996" vertical-offset="47" max-vertical-offset="885">
-          <caret line="48" column="20" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.872418" vertical-offset="62" max-vertical-offset="900">
+          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding />
         </state>
       </provider>
