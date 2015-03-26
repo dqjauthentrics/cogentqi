@@ -12,15 +12,14 @@ require_once "../lib/Api.php";
 require_once "../lib/Model.php";
 require_once "../lib/Authentication.php";
 if (!empty($objPath)) {
-	if (!@file_exists($objPath)) {
-		header('HTTP/1.0 400 BAD REQUEST');
+	if (@file_exists($objPath)) {
+		require_once $objPath;
+	}
+	else {
+		header("HTTP/1.0 400 Invalid object ($object).");
 		exit();
 	}
 }
-if (!empty($objPath)) {
-	require_once $objPath;
-}
-
 $dsn = "mysql:dbname=cogentqi_v1_target;host=localhost";
 $username = "cogentqiapp";
 $password = "cogentqi42app";
@@ -41,7 +40,7 @@ if (!empty($objectNS)) {
 	}
 	else {
 		try {
-			header('HTTP/1.0 403 Forbidden');
+			header("HTTP/1.0 403 Unauthenticated");
 			exit();
 		}
 		catch (\Exception $exception) {

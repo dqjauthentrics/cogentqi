@@ -30,8 +30,7 @@ class Instrument extends Model {
 
 		}
 		catch (\Exception $exception) {
-			echo "\nERROR\n";
-			var_dump($exception);
+			$this->api->sendError($exception);
 		}
 		return $associative;
 	}

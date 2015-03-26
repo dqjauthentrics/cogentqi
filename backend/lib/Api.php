@@ -50,4 +50,13 @@ class Api extends \Slim\Slim {
 		}
 		echo @json_encode(['status' => $status, 'result' => $data]);
 	}
+
+	/**
+	 * @param \Exception $exception
+	 */
+	public function sendError($exception) {
+		$reason = str_replace("\n", " ", $exception->getMessage());
+		header("HTTP/1.0 500 " . $reason);
+		exit();
+	}
 }
