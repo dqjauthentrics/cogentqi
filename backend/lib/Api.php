@@ -26,6 +26,7 @@ class Api extends \Slim\Slim {
 	function __construct($dsn, $username, $password, $options) {
 		$this->pdo = new \PDO($dsn, $username, $password);
 		$this->db = new \NotORM($this->pdo);
+		mysql_set_charset("utf8");
 		parent::__construct($options);
 	}
 
