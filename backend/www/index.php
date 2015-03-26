@@ -32,10 +32,6 @@ $api->get("/", function () use ($api) {
 $api->get("/test", function () use ($api) {
 	$api->sendResult("OK");
 });
-$api->get('/notAuthorized', function () use ($api) {
-	echo 'You\'re here because you\'re Balrog!';
-	echo 'Http Status Code: ' . $_SESSION['slim.flash']['httpStatusCode'];
-})->name('NotAuthorized');
 
 if (!empty($objectNS)) {
 	$auth = new Authentication($api);
@@ -44,8 +40,7 @@ if (!empty($objectNS)) {
 		new $objectNS($api);
 	}
 	else {
-		$api->flash('httpStatusCode', '403');
-		$api->redirectTo('NotAuthorized');
+		$api->halt(403, 'Permission Denied');
 	}
 }
 $api->run();
