@@ -39,7 +39,7 @@ if (!empty($objectNS)) {
 		new $objectNS($api);
 	}
 	else {
-		$api->halt(403);
+		$api->response->isForbidden();
 	}
 }
 $api->run();
