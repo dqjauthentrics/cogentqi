@@ -8,22 +8,23 @@ namespace App;
  * Time: 10:10 PM
  */
 class Model {
-	/** @var Api $api */
+	/** @var Api $this->api */
 	protected $api = NULL;
 
 	/** @var array $mapExcludes */
 	protected $mapExcludes = [];
 
 	/**
-	 * @param Api $api
+	 * @param Api $this->api
 	 */
 	function __construct($api) {
+		echo "CONSTRUCT!\n";
 		$this->api = $api;
 		$this->initialize();
 	}
 
 	public function initialize() {
-		$this->initializeRoutes($this->api);
+		$this->initializeRoutes();
 	}
 
 	/**
@@ -71,60 +72,60 @@ class Model {
 	}
 
 	/**
-	 * @param Api $api
 	 */
-	public function initializeRoutes($api) {
+	public function initializeRoutes() {
 		$urlName = $this->urlName();
-		$api->get("/$urlName/all", function ($parentId = NULL) use ($api, $urlName) {
+		echo "INIT ROUTES: $urlName\n";
+		$this->api->get("/$urlName/all", function ($parentId = NULL) use ($urlName) {
 			$jsonRecords = [];
-			foreach ($api->db->{$urlName}() as $dbRecord) {
+			foreach ($this->api->db->{$urlName}() as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
-			$api->sendResult($jsonRecords);
+			$this->api->sendResult($jsonRecords);
 		});
-		$api->get("/$urlName/children/:parentId", function ($parentId = NULL) use ($api, $urlName) {
+		$this->api->get("/$urlName/children/:parentId", function ($parentId = NULL) use ($urlName) {
 			$jsonRecords = [];
-			foreach ($api->db->{$urlName}()->where("parent_id=? or id=?", $parentId, $parentId) as $dbRecord) {
+			foreach ($this->api->db->{$urlName}()->where("parent_id=? or id=?", $parentId, $parentId) as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
-			$api->sendResult($jsonRecords);
+			$this->api->sendResult($jsonRecords);
 		});
-		$api->get("/$urlName/:id", function ($id) use ($api, $urlName) {
-			$dbRecord = $api->db->{$urlName}()->where("id", $id);
+		$this->api->get("/$urlName/:id", function ($id) use ($urlName) {
+			$dbRecord = $this->api->db->{$urlName}()->where("id", $id);
 			if ($data = $dbRecord->fetch()) {
-				$api->sendResult($this->map($data));
+				$this->api->sendResult($this->map($data));
 			}
 			else {
-				$api->sendResult("$urlName ID $id does not exist", Api::STATUS_ERROR);
+				$this->api->sendResult("$urlName ID $id does not exist", Api::STATUS_ERROR);
 			}
 		});
 
-		$api->post("/$urlName", function () use ($api, $urlName) {
-			$jsonPostData = $api->request()->post();
-			$result = $api->db->{$urlName}->insert($jsonPostData);
-			$api->sendResult(["id" => $result["id"]]);
+		$this->api->post("/$urlName", function () use ($urlName) {
+			$jsonPostData = $this->api->request()->post();
+			$result = $this->api->db->{$urlName}->insert($jsonPostData);
+			$this->api->sendResult(["id" => $result["id"]]);
 		});
 
-		$api->put("/$urlName/:id", function ($id) use ($api, $urlName) {
-			$dbRecord = $api->db->{$urlName}()->where("id", $id);
+		$this->api->put("/$urlName/:id", function ($id) use ($urlName) {
+			$dbRecord = $this->api->db->{$urlName}()->where("id", $id);
 			if ($dbRecord->fetch()) {
-				$post = $api->request()->put();
+				$post = $this->api->request()->put();
 				$result = $dbRecord->update($post);
-				$api->sendResult("$urlName updated.", (bool)$result);
+				$this->api->sendResult("$urlName updated.", (bool)$result);
 			}
 			else {
-				$api->sendResult("$urlName id $id does not exist", Api::STATUS_ERROR);
+				$this->api->sendResult("$urlName id $id does not exist", Api::STATUS_ERROR);
 			}
 		});
 
-		$api->delete("/$urlName/:id", function ($id) use ($api, $urlName) {
-			$dbRecord = $api->db->{$urlName}()->where("id", $id);
+		$this->api->delete("/$urlName/:id", function ($id) use ($urlName) {
+			$dbRecord = $this->api->db->{$urlName}()->where("id", $id);
 			if ($dbRecord->fetch()) {
 				$result = $dbRecord->delete();
-				$api->sendResult("$urlName deleted.");
+				$this->api->sendResult("$urlName deleted.");
 			}
 			else {
-				$api->sendResult("$urlName id $id does not exist.", Api::STATUS_ERROR);
+				$this->api->sendResult("$urlName id $id does not exist.", Api::STATUS_ERROR);
 			}
 		});
 	}

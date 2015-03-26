@@ -2,4 +2,5 @@
 namespace App;
 
 class Organization extends Model {
+
 }
