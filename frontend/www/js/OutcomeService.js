@@ -9,12 +9,15 @@ angular.module('app.outcomes', ['app.utility']).service('Outcomes', function ($h
 	 *
 	 * @returns {Array}
 	 */
-	svc.initialize = function () {
+	svc.initialize = function (callback) {
 		if (svc.outcomes === false) {
 			svc.outcomes = true;
 			$http.get('/api/outcome/all').
 				success(function (data, status, headers, config) {
 							svc.outcomes = data.result; // set data to real value
+							if (!Utility.empty(callback)) {
+								callback();
+							}
 						}).
 				error(function (data, status, headers, config) {
 					  });
@@ -32,4 +35,16 @@ angular.module('app.outcomes', ['app.utility']).service('Outcomes', function ($h
 		svc.initialize();
 		return svc.outcomes;
 	};
+
+	svc.find = function (outcomeId) {
+		if (!Utility.empty(svc.outcomes)) {
+			for (var i = 0; i < svc.outcomes.length; i++) {
+				if (svc.outcomes[i].id == outcomeId) {
+					return svc.outcomes[i];
+				}
+			}
+		}
+		return null;
+	};
+
 });

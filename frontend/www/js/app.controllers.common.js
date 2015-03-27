@@ -42,9 +42,8 @@ angular.module('app.controllers.common', [])
 					$scope.e = Evaluations;
 					$scope.m = Members;
 					$scope.r = Resources;
-					$scope.evaluation = null;
-					$scope.member = null;
 					$scope.instrumentId = false;
+					$scope.evaluationId = null;
 
 					$scope.r0 = [];
 					$scope.r1 = [1];
@@ -54,12 +53,10 @@ angular.module('app.controllers.common', [])
 					$scope.r5 = [1, 1, 1, 1, 1];
 
 					Members.initialize();
+					Evaluations.initialize();
 					if (!Utility.empty($stateParams)) {
 						if (!Utility.empty($stateParams.evaluationId)) {
-							$scope.evaluation = Evaluations.get(Members, $stateParams.evaluationId);
-						}
-						if (!Utility.empty($stateParams.instrumentId)) {
-							$scope.instrumentId = $stateParams.instrumentId;
+							$scope.evaluationId = $stateParams.evaluationId;
 						}
 						if (!Utility.empty($stateParams.instrumentId)) {
 							$scope.instrumentId = $stateParams.instrumentId;
@@ -84,8 +81,8 @@ angular.module('app.controllers.common', [])
 						}
 						return $scope.r0;
 					};
-					$scope.weightGreaterThanZero = function(){
-						return function(item){
+					$scope.weightGreaterThanZero = function () {
+						return function (item) {
 							return item.weight > 0;
 						}
 					}

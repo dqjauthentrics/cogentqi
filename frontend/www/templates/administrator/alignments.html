@@ -1,12 +1,25 @@
 <ion-view view-title="Alignments">
-    <ion-nav-buttons side="left"><a href="/#/administrator/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <ion-list>
-            <ion-item class="item-icon-right" ng-repeat="resource in r.resources track by $index" type="item-text-wrap" href="#/administrator/alignment/{{resource.id}}">
-                <i class="{{i.icons.resource}} fa-lg"></i> {{resource.number}} {{resource.name}}
-                <i class="icon ion-chevron-right icon-accessory"></i>
-            </ion-item>
-        </ion-list>
+        <div class="row responsive-sm">
+            <div class="col col-50">
+                <ion-list>
+                    <ion-item class="top"><h2>Resources</h2></ion-item>
+                    <ion-item class="item-icon-right" ng-repeat="resource in r.resources" type="item-text-wrap" href="#/administrator/alignment/{{resource.id}}">
+                        <i class="{{i.icons.resource}} fa-lg"></i> {{resource.number}} {{resource.name}}
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                    </ion-item>
+                </ion-list>
+            </div>
+            <div class="col col-50">
+                <ion-list>
+                    <ion-item class="top"><h2>Outcomes</h2></ion-item>
+                    <ion-item class="item-icon-right" ng-repeat="outcome in o.outcomes" type="item-text-wrap" href="#/administrator/outcome/{{outcome.id}}">
+                        <i class="{{i.icons.outcome}} fa-lg"></i> {{outcome.number}} {{outcome.name}}
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
     </ion-content>
 </ion-view>

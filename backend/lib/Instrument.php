@@ -38,7 +38,8 @@ class Instrument extends Model {
 			}
 			$associative["questionGroups"] = $jsonQuestionGroups;
 
-			$questionRecords = $this->api->db->question()->where('question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?)', $instrument["id"])->order('sort_order');
+			$questionRecords = $this->api->db->question()
+				->where('question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?)', $instrument["id"])->order('sort_order');
 			$jsonQuestions = [];
 			$question = new Question($this->api);
 			foreach ($questionRecords as $questionRecord) {
@@ -46,6 +47,14 @@ class Instrument extends Model {
 			}
 			$associative["questions"] = $jsonQuestions;
 
+			$resAlignRecords = $this->api->db->resource_alignment()
+				->where('question_id IN (SELECT id FROM question WHERE question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?))', $instrument["id"]);
+			$jsonAligns = [];
+			$resAlign = new Question($this->api);
+			foreach ($resAlignRecords as $resAlignRecord) {
+				$jsonAligns[] = $resAlign->map($resAlignRecord);
+			}
+			$associative["alignments"] = $jsonAligns;
 		}
 		catch (\Exception $exception) {
 			$this->api->sendError($exception);

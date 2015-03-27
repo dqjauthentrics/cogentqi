@@ -1,17 +1,17 @@
 <ion-view view-title="Evaluations">
-    <ion-nav-buttons side="left"><a href="/#/manager/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="left"><a href="/" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
-    <ion-content has-bouncing="false" data-ng-init="a.initialize()">
+    <ion-content has-bouncing="false">
         <ion-list>
-            <ion-item class="item-remove-animate item-icon-right" ng-repeat="evaluation in e.evaluations"
+            <ion-item class="item-remove-animate item-icon-right" ng-repeat="evaluation in e.memberEvaluations()"
                       type="item-text-wrap" href="#/manager/evaluation/{{evaluation.id}}">
                 <div class="row">
                     <div class="col col-35">
-                        <img class="border border{{evaluation.member.level}}" style="float:left; margin: 0 0.4em 0 0;" data-ng-src="{{m.get(evaluation.memberId).avatar}}">
+                        <img class="border border{{evaluation.member.level}}" style="float:left; margin: 0 0.4em 0 0;" data-ng-src="{{m.find(evaluation.memberId).avatar}}">
 
                         <div style="float:left;margin: 0.1em;">
                             <div class="title">
-                                {{evaluation.member.name}}
+                                {{evaluation.member.firstName}} {{evaluation.member.lastName}}
                             </div>
                             <div class="title" style="float:left;margin: 0.1em;">
                                 <i class="level levelColor{{evaluation.member.level}} {{i.icons.levels[evaluation.member.level]}}"></i>
@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="col col-55">
-                        <div style="float:left; margin-right: 1em;" data-ng-repeat="section in m.getCompetencies(evaluation.member.id)">
+                        <div style="float:left; margin-right: 1em;" data-ng-repeat="section in e.sections">
                             <level-tag text="section.text" level="section.val" icon="i.icons.levels[section.val]"></level-tag>
                         </div>
                     </div>

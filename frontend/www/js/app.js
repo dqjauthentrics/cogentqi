@@ -35,7 +35,7 @@ angular.module('app',
 					delete $httpProvider.defaults.headers.common['X-Requested-With'];
 				}
 			])
-	.run(function ($ionicPlatform, $rootScope, $location, $window, angularLoad, Installation, Icons, Utility, Authentication) {
+	.run(function ($ionicPlatform, $rootScope, $location, $window, $cookieStore, angularLoad, Installation, Icons, Utility, Authentication) {
 			 $ionicPlatform.ready(function () {
 
 				 var host = $location.host();
@@ -79,6 +79,11 @@ angular.module('app',
 					 return 'logged out';
 				 };
 				 $rootScope.checkSession();
+
+				 $rootScope.dashboardUrl = function () {
+					 var user = $cookieStore.get('user');
+					 return (!Utility.empty(user) && user.roleId == 'A' ? '/#/administrator/dashboard' : '/#/manager/dashboard');
+				 };
 			 });
 		 })
 	.value('FIREBASE_URL', 'https://cogentqi.firebaseio.com')

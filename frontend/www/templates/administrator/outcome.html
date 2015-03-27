@@ -1,36 +1,34 @@
-<ion-view view-title="Alignments">
-    <ion-nav-buttons side="left"><a href="/#/administrator/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+<ion-view view-title="Outcomes">
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true" data-ng-init="currentInstrument = e.findInstrument(null)">
         <div class="detail">
             <h2><a href="#/manager/resource/{{resource.id}}">{{resource.name}}</a></h2>
-
             <div class="description">
                 {{resource.summary}}
             </div>
-            <select style="margin-top:1em;" class="large" data-ng-model="e.currentInstrumentId"
-                    data-ng-change="currentInstrument = getInstrumentAlignments(e.findInstrument(e.currentInstrumentId),resource.id)">
+            <select style="margin-top:1em;" class="large" data-ng-model="e.currentInstrumentId" data-ng-change="currentInstrument = e.findInstrument(e.currentInstrumentId)">
                 <option data-ng-repeat="instrument in e.instruments" value="{{instrument.id}}">{{instrument.name}}</option>
             </select>
 
             <div class="clearfix"></div>
         </div>
-        <ion-list data-ng-init="r.retrieveAlignments(currentInstrument, resource.id, currentInstrument.questions)">
+        <ion-list data-ng-init="r.retrieveOutcomes(currentInstrument.questions)">
             <ion-item class="item-icon-right" ng-repeat="question in currentInstrument.questions" type="item-text-wrap"
-                      href="#/administrator/alignment/{{resource.id}}">
+                      href="#/administrator/outcome/{{resource.id}}">
                 <div class="name">{{question.name}}</div>
                 <div style="float:right; width: 10em; margin: 1em 0.5em;">
                     <div class="item range range-positive">
-                        <input type="range" name="volume" min="0" max="3" data-ng-bind="{{question.alignment}}" data-ng-model="question.alignment">
+                        <input type="range" name="volume" min="0" max="3" data-ng-bind="{{question.outcome}}" data-ng-model="question.outcome">
 
                         <div class="clearfix"></div>
-                        <div><span class="phrase">{{question.alignment}}</span></div>
+                        <div><span class="phrase">{{question.outcome}}</span></div>
                     </div>
                 </div>
                 <div class="description" data-ng-bind-html="question.description"></div>
             </ion-item>
         </ion-list>
-        <button data-ng-click="r.saveAlignments(currentInstrument.id, resource.id, currentInstrument.questions)" class="button button-balanced">Save</button>
+        <button data-ng-click="r.saveOutcomes(currentInstrument.id, resource.id, currentInstrument.questions)" class="button button-balanced">Save</button>
     </ion-content>
 </ion-view>
 

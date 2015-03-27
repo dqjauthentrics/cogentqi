@@ -9,17 +9,10 @@ class Member extends Model {
 		parent::initialize();
 
 		$urlName = $this->urlName();
-		$this->api->get("/$urlName/organization/:orgId/role/:roleId", function ($orgId = NULL, $role = NULL) use ($urlName) {
-			$jsonRecords = [];
-			$dbRecords = $this->api->db->{$urlName}()->where("role_id=? AND organization_id=?", $role, $orgId);
-			foreach ($dbRecords as $dbRecord) {
-				$jsonRecords[] = $this->map($dbRecord);
-			}
-			$this->api->sendResult($jsonRecords);
-		});
 		$this->api->get("/$urlName/organization/:orgId", function ($orgId = NULL) use ($urlName) {
 			$jsonRecords = [];
-			foreach ($this->api->db->{$urlName}()->where("organization_id=?", $orgId) as $dbRecord) {
+			$dbRecords = $this->api->db->{$urlName}()->where("organization_id=?", $orgId);
+			foreach ($dbRecords as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
 			$this->api->sendResult($jsonRecords);

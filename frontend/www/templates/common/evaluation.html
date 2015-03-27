@@ -1,15 +1,19 @@
 <ion-view view-title="Evaluation">
-    <ion-nav-buttons side="left"><a href="/#/manager/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
-    <ion-content has-bouncing="false" overflow-scroll="true">
+    <ion-content has-bouncing="false" overflow-scroll="true" data-ng-init="e.currentEval = e.retrieve(evaluationId)">
         <div class="row responsive-sm">
             <div class="col col-100"><h3 style="text-align: center; margin:0 auto;">{{e.currentEval.instrument.name}}</h3></div>
         </div>
         <div class="row responsive-sm detail">
             <div class="col col-25 padding" style="text-align:center;">
-                <a href="#/manager/member/{{e.currentEval.member.id}}"><img class="border border{{e.avgRound}}" data-ng-src="{{e.currentEval.member.avatar}}" alt=""/></a><br/>
+                <a href="#/manager/member/{{e.currentEval.member.id}}">
+                    <img class="border border{{e.avgRound}}" data-ng-src="{{e.currentEval.member.avatar}}" alt=""/>
+                </a><br/>
 
-                <div class="name"><a href="#/manager/member/{{e.currentEval.member.id}}">{{e.currentEval.member.firstName}} {{e.currentEval.member.lastName}}</a></div>
+                <div class="name"><a href="#/manager/member/{{e.currentEval.member.id}}">
+                    {{e.currentEval.member.firstName}} {{e.currentEval.member.lastName}}</a>
+                </div>
                 <div class="role">{{m.roleName(e.currentEval.member)}}</div>
                 <div class="score">
                     <i class="logo level levelColor{{e.avgRound}} {{i.icons.levels[e.avgRound]}}">
@@ -64,8 +68,8 @@
                             <div data-ng-switch-default=>
                                 <slider id="question_item_{{question.id}}" class="slider{question.responseRecord.responseIndex}}"
                                         data-ng-model="question.responseRecord.responseIndex" floor="0.0" ceiling="5" step-width="1"
-                                        data-ng-change="e.sliderChange(e.currentEval.member, question, this, true)"
-                                        translate-fn="e.sliderChange(e.currentEval.member, question, this, $index == 0)">
+                                        data-ng-change="e.sliderChange(evaluation.member, question, this, true)"
+                                        translate-fn="e.sliderChange(evaluation.member, question, this, $index == 0)">
                                 </slider>
                             </div>
                         </div>

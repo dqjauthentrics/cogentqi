@@ -1,21 +1,22 @@
 'use strict';
 
-angular.module('app.members', ['app.evaluations']).service('Members', function ($http, $cookieStore, Installation, Utility, Evaluations) {
+angular.module('app.members', ['app.evaluations']).service('Members', function ($http, $cookieStore, Installation, Utility) {
 	var svc = this;
-	svc.a = Evaluations;
-	svc.initialized = false;
-	svc.members = [];
+	svc.members = false;
 	svc.apiUrl = "/api/member";
 
-	svc.initialize = function () {
+	svc.initialize = function (organizationId) {
 		var user = $cookieStore.get('user');
-		if (Utility.empty(svc.members) && !Utility.empty(user)) {
-			svc.members = ['zz'];
-			var organizationId = user.organizationId;
-			$http.get(svc.apiUrl + '/organization/' + organizationId).
+		if (svc.members === false && !Utility.empty(user)) {
+			svc.members = true;
+			if (Utility.empty(organizationId)) {
+				organizationId = user.organizationId;
+			}
+			var url = svc.apiUrl + '/organization/' + organizationId;
+			$http.get(url).
 				success(function (data, status, headers, config) {
 							svc.members = data.result;
-							Evaluations.initialize();
+							console.log("members initialized", svc.members);
 						}).
 				error(function (data, status, headers, config) {
 						  console.log("ERROR: unable to retrieve members.");
@@ -24,80 +25,12 @@ angular.module('app.members', ['app.evaluations']).service('Members', function (
 	};
 
 	svc.getMembers = function () {
-		svc.initialize();
 		return svc.members;
 	};
 
-	svc.remove = function (member) {
-		svc.members.splice(svc.members.indexOf(member), 1);
-	};
-
-	svc.retrieveCompetencies = function (member) {
-		var totScore = 0;
-		var competencies = JSON.parse(JSON.stringify(svc.a.competencies)); // clone
-		for (var i = 0; i < competencies.length; i++) {
-			competencies[i].val = 0;
-			var sectionTotal = 0;
-			for (var j = 0; j < competencies[i].children.length; j++) {
-				var val = Math.floor((Math.random() * 5)) + 1;
-				competencies[i].children[j].val = val;
-				sectionTotal += val;
-			}
-			competencies[i].val = sectionTotal > 0 ? Math.round(sectionTotal / competencies[i].children.length) : 0;
-			totScore += val;
-		}
-		var level = totScore > 0 && competencies.length > 0 ? Math.round(totScore / competencies.length) : 0;
-		return {competencies: competencies, level: level};
-	};
-
-	svc.getSectionCompetencies = function (member, sectionId) {
-		if (!Utility.empty(member) && !Utility.empty(member.competencies)) {
-			for (var i = 0; i < member.competencies.length; i++) {
-				if (member.competencies[i].id == sectionId) {
-					//console.log("COMPRET:", member.competencies[i]);
-					return member.competencies[i];
-				}
-			}
-		}
-		return null;
-	};
-
-	svc.getCompetencies = function (memberId) {
-		//console.log("e.getCompetencies(" + memberId + ")");
-		if (!Utility.empty(svc.a) && !Utility.empty(svc.a.competencies)) {
-			//console.log("e.getCompetencies(" + memberId + "), framework competencies were loaded");
-			for (var i = 0; i < svc.members.length; i++) {
-				if ((memberId == null || svc.members[i].id == memberId) && Utility.empty(svc.members[i].competencies)) {
-					var compInfo = svc.retrieveCompetencies(svc.members[i]);
-					svc.members[i].competencies = compInfo.competencies;
-					svc.members[i].level = compInfo.level;
-					//console.log("e.getCompetencies(" + svc.members[i].id + "):", svc.members[i].competencies);
-
-					for (var j = 0; j < svc.a.evaluations.length; j++) {
-						if (svc.a.evaluations[j].memberId == svc.members[i].id) {
-							svc.a.evaluations[j].member = svc.members[i];
-							svc.members[i].evaluationId = svc.a.evaluations[j].id;
-						}
-					}
-					if (memberId !== null) {
-						return svc.members[i].competencies;
-					}
-				}
-			}
-		}
-		return null;
-	};
-
-	svc.getAllCompetencies = function (callback) {
-		//console.log("e.getAllCompetencies()");
-		svc.getCompetencies(null);
-		callback();
-	};
-
-	svc.get = function (memberId) {
+	svc.find = function (memberId) {
 		for (var i = 0; i < svc.members.length; i++) {
 			if (parseInt(svc.members[i].id) === parseInt(memberId)) {
-				svc.getCompetencies(memberId);
 				return svc.members[i];
 			}
 		}

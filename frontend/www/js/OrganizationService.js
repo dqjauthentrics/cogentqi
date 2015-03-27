@@ -1,17 +1,18 @@
 'use strict';
 
-angular.module('app.organizations', ['app.members']).
-	service('Organizations', function ($http, $cookieStore, $rootScope, Utility) {
+angular.module('app.organizations', []).
+	service('Organizations', function ($http, $cookieStore, $rootScope, Utility, Members) {
 				var svc = this;
 				svc.apiUrl = '/api/organization';
-				svc.mine = null;
-				svc.organizations = [];
-				svc.currentOrgMembers = [];
-				svc.currentOrg = null;
+				svc.mine = false;
+				svc.organizations = false;
+				svc.currentOrgMembers = false;
+				svc.currentOrg = false;
 
 				svc.initialize = function () {
 					var user = $cookieStore.get('user');
-					if (!Utility.empty(user) && Utility.empty(svc.mine)) {
+					if (!Utility.empty(user) && svc.mine === false) {
+						svc.mine = true;
 						var organizationId = user.organizationId;
 						$http.get(svc.apiUrl + '/' + organizationId).
 							success(function (data, status, headers, config) {
@@ -26,8 +27,8 @@ angular.module('app.organizations', ['app.members']).
 
 				svc.getChildOrganizationsAndMine = function () {
 					var user = $cookieStore.get('user');
-					if (Utility.empty(svc.organizations) && !Utility.empty(user)) {
-						svc.organizations = [{name: 'foo'}];
+					if (svc.organizations === false && !Utility.empty(user)) {
+						svc.organizations = true;
 						var organizationId = user.organizationId;
 						$http.get(svc.apiUrl + '/children/' + organizationId).
 							success(function (data, status, headers, config) {
@@ -47,12 +48,13 @@ angular.module('app.organizations', ['app.members']).
 					return svc.mine;
 				};
 				svc.setCurrentOrg = function (organization) {
-					if (!Utility.empty(organization) && (Utility.empty(svc.currentOrgMembers) || svc.currentOrg.id != organization.id)) {
-						svc.currentOrgMembers = ['zz'];
+					if (!Utility.empty(organization) && (svc.currentOrgMembers === false || svc.currentOrg.id != organization.id)) {
+						svc.currentOrgMembers = true;
 						svc.currentOrg = organization;
 						$http.get('/api/member/organization/' + organization.id).
 							success(function (data, status, headers, config) {
 										svc.currentOrgMembers = data.result;
+										Members.members = svc.currentOrgMembers;
 									}).
 							error(function (data, status, headers, config) {
 								  });

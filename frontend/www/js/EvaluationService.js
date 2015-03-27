@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Evaluations', function ($filter, $http, $cookieStore, Installation, angularLoad, Utility, Resources) {
+angular.module('app.evaluations', []).service('Evaluations', function ($filter, $http, $cookieStore, Utility, Resources, Members) {
 	var svc = this;
 	svc.SECTION_ALL = -100;
 	svc.SECTION_SUMMARY = -101;
@@ -14,8 +14,9 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 	svc.currentInstrumentId = null;
 	svc.sections = [];
 	svc.matrix = false;
-	svc.evaluations = [];
+	svc.evaluations = false;
 	svc.currentEval = null;
+
 	svc.recommendations = [
 		{resourceId: null, number: null, name: null, weight: 0, score: 0},
 		{resourceId: null, number: null, name: null, weight: 0, score: 0},
@@ -29,10 +30,18 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 		{resourceId: null, number: null, name: null, weight: 0, score: 0}
 	];
 
+	svc.memberEvaluations = function () {
+		if (svc.evaluations && Array.isArray(svc.evaluations)) {
+			for (var i = 0; i < svc.evaluations.length; i++) {
+				svc.evaluations[i].member = Members.find(svc.evaluations[i].memberId);
+			}
+		}
+		return svc.evaluations;
+	};
 	svc.loadEvaluations = function () {
 		var user = $cookieStore.get('user');
-		if (Utility.empty(svc.evaluations) && !Utility.empty(user)) {
-			svc.evaluations = ['zz'];
+		if (svc.evaluations === false && !Utility.empty(user)) {
+			svc.evaluations = true;
 			$http.get('/api/evaluation/organization/' + user.organizationId).
 				success(function (data, status, headers, config) {
 							svc.evaluations = data.result;
@@ -42,7 +51,7 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 					  });
 		}
 	};
-	svc.initialize = function (callback) {
+	svc.initialize = function () {
 		var user = $cookieStore.get('user');
 		if (Utility.empty(svc.instruments) && !Utility.empty(user)) {
 			svc.instruments = ['zz'];
@@ -50,9 +59,6 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 				success(function (data, status, headers, config) {
 							svc.instruments = data.result;
 							svc.loadEvaluations(user.organizationId);
-							if (!Utility.empty(callback)) {
-								callback();
-							}
 						}).
 				error(function (data, status, headers, config) {
 						  console.log("ERROR: unable to retrieve instruments.");
@@ -134,13 +140,14 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 		return null;
 	};
 
-	svc.get = function (m, evaluationId) {
+	svc.retrieve = function (evaluationId) {
 		$http.get('/api/evaluation/' + evaluationId).
 			success(function (data, status, headers, config) {
 						svc.currentEval = data.result;
 						if (!Utility.empty(svc.currentEval)) {
 							svc.currentEval.instrument = svc.findInstrument(svc.currentEval.instrumentId);
-							svc.currentEval.member = m.get(svc.currentEval.memberId);
+							svc.currentEval.member = Members.find(svc.currentEval.memberId);
+							//console.log("MEMBER SET:", svc.currentEval.memberId, svc.currentEval.member);
 							svc.getSections(svc.currentEval.instrumentId);
 							for (var i = 0; i < svc.currentEval.responses.length; i++) {
 								for (var j = 0; j < svc.sections.length; j++) {
@@ -159,6 +166,22 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 					  console.log("ERROR: unable to retrieve evaluation.");
 				  });
 		return svc.currentEval;
+	};
+
+	svc.findAlignment = function (instrumentId, resourceId, questionId) {
+		if (!Utility.empty(svc.instruments) && Array.isArray(svc.instruments)) {
+			for (var i = 0; i < svc.instruments.length; i++) {
+				if (parseInt(instrumentId) == parseInt(svc.instruments[i].id)) {
+					for (var j = 0; j < svc.instruments[i].alignments.length; j++) {
+						var alignment = svc.instruments[i].alignments[j];
+						if (parseInt(alignment.questionId) == parseInt(questionId) && parseInt(alignment.resourceId) == parseInt(resourceId)) {
+							return svc.instruments.alignments[i].weight;
+						}
+					}
+				}
+			}
+		}
+		return 0;
 	};
 
 	svc.scorify = function (member) {
@@ -335,7 +358,7 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 			if (svc.currentSectionIdx == svc.SECTION_ALL) {
 				return 'Section Summary';
 			}
-			if (svc.currentSectionIdx >= 0 && svc.currentSectionIdx < svc.competencies.length) {
+			if (svc.currentSectionIdx >= 0 && svc.currentSectionIdx < svc.sections.length) {
 				name = svc.sections[svc.currentSectionIdx].name;
 			}
 		}

@@ -4,7 +4,7 @@ angular.module('app.resources', ['app.utility']).service('Resources', function (
 	var svc = this;
 	svc.resources = null;
 
-	svc.initialize = function (l) {
+	svc.initialize = function (l, callback) {
 		if (Utility.empty(svc.resources)) {
 			svc.resources = ['zz'];
 			$http.get('/api/resource/all').
@@ -36,15 +36,29 @@ angular.module('app.resources', ['app.utility']).service('Resources', function (
 		return svc.resources;
 	};
 
-	svc.retrieveAlignments = function (questions) {
-		if (!Utility.empty(questions)) {
-			for (var i = 0; i < questions.length; i++) {
-				questions[i].alignment = Utility.randomIntBetween(0, 3);
+	svc.retrieveAlignments = function (instrument, resourceId, questions) {
+		//console.log("retrieveAlignments:", instrument, questions);
+		if (!Utility.empty(instrument)) {
+			//console.log("retrieveAlignments:init");
+			for (var k = 0; k < questions.length; k++) {
+				questions[k].alignment = 0;
+			}
+			for (var j = 0; j < instrument.alignments.length; j++) {
+				var alignment = instrument.alignments[j];
+				var questionId = parseInt(alignment.questionId);
+				//console.log("retrieveAlignments:loop", alignment);
+				if (parseInt(resourceId) == parseInt(alignment.resourceId)) {
+					for (k = 0; k < questions.length; k++) {
+						if (parseInt(questions[k].id) == questionId) {
+							questions[k].alignment = alignment.weight;
+						}
+					}
+				}
 			}
 		}
 	};
 	svc.saveAlignments = function (instrumentId, resourceId, questions) {
-		console.log("saveAlignments", questions);
+		//console.log("saveAlignments", questions);
 		if (!Utility.empty(questions) && !Utility.empty(resourceId)) {
 			var alignments = [];
 			for (var i = 0; i < questions.length; i++) {
@@ -59,7 +73,7 @@ angular.module('app.resources', ['app.utility']).service('Resources', function (
 					  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 				  }).
 				success(function (data, status, headers, config) {
-							console.log(data.result);
+							console.log("saved");
 						}).
 				error(function (data, status, headers, config) {
 						  console.log("Login failed.");
