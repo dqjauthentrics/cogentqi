@@ -28,15 +28,17 @@ angular.module('app.controllers.common', [])
 					$scope.e = Evaluations;
 					$scope.m = Members;
 					$scope.r = Resources;
-					$scope.instrumentId = false;
+					$scope.instrumentId = 1;
 
 					Members.initialize();
+					Evaluations.initialize();
 					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.instrumentId)) {
 						$scope.instrumentId = $stateParams.instrumentId;
 					}
-					if ($scope.instrumentId === false) {
+					if (Utility.empty($scope.instrumentId)) {
 						$scope.instrumentId = 1;
 					}
+					Evaluations.getMatrixData($scope.instrumentId);
 				})
 	.controller('EvaluationCtrl', function ($scope, $stateParams, Utility, Evaluations, Members, Resources) {
 					$scope.e = Evaluations;

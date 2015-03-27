@@ -2,11 +2,11 @@
 
 angular.module('app.resources', ['app.utility']).service('Resources', function ($http, Utility) {
 	var svc = this;
-	svc.resources = null;
+	svc.resources = false;
 
 	svc.initialize = function (l, callback) {
-		if (Utility.empty(svc.resources)) {
-			svc.resources = ['zz'];
+		if (svc.resources === false) {
+			svc.resources = true;
 			$http.get('/api/resource/all').
 				success(function (data, status, headers, config) {
 							svc.resources = data.result;

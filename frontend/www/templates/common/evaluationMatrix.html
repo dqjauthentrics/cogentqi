@@ -2,7 +2,7 @@
     <ion-nav-buttons side="right">
         <a href="/#tab/evaluations" style="font-size:1.2em;">Evaluations >></a>
     </ion-nav-buttons>
-    <ion-content has-bouncing="false" data-ng-init="e.getMatrixData(instrumentId)"">
+    <ion-content has-bouncing="false" data-ng-init="e.getMatrixData(instrumentId)">
         <div style="text-align:center; margin-top: 1em;">
             <h3>{{a.sectionCurrentName()}}</h3>
             <h4>Competency Summary Matrix</h4>
@@ -26,7 +26,7 @@
             </thead>
             <tbody>
             <tr data-ng-repeat="dataRow in e.matrix">
-                <td class="leftHeader" data-ng-init="member = m.get(dataRow.memberId)">
+                <td class="leftHeader" data-ng-init="member = m.find(dataRow.memberId)">
                     <div data-ng-switch="dataRow.memberId">
                         <div data-ng-switch-when="-1">
                             Averages
