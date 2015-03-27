@@ -24,7 +24,20 @@ angular.module('app.controllers.common', [])
 						};
 					}
 				])
+	.controller('MatrixCtrl', function ($scope, $stateParams, Utility, Evaluations, Members, Resources) {
+					$scope.e = Evaluations;
+					$scope.m = Members;
+					$scope.r = Resources;
+					$scope.instrumentId = false;
 
+					Members.initialize();
+					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.instrumentId)) {
+						$scope.instrumentId = $stateParams.instrumentId;
+					}
+					if ($scope.instrumentId === false) {
+						$scope.instrumentId = 1;
+					}
+				})
 	.controller('EvaluationCtrl', function ($scope, $stateParams, Utility, Evaluations, Members, Resources) {
 					$scope.e = Evaluations;
 					$scope.m = Members;
@@ -48,7 +61,11 @@ angular.module('app.controllers.common', [])
 						if (!Utility.empty($stateParams.instrumentId)) {
 							$scope.instrumentId = $stateParams.instrumentId;
 						}
+						if (!Utility.empty($stateParams.instrumentId)) {
+							$scope.instrumentId = $stateParams.instrumentId;
+						}
 					}
+
 					if ($scope.instrumentId === false) {
 						$scope.instrumentId = 1;
 					}
@@ -67,12 +84,10 @@ angular.module('app.controllers.common', [])
 						}
 						return $scope.r0;
 					};
-					$scope.setActive = function (type) {
-						$scope.active = type;
-					};
-
-					$scope.isActive = function (type) {
-						return type === $scope.active;
-					};
+					$scope.weightGreaterThanZero = function(){
+						return function(item){
+							return item.weight > 0;
+						}
+					}
 				})
 ;

@@ -86,6 +86,20 @@ angular.module('app',
 	.directive('headerButtons', function () {
 				   return {restrict: 'E', templateUrl: 'templates/_headerButtons.html'};
 			   })
+	.directive('memberItem', function () {
+				   return {
+					   restrict: 'E',
+					   templateUrl: '../templates/common/memberItem.html',
+					   scope: {member: '=', m: '='}
+				   };
+			   })
+	.directive('memberProfile', function () {
+				   return {
+					   restrict: 'E',
+					   templateUrl: '../templates/common/memberProfile.html',
+					   scope: {member: '=', m: '='}
+				   };
+			   })
 	.directive('levelTag', function () {
 				   return {
 					   restrict: 'E',

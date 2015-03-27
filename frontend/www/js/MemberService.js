@@ -130,6 +130,13 @@ angular.module('app.members', ['app.evaluations']).service('Members', function (
 			}
 		}
 		return roleName;
-	}
+	};
+
+	svc.findLastEvaluation = function (member) {
+		if (!Utility.empty(member) && !Utility.empty(member.evaluations)) {
+			return member.evaluations[0];
+		}
+		return null;
+	};
 
 });

@@ -2,6 +2,9 @@
 
 angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Evaluations', function ($filter, $http, $cookieStore, Installation, angularLoad, Utility, Resources) {
 	var svc = this;
+	svc.SECTION_ALL = -100;
+	svc.SECTION_SUMMARY = -101;
+
 	svc.avg = 0.0;
 	svc.avgRound = 0;
 	svc.currentSectionIdx = 0;
@@ -11,11 +14,20 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 	svc.currentInstrumentId = null;
 	svc.sections = [];
 	svc.matrix = false;
-	svc.recommendations = [];
 	svc.evaluations = [];
 	svc.currentEval = null;
-	svc.SECTION_ALL = -100;
-	svc.SECTION_SUMMARY = -101;
+	svc.recommendations = [
+		{resourceId: null, number: null, name: null, weight: 0, score: 0},
+		{resourceId: null, number: null, name: null, weight: 0, score: 0},
+		{resourceId: null, number: null, name: null, weight: 0, score: 0},
+		{resourceId: null, number: null, name: null, weight: 0, score: 0},
+		{resourceId: null, number: null, name: null, weight: 0, score: 0},
+		{resourceId: null, number: null, name: null, weight: 0, score: 0},
+		{resourceId: null, number: null, name: null, weight: 0, score: 0},
+		{resourceId: null, number: null, name: null, weight: 0, score: 0},
+		{resourceId: null, number: null, name: null, weight: 0, score: 0},
+		{resourceId: null, number: null, name: null, weight: 0, score: 0}
+	];
 
 	svc.loadEvaluations = function () {
 		var user = $cookieStore.get('user');
@@ -30,7 +42,7 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 					  });
 		}
 	};
-	svc.initialize = function () {
+	svc.initialize = function (callback) {
 		var user = $cookieStore.get('user');
 		if (Utility.empty(svc.instruments) && !Utility.empty(user)) {
 			svc.instruments = ['zz'];
@@ -38,6 +50,9 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 				success(function (data, status, headers, config) {
 							svc.instruments = data.result;
 							svc.loadEvaluations(user.organizationId);
+							if (!Utility.empty(callback)) {
+								callback();
+							}
 						}).
 				error(function (data, status, headers, config) {
 						  console.log("ERROR: unable to retrieve instruments.");
@@ -93,6 +108,10 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 	};
 
 	svc.findInstrument = function (instrumentId) {
+		if (instrumentId == null) {
+			instrumentId = 1;
+			svc.currentInstrumentId = instrumentId;
+		}
 		if (!Utility.empty(svc.instruments)) {
 			for (var i = 0; i < svc.instruments.length; i++) {
 				if (svc.instruments[i].id == instrumentId) {
@@ -190,65 +209,94 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 		}
 		return scoreWord;
 	};
-	svc.resourceScore = function (alignmentWeight, memberScore, nAlignments) {
+	svc.resourceScore = function (instrument, alignmentWeight, memberScore, nAlignments) {
 		var score = 0;
 		if (memberScore > 0 && nAlignments > 0) {
-			//score = (alignmentWeight * Math.pow((5 - memberScore), 2)) / nAlignments;
-			score = (alignmentWeight * (5 - memberScore)) / nAlignments;
+			score = (alignmentWeight * ((instrument.maxRange + 1) - memberScore)) / nAlignments;
 		}
-		//console.log("RESOURCE SCORE: alignmentWeight=", alignmentWeight, ", memberScore=", memberScore, ", nAlignments=", nAlignments, ", => score: ", score);
-		if (score > 5) {
-			score = 5;
-		}
-		if (score < 0) {
-			score = 0;
-		}
+		//console.log("RESOURCE SCORE: max=", instrument.maxRange, ", alignmentWeight=", alignmentWeight, ", memberScore=", memberScore, ", nAlignments=", nAlignments, ", => score: ", score);
 		return score;
 	};
+	svc.scale = function (score, minRaw, maxRaw, scaleMin, scaleMax) {
+		return Math.round(((score - minRaw) / (maxRaw - minRaw) ) * (scaleMax - scaleMin) + 1);
+	};
 	svc.recommend = function (sections) {
-		try {
-			Resources.initialize();
-			if (!Utility.empty(sections) && sections[0] != 'zz' && !Utility.empty(Resources.resources) && Resources.resources[0] != 'zz') {
-				svc.recommendations = [];
-				for (var i = 0; i < sections.length; i++) {
-					for (var j = 0; j < sections[i].questions.length; j++) {
-						var question = sections[i].questions[j];
-						for (var k = 0; k < Resources.resources.length; k++) {
-							var resource = Resources.resources[k];
-							var nAlignments = resource.alignments.length;
-							for (var z = 0; z < nAlignments; z++) {
-								var alignment = resource.alignments[z];
-								var resQuestionId = parseInt(alignment.questionId);
-								var questionId = parseInt(question.id);
-								if (resQuestionId == questionId) {
-									Resources.resources[k].score += svc.resourceScore(alignment.weight, question.responseRecord.responseIndex, nAlignments)
+		var instrument = svc.findInstrument(svc.currentInstrumentId);
+		Resources.initialize();
+		if (!Utility.empty(sections) && sections[0] != 'zz' && !Utility.empty(Resources.resources) && Resources.resources[0] != 'zz') {
+			for (k = 0; k < Resources.resources.length; k++) {
+				Resources.resources[k].score = 0;
+				Resources.resources[k].nAlignments = 0;
+			}
+			var minScore = null;
+			var maxScore = null;
+			var nTotalAlignments = 0;
+			for (var i = 0; i < sections.length; i++) {
+				for (var j = 0; j < sections[i].questions.length; j++) {
+					var question = sections[i].questions[j];
+					for (var k = 0; k < Resources.resources.length; k++) {
+						var resource = Resources.resources[k];
+						var nAlignments = resource.alignments.length;
+						for (var z = 0; z < nAlignments; z++) {
+							var alignment = resource.alignments[z];
+							var resQuestionId = parseInt(alignment.questionId);
+							var questionId = parseInt(question.id);
+							if (resQuestionId == questionId) {
+								Resources.resources[k].score += svc.resourceScore(instrument, alignment.weight, question.responseRecord.responseIndex, nAlignments);
+								Resources.resources[k].nAlignments++;
+								nTotalAlignments++;
+								if (maxScore === null || Resources.resources[k].score > maxScore) {
+									maxScore = Resources.resources[k].score;
+								}
+								else if (minScore === null || Resources.resources[k].score < minScore && Resources.resources[k].score > 0) {
+									minScore = Resources.resources[k].score;
 								}
 							}
 						}
 					}
 				}
-				for (k = 0; k < Resources.resources.length; k++) {
-					resource = Resources.resources[k];
-					if (resource.score > 5) {
-						resource.score = 5;
-					}
-					if (resource.score < 0) {
-						resource.score = 0;
-					}
-					if (resource.score > 0) {
-						svc.recommendations.push({resourceId: resource.id, number: resource.number, name: resource.name, weight: resource.score});
-					}
-				}
-				svc.recommendations = svc.recommendations.sort(function (a, b) {
-					return a["weight"] > b["weight"] ? -1 : a["weight"] < b["weight"] ? 1 : 0;
-				});
 			}
+			var recCnt = 0;
+			var recs = [];
+			for (k = 0; k < Resources.resources.length; k++) {
+				resource = Resources.resources[k];
+				var scaledScore = svc.scale(resource.score, minScore, maxScore, 0, instrument.maxRange);
+				//console.log("REC: min=", minScore, ", max=", maxScore, ",nTotalAlignments=", nTotalAlignments, ", score=", resource.score, ", scaled=", scaledScore, ", n=", resource.nAlignments);
+				if (scaledScore > instrument.maxRange) {
+					scaledScore = instrument.maxRange;
+				}
+				if (scaledScore < 0) {
+					scaledScore = 0;
+				}
+				if (resource.score > 0 && recCnt < 10) {
+					recs.push({resourceId: resource.id, number: resource.number, name: resource.name, weight: scaledScore, score: resource.score});
+					recCnt++;
+				}
+			}
+			recs = recs.sort(function (a, b) {
+				return a["score"] > b["score"] ? -1 : a["score"] < b["score"] ? 1 : 0;
+			});
+			for (var zz = 0; zz < 10; zz++) {
+				if (zz < recs.length) {
+					var rec = recs[zz];
+					svc.recommendations[zz].resourceId = rec.resourceId;
+					svc.recommendations[zz].number = rec.number;
+					svc.recommendations[zz].name = rec.name;
+					svc.recommendations[zz].weight = rec.weight;
+					svc.recommendations[zz].score = rec.score;
+				}
+				else {
+					svc.recommendations[zz].resourceId = null;
+					svc.recommendations[zz].number = null;
+					svc.recommendations[zz].name = null;
+					svc.recommendations[zz].weight = 0;
+					svc.recommendations[zz].score = 0;
+				}
+			}
+			//console.log("RECOMMENDATIONS:", svc.recommendations);
 		}
-		catch (exception) {
-			console.log("EXCEPTION:", exception);
-		}
-		return svc.recommendations;
 	};
+
 	svc.sliderTransform = function (member, question, idx, isUpdate) {
 		if (!Utility.empty(question) && !Utility.empty(question.responseRecord)) {
 			var slider = $("#question_item_" + question.id);
@@ -310,7 +358,7 @@ angular.module('app.evaluations', ['app.utility', 'app.resources']).service('Eva
 				return svc.sections[svc.currentSectionIdx].next;
 			}
 			else {
-				return svc.sections[(svc.sections.length-1)].next;
+				return svc.sections[(svc.sections.length - 1)].next;
 			}
 		}
 		return null;

@@ -4,6 +4,26 @@ require_once "../lib/ResourceAlignment.php";
 
 class Resource extends Model {
 
+	public function initializeRoutes() {
+		parent::initializeRoutes();
+
+		$this->api->post("/resource/saveAlignments", function () {
+			$post = $this->api->request()->post();
+			if (!empty($post["resourceId"]) && !empty($post["instrumentId"])) {
+				$this->api->db->resource_alignment()
+					->where('resource_id=? AND (question_id IN SELECT id FROM question WHERE question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?))',
+						$post["resourceId"], $post["instrumentId"])
+					->delete();
+				if (!empty($post["alignments"])) {
+					foreach ($post["alignments"] as $alignment) {
+						$resourceAlignment = ['resource_id' => $post["resourceId"], 'question_id' => $alignment["id"], 'weight' => $alignment["wt"]];
+						$this->api->db->resource_alignment()->insert($resourceAlignment);
+					}
+				}
+			}
+		});
+	}
+
 	/**
 	 * @param array $resource
 	 *

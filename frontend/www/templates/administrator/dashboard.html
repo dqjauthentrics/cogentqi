@@ -19,24 +19,7 @@
                 <ion-list>
                     <ion-item class="header">{{o.currentOrg.name}}</ion-item>
                     <ion-item ng-repeat="member in o.currentOrgMembers" style="white-space: normal;">
-                        <div class="row responsive-sm">
-                            <div class="col col-40" style="vertical-align:middle;">
-                                <img class="border border{{member.level}}" data-ng-src="{{member.avatar}}" style="float:left; margin-right:1em;"/>
-
-                                <div style="float:left;">
-                                    <div class="name">{{member.firstName}} {{member.lastName}}</div>
-                                    <div class="title">{{member.title}}</div>
-                                    <div class="role">({{m.roleName(member)}})</div>
-                                </div>
-                            </div>
-                            <div class="col col-30">
-                                <micro-badge data-ng-if="m.numBadges(member) != '0'" text="m.numBadges(member)" size="'count'"></micro-badge>
-                            </div>
-                            <div class="col col-30">
-                                <div style="text-decoration: underline;">Last evaluation</div>
-                                <div>{{member.lastEvalStamp}}</div>
-                            </div>
-                        </div>
+                        <member-item member="member" m="m"></member-item>
                     </ion-item>
                 </ion-list>
             </div>

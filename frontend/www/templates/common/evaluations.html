@@ -4,7 +4,7 @@
     <ion-content has-bouncing="false" data-ng-init="a.initialize()">
         <ion-list>
             <ion-item class="item-remove-animate item-icon-right" ng-repeat="evaluation in e.evaluations"
-                      type="item-text-wrap" href="#/manager/evaluation/a/{{evaluation.id}}">
+                      type="item-text-wrap" href="#/manager/evaluation/{{evaluation.id}}">
                 <div class="row">
                     <div class="col col-35">
                         <img class="border border{{evaluation.member.level}}" style="float:left; margin: 0 0.4em 0 0;" data-ng-src="{{m.get(evaluation.memberId).avatar}}">

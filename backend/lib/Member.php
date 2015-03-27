@@ -40,7 +40,6 @@ class Member extends Model {
 	 */
 	public function map($member) {
 		$associative = parent::map($member);
-		$associative["lastEvalStamp"] = $this->randomDate("2015-01-01", "2015-04-21");
 
 		$badgeRecords = $this->api->db->member_badge()->where('member_id', $member["id"]);
 		$jsonBadges = [];
@@ -49,7 +48,7 @@ class Member extends Model {
 			$jsonBadges[] = $badge->map($badgeRecord);
 		}
 		$associative["badges"] = $jsonBadges;
-		$evalRecords = $this->api->db->evaluation()->where('member_id', $member["id"]);
+		$evalRecords = $this->api->db->evaluation()->where('member_id', $member["id"])->order('last_modified DESC');
 		$jsonEvals = [];
 		$eval = new Evaluation($this->api);
 		foreach ($evalRecords as $evalRecord) {

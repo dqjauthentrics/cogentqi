@@ -21,14 +21,11 @@
                 <h5 data-ng-bind-html="installation.trademarkName + ' Recommended Modules'"></h5>
 
                 <div class="recommendationsPane">
-                    <div class="item" data-ng-repeat="recommendation in e.recommendations track by $index">
-                        <div data-ng-if="recommendation.weight > 0">
-                            <a href="/#/manager/resource/{{recommendation.resourceId}}">
-                                <i class="{{i.icons.resource}}"></i>
-                                {{recommendation.number}} {{recommendation.name}}
-                            </a>
-                            <recommendation-ranking weight="recommendation.weight" range="getRange(recommendation.weight)"></recommendation-ranking>
-                        </div>
+                    <div class="item" data-ng-repeat="recommendation in e.recommendations | filter: weightGreaterThanZero()">
+                        <a href="/#/manager/resource/{{recommendation.resourceId}}">
+                            <i class="{{i.icons.resource}}"></i>{{recommendation.number}} {{recommendation.name}} ({{recommendation.score}})
+                        </a>
+                        <recommendation-ranking weight="recommendation.weight" range="getRange(recommendation.weight)"></recommendation-ranking>
                     </div>
                 </div>
             </div>

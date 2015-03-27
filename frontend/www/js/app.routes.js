@@ -23,10 +23,16 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
                 administratorDashboard: {templateUrl: 'templates/administrator/dashboard.html', controller: 'AdminDashboardCtrl'}
             }
         })
-        .state('administrator.organizations', {
-            url: '/organizations',
+        .state('administrator.alignments', {
+            url: '/alignments',
             views: {
-                administratorOrganizations: {templateUrl: 'templates/administrator/organizations.html', controller: 'AdminOrganizationCtrl'}
+                administratorAlignments: {templateUrl: 'templates/administrator/alignments.html', controller: 'AdminAlignmentCtrl'}
+            }
+        })
+        .state('administrator.alignment', {
+            url: '/alignment/:resourceId',
+            views: {
+                administratorAlignments: {templateUrl: 'templates/administrator/alignment.html', controller: 'AdminAlignmentCtrl'}
             }
         })
         .state('administrator.settings', {
@@ -75,7 +81,7 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
             views: {
                 managerDashboard: {
                     templateUrl: 'templates/common/evaluationMatrix.html',
-                    controller: 'EvaluationCtrl'
+                    controller: 'MatrixCtrl'
                 }
             }
         })
@@ -115,8 +121,8 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
                 }
             }
         })
-        .state('manager.evaluationA', {
-            url: '/evaluation/a/:evaluationId',
+        .state('manager.evaluation', {
+            url: '/evaluation/:evaluationId',
             views: {
                 managerEvaluations: {
                     templateUrl: 'templates/common/evaluation.html',
@@ -125,8 +131,8 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
             }
         })
 
-        .state('manager.evaluationE', {
-            url: '/evaluation/e/:memberId',
+        .state('manager.newEvaluation', {
+            url: '/evaluation/n/:memberId',
             views: {
                 managerEvaluations: {
                     templateUrl: 'templates/common/evaluation.html',
