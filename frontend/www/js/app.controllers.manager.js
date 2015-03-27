@@ -14,7 +14,7 @@ angular.module('app.controllers.manager', [])
 					Organizations.initialize();
 					Members.initialize();
 					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
-						$scope.member = Members.get($stateParams.memberId);
+						$scope.member = Members.find($stateParams.memberId);
 					}
 				})
 
