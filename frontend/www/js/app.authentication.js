@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.authentication', []).service('Authentication', function ($http, $cookieStore, Installation, Utility, FIREBASE_URL) {
+angular.module('app.authentication', []).service('Authentication', function ($http, $cookieStore, Utility, FIREBASE_URL) {
 	var svc = this;
 	svc.resultMsg = "";
 
@@ -31,7 +31,6 @@ angular.module('app.authentication', []).service('Authentication', function ($ht
 			case 'facebook':
 				break;
 			case 'password':
-				//$http.post("/api/authentication", {username: email, password: password}, {headers: {'Content-Type': 'application/json'}}).
 				$http({
 						  method: 'POST',
 						  url: "/api/authentication",

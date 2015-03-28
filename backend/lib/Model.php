@@ -60,7 +60,7 @@ class Model {
 				$colName = $columnNames[$i];
 				if (empty($this->mapExcludes) || !in_array($colName, $this->mapExcludes)) {
 					$jsonName = $this->colNameToJsonName($colName);
-					$jsonRecord[$jsonName] = $dbRecord[$colName];
+					$jsonRecord[$jsonName] = @$dbRecord[$colName];
 				}
 			}
 		}

@@ -38,7 +38,8 @@ h3 {
 i.logo {
     font-size: 34px !important;
     font-weight: bold !important;
-    margin-right: 0.5em;
+    margin-right: 0.3em;
+    margin-left: 0.3em;
 }
 
 .colorFacebook {
@@ -374,6 +375,21 @@ table.cycle {
     text-align: center;
 }
 
+.yesNoBg0 {
+    background: #AAA;
+    color: #FFF;
+}
+
+.yesNoBg1 {
+    background: red;
+    color: #FFF;
+}
+
+.yesNoBg2 {
+    background: green;
+    color: #FFF;
+}
+
 .levelBg0 {
     background: #AAA;
     color: #FFF;
@@ -403,13 +419,16 @@ table.cycle {
     background: green;
     color: #FFF;
 }
+
 select {
     cursor: pointer;
 }
+
 select.large {
     font-size: 3.4vmin;
     background: #CCC;
 }
+
 outcome-level-tag {
     float: left;
 }
@@ -422,11 +441,12 @@ outcome-level-tag {
     margin: 0 0.5em 0.5em 0;
 }
 
-.matrixCircle {
+.matrixCircle, .matrixCircle a {
     font-size: 1.4vmin;
     padding: 0.2vmin 0.9vmin;
     border-radius: 3vmin;
     margin: 0;
+    text-decoration: none;
 }
 
 .outcomeLevelBg0 {

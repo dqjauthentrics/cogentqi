@@ -200,7 +200,5 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 				   }
 			   });
 
-	var place = window.document.cookie;
-	console.log("COOKIE:", place);
-	$urlRouterProvider.otherwise('/' + place + '/dashboard');
+	$urlRouterProvider.otherwise('/manager/dashboard');
 });

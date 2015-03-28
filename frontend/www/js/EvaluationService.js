@@ -392,25 +392,23 @@ angular.module('app.evaluations', []).service('Evaluations', function ($filter, 
 	};
 	svc.sectionNext = function () {
 		svc.currentSectionIdx = 0;
-		if (Array.isArray(svc.sections)) {
-			if (svc.currentSectionIdx < svc.sections.length - 1) {
-				svc.currentSectionIdx++;
-			}
-			else {
-				svc.currentSectionIdx = 0;
-			}
-			if (svc.currentSectionIdx < 0) {
-				svc.currentSectionIdx = 0;
-			}
+		if (svc.currentSectionIdx < svc.sections.length - 1) {
+			svc.currentSectionIdx++;
+		}
+		else {
+			svc.currentSectionIdx = 0;
+		}
+		if (svc.currentSectionIdx < 0) {
+			svc.currentSectionIdx = 0;
 		}
 	};
 	svc.sectionPrevious = function () {
 		svc.currentSectionIdx = 0;
-		if (Array.isArray(svc.sections)) {
-			if (svc.currentSectionIdx > 0) {
-				svc.currentSectionIdx--;
-			}
-			else {
+		if (svc.currentSectionIdx > 0) {
+			svc.currentSectionIdx--;
+		}
+		else {
+			if (Array.isArray(svc.sections)) {
 				svc.currentSectionIdx = svc.sections.length - 1;
 			}
 		}

@@ -1,6 +1,6 @@
-<ion-view view-title='Evaluation Matrix'>
+<ion-view view-title='Assessment Matrix'>
     <ion-nav-buttons side="right">
-        <a href="/#tab/evaluations" style="font-size:1.2em;">Evaluations >></a>
+        <a href="/#tab/evaluations" style="font-size:1.2em;">Assessments >></a>
     </ion-nav-buttons>
     <ion-content has-bouncing="false" data-ng-init="e.getMatrixData(instrumentId)">
         <div style="text-align:center; margin-top: 1em;">
@@ -15,7 +15,7 @@
         <table class="matrix">
             <thead>
             <tr>
-                <th style="font-style: italic;">Most Recent<br/>Member Evaluations</th>
+                <th style="font-style: italic;">Most Recent<br/>Member Assessments</th>
                 <th class="rotate" data-ng-repeat="name in e.findMatrixResponseRowHeader(20,e.currentSectionIdx) track by $index">
                     <div><span>{{name}}</span></div>
                 </th>

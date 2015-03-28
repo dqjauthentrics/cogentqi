@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.icons', ['app.utility']).service('Icons', function () {
+angular.module('app.icons', []).service('Icons', function () {
 	this.icons = {
 		add: "fa fa-plus-circle",
 		addProject: "fa fa-plus-circle",

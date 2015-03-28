@@ -1,10 +1,10 @@
-<ion-view view-title="Members">
+<ion-view view-title="People">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
         <ion-list class="members" data-ng-init="m.getMembers()">
             <ion-item class="item-icon-right" data-ng-repeat="member in m.members" type="item-text-wrap" href="#/manager/member/{{member.id}}">
-                <member-item member="member" m="m"></member-item>
+                <member-item member="member" m="m" e="e" i="i"></member-item>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
         </ion-list>

@@ -7,12 +7,14 @@ angular.module('app.controllers.manager', [])
 					Members.initialize();
 				})
 
-	.controller('MemberCtrl', function ($scope, $stateParams, Utility, Organizations, Members, Evaluations) {
+	.controller('MemberCtrl', function ($scope, $stateParams, Utility, Icons, Organizations, Members, Evaluations) {
 					$scope.m = Members;
-					$scope.a = Evaluations;
+					$scope.e = Evaluations;
+					$scope.i = Icons;
 					$scope.member = null;
 					Organizations.initialize();
 					Members.initialize();
+					Evaluations.initialize();
 					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 						$scope.member = Members.find($stateParams.memberId);
 					}

@@ -1,6 +1,6 @@
 'use strict';
 
-app.service('GraphService', function () {
+angular.module('app.graphs', []).service('Graphs', function () {
 	this.levelColors = ['gray', '#BB4444', '#EE7A00', '#68A', '#6A8'];
 	this.regularColors = ['#577', '#799', '#9BB', '#BDD', '#DFF'];
 
@@ -97,6 +97,54 @@ app.service('GraphService', function () {
 					name: yTitle,
 					showInLegend: false,
 					type: 'column',
+					point: {
+						events: {
+							click: function (e) {
+								if (!app.empty(this.options.url)) {
+									var idx = this.options.idx;
+									location.href = e.point.url + '/' + idx;
+									e.preventDefault();
+								}
+							}
+						}
+					},
+					data: massagedData
+				}
+			]
+		}
+	};
+	this.lineGraphConfig = function (title, subTitle, xTitle, yTitle, data, useLevelColors) {
+		var massagedData = data;
+		if (data != undefined) {
+			for (var z = 0; z < massagedData.length; z++) {
+				if (useLevelColors) {
+					var clrIdx = Math.round(massagedData[z].y);
+					massagedData[z].color = this.setColor(clrIdx, this.levelColors);
+				}
+				else {
+					massagedData[z].color = this.setColor(z, this.regularColors);
+				}
+			}
+		}
+		return {
+			chart: {type: 'line', backgroundColor: '#FFFFFF'},
+			title: {text: title, style: {textTransform: 'none'}},
+			subtitle: {text: subTitle, style: {textTransform: 'none'}},
+			credits: {enabled: false},
+			yAxis: {title: {text: yTitle, style: {textTransform: 'none'}}, tickInterval: 1, minorTickInterval: false},
+			xAxis: {
+				type: 'category',
+				title: {text: xTitle, style: {textTransform: 'none'}},
+				tickInterval: 1,
+				minorTickInterval: false,
+				gridLineWidth: 0
+			},
+			legend: {enabled: false},
+			series: [
+				{
+					name: yTitle,
+					showInLegend: false,
+					type: 'line',
 					point: {
 						events: {
 							click: function (e) {

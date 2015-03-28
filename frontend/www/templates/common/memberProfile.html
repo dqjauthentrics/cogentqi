@@ -11,15 +11,23 @@
 
         <div>
             <div data-ng-repeat="badge in member.badges">
-                <micro-badge text="badge.title" size="'large'"></micro-badge>
+                <micro-badge text="badge.title" size="'small'"></micro-badge>
             </div>
         </div>
     </div>
     <div class="col col-50 padding">
-        <h3>Evaluations To Date</h3>
+        <h3>Assessments To Date</h3>
 
         <div data-ng-repeat="evaluation in member.evaluations">
-            <a href="#/manager/evaluation/{{evaluation.id}}" style="color:#777; text-decoration: none;"><i class="{{i.icons.evaluation}}"></i> {{evaluation.lastModified}}</a>
+            <a href="#/manager/evaluation/{{evaluation.id}}" style="color:#777; text-decoration: none;">
+                <i class="{{i.icons.evaluation}}"></i>
+                {{evaluation.lastModified}}
+            </a>
         </div>
+    </div>
+</div>
+<div class="row row-responsive-sm">
+    <div class="col col-100 padding">
+        <highchart id="memberHx_{{member.id}}" config="m.rptConfigHx(e, member)"></highchart>
     </div>
 </div>

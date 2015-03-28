@@ -5,7 +5,7 @@ angular.module('app',
 				   'ionic',
 				   'firebase',
 				   'angularLoad',
-				   'app.installation',
+				   'highcharts-ng',
 				   'app.firestore',
 				   'app.routes',
 				   'app.icons',
@@ -35,8 +35,10 @@ angular.module('app',
 					delete $httpProvider.defaults.headers.common['X-Requested-With'];
 				}
 			])
-	.run(function ($ionicPlatform, $rootScope, $location, $window, $cookieStore, angularLoad, Installation, Icons, Utility, Authentication) {
+	.run(function ($ionicPlatform, $rootScope, $location, $window, $cookieStore, angularLoad, Icons, Utility, Authentication) {
 			 $ionicPlatform.ready(function () {
+
+				 $rootScope.i = Icons;
 
 				 var host = $location.host();
 				 var parts = host.split('.');
@@ -57,8 +59,6 @@ angular.module('app',
 					 $rootScope.installation.operationalMode = operationalMode;
 				 }).catch(function () {
 				 });
-
-				 $rootScope.i = Icons;
 
 				 // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 				 // for form inputs)
@@ -95,14 +95,14 @@ angular.module('app',
 				   return {
 					   restrict: 'E',
 					   templateUrl: '../templates/common/memberItem.html',
-					   scope: {member: '=', m: '='}
+					   scope: {member: '=', m: '=', i: '='}
 				   };
 			   })
 	.directive('memberProfile', function () {
 				   return {
 					   restrict: 'E',
 					   templateUrl: '../templates/common/memberProfile.html',
-					   scope: {member: '=', m: '='}
+					   scope: {member: '=', m: '=', e: '=', i: '='}
 				   };
 			   })
 	.directive('levelTag', function () {

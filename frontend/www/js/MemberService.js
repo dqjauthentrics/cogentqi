@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('app.members', ['app.evaluations']).service('Members', function ($http, $cookieStore, Installation, Utility) {
+angular.module('app.members', ['app.graphs']).service('Members', function ($http, $cookieStore, Graphs, Utility) {
 	var svc = this;
 	svc.members = false;
+	svc.memberHx = false;
 	svc.apiUrl = "/api/member";
 
 	svc.initialize = function (organizationId) {
@@ -70,6 +71,28 @@ angular.module('app.members', ['app.evaluations']).service('Members', function (
 			return member.evaluations[0];
 		}
 		return null;
+	};
+
+	svc.rptConfigHx = function (Evaluations, member) {
+		if (svc.memberHx === false) {
+			var series = [];
+			if (!Utility.empty(member.evaluations)) {
+				for (var i = 0; i < member.evaluations.length; i++) {
+					var evaluation = member.evaluations[i];
+					var dataSet = [];
+					var instrument = Evaluations.findInstrument(evaluation.insrumentId);
+					if (!Utility.empty(instrument)) {
+						for (var j = 0; j < instrument.questions.length; j++) {
+							var question = instrument.questions[j];
+							dataSet.push({name: question.name, y: Utility.randomIntBetween(1, 5)});
+						}
+					}
+					series.push({id:i, name:evaluation.lastModified, data: dataSet, type: 'line', color: 'gray'});
+				}
+			}
+			svc.memberHx = Graphs.lineGraphConfig('Progress', null, 'Competency', 'Ranking', dataSet, true);
+		}
+		return svc.memberHx;
 	};
 
 });
