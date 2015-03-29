@@ -3,6 +3,7 @@
 angular.module('app.outcomes', ['app.utility']).service('Outcomes', function ($http, Utility) {
 	var svc = this;
 	svc.outcomes = false;
+	svc.currentOrg = null;
 
 	/**
 	 * Initializes the outcomes array if it has not yet been initialized.
@@ -21,6 +22,21 @@ angular.module('app.outcomes', ['app.utility']).service('Outcomes', function ($h
 						}).
 				error(function (data, status, headers, config) {
 					  });
+		}
+		return svc.outcomes;
+	};
+
+	svc.getOutcomes = function (organizationId) {
+		if (!Utility.empty(organizationId) && !Utility.empty(svc.outcomes) && Array.isArray(svc.outcomes)) {
+			for (var i = 0; i < svc.outcomes.length; i++) {
+				svc.outcomes[i].level = parseInt(svc.outcomes[i].level);
+				for (var j = 0; j < svc.outcomes[i].levels.length; j++) {
+					if (svc.outcomes[i].levels[j].o == organizationId && svc.outcomes[i].levels[j].out == svc.outcomes[i].id) {
+						svc.outcomes[i].level = parseInt(svc.outcomes[i].levels[j].l);
+						//console.log("outcome set:", organizationId, svc.outcomes[i]);
+					}
+				}
+			}
 		}
 		return svc.outcomes;
 	};

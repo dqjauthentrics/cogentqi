@@ -79,6 +79,7 @@ angular.module('app',
 					 return 'logged out';
 				 };
 				 $rootScope.checkSession();
+				 $rootScope.user = $cookieStore.get('user');
 
 				 $rootScope.dashboardUrl = function () {
 					 var user = $cookieStore.get('user');
@@ -90,6 +91,13 @@ angular.module('app',
 
 	.directive('headerButtons', function () {
 				   return {restrict: 'E', templateUrl: 'templates/_headerButtons.html'};
+			   })
+	.directive('dashboardCycle', function () {
+				   return {
+					   restrict: 'E',
+					   templateUrl: '../templates/common/dashboardCycle.html',
+					   scope: {Members: '=', role: '=', user: '=', jobtitle: '='}
+				   };
 			   })
 	.directive('memberItem', function () {
 				   return {

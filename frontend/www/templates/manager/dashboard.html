@@ -2,24 +2,6 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content class="padding" has-bouncing="false">
-        <table class="cycle">
-            <tr>
-                <td style="vertical-align: middle !important; padding-top:2em;"><a href="#/manager/dashboard/matrix">Assessment</a>
-                </td>
-                <td style="vertical-align: bottom !important;"><a href="#/manager/outcomes">Outcomes<br/>Analysis</a></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div class="poweredBy">
-                        <a href="//cogentQI.com">Powered by <span data-ng-bind-html="installation.trademarkName"></span></a>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td style="vertical-align: top !important;"><a style="margin-top:-2em;" href="#/manager/resources">Professional<br/>Development</a>
-                </td>
-                <td style="vertical-align: top !important; padding-top:2em;"><a href="#/manager/planning">Planning</a></td>
-            </tr>
-        </table>
+        <dashboard-cycle members="Members" role="'manager'"></dashboard-cycle>
     </ion-content>
 </ion-view>

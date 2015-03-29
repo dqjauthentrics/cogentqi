@@ -95,7 +95,7 @@ angular.module('app.evaluations', []).service('Evaluations', function ($filter, 
 		return svc.sections;
 	};
 
-	svc.getMatrixData = function (instrumentId) {
+	svc.getMatrixData = function (instrumentId, isRollUp) {
 		console.log("getting matrix data:", instrumentId);
 		svc.currentInstrumentId = null;
 		svc.getSections(instrumentId);
@@ -104,7 +104,12 @@ angular.module('app.evaluations', []).service('Evaluations', function ($filter, 
 		if (!Utility.empty(user) && instrumentId !== false) {
 			svc.matrix = true;
 			console.log("retrieving matrix data:", instrumentId);
-			$http.get('/api/evaluation/matrix/' + user.organizationId + '/' + instrumentId).
+			var url = '/api/evaluation/matrix/';
+			if (!Utility.empty(isRollUp)) {
+				url += 'rollup/';
+			}
+			url += user.organizationId + '/' + instrumentId;
+			$http.get(url).
 				success(function (data, status, headers, config) {
 							console.log("retrieved matrix data:", data);
 							svc.matrix = data.result;
@@ -446,6 +451,26 @@ angular.module('app.evaluations', []).service('Evaluations', function ($filter, 
 			}
 		}
 		return names;
+	};
+	svc.findMatrixOrgRowValues = function (currentSectionIdx, allResponses) {
+		var responses = [];
+		if (Array.isArray(svc.sections)) {
+			var pos = 0;
+			for (var i = 0; i < svc.sections.length; i++) {
+				if (currentSectionIdx > svc.SECTION_SUMMARY) {
+					for (var j = 0; j < svc.sections[i].questions.length; j++) {
+						if (i == currentSectionIdx || currentSectionIdx == svc.SECTION_ALL) {
+							responses.push(allResponses[pos]);
+						}
+						pos++;
+					}
+				}
+				else {
+					responses.push(Utility.randomIntBetween(1, 4));
+				}
+			}
+		}
+		return responses;
 	};
 	svc.findMatrixResponseRowValues = function (currentSectionIdx, allResponses) {
 		var responses = [];

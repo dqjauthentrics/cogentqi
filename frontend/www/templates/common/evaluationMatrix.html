@@ -2,12 +2,12 @@
     <ion-nav-buttons side="right">
         <a href="/#tab/evaluations" style="font-size:1.2em;">Assessments >></a>
     </ion-nav-buttons>
-    <ion-content has-bouncing="false" data-ng-init="e.getMatrixData(instrumentId)">
+    <ion-content has-bouncing="false" data-ng-init="e.getMatrixData(instrumentId,false)">
         <div style="text-align:center; margin-top: 1em;">
             <h3>{{a.sectionCurrentName()}}</h3>
             <h4>Competency Summary Matrix</h4>
 
-            <select class="large" data-ng-change="e.getMatrixData(e.currentInstrumentId)" data-ng-model="e.currentInstrumentId">
+            <select class="large" data-ng-change="e.getMatrixData(e.currentInstrumentId,false)" data-ng-model="e.currentInstrumentId">
                 <option data-ng-repeat="instrument in e.instruments" value="{{instrument.id}}">{{instrument.name}}</option>
             </select>
         </div>
@@ -38,10 +38,10 @@
                     </div>
                 </td>
                 <td data-ng-repeat="response in e.findMatrixResponseRowValues(e.currentSectionIdx, dataRow.responses) track by $index">
-                    <div class="matrixCircle levelBg{{response | number:0}}">{{response|number:0}}</div>
+                    <div class="matrixCircle {{e.currentInstrumentId == 1?'levelBg':'yesNoBg'}}{{response|number:0}}">{{response|number:0}}</div>
                 </td>
                 <td>
-                    <div class="matrixCircle levelBg{{dataRow.avgRound}}">{{dataRow.avg|number:0}}</div>
+                    <div class="matrixCircle {{e.currentInstrumentId == 1?'levelBg':'yesNoBg'}}{{dataRow.avgRound}}">{{dataRow.avgRound}}</div>
                 </td>
             </tr>
             </tbody>

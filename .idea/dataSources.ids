@@ -84,6 +84,7 @@
       <foreign-key name="member_ibfk_1" columns="organization_id" ref-table="organization" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="evaluation_ibfk_1" table="evaluation" schema="" catalog="cogentqi_v1_target" columns="member_id"/>
       <exported-key name="evaluation_ibfk_2" table="evaluation" schema="" catalog="cogentqi_v1_target" columns="by_member_id"/>
+      <exported-key name="organization_outcome_ibfk_3" table="organization_outcome" schema="" catalog="cogentqi_v1_target" columns="evaluator_id"/>
       <index name="username" unique="true" columns="username"/>
     </table>
     <table name="member_badge" schema="" catalog="cogentqi_v1_target" type="TABLE">
@@ -104,6 +105,21 @@
       <foreign-key name="organization_ibfk_1" columns="parent_id" ref-table="organization" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="member_ibfk_1" table="member" schema="" catalog="cogentqi_v1_target" columns="organization_id"/>
       <exported-key name="organization_ibfk_1" table="organization" schema="" catalog="cogentqi_v1_target" columns="parent_id"/>
+      <exported-key name="organization_outcome_ibfk_1" table="organization_outcome" schema="" catalog="cogentqi_v1_target" columns="organization_id"/>
+    </table>
+    <table name="organization_outcome" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="organization_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="outcome_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="evaluated" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="evaluator_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="evaluator_comments" sqlType="VARCHAR" precision="5000" scale="0" nullable="true" jdbcType="12"/>
+      <column name="level" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="organization_outcome_ibfk_1" columns="organization_id" ref-table="organization" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="organization_outcome_ibfk_2" columns="outcome_id" ref-table="outcome" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="organization_outcome_ibfk_3" columns="evaluator_id" ref-table="member" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="unique_id" unique="true" columns="id"/>
     </table>
     <table name="outcome" schema="" catalog="cogentqi_v1_target" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -111,7 +127,9 @@
       <column name="name" sqlType="VARCHAR" precision="500" scale="0" nullable="false" jdbcType="12"/>
       <column name="summary" sqlType="VARCHAR" precision="5000" scale="0" nullable="true" jdbcType="12"/>
       <column name="outcome_method_id" sqlType="CHAR" precision="1" scale="0" nullable="true" jdbcType="1"/>
+      <column name="level" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="organization_outcome_ibfk_2" table="organization_outcome" schema="" catalog="cogentqi_v1_target" columns="outcome_id"/>
       <exported-key name="outcome_alignment_ibfk_1" table="outcome_alignment" schema="" catalog="cogentqi_v1_target" columns="outcome_id"/>
       <index name="unique_id" unique="true" columns="id"/>
     </table>

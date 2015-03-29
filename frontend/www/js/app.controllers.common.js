@@ -38,7 +38,7 @@ angular.module('app.controllers.common', [])
 					if (Utility.empty($scope.instrumentId)) {
 						$scope.instrumentId = 1;
 					}
-					Evaluations.getMatrixData($scope.instrumentId);
+					Evaluations.getMatrixData($scope.instrumentId, false);
 				})
 	.controller('EvaluationCtrl', function ($scope, $stateParams, Utility, Evaluations, Members, Resources) {
 					$scope.e = Evaluations;
@@ -68,6 +68,12 @@ angular.module('app.controllers.common', [])
 					if ($scope.instrumentId === false) {
 						$scope.instrumentId = 1;
 					}
+					$scope.hasComment = function (question) {
+						return !Utility.empty(question.responseRecord.evaluatorComments) && question.responseRecord.evaluatorComments.length > 0;
+					};
+					$scope.showComment = function (question) {
+						return !Utility.empty(question.showComments) && question.showComments;
+					};
 					$scope.getRange = function (n) {
 						switch (Math.round(n)) {
 							case 1:

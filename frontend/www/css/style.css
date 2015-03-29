@@ -4,6 +4,10 @@ a {
     color: #005090;
 }
 
+textarea {
+    border: 1px solid #CCC !important;
+}
+
 a:hover {
     text-decoration: underline;
 }
@@ -13,16 +17,20 @@ h3 {
 }
 
 .gray {
+    color: gray;
+}
+
+.grayBg {
     background: gray;
     color: #FFF;
 }
 
-.green {
+.greenBg {
     background: darkgreen;
     color: #FFF;
 }
 
-.red {
+.redBg {
     background: red;
     color: #FFF;
 }
@@ -390,6 +398,51 @@ table.cycle {
     color: #FFF;
 }
 
+.rubric {
+    margin: 0.5em;
+    border: 1px solid #AAA;
+    border-radius: 0.3em;
+    padding: 0.3em;
+    font-size: 0.9em;
+    float: left;
+}
+
+.rubric0 {
+    color: #AAA;
+}
+
+.rubric1 {
+    color: red;
+}
+
+.rubric2 {
+    color: #D0b000;
+}
+
+.rubric3 {
+    color: green;
+}
+
+.rubricBg0 {
+    background: #AAA;
+    color: #FFF;
+}
+
+.rubricBg1 {
+    background: red;
+    color: #FFF;
+}
+
+.rubricBg2 {
+    background: #F0D000;
+    color: #000;
+}
+
+.rubricBg3 {
+    background: green;
+    color: #FFF;
+}
+
 .levelBg0 {
     background: #AAA;
     color: #FFF;
@@ -436,6 +489,7 @@ outcome-level-tag {
 .circleNumber {
     font-size: 2vmin;
     padding: 0.8vmin 1.3vmin;
+    border: none;
     border-radius: 5vmin;
     float: left;
     margin: 0 0.5em 0.5em 0;

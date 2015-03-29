@@ -1,28 +1,7 @@
-<ion-view view-title="{{installation.name}}">
+<ion-view view-title="{{installation.name}} Dashboard">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
-
-    <ion-content has-bouncing="false" overflow-scroll="true" style="margin-top:2em;">
-        <div class="row responsive-sm">
-            <div class="col col-25">
-                <ion-list>
-                    <ion-item class="header">Your Organizations</ion-item>
-                    <ion-item class="item-icon-right" ng-repeat="organization in o.getChildOrganizationsAndMine()"
-                              type="item-text-wrap"
-                              data-ng-click="o.setCurrentOrg(organization)"
-                            >
-                        {{organization.name}}
-                    </ion-item>
-                </ion-list>
-            </div>
-            <div class="col col-75">
-                <ion-list>
-                    <ion-item class="header">{{o.currentOrg.name}}</ion-item>
-                    <ion-item ng-repeat="member in o.currentOrgMembers" style="white-space: normal;">
-                        <member-item member="member" m="m"></member-item>
-                    </ion-item>
-                </ion-list>
-            </div>
-        </div>
+    <ion-content class="padding" has-bouncing="false">
+        <dashboard-cycle members="Members" role="'administrator'" user="user" jobtitle="Members.roleName(user)"></dashboard-cycle>
     </ion-content>
 </ion-view>

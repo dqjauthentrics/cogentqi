@@ -73,6 +73,20 @@
                                 </slider>
                             </div>
                         </div>
+                        <div class="clearfix"></div>
+                        <div>
+                            <div class="pull-left">
+                                <a data-ng-click="question.showComments = (question.showComments == undefined? true : !question.showComments)">
+                                    <i data-ng-class="hasComment(question)? i.icons.noteFilled : i.icons.noteEmpty"></i>
+                                </a>
+                            </div>
+
+                            <div class="pull-left" style="margin-left:1em;" data-ng-show="showComment(question)">
+                                <textarea cols="60" rows="3" data-ng-model="question.responseRecord.evaluatorComments"
+                                          data-ng-bind="question.responseRecord.evaluatorComments"></textarea>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
                     </ion-item>
                 </ion-list>
             </div>

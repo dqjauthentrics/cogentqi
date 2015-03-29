@@ -83,7 +83,7 @@ class Model {
 		});
 		$this->api->get("/$urlName/children/:parentId", function ($parentId = NULL) use ($urlName) {
 			$jsonRecords = [];
-			foreach ($this->api->db->{$urlName}()->where("parent_id=? or id=?", $parentId, $parentId) as $dbRecord) {
+			foreach ($this->api->db->{$urlName}()->where("parent_id=?", $parentId) as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
 			$this->api->sendResult($jsonRecords);
