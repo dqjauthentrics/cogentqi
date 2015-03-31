@@ -17,7 +17,7 @@
             <div class="col col-75">
                 <ion-list>
                     <ion-item class="header">{{currentOrg().name}}</ion-item>
-                    <ion-item data-ng-repeat="outcome in orgOutcomes" style="white-space: normal;">
+                    <ion-item data-ng-repeat="outcome in getOrgOutcomes()" style="white-space: normal;">
                         <div class="name">
                             <span class="circleNumber rubric rubricBg{{outcome.level}}"><i class="{{i.icons.outcome}} fa-lg"></i></span>
                             {{outcome.number}} {{outcome.name}}

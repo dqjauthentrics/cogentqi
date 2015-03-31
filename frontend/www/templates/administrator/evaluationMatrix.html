@@ -12,35 +12,28 @@
             </select>
         </div>
         <div style="overflow: auto !important;">
-           <table class="matrix">
+            <table class="matrix">
                 <thead>
                 <tr>
                     <th style="font-style: italic;">Assessments</th>
-                    <th class="rotate" data-ng-repeat="name in e.findMatrixResponseRowHeader(20,e.currentSectionIdx) track by $index">
+                    <th class="rotate" data-ng-repeat="name in getColHeaderNames() track by $index">
                         <div><span>{{name}}</span></div>
                     </th>
                     <th class="rotate">
-                        <div><span>Average</span></div>
+                        <div><span style="font-weight:bold; color:#555; font-style:italic;">Averages</span></div>
                     </th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr data-ng-repeat="dataRow in matrix">
-                    <td class="leftHeader">
-                        <div data-ng-switch="dataRow.organizationId">
-                            <div data-ng-switch-when="-1">
-                                Averages
-                            </div>
-                            <div data-ng-switch-default>
-                                <a href="/#/administrator/organization/{{dataRow.organizationId}}">{{dataRow.name}}</a>
-                            </div>
-                        </div>
+                <tr data-ng-repeat="dataRow in getMatrix()">
+                    <td class="leftHeader" data-ng-class="dataRow.organizationId == -1? 'average':''">
+                        <a href="/#/administrator/organization/{{dataRow.organizationId}}">{{dataRow.name}}</a>
                     </td>
-                    <td data-ng-repeat="response in dataRow.responses track by $index">
-                        <div class="matrixCircle {{currInstrumentId == 1?'levelBg':'yesNoBg'}}{{response|number:0}}">{{response|number:0}}</div>
+                    <td data-ng-repeat="response in getRowValues(dataRow) track by $index" data-ng-class="dataRow.organizationId == -1? 'average':''">
+                        <div class="matrixCircle {{currInstrumentId == 1?'levelBg':'yesNoBg'}}{{response|number:0}}">{{response|number:1}}</div>
                     </td>
-                    <td>
-                        <div class="matrixCircle {{currInstrumentId == 1?'levelBg':'yesNoBg'}}{{dataRow.avgRound}}">{{dataRow.avgRound}}</div>
+                    <td class="average">
+                        <div class="matrixCircle {{currInstrumentId == 1?'levelBg':'yesNoBg'}}{{dataRow.avgRound}}">{{dataRow.avg}}</div>
                     </td>
                 </tr>
                 </tbody>
@@ -48,17 +41,17 @@
         </div>
         <div class="row row-responsive-sm">
             <div class="col col-40" style="text-align:right;">
-                <a data-ng-click="e.sectionPrevious()"><< {{e.sectionPreviousName()}}</a>
+                <a data-ng-click="Instruments.sectionPrevious()"><< {{Instruments.sectionPreviousName()}}</a>
             </div>
             <div class="col col-10" style="text-align:center;">|</div>
             <div class="col col-40" style="text-align:left;">
-                <a data-ng-click="e.sectionNext()">{{e.sectionNextName()}} >></a>
+                <a data-ng-click="Instruments.sectionNext()">{{Instruments.sectionNextName()}} >></a>
             </div>
         </div>
         <div class="row row-responsive-sm">
             <div class="col" style="text-align:center;">
-                <a class="button" data-ng-if="!e.sectionIsAll()" data-ng-click="e.sectionViewAll()">View All Competencies</a>
-                <a class="button" data-ng-if="!e.sectionIsSummary()" data-ng-click="e.sectionViewSummary()">View Section Summary</a>
+                <a class="button" data-ng-if="!Instruments.sectionIsAll()" data-ng-click="Instruments.sectionViewAll()">View All Competencies</a>
+                <a class="button" data-ng-if="!Instruments.sectionIsSummary()" data-ng-click="Instruments.sectionViewSummary()">View Section Summary</a>
             </div>
         </div>
     </ion-content>

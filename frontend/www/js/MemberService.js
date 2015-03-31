@@ -1,14 +1,16 @@
 'use strict';
 
-angular.module('app.members', ['app.graphs']).service('Members', function ($resource, $http, $cookieStore, Graphs, Utility) {
+angular.module('app.members', ['app.graphs']).service('Members', function ($resource, $http, $cookieStore, Graphs, Utility, Instruments) {
 	var svc = this;
 	svc.members = null;
 	svc.memberHx = null;
 	svc.evaluations = null;
 
-	svc.retrieve = function (organizationId) {
+	svc.retrieve = function () {
 		var user = $cookieStore.get('user');
-		if (!Utility.empty(user)) {
+		if (!Utility.empty(user) && svc.members === null) {
+			svc.members = [];
+			console.log("member retrieval for org:", user.organizationId);
 			$resource('/api/member/organization/' + user.organizationId, {}, {}).query().$promise.then(function (data) {
 				console.log("members retrieved:", user.organizationId, data);
 				svc.members = data;
@@ -18,9 +20,11 @@ angular.module('app.members', ['app.graphs']).service('Members', function ($reso
 	};
 
 	svc.find = function (memberId) {
-		for (var i = 0; i < svc.members.length; i++) {
-			if (parseInt(svc.members[i].id) === parseInt(memberId)) {
-				return svc.members[i];
+		if (svc.members !== null) {
+			for (var i = 0; i < svc.members.length; i++) {
+				if (parseInt(svc.members[i].id) === parseInt(memberId)) {
+					return svc.members[i];
+				}
 			}
 		}
 		return null;
@@ -61,14 +65,14 @@ angular.module('app.members', ['app.graphs']).service('Members', function ($reso
 		return null;
 	};
 
-	svc.rptConfigHx = function (Evaluations, member) {
-		if (svc.memberHx === false) {
+	svc.rptConfigHx = function (member) {
+		if (Utility.empty(svc.memberHx)) {
 			var series = [];
 			if (!Utility.empty(member.evaluations)) {
 				for (var i = 0; i < member.evaluations.length; i++) {
 					var evaluation = member.evaluations[i];
 					var dataSet = [];
-					var instrument = Evaluations.findInstrument(evaluation.insrumentId);
+					var instrument = Instruments.find(evaluation.insrumentId);
 					if (!Utility.empty(instrument)) {
 						for (var j = 0; j < instrument.questions.length; j++) {
 							var question = instrument.questions[j];

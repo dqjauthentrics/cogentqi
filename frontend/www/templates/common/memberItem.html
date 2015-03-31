@@ -13,9 +13,9 @@
     </div>
     <div class="col col-30" data-ng-init="eval = m.findLastEvaluation(member)">
         <div style="text-decoration: underline;">Last Assessment</div>
-        <div><i class="{{i.icons.evaluation}}"></i>
-            <a href="#/manager/evaluation/{{eval.id}}">{{eval.lastModified}}</a>
-            <span data-ng-class="'matrixCircle ' + (eval.instrumentId == 1?'levelBg':'yesNoBg') + eval.scoreRank">{{eval.score}}</span>
+        <div>
+            <i class="{{i.icons.evaluation}}"></i>&nbsp;<a href="#/manager/evaluation/{{eval.id}}">{{eval.lastModified}}</a>&nbsp;<span
+                data-ng-class="'matrixCircle ' + (eval.instrumentId == 1?'levelBg':'yesNoBg') + eval.scoreRank">{{eval.score}}</span>
         </div>
     </div>
 </div>

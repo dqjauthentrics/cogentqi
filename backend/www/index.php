@@ -1,7 +1,10 @@
 <?php
 namespace App;
 $parts = explode("/", $_SERVER["REQUEST_URI"]);
-$object = @ucfirst($parts[2]);
+$object = @$parts[2];
+if (strlen($object) > 0) {
+	$object[0] = strtoupper($object[0]);
+}
 if (strstr($object, "XDEBUG") || $object == "Test") {
 	$object = NULL;
 }

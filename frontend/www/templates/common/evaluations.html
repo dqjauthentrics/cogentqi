@@ -3,11 +3,12 @@
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
         <ion-list>
-            <ion-item class="item-remove-animate item-icon-right" ng-repeat="evaluation in e.memberEvaluations()"
+            <ion-item class="gray" data-ng-if="!getEvaluations().length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
+            <ion-item class="item-remove-animate item-icon-right" ng-repeat="evaluation in getEvaluations()"
                       type="item-text-wrap" href="#/manager/evaluation/{{evaluation.id}}">
                 <div class="row">
                     <div class="col col-35">
-                        <img class="border border{{evaluation.member.level}}" style="float:left; margin: 0 0.4em 0 0;" data-ng-src="{{m.find(evaluation.memberId).avatar}}">
+                        <img class="border border{{evaluation.member.level}}" style="float:left; margin: 0 0.4em 0 0;" data-ng-src="{{evaluation.member.avatar}}">
 
                         <div style="float:left;margin: 0.1em;">
                             <div class="title">

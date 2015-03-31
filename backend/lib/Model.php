@@ -8,30 +8,57 @@ namespace App;
  * Time: 10:10 PM
  */
 class Model {
-	/** @var Api $this->api */
+	protected $debug = FALSE;
+
+	/** @var Api $this ->api */
 	protected $api = NULL;
 
 	/** @var array $mapExcludes */
 	protected $mapExcludes = [];
 
+	public $tableName = NULL;
+
 	/**
-	 * @param Api $this->api
+	 * @param Api $this ->api
 	 */
 	function __construct($api) {
 		$this->api = $api;
+		$this->tableName = $this->classNameToTableName();
 		$this->initialize();
 	}
 
 	public function initialize() {
+		if ($this->debug) {
+			echo get_class($this) . " initializing routes..." . $this->urlName() . "\n";
+		}
 		$this->initializeRoutes();
+	}
+
+	public function baseClassName() {
+		$path = explode('\\', get_class($this));
+		return array_pop($path);
 	}
 
 	/**
 	 * @return string
 	 */
 	public function urlName() {
-		$path = explode('\\', get_class($this));
-		return strtolower(array_pop($path));
+		$path = $this->baseClassName();
+		$path[0] = strtolower($path[0]);
+		return $path;
+	}
+
+	protected function classNameToTableName() {
+		$className = $this->baseClassName();
+		$tableName = "";
+		for ($i = 0; $i < strlen($className); $i++) {
+			$ch = substr($className, $i, 1);
+			if (ctype_upper($ch) && $i > 0) {
+				$tableName .= "_";
+			}
+			$tableName .= $ch;
+		}
+		return strtolower($tableName);
 	}
 
 	protected function colNameToJsonName($colName) {
@@ -76,20 +103,20 @@ class Model {
 		$urlName = $this->urlName();
 		$this->api->get("/$urlName", function ($parentId = NULL) use ($urlName) {
 			$jsonRecords = [];
-			foreach ($this->api->db->{$urlName}() as $dbRecord) {
+			foreach ($this->api->db->{$this->tableName}() as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
 			$this->api->sendResult($jsonRecords);
 		});
 		$this->api->get("/$urlName/children/:parentId", function ($parentId = NULL) use ($urlName) {
 			$jsonRecords = [];
-			foreach ($this->api->db->{$urlName}()->where("parent_id=?", $parentId) as $dbRecord) {
+			foreach ($this->api->db->{$this->tableName}()->where("parent_id=?", $parentId) as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
 			$this->api->sendResult($jsonRecords);
 		});
 		$this->api->get("/$urlName/:id", function ($id) use ($urlName) {
-			$dbRecord = $this->api->db->{$urlName}()->where("id", $id);
+			$dbRecord = $this->api->db->{$this->tableName}()->where("id", $id);
 			if ($data = $dbRecord->fetch()) {
 				$this->api->sendResult($this->map($data));
 			}
@@ -100,12 +127,12 @@ class Model {
 
 		$this->api->post("/$urlName", function () use ($urlName) {
 			$jsonPostData = $this->api->request()->post();
-			$result = $this->api->db->{$urlName}->insert($jsonPostData);
+			$result = $this->api->db->{$this->tableName}->insert($jsonPostData);
 			$this->api->sendResult(["id" => $result["id"]]);
 		});
 
 		$this->api->put("/$urlName/:id", function ($id) use ($urlName) {
-			$dbRecord = $this->api->db->{$urlName}()->where("id", $id);
+			$dbRecord = $this->api->db->{$this->tableName}()->where("id", $id);
 			if ($dbRecord->fetch()) {
 				$post = $this->api->request()->put();
 				$result = $dbRecord->update($post);
@@ -117,7 +144,7 @@ class Model {
 		});
 
 		$this->api->delete("/$urlName/:id", function ($id) use ($urlName) {
-			$dbRecord = $this->api->db->{$urlName}()->where("id", $id);
+			$dbRecord = $this->api->db->{$this->tableName}()->where("id", $id);
 			if ($dbRecord->fetch()) {
 				$result = $dbRecord->delete();
 				$this->api->sendResult("$urlName deleted.");

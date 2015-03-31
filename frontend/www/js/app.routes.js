@@ -102,119 +102,80 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 		.state('manager.evaluationMatrix', {
 				   url: '/dashboard/matrix',
 				   views: {
-					   managerDashboard: {
-						   templateUrl: 'templates/common/evaluationMatrix.html',
-						   controller: 'MatrixCtrl'
-					   }
+					   managerDashboard: {templateUrl: 'templates/common/evaluationMatrix.html', controller: 'MgrMatrixCtrl'}
 				   }
 			   })
 		.state('manager.outcomes', {
 				   url: '/outcomes',
 				   views: {
-					   managerOutcomes: {
-						   templateUrl: 'templates/manager/outcomes.html',
-						   controller: 'OutcomeCtrl'
-					   }
+					   managerOutcomes: {templateUrl: 'templates/manager/outcomes.html', controller: 'OutcomeCtrl'}
 				   }
 			   })
 		.state('manager.members', {
 				   url: '/members',
 				   views: {
-					   managerMembers: {
-						   templateUrl: 'templates/manager/members.html',
-						   controller: 'MemberCtrl'
-					   }
+					   managerMembers: {templateUrl: 'templates/manager/members.html', controller: 'MemberCtrl'}
 				   }
 			   })
 		.state('manager.member', {
 				   url: '/member/:memberId',
 				   views: {
-					   managerMembers: {
-						   templateUrl: 'templates/manager/member.html',
-						   controller: 'MemberCtrl'
-					   }
+					   managerMembers: {templateUrl: 'templates/manager/member.html', controller: 'MemberCtrl'}
 				   }
 			   })
 		.state('manager.evaluations', {
 				   url: '/evaluations',
 				   views: {
-					   managerEvaluations: {
-						   templateUrl: 'templates/common/evaluations.html',
-						   controller: 'EvaluationCtrl'
-					   }
+					   managerEvaluations: {templateUrl: 'templates/common/evaluations.html', controller: 'EvaluationsCtrl'}
 				   }
 			   })
 		.state('manager.evaluation', {
 				   url: '/evaluation/:evaluationId',
 				   views: {
-					   managerEvaluations: {
-						   templateUrl: 'templates/common/evaluation.html',
-						   controller: 'EvaluationCtrl'
-					   }
+					   managerEvaluations: {templateUrl: 'templates/common/evaluation.html', controller: 'EvaluationCtrl'}
 				   }
 			   })
 
 		.state('manager.newEvaluation', {
 				   url: '/evaluation/n/:memberId',
 				   views: {
-					   managerEvaluations: {
-						   templateUrl: 'templates/common/evaluation.html',
-						   controller: 'EvaluationCtrl'
-					   }
+					   managerEvaluations: {templateUrl: 'templates/common/evaluation.html', controller: 'EvaluationCtrl'}
 				   }
 			   })
 		.state('manager.planning', {
 				   url: '/planning',
 				   views: {
-					   managerResources: {
-						   templateUrl: 'templates/manager/planning.html',
-						   controller: 'PlanningCtrl'
-					   }
+					   managerResources: {templateUrl: 'templates/manager/planning.html', controller: 'PlanningCtrl'}
 				   }
 			   })
 		.state('manager.resources', {
 				   url: '/resources',
 				   views: {
-					   managerResources: {
-						   templateUrl: 'templates/manager/resources.html',
-						   controller: 'ResourceCtrl'
-					   }
+					   managerResources: {templateUrl: 'templates/manager/resources.html', controller: 'ResourceCtrl'}
 				   }
 			   })
 		.state('manager.resourceDetail', {
 				   url: '/resource/:resourceId',
 				   views: {
-					   managerResources: {
-						   templateUrl: 'templates/manager/resource.html',
-						   controller: 'ResourceCtrl'
-					   }
+					   managerResources: {templateUrl: 'templates/manager/resource.html', controller: 'ResourceCtrl'}
 				   }
 			   })
 		.state('manager.evaluationEmpSection', {
 				   url: '/evaluation/:evaluationId/:memberId/:sectionIdx',
 				   views: {
-					   managerEvaluations: {
-						   templateUrl: 'templates/common/evaluation.html',
-						   controller: 'EvaluationCtrl'
-					   }
+					   managerEvaluations: {templateUrl: 'templates/common/evaluation.html', controller: 'EvaluationCtrl'}
 				   }
 			   })
 		.state('manager.latestEvaluation', {
 				   url: '/evaluation/:memberId',
 				   views: {
-					   managerEvaluations: {
-						   templateUrl: 'templates/common/evaluation.html',
-						   controller: 'EvaluationCtrl'
-					   }
+					   managerEvaluations: {templateUrl: 'templates/common/evaluation.html', controller: 'EvaluationCtrl'}
 				   }
 			   })
 		.state('manager.settings', {
 				   url: '/settings',
 				   views: {
-					   managerSettings: {
-						   templateUrl: 'templates/manager/settings.html',
-						   controller: 'SettingsCtrl'
-					   }
+					   managerSettings: {templateUrl: 'templates/manager/settings.html', controller: 'SettingsCtrl'}
 				   }
 			   });
 

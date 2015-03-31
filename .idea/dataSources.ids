@@ -68,6 +68,16 @@
       <exported-key name="evaluation_ibfk_3" table="evaluation" schema="" catalog="cogentqi_v1_target" columns="instrument_id"/>
       <exported-key name="question_group_ibfk_1" table="question_group" schema="" catalog="cogentqi_v1_target" columns="instrument_id"/>
     </table>
+    <table name="learning_module" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="resource_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="ends" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="sched_type" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1"/>
+      <column name="starts" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="learning_module_ibfk_1" columns="resource_id" ref-table="resource" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="unique_id" unique="true" columns="id"/>
+    </table>
     <table name="member" schema="" catalog="cogentqi_v1_target" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="organization_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
@@ -218,6 +228,7 @@
       <column name="description" sqlType="VARCHAR" precision="5000" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="resource_ibfk_1" columns="resource_type_id" ref-table="resource_type" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="learning_module_ibfk_1" table="learning_module" schema="" catalog="cogentqi_v1_target" columns="resource_id"/>
       <exported-key name="resource_alignment_ibfk_1" table="resource_alignment" schema="" catalog="cogentqi_v1_target" columns="resource_id"/>
     </table>
     <table name="resource_alignment" schema="" catalog="cogentqi_v1_target" type="TABLE">

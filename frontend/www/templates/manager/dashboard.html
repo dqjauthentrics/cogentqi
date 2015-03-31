@@ -2,6 +2,6 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content class="padding" has-bouncing="false">
-        <dashboard-cycle members="Members" role="'manager'"></dashboard-cycle>
+        <dashboard-cycle role="'manager'" user="user" jobtitle="Members.roleName(user)"></dashboard-cycle>
     </ion-content>
 </ion-view>

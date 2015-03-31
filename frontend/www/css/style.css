@@ -503,6 +503,16 @@ outcome-level-tag {
     text-decoration: none;
 }
 
+.matrix td.average {
+    background: #F5F5F5;
+    color: #555;
+    font-style: italic;
+    text-align: right;
+}
+.average .matrixCircle {
+    font-style: normal !important;
+}
+
 .outcomeLevelBg0 {
     background: #EEE;
     color: #FFF;
@@ -763,25 +773,9 @@ ion-item.top h2 {
     max-height: 480px;
 }
 
-ion-content label {
-    font-size: 1.5em;
-    color: gray;
-    font-weight: bold;
-}
-
-ion-content input[type="text"] {
-    font-size: 2em;
-    font-weight: bold;
-    margin: 0.5em;
-    width: 80%;
-    border: 1px solid gray;
-    border-radius: 1px;
-}
-
-ion-content textarea {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin: 0.5em;
+p.comments {
+    font-style: italic;
+    color: darkslategray;
 }
 
 ion-content button.button {

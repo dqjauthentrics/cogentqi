@@ -11,36 +11,39 @@ angular.module('app.instruments', ['ngResource']).service('Instruments', functio
 	svc.currSectionIdx = 0;
 
 	svc.retrieve = function () {
-		$resource('/api/instrument/:id', {id: '@id'}, {update: {method: 'PUT'}}).query().$promise.then(function (data) {
-			console.log("instruments: retrieved:", data);
-			svc.instruments = data;
-			for (var i = 0; i < svc.instruments.length; i++) {
-				var instrument = svc.instruments[i];
-				var groups = instrument.questionGroups;
-				var gLen = instrument.questionGroups.length;
-				instrument.sections = [];
-				console.log("found ", gLen, " groups for instrument id", instrument.id);
-				for (var j = 0; j < gLen; j++) {
-					var questionGroup = groups[j];
-					var previous = (j > 0 ? groups[(j - 1)].tag : groups[(groups.length - 1)].tag);
-					var next = j < gLen - 1 ? groups[(j + 1)].tag : groups[0].tag;
-					instrument.sections[j] = {
-						id: questionGroup.id,
-						number: questionGroup.number,
-						name: questionGroup.tag,
-						next: next,
-						previous: previous,
-						questions: []
-					};
-					for (var k = 0; k < instrument.questions.length; k++) {
-						if (instrument.questions[k].questionGroupId == instrument.sections[j].id) {
-							instrument.sections[j].questions.push(instrument.questions[k]);
+		if (svc.instruments.length == 0) {
+			$resource('/api/instrument/:id', {id: '@id'}, {update: {method: 'PUT'}}).query().$promise.then(function (data) {
+				console.log("instruments: retrieved:", data);
+				svc.instruments = data;
+				for (var i = 0; i < svc.instruments.length; i++) {
+					var instrument = svc.instruments[i];
+					var groups = instrument.questionGroups;
+					var gLen = instrument.questionGroups.length;
+					instrument.sections = [];
+					console.log("found ", gLen, " groups for instrument id", instrument.id);
+					for (var j = 0; j < gLen; j++) {
+						var questionGroup = groups[j];
+						var previous = (j > 0 ? groups[(j - 1)].tag : groups[(groups.length - 1)].tag);
+						var next = j < gLen - 1 ? groups[(j + 1)].tag : groups[0].tag;
+						instrument.sections[j] = {
+							id: questionGroup.id,
+							number: questionGroup.number,
+							name: questionGroup.tag,
+							next: next,
+							previous: previous,
+							questions: []
+						};
+						for (var k = 0; k < instrument.questions.length; k++) {
+							if (instrument.questions[k].questionGroupId == instrument.sections[j].id) {
+								instrument.sections[j].questions.push(instrument.questions[k]);
+							}
 						}
 					}
 				}
-			}
-		});
-		return svc.matrix;
+			});
+		}
+		console.log("instruments retrieval request", svc.instruments);
+		return svc.instruments;
 	};
 
 	svc.getCurrent = function () {
@@ -52,13 +55,16 @@ angular.module('app.instruments', ['ngResource']).service('Instruments', functio
 	};
 
 	svc.setCurrent = function (instrumentId) {
+		var current = null;
 		for (var i = 0; i < svc.instruments.length; i++) {
 			if (svc.instruments[i].id == instrumentId) {
 				svc.currInstrumentId = instrumentId;
 				svc.currInstrumentIdx = i;
 				svc.currSectionIdx = 0;
+				current = svc.instruments[i];
 			}
 		}
+		return current;
 	};
 
 	svc.find = function (instrumentId) {
@@ -79,6 +85,7 @@ angular.module('app.instruments', ['ngResource']).service('Instruments', functio
 		if (instrument !== null) {
 			return instrument.sections;
 		}
+		return [];
 	};
 
 	svc.currentQuestions = function () {
@@ -128,43 +135,49 @@ angular.module('app.instruments', ['ngResource']).service('Instruments', functio
 	svc.sectionIsSummary = function () {
 		return svc.currSectionIdx == svc.SECTION_SUMMARY;
 	};
+	svc.sectionIsCurrent = function (sectionId) {
+		var isCurrent = (
+		svc.instruments.length > 0 && !Utility.empty(svc.instruments[svc.currInstrumentIdx].sections) &&
+		svc.instruments[svc.currInstrumentIdx].sections[svc.currSectionIdx].id == sectionId
+		);
+		return isCurrent;
+	};
 	svc.sectionCurrentName = function () {
 		var name = '';
-		if (!Utility.empty(svc.instrument[svc.currInstrumentIdx].sections)) {
+		if (svc.instruments.length > 0 && !Utility.empty(svc.instruments[svc.currInstrumentIdx].sections)) {
 			if (svc.currSectionIdx == svc.SECTION_ALL) {
 				return 'Section Summary';
 			}
-			if (svc.currSectionIdx >= 0 && svc.currSectionIdx < svc.instrument[svc.currInstrumentIdx].sections.length) {
-				name = svc.instrument[svc.currInstrumentIdx].sections[svc.currSectionIdx].name;
+			if (svc.currSectionIdx >= 0 && svc.currSectionIdx < svc.instruments[svc.currInstrumentIdx].sections.length) {
+				name = svc.instruments[svc.currInstrumentIdx].sections[svc.currSectionIdx].name;
 			}
 		}
 		return name;
 	};
 	svc.sectionPreviousName = function () {
-		if (Array.isArray(svc.instrument[svc.currInstrumentIdx].sections)) {
+		if (svc.instruments.length > 0 && Array.isArray(svc.instruments[svc.currInstrumentIdx].sections)) {
 			if (svc.currSectionIdx >= 0) {
-				return svc.instrument[svc.currInstrumentIdx].sections[svc.currSectionIdx].previous;
+				return svc.instruments[svc.currInstrumentIdx].sections[svc.currSectionIdx].previous;
 			}
 			else {
-				return svc.instrument[svc.currInstrumentIdx].sections[0].previous;
+				return svc.instruments[svc.currInstrumentIdx].sections[0].previous;
 			}
 		}
 		return null;
 	};
 	svc.sectionNextName = function () {
-		if (Array.isArray(svc.instrument[svc.currInstrumentIdx].sections)) {
+		if (svc.instruments.length > 0 && Array.isArray(svc.instruments[svc.currInstrumentIdx].sections)) {
 			if (svc.currSectionIdx >= 0) {
-				return svc.instrument[svc.currInstrumentIdx].sections[svc.currSectionIdx].next;
+				return svc.instruments[svc.currInstrumentIdx].sections[svc.currSectionIdx].next;
 			}
 			else {
-				return svc.instrument[svc.currInstrumentIdx].sections[(svc.instrument[svc.currInstrumentIdx].sections.length - 1)].next;
+				return svc.instruments[svc.currInstrumentIdx].sections[(svc.instruments[svc.currInstrumentIdx].sections.length - 1)].next;
 			}
 		}
 		return null;
 	};
 	svc.sectionNext = function () {
-		svc.currSectionIdx = 0;
-		if (svc.currSectionIdx < svc.instrument[svc.currInstrumentIdx].sections.length - 1) {
+		if (svc.instruments.length > 0 && svc.currSectionIdx < svc.instruments[svc.currInstrumentIdx].sections.length - 1) {
 			svc.currSectionIdx++;
 		}
 		else {
@@ -175,13 +188,12 @@ angular.module('app.instruments', ['ngResource']).service('Instruments', functio
 		}
 	};
 	svc.sectionPrevious = function () {
-		svc.currSectionIdx = 0;
 		if (svc.currSectionIdx > 0) {
 			svc.currSectionIdx--;
 		}
 		else {
-			if (Array.isArray(svc.instrument[svc.currInstrumentIdx].sections)) {
-				svc.currSectionIdx = svc.instrument[svc.currInstrumentIdx].sections.length - 1;
+			if (svc.instruments.length > 0 && Array.isArray(svc.instruments[svc.currInstrumentIdx].sections)) {
+				svc.currSectionIdx = svc.instruments[svc.currInstrumentIdx].sections.length - 1;
 			}
 		}
 	};
@@ -189,8 +201,8 @@ angular.module('app.instruments', ['ngResource']).service('Instruments', functio
 		return svc.currSectionIdx <= 0;
 	};
 	svc.sectionIsLast = function () {
-		if (Array.isArray(svc.instrument[svc.currInstrumentIdx].sections)) {
-			return svc.currSectionIdx >= svc.instrument[svc.currInstrumentIdx].sections.length - 1;
+		if (svc.instruments.length > 0 && Array.isArray(svc.instruments[svc.currInstrumentIdx].sections)) {
+			return svc.currSectionIdx >= svc.instruments[svc.currInstrumentIdx].sections.length - 1;
 		}
 		return false;
 	};

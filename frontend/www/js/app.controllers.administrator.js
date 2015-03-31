@@ -2,32 +2,37 @@
 
 angular.module('app.controllers.administrator', [])
 
-	.controller('AdminMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Evaluations, Organizations) {
+	.controller('AdminMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Evaluations, Organizations, Members) {
 					$scope.instruments = Instruments.retrieve();
 					$scope.myOrg = Organizations.retrieveMine();
 					$scope.organizations = Organizations.retrieve();
-					$scope.matrix = Evaluations.getMatrixData(Instruments.currInstrumentId, true);
 					$scope.currInstrument = Instruments.getCurrent();
 					$scope.currInstrumentId = Instruments.currInstrumentId;
+
+					$scope.Instruments = Instruments;
+					$scope.Members = Members;
 
 					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.instrumentId)) {
 						Instruments.setCurrent($stateParams.instrumentId);
 					}
+
 					$scope.getInstruments = function () {
 						$scope.currInstrument = Instruments.getCurrent();
 						$scope.currInstrumentId = Instruments.currInstrumentId;
 						return Instruments.instruments;
 					};
 					$scope.setCurrentInstrument = function (currInstrumentId) {
-						$scope.currInstrument = Instruments.find(currInstrumentId);
-						$scope.matrix = Evaluations.getMatrixData(currInstrumentId, true);
-					};
-					$scope.getRowValues = function () {
-						return Evaluations.findMatrixOrgRowValues(Instruments.currSectionIdx);
+						$scope.currInstrument = Instruments.setCurrent(currInstrumentId);
+						$scope.matrix = Evaluations.getMatrixData($scope.currInstrumentId, false);
 					};
 					$scope.getMatrix = function () {
-						$scope.matrix = Evaluations.getMatrixData(Instruments.currInstrumentId, true);
-						return $scope.matrix;
+						return Evaluations.getMatrixData(Instruments.currInstrumentId, true);
+					};
+					$scope.getColHeaderNames = function () {
+						return Evaluations.findMatrixResponseRowHeader(Instruments.currInstrumentId, Instruments.currSectionIdx, 20)
+					};
+					$scope.getRowValues = function (dataRow) {
+						return Evaluations.findMatrixResponseRowValues(Instruments.currSectionIdx, dataRow.responses)
 					};
 				})
 	.controller('AdminOutcomeCtrl', function ($scope, $stateParams, Utility, Organizations, Resources, Outcomes) {
@@ -36,7 +41,6 @@ angular.module('app.controllers.administrator', [])
 					$scope.resources = Resources.retrieve();
 					$scope.currentOrgId = !Utility.empty(Organizations.currentOrg) ? Organizations.currentOrg.id : null;
 					var outcomes = Outcomes.retrieve();
-					$scope.orgOutcomes = Outcomes.findOrgOutcomes(Organizations.getCurrent().id);
 
 					$scope.setCurrentOrg = function (organizationId) {
 						$scope.currentOrgId = organizationId;
@@ -45,6 +49,13 @@ angular.module('app.controllers.administrator', [])
 					};
 					$scope.currentOrg = function () {
 						return Organizations.getCurrent();
+					};
+					$scope.getOrgOutcomes = function () {
+						var org = Organizations.getCurrent();
+						if (!Utility.empty(org)) {
+							return Outcomes.findOrgOutcomes(org.id);
+						}
+						return null;
 					};
 					$scope.methodMessage = function (method) {
 						if (method == "D") {

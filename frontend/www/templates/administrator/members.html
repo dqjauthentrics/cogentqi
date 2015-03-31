@@ -7,8 +7,8 @@
             <div class="col col-25">
                 <ion-list>
                     <ion-item class="header">Your Organizations</ion-item>
-                    <ion-item data-ng-class="isCurrent(organization.id)? 'active':''" class="item-icon-right" ng-repeat="organization in organizations" type="item-text-wrap"
-                              data-ng-click="setCurrentOrg(organization.id)">
+                    <ion-item data-ng-class="isCurrent(organization.id)? 'active':''" class="item-icon-right" data-ng-repeat="organization in organizations"
+                              type="item-text-wrap" data-ng-click="setCurrentOrg(organization.id)">
                         <i class="{{i.icons.organization}}"></i> {{organization.name}}
                         <i style="color:black;" class="icon ion-chevron-right icon-accessory" data-ng-show="isCurrent(organization.id)"></i>
                     </ion-item>
