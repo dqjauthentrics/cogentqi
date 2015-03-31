@@ -691,8 +691,9 @@ progress {
 }
 
 ion-item.header {
-    background: #DDD;
+    background: #444;
     font-weight: bold;
+    color: #FFF;
 }
 
 ion-item.top {
@@ -760,4 +761,30 @@ ion-item.top h2 {
     border: 0;
     max-width: 853px;
     max-height: 480px;
+}
+
+ion-content label {
+    font-size: 1.5em;
+    color: gray;
+    font-weight: bold;
+}
+
+ion-content input[type="text"] {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0.5em;
+    width: 80%;
+    border: 1px solid gray;
+    border-radius: 1px;
+}
+
+ion-content textarea {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0.5em;
+}
+
+ion-content button.button {
+    margin: 1em !important;
+    font-weight: bold;
 }

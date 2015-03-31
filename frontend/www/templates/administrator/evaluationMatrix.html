@@ -7,8 +7,8 @@
             <h3>{{a.sectionCurrentName()}}</h3>
             <h4>Competency Summary Matrix</h4>
 
-            <select class="large" data-ng-change="e.getMatrixData(e.currentInstrumentId,true)" data-ng-model="e.currentInstrumentId">
-                <option data-ng-repeat="instrument in e.instruments" value="{{instrument.id}}">{{instrument.name}}</option>
+            <select style="margin-top:1em;" class="large" data-ng-model="currInstrumentId" data-ng-change="setCurrentInstrument(currInstrumentId)"
+                    data-ng-options="instrument.id as instrument.name for instrument in getInstruments()">
             </select>
         </div>
         <div style="overflow: auto !important;">
@@ -25,7 +25,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr data-ng-repeat="dataRow in e.matrix">
+                <tr data-ng-repeat="dataRow in matrix">
                     <td class="leftHeader">
                         <div data-ng-switch="dataRow.organizationId">
                             <div data-ng-switch-when="-1">
@@ -36,11 +36,11 @@
                             </div>
                         </div>
                     </td>
-                    <td data-ng-repeat="response in e.findMatrixOrgRowValues(e.currentSectionIdx) track by $index">
-                        <div class="matrixCircle {{e.currentInstrumentId == 1?'levelBg':'yesNoBg'}}{{response|number:0}}">{{response|number:0}}</div>
+                    <td data-ng-repeat="response in dataRow.responses track by $index">
+                        <div class="matrixCircle {{currInstrumentId == 1?'levelBg':'yesNoBg'}}{{response|number:0}}">{{response|number:0}}</div>
                     </td>
                     <td>
-                        <div class="matrixCircle {{e.currentInstrumentId == 1?'levelBg':'yesNoBg'}}{{dataRow.avgRound}}">{{dataRow.avgRound}}</div>
+                        <div class="matrixCircle {{currInstrumentId == 1?'levelBg':'yesNoBg'}}{{dataRow.avgRound}}">{{dataRow.avgRound}}</div>
                     </td>
                 </tr>
                 </tbody>

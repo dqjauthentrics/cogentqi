@@ -2,34 +2,59 @@
 
 angular.module('app.controllers.administrator', [])
 
-	.controller('AdminMatrixCtrl', function ($scope, $stateParams, Utility, Evaluations, Members, Resources) {
-					$scope.e = Evaluations;
-					$scope.m = Members;
-					$scope.r = Resources;
-					$scope.instrumentId = 1;
+	.controller('AdminMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Evaluations, Organizations) {
+					$scope.instruments = Instruments.retrieve();
+					$scope.myOrg = Organizations.retrieveMine();
+					$scope.organizations = Organizations.retrieve();
+					$scope.matrix = Evaluations.getMatrixData(Instruments.currInstrumentId, true);
+					$scope.currInstrument = Instruments.getCurrent();
+					$scope.currInstrumentId = Instruments.currInstrumentId;
 
-					console.log("CONTROLLER");
-					Members.initialize();
-					Evaluations.initialize();
 					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.instrumentId)) {
-						$scope.instrumentId = $stateParams.instrumentId;
+						Instruments.setCurrent($stateParams.instrumentId);
 					}
-					if (Utility.empty($scope.instrumentId)) {
-						$scope.instrumentId = 1;
-					}
-					Evaluations.getMatrixData($scope.instrumentId, true);
+					$scope.getInstruments = function () {
+						$scope.currInstrument = Instruments.getCurrent();
+						$scope.currInstrumentId = Instruments.currInstrumentId;
+						return Instruments.instruments;
+					};
+					$scope.setCurrentInstrument = function (currInstrumentId) {
+						$scope.currInstrument = Instruments.find(currInstrumentId);
+						$scope.matrix = Evaluations.getMatrixData(currInstrumentId, true);
+					};
+					$scope.getRowValues = function () {
+						return Evaluations.findMatrixOrgRowValues(Instruments.currSectionIdx);
+					};
+					$scope.getMatrix = function () {
+						$scope.matrix = Evaluations.getMatrixData(Instruments.currInstrumentId, true);
+						return $scope.matrix;
+					};
 				})
-	.controller('AdminOutcomeCtrl', function ($scope, $stateParams, Utility, Organizations, Evaluations, Outcomes) {
-					$scope.Evaluations = Evaluations;
-					$scope.Outcomes = Outcomes;
-					$scope.out = Outcomes;
-					$scope.Organizations = Organizations;
-					$scope.outcomes = [];
+	.controller('AdminOutcomeCtrl', function ($scope, $stateParams, Utility, Organizations, Resources, Outcomes) {
+					$scope.myOrg = Organizations.retrieveMine();
+					$scope.organizations = Organizations.retrieve();
+					$scope.resources = Resources.retrieve();
+					$scope.currentOrgId = !Utility.empty(Organizations.currentOrg) ? Organizations.currentOrg.id : null;
+					var outcomes = Outcomes.retrieve();
+					$scope.orgOutcomes = Outcomes.findOrgOutcomes(Organizations.getCurrent().id);
 
-					Organizations.initialize();
-					Evaluations.initialize();
-					Outcomes.initialize();
-
+					$scope.setCurrentOrg = function (organizationId) {
+						$scope.currentOrgId = organizationId;
+						Organizations.setCurrent(organizationId);
+						$scope.orgOutcomes = Outcomes.findOrgOutcomes(Organizations.getCurrent().id);
+					};
+					$scope.currentOrg = function () {
+						return Organizations.getCurrent();
+					};
+					$scope.methodMessage = function (method) {
+						if (method == "D") {
+							return "NOTE: This outcome level is calculated through examination of data; it is not recommended that you manually change it.";
+						}
+						return "Manually configured outcome level.";
+					};
+					$scope.isCurrent = function (organizationId) {
+						return organizationId == $scope.currentOrgId;
+					};
 					$scope.getRubric = function (level) {
 						var rubric = '';
 						switch (parseInt(level)) {
@@ -49,61 +74,86 @@ angular.module('app.controllers.administrator', [])
 						return rubric;
 					};
 				})
-	.controller('AdminAlignmentCtrl', function ($scope, $stateParams, Utility, Evaluations, Resources, Outcomes) {
-					$scope.e = Evaluations;
-					$scope.r = Resources;
-					$scope.o = Outcomes;
+	.controller('AdminAlignmentCtrl', function ($scope, $stateParams, Utility, Instruments, Resources, Outcomes) {
+					$scope.instruments = Instruments.retrieve();
+					$scope.outcomes = Outcomes.retrieve();
+					$scope.resources = Resources.retrieve();
 					$scope.resource = null;
-					$scope.currentInstrument = null;
-
-					Evaluations.initialize();
-					Resources.initialize();
-					Outcomes.initialize();
+					$scope.outcome = null;
+					$scope.questions = null;
+					$scope.alignments = null;
+					$scope.currInstrument = Instruments.getCurrent();
+					$scope.currInstrumentId = Instruments.currInstrumentId;
 
 					if (!Utility.empty($stateParams)) {
 						var resourceId = $stateParams.resourceId;
 						if (!Utility.empty(resourceId)) {
-							$scope.resource = $scope.r.get(resourceId);
+							$scope.resource = Resources.find(resourceId);
 							$scope.resource.location = 'modules/' + $scope.resource.number.toLowerCase() + '.html';
+							$scope.alignments = Resources.findAlignments($scope.currInstrument, resourceId);
 						}
 						var outcomeId = $stateParams.outcomeId;
 						if (!Utility.empty(outcomeId)) {
-							$scope.outcome = $scope.o.find(outcomeId);
+							$scope.outcome = Outcomes.find(outcomeId);
 						}
 					}
 					$scope.getInstrumentAlignments = function (instrument, resourceId) {
 						if (!Utility.empty(instrument)) {
 							Resources.retrieveAlignments(instrument, resourceId, instrument.questions);
-							$scope.currentInstrument = instrument;
-							$scope.getQuestions();
+							Instruments.setCurrent(instrument.id);
+							$scope.questions = $scope.getQuestions();
 						}
-						return $scope.currentInstrument;
+						return $scope.currInstrument;
+					};
+					$scope.setCurrentInstrument = function (currInstrumentId) {
+						$scope.currInstrument = Instruments.find(currInstrumentId);
+						$scope.alignments = Resources.findAlignments($scope.currInstrument, $scope.resource.id);
 					};
 					$scope.getQuestions = function () {
-						if (!Utility.empty($scope.currentInstrument)) {
-							return $scope.currentInstrument.questions;
-						}
-						return null;
-					}
+						return Instruments.currentQuestions();
+					};
+					$scope.getResources = function () {
+						return Resources.resources;
+					};
+					$scope.getInstruments = function () {
+						return Instruments.instruments;
+					};
+					$scope.getAlignments = function () {
+						return $scope.alignments;
+					};
 				})
 	.controller('AdminMemberCtrl', function ($scope, Utility, Organizations, Members, Evaluations, Resources, Outcomes) {
-					$scope.o = Organizations;
-					$scope.m = Members;
-					Organizations.initialize();
-					Members.initialize();
-					Resources.initialize();
-					Outcomes.initialize();
+					$scope.myOrg = Organizations.retrieveMine();
+					$scope.organizations = Organizations.retrieve();
+					$scope.currentOrgId = !Utility.empty(Organizations.currentOrg) ? Organizations.currentOrg.id : null;
+					$scope.members = null;
+					Members.retrieve();
+					$scope.Members = Members;  //@todo Currently need to pass through to memberItem tag
+
+					Organizations.retrieveMembers(null);
+
+					$scope.setCurrentOrg = function (organizationId) {
+						$scope.currentOrgId = organizationId;
+						Organizations.setCurrent(organizationId);
+						Organizations.retrieveMembers(Organizations.currentOrg.id);
+					};
+					$scope.currentOrg = function () {
+						return Organizations.getCurrent();
+					};
+					$scope.currentOrgMembers = function () {
+						return Organizations.getCurrentMembers();
+					};
+					$scope.isCurrent = function (organizationId) {
+						return organizationId == $scope.currentOrgId;
+					};
 				})
 	.controller('AdminDashboardCtrl', function ($scope, Utility, Organizations, Members, Evaluations, Resources, Outcomes) {
-					$scope.Organizations = Organizations;
-					$scope.Members = Members;
-					Organizations.initialize();
-					Members.initialize();
-					Resources.initialize();
-					Outcomes.initialize();
+					$scope.myOrg = Organizations.retrieveMine();
+					$scope.organizations = Organizations.retrieve();
+					$scope.members = Members.retrieve();
+					$scope.resources = Resources.retrieve();
+					$scope.outcomes = Outcomes.retrieve();
 				})
-	.controller('AdminSettingsCtrl', function ($scope, Organizations) {
-					$scope.settings = {
-						sampleSetting: true
-					};
+	.controller('AdminSettingsCtrl', function ($scope, Settings) {
+					$scope.settings = Settings.retrieve();
 				});

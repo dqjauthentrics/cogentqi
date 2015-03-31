@@ -16,6 +16,7 @@ angular.module('app.icons', []).service('Icons', function () {
 		edit: "fa fa-pencil ",
 		email: "fa fa-mail",
 		evaluation: "fa fa-sliders",
+		event: "fa fa-warning",
 		grades: "fa fa-tag-2",
 		home: "fa fa-home",
 		info: "fa fa-question-circle",

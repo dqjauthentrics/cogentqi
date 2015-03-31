@@ -1,23 +1,26 @@
 <ion-view view-title="Alignments">
     <ion-nav-buttons side="left"><a href="/#/administrator/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
-    <ion-content has-bouncing="false" overflow-scroll="true" data-ng-init="currentInstrument = e.findInstrument(null)">
+    <ion-content has-bouncing="false" overflow-scroll="true">
         <div class="detail">
+            <div style="float:right; margin:0.5em;">
+                <button onclick="alert('TBD');" class="button button-energized"><i class="{{i.icons.edit}}"></i></button>
+            </div>
             <h2><a href="#/manager/resource/{{resource.id}}">{{resource.name}}</a></h2>
 
             <div class="description">
                 {{resource.summary}}
             </div>
-            <select style="margin-top:1em;" class="large" data-ng-model="e.currentInstrumentId"
-                    data-ng-change="currentInstrument = getInstrumentAlignments(e.findInstrument(e.currentInstrumentId),resource.id)">
-                <option data-ng-repeat="instrument in e.instruments" value="{{instrument.id}}">{{instrument.name}}</option>
+            <select style="margin-top:1em;" class="large" data-ng-model="currInstrumentId" data-ng-change="setCurrentInstrument(currInstrumentId)"
+                    data-ng-options="instrument.id as instrument.name for instrument in getInstruments()">
             </select>
 
             <div class="clearfix"></div>
         </div>
-        <ion-list data-ng-init="r.retrieveAlignments(currentInstrument, resource.id, currentInstrument.questions)">
-            <ion-item class="item-icon-right" ng-repeat="question in currentInstrument.questions" type="item-text-wrap"
-                      href="#/administrator/alignment/{{resource.id}}">
+        <div style="float:right; margin-right:6em; font-weight:bold;">Alignment Weights</div>
+        <div class="clearfix"></div>
+        <ion-list>
+            <ion-item class="item-icon-right" ng-repeat="question in currInstrument.questions" type="item-text-wrap" href="#/administrator/alignment/{{resource.id}}">
                 <div class="name">{{question.name}}</div>
                 <div style="float:right; width: 10em; margin: 1em 0.5em;">
                     <div class="item range range-positive">
@@ -30,7 +33,7 @@
                 <div class="description" data-ng-bind-html="question.description"></div>
             </ion-item>
         </ion-list>
-        <button data-ng-click="r.saveAlignments(currentInstrument.id, resource.id, currentInstrument.questions)" class="button button-balanced">Save</button>
+        <button data-ng-click="saveAlignments()" class="button button-balanced"><i class="{{i.icons.save}} fa-lg"></i> Save</button>
     </ion-content>
 </ion-view>
 

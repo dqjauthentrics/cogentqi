@@ -74,7 +74,7 @@ class Model {
 	 */
 	public function initializeRoutes() {
 		$urlName = $this->urlName();
-		$this->api->get("/$urlName/all", function ($parentId = NULL) use ($urlName) {
+		$this->api->get("/$urlName", function ($parentId = NULL) use ($urlName) {
 			$jsonRecords = [];
 			foreach ($this->api->db->{$urlName}() as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);

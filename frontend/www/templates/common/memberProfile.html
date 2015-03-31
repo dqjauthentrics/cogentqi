@@ -24,6 +24,25 @@
                 {{evaluation.lastModified}}
             </a>
         </div>
+        <h3>Events</h3>
+
+        <table class="events">
+            <thead>
+            <tr>
+                <th colspan="2">Occurred</th>
+                <th>Name</th>
+                <th>Process Area</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="event in member.events">
+                <td><i class="{{i.icons.event}}"></i></td>
+                <td>{{event.occurred}}</td>
+                <td>{{event.name}}</td>
+                <td>{{event.cat}}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 <div class="row row-responsive-sm">
@@ -31,3 +50,14 @@
         <highchart id="memberHx_{{member.id}}" config="m.rptConfigHx(e, member)"></highchart>
     </div>
 </div>
+<style>
+    .events td, .events th {
+        color: red;
+        border: 0px solid #CCC;
+        padding: 0.3em;
+    }
+    .events th {
+        background: #CCC;
+        color: #000;
+    }
+</style>

@@ -48,7 +48,7 @@ class Api extends \Slim\Slim {
 			}
 			exit(0);
 		}
-		echo @json_encode(['status' => $status, 'result' => $data]);
+		echo @json_encode($data);
 	}
 
 	/**

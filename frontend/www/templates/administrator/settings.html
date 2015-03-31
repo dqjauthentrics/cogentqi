@@ -2,11 +2,11 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
-        <div class="row">
-            <div class="col-80 col-offset-5">
-                <ion-list type="card">
-                    <ion-toggle ng-model="settings.sampleSetting">Sample Admin Setting</ion-toggle>
-                </ion-list>
-            </div>
+        <ion-list type="card">
+            <div data-ng-bind="settings"></div>
+            <ion-item data-ng-repeat="setting in settings">
+                <label for="setting{{setting.id}}">{{setting.n}}</label><input id="setting{{setting.id}}" value="{{setting.v}}"/>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>

@@ -1,63 +1,38 @@
 'use strict';
 
-angular.module('app.outcomes', ['app.utility']).service('Outcomes', function ($http, Utility) {
+angular.module('app.outcomes', ['app.utility']).service('Outcomes', function ($resource, $http, Utility) {
 	var svc = this;
-	svc.outcomes = false;
-	svc.currentOrg = null;
+	svc.outcomes = null;
+	svc.currentOutcomes = null;
 
-	/**
-	 * Initializes the outcomes array if it has not yet been initialized.
-	 *
-	 * @returns {Array}
-	 */
-	svc.initialize = function (callback) {
-		if (svc.outcomes === false) {
-			svc.outcomes = true;
-			$http.get('/api/outcome/all').
-				success(function (data, status, headers, config) {
-							svc.outcomes = data.result; // set data to real value
-							if (!Utility.empty(callback)) {
-								callback();
-							}
-						}).
-				error(function (data, status, headers, config) {
-					  });
-		}
+	svc.retrieve = function (callback) {
+		$resource('/api/outcome', {}, {}).query().$promise.then(function (data) {
+			console.log("outcomes: retrieved:", data);
+			svc.outcomes = data;
+		});
 		return svc.outcomes;
 	};
 
-	svc.getOutcomes = function (organizationId) {
-		if (!Utility.empty(organizationId) && !Utility.empty(svc.outcomes) && Array.isArray(svc.outcomes)) {
+	svc.findOrgOutcomes = function (organizationId) {
+		if (Array.isArray(svc.outcomes)) {
+			svc.currentOutcomes = [];
 			for (var i = 0; i < svc.outcomes.length; i++) {
 				svc.outcomes[i].level = parseInt(svc.outcomes[i].level);
 				for (var j = 0; j < svc.outcomes[i].levels.length; j++) {
 					if (svc.outcomes[i].levels[j].o == organizationId && svc.outcomes[i].levels[j].out == svc.outcomes[i].id) {
 						svc.outcomes[i].level = parseInt(svc.outcomes[i].levels[j].l);
-						//console.log("outcome set:", organizationId, svc.outcomes[i]);
+						svc.currentOutcomes.push(svc.outcomes[i]);
 					}
 				}
 			}
 		}
-		return svc.outcomes;
-	};
-
-	/**
-	 * Called in ng-repeat so that it makes sure the data is initialized.  An ng-init call does not work.
-	 * @returns {Array}
-	 */
-	svc.getAll = function (e) {
-		console.log("GETALLCALLED");
-		e.initialize();
-		svc.initialize();
-		return svc.outcomes;
+		return svc.currentOutcomes;
 	};
 
 	svc.find = function (outcomeId) {
-		if (!Utility.empty(svc.outcomes)) {
-			for (var i = 0; i < svc.outcomes.length; i++) {
-				if (svc.outcomes[i].id == outcomeId) {
-					return svc.outcomes[i];
-				}
+		for (var i = 0; i < svc.outcomes.length; i++) {
+			if (svc.outcomes[i].id == outcomeId) {
+				return svc.outcomes[i];
 			}
 		}
 		return null;

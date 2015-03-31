@@ -1,31 +1,19 @@
 'use strict';
 
-angular.module('app.members', ['app.graphs']).service('Members', function ($http, $cookieStore, Graphs, Utility) {
+angular.module('app.members', ['app.graphs']).service('Members', function ($resource, $http, $cookieStore, Graphs, Utility) {
 	var svc = this;
-	svc.members = false;
-	svc.memberHx = false;
-	svc.apiUrl = "/api/member";
+	svc.members = null;
+	svc.memberHx = null;
+	svc.evaluations = null;
 
-	svc.initialize = function (organizationId) {
+	svc.retrieve = function (organizationId) {
 		var user = $cookieStore.get('user');
-		if (svc.members === false && !Utility.empty(user)) {
-			svc.members = true;
-			if (Utility.empty(organizationId)) {
-				organizationId = user.organizationId;
-			}
-			var url = svc.apiUrl + '/organization/' + organizationId;
-			$http.get(url).
-				success(function (data, status, headers, config) {
-							svc.members = data.result;
-							console.log("members initialized", svc.members);
-						}).
-				error(function (data, status, headers, config) {
-						  console.log("ERROR: unable to retrieve members.");
-					  });
+		if (!Utility.empty(user)) {
+			$resource('/api/member/organization/' + user.organizationId, {}, {}).query().$promise.then(function (data) {
+				console.log("members retrieved:", user.organizationId, data);
+				svc.members = data;
+			});
 		}
-	};
-
-	svc.getMembers = function () {
 		return svc.members;
 	};
 
@@ -87,7 +75,7 @@ angular.module('app.members', ['app.graphs']).service('Members', function ($http
 							dataSet.push({name: question.name, y: Utility.randomIntBetween(1, 5)});
 						}
 					}
-					series.push({id:i, name:evaluation.lastModified, data: dataSet, type: 'line', color: 'gray'});
+					series.push({id: i, name: evaluation.lastModified, data: dataSet, type: 'line', color: 'gray'});
 				}
 			}
 			svc.memberHx = Graphs.lineGraphConfig('Progress', null, 'Competency', 'Ranking', dataSet, true);

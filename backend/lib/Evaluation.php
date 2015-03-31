@@ -53,7 +53,7 @@ class Evaluation extends Model {
 			foreach ($responseSets as $orgId => $responses) {
 				$jsonRecords[] = ['organizationId' => $orgId, 'name' => $orgNames[$orgId], 'responses' => $responses];
 			}
-			$this->api->sendResult($jsonRecords);
+			echo json_encode($jsonRecords);
 		});
 	}
 

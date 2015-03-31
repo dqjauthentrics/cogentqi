@@ -6,20 +6,27 @@
             <div class="col col-50">
                 <ion-list>
                     <ion-item class="top"><h2>Resources</h2></ion-item>
-                    <ion-item class="item-icon-right" ng-repeat="resource in r.resources" type="item-text-wrap" href="#/administrator/alignment/{{resource.id}}">
+                    <ion-item class="item-icon-right" data-ng-repeat="resource in getResources()" type="item-text-wrap" href="#/administrator/alignment/{{resource.id}}">
                         <i class="{{i.icons.resource}} fa-lg"></i> {{resource.number}} {{resource.name}}
                         <i class="icon ion-chevron-right icon-accessory"></i>
                     </ion-item>
                 </ion-list>
+                <div>
+                    <button onclick="alert('TBD');" class="button button-balanced"><i class="{{i.icons.add}} fa-lg"></i> Add Resource</button>
+                </div>
             </div>
             <div class="col col-50">
                 <ion-list>
                     <ion-item class="top"><h2>Outcomes</h2></ion-item>
-                    <ion-item class="item-icon-right" ng-repeat="outcome in o.outcomes" type="item-text-wrap" href="#/administrator/outcome/{{outcome.id}}">
+                    <ion-item class="item-icon-right" data-ng-repeat="outcome in outcomes" type="item-text-wrap" href="#/administrator/outcome/{{outcome.id}}">
                         <i class="{{i.icons.outcome}} fa-lg"></i> {{outcome.number}} {{outcome.name}}
                     </ion-item>
                 </ion-list>
+                <div>
+                    <button onclick="alert('TBD');" class="button button-balanced"><i class="{{i.icons.add}} fa-lg"></i> Add Outcome</button>
+                </div>
             </div>
         </div>
+
     </ion-content>
 </ion-view>

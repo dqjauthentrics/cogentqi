@@ -2,6 +2,7 @@
 namespace App;
 require_once "../lib/Evaluation.php";
 require_once "../lib/Badge.php";
+require_once "../lib/OutcomeEvent.php";
 
 class Member extends Model {
 
@@ -34,6 +35,7 @@ class Member extends Model {
 			$jsonBadges[] = $badge->map($badgeRecord);
 		}
 		$associative["badges"] = $jsonBadges;
+
 		$evalRecords = $this->api->db->evaluation()->where('member_id', $member["id"])->order('last_modified DESC');
 		$jsonEvals = [];
 		$eval = new Evaluation($this->api);
@@ -42,6 +44,22 @@ class Member extends Model {
 			$jsonEvals[] = $eval->map($evalRecord);
 		}
 		$associative["evaluations"] = $jsonEvals;
+
+		$eventRecords = $this->api->db->outcome_event()->where('member_id', $member["id"])->order('occurred DESC');
+		$jsonEvents = [];
+		$event = new OutcomeEvent($this->api);
+		foreach ($eventRecords as $eventRecord) {
+			$eval->mapExcludes = ["responses"];
+			$jsonEvents[] = [
+				'id'       => $eventRecord["id"],
+				'occurred' => $eventRecord["occurred"],
+				'outId'    => $eventRecord["outcome_id"],
+				'name'     => $eventRecord["name"],
+				'cat'      => $eventRecord["category"]
+			];
+		}
+		$associative["events"] = $jsonEvents;
+
 		return $associative;
 	}
 }

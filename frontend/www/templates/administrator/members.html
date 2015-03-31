@@ -7,20 +7,19 @@
             <div class="col col-25">
                 <ion-list>
                     <ion-item class="header">Your Organizations</ion-item>
-                    <ion-item class="item-icon-right" ng-repeat="organization in o.getChildOrganizationsAndMine()"
-                              type="item-text-wrap"
-                              data-ng-click="o.setCurrentOrg(organization)"
-                            >
-                        {{organization.name}}
+                    <ion-item data-ng-class="isCurrent(organization.id)? 'active':''" class="item-icon-right" ng-repeat="organization in organizations" type="item-text-wrap"
+                              data-ng-click="setCurrentOrg(organization.id)">
+                        <i class="{{i.icons.organization}}"></i> {{organization.name}}
+                        <i style="color:black;" class="icon ion-chevron-right icon-accessory" data-ng-show="isCurrent(organization.id)"></i>
                     </ion-item>
                 </ion-list>
             </div>
             <div class="col col-75">
                 <ion-list>
-                    <ion-item class="header">{{o.currentOrg.name}}</ion-item>
-                    <ion-item class="gray" data-ng-if="!o.currentOrgMembers.length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
-                    <ion-item ng-repeat="member in o.currentOrgMembers" style="white-space: normal;">
-                        <member-item member="member" m="m"></member-item>
+                    <ion-item class="header">{{currentOrg().name}}</ion-item>
+                    <ion-item class="gray" data-ng-if="!currentOrgMembers().length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
+                    <ion-item ng-repeat="member in currentOrgMembers()" style="white-space: normal;">
+                        <member-item member="member" m="Members"></member-item>
                     </ion-item>
                 </ion-list>
             </div>

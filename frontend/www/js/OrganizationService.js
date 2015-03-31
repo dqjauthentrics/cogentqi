@@ -1,65 +1,74 @@
 'use strict';
 
-angular.module('app.organizations', []).
-	service('Organizations', function ($http, $cookieStore, $rootScope, Utility, Members) {
-				var svc = this;
-				svc.apiUrl = '/api/organization';
-				svc.mine = false;
-				svc.organizations = false;
-				svc.currentOrgMembers = false;
-				svc.currentOrg = false;
+angular.module('app.organizations', []).service('Organizations', function ($resource, $http, $cookieStore, $rootScope, Utility, Members) {
+	var svc = this;
+	svc.mine = null;
+	svc.organizations = null;
+	svc.currentOrgMembers = null;
+	svc.currentOrg = null;
+	svc.currentOrgIdx = null;
 
-				svc.initialize = function () {
-					var user = $cookieStore.get('user');
-					if (!Utility.empty(user) && svc.mine === false) {
-						svc.mine = true;
-						var organizationId = user.organizationId;
-						$http.get(svc.apiUrl + '/' + organizationId).
-							success(function (data, status, headers, config) {
-										svc.mine = data.result;
-										svc.getChildOrganizationsAndMine();
-									}).
-							error(function (data, status, headers, config) {
-								  });
-					}
-					return svc.mine;
-				};
+	svc.retrieveMine = function () {
+		var user = $cookieStore.get('user');
+		if (!Utility.empty(user)) {
+			$resource('/api/organization/' + user.organizationId, {}, {query: {method: 'GET', isArray: false}}).query().$promise.then(function (data) {
+				console.log("my organization: retrieved:", data);
+				svc.mine = data;
+			});
+		}
+		return svc.mine;
+	};
 
-				svc.getChildOrganizationsAndMine = function () {
-					var user = $cookieStore.get('user');
-					if (svc.organizations === false && !Utility.empty(user)) {
-						svc.organizations = true;
-						var organizationId = user.organizationId;
-						$http.get(svc.apiUrl + '/children/' + organizationId).
-							success(function (data, status, headers, config) {
-										svc.organizations = data.result;
-										if (!Utility.empty(svc.organizations)) {
-											svc.setCurrentOrg(svc.organizations[0]);
-										}
-									}).
-							error(function (data, status, headers, config) {
-								  });
-					}
-					return svc.organizations;
-				};
+	svc.retrieve = function () {
+		var user = $cookieStore.get('user');
+		if (!Utility.empty(user)) {
+			$resource('/api/organization/children/' + user.organizationId, {}, {}).query().$promise.then(function (data) {
+				console.log("child organization: retrieved:", data);
+				svc.organizations = data;
+				if (svc.organizations.length > 0) {
+					svc.currentOrgIdx = 0;
+					svc.currentOrg = svc.organizations[0];
+				}
+			});
+		}
+		return svc.organizations;
+	};
 
-				svc.getMine = function () {
-					svc.initialize();
-					return svc.mine;
-				};
-				svc.setCurrentOrg = function (organization) {
-					if (!Utility.empty(organization) && (svc.currentOrgMembers === false || svc.currentOrg.id != organization.id)) {
-						svc.currentOrgMembers = true;
-						svc.currentOrg = organization;
-						$http.get('/api/member/organization/' + organization.id).
-							success(function (data, status, headers, config) {
-										svc.currentOrgMembers = data.result;
-										Members.members = svc.currentOrgMembers;
-									}).
-							error(function (data, status, headers, config) {
-								  });
-					}
-					return svc.currentOrgMembers;
-				};
+	svc.getCurrent = function () {
+		return svc.currentOrg;
+	};
+
+	svc.retrieveMembers = function (organizationId) {
+		if (organizationId === null && !Utility.empty(svc.currentOrg)) {
+			organizationId = svc.currentOrg.id;
+		}
+		console.log("organizations retrieve members request for org ID:", organizationId);
+		if (!Utility.empty(organizationId)) {
+			$resource('/api/member/organization/' + organizationId, {}, {}).query().$promise.then(function (data) {
+				svc.currentOrgMembers = data;
+				console.log("members retrieved for organization:", organizationId, svc.currentOrgMembers);
+			});
+		}
+		return svc.currentOrgMembers;
+	};
+
+	svc.setCurrent = function (organizationId) {
+		svc.currentOrg = null;
+		svc.currentOrgMembers = null;
+		svc.currentOrgIdx = null;
+		for (var i = 0; i < svc.organizations.length; i++) {
+			if (organizationId == svc.organizations[i].id) {
+				svc.currentOrg = svc.organizations[i];
+				svc.currentOrgIdx = i;
+				svc.retrieveMembers(svc.currentOrg.id);
+				return svc.currentOrg;
 			}
-);
+		}
+		return svc.currentOrg;
+	};
+
+	svc.getCurrentMembers = function () {
+		return svc.currentOrgMembers;
+	};
+
+});

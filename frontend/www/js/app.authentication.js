@@ -37,9 +37,8 @@ angular.module('app.authentication', []).service('Authentication', function ($ht
 						  data: $.param({username: email, password: password}),
 						  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 					  }).
-
 					success(function (data, status, headers, config) {
-								$cookieStore.put('user', data.result);
+								$cookieStore.put('user', data);
 								console.log("USER:", $cookieStore.get('user'));
 								svc.check();
 							}).

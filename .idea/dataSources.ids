@@ -85,6 +85,7 @@
       <exported-key name="evaluation_ibfk_1" table="evaluation" schema="" catalog="cogentqi_v1_target" columns="member_id"/>
       <exported-key name="evaluation_ibfk_2" table="evaluation" schema="" catalog="cogentqi_v1_target" columns="by_member_id"/>
       <exported-key name="organization_outcome_ibfk_3" table="organization_outcome" schema="" catalog="cogentqi_v1_target" columns="evaluator_id"/>
+      <exported-key name="outcome_event_ibfk_2" table="outcome_event" schema="" catalog="cogentqi_v1_target" columns="member_id"/>
       <index name="username" unique="true" columns="username"/>
     </table>
     <table name="member_badge" schema="" catalog="cogentqi_v1_target" type="TABLE">
@@ -126,11 +127,14 @@
       <column name="number" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
       <column name="name" sqlType="VARCHAR" precision="500" scale="0" nullable="false" jdbcType="12"/>
       <column name="summary" sqlType="VARCHAR" precision="5000" scale="0" nullable="true" jdbcType="12"/>
-      <column name="outcome_method_id" sqlType="CHAR" precision="1" scale="0" nullable="true" jdbcType="1"/>
+      <column name="calc_method_id" sqlType="CHAR" precision="1" scale="0" nullable="true" jdbcType="1"/>
       <column name="level" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="method" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1" def="J00n"/>
+      <column name="sort_order" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="organization_outcome_ibfk_2" table="organization_outcome" schema="" catalog="cogentqi_v1_target" columns="outcome_id"/>
       <exported-key name="outcome_alignment_ibfk_1" table="outcome_alignment" schema="" catalog="cogentqi_v1_target" columns="outcome_id"/>
+      <exported-key name="outcome_event_ibfk_1" table="outcome_event" schema="" catalog="cogentqi_v1_target" columns="outcome_id"/>
       <index name="unique_id" unique="true" columns="id"/>
     </table>
     <table name="outcome_alignment" schema="" catalog="cogentqi_v1_target" type="TABLE">
@@ -142,6 +146,18 @@
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="outcome_alignment_ibfk_1" columns="outcome_id" ref-table="outcome" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="outcome_alignment_ibfk_2" columns="question_id" ref-table="question" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="outcome_event" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="outcome_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="member_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="occurred" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="category" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id,outcome_id"/>
+      <foreign-key name="outcome_event_ibfk_1" columns="outcome_id" ref-table="outcome" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="outcome_event_ibfk_2" columns="member_id" ref-table="member" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="unique_id" unique="true" columns="id"/>
     </table>
     <table name="question" schema="" catalog="cogentqi_v1_target" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
