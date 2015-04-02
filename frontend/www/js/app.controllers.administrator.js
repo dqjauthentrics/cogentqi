@@ -63,6 +63,21 @@ angular.module('app.controllers.administrator', [])
 						}
 						return "Manually configured outcome level.";
 					};
+					$scope.levelPhrase = function (level) {
+						var phrase = 'No alignment exists.';
+						switch (level) {
+							case 1:
+								phrase = 'This module content is partially aligned with the competency.';
+								break;
+							case 2:
+								phrase = 'This module content is well-aligned with the competency.';
+								break;
+							case 3:
+								phrase = 'This module content is highly aligned with the competency.';
+								break;
+						}
+						return phrase;
+					};
 					$scope.isCurrent = function (organizationId) {
 						return organizationId == $scope.currentOrgId;
 					};
