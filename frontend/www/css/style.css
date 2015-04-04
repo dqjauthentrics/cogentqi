@@ -12,6 +12,10 @@ a:hover {
     text-decoration: underline;
 }
 
+.pad-right {
+    margin-right: 0.4em;
+}
+
 h3 {
     color: darkslategray;
 }
@@ -322,12 +326,23 @@ table.cycle {
 }
 
 .microBadge.count {
-    height: 5vmin;
-    width: 5vmin;
+    height: 10vmin;
+    width: 10vmin;
+    min-height: 30px;
+    min-width: 30px;
+    max-height: 60px;
+    max-width: 60px;
     font-size: 1.0em;
     line-height: 0.9em;
 }
 
+.microBadge.icon {
+    height: 5vmin;
+    width: 5vmin;
+    font-size: 1.3vmin;
+    line-height: 1.3vmin;
+    display: inline;
+}
 .microBadge.small {
     height: 10vmin;
     width: 10vmin;

@@ -9,18 +9,26 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 
 	svc.retrieve = function () {
 		var user = $cookieStore.get('user');
-		if (!Utility.empty(user) && svc.evaluations === null) {
-			svc.evaluations = [];
-			console.log("evaluations, retrieving for org:", user.organizationId);
-			$resource('/api/evaluation/organization/' + user.organizationId, {}, {}).query().$promise.then(function (data) {
-				svc.evaluations = data;
-				console.log("evaluations retrieved:", svc.evaluations);
-				for (var i = 0; i < svc.evaluations.length; i++) {
-					svc.evaluations[i].member = Members.find(svc.evaluations[i].memberId);
-				}
-			});
+		if (!Utility.empty(user)) {
+			return $resource('/api/evaluation/organization/' + user.organizationId, {}, {});
 		}
-		return svc.evaluations;
+		return null;
+	};
+	svc.associateMembers = function (evaluations, members) {
+		console.log("associateMembers:", evaluations, members);
+		if (!Utility.empty(evaluations) && !Utility.empty(members)) {
+			for (var i = 0; i < evaluations.length; i++) {
+				evaluations[i].member = Utility.findObjectById(members, evaluations[i].memberId);
+				evaluations[i].byMember = Utility.findObjectById(members, evaluations[i].byMemberId);
+				console.log("BY", evaluations[i].byMember);
+			}
+		}
+	};
+	svc.retrieveForMember = function (memberId) {
+		if (!Utility.empty(memberId)) {
+			return $resource('/api/evaluation/member/' + memberId, {}, {});
+		}
+		return null;
 	};
 
 	svc.retrieveMatrix = function (instrumentId, isRollUp) {
@@ -36,6 +44,7 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 		if (!Utility.empty(evaluation) && !Utility.empty(instruments) && !Utility.empty(members)) {
 			evaluation.instrument = Utility.findObjectById(instruments, evaluation.instrumentId);
 			evaluation.member = Utility.findObjectById(members, evaluation.memberId);
+			evaluation.byMember = Utility.findObjectById(members, evaluation.byMemberId);
 			if (!Utility.empty(evaluation.instrument)) {
 				console.log("collating", evaluation.instrument.sections);
 				var sections = evaluation.instrument.sections;

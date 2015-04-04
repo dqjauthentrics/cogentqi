@@ -1,7 +1,41 @@
 <ion-view view-title="{{installation.name}} Dashboard">
-<ion-nav-buttons side="left"><a href="/#/professional/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="left"><a href="/#/professional/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <h1>Professional Dashboard TBD</h1>
-     </ion-content>
+        <h1>{{data.user.firstName}} {{data.user.lastName}}</h1>
+
+        <div class="row responsive-sm">
+            <div class="col col50 padding">
+                <ion-list>
+                    <ion-item class="top">Assessments</ion-item>
+                    <ion-item data-ng-if="!data.evaluations">None.</ion-item>
+                    <ion-item class="item-icon-right" data-ng-repeat="evaluation in data.evaluations" type="item-text-wrap" href="#/manager/evaluation/{{evaluation.id}}">
+                        <i class="{{i.icons.evaluation}} pad-right"></i>
+                        On <span style="font-weight:bold;">{{evaluation.lastModified | date:'medium'}}</span>
+                        <span data-ng-if="evaluation.byMember !== undefined">
+                            by {{evaluation.byMember.firstName}} {{evaluation.byMember.lastName}}
+                            <img src="{{evaluation.byMember.avatar}}" alt="" style="height: 8vmin; width: 8vmin; display: inline; vertical-align: middle;"/>
+                        </span>
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                    </ion-item>
+                </ion-list>
+            </div>
+            <div class="col col50 padding">
+                <ion-list>
+                    <ion-item class="top">Professional Development Plan</ion-item>
+                    <ion-item data-ng-if="!data.user.planItems.length">None.</ion-item>
+                    <ion-item class="item-icon-right" data-ng-repeat="item in data.user.planItems" type="item-text-wrap" href="#/manager/resource/{{item.r}}">
+                        <div class="name">
+                            <i class="{{i.icons.resource}} pad-right"></i>
+                            {{item.n}}
+                        </div>
+                        <p>
+                            {{statusWord(item.s)}} on {{item.dt | date:'longDate'}}
+                            <micro-badge style="margin-right:3em !important;" data-ng-if="item.s=='C'" text="''" size="'icon'"></micro-badge>
+                            <i class="icon ion-chevron-right icon-accessory" data-ng-if="item.s!=='C'"></i>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+    </ion-content>
 </ion-view>

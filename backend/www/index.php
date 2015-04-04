@@ -24,8 +24,8 @@ if (!empty($objPath)) {
 	}
 }
 $dsn = "mysql:dbname=cogentqi_v1_target;host=localhost";
-$username = "myapp";
-$password = "mypass";
+$username = "cogentqiapp";
+$password = "cogentqi42app";
 
 $api = new Api($dsn, $username, $password, ["MODE" => "development", "TEMPLATES.PATH" => "./templates"]);
 $api->get("/", function () use ($api) {

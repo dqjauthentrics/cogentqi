@@ -47,18 +47,31 @@ class Member extends Model {
 
 		$eventRecords = $this->api->db->outcome_event()->where('member_id', $member["id"])->order('occurred DESC');
 		$jsonEvents = [];
-		$event = new OutcomeEvent($this->api);
 		foreach ($eventRecords as $eventRecord) {
 			$eval->mapExcludes = ["responses"];
 			$jsonEvents[] = [
 				'id'       => $eventRecord["id"],
-				'occurred' => $eventRecord["occurred"],
+				'occurred' => $this->dateTime($eventRecord["occurred"]),
 				'outId'    => $eventRecord["outcome_id"],
 				'name'     => $eventRecord["name"],
 				'cat'      => $eventRecord["category"]
 			];
 		}
 		$associative["events"] = $jsonEvents;
+
+		$planRecords = $this->api->db->plan_item()->where('member_id', $member["id"])->order('status_stamp DESC');
+		$jsonPlanItems = [];
+		foreach ($planRecords as $planRecord) {
+			$moduleName = $planRecord->learning_module->resource["name"];
+			$jsonPlanItems[] = [
+				'm'  => $planRecord["learning_module_id"],
+				's'  => $planRecord["status"],
+				'dt' => $this->dateTime($planRecord["status_stamp"]),
+				'n'  => $moduleName,
+				'r'  => $planRecord->learning_module["resource_id"]
+			];
+		}
+		$associative["planItems"] = $jsonPlanItems;
 
 		return $associative;
 	}

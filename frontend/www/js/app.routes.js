@@ -71,7 +71,7 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 		.state('professional.help', {
 				   url: '/help',
 				   views: {
-					   professionalHelp: {templateUrl: 'templates/professional/help.html', controller: 'ProfOrganizationCtrl'}
+					   professionalHelp: {templateUrl: 'templates/professional/help.html', controller: 'ProfHelpCtrl'}
 				   }
 			   })
 		.state('professional.settings', {
@@ -82,8 +82,7 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 	/**
 	 * Manager user states.
 	 */
-		.
-		state('manager', {url: "/manager", abstract: true, templateUrl: "templates/manager/tabs.html"})
+		.state('manager', {url: "/manager", abstract: true, templateUrl: "templates/manager/tabs.html"})
 
 		.state('manager.dashboard', {
 				   url: '/dashboard',
@@ -173,5 +172,15 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 				   }
 			   });
 
-	$urlRouterProvider.otherwise('/manager/dashboard');
+	//$urlRouterProvider.otherwise('/manager/dashboard');
+	$urlRouterProvider.otherwise(function ($injector, $location) {
+		var $cookieStore = $injector.get('$cookieStore');
+		var user = $cookieStore.get('user');
+		if (user !== undefined && user !== null) {
+			return user.home;
+		}
+		else {
+			return '/professional/dashboard';
+		}
+	});
 });

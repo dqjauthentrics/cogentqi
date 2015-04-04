@@ -83,18 +83,7 @@ angular.module('app',
 				 $rootScope.user = $cookieStore.get('user');
 
 				 $rootScope.dashboardUrl = function () {
-					 var user = $cookieStore.get('user');
-					 var roleLoc = 'professional';
-					 if (!Utility.empty(user)) {
-						 if (user.roleId == 'A') {
-							 roleLoc = 'administrator';
-						 }
-						 else if (user.roleId == 'P') {
-							 roleLoc = 'manager';
-						 }
-					 }
-					 //console.log('user:', user, roleLoc);
-					 return '/#/' + roleLoc + '/dashboard';
+					 return Authentication.getUserDashUrl($cookieStore.get('user'));
 				 };
 			 });
 		 })

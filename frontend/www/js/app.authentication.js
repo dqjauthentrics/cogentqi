@@ -9,11 +9,8 @@ angular.module('app.authentication', []).service('Authentication', function ($ht
 		if (Utility.empty(user)) {
 			window.location.href = "/#/login";
 		}
-		else if (user.roleId == "A") {
-			window.location.href = "/#/administrator/dashboard";
-		}
 		else {
-			window.location.href = "/#/manager/dashboard";
+			window.location.href = user.home;
 		}
 	};
 
@@ -22,6 +19,19 @@ angular.module('app.authentication', []).service('Authentication', function ($ht
 
 	svc.logout = function () {
 		$cookieStore.remove('user');
+	};
+
+	svc.getUserDashUrl = function (user) {
+		var roleLoc = 'professional';
+		if (user !== undefined && user !== null) {
+			if (user.roleId == 'A') {
+				roleLoc = 'administrator';
+			}
+			else if (user.roleId == 'P' || user.roleId == 'M') {
+				roleLoc = 'manager';
+			}
+		}
+		return '/#/' + roleLoc + '/dashboard';
 	};
 
 	svc.login = function (loginType, email, password) {
@@ -38,8 +48,11 @@ angular.module('app.authentication', []).service('Authentication', function ($ht
 						  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 					  }).
 					success(function (data, status, headers, config) {
+								if (!Utility.empty(data)) {
+									data.home = svc.getUserDashUrl(data);
+								}
 								$cookieStore.put('user', data);
-								console.log("USER:", $cookieStore.get('user'));
+								//console.log("USER:", $cookieStore.get('user'));
 								svc.check();
 							}).
 					error(function (data, status, headers, config) {

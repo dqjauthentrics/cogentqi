@@ -12,10 +12,12 @@
         <micro-badge data-ng-if="m.numBadges(member) != '0'" text="m.numBadges(member)" size="'count'"></micro-badge>
     </div>
     <div class="col col-30" data-ng-init="eval = m.findLastEvaluation(member)">
-        <div style="text-decoration: underline;">Last Assessment</div>
-        <div>
-            <i class="{{i.icons.evaluation}}"></i>&nbsp;<a href="#/manager/evaluation/{{eval.id}}">{{eval.lastModified}}</a>&nbsp;<span
-                data-ng-class="'matrixCircle ' + (eval.instrumentId == 1?'levelBg':'yesNoBg') + eval.scoreRank">{{eval.score}}</span>
+        <div data-ng-if="eval">
+            <div style="text-decoration: underline;">Last Assessment</div>
+            <div>
+                <i class="{{i.icons.evaluation}}"></i>&nbsp;<a href="#/manager/evaluation/{{eval.id}}">{{eval.lastModified}}</a>&nbsp;<span
+                    data-ng-class="'matrixCircle ' + (eval.instrumentId == 1?'levelBg':'yesNoBg') + eval.scoreRank">{{eval.score}}</span>
+            </div>
         </div>
     </div>
 </div>

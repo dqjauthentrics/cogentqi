@@ -167,12 +167,17 @@ angular.module('app.controllers.common', [])
 				})
 
 	.controller('EvaluationsCtrl', function ($scope, $stateParams, Utility, Evaluations, Members, Organizations) {
-					$scope.evaluations = Evaluations.retrieve();
-					$scope.members = Members.retrieve();
-					$scope.myOrg = Organizations.retrieveMine();
+					$scope.data = {myOrg: {}, members: [], evaluations: []};
 
-					$scope.getEvaluations = function () {
-						return Evaluations.retrieve();
-					};
+					Organizations.retrieveMine().query(function (response) {
+						$scope.data.myOrg = response;
+					});
+					Members.retrieve().query(function (response) {
+						$scope.data.members = response;
+					});
+					Evaluations.retrieve().query(function (response) {
+						Evaluations.associateMembers(response, $scope.data.members);
+						$scope.data.evaluations = response;
+					});
 				})
 ;

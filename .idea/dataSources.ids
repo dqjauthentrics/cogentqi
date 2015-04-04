@@ -39,6 +39,9 @@
       <foreign-key name="evaluation_ibfk_2" columns="by_member_id" ref-table="member" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="evaluation_ibfk_3" columns="instrument_id" ref-table="instrument" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="evaluation_response_ibfk_1" table="evaluation_response" schema="" catalog="cogentqi_v1_target" columns="evaluation_id"/>
+      <index name="by_member_id_index" unique="false" columns="by_member_id"/>
+      <index name="instrument_id_index" unique="false" columns="instrument_id"/>
+      <index name="member_id_index" unique="false" columns="member_id"/>
     </table>
     <table name="evaluation_response" schema="" catalog="cogentqi_v1_target" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -47,11 +50,13 @@
       <column name="response" sqlType="VARCHAR" precision="500" scale="0" nullable="true" jdbcType="12"/>
       <column name="evaluator_comments" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
       <column name="member_comments" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="response_index" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="response_index" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="evaluation_response_ibfk_1" columns="evaluation_id" ref-table="evaluation" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="evaluation_response_ibfk_2" columns="question_id" ref-table="question" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="unique_evaluation_responses" unique="true" columns="evaluation_id,question_id"/>
+      <index name="evaluation_id_index" unique="false" columns="evaluation_id"/>
+      <index name="question_id_index" unique="false" columns="question_id"/>
     </table>
     <table name="instrument" schema="" catalog="cogentqi_v1_target" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -76,7 +81,9 @@
       <column name="starts" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="learning_module_ibfk_1" columns="resource_id" ref-table="resource" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="plan_item_ibfk_1" table="plan_item" schema="" catalog="cogentqi_v1_target" columns="learning_module_id"/>
       <index name="unique_id" unique="true" columns="id"/>
+      <index name="resource_id_index" unique="false" columns="resource_id"/>
     </table>
     <table name="member" schema="" catalog="cogentqi_v1_target" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -96,7 +103,10 @@
       <exported-key name="evaluation_ibfk_2" table="evaluation" schema="" catalog="cogentqi_v1_target" columns="by_member_id"/>
       <exported-key name="organization_outcome_ibfk_3" table="organization_outcome" schema="" catalog="cogentqi_v1_target" columns="evaluator_id"/>
       <exported-key name="outcome_event_ibfk_2" table="outcome_event" schema="" catalog="cogentqi_v1_target" columns="member_id"/>
-      <index name="username" unique="true" columns="username"/>
+      <exported-key name="plan_item_ibfk_2" table="plan_item" schema="" catalog="cogentqi_v1_target" columns="member_id"/>
+      <index name="username_index" unique="true" columns="username"/>
+      <index name="organization_id_index" unique="false" columns="organization_id"/>
+      <index name="role_id_index" unique="false" columns="role_id"/>
     </table>
     <table name="member_badge" schema="" catalog="cogentqi_v1_target" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -105,6 +115,7 @@
       <column name="earned" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="unique_id" unique="true" columns="id"/>
+      <index name="member_id_index" unique="false" columns="member_id"/>
     </table>
     <table name="organization" schema="" catalog="cogentqi_v1_target" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -131,6 +142,9 @@
       <foreign-key name="organization_outcome_ibfk_2" columns="outcome_id" ref-table="outcome" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="organization_outcome_ibfk_3" columns="evaluator_id" ref-table="member" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="unique_id" unique="true" columns="id"/>
+      <index name="evaluator_id_index" unique="false" columns="evaluator_id"/>
+      <index name="organization_id_index" unique="false" columns="organization_id"/>
+      <index name="outcome_id_index" unique="false" columns="outcome_id"/>
     </table>
     <table name="outcome" schema="" catalog="cogentqi_v1_target" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -155,6 +169,8 @@
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="outcome_alignment_ibfk_1" columns="outcome_id" ref-table="outcome" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="outcome_alignment_ibfk_2" columns="question_id" ref-table="question" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="outcome_id_index" unique="false" columns="outcome_id"/>
+      <index name="question_id_index" unique="false" columns="question_id"/>
     </table>
     <table name="outcome_event" schema="" catalog="cogentqi_v1_target" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -167,6 +183,21 @@
       <foreign-key name="outcome_event_ibfk_1" columns="outcome_id" ref-table="outcome" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="outcome_event_ibfk_2" columns="member_id" ref-table="member" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="unique_id" unique="true" columns="id"/>
+      <index name="member_id_index" unique="false" columns="member_id"/>
+      <index name="outcome_id_index" unique="false" columns="outcome_id"/>
+    </table>
+    <table name="plan_item" schema="" catalog="cogentqi_v1_target" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="learning_module_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="status" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1"/>
+      <column name="status_stamp" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="member_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="plan_item_ibfk_1" columns="learning_module_id" ref-table="learning_module" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="plan_item_ibfk_2" columns="member_id" ref-table="member" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="unique_id" unique="true" columns="id"/>
+      <index name="learning_module_id_index" unique="false" columns="learning_module_id"/>
+      <index name="member_id_index" unique="false" columns="member_id"/>
     </table>
     <table name="question" schema="" catalog="cogentqi_v1_target" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -182,6 +213,8 @@
       <exported-key name="evaluation_response_ibfk_2" table="evaluation_response" schema="" catalog="cogentqi_v1_target" columns="question_id"/>
       <exported-key name="outcome_alignment_ibfk_2" table="outcome_alignment" schema="" catalog="cogentqi_v1_target" columns="question_id"/>
       <exported-key name="resource_alignment_ibfk_2" table="resource_alignment" schema="" catalog="cogentqi_v1_target" columns="question_id"/>
+      <index name="question_group_id_index" unique="false" columns="question_group_id"/>
+      <index name="question_type_id_index" unique="false" columns="question_type_id"/>
     </table>
     <table name="question_group" schema="" catalog="cogentqi_v1_target" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -194,6 +227,7 @@
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="question_group_ibfk_1" columns="instrument_id" ref-table="instrument" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="question_ibfk_1" table="question" schema="" catalog="cogentqi_v1_target" columns="question_group_id"/>
+      <index name="instrument_id_index" unique="false" columns="instrument_id"/>
     </table>
     <table name="question_type" schema="" catalog="cogentqi_v1_target" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -215,6 +249,7 @@
       <column name="icon_prefix" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="question_type_response_ibfk_1" columns="question_type_id" ref-table="question_type" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="question_type_id_index" unique="false" columns="question_type_id"/>
     </table>
     <table name="resource" schema="" catalog="cogentqi_v1_target" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -238,6 +273,8 @@
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="resource_alignment_ibfk_1" columns="resource_id" ref-table="resource" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="resource_alignment_ibfk_2" columns="question_id" ref-table="question" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="question_id_index" unique="false" columns="question_id"/>
+      <index name="resource_id_index" unique="false" columns="resource_id"/>
     </table>
     <table name="resource_type" schema="" catalog="cogentqi_v1_target" type="TABLE">
       <column name="id" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1"/>

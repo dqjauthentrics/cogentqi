@@ -5,6 +5,7 @@ require_once("EvaluationResponse.php");
 class Evaluation extends Model {
 
 	public function initialize() {
+		$this->dateTimeCols = ['last_saved', 'last_modified'];
 		parent::initialize();
 
 		$urlName = $this->urlName();
@@ -15,6 +16,15 @@ class Evaluation extends Model {
 			}
 			$this->api->sendResult($jsonRecords);
 		});
+
+		$this->api->get("/$urlName/member/:memberId", function ($memberId) use ($urlName) {
+			$jsonRecords = [];
+			foreach ($this->api->db->evaluation()->where("member_id=?", $memberId) as $dbRecord) {
+				$jsonRecords[] = $this->map($dbRecord);
+			}
+			$this->api->sendResult($jsonRecords);
+		});
+
 		$this->api->get("/$urlName/matrix/:orgId/:instrumentId", function ($orgId, $instrumentId) use ($urlName) {
 			$jsonRecords = [];
 			$dbRecords = $this->api->db->evaluation()->where("instrument_id=? AND member_id IN (SELECT id FROM member WHERE organization_id=?)", $instrumentId, $orgId);
@@ -75,10 +85,12 @@ class Evaluation extends Model {
 				$total += (int)$record["response"];
 			}
 			$response = new EvaluationResponse($this->api);
-			$responses[] = $response->map($record);
+			$responseMapped = $response->map($record);
+			unset($responseMapped["evaluationId"]);
+			$responses[] = $responseMapped;
 		}
 		if (!strstr($_SERVER["REQUEST_URI"], "/organization")) {
-			if (empty($this->mapExcludes) && !in_array("responses", $this->mapExcludes)) {
+			if (empty($this->mapExcludes) || !in_array("responses", $this->mapExcludes)) {
 				$associative["responses"] = $responses;
 			}
 		}

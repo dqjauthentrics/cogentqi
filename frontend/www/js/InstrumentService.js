@@ -17,7 +17,6 @@ angular.module('app.instruments', ['ngResource']).service('Instruments', functio
 				var groups = instrument.questionGroups;
 				var gLen = instrument.questionGroups.length;
 				instrument.sections = [];
-				console.log("found ", gLen, " groups for instrument id", instrument.id);
 				for (var j = 0; j < gLen; j++) {
 					var questionGroup = groups[j];
 					var previous = (j > 0 ? groups[(j - 1)].tag : groups[(groups.length - 1)].tag);
@@ -78,7 +77,6 @@ angular.module('app.instruments', ['ngResource']).service('Instruments', functio
 	};
 
 	svc.findMatrixResponseRowHeader = function (instrument, maxLength) {
-		//console.log("findMatrixResponseRowHeader:", svc.currentSectionIdx, instrument);
 		var names = [];
 		if (!Utility.empty(instrument) && !Utility.empty(svc.currentSectionIdx) && Array.isArray(instrument.sections)) {
 			var sections = instrument.sections;
