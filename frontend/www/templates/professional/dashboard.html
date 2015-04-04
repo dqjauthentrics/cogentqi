@@ -10,12 +10,16 @@
                     <ion-item class="top">Assessments</ion-item>
                     <ion-item data-ng-if="!data.evaluations">None.</ion-item>
                     <ion-item class="item-icon-right" data-ng-repeat="evaluation in data.evaluations" type="item-text-wrap" href="#/manager/evaluation/{{evaluation.id}}">
-                        <i class="{{i.icons.evaluation}} pad-right"></i>
-                        On <span style="font-weight:bold;">{{evaluation.lastModified | date:'medium'}}</span>
-                        <span data-ng-if="evaluation.byMember !== undefined">
-                            by {{evaluation.byMember.firstName}} {{evaluation.byMember.lastName}}
-                            <img src="{{evaluation.byMember.avatar}}" alt="" style="height: 8vmin; width: 8vmin; display: inline; vertical-align: middle;"/>
-                        </span>
+                        <div style="white-space: normal !important;">
+                            <i class="{{i.icons.evaluation}} pad-right"></i>
+                            On <span style="font-weight:bold;">{{evaluation.lastModified | date:'medium'}}  ({{evaluation.lastModified|timeAgo}})</span>
+
+                            <div data-ng-if="evaluation.byMember !== undefined">
+                                by {{evaluation.byMember.firstName}} {{evaluation.byMember.lastName}}
+                                <img data-ng-if="evaluation.byMember !== undefined" src="{{evaluation.byMember.avatar}}" alt=""
+                                     style="height: 8vmin; width: 8vmin; display: inline; vertical-align: middle;"/>
+                            </div>
+                        </div>
                         <i class="icon ion-chevron-right icon-accessory"></i>
                     </ion-item>
                 </ion-list>
@@ -30,7 +34,7 @@
                             {{item.n}}
                         </div>
                         <p>
-                            {{statusWord(item.s)}} on {{item.dt | date:'longDate'}}
+                            {{statusWord(item.s)}} on {{item.dt | date:'longDate'}} ({{item.dt|timeAgo}})
                             <micro-badge style="margin-right:3em !important;" data-ng-if="item.s=='C'" text="''" size="'icon'"></micro-badge>
                             <i class="icon ion-chevron-right icon-accessory" data-ng-if="item.s!=='C'"></i>
                     </ion-item>

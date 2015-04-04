@@ -42,8 +42,8 @@ angular.module('app.controllers.professional', [])
 	.controller('ProfHelpCtrl', function ($scope) {
 				})
 
-	.controller('ProfSettingsCtrl', function ($scope) {
-					$scope.data = {myOrg: {}, settings: []};
+	.controller('ProfSettingsCtrl', function ($cookieStore, $scope, Utility, Organizations, Settings, Camera) {
+					$scope.data = {myOrg: {}, settings: [], user: $cookieStore.get('user')};
 
 					Organizations.retrieveMine().query(function (response) {
 						$scope.data.myOrg = response;
@@ -51,5 +51,12 @@ angular.module('app.controllers.professional', [])
 					Settings.retrieve().query(function (response) {
 						$scope.data.settings = response;
 					});
+					$scope.getPhoto = function () {
+						Camera.getPicture().then(function (imageURI) {
+							console.log(imageURI);
+						}, function (err) {
+							console.err(err);
+						});
+					};
 				})
 ;

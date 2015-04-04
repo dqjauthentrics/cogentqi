@@ -818,3 +818,12 @@ p.comments {
     font-style: italic;
     color: darkslategray;
 }
+
+.help ul { counter-reset:item; font-size: 2em;  line-height: 2.0em; font-weight: bold;}
+.help ul p { font-size: 0.7em; font-weight: normal; line-height: 1.1em; color: #444;}
+.help ul > li { counter-increment:item; }
+.help ul > li:before {content: counter(item) " "; }
+
+.help ul > li > ul { counter-reset:subitem; font-size: 1.6em; line-height: 2.0em; font-weight: normal;}
+.help ul > li > ul > li { counter-increment:subitem; }
+.help ul > li > ul > li:before { content: counter(item) "." counter(subitem) " "; }

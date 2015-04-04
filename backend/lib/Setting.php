@@ -8,10 +8,9 @@ class Setting extends Model {
 
 		$this->api->get("/setting", function () {
 			$settings = [
-				['id' => 1, 'n' => 'setting1', 'v' => 42],
-				['id' => 2, 'n' => 'setting2', 'v' => 'hello'],
-				['id' => 3, 'n' => 'setting3', 'v' => 'there'],
-				['id' => 4, 'n' => 'setting4', 'v' => 'dave'],
+				['id' => 1, 'n' => 'Enable Email Notifications for Me', 'v' => 0],
+				['id' => 2, 'n' => 'Share My Development Badges on Facebook', 'v' => 1],
+				['id' => 3, 'n' => 'Notify Me When Development Resources are Added or Updated', 'v' => 1],
 			];
 			echo json_encode($settings);
 		});
