@@ -83,8 +83,15 @@ class Model {
 		$jsonRecord = [];
 		try {
 			$columnNames = array_keys(iterator_to_array($dbRecord));
+			$id = "";
 			for ($i = 0; $i < count($columnNames); $i++) {
 				$colName = $columnNames[$i];
+				/***
+				if ($i == 0) {
+					$id = @$dbRecord[$colName];
+					$jsonRecord[$id] = [];
+				}
+				***/
 				if (empty($this->mapExcludes) || !in_array($colName, $this->mapExcludes)) {
 					$jsonName = $this->colNameToJsonName($colName);
 					$jsonRecord[$jsonName] = @$dbRecord[$colName];

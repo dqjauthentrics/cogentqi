@@ -7,33 +7,37 @@
             <div class="col col-25">
                 <ion-list>
                     <ion-item class="header">Your Organizations</ion-item>
-                    <ion-item data-ng-class="isCurrent(organization.id)? 'active':''" class="item-icon-right" ng-repeat="organization in organizations" type="item-text-wrap"
-                              data-ng-click="setCurrentOrg(organization.id)">
+                    <ion-item data-ng-class="isCurrent(organization)? 'active':''" class="item-icon-right" ng-repeat="organization in data.organizations" type="item-text-wrap"
+                              data-ng-click="setCurrentOrg(organization)">
                         <i class="{{i.icons.organization}}"></i> {{organization.name}}
-                        <i style="color:black;" class="icon ion-chevron-right icon-accessory" data-ng-show="isCurrent(organization.id)"></i>
+                        <i style="color:black;" class="icon ion-chevron-right icon-accessory" data-ng-show="isCurrent(organization)"></i>
                     </ion-item>
                 </ion-list>
             </div>
             <div class="col col-75">
                 <ion-list>
-                    <ion-item class="header">{{currentOrg().name}}</ion-item>
-                    <ion-item data-ng-repeat="outcome in getOrgOutcomes()" style="white-space: normal;">
-                        <div class="name">
-                            <span class="circleNumber rubric rubricBg{{outcome.level}}"><i class="{{i.icons.outcome}} fa-lg"></i></span>
-                            {{outcome.number}} {{outcome.name}}
+                    <ion-item class="header">{{data.currentOrg.name}}</ion-item>
+                    <ion-item data-ng-repeat="outcome in data.orgOutcomes" style="white-space: normal;">
+                        <div style="float:left;">
+                            <div class="name">
+                                <span class="circleNumber rubric rubricBg{{outcome.levels[data.currentOrg.id][outcome.id]}}"><i class="{{i.icons.outcome}} fa-lg"></i></span>
+                                {{outcome.number}} {{outcome.name}}
+                            </div>
+                            <div class="summary">{{outcome.summary}}</div>
                         </div>
-                        <div class="summary">{{outcome.summary}}</div>
-                        <div class="rubric rubric{{outcome.level}}">{{getRubric(outcome.level)}}</div>
-                        <div style="float:right; width: 10em; margin: 1em 0.5em;">
-                            <div class="item range range-positive">
-                                <input type="range" name="volume" min="0" max="3" data-ng-bind="outcome.level" data-ng-model="outcome.level"/>
+                        <div style="float:right; width: 10em; margin: 0.1em;">
+                            <div class="phrase">{{outcomeLevelPhrase(outcome.levels[data.currentOrg.id][outcome.id])}}</div>
+                            <div id="range{{outcome.id}}" class="item range {{getBarColor(outcome, data.currentOrg.id)}}">
+                                <input type="range" name="outcomeLevel" min="0" max="3" data-ng-bind="outcome.levels[data.currentOrg.id][outcome.id]"
+                                       data-ng-model="outcome.levels[data.currentOrg.id][outcome.id]" data-ng-change="getBarColor(outcome, data.currentOrg.id)"
+                                        />
 
                                 <div class="clearfix"></div>
-                                <div><span class="phrase">{{outcome.level}}</span></div>
+                                <div><span class="phrase">{{outcome.levels[data.currentOrg.id][outcome.id]}}</span></div>
                             </div>
                         </div>
-                        <div><span class="phrase">{{levelPhrase(outcome.level)}}</span></div>
                         <div class="clearfix"></div>
+                        <div class="rubric rubric{{outcome.levels[data.currentOrg.id][outcome.id]}}">{{getRubric(outcome.levels[data.currentOrg.id][outcome.id])}}</div>
                         <div style="font-size:0.8em; color:gray; font-style:italic;" data-ng-bind="methodMessage(outcome.method)"></div>
                     </ion-item>
                 </ion-list>

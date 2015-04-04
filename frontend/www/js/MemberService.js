@@ -2,30 +2,11 @@
 
 angular.module('app.members', ['app.graphs']).service('Members', function ($resource, $http, $cookieStore, Graphs, Utility, Instruments) {
 	var svc = this;
-	svc.members = null;
-	svc.memberHx = null;
-	svc.evaluations = null;
 
 	svc.retrieve = function () {
 		var user = $cookieStore.get('user');
-		if (!Utility.empty(user) && svc.members === null) {
-			svc.members = [];
-			console.log("member retrieval for org:", user.organizationId);
-			$resource('/api/member/organization/' + user.organizationId, {}, {}).query().$promise.then(function (data) {
-				console.log("members retrieved:", user.organizationId, data);
-				svc.members = data;
-			});
-		}
-		return svc.members;
-	};
-
-	svc.find = function (memberId) {
-		if (svc.members !== null) {
-			for (var i = 0; i < svc.members.length; i++) {
-				if (parseInt(svc.members[i].id) === parseInt(memberId)) {
-					return svc.members[i];
-				}
-			}
+		if (!Utility.empty(user)) {
+			return $resource('/api/member/organization/' + user.organizationId, {}, {});
 		}
 		return null;
 	};
@@ -65,26 +46,24 @@ angular.module('app.members', ['app.graphs']).service('Members', function ($reso
 		return null;
 	};
 
-	svc.rptConfigHx = function (member) {
-		if (Utility.empty(svc.memberHx)) {
-			var series = [];
-			if (!Utility.empty(member.evaluations)) {
-				for (var i = 0; i < member.evaluations.length; i++) {
-					var evaluation = member.evaluations[i];
-					var dataSet = [];
-					var instrument = Instruments.find(evaluation.insrumentId);
-					if (!Utility.empty(instrument)) {
-						for (var j = 0; j < instrument.questions.length; j++) {
-							var question = instrument.questions[j];
-							dataSet.push({name: question.name, y: Utility.randomIntBetween(1, 5)});
-						}
+	svc.rptConfigHx = function (instrument, member) {
+		var memberHx = null;
+		var series = [];
+		if (!Utility.empty(instrument) && !Utility.empty(member) && !Utility.empty(member.evaluations)) {
+			for (var i = 0; i < member.evaluations.length; i++) {
+				var evaluation = member.evaluations[i];
+				var dataSet = [];
+				if (!Utility.empty(instrument)) {
+					for (var j = 0; j < instrument.questions.length; j++) {
+						var question = instrument.questions[j];
+						dataSet.push({name: question.name, y: Utility.randomIntBetween(1, 5)});
 					}
-					series.push({id: i, name: evaluation.lastModified, data: dataSet, type: 'line', color: 'gray'});
 				}
+				series.push({id: i, name: evaluation.lastModified, data: dataSet, type: 'line', color: 'gray'});
 			}
-			svc.memberHx = Graphs.lineGraphConfig('Progress', null, 'Competency', 'Ranking', dataSet, true);
 		}
-		return svc.memberHx;
+		memberHx = Graphs.lineGraphConfig('Progress', null, 'Competency', 'Ranking', dataSet, true);
+		return memberHx;
 	};
 
 });

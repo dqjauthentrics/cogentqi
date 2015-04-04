@@ -5,7 +5,9 @@
         <div class="row">
             <div class="col-80 col-offset-5">
                 <ion-list type="card">
-                    <ion-toggle ng-model="settings.sampleSetting">Sample Setting</ion-toggle>
+                    <ion-item data-ng-repeat="setting in data.settings">
+                        <ion-toggle data-ng-model="settings.v">{{setting.n}}</ion-toggle>
+                    </ion-item>
                 </ion-list>
             </div>
     </ion-content>

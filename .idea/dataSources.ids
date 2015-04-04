@@ -138,7 +138,6 @@
       <column name="name" sqlType="VARCHAR" precision="500" scale="0" nullable="false" jdbcType="12"/>
       <column name="summary" sqlType="VARCHAR" precision="5000" scale="0" nullable="true" jdbcType="12"/>
       <column name="calc_method_id" sqlType="CHAR" precision="1" scale="0" nullable="true" jdbcType="1"/>
-      <column name="level" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
       <column name="method" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1" def="J00n"/>
       <column name="sort_order" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>

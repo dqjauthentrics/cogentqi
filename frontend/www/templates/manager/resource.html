@@ -5,11 +5,11 @@
         <div class="detail">
             <div class="content">
                 <div style="margin: 1em 0.1em">
-                    <div class="number"><i class="{{i.icons.resource}} fa-lg"></i> {{resource.number}}</div>
-                    <div class="title">{{resource.name}}</div>
+                    <div class="number"><i class="{{i.icons.resource}} fa-lg"></i> {{data.resource.number}}</div>
+                    <div class="title">{{data.resource.name}}</div>
                     <div class="clearfix"></div>
                 </div>
-                <ng-include src="resource.location"></ng-include>
+                <ng-include src="data.resource.location"></ng-include>
             </div>
         </div>
     </ion-content>

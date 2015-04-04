@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="2130249777">
+  <component name="DataSourceManagerImpl" format="xml" hash="3120156920">
     <data-source source="LOCAL" name="CogentQI Local" uuid="dda61865-1688-4307-9a21-8ec577337f7a">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>

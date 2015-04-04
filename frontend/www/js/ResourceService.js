@@ -2,28 +2,9 @@
 
 angular.module('app.resources', ['app.utility']).service('Resources', function ($resource, $http, Utility) {
 	var svc = this;
-	svc.resources = null;
 
 	svc.retrieve = function () {
-		if (svc.resources === null) {
-			svc.resources = [];
-			$resource('/api/resource', {}, {}).query().$promise.then(function (data) {
-				svc.resources = data;
-				console.log("resources: retrieved:", svc.resources);
-			});
-		}
-		return svc.resources;
-	};
-
-	svc.find = function (resourceId) {
-		if (svc.resources !== null) {
-			for (var i = 0; i < svc.resources.length; i++) {
-				if (svc.resources[i].id == resourceId) {
-					return svc.resources[i];
-				}
-			}
-		}
-		return null;
+		return $resource('/api/resource', {}, {});
 	};
 
 	svc.findAlignments = function (instrument, resourceId) {

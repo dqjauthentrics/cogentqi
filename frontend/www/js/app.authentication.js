@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.authentication', []).service('Authentication', function ($http, $cookieStore, Utility, FIREBASE_URL) {
+angular.module('app.authentication', []).service('Authentication', function ($http, $cookieStore, Utility) {
 	var svc = this;
 	svc.resultMsg = "";
 

@@ -7,8 +7,8 @@
             <h3>{{a.sectionCurrentName()}}</h3>
             <h4>Competency Summary Matrix</h4>
 
-            <select style="margin-top:1em;" class="large" data-ng-model="currInstrumentId" data-ng-change="setCurrentInstrument(currInstrumentId)"
-                    data-ng-options="instrument.id as instrument.name for instrument in getInstruments()">
+            <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId" data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
+                    data-ng-options="instrument.id as instrument.name for instrument in data.instruments">
             </select>
         </div>
         <div style="overflow: auto !important;">
@@ -25,8 +25,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr data-ng-repeat="dataRow in getMatrix()">
-                    <td class="leftHeader" data-ng-init="member = Members.find(dataRow.memberId)" data-ng-class="dataRow.memberId == -1? 'average':''">
+                <tr data-ng-repeat="dataRow in data.matrix">
+                    <td class="leftHeader" data-ng-init="member = findMember(dataRow.memberId)" data-ng-class="dataRow.memberId == -1? 'average':''">
                         <div data-ng-switch="dataRow.memberId">
                             <div data-ng-switch-when="-1" style="text-align: right;">
                                 {{dataRow.name}}
@@ -38,10 +38,10 @@
                         </div>
                     </td>
                     <td data-ng-repeat="response in getRowValues(dataRow) track by $index" data-ng-class="dataRow.memberId == -1? 'average':''">
-                        <div class="matrixCircle {{currInstrumentId == 1?'levelBg':'yesNoBg'}}{{response|number:0}}">{{response|number:0}}</div>
+                        <div class="matrixCircle {{data.currentInstrument.id == 1?'levelBg':'yesNoBg'}}{{response|number:0}}">{{response|number:0}}</div>
                     </td>
                     <td class="average">
-                        <div class="matrixCircle {{currInstrumentId == 1?'levelBg':'yesNoBg'}}{{dataRow.avgRound}}">{{dataRow.avgRound}}</div>
+                        <div class="matrixCircle {{data.currentInstrument.id == 1?'levelBg':'yesNoBg'}}{{dataRow.avgRound}}">{{dataRow.avgRound}}</div>
                     </td>
                 </tr>
                 </tbody>
@@ -49,11 +49,11 @@
         </div>
         <div class="row row-responsive-sm">
             <div class="col col-40" style="text-align:right;">
-                <a data-ng-click="Instruments.sectionPrevious()"><< {{Instruments.sectionPreviousName()}}</a>
+                <a data-ng-click="Instruments.sectionPrevious(data.currentInstrument)"><< {{Instruments.sectionPreviousName(data.currentInstrument)}}</a>
             </div>
             <div class="col col-10" style="text-align:center;">|</div>
             <div class="col col-40" style="text-align:left;">
-                <a data-ng-click="Instruments.sectionNext()">{{Instruments.sectionNextName()}} >></a>
+                <a data-ng-click="Instruments.sectionNext(data.currentInstrument)">{{Instruments.sectionNextName(data.currentInstrument)}} >></a>
             </div>
         </div>
         <div class="row row-responsive-sm">

@@ -3,7 +3,6 @@
 angular.module('app',
 			   [
 				   'ionic',
-				   'firebase',
 				   'angularLoad',
 				   'highcharts-ng',
 				   'ngSanitize',
@@ -13,7 +12,6 @@ angular.module('app',
 				   'ngResource',
 				   'vr.directives.slider',
 				   'youtube-embed',
-				   'app.firestore',
 				   'app.routes',
 				   'app.icons',
 				   'app.instruments',
@@ -90,7 +88,6 @@ angular.module('app',
 				 };
 			 });
 		 })
-	.value('FIREBASE_URL', 'https://cogentqi.firebaseio.com')
 
 	.directive('headerButtons', function () {
 				   return {restrict: 'E', templateUrl: 'templates/_headerButtons.html'};

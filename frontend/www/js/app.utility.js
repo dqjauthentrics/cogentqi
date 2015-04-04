@@ -19,6 +19,26 @@ angular.module('app.utility', []).factory('Utility', [
 				}
 				return number;
 			},
+			findObjectById: function (objects, id) {
+				if (!this.empty(objects) && !this.empty(id)) {
+					var idTest = parseInt(id);
+					for (var i = 0; i < objects.length; i++) {
+						if (parseInt(objects[i].id) == idTest) {
+							return objects[i];
+						}
+					}
+				}
+				return null;
+			},
+			getId: function (obj) {
+				var key = null;
+				if (!this.empty(obj)) {
+					for (key in obj) {
+						break;
+					}
+				}
+				return key;
+			},
 			round: function (value, exp) {
 				if (typeof exp === 'undefined' || +exp === 0) {
 					return Math.round(value);

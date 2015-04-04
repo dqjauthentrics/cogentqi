@@ -4,11 +4,10 @@
     </ion-nav-buttons>
     <ion-content has-bouncing="false">
         <div style="text-align:center; margin-top: 1em;">
-            <h3>{{a.sectionCurrentName()}}</h3>
+            <h3>{{data.currentInstrument.name}}</h3>
             <h4>Competency Summary Matrix</h4>
-
-            <select style="margin-top:1em;" class="large" data-ng-model="currInstrumentId" data-ng-change="setCurrentInstrument(currInstrumentId)"
-                    data-ng-options="instrument.id as instrument.name for instrument in getInstruments()">
+            <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId" data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
+                    data-ng-options="instrument.id as instrument.name for instrument in data.instruments">
             </select>
         </div>
         <div style="overflow: auto !important;">
@@ -25,15 +24,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr data-ng-repeat="dataRow in getMatrix()">
+                <tr data-ng-repeat="dataRow in data.matrix">
                     <td class="leftHeader" data-ng-class="dataRow.organizationId == -1? 'average':''">
                         <a href="/#/administrator/organization/{{dataRow.organizationId}}">{{dataRow.name}}</a>
                     </td>
                     <td data-ng-repeat="response in getRowValues(dataRow) track by $index" data-ng-class="dataRow.organizationId == -1? 'average':''">
-                        <div class="matrixCircle {{currInstrumentId == 1?'levelBg':'yesNoBg'}}{{response|number:0}}">{{response|number:1}}</div>
+                        <div class="matrixCircle {{data.currentInstrument.id == 1?'levelBg':'yesNoBg'}}{{response|number:0}}">{{response|number:1}}</div>
                     </td>
                     <td class="average">
-                        <div class="matrixCircle {{currInstrumentId == 1?'levelBg':'yesNoBg'}}{{dataRow.avgRound}}">{{dataRow.avg}}</div>
+                        <div class="matrixCircle {{data.currentInstrument.id == 1?'levelBg':'yesNoBg'}}{{dataRow.avgRound}}">{{dataRow.avg}}</div>
                     </td>
                 </tr>
                 </tbody>
@@ -41,11 +40,11 @@
         </div>
         <div class="row row-responsive-sm">
             <div class="col col-40" style="text-align:right;">
-                <a data-ng-click="Instruments.sectionPrevious()"><< {{Instruments.sectionPreviousName()}}</a>
+                <a data-ng-click="Instruments.sectionPrevious(data.currentInstrument)"><< {{Instruments.sectionPreviousName(data.currentInstrument)}}</a>
             </div>
             <div class="col col-10" style="text-align:center;">|</div>
             <div class="col col-40" style="text-align:left;">
-                <a data-ng-click="Instruments.sectionNext()">{{Instruments.sectionNextName()}} >></a>
+                <a data-ng-click="Instruments.sectionNext(data.currentInstrument)">{{Instruments.sectionNextName(data.currentInstrument)}} >></a>
             </div>
         </div>
         <div class="row row-responsive-sm">

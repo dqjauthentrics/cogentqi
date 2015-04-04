@@ -23,50 +23,96 @@ angular.module('app.controllers.common', [])
 						};
 					}
 				])
-	.controller('MgrMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Evaluations, Organizations, Members) {
-					$scope.instruments = Instruments.retrieve();
-					$scope.myOrg = Organizations.retrieveMine();
-					$scope.organizations = Organizations.retrieve();
-					$scope.currInstrument = Instruments.getCurrent();
-					$scope.currInstrumentId = Instruments.currInstrumentId;
 
-					$scope.Instruments = Instruments;
-					$scope.Members = Members;
+	.controller('MgrMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Evaluations, Organizations, Members) {
+					$scope.Instruments = Instruments;  //@todo Is this needed in views/directives?
+					$scope.Members = Members; //@todo Is this needed in views/directives?
+					$scope.Utility = Utility;
+
+					$scope.data = {myOrg: {}, organizations: [], instruments: [], members: [], currentInstrument: {}, currentInstrumentId: 1};
+
+					Instruments.retrieve().query(function (response) {
+						$scope.data.instruments = response;
+						Instruments.collate($scope.data.instruments);
+						if (!Utility.empty(response)) {
+							$scope.setCurrentInstrument(response[0].id);
+						}
+					});
+					Organizations.retrieveMine().query(function (response) {
+						$scope.data.myOrg = response;
+					});
+					Members.retrieve().query(function (response) {
+						$scope.data.members = response;
+					});
+					Organizations.retrieve().query(function (response) {
+						$scope.data.organizations = response;
+					});
+					Evaluations.retrieveMatrix($scope.data.currentInstrument, false).query(function (response) {
+						$scope.data.matrix = response;
+					});
 
 					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.instrumentId)) {
-						Instruments.setCurrent($stateParams.instrumentId);
+						$scope.setCurrentInstrument($stateParams.instrumentId);
 					}
-					$scope.getInstruments = function () {
-						$scope.currInstrument = Instruments.getCurrent();
-						$scope.currInstrumentId = Instruments.currInstrumentId;
-						return Instruments.instruments;
-					};
-					$scope.setCurrentInstrument = function (currInstrumentId) {
-						$scope.currInstrument = Instruments.setCurrent(currInstrumentId);
-						$scope.matrix = Evaluations.getMatrixData($scope.currInstrumentId, false);
-					};
-					$scope.getMatrix = function () {
-						return Evaluations.getMatrixData(Instruments.currInstrumentId, false);
+
+					$scope.setCurrentInstrument = function (instrumentId) {
+						console.log("set current instrument", instrumentId);
+						if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
+							$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
+							$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
+							Evaluations.retrieveMatrix($scope.data.currentInstrument.id, false).query(function (response) {
+								$scope.data.matrix = response;
+								Evaluations.calcMatrixAverages($scope.data.currentInstrument, $scope.data.matrix, false);
+							});
+						}
 					};
 					$scope.getColHeaderNames = function () {
-						return Evaluations.findMatrixResponseRowHeader(Instruments.currInstrumentId, Instruments.currSectionIdx, 20)
+						return Instruments.findMatrixResponseRowHeader($scope.data.currentInstrument, 20)
 					};
 					$scope.getRowValues = function (dataRow) {
-						return Evaluations.findMatrixResponseRowValues(Instruments.currSectionIdx, dataRow.responses)
+						return Evaluations.findMatrixResponseRowValues($scope.data.currentInstrument, Instruments.currentSectionIdx, dataRow.responses)
+					};
+					$scope.findMember = function (memberId) {
+						return Utility.findObjectById($scope.data.members, memberId);
 					};
 				})
-	.controller('EvaluationCtrl', function ($scope, $stateParams, Utility, Instruments, Evaluations, Members, Organizations, Resources) {
-					$scope.instruments = Instruments.retrieve();
-					$scope.members = Members.retrieve();
-					$scope.resources = Resources.retrieve();
-					$scope.myOrg = Organizations.retrieveMine();
-					$scope.currInstrument = Instruments.getCurrent();
-					$scope.currInstrumentId = Instruments.currInstrumentId;
-					$scope.currentEval = null;
-					$scope.evaluationId = null;
 
+	.controller('EvaluationCtrl', function ($scope, $timeout, $stateParams, Utility, Instruments, Evaluations, Members, Organizations, Resources) {
 					$scope.Evaluations = Evaluations;
 					$scope.Instruments = Instruments;
+
+					$scope.data = {myOrg: {}, organizations: [], instruments: [], members: [], recommendations: [], evaluation: {}};
+
+					Organizations.retrieveMine().query(function (response) {
+						$scope.data.myOrg = response;
+					});
+					Instruments.retrieve().query(function (response) {
+						$scope.data.instruments = response;
+						Instruments.collate($scope.data.instruments);
+					});
+					Organizations.retrieveMine().query(function (response) {
+						$scope.data.myOrg = response;
+					});
+					Members.retrieve().query(function (response) {
+						$scope.data.members = response;
+					});
+					Resources.retrieve().query(function (response) {
+						$scope.data.resources = response;
+					});
+					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.evaluationId)) {
+						var evaluationId = $stateParams.evaluationId;
+						$scope.data.evaluation = null;
+						console.log("evaluation:", evaluationId);
+						Evaluations.retrieveSingle(evaluationId).query(function (response) {
+							console.log("evaluation retrieved:", response);
+							if (!Utility.empty(response)) {
+								console.log("evaluation collation:", response);
+								Evaluations.collate($scope.data.instruments, $scope.data.members, response);
+							}
+							$scope.data.evaluation = response; //@todo THIS ONLY UPDATES THE VIEW SOMETIMES, which references data.evaluation
+							console.log("evaluation set:", $scope.data.evaluation);
+						});
+					}
 
 					$scope.r0 = [];
 					$scope.r1 = [1];
@@ -75,12 +121,6 @@ angular.module('app.controllers.common', [])
 					$scope.r4 = [1, 1, 1, 1];
 					$scope.r5 = [1, 1, 1, 1, 1];
 
-					if (!Utility.empty($stateParams)) {
-						if (!Utility.empty($stateParams.evaluationId)) {
-							$scope.evaluationId = $stateParams.evaluationId;
-							$scope.currentEval = Evaluations.retrieveSingle($scope.evaluationId);
-						}
-					}
 					$scope.hasComment = function (question) {
 						return !Utility.empty(question.responseRecord.evaluatorComments) && question.responseRecord.evaluatorComments.length > 0;
 					};
@@ -88,11 +128,14 @@ angular.module('app.controllers.common', [])
 						return !Utility.empty(question.showComments) && question.showComments;
 					};
 					$scope.getComment = function (question) {
-						var comment = question.responseRecord.evaluatorComments;
-						if (!Utility.empty(comment)) {
-							comment = '"' + comment + '"';
+						if (!Utility.empty(question)) {
+							var comment = question.responseRecord.evaluatorComments;
+							if (!Utility.empty(comment)) {
+								comment = '"' + comment + '"';
+							}
+							return comment;
 						}
-						return comment;
+						return null;
 					};
 					$scope.getRange = function (n) {
 						switch (Math.round(n)) {
@@ -115,24 +158,11 @@ angular.module('app.controllers.common', [])
 						}
 					};
 					$scope.updateResponse = function (question, value) {
-						question.responseRecord.responseIndex = value;
-						Evaluations.recommend(Instruments.getCurrent(), Instruments.currSections());
+						if (!Utility.empty(question) && !Utility.empty(value)) {
+							question.responseRecord.responseIndex = value;
+							$scope.data.recommdations = Evaluations.recommend($scope.data.currentInstrument, $scope.data.resources);
+						}
 					};
-					$scope.getCurrentEval = function () {
-						return Evaluations.currentEval;
-					};
-					$scope.getRecommendations = function () {
-						return Evaluations.recommendations;
-					};
-					$scope.getSections = function () {
-						return Evaluations.currentEval.sections;
-					};
-					$scope.ready = function () {
-						var currEval = $scope.getCurrentEval();
-						return !Utility.empty(currEval) && !Utility.empty(currEval.member);
-					};
-
-					$scope.getRecommendations();
 				})
 	.controller('EvaluationsCtrl', function ($scope, $stateParams, Utility, Evaluations, Members, Organizations) {
 					$scope.evaluations = Evaluations.retrieve();

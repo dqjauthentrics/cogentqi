@@ -6,20 +6,21 @@
         <div class="row responsive-sm">
             <div class="col col-25">
                 <ion-list>
-                    <ion-item class="header">Your Organizations</ion-item>
-                    <ion-item data-ng-class="isCurrent(organization.id)? 'active':''" class="item-icon-right" data-ng-repeat="organization in organizations"
-                              type="item-text-wrap" data-ng-click="setCurrentOrg(organization.id)">
+                    <ion-item class="header">{{data.myOrg.name}} Organizations</ion-item>
+                    <ion-item data-ng-class="isCurrent(organization)? 'active':''" class="item-icon-right" data-ng-repeat="organization in data.organizations"
+                              type="item-text-wrap" data-ng-click="setCurrentOrg(organization)">
                         <i class="{{i.icons.organization}}"></i> {{organization.name}}
-                        <i style="color:black;" class="icon ion-chevron-right icon-accessory" data-ng-show="isCurrent(organization.id)"></i>
+                        <i style="color:black;" class="icon ion-chevron-right icon-accessory" data-ng-show="isCurrent(organization)"></i>
                     </ion-item>
                 </ion-list>
             </div>
             <div class="col col-75">
                 <ion-list>
-                    <ion-item class="header">{{currentOrg().name}}</ion-item>
-                    <ion-item class="gray" data-ng-if="!currentOrgMembers().length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
-                    <ion-item ng-repeat="member in currentOrgMembers()" style="white-space: normal;">
+                    <ion-item class="header">{{data.currentOrg.name}}</ion-item>
+                    <ion-item class="gray" data-ng-if="!data.currentMembers.length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
+                    <ion-item ng-repeat="member in data.currentMembers" class="item-icon-right item-text-wrap" href="#/manager/member/{{member.id}}">
                         <member-item member="member" m="Members"></member-item>
+                        <i class="icon ion-chevron-right icon-accessory"></i>
                     </ion-item>
                 </ion-list>
             </div>

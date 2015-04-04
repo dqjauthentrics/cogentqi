@@ -399,12 +399,11 @@ table.cycle {
 }
 
 .rubric {
-    margin: 0.5em;
-    border: 1px solid #AAA;
+    margin: 0.3em;
+    border: 0 solid #AAA;
     border-radius: 0.3em;
     padding: 0.3em;
     font-size: 0.9em;
-    float: left;
 }
 
 .rubric0 {
@@ -441,6 +440,25 @@ table.cycle {
 .rubricBg3 {
     background: green;
     color: #FFF;
+}
+
+.outcomeLevelBg {
+}
+
+.outcomeLevelBg0 {
+    background: #AAA !important;
+}
+
+.outcomeLevelBg1 {
+    background: red !important;
+}
+
+.outcomeLevelBg2 {
+    background: gold !important;
+}
+
+.outcomeLevelBg3 {
+    background: green !important;
 }
 
 .levelBg0 {
@@ -509,6 +527,7 @@ outcome-level-tag {
     font-style: italic;
     text-align: right;
 }
+
 .average .matrixCircle {
     font-style: normal !important;
 }
@@ -706,6 +725,13 @@ ion-item.header {
     color: #FFF;
 }
 
+ion-item .phrase {
+    text-align: center;
+    font-weight: bold;
+    font-style: italic;
+    color: #666;
+}
+
 ion-item.top {
     color: #FFF;
     background: #666;
@@ -776,9 +802,4 @@ ion-item.top h2 {
 p.comments {
     font-style: italic;
     color: darkslategray;
-}
-
-ion-content button.button {
-    margin: 1em !important;
-    font-weight: bold;
 }

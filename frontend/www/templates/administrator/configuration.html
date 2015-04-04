@@ -1,0 +1,69 @@
+<ion-view view-title="Configuration">
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
+    <ion-content has-bouncing="false">
+        <div class="row row-responsive-sm">
+            <div class="col">
+                <ion-list>
+                    <ion-item class="top"><h2>Instruments</h2></ion-item>
+                    <ion-item class="gray" data-ng-if="!data.instruments.length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
+                    <ion-item class="item item-icon-right item-text-wrap" data-ng-repeat="instrument in data.instruments" href="#/administrator/instrument/{{instrument.id}}">
+                        <div class="name">{{instrument.name}}</div>
+                        <div class="summary">{{instrument.summary}}</div>
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                    </ion-item>
+                    <ion-item>
+                        <button onclick="alert('TBD');" class="button button-balanced"><i class="{{i.icons.add}} fa-lg"></i> Add Instrument</button>
+                    </ion-item>
+                </ion-list>
+            </div>
+            <div class="col">
+                <ion-list>
+                    <ion-item class="top"><h2>Organizations</h2></ion-item>
+                    <ion-item class="gray" data-ng-if="!data.organizations.length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
+                    <ion-item class="item item-icon-right item-text-wrap" href="#/administrator/organization/{{myOrg.id}}">
+                        <div class="name">{{data.myOrg.name}}</div>
+                        <div class="summary">{{data.myOrg.summary}}</div>
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                    </ion-item>
+                    <ion-item class="item item-icon-right item-text-wrap" data-ng-repeat="organization in data.organizations"
+                              href="#/administrator/organization/{{organization.id}}">
+                        <div class="name">{{organization.name}}</div>
+                        <div class="summary">{{organization.summary}}</div>
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                    </ion-item>
+                    <ion-item>
+                        <button onclick="alert('TBD');" class="button button-balanced"><i class="{{i.icons.add}} fa-lg"></i> Add Organization</button>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+        <div class="row responsive-sm">
+            <div class="col">
+                <ion-list>
+                    <ion-item class="top"><h2>Resources</h2></ion-item>
+                    <ion-item class="gray" data-ng-if="!data.resources.length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
+                    <ion-item class="item-icon-right" data-ng-repeat="resource in data.resources" type="item-text-wrap" href="#/administrator/alignment/{{resource.id}}">
+                        <i class="{{i.icons.resource}} fa-lg"></i> {{resource.number}} {{resource.name}}
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                    </ion-item>
+                    <ion-item>
+                        <button onclick="alert('TBD');" class="button button-balanced"><i class="{{i.icons.add}} fa-lg"></i> Add Resource</button>
+                    </ion-item>
+                </ion-list>
+            </div>
+            <div class="col">
+                <ion-list>
+                    <ion-item class="top"><h2>Outcomes</h2></ion-item>
+                    <ion-item class="gray" data-ng-if="!data.outcomes.length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
+                    <ion-item class="item-icon-right" data-ng-repeat="outcome in data.outcomes" type="item-text-wrap" href="#/administrator/outcome/{{outcome.id}}">
+                        <i class="{{i.icons.outcome}} fa-lg"></i> {{outcome.number}} {{outcome.name}}
+                    </ion-item>
+                    <ion-item>
+                        <button onclick="alert('TBD');" class="button button-balanced"><i class="{{i.icons.add}} fa-lg"></i> Add Outcome</button>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

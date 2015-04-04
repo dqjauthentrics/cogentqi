@@ -3,8 +3,8 @@
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
         <ion-list class="members">
-            <ion-item class="gray" data-ng-if="!getMembers().length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
-            <ion-item class="item-icon-right" data-ng-repeat="member in getMembers()" type="item-text-wrap" href="#/manager/member/{{member.id}}">
+            <ion-item class="gray" data-ng-if="!data.members.length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
+            <ion-item class="item-icon-right" data-ng-repeat="member in data.members" type="item-text-wrap" href="#/manager/member/{{member.id}}">
                 <member-item member="member" m="Members" e="Evaluations" i="Icons"></member-item>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>

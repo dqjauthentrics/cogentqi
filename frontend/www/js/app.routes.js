@@ -28,12 +28,6 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 					   administratorMembers: {templateUrl: 'templates/administrator/members.html', controller: 'AdminMemberCtrl'}
 				   }
 			   })
-		.state('administrator.alignments', {
-				   url: '/alignments',
-				   views: {
-					   administratorAlignments: {templateUrl: 'templates/administrator/alignments.html', controller: 'AdminAlignmentCtrl'}
-				   }
-			   })
 		.state('administrator.outcomes', {
 				   url: '/outcomes',
 				   views: {
@@ -58,9 +52,9 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 					   administratorDashboard: {templateUrl: 'templates/administrator/evaluationMatrix.html', controller: 'AdminMatrixCtrl'}
 				   }
 			   })
-		.state('administrator.settings', {
-				   url: '/settings',
-				   views: {administratorSettings: {templateUrl: 'templates/administrator/settings.html', controller: 'AdminSettingsCtrl'}}
+		.state('administrator.configuration', {
+				   url: '/configuration',
+				   views: {administratorConfiguration: {templateUrl: 'templates/administrator/configuration.html', controller: 'AdminConfigurationCtrl'}}
 			   })
 
 	/**
