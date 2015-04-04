@@ -80,7 +80,12 @@ angular.module('app.controllers.common', [])
 	.controller('EvaluationCtrl', function ($scope, $timeout, $stateParams, Utility, Instruments, Evaluations, Members, Organizations, Resources) {
 					$scope.Evaluations = Evaluations;
 					$scope.Instruments = Instruments;
-
+					$scope.r0 = [];
+					$scope.r1 = [1];
+					$scope.r2 = [1, 1];
+					$scope.r3 = [1, 1, 1];
+					$scope.r4 = [1, 1, 1, 1];
+					$scope.r5 = [1, 1, 1, 1, 1];
 					$scope.data = {myOrg: {}, organizations: [], instruments: [], members: [], recommendations: [], evaluation: {}};
 
 					Organizations.retrieveMine().query(function (response) {
@@ -99,27 +104,7 @@ angular.module('app.controllers.common', [])
 					Resources.retrieve().query(function (response) {
 						$scope.data.resources = response;
 					});
-					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.evaluationId)) {
-						var evaluationId = $stateParams.evaluationId;
-						$scope.data.evaluation = null;
-						console.log("evaluation:", evaluationId);
-						Evaluations.retrieveSingle(evaluationId).query(function (response) {
-							console.log("evaluation retrieved:", response);
-							if (!Utility.empty(response)) {
-								console.log("evaluation collation:", response);
-								Evaluations.collate($scope.data.instruments, $scope.data.members, response);
-							}
-							$scope.data.evaluation = response; //@todo THIS ONLY UPDATES THE VIEW SOMETIMES, which references data.evaluation
-							console.log("evaluation set:", $scope.data.evaluation);
-						});
-					}
 
-					$scope.r0 = [];
-					$scope.r1 = [1];
-					$scope.r2 = [1, 1];
-					$scope.r3 = [1, 1, 1];
-					$scope.r4 = [1, 1, 1, 1];
-					$scope.r5 = [1, 1, 1, 1, 1];
 
 					$scope.hasComment = function (question) {
 						return !Utility.empty(question.responseRecord.evaluatorComments) && question.responseRecord.evaluatorComments.length > 0;
@@ -163,7 +148,24 @@ angular.module('app.controllers.common', [])
 							$scope.data.recommdations = Evaluations.recommend($scope.data.currentInstrument, $scope.data.resources);
 						}
 					};
+
+					/** @todo Indermohan: This controller is always called with an evaluationId argument, and these lines always execute as expected.
+					 *  The data in the console is correct, but the view only updates itself sometimes.  Often the entire view is empty.
+					 */
+					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.evaluationId)) {
+						console.log("evaluation:", $stateParams.evaluationId);
+						Evaluations.retrieveSingle($stateParams.evaluationId).query(function (response) {
+							console.log("evaluation retrieved:", response);
+							if (!Utility.empty(response)) {
+								console.log("evaluation collation:", response);
+								Evaluations.collate($scope.data.instruments, $scope.data.members, response);
+							}
+							$scope.data.evaluation = response; //@todo THIS ONLY UPDATES THE VIEW SOMETIMES, which references data.evaluation
+							console.log("evaluation set:", $scope.data.evaluation);
+						});
+					}
 				})
+
 	.controller('EvaluationsCtrl', function ($scope, $stateParams, Utility, Evaluations, Members, Organizations) {
 					$scope.evaluations = Evaluations.retrieve();
 					$scope.members = Members.retrieve();

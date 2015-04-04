@@ -84,10 +84,21 @@ angular.module('app',
 
 				 $rootScope.dashboardUrl = function () {
 					 var user = $cookieStore.get('user');
-					 return (!Utility.empty(user) && user.roleId == 'A' ? '/#/administrator/dashboard' : '/#/manager/dashboard');
+					 var roleLoc = 'professional';
+					 if (!Utility.empty(user)) {
+						 if (user.roleId == 'A') {
+							 roleLoc = 'administrator';
+						 }
+						 else if (user.roleId == 'P') {
+							 roleLoc = 'manager';
+						 }
+					 }
+					 //console.log('user:', user, roleLoc);
+					 return '/#/' + roleLoc + '/dashboard';
 				 };
 			 });
 		 })
+	.value('BASE_URL', '/#/professional/dashboard')
 
 	.directive('headerButtons', function () {
 				   return {restrict: 'E', templateUrl: 'templates/_headerButtons.html'};
