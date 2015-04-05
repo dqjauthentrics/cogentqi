@@ -49,7 +49,6 @@ class Member extends Model {
 			$eventRecords = $this->api->db->outcome_event()->where('member_id', $member["id"])->order('occurred DESC');
 			$jsonEvents = [];
 			foreach ($eventRecords as $eventRecord) {
-				$eval->mapExcludes = ["responses"];
 				$jsonEvents[] = [
 					'id'       => $eventRecord["id"],
 					'occurred' => $this->dateTime($eventRecord["occurred"]),

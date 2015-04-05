@@ -82,7 +82,7 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 			for (var i = 0; i < sections.length; i++) {
 				var section = sections[i];
 				for (var j = 0; j < section.questions.length; j++) {
-					var responseValue = !Utility.empty(section.questions[j].responseRecord) ? section.questions[j].responseRecord.responseIndex : 0;
+					var responseValue = !Utility.empty(section.questions[j].responseRecord) ? section.questions[j].responseRecord.ri : 0;
 					if (responseValue > 0) {
 						total += responseValue;
 						compCount++;
@@ -156,7 +156,7 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 							var resQuestionId = parseInt(alignment.questionId);
 							var questionId = parseInt(question.id);
 							if (resQuestionId == questionId) {
-								resources[k].score += svc.resourceScore(instrument, alignment.weight, question.responseRecord.responseIndex, nAlignments);
+								resources[k].score += svc.resourceScore(instrument, alignment.weight, question.responseRecord.ri, nAlignments);
 								resources[k].nAlignments++;
 								nTotalAlignments++;
 								if (maxScore === null || resources[k].score > maxScore) {
@@ -203,12 +203,12 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 	svc.sliderTransform = function (instrument, question, idx, isUpdate) {
 		if (!Utility.empty(question) && !Utility.empty(question.responseRecord)) {
 			var slider = $("#question_item_" + question.id);
-			var scoreWord = svc.scoreWord(question.responseRecord.responseIndex);
+			var scoreWord = svc.scoreWord(question.responseRecord.ri);
 			var levelEl = slider.find("span.bubble.low");
 			levelEl.html(scoreWord);
 			slider.removeClass(function (index, css) {
 				return (css.match(/(^|\s)slider\S+/g) || []).join(' ');
-			}).addClass("slider" + question.responseRecord.responseIndex);
+			}).addClass("slider" + question.responseRecord.ri);
 			svc.scorify(instrument);
 			if (isUpdate) {
 				svc.recommend(instrument);

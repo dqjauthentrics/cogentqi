@@ -64,17 +64,17 @@
                                 <div data-ng-switch="question.questionTypeId" style="float:right;">
                                     <div data-ng-switch-when="2">
                                         <div class="button-bar" style="max-width:12em; min-width:12em;">
-                                            <a class="button" data-ng-class="{'yesNoBg0': question.responseRecord.responseIndex == 0}"
+                                            <a class="button" data-ng-class="{'yesNoBg0': question.responseRecord.ri == 0}"
                                                data-ng-click="updateResponse(question, 0)">N/A</a>
-                                            <a class="button" data-ng-class="{'yesNoBg1': question.responseRecord.responseIndex == 1}"
+                                            <a class="button" data-ng-class="{'yesNoBg1': question.responseRecord.ri == 1}"
                                                data-ng-click="updateResponse(question, 1)">No</a>
-                                            <a class="button" data-ng-class="{'yesNoBg2': question.responseRecord.responseIndex == 2}"
+                                            <a class="button" data-ng-class="{'yesNoBg2': question.responseRecord.ri == 2}"
                                                data-ng-click="updateResponse(question, 2)">Yes</a>
                                         </div>
                                     </div>
                                     <div data-ng-switch-default=>
-                                        <slider id="question_item_{{question.id}}" class="slider{{question.responseRecord.responseIndex}}"
-                                                data-ng-model="question.responseRecord.responseIndex" floor="0.0" ceiling="5" step-width="1"
+                                        <slider id="question_item_{{question.id}}" class="slider{{question.responseRecord.ri}}"
+                                                data-ng-model="question.responseRecord.ri" floor="0.0" ceiling="5" step-width="1"
                                                 data-ng-change="Evaluations.sliderChange(evaluation.instrument, question, this, true)"
                                                 translate-fn="Evaluations.sliderChange(evaluation.instrument, question, this, $index == 0)">
                                         </slider>
@@ -90,8 +90,8 @@
                                     <div class="pull-left" style="margin-left:1em;">
                                         <div data-ng-switch="showComment(question)">
                                             <div data-ng-switch-when="true">
-                                                <textarea cols="60" rows="3" data-ng-model="question.responseRecord.evaluatorComments"
-                                                          data-ng-bind="question.responseRecord.evaluatorComments"></textarea>
+                                                <textarea cols="60" rows="3" data-ng-model="question.responseRecord.ec"
+                                                          data-ng-bind="question.responseRecord.ec"></textarea>
                                             </div>
                                             <div data-ng-switch-when="false">
                                                 <p class="comments" data-ng-bind-html="getComment(question)"></p>

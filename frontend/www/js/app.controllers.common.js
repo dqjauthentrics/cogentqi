@@ -110,14 +110,14 @@ angular.module('app.controllers.common', [])
 
 
 					$scope.hasComment = function (question) {
-						return !Utility.empty(question.responseRecord.evaluatorComments) && question.responseRecord.evaluatorComments.length > 0;
+						return !Utility.empty(question.responseRecord) && !Utility.empty(question.responseRecord.ec) && question.responseRecord.ec.length > 0;
 					};
 					$scope.showComment = function (question) {
 						return !Utility.empty(question.showComments) && question.showComments;
 					};
 					$scope.getComment = function (question) {
-						if (!Utility.empty(question)) {
-							var comment = question.responseRecord.evaluatorComments;
+						if (!Utility.empty(question) && !Utility.empty(question.responseRecord)) {
+							var comment = question.responseRecord.ec;
 							if (!Utility.empty(comment)) {
 								comment = '"' + comment + '"';
 							}
@@ -147,7 +147,7 @@ angular.module('app.controllers.common', [])
 					};
 					$scope.updateResponse = function (question, value) {
 						if (!Utility.empty(question) && !Utility.empty(value)) {
-							question.responseRecord.responseIndex = value;
+							question.responseRecord.ri = value;
 							$scope.data.recommdations = Evaluations.recommend($scope.data.currentInstrument, $scope.data.resources);
 						}
 					};

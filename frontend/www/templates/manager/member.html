@@ -3,10 +3,5 @@
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content class="padding detail" has-bouncing="false">
         <member-profile member="data.member" role="member.roleName" rptConfigHx="getRptConfigHx()" i="Icons"></member-profile>
-        <div class="row">
-            <button class="button button-balanced" href="#/manager/evaluation/n/{{data.member.id}}">
-                <i class="{{i.icons.add}}"></i> New Assessment
-            </button>
-        </div>
     </ion-content>
 </ion-view>

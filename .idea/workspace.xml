@@ -2,19 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d363135-d755-4645-a82c-7b84e720bd47" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/lib/EvaluationResponse.php" afterPath="$PROJECT_DIR$/backend/lib/EvaluationResponse.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/GraphService.js" afterPath="$PROJECT_DIR$/frontend/www/js/GraphService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/InstrumentService.js" afterPath="$PROJECT_DIR$/frontend/www/js/InstrumentService.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/EvaluationService.js" afterPath="$PROJECT_DIR$/frontend/www/js/EvaluationService.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/lib/Member.php" afterPath="$PROJECT_DIR$/backend/lib/Member.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/MemberService.js" afterPath="$PROJECT_DIR$/frontend/www/js/MemberService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/app.authentication.js" afterPath="$PROJECT_DIR$/frontend/www/js/app.authentication.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/app.controllers.manager.js" afterPath="$PROJECT_DIR$/frontend/www/js/app.controllers.manager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/app.js" afterPath="$PROJECT_DIR$/frontend/www/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/dqj.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/dqj.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/app.controllers.common.js" afterPath="$PROJECT_DIR$/frontend/www/js/app.controllers.common.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/common/evaluation.html" afterPath="$PROJECT_DIR$/frontend/www/templates/common/evaluation.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/manager/member.html" afterPath="$PROJECT_DIR$/frontend/www/templates/manager/member.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/common/memberItem.html" afterPath="$PROJECT_DIR$/frontend/www/templates/common/memberItem.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/common/memberProfile.html" afterPath="$PROJECT_DIR$/frontend/www/templates/common/memberProfile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/manager/members.html" afterPath="$PROJECT_DIR$/frontend/www/templates/manager/members.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="seeqi.iws" />
@@ -94,25 +87,72 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="app.controllers.common.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/www/js/app.controllers.common.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-13.481482" vertical-offset="1316" max-vertical-offset="2865">
+              <caret line="112" column="31" selection-start-line="112" selection-start-column="31" selection-end-line="112" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="memberProfile.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/memberProfile.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6363636" vertical-offset="195" max-vertical-offset="1035">
-              <caret line="48" column="23" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.6909091" vertical-offset="300" max-vertical-offset="1125">
+              <caret line="58" column="7" selection-start-line="58" selection-start-column="7" selection-end-line="58" selection-end-column="7" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#h2#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.controllers.manager.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/www/js/app.controllers.manager.js">
+      <file leaf-file-name="EvaluationService.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/www/js/EvaluationService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="48" max-vertical-offset="2085">
-              <caret line="39" column="146" selection-start-line="39" selection-start-column="146" selection-end-line="39" selection-end-column="146" />
+            <state vertical-scroll-proportion="-12.851851" vertical-offset="3568" max-vertical-offset="4935">
+              <caret line="261" column="106" selection-start-line="261" selection-start-column="106" selection-end-line="261" selection-end-column="106" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Evaluation.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/lib/Evaluation.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-6.4117646" vertical-offset="1233" max-vertical-offset="1770">
+              <caret line="104" column="83" selection-start-line="104" selection-start-column="78" selection-end-line="104" selection-end-column="83" />
+              <folding>
+                <marker date="1428197541000" expanded="true" signature="2342:2810" placeholder="SELECT m.org..evaluation_response..." />
+                <marker date="1428197541000" expanded="true" signature="2604:2648" placeholder="SELECT id FR..organization..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Member.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/lib/Member.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-21.583334" vertical-offset="457" max-vertical-offset="1395">
+              <caret line="65" column="36" selection-start-line="65" selection-start-column="36" selection-end-line="65" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="evaluation.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/evaluation.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.8039217" vertical-offset="874" max-vertical-offset="1740">
+              <caret line="78" column="82" selection-start-line="78" selection-start-column="74" selection-end-line="78" selection-end-column="86" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#3;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#3;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -127,36 +167,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InstrumentService.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/www/js/InstrumentService.js">
+      <file leaf-file-name="member.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/www/templates/manager/member.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="2940">
-              <caret line="14" column="51" selection-start-line="14" selection-start-column="51" selection-end-line="14" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GraphService.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/www/js/GraphService.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1425" max-vertical-offset="2460">
-              <caret line="101" column="38" selection-start-line="101" selection-start-column="38" selection-end-line="101" selection-end-column="38" />
-              <folding>
-                <marker date="1428255886000" expanded="true" signature="764:793" placeholder="..." />
-                <marker date="1428255886000" expanded="true" signature="2100:2114" placeholder="..." />
-                <marker date="1428255886000" expanded="true" signature="2177:2207" placeholder="..." />
-                <marker date="1428255886000" expanded="true" signature="2249:2258" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EvaluationResponse.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/lib/EvaluationResponse.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.875" vertical-offset="0" max-vertical-offset="450">
-              <caret line="19" column="66" selection-start-line="19" selection-start-column="66" selection-end-line="19" selection-end-column="66" />
+            <state vertical-scroll-proportion="-3.125" vertical-offset="0" max-vertical-offset="195">
+              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -211,23 +226,23 @@
         <option value="$PROJECT_DIR$/frontend/www/templates/common/evaluations.html" />
         <option value="$PROJECT_DIR$/backend/lib/Model.php" />
         <option value="$PROJECT_DIR$/backend/lib/Evaluation.php" />
-        <option value="$PROJECT_DIR$/frontend/www/js/app.controllers.common.js" />
-        <option value="$PROJECT_DIR$/frontend/www/js/EvaluationService.js" />
         <option value="$PROJECT_DIR$/frontend/www/css/style.css" />
         <option value="$PROJECT_DIR$/frontend/www/templates/manager/settings.html" />
-        <option value="$PROJECT_DIR$/frontend/www/templates/common/evaluation.html" />
         <option value="$PROJECT_DIR$/frontend/www/js/app.authentication.js" />
         <option value="$PROJECT_DIR$/frontend/www/js/app.js" />
         <option value="$PROJECT_DIR$/frontend/www/templates/manager/members.html" />
         <option value="$PROJECT_DIR$/frontend/www/templates/common/memberItem.html" />
-        <option value="$PROJECT_DIR$/frontend/www/templates/manager/member.html" />
-        <option value="$PROJECT_DIR$/backend/lib/Member.php" />
         <option value="$PROJECT_DIR$/backend/lib/EvaluationResponse.php" />
         <option value="db-console:/9b06efdf/dda61865-1688-4307-9a21-8ec577337f7a/" />
         <option value="$PROJECT_DIR$/frontend/www/js/GraphService.js" />
         <option value="$PROJECT_DIR$/frontend/www/js/InstrumentService.js" />
         <option value="$PROJECT_DIR$/frontend/www/js/app.controllers.manager.js" />
         <option value="$PROJECT_DIR$/frontend/www/js/MemberService.js" />
+        <option value="$PROJECT_DIR$/frontend/www/templates/manager/member.html" />
+        <option value="$PROJECT_DIR$/frontend/www/templates/common/evaluation.html" />
+        <option value="$PROJECT_DIR$/frontend/www/js/EvaluationService.js" />
+        <option value="$PROJECT_DIR$/backend/lib/Member.php" />
+        <option value="$PROJECT_DIR$/frontend/www/js/app.controllers.common.js" />
         <option value="$PROJECT_DIR$/frontend/www/templates/common/memberProfile.html" />
       </list>
     </option>
@@ -653,12 +668,6 @@
       <option name="number" value="Default" />
       <updated>1425653813105</updated>
     </task>
-    <task id="LOCAL-00038" summary="Ongoing development.">
-      <created>1427085190706</created>
-      <option name="number" value="00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1427085190706</updated>
-    </task>
     <task id="LOCAL-00039" summary="Ongoing development.">
       <created>1427164801833</created>
       <option name="number" value="00039" />
@@ -947,7 +956,13 @@
       <option name="project" value="LOCAL" />
       <updated>1428248391259</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="Ongoing development.">
+      <created>1428258063168</created>
+      <option name="number" value="00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1428258063168</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -957,6 +972,7 @@
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30320367" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32958034" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32912844" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49771166" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17277168" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1382" y="104" width="298" height="873" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25171626" sideWeight="0.216133" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16178267" sideWeight="0.39908257" order="2" side_tool="true" content_ui="tabs" />
@@ -975,7 +991,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29885057" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3440367" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1105,6 +1120,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="165">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1112,6 +1128,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="822">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1119,6 +1136,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2631579" vertical-offset="0" max-vertical-offset="810">
           <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1126,6 +1144,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.054811206" vertical-offset="0" max-vertical-offset="821">
           <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1171,6 +1190,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.125" vertical-offset="0" max-vertical-offset="240">
           <caret line="5" column="46" selection-start-line="5" selection-start-column="46" selection-end-line="5" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1209,6 +1229,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3231939" vertical-offset="0" max-vertical-offset="789">
           <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1282,14 +1303,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/www/js/EvaluationService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="99" max-vertical-offset="4935">
-          <caret line="28" column="43" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/www/img/cycle2.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1321,17 +1334,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/evaluation.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-30.708334" vertical-offset="583" max-vertical-offset="1740">
-          <caret line="88" column="42" selection-start-line="88" selection-start-column="42" selection-end-line="88" selection-end-column="42" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#3;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#3;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/www/js/app.authentication.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1140">
@@ -1344,14 +1346,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1154" max-vertical-offset="3405">
           <caret line="105" column="95" selection-start-line="105" selection-start-column="95" selection-end-line="105" selection-end-column="95" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/www/js/app.controllers.common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2865">
-          <caret line="130" column="20" selection-start-line="130" selection-start-column="20" selection-end-line="130" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -1376,22 +1370,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/www/templates/manager/member.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.5" vertical-offset="0" max-vertical-offset="270">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/lib/Member.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.2916665" vertical-offset="440" max-vertical-offset="1410">
-          <caret line="41" column="34" selection-start-line="41" selection-start-column="24" selection-end-line="41" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/lib/EvaluationResponse.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.875" vertical-offset="0" max-vertical-offset="450">
@@ -1413,21 +1391,10 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1425" max-vertical-offset="2460">
           <caret line="101" column="38" selection-start-line="101" selection-start-column="38" selection-end-line="101" selection-end-column="38" />
           <folding>
-            <marker date="1428255886000" expanded="true" signature="764:793" placeholder="..." />
-            <marker date="1428255886000" expanded="true" signature="2100:2114" placeholder="..." />
-            <marker date="1428255886000" expanded="true" signature="2177:2207" placeholder="..." />
-            <marker date="1428255886000" expanded="true" signature="2249:2258" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/lib/Evaluation.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.1034913" vertical-offset="945" max-vertical-offset="1770">
-          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
-          <folding>
-            <marker date="1428197541000" expanded="true" signature="-1:-1" placeholder="SELECT m.org..evaluation_response..." />
-            <marker date="1428197541000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..organization..." />
+            <marker date="1428255886000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1428255886000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1428255886000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1428255886000" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1456,12 +1423,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/www/templates/manager/member.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.125" vertical-offset="0" max-vertical-offset="195">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/evaluation.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.8039217" vertical-offset="874" max-vertical-offset="1740">
+          <caret line="78" column="82" selection-start-line="78" selection-start-column="74" selection-end-line="78" selection-end-column="86" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#3;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#3;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/www/js/EvaluationService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.851851" vertical-offset="3568" max-vertical-offset="4935">
+          <caret line="261" column="106" selection-start-line="261" selection-start-column="106" selection-end-line="261" selection-end-column="106" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/lib/Evaluation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.4117646" vertical-offset="1233" max-vertical-offset="1770">
+          <caret line="104" column="83" selection-start-line="104" selection-start-column="78" selection-end-line="104" selection-end-column="83" />
+          <folding>
+            <marker date="1428197541000" expanded="true" signature="2342:2810" placeholder="SELECT m.org..evaluation_response..." />
+            <marker date="1428197541000" expanded="true" signature="2604:2648" placeholder="SELECT id FR..organization..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/lib/Member.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-21.583334" vertical-offset="457" max-vertical-offset="1395">
+          <caret line="65" column="36" selection-start-line="65" selection-start-column="36" selection-end-line="65" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/www/js/app.controllers.common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.481482" vertical-offset="1316" max-vertical-offset="2865">
+          <caret line="112" column="31" selection-start-line="112" selection-start-column="31" selection-end-line="112" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/memberProfile.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6363636" vertical-offset="195" max-vertical-offset="1035">
-          <caret line="48" column="23" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.6909091" vertical-offset="300" max-vertical-offset="1125">
+          <caret line="58" column="7" selection-start-line="58" selection-start-column="7" selection-end-line="58" selection-end-column="7" />
           <folding>
             <element signature="n#style#0;n#a#0;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h2#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
           </folding>
         </state>

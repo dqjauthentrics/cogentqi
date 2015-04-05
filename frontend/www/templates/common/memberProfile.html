@@ -22,9 +22,15 @@
         <div data-ng-repeat="evaluation in data.member.evaluations">
             <a href="#/manager/evaluation/{{evaluation.id}}" style="color:#777; text-decoration: none;">
                 <i class="{{i.icons.evaluation}}"></i>
-                {{evaluation.lastModified}}
+                {{evaluation.lastModified|date:'medium'}}
             </a>
         </div>
+        <div>
+            <button class="button button-balanced" href="#/manager/evaluation/n/{{data.member.id}}">
+                <i class="{{i.icons.add}}"></i> New Assessment
+            </button>
+        </div>
+
         <h3>Events</h3>
 
         <table class="events">
@@ -46,8 +52,8 @@
         </table>
     </div>
 </div>
-<h2>Assessment Progress</h2>
-<div style="border: 1px solid gray; margin:4em;" data-ng-repeat="section in data.instrument.sections track by $index">
+<h2 style="margin-left:1em;">Assessment Progress</h2>
+<div style="border: 1px solid gray; margin:0 2em 2em 2em;" data-ng-repeat="section in data.instrument.sections track by $index">
     <highchart id="memberHx_{{section.id}}" config="data.member.rptConfigHx[$index].config"></highchart>
 </div>
 <style>
