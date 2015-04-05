@@ -15,12 +15,10 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 		return null;
 	};
 	svc.associateMembers = function (evaluations, members) {
-		console.log("associateMembers:", evaluations, members);
 		if (!Utility.empty(evaluations) && !Utility.empty(members)) {
 			for (var i = 0; i < evaluations.length; i++) {
 				evaluations[i].member = Utility.findObjectById(members, evaluations[i].memberId);
 				evaluations[i].byMember = Utility.findObjectById(members, evaluations[i].byMemberId);
-				console.log("BY", evaluations[i].byMember);
 			}
 		}
 	};
@@ -39,15 +37,31 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 		return null;
 	};
 
+	svc.findQuestion = function(questionId, questions) {
+		for (var i=0; i<questions.length; i++) {
+			if (questions[i].qi == questionId) {
+				return questions[i];
+			}
+		}
+		return null;
+	};
+
 	svc.collate = function (instruments, members, evaluation) {
-		console.log("evaluation collate:", instruments, members, evaluation);
 		if (!Utility.empty(evaluation) && !Utility.empty(instruments) && !Utility.empty(members)) {
 			evaluation.instrument = Utility.findObjectById(instruments, evaluation.instrumentId);
 			evaluation.member = Utility.findObjectById(members, evaluation.memberId);
 			evaluation.member.roleName = Members.roleName(evaluation.member);
 			evaluation.byMember = Utility.findObjectById(members, evaluation.byMemberId);
 			if (!Utility.empty(evaluation.instrument)) {
-				console.log("collating", evaluation.instrument.sections);
+				/** @todo Fix this loop.  Doing way too much...
+				for (var i = 0; i < evaluation.responses.length; i++) {
+					var question = svc.findQuestion(evaluation.responses[i].qi, evaluation.instrument.questions);
+					if (!Utility.empty(question)) {
+						question.responseRecord = evaluation.responses[i];
+						console.log("FOUND");
+					}
+				}
+				**/
 				var sections = evaluation.instrument.sections;
 				for (var i = 0; i < evaluation.responses.length; i++) {
 					for (var j = 0; j < sections.length; j++) {
@@ -56,19 +70,17 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 							var responseQuestionId = parseInt(evaluation.responses[i].qi);
 							if (instrumentQuestionId == responseQuestionId) {
 								sections[j].questions[k].responseRecord = evaluation.responses[i];
-								console.log("COLLRESP:", evaluation.responses[i]);
 							}
 						}
 					}
 				}
 			}
-			evaluation.sections = sections;
+			evaluation.sections = evaluation.instrument.sections;
 		}
 	};
 
 	svc.retrieveSingle = function (evaluationId) {
 		if (!Utility.empty(evaluationId)) {
-			console.log("evaluation retrieve request, id:", evaluationId);
 			return $resource('/api/evaluation/' + evaluationId, {}, {query: {method: 'GET', isArray: false}});
 		}
 		return null;
@@ -139,7 +151,6 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 
 	svc.recommend = function (instrument, resources) {
 		var recs = [];
-		console.log("RECS:", instrument, resources);
 		if (!Utility.empty(instrument) && Array.isArray(instrument.sections) && Array.isArray(resources)) {
 			for (k = 0; k < resources.length; k++) {
 				resources[k].score = 0;
@@ -182,8 +193,8 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 			for (k = 0; k < resources.length; k++) {
 				resource = resources[k];
 				var scaledScore = svc.scale(resource.score, minScore, maxScore, 0, instrument.maxRange);
-				console.log("REC: min=", minScore, ", max=", maxScore, ",nTotalAlignments=", nTotalAlignments, ", score=", resource.score, ", scaled=",
-							scaledScore, ", n=", resource.nAlignments);
+				//console.log("REC: min=", minScore, ", max=", maxScore, ",nTotalAlignments=", nTotalAlignments, ", score=", resource.score, ", scaled=",
+				//			scaledScore, ", n=", resource.nAlignments);
 				if (scaledScore > instrument.maxRange) {
 					scaledScore = instrument.maxRange;
 				}
@@ -205,7 +216,6 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 				return a["score"] > b["score"] ? -1 : a["score"] < b["score"] ? 1 : 0;
 			});
 		}
-		console.log("RECOMMENDATIONS:", recs);
 		return recs;
 	};
 

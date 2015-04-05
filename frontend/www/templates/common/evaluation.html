@@ -75,6 +75,7 @@
                                         <slider id="question_item_{{question.id}}" class="slider{{question.responseRecord.ri}}"
                                                 data-ng-model="question.responseRecord.ri" floor="0.0" ceiling="5" step-width="1"
                                                 data-ng-change="updateSliderResponse(question, this, true)"
+                                                data-translate-fn="sliderTranslate"
                                                 >
                                         </slider>
                                     </div>

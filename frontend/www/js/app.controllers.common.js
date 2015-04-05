@@ -56,7 +56,6 @@ angular.module('app.controllers.common', [])
 					}
 
 					$scope.setCurrentInstrument = function (instrumentId) {
-						console.log("set current instrument", instrumentId);
 						if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
 							$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
 							$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
@@ -104,19 +103,16 @@ angular.module('app.controllers.common', [])
 					Instruments.retrieve().query(function (response) {
 						$scope.data.instruments = response;
 						Instruments.collate($scope.data.instruments);
-						console.log("instruments retrieved", response);
 						$scope.collateEvaluations();
 						$scope.getEvaluation();
 					});
 					Members.retrieve().query(function (response) {
 						$scope.data.members = response;
-						console.log("members retrieved", response);
 						$scope.collateEvaluations();
 						$scope.getEvaluation();
 					});
 					Resources.retrieve().query(function (response) {
 						$scope.data.resources = response;
-						console.log("resources retrieved", response);
 						$scope.collateEvaluations();
 						$scope.getEvaluation();
 					});
@@ -187,20 +183,19 @@ angular.module('app.controllers.common', [])
 						Evaluations.sliderChange(question, $scope.data.instrument);
 						$scope.getRecommendations();
 					};
+					$scope.sliderTranslate = function (value) {
+						return Evaluations.scoreWord(value);
+					};
 
 					$scope.getEvaluation = function () {
 						if (Utility.empty($scope.data.evaluation) && !Utility.empty($stateParams) && !Utility.empty($stateParams.evaluationId)) {
-							console.log("evaluation:", $stateParams.evaluationId);
 							Evaluations.retrieveSingle($stateParams.evaluationId).query(function (response) {
-								console.log("evaluation retrieved:", response);
 								if (!Utility.empty(response) && !Utility.empty($scope.data.instruments)) {
 									$scope.data.instrument = Utility.findObjectById($scope.data.instruments, response.instrumentId);
-									console.log("evaluation collation:", response);
 									Evaluations.collate($scope.data.instruments, $scope.data.members, response);
 								}
-								$scope.data.evaluation = response; //@todo THIS ONLY UPDATES THE VIEW SOMETIMES, which references data.evaluation
+								$scope.data.evaluation = response;
 								$scope.getRecommendations();
-								console.log("evaluation set:", $scope.data.evaluation);
 							});
 						}
 					};

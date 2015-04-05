@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4d363135-d755-4645-a82c-7b84e720bd47" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/EvaluationService.js" afterPath="$PROJECT_DIR$/frontend/www/js/EvaluationService.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/InstrumentService.js" afterPath="$PROJECT_DIR$/frontend/www/js/InstrumentService.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/app.controllers.common.js" afterPath="$PROJECT_DIR$/frontend/www/js/app.controllers.common.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/app.controllers.manager.js" afterPath="$PROJECT_DIR$/frontend/www/js/app.controllers.manager.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/common/evaluation.html" afterPath="$PROJECT_DIR$/frontend/www/templates/common/evaluation.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/css/style.css" afterPath="$PROJECT_DIR$/frontend/www/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="seeqi.iws" />
@@ -85,20 +86,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="memberProfile.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/memberProfile.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-23.75" vertical-offset="300" max-vertical-offset="1125">
-              <caret line="58" column="7" selection-start-line="58" selection-start-column="7" selection-end-line="58" selection-end-column="7" />
-              <folding>
-                <element signature="n#style#0;n#a#0;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#h2#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="planning.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/www/templates/manager/planning.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -122,8 +109,18 @@
       <file leaf-file-name="EvaluationService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/www/js/EvaluationService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="304" max-vertical-offset="4935">
-              <caret line="46" column="77" selection-start-line="46" selection-start-column="77" selection-end-line="46" selection-end-column="77" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1867" max-vertical-offset="5085">
+              <caret line="143" column="17" selection-start-line="143" selection-start-column="10" selection-end-line="143" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResourceService.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frontend/www/js/ResourceService.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.795053" vertical-offset="0" max-vertical-offset="849">
+              <caret line="45" column="29" selection-start-line="45" selection-start-column="22" selection-end-line="45" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -132,8 +129,8 @@
       <file leaf-file-name="InstrumentService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/www/js/InstrumentService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="2940">
-              <caret line="14" column="51" selection-start-line="14" selection-start-column="51" selection-end-line="14" selection-end-column="51" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2925">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -152,11 +149,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="evaluation.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="evaluation.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/evaluation.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4085213" vertical-offset="94" max-vertical-offset="1725">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+            <state vertical-scroll-proportion="-8.235294" vertical-offset="735" max-vertical-offset="1740">
+              <caret line="77" column="82" selection-start-line="77" selection-start-column="82" selection-end-line="77" selection-end-column="82" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#3;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#3;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
@@ -168,8 +165,8 @@
       <file leaf-file-name="app.controllers.common.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/www/js/app.controllers.common.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2362" max-vertical-offset="3420">
-              <caret line="174" column="55" selection-start-line="174" selection-start-column="55" selection-end-line="174" selection-end-column="55" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2509" max-vertical-offset="3345">
+              <caret line="186" column="0" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -224,7 +221,6 @@
         <option value="$PROJECT_DIR$/frontend/www/templates/common/evaluations.html" />
         <option value="$PROJECT_DIR$/backend/lib/Model.php" />
         <option value="$PROJECT_DIR$/backend/lib/Evaluation.php" />
-        <option value="$PROJECT_DIR$/frontend/www/css/style.css" />
         <option value="$PROJECT_DIR$/frontend/www/templates/manager/settings.html" />
         <option value="$PROJECT_DIR$/frontend/www/js/app.authentication.js" />
         <option value="$PROJECT_DIR$/frontend/www/js/app.js" />
@@ -233,15 +229,16 @@
         <option value="$PROJECT_DIR$/backend/lib/EvaluationResponse.php" />
         <option value="db-console:/9b06efdf/dda61865-1688-4307-9a21-8ec577337f7a/" />
         <option value="$PROJECT_DIR$/frontend/www/js/GraphService.js" />
-        <option value="$PROJECT_DIR$/frontend/www/js/InstrumentService.js" />
         <option value="$PROJECT_DIR$/frontend/www/js/MemberService.js" />
         <option value="$PROJECT_DIR$/frontend/www/templates/manager/member.html" />
         <option value="$PROJECT_DIR$/backend/lib/Member.php" />
         <option value="$PROJECT_DIR$/frontend/www/templates/common/memberProfile.html" />
         <option value="$PROJECT_DIR$/frontend/www/js/app.controllers.manager.js" />
-        <option value="$PROJECT_DIR$/frontend/www/js/EvaluationService.js" />
-        <option value="$PROJECT_DIR$/frontend/www/js/app.controllers.common.js" />
+        <option value="$PROJECT_DIR$/frontend/www/css/style.css" />
         <option value="$PROJECT_DIR$/frontend/www/templates/common/evaluation.html" />
+        <option value="$PROJECT_DIR$/frontend/www/js/app.controllers.common.js" />
+        <option value="$PROJECT_DIR$/frontend/www/js/InstrumentService.js" />
+        <option value="$PROJECT_DIR$/frontend/www/js/EvaluationService.js" />
       </list>
     </option>
   </component>
@@ -483,6 +480,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="seeqi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cogentqi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="backend" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -665,12 +684,6 @@
       <created>1425653813105</created>
       <option name="number" value="Default" />
       <updated>1425653813105</updated>
-    </task>
-    <task id="LOCAL-00040" summary="Ongoing development.">
-      <created>1427249441702</created>
-      <option name="number" value="00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1427249441702</updated>
     </task>
     <task id="LOCAL-00041" summary="Ongoing development.">
       <created>1427252383532</created>
@@ -960,7 +973,13 @@
       <option name="project" value="LOCAL" />
       <updated>1428259178380</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="Ongoing development.">
+      <created>1428265603108</created>
+      <option name="number" value="00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1428265603108</updated>
+    </task>
+    <option name="localTasksCounter" value="90" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1054,14 +1073,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/frontend/www/js/app.controllers.administrator.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.148148" vertical-offset="242" max-vertical-offset="3915">
-          <caret line="47" column="25" selection-start-line="47" selection-start-column="25" selection-end-line="47" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="dbDummy://dbtable:/9b06efdf/dda61865-1688-4307-9a21-8ec577337f7a/cogentqi_v1_target..role">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
@@ -1314,14 +1325,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/www/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="12525">
-          <caret line="38" column="16" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/www/js/app.authentication.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1140">
@@ -1450,10 +1453,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/www/js/InstrumentService.js">
+    <entry file="file://$PROJECT_DIR$/frontend/www/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="2940">
-          <caret line="14" column="51" selection-start-line="14" selection-start-column="51" selection-end-line="14" selection-end-column="51" />
+        <state vertical-scroll-proportion="0.3515815" vertical-offset="3566" max-vertical-offset="12525">
+          <caret line="257" column="18" selection-start-line="257" selection-start-column="18" selection-end-line="257" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -1466,30 +1469,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/www/js/EvaluationService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="304" max-vertical-offset="4935">
-          <caret line="46" column="77" selection-start-line="46" selection-start-column="77" selection-end-line="46" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/www/js/app.controllers.common.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2362" max-vertical-offset="3420">
-          <caret line="174" column="55" selection-start-line="174" selection-start-column="55" selection-end-line="174" selection-end-column="55" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2509" max-vertical-offset="3345">
+          <caret line="186" column="0" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/evaluation.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4085213" vertical-offset="94" max-vertical-offset="1725">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        <state vertical-scroll-proportion="-8.235294" vertical-offset="735" max-vertical-offset="1740">
+          <caret line="77" column="82" selection-start-line="77" selection-start-column="82" selection-end-line="77" selection-end-column="82" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#3;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#3;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/www/js/InstrumentService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2925">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/www/js/EvaluationService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1867" max-vertical-offset="5085">
+          <caret line="143" column="17" selection-start-line="143" selection-start-column="10" selection-end-line="143" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/www/js/ResourceService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.795053" vertical-offset="0" max-vertical-offset="849">
+          <caret line="45" column="29" selection-start-line="45" selection-start-column="22" selection-end-line="45" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>

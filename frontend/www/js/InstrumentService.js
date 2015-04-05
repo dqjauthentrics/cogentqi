@@ -12,7 +12,6 @@ angular.module('app.instruments', ['ngResource']).service('Instruments', functio
 	};
 	svc.collate = function (instruments) {
 		if (!Utility.empty(instruments)) {
-			console.log("collating instrument...");
 			for (var i = 0; i < instruments.length; i++) {
 				var instrument = instruments[i];
 				var groups = instrument.questionGroups;

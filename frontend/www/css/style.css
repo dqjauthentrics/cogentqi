@@ -255,7 +255,7 @@ ion-item .stamp {
 }
 
 .recommendationsPane {
-    max-height: 8em;
+    max-height: 15em;
     overflow-y: auto;
     border: 1px solid #999;
     border-radius: 0.2em;
