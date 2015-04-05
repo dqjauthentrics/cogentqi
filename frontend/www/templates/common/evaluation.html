@@ -2,7 +2,8 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <div style="float:right; margin:1em 1em -1em -1em; font-size:2em;"><a onclick="alert('PDF generation is not yet ready.');return false;"><i class="{{i.icons.pdf}}"></i></a>
+        <div style="float:right; margin:1em 1em -1em -1em; font-size:2em;"><a onclick="alert('PDF generation is not yet ready.');return false;"><i
+                class="{{i.icons.pdf}}"></i></a>
         </div>
         <div class="row responsive-sm">
             <div class="col col-100"><h3 style="text-align: center; margin:0 auto;">{{data.evaluation.instrument.name}}</h3></div>
@@ -16,7 +17,7 @@
                 <div class="name"><a href="#/manager/member/{{data.evaluation.member.id}}">
                     {{data.evaluation.member.firstName}} {{data.evaluation.member.lastName}}</a>
                 </div>
-                <div class="role">{{m.roleName(data.evaluation.member)}}</div>
+                <div class="role">{{data.evaluation.member.roleName}}</div>
                 <div class="score">
                     <i class="logo level levelColor{{Evaluations.avgRound}} {{i.icons.levels[Evaluations.avgRound]}}">
                         {{Evaluations.scoreWord(Evaluations.avgRound)}} <span style="font-size:0.6em;">({{Evaluations.avg}})</span>
@@ -25,15 +26,12 @@
             </div>
             <div class="col col-75">
                 <h5 data-ng-bind-html="installation.trademarkName + ' Recommended Modules'"></h5>
-
                 <div class="recommendationsPane">
-                    <div class="item" data-ng-repeat="recommendation in data.recommendations | filter: weightGreaterThanZero()">
-                        <div class="item" data-ng-repeat="recommendation in data.recommendations | filter: weightGreaterThanZero()">
-                            <a href="/#/manager/resource/{{recommendation.resourceId}}">
-                                <i class="{{i.icons.resource}}"></i>{{recommendation.number}} {{recommendation.name}} (score: {{recommendation.score|number:4}})
-                            </a>
-                            <recommendation-ranking weight="recommendation.weight" range="getRange(recommendation.weight)"></recommendation-ranking>
-                        </div>
+                    <div class="item" data-ng-repeat="recommendation in data.recommendations">
+                        <a href="/#/manager/resource/{{recommendation.resourceId}}">
+                            <i class="{{i.icons.resource}}"></i>{{recommendation.number}} {{recommendation.name}} (score: {{recommendation.score|number:4}})
+                        </a>
+                        <recommendation-ranking weight="recommendation.weight" range="getRange(recommendation.weight)"></recommendation-ranking>
                     </div>
                 </div>
             </div>
@@ -47,7 +45,8 @@
                             <a ng-click="Instruments.sectionPrevious(data.evaluation.instrument)"><< {{section.previous}}</a>
                         </div>
                         <div style="float:right; margin-right:1em;">
-                            <a ng-click="Instruments.sectionNext(data.evaluation.instrument)" data-ng-show="Instruments.sectionIsLast(data.evaluation.instrument)">{{section.next}}
+                            <a ng-click="Instruments.sectionNext(data.evaluation.instrument)"
+                               data-ng-show="Instruments.sectionIsLast(data.evaluation.instrument)">{{section.next}}
                                 >></a>
                         </div>
                         <div class="clearfix"></div>
@@ -75,8 +74,8 @@
                                     <div data-ng-switch-default=>
                                         <slider id="question_item_{{question.id}}" class="slider{{question.responseRecord.ri}}"
                                                 data-ng-model="question.responseRecord.ri" floor="0.0" ceiling="5" step-width="1"
-                                                data-ng-change="Evaluations.sliderChange(evaluation.instrument, question, this, true)"
-                                                translate-fn="Evaluations.sliderChange(evaluation.instrument, question, this, $index == 0)">
+                                                data-ng-change="updateSliderResponse(question, this, true)"
+                                                >
                                         </slider>
                                     </div>
                                 </div>

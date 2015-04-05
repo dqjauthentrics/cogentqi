@@ -101,23 +101,29 @@ angular.module('app.controllers.manager', [])
 				})
 
 	.controller('PlanningCtrl', function ($scope, $stateParams, Utility, Organizations, LearningModules, Resources) {
+					var collated = false;
 					$scope.data = {myOrg: {}, learningModules: [], resources: [], resource: {}};
 
 					Resources.retrieve().query(function (response) {
 						$scope.data.resources = response;
+						$scope.collate();
 					});
 					Organizations.retrieveMine().query(function (response) {
 						$scope.data.myOrg = response;
 					});
 					LearningModules.retrieve().query(function (response) {
 						$scope.data.learningModules = response;
-						if (!Utility.empty($scope.data.learningModules) && !Utility.empty($scope.data.resources)) {
+						$scope.collate();
+					});
+					$scope.collate = function () {
+						if (!collated && !Utility.empty($scope.data.learningModules) && !Utility.empty($scope.data.resources)) {
+							collated = true;
 							for (var i = 0; i < $scope.data.learningModules.length; i++) {
 								$scope.data.learningModules[i].resource =
 									Utility.findObjectById($scope.data.resources, $scope.data.learningModules[i].resourceId);
 							}
 						}
-					});
+					};
 				})
 
 	.controller('SettingsCtrl', function ($scope, Organizations, Settings) {

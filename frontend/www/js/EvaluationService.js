@@ -44,6 +44,7 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 		if (!Utility.empty(evaluation) && !Utility.empty(instruments) && !Utility.empty(members)) {
 			evaluation.instrument = Utility.findObjectById(instruments, evaluation.instrumentId);
 			evaluation.member = Utility.findObjectById(members, evaluation.memberId);
+			evaluation.member.roleName = Members.roleName(evaluation.member);
 			evaluation.byMember = Utility.findObjectById(members, evaluation.byMemberId);
 			if (!Utility.empty(evaluation.instrument)) {
 				console.log("collating", evaluation.instrument.sections);
@@ -52,9 +53,10 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 					for (var j = 0; j < sections.length; j++) {
 						for (var k = 0; k < sections[j].questions.length; k++) {
 							var instrumentQuestionId = parseInt(sections[j].questions[k].id);
-							var responseQuestionId = parseInt(evaluation.responses[i].questionId);
+							var responseQuestionId = parseInt(evaluation.responses[i].qi);
 							if (instrumentQuestionId == responseQuestionId) {
 								sections[j].questions[k].responseRecord = evaluation.responses[i];
+								console.log("COLLRESP:", evaluation.responses[i]);
 							}
 						}
 					}
@@ -137,6 +139,7 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 
 	svc.recommend = function (instrument, resources) {
 		var recs = [];
+		console.log("RECS:", instrument, resources);
 		if (!Utility.empty(instrument) && Array.isArray(instrument.sections) && Array.isArray(resources)) {
 			for (k = 0; k < resources.length; k++) {
 				resources[k].score = 0;
@@ -145,25 +148,30 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 			var minScore = null;
 			var maxScore = null;
 			var nTotalAlignments = 0;
-			for (var i = 0; i < sections.length; i++) {
-				for (var j = 0; j < sections[i].questions.length; j++) {
-					var question = sections[i].questions[j];
-					for (var k = 0; k < resources.length; k++) {
-						var resource = resources[k];
-						var nAlignments = resource.alignments.length;
-						for (var z = 0; z < nAlignments; z++) {
-							var alignment = resource.alignments[z];
-							var resQuestionId = parseInt(alignment.questionId);
-							var questionId = parseInt(question.id);
-							if (resQuestionId == questionId) {
-								resources[k].score += svc.resourceScore(instrument, alignment.weight, question.responseRecord.ri, nAlignments);
-								resources[k].nAlignments++;
-								nTotalAlignments++;
-								if (maxScore === null || resources[k].score > maxScore) {
-									maxScore = resources[k].score;
-								}
-								else if (minScore === null || resources[k].score < minScore && resources[k].score > 0) {
-									minScore = resources[k].score;
+			for (var i = 0; i < instrument.sections.length; i++) {
+				for (var j = 0; j < instrument.sections[i].questions.length; j++) {
+					var question = instrument.sections[i].questions[j];
+					if (Utility.empty(question.responseRecord)) {
+						return [];
+					}
+					else {
+						for (var k = 0; k < resources.length; k++) {
+							var resource = resources[k];
+							var nAlignments = resource.alignments.length;
+							for (var z = 0; z < nAlignments; z++) {
+								var alignment = resource.alignments[z];
+								var resQuestionId = parseInt(alignment.questionId);
+								var questionId = parseInt(question.id);
+								if (resQuestionId == questionId) {
+									resources[k].score += svc.resourceScore(instrument, alignment.weight, question.responseRecord.ri, nAlignments);
+									resources[k].nAlignments++;
+									nTotalAlignments++;
+									if (maxScore === null || resources[k].score > maxScore) {
+										maxScore = resources[k].score;
+									}
+									else if (minScore === null || resources[k].score < minScore && resources[k].sc > 0) {
+										minScore = resources[k].score;
+									}
 								}
 							}
 						}
@@ -174,7 +182,8 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 			for (k = 0; k < resources.length; k++) {
 				resource = resources[k];
 				var scaledScore = svc.scale(resource.score, minScore, maxScore, 0, instrument.maxRange);
-				//console.log("REC: min=", minScore, ", max=", maxScore, ",nTotalAlignments=", nTotalAlignments, ", score=", resource.score, ", scaled=", scaledScore, ", n=", resource.nAlignments);
+				console.log("REC: min=", minScore, ", max=", maxScore, ",nTotalAlignments=", nTotalAlignments, ", score=", resource.score, ", scaled=",
+							scaledScore, ", n=", resource.nAlignments);
 				if (scaledScore > instrument.maxRange) {
 					scaledScore = instrument.maxRange;
 				}
@@ -195,12 +204,12 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 			recs = recs.sort(function (a, b) {
 				return a["score"] > b["score"] ? -1 : a["score"] < b["score"] ? 1 : 0;
 			});
-			//console.log("RECOMMENDATIONS:", svc.recommendations);
 		}
+		console.log("RECOMMENDATIONS:", recs);
 		return recs;
 	};
 
-	svc.sliderTransform = function (instrument, question, idx, isUpdate) {
+	svc.sliderChange = function (question, instrument) {
 		if (!Utility.empty(question) && !Utility.empty(question.responseRecord)) {
 			var slider = $("#question_item_" + question.id);
 			var scoreWord = svc.scoreWord(question.responseRecord.ri);
@@ -210,17 +219,8 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 				return (css.match(/(^|\s)slider\S+/g) || []).join(' ');
 			}).addClass("slider" + question.responseRecord.ri);
 			svc.scorify(instrument);
-			if (isUpdate) {
-				svc.recommend(instrument);
-			}
 		}
 	};
-
-	svc.sliderChange = function (instrument, question, thing, isUpdate) {
-		var idx = thing.$index;
-		svc.sliderTransform(instrument, question, idx, isUpdate);
-	};
-
 
 	svc.findMatrixResponseRowValues = function (instrument, currentSectionIdx, allResponses) {
 		var responses = [];

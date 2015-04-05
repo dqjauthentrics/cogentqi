@@ -78,6 +78,7 @@ angular.module('app.controllers.common', [])
 				})
 
 	.controller('EvaluationCtrl', function ($scope, $timeout, $stateParams, Utility, Instruments, Evaluations, Members, Organizations, Resources) {
+					var collated = false;
 					$scope.Evaluations = Evaluations;
 					$scope.Instruments = Instruments;
 					$scope.r0 = [];
@@ -86,29 +87,50 @@ angular.module('app.controllers.common', [])
 					$scope.r3 = [1, 1, 1];
 					$scope.r4 = [1, 1, 1, 1];
 					$scope.r5 = [1, 1, 1, 1, 1];
-					$scope.data = {myOrg: {}, organizations: [], instruments: [], members: [], recommendations: [], evaluation: {}};
+					$scope.data = {
+						myOrg: {},
+						organizations: [],
+						instruments: [],
+						members: [],
+						recommendations: [],
+						resources: [],
+						instrument: {},
+						evaluation: null
+					};
 
 					/** @todo Retrieving too much data here. Retrieving current user's org should be done once at login and stored in user record.
 					 *        For a single evaluation, just retrieve a single Instrument and a single member and collate against only that one.
 					 */
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
-					});
 					Instruments.retrieve().query(function (response) {
 						$scope.data.instruments = response;
 						Instruments.collate($scope.data.instruments);
-						if (!Utility.empty($scope.data.evaluation)) {
-							Evaluations.collate($scope.data.instruments, $scope.data.members, $scope.data.evaluation);
-						}
+						console.log("instruments retrieved", response);
+						$scope.collateEvaluations();
+						$scope.getEvaluation();
 					});
 					Members.retrieve().query(function (response) {
 						$scope.data.members = response;
+						console.log("members retrieved", response);
+						$scope.collateEvaluations();
+						$scope.getEvaluation();
 					});
 					Resources.retrieve().query(function (response) {
 						$scope.data.resources = response;
+						console.log("resources retrieved", response);
+						$scope.collateEvaluations();
+						$scope.getEvaluation();
+					});
+					Organizations.retrieveMine().query(function (response) {
+						$scope.data.myOrg = response;
 					});
 
-
+					$scope.collateEvaluations = function () {
+						if (!collated && !Utility.empty($scope.data.evaluation) && !Utility.empty($scope.data.instruments) && !Utility.empty($scope.data.members)) {
+							collated = true;
+							Evaluations.collate($scope.data.instruments, $scope.data.members, $scope.data.evaluation);
+							$scope.getEvaluation();
+						}
+					};
 					$scope.hasComment = function (question) {
 						return !Utility.empty(question.responseRecord) && !Utility.empty(question.responseRecord.ec) && question.responseRecord.ec.length > 0;
 					};
@@ -125,6 +147,7 @@ angular.module('app.controllers.common', [])
 						}
 						return null;
 					};
+
 					$scope.getRange = function (n) {
 						switch (Math.round(n)) {
 							case 1:
@@ -140,33 +163,47 @@ angular.module('app.controllers.common', [])
 						}
 						return $scope.r0;
 					};
+
 					$scope.weightGreaterThanZero = function () {
 						return function (item) {
 							return item.weight > 0;
 						}
 					};
-					$scope.updateResponse = function (question, value) {
-						if (!Utility.empty(question) && !Utility.empty(value)) {
-							question.responseRecord.ri = value;
-							$scope.data.recommdations = Evaluations.recommend($scope.data.currentInstrument, $scope.data.resources);
+
+					$scope.getRecommendations = function () {
+						if (!Utility.empty($scope.data.instrument) && !Utility.empty($scope.data.resources)) {
+							$scope.data.recommendations = Evaluations.recommend($scope.data.instrument, $scope.data.resources);
 						}
 					};
 
-					/** @todo Indermohan: This controller is always called with an evaluationId argument, and these lines always execute as expected.
-					 *  The data in the console is correct, but the view only updates itself sometimes.  Often the entire view is empty.
-					 */
-					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.evaluationId)) {
-						console.log("evaluation:", $stateParams.evaluationId);
-						Evaluations.retrieveSingle($stateParams.evaluationId).query(function (response) {
-							console.log("evaluation retrieved:", response);
-							if (!Utility.empty(response) && !Utility.empty($scope.data.instruments)) {
-								console.log("evaluation collation:", response);
-								Evaluations.collate($scope.data.instruments, $scope.data.members, response);
-							}
-							$scope.data.evaluation = response; //@todo THIS ONLY UPDATES THE VIEW SOMETIMES, which references data.evaluation
-							console.log("evaluation set:", $scope.data.evaluation);
-						});
-					}
+					$scope.updateResponse = function (question, value) {
+						if (!Utility.empty(question) && !Utility.empty(question.responseRecord) && !Utility.empty(value) && !Utility.empty($scope.data.resources) && !Utility.empty($scope.data.currentInstrument)) {
+							question.responseRecord.ri = parseInt(value);
+							$scope.getRecommendations();
+						}
+					};
+
+					$scope.updateSliderResponse = function (question) {
+						Evaluations.sliderChange(question, $scope.data.instrument);
+						$scope.getRecommendations();
+					};
+
+					$scope.getEvaluation = function () {
+						if (Utility.empty($scope.data.evaluation) && !Utility.empty($stateParams) && !Utility.empty($stateParams.evaluationId)) {
+							console.log("evaluation:", $stateParams.evaluationId);
+							Evaluations.retrieveSingle($stateParams.evaluationId).query(function (response) {
+								console.log("evaluation retrieved:", response);
+								if (!Utility.empty(response) && !Utility.empty($scope.data.instruments)) {
+									$scope.data.instrument = Utility.findObjectById($scope.data.instruments, response.instrumentId);
+									console.log("evaluation collation:", response);
+									Evaluations.collate($scope.data.instruments, $scope.data.members, response);
+								}
+								$scope.data.evaluation = response; //@todo THIS ONLY UPDATES THE VIEW SOMETIMES, which references data.evaluation
+								$scope.getRecommendations();
+								console.log("evaluation set:", $scope.data.evaluation);
+							});
+						}
+					};
 				})
 
 	.controller('EvaluationsCtrl', function ($scope, $stateParams, Utility, Evaluations, Members, Organizations) {
