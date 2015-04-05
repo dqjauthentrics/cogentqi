@@ -5,7 +5,7 @@
         <ion-list class="members">
             <ion-item class="gray" data-ng-if="!data.members.length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
             <ion-item class="item-icon-right" data-ng-repeat="member in data.members" type="item-text-wrap" href="#/manager/member/{{member.id}}">
-                <member-item member="member" m="Members" i="Icons"></member-item>
+                <member-item></member-item>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
         </ion-list>

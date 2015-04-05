@@ -67,50 +67,43 @@ angular.module('app.graphs', []).service('Graphs', function () {
 			]
 		};
 	};
-	this.columnGraphConfig = function (title, subTitle, xTitle, yTitle, data, useLevelColors) {
-		var massagedData = data;
-		for (var z = 0; z < massagedData.length; z++) {
-			if (useLevelColors) {
-				var clrIdx = Math.round(massagedData[z].y);
-				massagedData[z].color = this.setColor(clrIdx, this.levelColors);
-			}
-			else {
-				massagedData[z].color = this.setColor(z, this.regularColors);
-			}
-		}
+	this.columnGraphConfig = function (title, subTitle, xTitle, yTitle, maxY, xLabels, series) {
 		return {
-			chart: {type: 'column', backgroundColor: '#FFFFFF'},
-			title: {text: title, style: {textTransform: 'none'}},
-			subtitle: {text: subTitle, style: {textTransform: 'none'}},
-			credits: {enabled: false},
-			yAxis: {title: {text: yTitle, style: {textTransform: 'none'}}, tickInterval: 1, minorTickInterval: false},
-			xAxis: {
-				type: 'category',
-				title: {text: xTitle, style: {textTransform: 'none'}},
-				tickInterval: 1,
-				minorTickInterval: false,
-				gridLineWidth: 0
+			chart: {
+				type: 'column'
 			},
-			legend: {enabled: false},
-			series: [
-				{
-					name: yTitle,
-					showInLegend: false,
-					type: 'column',
-					point: {
-						events: {
-							click: function (e) {
-								if (!app.empty(this.options.url)) {
-									var idx = this.options.idx;
-									location.href = e.point.url + '/' + idx;
-									e.preventDefault();
-								}
-							}
-						}
-					},
-					data: massagedData
+			title: {
+				text: title
+			},
+			subtitle: {
+				text: subTitle
+			},
+			xAxis: {
+				categories: xLabels,
+				crosshair: true
+			},
+			yAxis: {
+				min: 0,
+				max: maxY,
+				title: {
+					text: yTitle
 				}
-			]
+			},
+			tooltip: {
+				headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+				pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+				'<td style="padding:0"><b>{point.label}</b></td></tr>',
+				footerFormat: '</table>',
+				shared: true,
+				useHTML: true
+			},
+			plotOptions: {
+				column: {
+					pointPadding: 0.2,
+					borderWidth: 0
+				}
+			},
+			series: series
 		}
 	};
 	this.lineGraphConfig = function (title, subTitle, xTitle, yTitle, data, useLevelColors) {

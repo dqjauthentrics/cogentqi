@@ -4,12 +4,12 @@
 
         <div style="float:left;">
             <div class="name">{{member.firstName}} {{member.lastName}}</div>
-            <div class="title">{{member.title}}</div>
-            <div class="role">({{m.roleName(member)}})</div>
-        </div>
+            <div class="title">{{member.jobTitle}}</div>
+            <div class="role" data-ng-if="member.roleName.length && member.roleName != member.jobTitle">({{member.roleName}})</div>
+         </div>
     </div>
     <div class="col col-30">
-        <micro-badge data-ng-if="m.numBadges(member) != '0'" text="m.numBadges(member)" size="'count'"></micro-badge>
+        <micro-badge data-ng-if="member.badges.length" text="member.badges.length + ''" size="'count'"></micro-badge>
     </div>
     <div class="col col-30">
         <div data-ng-if="member.lastEval">

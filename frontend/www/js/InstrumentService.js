@@ -12,6 +12,7 @@ angular.module('app.instruments', ['ngResource']).service('Instruments', functio
 	};
 	svc.collate = function (instruments) {
 		if (!Utility.empty(instruments)) {
+			console.log("collating instrument...");
 			for (var i = 0; i < instruments.length; i++) {
 				var instrument = instruments[i];
 				var groups = instrument.questionGroups;
@@ -96,6 +97,15 @@ angular.module('app.instruments', ['ngResource']).service('Instruments', functio
 		return names;
 	};
 
+	svc.getSectionNames = function (instrument) {
+		var names = [];
+		if (!Utility.empty(instrument) && !Utility.empty(instrument.sections)) {
+			for (var z = 0; z < instrument.sections.length; z++) {
+				names.push(instrument.sections[z].name);
+			}
+		}
+		return names;
+	};
 
 	svc.sectionViewAll = function () {
 		svc.currentSectionIdx = svc.SECTION_ALL;

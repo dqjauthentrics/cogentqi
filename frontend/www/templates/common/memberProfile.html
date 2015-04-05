@@ -1,18 +1,17 @@
 <div class="row row-responsive-sm">
     <div class="col col-25 padding">
 
-        <img data-ng-src="{{member.avatar}}" class="avatar-large">
+        <img data-ng-src="{{data.member.avatar}}" class="avatar-large">
 
-        <div class="name">{{member.firstName}} {{member.lastName}}</div>
-        <div class="title">{{member.jobTitle}}</div>
-        <div class="role" data-ng-if="role.length && role != member.jobTitle">({{role}})</div>
+        <div class="name">{{data.member.firstName}} {{data.member.lastName}}</div>
+        <div class="title">{{data.member.jobTitle}}</div>
+        <div class="role" data-ng-if="role.length && role != data.member.jobTitle">({{role}})</div>
     </div>
     <div class="col col-25 padding">
-        TCFG:{{rptConfigHx}}
         <h3>Badges</h3>
 
         <div>
-            <div data-ng-repeat="badge in member.badges">
+            <div data-ng-repeat="badge in data.member.badges">
                 <micro-badge text="badge.title" size="'small'"></micro-badge>
             </div>
         </div>
@@ -20,7 +19,7 @@
     <div class="col col-50 padding">
         <h3>Assessments To Date</h3>
 
-        <div data-ng-repeat="evaluation in member.evaluations">
+        <div data-ng-repeat="evaluation in data.member.evaluations">
             <a href="#/manager/evaluation/{{evaluation.id}}" style="color:#777; text-decoration: none;">
                 <i class="{{i.icons.evaluation}}"></i>
                 {{evaluation.lastModified}}
@@ -37,7 +36,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-ng-repeat="event in member.events">
+            <tr data-ng-repeat="event in data.member.events">
                 <td><i class="{{i.icons.event}}"></i></td>
                 <td>{{event.occurred}}</td>
                 <td>{{event.name}}</td>
@@ -47,17 +46,17 @@
         </table>
     </div>
 </div>
-<div class="row row-responsive-sm">
-    <div class="col col-100 padding">
-        <highchart id="memberHx_{{member.id}}" config="rptConfigHx"></highchart>
-    </div>
+<h2>Assessment Progress</h2>
+<div style="border: 1px solid gray; margin:4em;" data-ng-repeat="section in data.instrument.sections track by $index">
+    <highchart id="memberHx_{{section.id}}" config="data.member.rptConfigHx[$index].config"></highchart>
 </div>
 <style>
     .events td, .events th {
         color: red;
-        border: 0px solid #CCC;
+        border: 0 solid #CCC;
         padding: 0.3em;
     }
+
     .events th {
         background: #CCC;
         color: #000;

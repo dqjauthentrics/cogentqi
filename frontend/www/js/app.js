@@ -100,18 +100,10 @@ angular.module('app',
 				   };
 			   })
 	.directive('memberItem', function () {
-				   return {
-					   restrict: 'E',
-					   templateUrl: '../templates/common/memberItem.html',
-					   scope: {member: '=', m: '=', i: '='}
-				   };
+				   return {restrict: 'E', templateUrl: '../templates/common/memberItem.html'};
 			   })
 	.directive('memberProfile', function () {
-				   return {
-					   restrict: 'E',
-					   templateUrl: '../templates/common/memberProfile.html',
-					   scope: {member: '=', role: '=', rptConfigHx: '=', i: '='}
-				   };
+				   return {restrict: 'E', templateUrl: '../templates/common/memberProfile.html'};
 			   })
 	.directive('levelTag', function () {
 				   return {

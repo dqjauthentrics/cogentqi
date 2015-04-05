@@ -41,7 +41,7 @@ class Member extends Model {
 			$jsonEvals = [];
 			$eval = new Evaluation($this->api);
 			foreach ($evalRecords as $evalRecord) {
-				$eval->mapExcludes = ["responses"];
+				//$eval->mapExcludes = ["responses"];
 				$jsonEvals[] = $eval->map($evalRecord);
 			}
 			$associative["evaluations"] = $jsonEvals;

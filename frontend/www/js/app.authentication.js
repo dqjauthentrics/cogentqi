@@ -1,10 +1,13 @@
 'use strict';
 
-angular.module('app.authentication', []).service('Authentication', function ($http, $cookieStore, Utility) {
+angular.module('app.authentication', []).service('Authentication', function ($state, $http, $cookieStore, Utility) {
 	var svc = this;
 	svc.resultMsg = "";
 
 	svc.check = function () {
+		/**
+		 * @todo Use $state.go here, and will probably have to store the user.home differently for that use.
+		 */
 		var user = $cookieStore.get('user');
 		if (Utility.empty(user)) {
 			window.location.href = "/#/login";

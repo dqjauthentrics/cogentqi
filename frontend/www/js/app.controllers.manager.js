@@ -9,8 +9,8 @@ angular.module('app.controllers.manager', [])
 					});
 				})
 
-	.controller('MemberCtrl', function ($scope, $stateParams, Utility, Icons, Instruments, Organizations, Members, Evaluations) {
-					$scope.data = {myOrg: {}, organizations: [], instruments: [], member: {}, evaluations: []};
+	.controller('MemberCtrl', function ($scope, $stateParams, Utility, Icons, Instruments, Organizations, Members) {
+					$scope.data = {myOrg: {}, organizations: [], instruments: [], member: {}, evaluations: [], instrument: null};
 
 					$scope.Members = Members;
 					$scope.Icons = Icons;
@@ -20,19 +20,27 @@ angular.module('app.controllers.manager', [])
 					});
 					Instruments.retrieve().query(function (response) {
 						$scope.data.instruments = response;
+						$scope.setRptConfigHx();
 					});
 					Members.retrieve().query(function (response) {
 						$scope.data.members = response;
+						$scope.setRptConfigHx();
 					});
 
 					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 						Members.retrieveSingle($stateParams.memberId).query(function (response) {
 							response.roleName = Members.roleName(response);
-							response.rptConfigHx = Members.rptConfigHx($scope.data.instruments, $scope.data.member, response);
 							$scope.data.member = response;
-							console.log($scope.data.instruments, $scope.data.member, $scope.data.member);
+							$scope.setRptConfigHx();
 						});
 					}
+					$scope.setRptConfigHx = function () {
+						if (!Utility.empty($scope.data.member) && Utility.empty($scope.data.member.rptConfigHx) && !Utility.empty($scope.data.instruments) && !Utility.empty($scope.data.member.evaluations)) {
+							Instruments.collate($scope.data.instruments);
+							$scope.data.instrument = Utility.findObjectById($scope.data.instruments, $scope.data.member.evaluations[0].instrumentId);
+							$scope.data.member.rptConfigHx = Members.rptConfigHx($scope.data.instruments, $scope.data.member, $scope.data.member.evaluations);
+						}
+					};
 
 					$scope.getRptConfigHx = function () {
 						return $scope.data.member.rptConfigHx;
@@ -105,7 +113,8 @@ angular.module('app.controllers.manager', [])
 						$scope.data.learningModules = response;
 						if (!Utility.empty($scope.data.learningModules) && !Utility.empty($scope.data.resources)) {
 							for (var i = 0; i < $scope.data.learningModules.length; i++) {
-								$scope.data.learningModules[i].resource = Utility.findObjectById($scope.data.resources, $scope.data.learningModules[i].resourceId);
+								$scope.data.learningModules[i].resource =
+									Utility.findObjectById($scope.data.resources, $scope.data.learningModules[i].resourceId);
 							}
 						}
 					});
