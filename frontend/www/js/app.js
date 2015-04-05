@@ -110,7 +110,7 @@ angular.module('app',
 				   return {
 					   restrict: 'E',
 					   templateUrl: '../templates/common/memberProfile.html',
-					   scope: {member: '=', m: '=', e: '=', i: '='}
+					   scope: {member: '=', role: '=', rptConfigHx: '=', i: '='}
 				   };
 			   })
 	.directive('levelTag', function () {

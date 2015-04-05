@@ -47,19 +47,13 @@ angular.module('app.members', ['app.graphs']).service('Members', function ($reso
 		return roleName;
 	};
 
-	svc.findLastEvaluation = function (member) {
-		if (!Utility.empty(member) && !Utility.empty(member.evaluations)) {
-			return member.evaluations[0];
-		}
-		return null;
-	};
-
-	svc.rptConfigHx = function (instrument, member) {
+	svc.rptConfigHx = function (instruments, member, evaluations) {
 		var memberHx = null;
 		var series = [];
-		if (!Utility.empty(instrument) && !Utility.empty(member) && !Utility.empty(member.evaluations)) {
-			for (var i = 0; i < member.evaluations.length; i++) {
-				var evaluation = member.evaluations[i];
+		if (!Utility.empty(instruments) && !Utility.empty(member) && !Utility.empty(evaluations)) {
+			for (var i = 0; i < evaluations.length; i++) {
+				var evaluation = evaluations[i];
+				var instrument = Utility.findObjectById(instruments, evaluation.instrumentId);
 				var dataSet = [];
 				if (!Utility.empty(instrument)) {
 					for (var j = 0; j < instrument.questions.length; j++) {

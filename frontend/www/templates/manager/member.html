@@ -2,9 +2,12 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content class="padding detail" has-bouncing="false">
-        <member-profile member="data.member" m="Members" i="Icons"></member-profile>
+        CFG:{{getRptConfigHx()}}
+        <member-profile member="data.member" role="member.roleName" rptConfigHx="getRptConfigHx()" i="Icons"></member-profile>
         <div class="row">
-            <a class="button" href="#/manager/evaluation/n/{{data.member.id}}">New Assessment</a>
+            <button class="button button-balanced" href="#/manager/evaluation/n/{{data.member.id}}">
+                <i class="{{i.icons.add}}"></i> New Assessment
+            </button>
         </div>
     </ion-content>
 </ion-view>

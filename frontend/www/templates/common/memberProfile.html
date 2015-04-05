@@ -1,12 +1,14 @@
 <div class="row row-responsive-sm">
     <div class="col col-25 padding">
+
         <img data-ng-src="{{member.avatar}}" class="avatar-large">
 
         <div class="name">{{member.firstName}} {{member.lastName}}</div>
         <div class="title">{{member.jobTitle}}</div>
-        <div class="role" data-ng-if="m.roleName(member) != member.jobTitle">({{m.roleName(member)}})</div>
+        <div class="role" data-ng-if="role.length && role != member.jobTitle">({{role}})</div>
     </div>
     <div class="col col-25 padding">
+        TCFG:{{rptConfigHx}}
         <h3>Badges</h3>
 
         <div>
@@ -47,7 +49,7 @@
 </div>
 <div class="row row-responsive-sm">
     <div class="col col-100 padding">
-        <!--highchart id="memberHx_{{member.id}}" config="m.rptConfigHx(member)"></highchart-->
+        <highchart id="memberHx_{{member.id}}" config="rptConfigHx"></highchart>
     </div>
 </div>
 <style>

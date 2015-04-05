@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                     <div data-ng-switch-default=>
-                                        <slider id="question_item_{{question.id}}" class="slider{question.responseRecord.responseIndex}}"
+                                        <slider id="question_item_{{question.id}}" class="slider{{question.responseRecord.responseIndex}}"
                                                 data-ng-model="question.responseRecord.responseIndex" floor="0.0" ceiling="5" step-width="1"
                                                 data-ng-change="Evaluations.sliderChange(evaluation.instrument, question, this, true)"
                                                 translate-fn="Evaluations.sliderChange(evaluation.instrument, question, this, $index == 0)">

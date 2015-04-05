@@ -88,6 +88,9 @@ angular.module('app.controllers.common', [])
 					$scope.r5 = [1, 1, 1, 1, 1];
 					$scope.data = {myOrg: {}, organizations: [], instruments: [], members: [], recommendations: [], evaluation: {}};
 
+					/** @todo Retrieving too much data here. Retrieving current user's org should be done once at login and stored in user record.
+					 *        For a single evaluation, just retrieve a single Instrument and a single member and collate against only that one.
+					 */
 					Organizations.retrieveMine().query(function (response) {
 						$scope.data.myOrg = response;
 					});
@@ -97,9 +100,6 @@ angular.module('app.controllers.common', [])
 						if (!Utility.empty($scope.data.evaluation)) {
 							Evaluations.collate($scope.data.instruments, $scope.data.members, $scope.data.evaluation);
 						}
-					});
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
 					});
 					Members.retrieve().query(function (response) {
 						$scope.data.members = response;

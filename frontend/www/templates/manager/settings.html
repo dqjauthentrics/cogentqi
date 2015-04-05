@@ -2,9 +2,18 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
-        <div class="row">
-            <div class="col-80 col-offset-5">
+        <div class="row responsive-sm">
+            <h3>Photo</h3>
+
+            <div class="col col-50">
+                <img ng-src="{{lastPhoto}}" style="max-width: 100%">
+                <button data-ng-click="getPhoto()">Take a Picture</button>
+            </div>
+        </div>
+        <div class="row responsive-sm">
+            <div class="col col-100">
                 <ion-list type="card">
+                    <ion-item class="top">Settings for {{data.user.firstName}} {{data.user.lastName}}</ion-item>
                     <ion-item data-ng-repeat="setting in data.settings">
                         <ion-toggle data-ng-model="settings.v">{{setting.n}}</ion-toggle>
                     </ion-item>

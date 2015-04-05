@@ -10,7 +10,7 @@ angular.module('app.controllers.manager', [])
 				})
 
 	.controller('MemberCtrl', function ($scope, $stateParams, Utility, Icons, Instruments, Organizations, Members, Evaluations) {
-					$scope.data = {myOrg: {}, organizations: [], instruments: [], member: {}};
+					$scope.data = {myOrg: {}, organizations: [], instruments: [], member: {}, evaluations: []};
 
 					$scope.Members = Members;
 					$scope.Icons = Icons;
@@ -27,9 +27,16 @@ angular.module('app.controllers.manager', [])
 
 					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 						Members.retrieveSingle($stateParams.memberId).query(function (response) {
+							response.roleName = Members.roleName(response);
+							response.rptConfigHx = Members.rptConfigHx($scope.data.instruments, $scope.data.member, response);
 							$scope.data.member = response;
+							console.log($scope.data.instruments, $scope.data.member, $scope.data.member);
 						});
 					}
+
+					$scope.getRptConfigHx = function () {
+						return $scope.data.member.rptConfigHx;
+					};
 				})
 
 	.controller('OutcomeCtrl', function ($scope, Utility, Instruments, Organizations, Outcomes) {
