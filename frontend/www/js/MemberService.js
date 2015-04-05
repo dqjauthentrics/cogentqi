@@ -71,7 +71,6 @@ angular.module('app.members', ['app.graphs']).service('Members', function ($filt
 							xLabels.push(question.name);
 						}
 						var response = svc.findResponse(evaluation.responses, question.id);
-						console.log("TEXT:", response.r);
 						dataSet.push({label: response.r, y: parseInt(response.ri)});
 					}
 					series.push({id: i, type: 'column', name: $filter('date')(evaluation.lastModified, 'shortDate'), data: dataSet});
