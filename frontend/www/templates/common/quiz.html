@@ -1,0 +1,44 @@
+<div class="row responsive-sm quiz-area" data-ng-show="inProgress">
+    <div ng-show="!quizOver" class="col col-50 padding">
+        <h2 id="question">{{question}}</h2>
+        <ul id="options">
+            <li ng-repeat="option in options">
+                <label>
+                    <input type="radio" name="answer" value="{{option}}">
+                    {{option}}
+                </label>
+            </li>
+        </ul>
+    </div>
+    <div class="col col-50 padding">
+        <button class="button button-calm" data-ng-click="checkAnswer()" data-ng-show="answerMode">Check Answer</button>
+        <div data-ng-show="!answerMode">
+            <button class="button button-balanced next-question" data-ng-click="nextQuestion()">Next</button>
+            <div class="clearfix"></div>
+            <div data-ng-show="correctAns">That is correct!</div>
+            <div data-ng-show="!correctAns">Sorry, that is an incorrect answer.</div>
+        </div>
+    </div>
+
+    <div data-ng-show="quizOver" class="col col-50 padding">
+        <h2>Knowledge check is complete.</h2>
+        <button class="button button-assertive" data-ng-click="reset()">Check Yourself Again!</button>
+    </div>
+
+    <div id="score">
+        Score: {{score}}
+    </div>
+</div>
+<div class="intro" data-ng-show="!inProgress" style="margin:4em;">
+    <button id="startQuiz" data-ng-click="start()" class="button button-assertive">Knowledge Check</button>
+</div>
+<style>
+    .quiz-area li {
+        margin-top: 0.3em;
+        font-size: 1.2em;
+    }
+
+    .quiz-area div, .quiz-area button {
+        margin: 0.2em;
+    }
+</style>

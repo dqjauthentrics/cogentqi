@@ -19,6 +19,7 @@ angular.module('app',
 				   'app.settings',
 				   'app.utility',
 				   'app.authentication',
+				   'app.quiz',
 				   'app.organizations',
 				   'app.members',
 				   'app.evaluations',
@@ -133,6 +134,65 @@ angular.module('app',
 					   scope: {weight: '=', range: '='}
 				   };
 			   })
+	.directive('quiz', function (Quiz) {
+				   return {
+					   restrict: 'AE',
+					   scope: {},
+					   templateUrl: 'templates/common/quiz.html',
+					   link: function (scope, elem, attrs) {
+						   scope.start = function () {
+							   scope.id = 0;
+							   scope.quizOver = false;
+							   scope.inProgress = true;
+							   scope.getQuestion();
+						   };
+
+						   scope.reset = function () {
+							   scope.inProgress = false;
+							   scope.score = 0;
+						   };
+
+						   scope.getQuestion = function () {
+							   var q = Quiz.getQuestion(scope.id);
+							   if (q) {
+								   scope.question = q.question;
+								   scope.options = q.options;
+								   scope.answer = q.answer;
+								   scope.answerMode = true;
+							   }
+							   else {
+								   scope.quizOver = true;
+							   }
+						   };
+
+						   scope.checkAnswer = function () {
+							   if (!$('input[name=answer]:checked').length) {
+								   return;
+							   }
+
+							   var ans = $('input[name=answer]:checked').val();
+
+							   if (ans == scope.options[scope.answer]) {
+								   scope.score++;
+								   scope.correctAns = true;
+							   }
+							   else {
+								   scope.correctAns = false;
+							   }
+
+							   scope.answerMode = false;
+						   };
+
+						   scope.nextQuestion = function () {
+							   scope.id++;
+							   scope.getQuestion();
+						   };
+
+						   scope.reset();
+					   }
+				   }
+			   })
+
 	.filter('currentDateTime', [
 				'$filter', function ($filter) {
 					return function () {

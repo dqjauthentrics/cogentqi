@@ -76,7 +76,7 @@ angular.module('app.controllers.manager', [])
 					};
 				})
 
-	.controller('ResourceCtrl', function ($scope, $stateParams, Utility, LearningModules, Organizations, Resources) {
+	.controller('ResourceCtrl', function ($scope, $stateParams, Utility, LearningModules, Organizations, Resources, Quiz) {
 					$scope.data = {myOrg: {}, learningModules: [], resources: [], resource: {}};
 					$scope.playerVars = {controls: 2, autoplay: 0, modestbranding: 1, rel: 0, theme: 'light'};
 

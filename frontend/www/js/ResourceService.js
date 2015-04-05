@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.resources', ['app.utility']).service('Resources', function ($resource, $http, Utility) {
+angular.module('app.resources', []).service('Resources', function ($resource, $http, Utility) {
 	var svc = this;
 
 	svc.retrieve = function () {
