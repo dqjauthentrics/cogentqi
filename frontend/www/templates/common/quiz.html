@@ -9,24 +9,29 @@
                 </label>
             </li>
         </ul>
+        <button class="button button-calm" data-ng-click="checkAnswer()" data-ng-show="answerMode">Check Answer</button>
+        <div data-ng-show="!answerMode && !quizOver">
+            <button class="button button-positive next-question" data-ng-click="nextQuestion()">Next</button>
+        </div>
     </div>
     <div class="col col-50 padding">
-        <button class="button button-calm" data-ng-click="checkAnswer()" data-ng-show="answerMode">Check Answer</button>
-        <div data-ng-show="!answerMode">
-            <button class="button button-balanced next-question" data-ng-click="nextQuestion()">Next</button>
+        <div data-ng-show="!answerMode && !quizOver">
             <div class="clearfix"></div>
-            <div data-ng-show="correctAns">That is correct!</div>
-            <div data-ng-show="!correctAns">Sorry, that is an incorrect answer.</div>
+            <div data-ng-show="correctAns" style="color:darkgreen; background:#EEFFEE; border:1px solid darkgreen; padding: 1em; font-size:1.4em;">That is
+                correct!
+            </div>
+            <div data-ng-show="!correctAns" style="color:red; border:1px solid red; padding:1em; background:#FFEEEE; font-size:1.4em;">Sorry, that is an
+                incorrect answer.
+            </div>
+            <div data-ng-show="!correctAns">This area provides additional detail and help for wrong answers.</div>
         </div>
     </div>
 
     <div data-ng-show="quizOver" class="col col-50 padding">
         <h2>Knowledge check is complete.</h2>
-        <button class="button button-assertive" data-ng-click="reset()">Check Yourself Again!</button>
-    </div>
 
-    <div id="score">
-        Score: {{score}}
+        <div>Score: <b>{{score}}</b></div>
+        <button class="button button-assertive" data-ng-click="reset()">Check Yourself Again!</button>
     </div>
 </div>
 <div class="intro" data-ng-show="!inProgress" style="margin:4em;">
@@ -40,5 +45,8 @@
 
     .quiz-area div, .quiz-area button {
         margin: 0.2em;
+    }
+    .quiz-area button {
+        margin-top: 1em;
     }
 </style>

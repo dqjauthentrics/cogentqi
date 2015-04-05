@@ -5,7 +5,7 @@ angular.module('app.quiz', []).factory('Quiz', function () {
 		{
 			question: "What is the best way to verify a medication dosage?",
 			options: ["Read the Label", "Compare the Label to the Computer Result", "Ask the Pharmacist", "All of the Above"],
-			answer: 2
+			answer: 1
 		},
 		{
 			question: "Approximately how many medications are there?",
@@ -14,7 +14,7 @@ angular.module('app.quiz', []).factory('Quiz', function () {
 		},
 		{
 			question: "How do you assess a patient for allergies?",
-			options: ["Ask", "Look them up on the computer", "Look for Symptoms"],
+			options: ["Ask the Patient", "Look it up on the computer", "Look for Symptoms"],
 			answer: 0
 		}
 	];

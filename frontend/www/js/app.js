@@ -150,6 +150,7 @@ angular.module('app',
 						   scope.reset = function () {
 							   scope.inProgress = false;
 							   scope.score = 0;
+							   scope.start();
 						   };
 
 						   scope.getQuestion = function () {
@@ -169,9 +170,7 @@ angular.module('app',
 							   if (!$('input[name=answer]:checked').length) {
 								   return;
 							   }
-
 							   var ans = $('input[name=answer]:checked').val();
-
 							   if (ans == scope.options[scope.answer]) {
 								   scope.score++;
 								   scope.correctAns = true;
@@ -179,7 +178,6 @@ angular.module('app',
 							   else {
 								   scope.correctAns = false;
 							   }
-
 							   scope.answerMode = false;
 						   };
 
