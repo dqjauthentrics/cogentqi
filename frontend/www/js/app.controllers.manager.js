@@ -23,10 +23,13 @@ angular.module('app.controllers.manager', [])
 					});
 					Members.retrieve().query(function (response) {
 						$scope.data.members = response;
-						if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
-							$scope.data.member = Utility.findObjectById($scope.data.members, $stateParams.memberId);
-						}
 					});
+
+					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
+						Members.retrieveSingle($stateParams.memberId).query(function (response) {
+							$scope.data.member = response;
+						});
+					}
 				})
 
 	.controller('OutcomeCtrl', function ($scope, Utility, Instruments, Organizations, Outcomes) {
@@ -81,6 +84,7 @@ angular.module('app.controllers.manager', [])
 						}
 					});
 				})
+
 	.controller('PlanningCtrl', function ($scope, $stateParams, Utility, Organizations, LearningModules, Resources) {
 					$scope.data = {myOrg: {}, learningModules: [], resources: [], resource: {}};
 

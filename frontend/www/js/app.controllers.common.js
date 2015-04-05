@@ -94,6 +94,9 @@ angular.module('app.controllers.common', [])
 					Instruments.retrieve().query(function (response) {
 						$scope.data.instruments = response;
 						Instruments.collate($scope.data.instruments);
+						if (!Utility.empty($scope.data.evaluation)) {
+							Evaluations.collate($scope.data.instruments, $scope.data.members, $scope.data.evaluation);
+						}
 					});
 					Organizations.retrieveMine().query(function (response) {
 						$scope.data.myOrg = response;
@@ -156,7 +159,7 @@ angular.module('app.controllers.common', [])
 						console.log("evaluation:", $stateParams.evaluationId);
 						Evaluations.retrieveSingle($stateParams.evaluationId).query(function (response) {
 							console.log("evaluation retrieved:", response);
-							if (!Utility.empty(response)) {
+							if (!Utility.empty(response) && !Utility.empty($scope.data.instruments)) {
 								console.log("evaluation collation:", response);
 								Evaluations.collate($scope.data.instruments, $scope.data.members, response);
 							}

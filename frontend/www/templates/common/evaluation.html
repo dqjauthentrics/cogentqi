@@ -40,6 +40,7 @@
         </div>
         <div class="row responsive-sm detail">
             <div class="col col-100 evaluation">
+                <div style="display:none;">{{data.evaluation.last_modified}}</div>
                 <div id="section{{$index}}" data-ng-repeat="section in data.evaluation.instrument.sections" class="fadein fadeout">
                     <div data-ng-show="true||Instruments.sectionIsCurrent(data.evaluation.instrument, section.id)">
                         <div style="float:left; margin-left:1em;" data-ng-show="!Instruments.sectionIsFirst()">

@@ -20,6 +20,44 @@ class Model {
 
 	public $tableName = NULL;
 
+	public $colNameMap = [
+		'avatar'             => 'av',
+		'by_member_id'       => 'by',
+		'description'        => 'dsc',
+		'email'              => 'em',
+		'evaluation_id'      => 'ei',
+		'evaluator_comments' => 'ec',
+		'first_name'         => 'fn',
+		'instrument_id'      => 'ii',
+		'job_title'          => 'jt',
+		'last_name'          => 'ln',
+		'last_modified'      => 'lm',
+		'last_saved'         => 'ls',
+		'learning_module_id' => 'lmi',
+		'level'              => 'lv',
+		'location'           => 'loc',
+		'member_comments'    => 'mc',
+		'member_id'          => 'mi',
+		'name'               => 'n',
+		'number'             => 'nmb',
+		'organization_id'    => 'oi',
+		'outcome_id'         => 'oti',
+		'plan_item_id'       => 'pli',
+		'question_group_id'  => 'qg',
+		'question_id'        => 'qi',
+		'question_type_id'   => 'qt',
+		'resource_id'        => 'ri',
+		'resource_type_id'   => 'rti',
+		'role_id'            => 'r',
+		'rubric'             => 'ru',
+		'score'              => 'sc',
+		'score_rank'         => 'sr',
+		'sort_order'         => 'so',
+		'summary'            => 'sm',
+		'value'              => 'v',
+		'weight'             => 'wt',
+	];
+
 	/**
 	 * @param Api $this ->api
 	 */
@@ -92,7 +130,12 @@ class Model {
 			for ($i = 0; $i < count($columnNames); $i++) {
 				$colName = $columnNames[$i];
 				if (empty($this->mapExcludes) || !in_array($colName, $this->mapExcludes)) {
-					$jsonName = $this->colNameToJsonName($colName);
+					if (FALSE && !empty($this->colNameMap[$colName])) {
+						$jsonName = $this->colNameMap[$colName];
+					}
+					else {
+						$jsonName = $this->colNameToJsonName($colName);
+					}
 					if (in_array($colName, $this->dateTimeCols)) {
 						$jsonRecord[$jsonName] = @$this->dateTime($dbRecord[$colName]);
 					}

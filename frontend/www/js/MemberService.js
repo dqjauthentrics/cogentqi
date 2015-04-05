@@ -11,6 +11,14 @@ angular.module('app.members', ['app.graphs']).service('Members', function ($reso
 		return null;
 	};
 
+	svc.retrieveSingle = function (memberId) {
+		var user = $cookieStore.get('user');
+		if (!Utility.empty(user) && !Utility.empty(memberId)) {
+			return $resource('/api/member/' + memberId, {}, {query: {method: 'GET', isArray: false}});
+		}
+		return null;
+	};
+
 	svc.numBadges = function (member) {
 		var num = 0;
 		if (!Utility.empty(member) && !Utility.empty(member.badges)) {

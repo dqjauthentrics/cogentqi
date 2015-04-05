@@ -33,7 +33,7 @@
       <column name="evaluator_comments" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
       <column name="member_comments" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
       <column name="score" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
-      <column name="scoreRank" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="score_rank" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="evaluation_ibfk_1" columns="member_id" ref-table="member" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="evaluation_ibfk_2" columns="by_member_id" ref-table="member" ref-schema="" ref-catalog="cogentqi_v1_target" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>

@@ -11,7 +11,8 @@ class Evaluation extends Model {
 		$urlName = $this->urlName();
 		$this->api->get("/$urlName/organization/:orgId", function ($orgId = NULL) use ($urlName) {
 			$jsonRecords = [];
-			foreach ($this->api->db->evaluation()->where("member_id IN (SELECT id FROM member WHERE organization_id=?)", $orgId) as $dbRecord) {
+			$dbRecords = $this->api->db->evaluation()->where("member_id IN (SELECT id FROM member WHERE organization_id=?)", $orgId)->order("last_modified DESC");
+			foreach ($dbRecords as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
 			$this->api->sendResult($jsonRecords);
@@ -27,19 +28,30 @@ class Evaluation extends Model {
 
 		$this->api->get("/$urlName/matrix/:orgId/:instrumentId", function ($orgId, $instrumentId) use ($urlName) {
 			$jsonRecords = [];
+			$dbRecords = $this->api->db->evaluation()->select('member_id,max(last_modified) as maxMod')
+				->where('instrument_id=? AND member_id IN (SELECT id FROM member WHERE organization_id=?)', $instrumentId, $orgId)
+				->group('member_id');
+			$maxes = [];
+			foreach ($dbRecords as $dbRecord) {
+				$maxes[$dbRecord["member_id"]] = $dbRecord["maxMod"];
+			}
+
 			$dbRecords = $this->api->db->evaluation()->where("instrument_id=? AND member_id IN (SELECT id FROM member WHERE organization_id=?)", $instrumentId, $orgId);
 			foreach ($dbRecords as $dbRecord) {
-				$responses = [];
-				$memberId = $dbRecord["member_id"];
-				/** @todo These are not sorted by question sort_order!!! */
-				$responseRecords = $this->api->db->evaluation_response()->where("evaluation_id=?", $dbRecord["id"]);
-				foreach ($responseRecords as $responseRecord) {
-					$responses[] = (int)$responseRecord["response_index"];
+				if ($dbRecord["last_modified"] == $maxes[$dbRecord["member_id"]]) {
+					$responses = [];
+					$memberId = $dbRecord["member_id"];
+					/** @todo These are not sorted by question sort_order!!! */
+					$responseRecords = $this->api->db->evaluation_response()->where("evaluation_id=?", $dbRecord["id"]);
+					foreach ($responseRecords as $responseRecord) {
+						$responses[] = (int)$responseRecord["response_index"];
+					}
+					$jsonRecords[] = ['memberId' => $memberId, 'responses' => $responses];
 				}
-				$jsonRecords[] = ['memberId' => $memberId, 'responses' => $responses];
 			}
 			$this->api->sendResult($jsonRecords);
 		});
+
 		$this->api->get("/$urlName/matrix/rollup/:orgId/:instrumentId", function ($orgId, $instrumentId) use ($urlName) {
 			$jsonRecords = [];
 
@@ -57,7 +69,7 @@ class Evaluation extends Model {
 					$responseSets[$orgId] = [];
 					$orgNames[$orgId] = '';
 				}
-				$responseSets[$orgId][] = (double)number_format($dbRecord["response"],1);
+				$responseSets[$orgId][] = (double)number_format($dbRecord["response"], 1);
 				$orgNames[$orgId] = $dbRecord["name"];
 			}
 			foreach ($responseSets as $orgId => $responses) {
@@ -94,8 +106,8 @@ class Evaluation extends Model {
 				$associative["responses"] = $responses;
 			}
 		}
-		$associative["score"] = ($total > 0 && $nItems > 0 ? number_format($total / $nItems, 1) : 0);
-		$associative["scoreRank"] = round($associative["score"]);
+		$associative["sc"] = ($total > 0 && $nItems > 0 ? number_format($total / $nItems, 1) : 0);
+		$associative["sr"] = round($associative["sc"]);
 		return $associative;
 	}
 }
