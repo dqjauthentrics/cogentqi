@@ -3,6 +3,7 @@ namespace App;
 require_once "../lib/Evaluation.php";
 require_once "../lib/Badge.php";
 require_once "../lib/OutcomeEvent.php";
+require_once "../lib/PlanItem.php";
 
 class Member extends Model {
 
@@ -61,15 +62,9 @@ class Member extends Model {
 
 			$planRecords = $this->api->db->plan_item()->where('member_id', $member["id"])->order('status_stamp DESC');
 			$jsonPlanItems = [];
+			$planItem = new PlanItem($this->api);
 			foreach ($planRecords as $planRecord) {
-				$moduleName = $planRecord->learning_module->resource["name"];
-				$jsonPlanItems[] = [
-					'm'  => $planRecord["learning_module_id"],
-					's'  => $planRecord["status"],
-					'dt' => $this->dateTime($planRecord["status_stamp"]),
-					'n'  => $moduleName,
-					'r'  => $planRecord->learning_module["resource_id"]
-				];
+				$jsonPlanItems[] = $planItem->map($planRecord);
 			}
 			$associative["planItems"] = $jsonPlanItems;
 		}

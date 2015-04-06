@@ -2,7 +2,10 @@
     <ion-nav-buttons side="left"><a href="/#/professional/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <h1>{{data.user.firstName}} {{data.user.lastName}}</h1>
+        <h1 style="margin:0.5em">
+            <img data-ng-if="data.user.avatar" src="{{data.user.avatar}}" alt=""
+                 style="height: 12vmin; width: 12vmin; display: inline; vertical-align: middle;"/> {{data.user.firstName}} {{data.user.lastName}}
+        </h1>
 
         <div class="row responsive-sm">
             <div class="col col50 padding">
@@ -27,8 +30,8 @@
             <div class="col col50 padding">
                 <ion-list>
                     <ion-item class="top">Professional Development Plan</ion-item>
-                    <ion-item data-ng-if="!data.user.planItems.length">None.</ion-item>
-                    <ion-item class="item-icon-right" data-ng-repeat="item in data.user.planItems" type="item-text-wrap" href="#/manager/resource/{{item.r}}">
+                    <ion-item data-ng-if="!data.planItems.length">None.</ion-item>
+                    <ion-item class="item-icon-right" data-ng-repeat="item in data.planItems" type="item-text-wrap" href="#/manager/resource/{{item.r}}">
                         <div class="name">
                             <i class="{{i.icons.resource}} pad-right"></i>
                             {{item.n}}

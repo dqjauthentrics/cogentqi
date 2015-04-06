@@ -2,15 +2,15 @@
 
 angular.module('app.controllers.professional', [])
 
-	.controller('ProfDashboardCtrl', function ($cookieStore, $scope, Utility, Organizations, Members, Evaluations) {
-					$scope.data = {myOrg: {}, evaluations: [], members: [], user: $cookieStore.get('user')};
+	.controller('ProfDashboardCtrl', function ($cookieStore, $rootScope, $scope, Utility, Organizations, Members, Evaluations, Plans) {
+					$scope.data = {evaluations: [], members: [], planItems: [], user: $cookieStore.get('user')};
 
 					Members.retrieve().query(function (response) {
 						$scope.data.members = response;
 						$scope.associate("members");
 					});
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
+					Plans.retrieve($scope.data.user.id).query(function (response) {
+						$scope.data.planItems = response;
 					});
 					Evaluations.retrieveForMember($scope.data.user.id).query(function (response) {
 						$scope.data.evaluations = response;
@@ -18,7 +18,6 @@ angular.module('app.controllers.professional', [])
 					});
 					$scope.associate = function (lbl) {
 						if (!Utility.empty($scope.data.evaluations) && !Utility.empty($scope.data.members)) {
-							console.log("associate:", lbl);
 							Evaluations.associateMembers($scope.data.evaluations, $scope.data.members);
 						}
 					};
@@ -42,12 +41,9 @@ angular.module('app.controllers.professional', [])
 	.controller('ProfHelpCtrl', function ($scope) {
 				})
 
-	.controller('ProfSettingsCtrl', function ($cookieStore, $scope, Utility, Organizations, Settings, Camera) {
-					$scope.data = {myOrg: {}, settings: [], user: $cookieStore.get('user')};
+	.controller('ProfSettingsCtrl', function ($scope, Utility, Organizations, Settings, Camera) {
+					$scope.data = {settings: []};
 
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
-					});
 					Settings.retrieve().query(function (response) {
 						$scope.data.settings = response;
 					});

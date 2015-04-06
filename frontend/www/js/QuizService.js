@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('app.quiz', []).factory('Quiz', function () {
+	var passingScore = 3;
 	var questions = [
 		{
 			question: "What is the best way to verify a medication dosage?",
@@ -20,13 +21,12 @@ angular.module('app.quiz', []).factory('Quiz', function () {
 	];
 
 	return {
+		getPassingScore: function () {
+			return passingScore;
+		},
 		getQuestion: function (id) {
-			if (id < questions.length) {
-				return questions[id];
-			}
-			else {
-				return false;
-			}
+			return (id < questions.length) ? questions[id] : false;
 		}
 	};
-});
+})
+;

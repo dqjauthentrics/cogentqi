@@ -13,7 +13,7 @@
         <div class="row responsive-sm">
             <div class="col col-100">
                 <ion-list type="card">
-                    <ion-item class="top">Settings for {{data.user.firstName}} {{data.user.lastName}}</ion-item>
+                    <ion-item class="top">Settings for {{user.firstName}} {{user.lastName}}</ion-item>
                     <ion-item data-ng-repeat="setting in data.settings">
                         <ion-toggle data-ng-model="settings.v">{{setting.n}}</ion-toggle>
                     </ion-item>

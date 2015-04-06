@@ -29,7 +29,7 @@ angular.module('app.controllers.common', [])
 					$scope.Members = Members; //@todo Is this needed in views/directives?
 					$scope.Utility = Utility;
 
-					$scope.data = {myOrg: {}, organizations: [], instruments: [], members: [], currentInstrument: {}, currentInstrumentId: 1};
+					$scope.data = {organizations: [], instruments: [], members: [], currentInstrument: {}, currentInstrumentId: 1};
 
 					Instruments.retrieve().query(function (response) {
 						$scope.data.instruments = response;
@@ -37,9 +37,6 @@ angular.module('app.controllers.common', [])
 						if (!Utility.empty(response)) {
 							$scope.setCurrentInstrument(response[0].id);
 						}
-					});
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
 					});
 					Members.retrieve().query(function (response) {
 						$scope.data.members = response;
@@ -87,7 +84,6 @@ angular.module('app.controllers.common', [])
 					$scope.r4 = [1, 1, 1, 1];
 					$scope.r5 = [1, 1, 1, 1, 1];
 					$scope.data = {
-						myOrg: {},
 						organizations: [],
 						instruments: [],
 						members: [],
@@ -115,9 +111,6 @@ angular.module('app.controllers.common', [])
 						$scope.data.resources = response;
 						$scope.collateEvaluations();
 						$scope.getEvaluation();
-					});
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
 					});
 
 					$scope.collateEvaluations = function () {
@@ -202,11 +195,8 @@ angular.module('app.controllers.common', [])
 				})
 
 	.controller('EvaluationsCtrl', function ($scope, $stateParams, Utility, Evaluations, Members, Organizations) {
-					$scope.data = {myOrg: {}, members: [], evaluations: []};
+					$scope.data = {members: [], evaluations: []};
 
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
-					});
 					Members.retrieve().query(function (response) {
 						$scope.data.members = response;
 					});

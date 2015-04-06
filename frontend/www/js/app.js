@@ -17,6 +17,7 @@ angular.module('app',
 				   'app.icons',
 				   'app.instruments',
 				   'app.settings',
+				   'Plans',
 				   'app.utility',
 				   'app.authentication',
 				   'app.quiz',
@@ -53,15 +54,6 @@ angular.module('app',
 				 if (parts.length > 1 && parts[(parts.length - 1)] == "com") {
 					 operationalMode = "Production";
 				 }
-				 angularLoad.loadCSS('css/themes/' + subdomain + '.css').then(function () {
-				 }).catch(function () {
-				 });
-				 angularLoad.loadScript('js/config/' + subdomain + '/installation.js').then(function () {
-					 $rootScope.installation = installation;
-					 $rootScope.installation.subdomain = subdomain;
-					 $rootScope.installation.operationalMode = operationalMode;
-				 }).catch(function () {
-				 });
 
 				 // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 				 // for form inputs)
@@ -73,6 +65,16 @@ angular.module('app',
 					 StatusBar.styleDefault();
 				 }
 
+				 angularLoad.loadCSS('css/themes/' + subdomain + '.css').then(function () {
+				 }).catch(function () {
+				 });
+				 angularLoad.loadScript('js/config/' + subdomain + '/installation.js').then(function () {
+					 $rootScope.installation = installation;
+					 $rootScope.installation.subdomain = subdomain;
+					 $rootScope.installation.operationalMode = operationalMode;
+				 }).catch(function () {
+				 });
+
 				 $rootScope.checkSession = function () {
 					 Authentication.check();
 				 };
@@ -81,12 +83,11 @@ angular.module('app',
 					 window.location.href = "/#/login";
 					 return 'logged out';
 				 };
-				 $rootScope.checkSession();
-				 $rootScope.user = $cookieStore.get('user');
-
 				 $rootScope.dashboardUrl = function () {
 					 return Authentication.getUserDashUrl($cookieStore.get('user'));
 				 };
+
+				 $rootScope.checkSession();
 			 });
 		 })
 
@@ -97,7 +98,7 @@ angular.module('app',
 				   return {
 					   restrict: 'E',
 					   templateUrl: '../templates/common/dashboardCycle.html',
-					   scope: {Members: '=', role: '=', user: '=', jobtitle: '='}
+					   scope: {Members: '=', role: '=', member: '=', jobtitle: '='}
 				   };
 			   })
 	.directive('memberItem', function () {
@@ -140,17 +141,24 @@ angular.module('app',
 					   scope: {},
 					   templateUrl: 'templates/common/quiz.html',
 					   link: function (scope, elem, attrs) {
+
 						   scope.start = function () {
 							   scope.id = 0;
 							   scope.quizOver = false;
+							   scope.showingResults = false;
 							   scope.inProgress = true;
 							   scope.getQuestion();
 						   };
 
 						   scope.reset = function () {
 							   scope.inProgress = false;
+							   scope.showingResults = false;
 							   scope.score = 0;
-							   scope.start();
+							   scope.id = 0;
+						   };
+
+						   scope.isPassingScore = function () {
+							   return scope.quizOver && scope.score == scope.getPassingScore();
 						   };
 
 						   scope.getQuestion = function () {
@@ -163,7 +171,12 @@ angular.module('app',
 							   }
 							   else {
 								   scope.quizOver = true;
+								   scope.showingResults = true;
 							   }
+						   };
+
+						   scope.getPassingScore = function () {
+							   return Quiz.getPassingScore();
 						   };
 
 						   scope.checkAnswer = function () {

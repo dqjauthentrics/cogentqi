@@ -1,5 +1,5 @@
 <div class="row responsive-sm quiz-area" data-ng-show="inProgress">
-    <div ng-show="!quizOver" class="col col-50 padding">
+    <div data-ng-show="!quizOver" class="col col-50 padding">
         <h2 id="question">{{question}}</h2>
         <ul id="options">
             <li ng-repeat="option in options">
@@ -17,24 +17,34 @@
     <div class="col col-50 padding">
         <div data-ng-show="!answerMode && !quizOver">
             <div class="clearfix"></div>
-            <div data-ng-show="correctAns" style="color:darkgreen; background:#EEFFEE; border:1px solid darkgreen; padding: 1em; font-size:1.4em;">That is
-                correct!
+            <div data-ng-show="correctAns" class="positive">
+                That is correct.
             </div>
-            <div data-ng-show="!correctAns" style="color:red; border:1px solid red; padding:1em; background:#FFEEEE; font-size:1.4em;">Sorry, that is an
-                incorrect answer.
+            <div data-ng-show="!correctAns" class="negative">
+                Sorry, your answer was incorrect.
             </div>
             <div data-ng-show="!correctAns">This area provides additional detail and help for wrong answers.</div>
         </div>
     </div>
-
-    <div data-ng-show="quizOver" class="col col-50 padding">
+</div>
+<div class="row responsive-sm quiz-area" data-ng-show="showingResults">
+    <div class="col col-50 padding">
         <h2>Knowledge check is complete.</h2>
 
-        <div>Score: <b>{{score}}</b></div>
+        <h3>Score: {{score}}</h3>
+    </div>
+    <div class="col col-50 padding">
+        <div data-ng-show="isPassingScore()" class="positive">
+            Congratulations! You've completed this module and earned a badge.
+        </div>
+        <div data-ng-show="!isPassingScore()" class="negative">
+            Sorry, you didn't score well enough to complete this module. Please revisit the module content and ask for help on anything you don't
+            understand.
+        </div>
         <button class="button button-assertive" data-ng-click="reset()">Check Yourself Again!</button>
     </div>
 </div>
-<div class="intro" data-ng-show="!inProgress" style="margin:4em;">
+<div class="intro" data-ng-show="!inProgress && !showingResults" style="margin:4em;">
     <button id="startQuiz" data-ng-click="start()" class="button button-assertive">Knowledge Check</button>
 </div>
 <style>
@@ -46,7 +56,26 @@
     .quiz-area div, .quiz-area button {
         margin: 0.2em;
     }
+
     .quiz-area button {
         margin-top: 1em;
+    }
+
+    .positive {
+        color: darkgreen;
+        background: #EEFFEE;
+        border: 1px solid darkgreen;
+        padding: 1em;
+        font-size: 1.4em;
+        border-radius: 1em;
+    }
+
+    .negative {
+        color: red;
+        border: 1px solid red;
+        padding: 1em;
+        background: #FFEEEE;
+        font-size: 1.4em;
+        border-radius: 1em;
     }
 </style>

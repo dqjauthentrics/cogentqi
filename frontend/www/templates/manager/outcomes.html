@@ -4,7 +4,7 @@
     <ion-content has-bouncing="false">
         <div style="height:1em;"></div>
         <ion-list>
-            <ion-item class="top"><h2>{{data.myOrg.name}} Status</h2></ion-item>
+            <ion-item class="top"><h2>{{user.orgName}} Status</h2></ion-item>
             <ion-item class="gray" data-ng-if="!data.outcomes.length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
             <ion-item data-ng-repeat="outcome in data.outcomes" type="item-text-wrap">
                 <div class="detail">

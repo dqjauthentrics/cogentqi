@@ -7,7 +7,7 @@ angular.module('app.controllers.administrator', [])
 					$scope.Members = Members; //@todo Is this needed in views/directives?
 					$scope.Utility = Utility;
 
-					$scope.data = {myOrg: {}, organizations: [], instruments: [], currentInstrument: {}, currentInstrumentId: 1};
+					$scope.data = {organizations: [], instruments: [], currentInstrument: {}, currentInstrumentId: 1};
 
 					Instruments.retrieve().query(function (response) {
 						$scope.data.instruments = response;
@@ -16,9 +16,6 @@ angular.module('app.controllers.administrator', [])
 							$scope.setCurrentInstrument(response[0].id);
 						}
 						console.log("retrieved instruments:", $scope.data, response);
-					});
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
 					});
 					Organizations.retrieve().query(function (response) {
 						$scope.data.organizations = response;
@@ -56,11 +53,8 @@ angular.module('app.controllers.administrator', [])
 				})
 
 	.controller('AdminOutcomeCtrl', function ($scope, $stateParams, Utility, Organizations, Resources, Outcomes) {
-					$scope.data = {orgOutcomes: [], myOrg: {}, organizations: [], resources: [], currentOrg: {}};
+					$scope.data = {orgOutcomes: [], organizations: [], resources: [], currentOrg: {}};
 
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
-					});
 					Organizations.retrieve().query(function (response) {
 						$scope.data.organizations = response;
 						$scope.setCurrentOrg(response[0]);
@@ -206,13 +200,10 @@ angular.module('app.controllers.administrator', [])
 					};
 				})
 	.controller('AdminMemberCtrl', function ($scope, Utility, Organizations, Members) {
-					$scope.data = {myOrg: {}, organizations: [], currentMembers: [], currentOrg: {}};
+					$scope.data = {organizations: [], currentMembers: [], currentOrg: {}};
 
 					$scope.Members = Members;  //@todo currently need to pass through to memberItem tag
 
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
-					});
 					Organizations.retrieve().query(function (response) {
 						$scope.data.organizations = response;
 						$scope.setCurrentOrg(response[0]);  // @todo This shows up in the console, but does not update the view!
@@ -229,17 +220,11 @@ angular.module('app.controllers.administrator', [])
 					};
 				})
 	.controller('AdminDashboardCtrl', function ($scope, Utility, Organizations) {
-					$scope.data = {myOrg: {}, organizations: [], currentMembers: [], currentOrg: {}};
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
-					});
+					$scope.data = {organizations: [], currentMembers: [], currentOrg: {}};
 				})
 	.controller('AdminConfigurationCtrl', function ($scope, Instruments, Organizations, Resources, Outcomes) {
-					$scope.data = {myOrg: {}, organizations: [], instruments: [], resources: [], outcomes: []};
+					$scope.data = {organizations: [], instruments: [], resources: [], outcomes: []};
 
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
-					});
 					Organizations.retrieve().query(function (response) {
 						$scope.data.organizations = response;
 					});

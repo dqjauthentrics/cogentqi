@@ -22,8 +22,15 @@ class Authentication extends Model {
 			$record = $this->api->db->member()->where('username=?', $args["username"])->fetch();
 			$user = NULL;
 			if (!empty($record)) {
-				$member = new Member($this->api);
-				$user = $member->map($record);
+				$user = [
+					'id'             => $record["id"],
+					'firstName'      => $record["first_name"],
+					'lastName'       => $record["last_name"],
+					'roleId'         => $record["role_id"],
+					'organizationId' => $record["organization_id"],
+					'orgName'        => $record->organization["name"],
+					'avatar'         => $record["avatar"],
+				];
 			}
 			$this->set($user);
 			$this->api->sendResult($user);

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.authentication', []).service('Authentication', function ($state, $http, $cookieStore, Utility) {
+angular.module('app.authentication', []).service('Authentication', function ($rootScope, $state, $http, $cookieStore, Utility) {
 	var svc = this;
 	svc.resultMsg = "";
 
@@ -9,6 +9,7 @@ angular.module('app.authentication', []).service('Authentication', function ($st
 		 * @todo Use $state.go here, and will probably have to store the user.home differently for that use.
 		 */
 		var user = $cookieStore.get('user');
+		console.log("auth check() get:", user);
 		if (Utility.empty(user)) {
 			window.location.href = "/#/login";
 		}
@@ -21,6 +22,7 @@ angular.module('app.authentication', []).service('Authentication', function ($st
 	};
 
 	svc.logout = function () {
+		console.log("removing user!!!");
 		$cookieStore.remove('user');
 	};
 
@@ -55,7 +57,9 @@ angular.module('app.authentication', []).service('Authentication', function ($st
 									data.home = svc.getUserDashUrl(data);
 								}
 								$cookieStore.put('user', data);
-								//console.log("USER:", $cookieStore.get('user'));
+								$rootScope.user = $cookieStore.get('user');
+								console.log("$rootScope user:", $rootScope.user);
+								console.log("auth login user:", $cookieStore.get('user'));
 								svc.check();
 							}).
 					error(function (data, status, headers, config) {

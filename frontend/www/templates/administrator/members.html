@@ -6,7 +6,7 @@
         <div class="row responsive-sm">
             <div class="col col-25">
                 <ion-list>
-                    <ion-item class="header">{{data.myOrg.name}} Organizations</ion-item>
+                    <ion-item class="header">{{user.orgName}} Organizations</ion-item>
                     <ion-item data-ng-class="isCurrent(organization)? 'active':''" class="item-icon-right" data-ng-repeat="organization in data.organizations"
                               type="item-text-wrap" data-ng-click="setCurrentOrg(organization)">
                         <i class="{{i.icons.organization}}"></i> {{organization.name}}

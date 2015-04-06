@@ -176,6 +176,7 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 	$urlRouterProvider.otherwise(function ($injector, $location) {
 		var $cookieStore = $injector.get('$cookieStore');
 		var user = $cookieStore.get('user');
+		console.log("routes:", user);
 		if (user !== undefined && user !== null) {
 			return user.home;
 		}

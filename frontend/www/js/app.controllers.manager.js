@@ -3,21 +3,14 @@
 angular.module('app.controllers.manager', [])
 
 	.controller('DashboardCtrl', function ($scope, Organizations) {
-					$scope.data = {myOrg: {}};
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
-					});
 				})
 
 	.controller('MemberCtrl', function ($scope, $stateParams, Utility, Icons, Instruments, Organizations, Members) {
-					$scope.data = {myOrg: {}, organizations: [], instruments: [], member: {}, evaluations: [], instrument: null};
+					$scope.data = {organizations: [], instruments: [], member: {}, evaluations: [], instrument: null};
 
 					$scope.Members = Members;
 					$scope.Icons = Icons;
 
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
-					});
 					Instruments.retrieve().query(function (response) {
 						$scope.data.instruments = response;
 						$scope.setRptConfigHx();
@@ -48,11 +41,8 @@ angular.module('app.controllers.manager', [])
 				})
 
 	.controller('OutcomeCtrl', function ($scope, Utility, Instruments, Organizations, Outcomes) {
-					$scope.data = {myOrg: {}, learningModules: []};
+					$scope.data = {learningModules: []};
 
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
-					});
 					Instruments.retrieve().query(function (response) {
 						$scope.data.instruments = response;
 					});
@@ -77,12 +67,9 @@ angular.module('app.controllers.manager', [])
 				})
 
 	.controller('ResourceCtrl', function ($scope, $stateParams, Utility, LearningModules, Organizations, Resources, Quiz) {
-					$scope.data = {myOrg: {}, learningModules: [], resources: [], resource: {}};
+					$scope.data = {learningModules: [], resources: [], resource: {}};
 					$scope.playerVars = {controls: 2, autoplay: 0, modestbranding: 1, rel: 0, theme: 'light'};
 
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
-					});
 					LearningModules.retrieve().query(function (response) {
 						$scope.data.learningModules = response;
 					});
@@ -102,14 +89,11 @@ angular.module('app.controllers.manager', [])
 
 	.controller('PlanningCtrl', function ($scope, $stateParams, Utility, Organizations, LearningModules, Resources) {
 					var collated = false;
-					$scope.data = {myOrg: {}, learningModules: [], resources: [], resource: {}};
+					$scope.data = {learningModules: [], resources: [], resource: {}};
 
 					Resources.retrieve().query(function (response) {
 						$scope.data.resources = response;
 						$scope.collate();
-					});
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
 					});
 					LearningModules.retrieve().query(function (response) {
 						$scope.data.learningModules = response;
@@ -127,11 +111,8 @@ angular.module('app.controllers.manager', [])
 				})
 
 	.controller('SettingsCtrl', function ($scope, Organizations, Settings) {
-					$scope.data = {myOrg: {}, settings: []};
+					$scope.data = {settings: []};
 
-					Organizations.retrieveMine().query(function (response) {
-						$scope.data.myOrg = response;
-					});
 					Settings.retrieve().query(function (response) {
 						$scope.data.settings = response;
 					});
