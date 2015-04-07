@@ -2,7 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d363135-d755-4645-a82c-7b84e720bd47" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/professional/settings.html" afterPath="$PROJECT_DIR$/frontend/www/templates/professional/settings.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/examples/img/photo1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/examples/img/photo2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/examples/img/photo3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/.bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/Gruntfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/HISTORY.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/examples/sass/_normalize.sass" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/src/color-thief.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/dist/color-thief.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/examples/js/demo.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/examples/js/jquery.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/examples/js/mustache.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/package.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/quantize.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/examples/css/screen.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/lib/color-thief/examples/sass/screen.sass" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="seeqi.iws" />
@@ -84,8 +102,8 @@
       <file leaf-file-name="settings.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/frontend/www/templates/professional/settings.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6727273" vertical-offset="0" max-vertical-offset="1545">
-              <caret line="37" column="12" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="12" />
+            <state vertical-scroll-proportion="-0.044848483" vertical-offset="712" max-vertical-offset="1545">
+              <caret line="45" column="55" selection-start-line="45" selection-start-column="55" selection-end-line="45" selection-end-column="55" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
@@ -639,12 +657,6 @@
       <option name="number" value="Default" />
       <updated>1425653813105</updated>
     </task>
-    <task id="LOCAL-00050" summary="Ongoing development.">
-      <created>1427383460881</created>
-      <option name="number" value="00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1427383460881</updated>
-    </task>
     <task id="LOCAL-00051" summary="Ongoing development.">
       <created>1427386035002</created>
       <option name="number" value="00051" />
@@ -933,7 +945,13 @@
       <option name="project" value="LOCAL" />
       <updated>1428408999027</updated>
     </task>
-    <option name="localTasksCounter" value="99" />
+    <task id="LOCAL-00099" summary="Ongoing development.">
+      <created>1428409422351</created>
+      <option name="number" value="00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1428409422351</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1394,8 +1412,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/www/templates/professional/settings.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6727273" vertical-offset="0" max-vertical-offset="1545">
-          <caret line="37" column="12" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="12" />
+        <state vertical-scroll-proportion="-0.044848483" vertical-offset="712" max-vertical-offset="1545">
+          <caret line="45" column="55" selection-start-line="45" selection-start-column="55" selection-end-line="45" selection-end-column="55" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
