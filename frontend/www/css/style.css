@@ -11,7 +11,10 @@ textarea {
 a:hover {
     opacity: 0.8;
 }
-
+.button-small {
+    font-weight: bold;
+    margin: 0.4em;
+}
 .pad-right {
     margin-right: 0.4em;
 }

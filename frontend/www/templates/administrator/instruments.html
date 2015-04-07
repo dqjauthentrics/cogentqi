@@ -1,0 +1,23 @@
+<ion-view view-title="Assessment Instruments">
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
+    <ion-content has-bouncing="false">
+        <div class="row row-responsive-sm">
+            <div class="col">
+                <ion-list>
+                    <ion-item class="top"><h2>Assessment Instruments</h2></ion-item>
+                    <ion-item class="gray" data-ng-if="!data.instruments.length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
+                    <ion-item class="item item-icon-right item-text-wrap" data-ng-repeat="instrument in data.instruments"
+                              href="#/administrator/instrument/{{instrument.id}}">
+                        <div class="name">{{instrument.name}}</div>
+                        <div class="summary">{{instrument.summary}}</div>
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                    </ion-item>
+                    <ion-item>
+                        <button onclick="alert('TBD');" class="button button-balanced"><i class="{{i.icons.add}} fa-lg"></i> Add Instrument</button>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

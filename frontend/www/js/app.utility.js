@@ -39,6 +39,17 @@ angular.module('app.utility', []).factory('Utility', [
 				}
 				return key;
 			},
+			getResource: function (result, successFn) {
+				try {
+					if (result) {
+						result.query(successFn);
+					}
+				}
+				catch (exception) {
+					console.log("EXCEPTION(getResource):", exception);
+				}
+			},
+
 			round: function (value, exp) {
 				if (typeof exp === 'undefined' || +exp === 0) {
 					return Math.round(value);

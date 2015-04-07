@@ -15,13 +15,11 @@ angular.module('app.controllers.administrator', [])
 						if (!Utility.empty(response)) {
 							$scope.setCurrentInstrument(response[0].id);
 						}
-						console.log("retrieved instruments:", $scope.data, response);
 					});
 					Organizations.retrieve().query(function (response) {
 						$scope.data.organizations = response;
 					});
 					Evaluations.retrieveMatrix($scope.data.currentInstrument, false).query(function (response) {
-						console.log("retrieved matrix:", $scope.data, response);
 						$scope.data.matrix = response;
 					});
 
@@ -30,17 +28,12 @@ angular.module('app.controllers.administrator', [])
 					}
 
 					$scope.setCurrentInstrument = function (instrumentId) {
-						console.log("set current instrument", instrumentId);
 						if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
 							$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
 							$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
-							//Instruments.currentSectionIdx = 0;
-							console.log("set current:", $scope.data.currentInstrument);
 							Evaluations.retrieveMatrix($scope.data.currentInstrument.id, true).query(function (response) {
 								$scope.data.matrix = response;
-								console.log("matrix retrieved:", $scope.data.matrix);
 								Evaluations.calcMatrixAverages($scope.data.currentInstrument, $scope.data.matrix, true);
-								console.log("matrix totals:", $scope.data.matrix);
 							});
 						}
 					};
@@ -142,7 +135,8 @@ angular.module('app.controllers.administrator', [])
 								rubric = 'This outcome is unacceptable.  Urgent action is required.';
 								break;
 							case 2:
-								rubric = 'The level of performance for this outcome is acceptable and within the range of normal, but there is room for improvement.';
+								rubric =
+									'The level of performance for this outcome is acceptable and within the range of normal, but there is room for improvement.';
 								break;
 							case 3:
 								rubric = 'This performance level is excellent, exceeding the prescribed normal minimums.  No action is required.';
@@ -151,54 +145,102 @@ angular.module('app.controllers.administrator', [])
 						return rubric;
 					};
 				})
-	.controller('AdminAlignmentCtrl', function ($scope, $stateParams, Utility, Instruments, Resources, Outcomes) {
-					$scope.instruments = Instruments.retrieve();
-					$scope.outcomes = Outcomes.retrieve();
-					$scope.resources = Resources.retrieve();
-					$scope.resource = null;
-					$scope.outcome = null;
-					$scope.questions = null;
-					$scope.alignments = null;
-					$scope.currentInstrument = Instruments.getcurrent();
-					$scope.currentInstrumentId = Instruments.currentInstrumentId;
 
-					if (!Utility.empty($stateParams)) {
-						var resourceId = $stateParams.resourceId;
-						if (!Utility.empty(resourceId)) {
-							$scope.resource = Resources.find(resourceId);
-							$scope.resource.location = 'modules/' + $scope.resource.number.toLowerCase() + '.html';
-							$scope.alignments = Resources.findAlignments($scope.currentInstrument, resourceId);
+	.controller('AdminAlignmentCtrl', function ($scope, $stateParams, Utility, Instruments, Resources, Outcomes) {
+					$scope.data = {alignments: [], instruments: [], outcomes: [], resources: [], resource: {}, currentInstrument: null, currentInstrumentId: 1};
+
+					Utility.getResource(Instruments.retrieve(), function (response) {
+						$scope.data.instruments = response;
+						Instruments.collate($scope.data.instruments);
+						if (!Utility.empty(response)) {
+							$scope.setCurrentInstrument(response[0].id);
 						}
-						var outcomeId = $stateParams.outcomeId;
-						if (!Utility.empty(outcomeId)) {
-							$scope.outcome = Outcomes.find(outcomeId);
+					});
+					Utility.getResource(Resources.retrieve(), function (response) {
+						$scope.data.resources = response;
+						$scope.setResource();
+					});
+					Utility.getResource(Outcomes.retrieve(), function (response) {
+						$scope.data.outcomes = response;
+						$scope.setOutcome();
+					});
+
+					$scope.setResourceAlignments = function () {
+						if (!Utility.empty($scope.data.resource) && !Utility.empty($scope.data.currentInstrument)) {
+							$scope.data.alignments = {};
+							for (var z = 0; z < $scope.data.currentInstrument.questions.length; z++) {
+								var questionId = $scope.data.currentInstrument.questions[z].id;
+								$scope.data.alignments[questionId] = 0;
+							}
+							if (!Utility.empty($scope.data.resource) && !Utility.empty($scope.data.resource.alignments) && $scope.data.resource.alignments.length > 0) {
+								for (var i = 0; i < $scope.data.resource.alignments.length; i++) {
+									var alignment = $scope.data.resource.alignments[i];
+									$scope.data.alignments[alignment.questionId] = alignment.weight;
+								}
+							}
 						}
-					}
-					$scope.getInstrumentAlignments = function (instrument, resourceId) {
-						if (!Utility.empty(instrument)) {
-							Resources.retrieveAlignments(instrument, resourceId, instrument.questions);
-							Instruments.setCurrent(instrument.id);
-							$scope.questions = $scope.getQuestions();
+					};
+					$scope.setOutcomeAlignments = function () {
+						if (!Utility.empty($scope.data.outcome) && !Utility.empty($scope.data.currentInstrument)) {
+							$scope.data.alignments = {};
+							for (var z = 0; z < $scope.data.currentInstrument.questions.length; z++) {
+								var questionId = $scope.data.currentInstrument.questions[z].id;
+								$scope.data.alignments[questionId] = 0;
+							}
+							if (!Utility.empty($scope.data.outcome) && !Utility.empty($scope.data.outcome.alignments) && $scope.data.outcome.alignments.length > 0) {
+								for (var i = 0; i < $scope.data.outcome.alignments.length; i++) {
+									var alignment = $scope.data.outcome.alignments[i];
+									$scope.data.alignments[alignment.questionId] = alignment.weight;
+								}
+							}
 						}
-						return $scope.currentInstrument;
 					};
-					$scope.setCurrentInstrument = function (currentInstrumentId) {
-						$scope.currentInstrument = Instruments.find(currentInstrumentId);
-						$scope.alignments = Resources.findAlignments($scope.currentInstrument, $scope.resource.id);
+					$scope.setResource = function () {
+						if (!Utility.empty($stateParams)) {
+							var resourceId = $stateParams.resourceId;
+							if (!Utility.empty(resourceId)) {
+								$scope.data.resource = Utility.findObjectById($scope.data.resources, resourceId);
+								$scope.data.resource.location = 'modules/' + $scope.data.resource.number.toLowerCase() + '.html';
+								$scope.setResourceAlignments();
+							}
+						}
+						$scope.setResourceAlignments();
 					};
-					$scope.getQuestions = function () {
-						return Instruments.currentQuestions();
+					$scope.setOutcome = function () {
+						if (!Utility.empty($stateParams)) {
+							var outcomeId = $stateParams.outcomeId;
+							if (!Utility.empty(outcomeId)) {
+								$scope.data.outcome = Utility.findObjectById($scope.data.outcomes, outcomeId);
+								$scope.setOutcomeAlignments();
+							}
+						}
+						$scope.setOutcomeAlignments();
 					};
-					$scope.getResources = function () {
-						return Resources.resources;
+					$scope.setCurrentInstrument = function (instrumentId) {
+						if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
+							$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
+							$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
+							$scope.setResourceAlignments();
+							$scope.setOutcomeAlignments();
+						}
 					};
-					$scope.getInstruments = function () {
-						return Instruments.instruments;
-					};
-					$scope.getAlignments = function () {
-						return $scope.alignments;
+					$scope.alignmentLevelPhrase = function (level) {
+						var phrase = 'Not Aligned';
+						switch (parseInt(level)) {
+							case 1:
+								phrase = 'Partially Aligned';
+								break;
+							case 2:
+								phrase = 'Aligned';
+								break;
+							case 3:
+								phrase = 'Highly Aligned';
+								break;
+						}
+						return phrase;
 					};
 				})
+
 	.controller('AdminMemberCtrl', function ($scope, Utility, Organizations, Members) {
 					$scope.data = {organizations: [], currentMembers: [], currentOrg: {}};
 
@@ -219,15 +261,14 @@ angular.module('app.controllers.administrator', [])
 						return !Utility.empty(organization) && !Utility.empty($scope.data.currentOrg) && organization.id == $scope.data.currentOrg.id;
 					};
 				})
-	.controller('AdminDashboardCtrl', function ($scope, Utility, Organizations) {
+
+	.controller('AdminDashboardCtrl', function ($scope, $stateParams, Utility) {
 					$scope.data = {organizations: [], currentMembers: [], currentOrg: {}};
 				})
-	.controller('AdminConfigurationCtrl', function ($scope, Instruments, Organizations, Resources, Outcomes) {
-					$scope.data = {organizations: [], instruments: [], resources: [], outcomes: []};
 
-					Organizations.retrieve().query(function (response) {
-						$scope.data.organizations = response;
-					});
+	.controller('AdminAlignmentsCtrl', function ($scope, $stateParams, Instruments, Resources, Outcomes) {
+					$scope.data = {instruments: [], resources: [], outcomes: []};
+
 					Instruments.retrieve().query(function (response) {
 						$scope.data.instruments = response;
 					});
@@ -237,4 +278,107 @@ angular.module('app.controllers.administrator', [])
 					Outcomes.retrieve().query(function (response) {
 						$scope.data.outcomes = response;
 					});
-				});
+				})
+
+	.controller('AdminInstrumentsCtrl', function ($scope, $stateParams, Utility, Instruments) {
+					$scope.data = {instruments: []};
+
+					Instruments.retrieve().query(function (response) {
+						$scope.data.instruments = response;
+						$scope.setCurrentInstrument();
+					});
+
+					$scope.setCurrentInstrument = function () {
+						if (!Utility.empty($stateParams)) {
+							$scope.data.instrument = Utility.findObjectById($scope.data.instruments, $stateParams.instrumentId);
+						}
+					};
+
+				})
+	.controller('AdminSettingsCtrl', function ($scope, Utility, Organizations, Settings) {
+					$scope.data = {settings: []};
+					var _video = null, patData = null;
+
+					$scope.webcamReady = false;
+					$scope.shotReady = false;
+					$scope.patOpts = {x: 0, y: 0, w: 25, h: 25};
+					$scope.webcamChannel = {};
+					$scope.webcamError = false;
+
+					Settings.retrieve().query(function (response) {
+						$scope.data.settings = response;
+					});
+					$scope.webcamChannel = {
+						// the fields below are all optional
+						videoHeight: 280,
+						videoWidth: 280,
+						video: null // Will reference the video element on success
+					};
+					$scope.webcamError = function (err) {
+						$scope.$apply(
+							function () {
+								$scope.webcamError = err;
+							}
+						);
+					};
+					$scope.webcamStream = function (stream) {
+						console.log(stream);
+					};
+					$scope.getCamButtonText = function () {
+						return $scope.webcamReady ? 'Say Cheese and Take Snapshot!' : 'Allow Browser to Take Pictures (above)'
+					};
+					$scope.webcamSuccess = function () {
+						// The video element contains the captured camera data
+						_video = $scope.webcamChannel.video;
+						$scope.$apply(function () {
+							$scope.patOpts.w = _video.width;
+							$scope.patOpts.h = _video.height;
+							$scope.webcamReady = true;
+						});
+					};
+					/**
+					 * Make a snapshot of the camera data and show it in another canvas.
+					 */
+					$scope.makeSnapshot = function makeSnapshot() {
+						if (_video) {
+							var patCanvas = document.querySelector('#snapshot');
+							if (!patCanvas) {
+								return;
+							}
+							patCanvas.width = _video.width;
+							patCanvas.height = _video.height;
+							var ctxPat = patCanvas.getContext('2d');
+
+							var idata = getVideoData($scope.patOpts.x, $scope.patOpts.y, $scope.patOpts.w, $scope.patOpts.h);
+							ctxPat.putImageData(idata, 0, 0);
+
+							//sendSnapshotToServer(patCanvas.toDataURL());
+
+							patData = idata;
+							$scope.shotReady = true;
+						}
+					};
+					$scope.downloadSnapshot = function downloadSnapshot(dataURL) {
+						window.location.href = dataURL;
+					};
+					var getVideoData = function getVideoData(x, y, w, h) {
+						var hiddenCanvas = document.createElement('canvas');
+						hiddenCanvas.width = _video.width;
+						hiddenCanvas.height = _video.height;
+						var ctx = hiddenCanvas.getContext('2d');
+						ctx.drawImage(_video, 0, 0, _video.width, _video.height);
+						return ctx.getImageData(x, y, w, h);
+					};
+
+					/**
+					 * This function could be used to send the image data
+					 * to a backend server that expects base64 encoded images.
+					 *
+					 * In this example, we simply store it in the scope for display.
+					 */
+					var sendSnapshotToServer = function sendSnapshotToServer(imgBase64) {
+						$scope.snapshotData = imgBase64;
+					};
+
+				})
+;

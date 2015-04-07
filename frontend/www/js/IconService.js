@@ -20,6 +20,7 @@ angular.module('app.icons', []).service('Icons', function () {
 		grades: "fa fa-tag-2",
 		home: "fa fa-home",
 		info: "fa fa-question-circle",
+		instrument: "ion-clipboard",
 		learningModule: "ion-university",
 		loadingSpinner: "fa fa-spinner fa-spin",
 		manager: "fa fa-gear",

@@ -13,12 +13,20 @@
         <ion-nav-view name="administratorOutcomes"></ion-nav-view>
     </ion-tab>
 
-    <ion-tab title="Configuration" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/administrator/configuration">
-        <ion-nav-view name="administratorConfiguration"></ion-nav-view>
+    <ion-tab title="Alignments" href="#/administrator/alignments" icon="{{i.icons.evaluation}}">
+        <ion-nav-view name="administratorAlignments"></ion-nav-view>
+    </ion-tab>
+
+    <ion-tab title="Instruments" href="#/administrator/instruments" icon="{{i.icons.instrument}}">
+        <ion-nav-view name="administratorInstruments"></ion-nav-view>
     </ion-tab>
 
     <ion-tab title="Resources" href="#/administrator/resources" hidden="true">
         <ion-nav-view name="administratorResources"></ion-nav-view>
+    </ion-tab>
+
+    <ion-tab title="Settings" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/administrator/settings">
+        <ion-nav-view name="administratorSettings"></ion-nav-view>
     </ion-tab>
 
 </ion-tabs>

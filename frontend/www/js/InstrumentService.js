@@ -19,8 +19,8 @@ angular.module('app.instruments', ['ngResource']).service('Instruments', functio
 				instrument.sections = [];
 				for (var j = 0; j < gLen; j++) {
 					var questionGroup = groups[j];
-					var previous = (j > 0 ? groups[(j - 1)].tag : groups[(groups.length - 1)].tag);
-					var next = j < gLen - 1 ? groups[(j + 1)].tag : groups[0].tag;
+					var previous = (j > 0 ? j + '. ' + groups[(j - 1)].tag : gLen + '. ' + groups[(groups.length - 1)].tag);
+					var next = j < gLen - 1 ? (j + 2) + '. ' + groups[(j + 1)].tag : '1. ' + groups[0].tag;
 					instrument.sections[j] = {
 						id: questionGroup.id,
 						number: questionGroup.number,
@@ -106,6 +106,13 @@ angular.module('app.instruments', ['ngResource']).service('Instruments', functio
 		return names;
 	};
 
+	svc.sectionNumber = function (instrument) {
+		var number = '';
+		if (!Utility.empty(instrument) && !Utility.empty(instrument.sections) && svc.currentSectionIdx >= 0) {
+			number = (svc.currentSectionIdx + 1) + '. ';
+		}
+		return number;
+	};
 	svc.sectionViewAll = function () {
 		svc.currentSectionIdx = svc.SECTION_ALL;
 	};
@@ -119,7 +126,18 @@ angular.module('app.instruments', ['ngResource']).service('Instruments', functio
 		return svc.currentSectionIdx == svc.SECTION_SUMMARY;
 	};
 	svc.sectionIsCurrent = function (instrument, sectionId) {
-		return (instrument.length > 0 && !Utility.empty(instrument.sections) && instrument.sections[svc.currentSectionIdx].id == sectionId);
+		var isCurrent = false;
+		if (svc.currentSectionIdx == undefined) {
+			svc.currentSectionIdx = 0;
+		}
+		try {
+			isCurrent =
+				!Utility.empty(instrument) && Array.isArray(instrument.sections) && parseInt(instrument.sections[svc.currentSectionIdx].id) == parseInt(sectionId);
+		}
+		catch (exception) {
+			console.log("exception:", exception);
+		}
+		return isCurrent;
 	};
 	svc.sectionCurrentName = function (instrument) {
 		var name = '';

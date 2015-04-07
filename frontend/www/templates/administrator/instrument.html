@@ -1,0 +1,29 @@
+<ion-view view-title="Alignments">
+    <ion-nav-buttons side="left"><a href="/#/administrator/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
+    <ion-content has-bouncing="false" overflow-scroll="true">
+        <div class="detail">
+            <h1>{{data.instrument.name}}</h1>
+
+            <div style="float:right; margin:0.5em;">
+                <button onclick="alert('Editing not available in demonstration mode.');" class="button button-energized">
+                    <i class="{{i.icons.edit}}"></i>
+                </button>
+            </div>
+
+            <div class="description">
+                {{data.instrument.summary}}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div style="float:right; margin-right:6em; font-weight:bold;">Competencies</div>
+        <div class="clearfix"></div>
+        <ion-list>
+            <ion-item class="item-icon-right" ng-repeat="question in data.instrument.questions" type="item-text-wrap">
+                <div class="name">{{question.name}}</div>
+                <div class="description" data-ng-bind-html="question.description"></div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
+

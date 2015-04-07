@@ -40,19 +40,23 @@
             <div class="col col-100 evaluation">
                 <div style="display:none;">{{data.evaluation.last_modified}}</div>
                 <div id="section{{$index}}" data-ng-repeat="section in data.evaluation.instrument.sections" class="fadein fadeout">
-                    <div data-ng-show="true||Instruments.sectionIsCurrent(data.evaluation.instrument, section.id)">
-                        <div style="float:left; margin-left:1em;" data-ng-show="!Instruments.sectionIsFirst()">
+                    <div data-ng-show="Instruments.sectionIsCurrent(data.evaluation.instrument, section.id)">
+                        <div style="float:left; margin-left:1em;">
                             <a ng-click="Instruments.sectionPrevious(data.evaluation.instrument)"><< {{section.previous}}</a>
                         </div>
                         <div style="float:right; margin-right:1em;">
-                            <a ng-click="Instruments.sectionNext(data.evaluation.instrument)"
-                               data-ng-show="Instruments.sectionIsLast(data.evaluation.instrument)">{{section.next}}
-                                >></a>
+                            <a ng-click="Instruments.sectionNext(data.evaluation.instrument)">{{section.next}}>></a>
                         </div>
                         <div class="clearfix"></div>
                         <div style="height:1em;"></div>
                         <ion-list>
-                            <ion-item class="top"><h2>{{section.name}}</h2></ion-item>
+                            <ion-item class="top">
+                                <h2 style="float:left;">{{Instruments.sectionNumber(data.evaluation.instrument)}} {{section.name}}</h2>
+                                <div style="float:right; margin-right: 0.4em;">
+                                    <button class="button button-balanced button-small" onclick="alert('Demo mode only.');">Save</button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </ion-item>
                             <ion-item class="item-remove-animate item-icon-right" data-ng-repeat="question in section.questions" type="item-text-wrap">
                                 <div style="float:left; max-width: 80%;">
                                     <div class="number" data-ng-bind="section.number + '.' + question.number"></div>

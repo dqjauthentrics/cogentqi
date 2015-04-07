@@ -6,7 +6,7 @@
             <div class="col col-50" style="text-align: center;">
                 <canvas id="snapshot" width="320" height="240"></canvas>
                 <div class="clearfix"></div>
-                <button data-ng-show="shotReady" class="button button-balanced" onclick="alert('Sorry, this is just a demo.')">Save this as My Photo</button>
+                <button data-ng-show="shotReady" class="button button-balanced" onclick="alert('Sorry, not available in demonstration mode.')">Save this as My Photo</button>
             </div>
             <div class="col col-50" style="text-align: center;">
                 <webcam channel="webcamChannel" on-stream="webcamStream(stream)" on-streaming="webcamSuccess()" on-error="webcamError(err)"></webcam>

@@ -41,7 +41,7 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 				   }
 			   })
 		.state('administrator.outcome', {
-				   url: '/outcome/:outcomeId',
+				   url: '/alignment/outcome/:outcomeId',
 				   views: {
 					   administratorAlignments: {templateUrl: 'templates/administrator/outcome.html', controller: 'AdminAlignmentCtrl'}
 				   }
@@ -52,9 +52,17 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 					   administratorDashboard: {templateUrl: 'templates/administrator/evaluationMatrix.html', controller: 'AdminMatrixCtrl'}
 				   }
 			   })
-		.state('administrator.configuration', {
-				   url: '/configuration',
-				   views: {administratorConfiguration: {templateUrl: 'templates/administrator/configuration.html', controller: 'AdminConfigurationCtrl'}}
+		.state('administrator.alignments', {
+				   url: '/alignments',
+				   views: {administratorAlignments: {templateUrl: 'templates/administrator/alignments.html', controller: 'AdminAlignmentsCtrl'}}
+			   })
+		.state('administrator.instruments', {
+				   url: '/instruments',
+				   views: {administratorInstruments: {templateUrl: 'templates/administrator/instruments.html', controller: 'AdminInstrumentsCtrl'}}
+			   })
+		.state('administrator.instrument', {
+				   url: '/instrument/:instrumentId',
+				   views: {administratorInstruments: {templateUrl: 'templates/administrator/instrument.html', controller: 'AdminInstrumentsCtrl'}}
 			   })
 		.state('administrator.planning', {
 				   url: '/planning',
@@ -67,6 +75,16 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 				   views: {
 					   administratorResources: {templateUrl: 'templates/manager/resources.html', controller: 'ResourceCtrl'}
 				   }
+			   })
+		.state('administrator.resourceDetail', {
+				   url: '/resource/:resourceId',
+				   views: {
+					   administratorResources: {templateUrl: 'templates/manager/resource.html', controller: 'ResourceCtrl'}
+				   }
+			   })
+		.state('administrator.settings', {
+				   url: '/settings',
+				   views: {administratorSettings: {templateUrl: 'templates/administrator/settings.html', controller: 'AdminSettingsCtrl'}}
 			   })
 
 	/**
@@ -180,7 +198,7 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 		.state('manager.settings', {
 				   url: '/settings',
 				   views: {
-					   managerSettings: {templateUrl: 'templates/manager/settings.html', controller: 'SettingsCtrl'}
+					   managerSettings: {templateUrl: 'templates/manager/settings.html', controller: 'MgrSettingsCtrl'}
 				   }
 			   });
 

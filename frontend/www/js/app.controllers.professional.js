@@ -5,17 +5,23 @@ angular.module('app.controllers.professional', [])
 	.controller('ProfDashboardCtrl', function ($cookieStore, $rootScope, $scope, Utility, Organizations, Members, Evaluations, Plans) {
 					$scope.data = {evaluations: [], members: [], planItems: [], user: $cookieStore.get('user')};
 
-					Members.retrieve().query(function (response) {
-						$scope.data.members = response;
-						$scope.associate("members");
-					});
-					Plans.retrieve($scope.data.user.id).query(function (response) {
-						$scope.data.planItems = response;
-					});
-					Evaluations.retrieveForMember($scope.data.user.id).query(function (response) {
-						$scope.data.evaluations = response;
-						$scope.associate("evals");
-					});
+					try {
+						Utility.getResource(Members.retrieve(), function (response) {
+							$scope.data.members = response;
+							$scope.associate("members");
+						});
+						Utility.getResource(Plans.retrieve($scope.data.user.id), function (response) {
+							$scope.data.planItems = response;
+						});
+						Utility.getResource(Evaluations.retrieveForMember($scope.data.user.id), function (response) {
+							$scope.data.evaluations = response;
+							$scope.associate("evals");
+						});
+					}
+					catch (exception) {
+						console.log("EXCEPTION:", exception);
+					}
+
 					$scope.associate = function (lbl) {
 						if (!Utility.empty($scope.data.evaluations) && !Utility.empty($scope.data.members)) {
 							Evaluations.associateMembers($scope.data.evaluations, $scope.data.members);
