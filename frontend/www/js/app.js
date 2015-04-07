@@ -88,6 +88,17 @@ angular.module('app',
 				 };
 
 				 $rootScope.checkSession();
+
+				 var deviceInformation = ionic.Platform.device();
+
+				 $rootScope.isWebView = ionic.Platform.isWebView();
+				 $rootScope.isIPad = ionic.Platform.isIPad();
+				 $rootScope.isIOS = ionic.Platform.isIOS();
+				 $rootScope.isAndroid = ionic.Platform.isAndroid();
+				 $rootScope.isWindowsPhone = ionic.Platform.isWindowsPhone();
+
+				 $rootScope.currentPlatform = ionic.Platform.platform();
+				 $rootScope.currentPlatformVersion = ionic.Platform.version();
 			 });
 		 })
 

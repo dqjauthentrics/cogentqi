@@ -2,7 +2,7 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
-        <div class="row responsive-sm">
+        <div class="row responsive-sm"  data-ng-if="!isIOS">
             <div class="col col-50" style="text-align: center;">
                 <canvas id="snapshot" width="320" height="240"></canvas>
                 <div class="clearfix"></div>
@@ -15,8 +15,49 @@
                 <button data-ng-show="webcamReady" class="button button-balanced" data-ng-click="makeSnapshot()">Say "Cheese" and Press Me!</button>
             </div>
         </div>
-        <div>
-            <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
+        <div data-ng-if="isIOS">
+            <script type="text/javascript" charset="utf-8" src="/lib/quantize.js"></script>
+            <script type="text/javascript" charset="utf-8" src="/lib/color-thief/dist/color-thief.min.js"></script>
+            <input type="file" capture="camera" accept="image/*" id="takePictureField">
+
+            <img id="yourimage">
+
+            <div id="swatches">
+                <div id="swatch0" class="swatch"></div>
+                <div id="swatch1" class="swatch"></div>
+                <div id="swatch2" class="swatch"></div>
+                <div id="swatch3" class="swatch"></div>
+                <div id="swatch4" class="swatch"></div>
+            </div>
+            <script>
+                var desiredWidth;
+
+                $(document).ready(function () {
+                    console.log('onReady');
+                    $("#takePictureField").on("change", gotPic);
+                    $("#yourimage").load(getSwatches);
+                    desiredWidth = window.innerWidth;
+
+                    if (!("url" in window) && ("webkitURL" in window)) {
+                        window.URL = window.webkitURL;
+                    }
+
+                });
+
+                function getSwatches() {
+                    var colorArr = createPalette($("#yourimage"), 5);
+                    for (var i = 0; i < Math.min(5, colorArr.length); i++) {
+                        $("#swatch" + i).css("background-color", "rgb(" + colorArr[i][0] + "," + colorArr[i][1] + "," + colorArr[i][2] + ")");
+                        console.log($("#swatch" + i).css("background-color"));
+                    }
+                }
+                function gotPic(event) {
+                    if (event.target.files.length == 1 &&
+                            event.target.files[0].type.indexOf("image/") == 0) {
+                        $("#yourimage").attr("src", URL.createObjectURL(event.target.files[0]));
+                    }
+                }
+            </script>
         </div>
         <div class="row responsive-sm">
             <div class="col col-100">
