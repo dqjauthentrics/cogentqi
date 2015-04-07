@@ -36,15 +36,15 @@
         <table class="events">
             <thead>
             <tr>
-                <th colspan="2">Occurred</th>
-                <th>Name</th>
-                <th>Process Area</th>
+                <th colspan="2" style="text-align: left;">Occurred</th>
+                <th style="text-align: left;">Name</th>
+                <th style="text-align: left;">Process Area</th>
             </tr>
             </thead>
             <tbody>
             <tr data-ng-repeat="event in data.member.events">
                 <td><i class="{{i.icons.event}}"></i></td>
-                <td>{{event.occurred}}</td>
+                <td>{{event.occurred|date:'medium'}}</td>
                 <td>{{event.name}}</td>
                 <td>{{event.cat}}</td>
             </tr>

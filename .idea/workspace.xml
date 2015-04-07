@@ -2,26 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d363135-d755-4645-a82c-7b84e720bd47" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/templates/administrator/alignments.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/templates/administrator/instrument.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/templates/administrator/instruments.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/frontend/www/templates/administrator/settings.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/frontend/www/templates/administrator/configuration.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/IconService.js" afterPath="$PROJECT_DIR$/frontend/www/js/IconService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/InstrumentService.js" afterPath="$PROJECT_DIR$/frontend/www/js/InstrumentService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/lib/Setting.php" afterPath="$PROJECT_DIR$/backend/lib/Setting.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/administrator/alignment.html" afterPath="$PROJECT_DIR$/frontend/www/templates/administrator/alignment.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/app.controllers.administrator.js" afterPath="$PROJECT_DIR$/frontend/www/js/app.controllers.administrator.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/app.controllers.manager.js" afterPath="$PROJECT_DIR$/frontend/www/js/app.controllers.manager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/app.controllers.professional.js" afterPath="$PROJECT_DIR$/frontend/www/js/app.controllers.professional.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/app.routes.js" afterPath="$PROJECT_DIR$/frontend/www/js/app.routes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/js/app.utility.js" afterPath="$PROJECT_DIR$/frontend/www/js/app.utility.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/common/evaluation.html" afterPath="$PROJECT_DIR$/frontend/www/templates/common/evaluation.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/administrator/outcome.html" afterPath="$PROJECT_DIR$/frontend/www/templates/administrator/outcome.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/manager/settings.html" afterPath="$PROJECT_DIR$/frontend/www/templates/manager/settings.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/professional/settings.html" afterPath="$PROJECT_DIR$/frontend/www/templates/professional/settings.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/css/style.css" afterPath="$PROJECT_DIR$/frontend/www/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/administrator/tabs.html" afterPath="$PROJECT_DIR$/frontend/www/templates/administrator/tabs.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/common/dashboardCycle.html" afterPath="$PROJECT_DIR$/frontend/www/templates/common/dashboardCycle.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/common/memberProfile.html" afterPath="$PROJECT_DIR$/frontend/www/templates/common/memberProfile.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/www/templates/manager/planning.html" afterPath="$PROJECT_DIR$/frontend/www/templates/manager/planning.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="seeqi.iws" />
@@ -90,16 +73,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="app.controllers.administrator.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/www/js/app.controllers.administrator.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5014" max-vertical-offset="5850">
-              <caret line="297" column="22" selection-start-line="297" selection-start-column="22" selection-end-line="297" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="settings.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/www/templates/administrator/settings.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -136,41 +109,62 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Setting.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Setting.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/lib/Setting.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.056109726" vertical-offset="0" max-vertical-offset="802">
-              <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
+            <state vertical-scroll-proportion="-10.625" vertical-offset="0" max-vertical-offset="600">
+              <caret line="17" column="30" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.controllers.manager.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/www/js/app.controllers.manager.js">
+      <file leaf-file-name="dashboardCycle.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/dashboardCycle.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1467" max-vertical-offset="3075">
-              <caret line="112" column="20" selection-start-line="112" selection-start-column="20" selection-end-line="112" selection-end-column="20" />
+            <state vertical-scroll-proportion="-11.25" vertical-offset="0" max-vertical-offset="480">
+              <caret line="18" column="69" selection-start-line="18" selection-start-column="69" selection-end-line="18" selection-end-column="69" />
+              <folding>
+                <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#2;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#td#0;n#tr#2;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#2;n#table#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="planning.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/www/templates/manager/planning.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-18.75" vertical-offset="0" max-vertical-offset="555">
+              <caret line="30" column="11" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.routes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/www/js/app.routes.js">
+      <file leaf-file-name="memberProfile.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/memberProfile.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.222221" vertical-offset="2508" max-vertical-offset="3330">
-              <caret line="200" column="105" selection-start-line="200" selection-start-column="105" selection-end-line="200" selection-end-column="105" />
-              <folding />
+            <state vertical-scroll-proportion="-22.875" vertical-offset="276" max-vertical-offset="1125">
+              <caret line="55" column="128" selection-start-line="55" selection-start-column="128" selection-end-line="55" selection-end-column="128" />
+              <folding>
+                <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tabs.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/www/templates/administrator/tabs.html">
+      <file leaf-file-name="evaluation.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/evaluation.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.125" vertical-offset="0" max-vertical-offset="570">
-              <caret line="21" column="14" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.33834586" vertical-offset="0" max-vertical-offset="1800">
+              <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -192,12 +186,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/backend/lib/Evaluation.php" />
-        <option value="$PROJECT_DIR$/frontend/www/templates/manager/members.html" />
         <option value="$PROJECT_DIR$/backend/lib/EvaluationResponse.php" />
         <option value="$PROJECT_DIR$/frontend/www/js/GraphService.js" />
         <option value="$PROJECT_DIR$/frontend/www/templates/manager/member.html" />
-        <option value="$PROJECT_DIR$/frontend/www/templates/common/memberProfile.html" />
         <option value="$PROJECT_DIR$/frontend/www/js/MemberService.js" />
         <option value="$PROJECT_DIR$/frontend/www/js/Quiz.js" />
         <option value="$PROJECT_DIR$/frontend/www/js/ResourceService.js" />
@@ -243,6 +234,9 @@
         <option value="$PROJECT_DIR$/frontend/www/templates/manager/settings.html" />
         <option value="$PROJECT_DIR$/frontend/www/templates/professional/settings.html" />
         <option value="$PROJECT_DIR$/backend/lib/Setting.php" />
+        <option value="$PROJECT_DIR$/frontend/www/templates/common/dashboardCycle.html" />
+        <option value="$PROJECT_DIR$/frontend/www/templates/manager/planning.html" />
+        <option value="$PROJECT_DIR$/frontend/www/templates/common/memberProfile.html" />
       </list>
     </option>
   </component>
@@ -492,50 +486,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="frontend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cogentqi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cogentqi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frontend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cogentqi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cogentqi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="backend" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -700,12 +650,6 @@
       <created>1425653813105</created>
       <option name="number" value="Default" />
       <updated>1425653813105</updated>
-    </task>
-    <task id="LOCAL-00052" summary="Ongoing development.">
-      <created>1427386295593</created>
-      <option name="number" value="00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1427386295593</updated>
     </task>
     <task id="LOCAL-00053" summary="Ongoing development.">
       <created>1427386398535</created>
@@ -995,7 +939,13 @@
       <option name="project" value="LOCAL" />
       <updated>1428409573787</updated>
     </task>
-    <option name="localTasksCounter" value="101" />
+    <task id="LOCAL-00101" summary="Ongoing development.">
+      <created>1428437057398</created>
+      <option name="number" value="00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1428437057398</updated>
+    </task>
+    <option name="localTasksCounter" value="102" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1089,20 +1039,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/backend/lib/Question.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.10909091" vertical-offset="0" max-vertical-offset="825">
-          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/lib/QuestionGroup.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12727273" vertical-offset="0" max-vertical-offset="825">
-          <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/lib/Resource.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-16.25" vertical-offset="0" max-vertical-offset="810">
@@ -1200,13 +1136,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/memberProfile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="276" max-vertical-offset="1125">
-          <caret line="58" column="7" selection-start-line="58" selection-start-column="7" selection-end-line="58" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/www/js/app.controllers.common.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1047" max-vertical-offset="3195">
@@ -1266,17 +1195,6 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="1140">
           <caret line="48" column="55" selection-start-line="48" selection-start-column="55" selection-end-line="48" selection-end-column="55" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/evaluation.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.583334" vertical-offset="427" max-vertical-offset="1800">
-          <caret line="55" column="86" selection-start-line="55" selection-start-column="86" selection-end-line="55" selection-end-column="86" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#3;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#3;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1412,7 +1330,7 @@
         <state vertical-scroll-proportion="-18.125" vertical-offset="0" max-vertical-offset="525">
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
-            <element signature="n#style#0;n#div#1;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1505,8 +1423,51 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/lib/Setting.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.056109726" vertical-offset="0" max-vertical-offset="802">
-          <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
+        <state vertical-scroll-proportion="-10.625" vertical-offset="0" max-vertical-offset="600">
+          <caret line="17" column="30" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/dashboardCycle.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.25" vertical-offset="0" max-vertical-offset="480">
+          <caret line="18" column="69" selection-start-line="18" selection-start-column="69" selection-end-line="18" selection-end-column="69" />
+          <folding>
+            <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#2;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#0;n#tr#2;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#2;n#table#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/www/templates/manager/planning.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-18.75" vertical-offset="0" max-vertical-offset="555">
+          <caret line="30" column="11" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/memberProfile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-22.875" vertical-offset="276" max-vertical-offset="1125">
+          <caret line="55" column="128" selection-start-line="55" selection-start-column="128" selection-end-line="55" selection-end-column="128" />
+          <folding>
+            <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/www/templates/common/evaluation.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33834586" vertical-offset="0" max-vertical-offset="1800">
+          <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
           <folding />
         </state>
       </provider>

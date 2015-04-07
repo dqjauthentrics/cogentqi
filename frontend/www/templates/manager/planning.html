@@ -13,7 +13,7 @@
                     </div>
                     <div class="col">
                         <div style="font-weight:bold;">Open Enrollment, Start Any Time, Online</div>
-                        <div>From: {{learningModule.starts}} to {{learningModule.ends}}</div>
+                        <div>From: {{learningModule.starts|date:'medium'}} to {{learningModule.ends|date:'medium'}}</div>
                         <a class="button" href="#/manager/resource/{{learningModule.resource.id}}">Enroll</a>
                     </div>
                 </div>
