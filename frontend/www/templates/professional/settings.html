@@ -2,7 +2,7 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
-        <div class="row responsive-sm"  data-ng-if="!isIOS">
+        <div class="row responsive-sm" data-ng-if="!isIOS">
             <div class="col col-50" style="text-align: center;">
                 <canvas id="snapshot" width="320" height="240"></canvas>
                 <div class="clearfix"></div>
@@ -16,6 +16,25 @@
             </div>
         </div>
         <div data-ng-if="isIOS">
+            <style>
+                #yourimage {
+                    width: 100%;
+                }
+
+                #swatches {
+                    width: 100%;
+                    height: 50px;
+                }
+
+                .swatch {
+                    width: 18%;
+                    height: 50px;
+                    border-style: solid;
+                    border-width: thin;
+                    float: left;
+                    margin-right: 3px;
+                }
+            </style>
             <script type="text/javascript" charset="utf-8" src="/lib/quantize.js"></script>
             <script type="text/javascript" charset="utf-8" src="/lib/color-thief/dist/color-thief.min.js"></script>
             <input type="file" capture="camera" accept="image/*" id="takePictureField">
