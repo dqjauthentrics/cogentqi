@@ -9,8 +9,9 @@
     </data-source>
     <data-source name="CogentQI-Production" uuid="ad7bac3c-740f-4170-97a6-fd848aa51cb7">
       <secret-storage>master_key</secret-storage>
-      <first-sync>true</first-sync>
       <user-name>root</user-name>
+      <schema-pattern>cogentqi_v1_target.*</schema-pattern>
+      <default-schemas>cogentqi_v1_target.*</default-schemas>
       <ssh-properties>
         <enabled>true</enabled>
         <proxy-host>cogentqi.com</proxy-host>
@@ -22,7 +23,7 @@
       </ssh-properties>
       <ssl-config>
         <client-cert>$PROJECT_DIR$/../../../AWS/authentricsEc2.pem</client-cert>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
       </ssl-config>
     </data-source>
   </component>

@@ -12,7 +12,7 @@
         <micro-badge data-ng-if="member.badges.length" text="member.badges.length + ''" size="'count'"></micro-badge>
     </div>
     <div class="col col-30">
-        <div data-ng-if="member.lastEval">
+        <div data-ng-if="member.lastEval.i">
             <div style="text-decoration: underline;">Last Assessment</div>
             <div>
                 <i class="{{i.icons.evaluation}}"></i>&nbsp;<a href="#/manager/evaluation/{{member.lastEval.id}}">{{member.lastEval.dt|date:'longDate'}}</a>&nbsp;<span

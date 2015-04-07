@@ -3,11 +3,16 @@
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
         <div class="row responsive-sm">
-            <h3>Photo</h3>
-
-            <div class="col col-50">
-                <img ng-src="{{lastPhoto}}" style="max-width: 100%">
-                <button data-ng-click="getPhoto()">Take a Picture</button>
+            <div class="col col-50" style="text-align: center;">
+                <canvas id="snapshot" width="320" height="240"></canvas>
+                <div class="clearfix"></div>
+                <button data-ng-show="shotReady" class="button button-balanced" onclick="alert('Sorry, this is just a demo.')">Save this as My Photo</button>
+            </div>
+            <div class="col col-50" style="text-align: center;">
+                <webcam channel="webcamChannel" on-stream="webcamStream(stream)" on-streaming="webcamSuccess()" on-error="webcamError(err)"></webcam>
+                <div class="clearfix"></div>
+                <div data-ng-show="!webcamReady">Allow your browser to use your video camera (probably a message waiting for you above).</div>
+                <button data-ng-show="webcamReady" class="button button-balanced" data-ng-click="makeSnapshot()">Say "Cheese" and Press Me!</button>
             </div>
         </div>
         <div class="row responsive-sm">
@@ -19,5 +24,11 @@
                     </ion-item>
                 </ion-list>
             </div>
+        </div>
     </ion-content>
 </ion-view>
+<style>
+    .button {
+        margin: 1em;
+    }
+</style>

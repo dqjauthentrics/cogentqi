@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="1353837292">
+  <component name="DataSourceManagerImpl" format="xml" hash="3692068334">
     <data-source source="LOCAL" name="CogentQI Local" uuid="dda61865-1688-4307-9a21-8ec577337f7a">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
@@ -19,7 +19,7 @@
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:1337</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
       <driver-properties>
         <property name="zeroDateTimeBehavior" value="convertToNull" />
         <property name="tinyInt1isBit" value="false" />

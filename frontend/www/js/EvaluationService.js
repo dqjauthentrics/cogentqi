@@ -50,7 +50,9 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 		if (!Utility.empty(evaluation) && !Utility.empty(instruments) && !Utility.empty(members)) {
 			evaluation.instrument = Utility.findObjectById(instruments, evaluation.instrumentId);
 			evaluation.member = Utility.findObjectById(members, evaluation.memberId);
-			evaluation.member.roleName = Members.roleName(evaluation.member);
+			if (!Utility.empty(evaluation.member)) {
+				evaluation.member.roleName = Members.roleName(evaluation.member);
+			}
 			evaluation.byMember = Utility.findObjectById(members, evaluation.byMemberId);
 			if (!Utility.empty(evaluation.instrument)) {
 				/** @todo Fix this loop.  Doing way too much...

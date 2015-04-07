@@ -56,6 +56,18 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 				   url: '/configuration',
 				   views: {administratorConfiguration: {templateUrl: 'templates/administrator/configuration.html', controller: 'AdminConfigurationCtrl'}}
 			   })
+		.state('administrator.planning', {
+				   url: '/planning',
+				   views: {
+					   administratorResources: {templateUrl: 'templates/manager/planning.html', controller: 'PlanningCtrl'}
+				   }
+			   })
+		.state('administrator.resources', {
+				   url: '/resources',
+				   views: {
+					   administratorResources: {templateUrl: 'templates/manager/resources.html', controller: 'ResourceCtrl'}
+				   }
+			   })
 
 	/**
 	 * Professional user states.
