@@ -166,7 +166,7 @@ angular.module('app.controllers.common', [])
 					};
 
 					$scope.updateResponse = function (question, value) {
-						if (!Utility.empty(question) && !Utility.empty(question.responseRecord) && !Utility.empty(value) && !Utility.empty($scope.data.resources) && !Utility.empty($scope.data.currentInstrument)) {
+						if (!Utility.empty(question) && !Utility.empty(question.responseRecord) && !Utility.empty(value)) {
 							question.responseRecord.ri = parseInt(value);
 							$scope.getRecommendations();
 						}
@@ -199,10 +199,11 @@ angular.module('app.controllers.common', [])
 
 					Members.retrieve().query(function (response) {
 						$scope.data.members = response;
+						Evaluations.associateMembers($scope.data.evaluations, $scope.data.members);
 					});
 					Evaluations.retrieve().query(function (response) {
-						Evaluations.associateMembers(response, $scope.data.members);
 						$scope.data.evaluations = response;
+						Evaluations.associateMembers($scope.data.evaluations, $scope.data.members);
 					});
 				})
 ;

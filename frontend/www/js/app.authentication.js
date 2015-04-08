@@ -9,7 +9,6 @@ angular.module('app.authentication', []).service('Authentication', function ($ro
 		 * @todo Use $state.go here, and will probably have to store the user.home differently for that use.
 		 */
 		var user = $cookieStore.get('user');
-		console.log("auth check() get:", user);
 		if (Utility.empty(user)) {
 			window.location.href = "/#/login";
 		}
@@ -22,7 +21,6 @@ angular.module('app.authentication', []).service('Authentication', function ($ro
 	};
 
 	svc.logout = function () {
-		console.log("removing user!!!");
 		$cookieStore.remove('user');
 	};
 
@@ -58,8 +56,6 @@ angular.module('app.authentication', []).service('Authentication', function ($ro
 								}
 								$cookieStore.put('user', data);
 								$rootScope.user = $cookieStore.get('user');
-								console.log("$rootScope user:", $rootScope.user);
-								console.log("auth login user:", $cookieStore.get('user'));
 								svc.check();
 							}).
 					error(function (data, status, headers, config) {

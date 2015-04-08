@@ -401,17 +401,17 @@ table.cycle {
     text-align: center;
 }
 
-.yesNoBg0 {
+.yesNoBg0, .yesNoBg0:hover {
     background: #AAA;
     color: #FFF;
 }
 
-.yesNoBg1 {
+.yesNoBg1, .yesNoBg1:hover {
     background: red;
     color: #FFF;
 }
 
-.yesNoBg2 {
+.yesNoBg2, .yesNoBg2:hover {
     background: green;
     color: #FFF;
 }

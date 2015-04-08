@@ -1,5 +1,5 @@
 <ion-view view-title="Assessments">
-    <ion-nav-buttons side="left"><a href="/" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="left"><a href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
         <ion-list>
@@ -8,7 +8,8 @@
                       type="item-text-wrap" href="#/manager/evaluation/{{evaluation.id}}">
                 <div class="row">
                     <div class="col col-35">
-                        <img class="border border{{evaluation.member.level}}" style="float:left; margin: 0 0.4em 0 0;" data-ng-src="{{evaluation.member.avatar}}">
+                        <img class="border border{{evaluation.member.level}}" style="float:left; margin: 0 0.4em 0 0;"
+                             data-ng-src="{{evaluation.member.avatar}}">
 
                         <div style="float:left;margin: 0.1em;">
                             <div class="title">
