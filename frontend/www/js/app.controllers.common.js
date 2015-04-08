@@ -191,8 +191,8 @@ angular.module('app.controllers.common', [])
 								$scope.getRecommendations();
 							});
 						}
-						if (!Utility.empty($scope.data.evaluation) && !Utility.empty($scope.data.instrument)) {
-							Evaluations.scorify($scope.data.instrument);
+						if (!Utility.empty($scope.data.evaluation) && !Utility.empty($scope.data.evaluation.member)) {
+							Evaluations.avgRound = $scope.data.evaluation.member.level;
 						}
 					};
 				})

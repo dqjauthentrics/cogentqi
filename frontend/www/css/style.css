@@ -697,6 +697,7 @@ th.rotate {
 }
 
 th.rotate > div {
+    -webkit-transform: translate(1.0em, 3.4em) rotate(315deg);
     transform: translate(1.0em, 3.4em) rotate(315deg);
     width: 1.4em;
 }
