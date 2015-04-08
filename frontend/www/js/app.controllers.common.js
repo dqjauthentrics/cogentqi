@@ -191,6 +191,9 @@ angular.module('app.controllers.common', [])
 								$scope.getRecommendations();
 							});
 						}
+						if (!Utility.empty($scope.data.evaluation) && !Utility.empty($scope.data.instrument)) {
+							Evaluations.scorify($scope.data.instrument);
+						}
 					};
 				})
 

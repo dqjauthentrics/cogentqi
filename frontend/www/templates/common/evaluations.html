@@ -16,7 +16,9 @@
                                 {{evaluation.member.firstName}} {{evaluation.member.lastName}}
                             </div>
                             <div class="title" style="float:left;margin: 0.1em;">
-                                <i class="level levelColor{{evaluation.member.level}} {{i.icons.levels[evaluation.member.level]}}"></i>
+                                <div style="width:2em; text-align:center;" class="matrixCircle {{evaluation.instrumentId == 1?'levelBg':'yesNoBg'}}{{evaluation.member.level|number:0}}">
+                                    {{evaluation.member.level|number:0}}
+                                </div>
                                 <span class="stamp">{{evaluation.lastSaved}}</span>
                             </div>
                         </div>

@@ -18,7 +18,7 @@
                     {{data.evaluation.member.firstName}} {{data.evaluation.member.lastName}}</a>
                 </div>
                 <div class="role">{{data.evaluation.member.roleName}}</div>
-                <div class="score">
+                <div class="score" data-ng-show="Evaluations.avgRound > 0">
                     <i class="logo level levelColor{{Evaluations.avgRound}} {{i.icons.levels[Evaluations.avgRound]}}">
                         {{Evaluations.scoreWord(Evaluations.avgRound)}} <span style="font-size:0.6em;">({{Evaluations.avg}})</span>
                     </i>
