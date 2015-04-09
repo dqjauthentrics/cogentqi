@@ -19,7 +19,7 @@ class Authentication extends Model {
 		$urlName = $this->urlName();
 		$this->api->post("/authentication", function () use ($urlName) {
 			$args = $this->api->request()->post();
-			$record = $this->api->db->member()->where('username=?', $args["username"])->fetch();
+			$record = $this->api->db->member()->where('LOWER(username)=? AND password=?', strtolower($args["username"]), md5($args["password"]))->fetch();
 			$user = NULL;
 			if (!empty($record)) {
 				$user = [

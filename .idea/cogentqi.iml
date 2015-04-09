@@ -7,6 +7,7 @@
       <excludeFolder url="file://$MODULE_DIR$/frontend/node_modules/phonegap/node_modules/cordova/node_modules/cordova-lib/src/plugman/platforms" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/node_modules/phonegap/node_modules/cordova/node_modules/cordova-lib/templates/platforms" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/platforms" />
+      <excludeFolder url="file://$MODULE_DIR$/platforms" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
