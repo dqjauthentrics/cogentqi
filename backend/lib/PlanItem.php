@@ -19,8 +19,11 @@ class PlanItem extends Model {
 	public function map($planRecord) {
 		$associative = NULL;
 		if (!empty($planRecord)) {
+			echo $planRecord["moduleId"]."\n";
 			$module = $planRecord->module;
+			echo "\n"; var_dump($module); echo "<hr/>\n";
 			$module = $this->api->db->Module()->where('id=1')->fetch();
+			echo "\n"; var_dump($module); echo "<hr/>\n";
 			$resourceId = !empty($module) ? $module["resourceId"] : NULL;
 			$resource = !empty($module) ? $module->Resource : NULL;
 			$resourceName = !empty($resource) ? $resource["name"] : NULL;
