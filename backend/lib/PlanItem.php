@@ -20,11 +20,11 @@ class PlanItem extends Model {
 		$associative = NULL;
 		if (!empty($planRecord)) {
 			$associative = [
-				'm'  => $planRecord["learningModuleId"],
+				'm'  => $planRecord["learningmoduleId"],
 				's'  => $planRecord["status"],
 				'dt' => $this->dateTime($planRecord["statusStamp"]),
-				'n'  => $planRecord->learningmodule->resource["name"],
-				'r'  => $planRecord->learningmodule["resourceId"]
+				'n'  => $planRecord->LearningModule->resource["name"],
+				'r'  => $planRecord->LearningModule["resourceId"]
 			];
 		}
 		return $associative;
