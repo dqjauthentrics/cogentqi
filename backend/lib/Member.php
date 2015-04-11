@@ -13,7 +13,7 @@ class Member extends Model {
 		$urlName = $this->urlName();
 		$this->api->get("/$urlName/organization/:organizationId", function ($organizationId = NULL) use ($urlName) {
 			$jsonRecords = [];
-			$dbRecords = $this->api->db->{$urlName}()->where("OrganizationId=?", $organizationId);
+			$dbRecords = $this->api->db->{$this->tableName}()->where("OrganizationId=?", $organizationId);
 			foreach ($dbRecords as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
