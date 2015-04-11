@@ -28,7 +28,7 @@ class Authentication extends Model {
 					'lastName'       => $record["lastName"],
 					'roleId'         => $record["roleId"],
 					'organizationId' => $record["organizationId"],
-					'orgName'        => $record->organization["name"],
+					//'orgName'        => $record->organization["name"],
 					'avatar'         => $record["avatar"],
 				];
 			}
