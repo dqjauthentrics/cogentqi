@@ -19,12 +19,16 @@ class PlanItem extends Model {
 	public function map($planRecord) {
 		$associative = NULL;
 		if (!empty($planRecord)) {
+			$module = $planRecord->LearningModule;
+			$resourceId = !empty($module) ? $module["resourceId"] : NULL;
+			$resource = !empty($module) ? $module->Resource : NULL;
+			$resourceName = !empty($resource) ? $resource["name"] : NULL;
 			$associative = [
 				'm'  => $planRecord["learningModuleId"],
 				's'  => $planRecord["status"],
 				'dt' => $this->dateTime($planRecord["statusStamp"]),
-				//'n'  => $planRecord->LearningModule->Resource["name"],
-				'r'  => $planRecord->LearningModule["resourceId"]
+				'n'  => $resourceName,
+				'r'  => $resourceId
 			];
 		}
 		return $associative;
