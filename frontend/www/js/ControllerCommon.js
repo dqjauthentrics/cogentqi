@@ -73,7 +73,7 @@ angular.module('ControllerCommon', [])
 					};
 				})
 
-	.controller('assessmentCtrl', function ($scope, $timeout, $stateParams, Utility, Instruments, Assessments, Members, Organizations, Resources) {
+	.controller('assessmentCtrl', function ($filter, $scope, $timeout, $stateParams, Utility, Instruments, Assessments, Members, Organizations, Resources) {
 					var collated = false;
 					$scope.Assessments = Assessments;
 					$scope.Instruments = Instruments;
@@ -194,6 +194,86 @@ angular.module('ControllerCommon', [])
 						if (!Utility.empty($scope.data.assessment) && !Utility.empty($scope.data.assessment.member)) {
 							Assessments.avgRound = $scope.data.assessment.member.level;
 						}
+					};
+
+					$scope.getBase64Image = function (url, generatePdf) {
+						var img = new Image();
+						var dataURL;
+						img.src = url;
+						img.onload = function () {
+							var canvas = document.createElement('canvas');
+							canvas.width = img.width;
+							canvas.height = img.height;
+							var context = canvas.getContext('2d');
+							console.log("context", context);
+							context.drawImage(img, 0, 0);
+							dataURL = canvas.toDataURL('image/jpeg');
+							console.log("dataURL", dataURL);
+							generatePdf(dataURL);
+						}
+					};
+
+					$scope.generatePdf = function (imageData) {
+						var doc = new jsPDF();
+						doc.text(15, 20, $scope.data.instrument.name);
+						doc.addImage(imageData, 'JPEG', 165, 10, 40, 18);
+						doc.setFontSize(12);
+						doc.setTextColor(100, 100, 100);
+						doc.text(120, 20, $filter('date')($scope.data.assessment.lastModified, 'medium'));
+						doc.setFontSize(16);
+						doc.setTextColor(0, 0, 0);
+						doc.text(15, 28, $scope.data.assessment.member.firstName + ' ' + $scope.data.assessment.member.lastName);
+						var sectionY = 36;
+						var questionY = 26;
+						//var html = '<table><thead><tr><th>Col1</th><th>Col2</th><th>Col3</th></tr></thead><tbody>';
+						for (var i = 0; i < $scope.data.instrument.sections.length; i++) {
+							sectionY = questionY + 14;
+							if (sectionY > 250) {
+								doc.addPage();
+								questionY = 20;
+								sectionY = questionY;
+							}
+							var section = $scope.data.instrument.sections[i];
+							doc.setFontSize(12);
+							doc.setTextColor(50, 100, 150);
+							doc.text(15, sectionY, section.name);
+							//html += '<tr><th colspan="3">' + section.name + '</th></tr>';
+							var splitHeight = 0;
+							questionY = sectionY + 5;
+							for (var j = 0; j < section.questions.length; j++) {
+								var question = section.questions[j];
+								questionY += splitHeight;
+								if (questionY > 250) {
+									doc.addPage();
+									questionY = 20;
+									sectionY = questionY;
+								}
+								doc.setFontSize(10);
+								doc.setTextColor(100, 100, 100);
+								var splitText = doc.splitTextToSize(question.name, 140);
+								splitHeight = 6;
+								doc.text(20, questionY, splitText);
+								if ($scope.data.instrument.id == 2) {
+									splitHeight = Math.round(question.name.length / 54) * 6;
+									if (question.responseRecord.ri == 2) {
+										doc.setTextColor(0, 150, 0);
+									}
+									else if (question.responseRecord.ri == 1) {
+										doc.setTextColor(150, 0, 0);
+									}
+								}
+								doc.text(175, questionY, question.responseRecord.r);
+								//html += '<tr><td>&nbsp;</td><td>' + question.name + '</td><td>' + question.responseRecord.r + '</td></tr>';
+							}
+							//html += '</tbody></table>';
+						}
+						//doc.fromHTML(html, 20, 20, {});
+						doc.save('assessment.pdf');
+					};
+
+					$scope.printIt = function () {
+						$scope.getBase64Image('http://target.cogentqi/js/config/target/target-logo.jpg', $scope.generatePdf);
+						return true;
 					};
 				})
 

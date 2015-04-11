@@ -3,7 +3,6 @@ namespace App;
 require_once("AssessmentResponse.php");
 
 
-
 class Assessment extends Model {
 
 	public function initialize() {
@@ -14,6 +13,23 @@ class Assessment extends Model {
 		$assessmentModel = $this->api->db->Assessment();
 
 		$urlName = $this->urlName();
+		$this->api->get("/$urlName/:assessmentId", function ($assessmentId) use ($urlName) {
+			$jsonRecords = ['responses' => []];
+			$assessment = $this->api->db->Assessment()->where("id=?)", $assessmentId)->fetch();
+			if (!empty($assessment)) {
+				foreach ($assessment->AssessmentResponse as $response) {
+					$jsonRecords['responses'][] = [
+						'id' => $response["id"],
+						'r'  => $response["response"],
+						'ri' => $response["responseIndex"],
+						'ac' => $response["assessorComments"],
+						'mc' => $response["memberComments"],
+					];
+				}
+			}
+			$this->api->sendResult($jsonRecords);
+		});
+
 		$this->api->get("/$urlName/organization/:orgId", function ($organizationId = NULL) use ($urlName) {
 			$jsonRecords = [];
 			$dbRecords = $this->api->db->Assessment()->where("memberId IN (SELECT id FROM Member WHERE organizationId=?)", $organizationId)->order("lastModified DESC");
