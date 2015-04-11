@@ -18,7 +18,7 @@ use \Slim\Slim;
  */
 class AltIdsStructure extends \NotORM_Structure_Convention {
 	function getReferencedTable($name, $table) {
-		echo "RT: $name/$table\n";
+		//echo "RT: $name/$table\n";
 		switch ($name) {
 			case "creatorId":
 			case "byMemberId":
@@ -31,8 +31,29 @@ class AltIdsStructure extends \NotORM_Structure_Convention {
 		return parent::getReferencedTable($name, $table);
 	}
 
+	function getReferencingTable($name, $table) {
+		echo "RingT: $name/$table ($this->prefix)\n";
+		return $this->prefix . $name;
+	}
+
+	function getReferencingColumn($name, $table) {
+		echo "RingC: $name/$table\n";
+		return $this->getReferencedColumn(substr($table, strlen($this->prefix)), $this->prefix . $name);
+	}
+	protected function getColumnFromTable($name) {
+		echo "getCT: $name ($this->table)\n";
+		if ($this->table != '%s' && preg_match('(^' . str_replace('%s', '(.*)', preg_quote($this->table)) . '$)', $name, $match)) {
+			if ($match[1] == "learningModule") {
+				$match[1] = "LearningModule";
+			}
+			echo "MATCH: ".$match[1]."\n";
+			return $match[1];
+		}
+		return $name;
+	}
+
 	function getReferencedColumn($name, $table) {
-		echo "RC: $name/$table\n";
+		//echo "RC: $name/$table\n";
 		if ($table == "PlanItem" && $name == "LearningModule") {
 			return "learningModuleId";
 		}
