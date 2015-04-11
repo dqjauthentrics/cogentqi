@@ -18,7 +18,7 @@ use \Slim\Slim;
  */
 class AltIdsStructure extends \NotORM_Structure_Convention {
 	function getReferencedTable($name, $table) {
-		//echo "RT: $name/$table\n";
+		echo "RT: $name/$table\n";
 		switch ($name) {
 			case "creatorId":
 			case "byMemberId":
@@ -28,22 +28,16 @@ class AltIdsStructure extends \NotORM_Structure_Convention {
 		}
 		$name[0] = strtolower($name[0]);
 		$table[0] = strtoupper($table[0]);
-		if (strtolower($table) == "learningmodule") {
-			$table = "LearningModule";
-		}
 		return parent::getReferencedTable($name, $table);
 	}
 
 	function getReferencedColumn($name, $table) {
-		//echo "RC: $name/$table\n";
+		echo "RC: $name/$table\n";
 		if ($table == "PlanItem" && $name == "LearningModule") {
 			return "learningModuleId";
 		}
 		$name[0] = strtolower($name[0]);
 		$table[0] = strtoupper($table[0]);
-		if (strtolower($table) == "learningmodule") {
-			$table = "LearningModule";
-		}
 		return sprintf($this->foreign, $this->getColumnFromTable($name), substr($table, strlen($this->prefix)));
 	}
 
