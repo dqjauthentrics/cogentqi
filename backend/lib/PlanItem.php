@@ -19,7 +19,7 @@ class PlanItem extends Model {
 	public function map($planRecord) {
 		$associative = NULL;
 		if (!empty($planRecord)) {
-			$module = $planRecord->Module;
+			$module = $planRecord->module;
 			$resourceId = !empty($module) ? $module["resourceId"] : NULL;
 			$resource = !empty($module) ? $module->Resource : NULL;
 			$resourceName = !empty($resource) ? $resource["name"] : NULL;
