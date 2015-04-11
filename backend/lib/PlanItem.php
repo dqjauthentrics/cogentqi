@@ -23,7 +23,7 @@ class PlanItem extends Model {
 				'm'  => $planRecord["learningModuleId"],
 				's'  => $planRecord["status"],
 				'dt' => $this->dateTime($planRecord["statusStamp"]),
-				'n'  => $planRecord->LearningModule->Resource["name"],
+				//'n'  => $planRecord->LearningModule->Resource["name"],
 				'r'  => $planRecord->LearningModule["resourceId"]
 			];
 		}

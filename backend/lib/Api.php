@@ -43,6 +43,12 @@ class AltIdsStructure extends \NotORM_Structure_Convention {
 
 }
 
+/**
+ * Class Api
+ * @package App
+ *
+ *          The main API, or app, class.
+ */
 class Api extends \Slim\Slim {
 	const STATUS_OKAY = TRUE;
 	const STATUS_ERROR = FALSE;
