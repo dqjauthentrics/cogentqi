@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.instruments', ['ngResource']).service('Instruments', function ($resource, Utility) {
+angular.module('Instruments', []).service('Instruments', function ($resource, Utility) {
 	var svc = this;
 	svc.SECTION_ALL = -100;
 	svc.SECTION_SUMMARY = -101;

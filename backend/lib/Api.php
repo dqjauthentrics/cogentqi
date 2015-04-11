@@ -25,7 +25,8 @@ class Api extends \Slim\Slim {
 	 */
 	function __construct($dsn, $username, $password, $options) {
 		$this->pdo = new \PDO($dsn, $username, $password);
-		$this->db = new \NotORM($this->pdo);
+		$structure = new \NotORM_Structure_Discovery($this->pdo, $cache = NULL, $foreign = '%sId');
+		$this->db = new \NotORM($this->pdo, $structure);
 		parent::__construct($options);
 	}
 

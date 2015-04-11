@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.evaluations', []).service('Evaluations', function ($resource, $filter, $http, $cookieStore, Utility, Instruments, Resources, Members) {
+angular.module('Assessments', []).service('Assessments', function ($resource, $filter, $http, $cookieStore, Utility, Instruments, Resources, Members) {
 	var svc = this;
 
 	svc.avg = 0.0;
@@ -10,21 +10,21 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 	svc.retrieve = function () {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			return $resource('/api/evaluation/organization/' + user.organizationId, {}, {});
+			return $resource('/api/assessment/organization/' + user.organizationId, {}, {});
 		}
 		return null;
 	};
-	svc.associateMembers = function (evaluations, members) {
-		if (!Utility.empty(evaluations) && !Utility.empty(members)) {
-			for (var i = 0; i < evaluations.length; i++) {
-				evaluations[i].member = Utility.findObjectById(members, evaluations[i].memberId);
-				evaluations[i].byMember = Utility.findObjectById(members, evaluations[i].byMemberId);
+	svc.associateMembers = function (assessments, members) {
+		if (!Utility.empty(assessments) && !Utility.empty(members)) {
+			for (var i = 0; i < assessments.length; i++) {
+				assessments[i].member = Utility.findObjectById(members, assessments[i].memberId);
+				assessments[i].byMember = Utility.findObjectById(members, assessments[i].byMemberId);
 			}
 		}
 	};
 	svc.retrieveForMember = function (memberId) {
 		if (!Utility.empty(memberId)) {
-			return $resource('/api/evaluation/member/' + memberId, {}, {});
+			return $resource('/api/assessment/member/' + memberId, {}, {});
 		}
 		return null;
 	};
@@ -32,7 +32,7 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 	svc.retrieveMatrix = function (instrumentId, isRollUp) {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(instrumentId) && !Utility.empty(user) && !Utility.empty(user.organizationId)) {
-			return $resource('/api/evaluation/matrix/' + (isRollUp ? 'rollup/' : '') + user.organizationId + '/' + instrumentId, {}, {});
+			return $resource('/api/assessment/matrix/' + (isRollUp ? 'rollup/' : '') + user.organizationId + '/' + instrumentId, {}, {});
 		}
 		return null;
 	};
@@ -46,44 +46,44 @@ angular.module('app.evaluations', []).service('Evaluations', function ($resource
 		return null;
 	};
 
-	svc.collate = function (instruments, members, evaluation) {
-		if (!Utility.empty(evaluation) && !Utility.empty(instruments) && !Utility.empty(members)) {
-			evaluation.instrument = Utility.findObjectById(instruments, evaluation.instrumentId);
-			evaluation.member = Utility.findObjectById(members, evaluation.memberId);
-			if (!Utility.empty(evaluation.member)) {
-				evaluation.member.roleName = Members.roleName(evaluation.member);
+	svc.collate = function (instruments, members, assessment) {
+		if (!Utility.empty(assessment) && !Utility.empty(instruments) && !Utility.empty(members)) {
+			assessment.instrument = Utility.findObjectById(instruments, assessment.instrumentId);
+			assessment.member = Utility.findObjectById(members, assessment.memberId);
+			if (!Utility.empty(assessment.member)) {
+				assessment.member.roleName = Members.roleName(assessment.member);
 			}
-			evaluation.byMember = Utility.findObjectById(members, evaluation.byMemberId);
-			if (!Utility.empty(evaluation.instrument)) {
+			assessment.byMember = Utility.findObjectById(members, assessment.byMemberId);
+			if (!Utility.empty(assessment.instrument)) {
 				/** @todo Fix this loop.  Doing way too much...
-				for (var i = 0; i < evaluation.responses.length; i++) {
-					var question = svc.findQuestion(evaluation.responses[i].qi, evaluation.instrument.questions);
+				for (var i = 0; i < assessment.responses.length; i++) {
+					var question = svc.findQuestion(assessment.responses[i].qi, assessment.instrument.questions);
 					if (!Utility.empty(question)) {
-						question.responseRecord = evaluation.responses[i];
+						question.responseRecord = assessment.responses[i];
 						console.log("FOUND");
 					}
 				}
 				**/
-				var sections = evaluation.instrument.sections;
-				for (var i = 0; i < evaluation.responses.length; i++) {
+				var sections = assessment.instrument.sections;
+				for (var i = 0; i < assessment.responses.length; i++) {
 					for (var j = 0; j < sections.length; j++) {
 						for (var k = 0; k < sections[j].questions.length; k++) {
 							var instrumentQuestionId = parseInt(sections[j].questions[k].id);
-							var responseQuestionId = parseInt(evaluation.responses[i].qi);
+							var responseQuestionId = parseInt(assessment.responses[i].qi);
 							if (instrumentQuestionId == responseQuestionId) {
-								sections[j].questions[k].responseRecord = evaluation.responses[i];
+								sections[j].questions[k].responseRecord = assessment.responses[i];
 							}
 						}
 					}
 				}
 			}
-			evaluation.sections = evaluation.instrument.sections;
+			assessment.sections = assessment.instrument.sections;
 		}
 	};
 
-	svc.retrieveSingle = function (evaluationId) {
-		if (!Utility.empty(evaluationId)) {
-			return $resource('/api/evaluation/' + evaluationId, {}, {query: {method: 'GET', isArray: false}});
+	svc.retrieveSingle = function (assessmentId) {
+		if (!Utility.empty(assessmentId)) {
+			return $resource('/api/assessment/' + assessmentId, {}, {query: {method: 'GET', isArray: false}});
 		}
 		return null;
 	};

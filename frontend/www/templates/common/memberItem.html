@@ -15,7 +15,7 @@
         <div data-ng-if="member.lastEval.i">
             <div style="text-decoration: underline;">Last Assessment</div>
             <div>
-                <i class="{{i.icons.evaluation}}"></i>&nbsp;<a href="#/manager/evaluation/{{member.lastEval.id}}">{{member.lastEval.dt|date:'longDate'}}</a>&nbsp;<span
+                <i class="{{i.icons.assessment}}"></i>&nbsp;<a href="#/manager/assessment/{{member.lastEval.id}}">{{member.lastEval.dt|date:'longDate'}}</a>&nbsp;<span
                    data-ng-class="'matrixCircle ' + (member.lastEval.i == 1?'levelBg':'yesNoBg') + member.lastEval.sr">{{member.lastEval.sr}}</span>
             </div>
         </div>

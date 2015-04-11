@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('app.controllers.administrator', [])
+angular.module('ControllerAdministrator', [])
 
-	.controller('AdminMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Evaluations, Organizations, Members) {
+	.controller('AdminMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Assessments, Organizations, Members) {
 					$scope.Instruments = Instruments;  //@todo Is this needed in views/directives?
 					$scope.Members = Members; //@todo Is this needed in views/directives?
 					$scope.Utility = Utility;
@@ -19,7 +19,7 @@ angular.module('app.controllers.administrator', [])
 					Organizations.retrieve().query(function (response) {
 						$scope.data.organizations = response;
 					});
-					Evaluations.retrieveMatrix($scope.data.currentInstrument, false).query(function (response) {
+					Assessments.retrieveMatrix($scope.data.currentInstrument, false).query(function (response) {
 						$scope.data.matrix = response;
 					});
 
@@ -31,9 +31,9 @@ angular.module('app.controllers.administrator', [])
 						if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
 							$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
 							$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
-							Evaluations.retrieveMatrix($scope.data.currentInstrument.id, true).query(function (response) {
+							Assessments.retrieveMatrix($scope.data.currentInstrument.id, true).query(function (response) {
 								$scope.data.matrix = response;
-								Evaluations.calcMatrixAverages($scope.data.currentInstrument, $scope.data.matrix, true);
+								assessments.calcMatrixAverages($scope.data.currentInstrument, $scope.data.matrix, true);
 							});
 						}
 					};
@@ -41,7 +41,7 @@ angular.module('app.controllers.administrator', [])
 						return Instruments.findMatrixResponseRowHeader($scope.data.currentInstrument, 20)
 					};
 					$scope.getRowValues = function (dataRow) {
-						return Evaluations.findMatrixResponseRowValues($scope.data.currentInstrument, Instruments.currentSectionIdx, dataRow.responses)
+						return assessments.findMatrixResponseRowValues($scope.data.currentInstrument, Instruments.currentSectionIdx, dataRow.responses)
 					};
 				})
 

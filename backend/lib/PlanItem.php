@@ -8,7 +8,7 @@ class PlanItem extends Model {
 
 		$this->api->get("/" . $this->urlName() . "/member/:memberId", function ($memberId = NULL) {
 			$jsonRecords = [];
-			$dbRecords = $this->api->db->{$this->tableName}()->where("member_id=?", $memberId)->order('status_stamp DESC');
+			$dbRecords = $this->api->db->{$this->tableName}()->where("memberId=?", $memberId)->order('statusStamp DESC');
 			foreach ($dbRecords as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
@@ -20,11 +20,11 @@ class PlanItem extends Model {
 		$associative = NULL;
 		if (!empty($planRecord)) {
 			$associative = [
-				'm'  => $planRecord["learning_module_id"],
+				'm'  => $planRecord["learningModuleId"],
 				's'  => $planRecord["status"],
-				'dt' => $this->dateTime($planRecord["status_stamp"]),
-				'n'  => $planRecord->learning_module->resource["name"],
-				'r'  => $planRecord->learning_module["resource_id"]
+				'dt' => $this->dateTime($planRecord["statusStamp"]),
+				'n'  => $planRecord->learningModule->resource["name"],
+				'r'  => $planRecord->learningModule["resourceId"]
 			];
 		}
 		return $associative;

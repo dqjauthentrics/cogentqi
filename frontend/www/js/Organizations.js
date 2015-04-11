@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.organizations', []).service('Organizations', function ($resource, $http, $cookieStore, $rootScope, Utility, Members) {
+angular.module('Organizations', []).service('Organizations', function ($resource, $http, $cookieStore, $rootScope, Utility, Members) {
 	var svc = this;
 
 	svc.retrieveMine = function () {

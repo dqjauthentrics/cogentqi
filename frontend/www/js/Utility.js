@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.utility', []).factory('Utility', [
+angular.module('Utility', []).factory('Utility', [
 	function () {
 		return {
 			empty: function (v) {

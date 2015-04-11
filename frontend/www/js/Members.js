@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.members', ['app.graphs']).service('Members', function ($filter, $resource, $http, $cookieStore, Graphs, Utility, Instruments) {
+angular.module('Members', ['Graphs']).service('Members', function ($filter, $resource, $http, $cookieStore, Graphs, Utility, Instruments) {
 	var svc = this;
 
 	svc.retrieve = function () {
@@ -50,11 +50,11 @@ angular.module('app.members', ['app.graphs']).service('Members', function ($filt
 		return 0;
 	};
 
-	svc.rptConfigHx = function (instruments, member, evaluations) {
+	svc.rptConfigHx = function (instruments, member, assessments) {
 		var memberHx = [];
 		var maxY = 5;
-		if (!Utility.empty(instruments) && !Utility.empty(member) && !Utility.empty(evaluations)) {
-			var instrument = Utility.findObjectById(instruments, evaluations[0].instrumentId); //@todo Assumes all same instrument
+		if (!Utility.empty(instruments) && !Utility.empty(member) && !Utility.empty(assessments)) {
+			var instrument = Utility.findObjectById(instruments, assessments[0].instrumentId); //@todo Assumes all same instrument
 			if (instrument.id == 2) {
 				maxY = 2; //@todo Tie to instrument ranges in future.
 			}
@@ -62,18 +62,18 @@ angular.module('app.members', ['app.graphs']).service('Members', function ($filt
 				var series = [];
 				var xLabels = [];
 				var section = instrument.sections[z];
-				for (var i = 0; i < evaluations.length && i < 3; i++) {
-					var evaluation = evaluations[i];
+				for (var i = 0; i < assessments.length && i < 3; i++) {
+					var assessment = assessments[i];
 					var dataSet = [];
 					for (var j = 0; j < section.questions.length; j++) {
 						var question = section.questions[j];
 						if (i == 0) {
 							xLabels.push(question.name);
 						}
-						var response = svc.findResponse(evaluation.responses, question.id);
+						var response = svc.findResponse(assessment.responses, question.id);
 						dataSet.push({label: response.r, y: parseInt(response.ri)});
 					}
-					series.push({id: i, type: 'column', name: $filter('date')(evaluation.lastModified, 'shortDate'), data: dataSet});
+					series.push({id: i, type: 'column', name: $filter('date')(assessment.lastModified, 'shortDate'), data: dataSet});
 				}
 				var rptCfg = Graphs.columnGraphConfig(section.name, null, 'Competency', 'Ranking', maxY, xLabels, series);
 				memberHx.push({title: section.name, config: rptCfg});

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.authentication', []).service('Authentication', function ($rootScope, $state, $http, $cookieStore, Utility) {
+angular.module('Authentication', []).service('Authentication', function ($rootScope, $state, $http, $cookieStore, Utility) {
 	var svc = this;
 	svc.resultMsg = "";
 

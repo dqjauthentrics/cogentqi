@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.localstore', []).factory('LocalStore', [
+angular.module('LocalStore', []).factory('LocalStore', [
 	'$window', function ($window) {
 		return {
 			set: function (key, value) {

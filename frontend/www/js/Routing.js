@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRouterProvider) {
+angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouterProvider) {
 
 	// Ionic uses AngularUI Router which uses the concept of states
 	// Learn more here: https://github.com/angular-ui/ui-router
@@ -46,10 +46,10 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 					   administratorAlignments: {templateUrl: 'templates/administrator/outcome.html', controller: 'AdminAlignmentCtrl'}
 				   }
 			   })
-		.state('administrator.evaluationMatrix', {
+		.state('administrator.assessmentMatrix', {
 				   url: '/dashboard/matrix',
 				   views: {
-					   administratorDashboard: {templateUrl: 'templates/administrator/evaluationMatrix.html', controller: 'AdminMatrixCtrl'}
+					   administratorDashboard: {templateUrl: 'templates/administrator/assessmentMatrix.html', controller: 'AdminMatrixCtrl'}
 				   }
 			   })
 		.state('administrator.alignments', {
@@ -122,10 +122,10 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 					   }
 				   }
 			   })
-		.state('manager.evaluationMatrix', {
+		.state('manager.assessmentMatrix', {
 				   url: '/dashboard/matrix',
 				   views: {
-					   managerDashboard: {templateUrl: 'templates/common/evaluationMatrix.html', controller: 'MgrMatrixCtrl'}
+					   managerDashboard: {templateUrl: 'templates/common/assessmentMatrix.html', controller: 'MgrMatrixCtrl'}
 				   }
 			   })
 		.state('manager.outcomes', {
@@ -146,23 +146,23 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 					   managerMembers: {templateUrl: 'templates/manager/member.html', controller: 'MemberCtrl'}
 				   }
 			   })
-		.state('manager.evaluations', {
-				   url: '/evaluations',
+		.state('manager.assessments', {
+				   url: '/assessments',
 				   views: {
-					   managerEvaluations: {templateUrl: 'templates/common/evaluations.html', controller: 'EvaluationsCtrl'}
+					   managerassessments: {templateUrl: 'templates/common/assessments.html', controller: 'assessmentsCtrl'}
 				   }
 			   })
-		.state('manager.evaluation', {
-				   url: '/evaluation/:evaluationId',
+		.state('manager.assessment', {
+				   url: '/assessment/:assessmentId',
 				   views: {
-					   managerEvaluations: {templateUrl: 'templates/common/evaluation.html', controller: 'EvaluationCtrl'}
+					   managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'assessmentCtrl'}
 				   }
 			   })
 
-		.state('manager.newEvaluation', {
-				   url: '/evaluation/n/:memberId',
+		.state('manager.newAssessment', {
+				   url: '/assessment/n/:memberId',
 				   views: {
-					   managerEvaluations: {templateUrl: 'templates/common/evaluation.html', controller: 'EvaluationCtrl'}
+					   managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'assessmentCtrl'}
 				   }
 			   })
 		.state('manager.planning', {
@@ -183,16 +183,16 @@ angular.module('app.routes', ['ionic']).config(function ($stateProvider, $urlRou
 					   managerResources: {templateUrl: 'templates/manager/resource.html', controller: 'ResourceCtrl'}
 				   }
 			   })
-		.state('manager.evaluationEmpSection', {
-				   url: '/evaluation/:evaluationId/:memberId/:sectionIdx',
+		.state('manager.assessmentEmpSection', {
+				   url: '/assessment/:assessmentId/:memberId/:sectionIdx',
 				   views: {
-					   managerEvaluations: {templateUrl: 'templates/common/evaluation.html', controller: 'EvaluationCtrl'}
+					   managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'assessmentCtrl'}
 				   }
 			   })
-		.state('manager.latestEvaluation', {
-				   url: '/evaluation/:memberId',
+		.state('manager.latestassessment', {
+				   url: '/assessment/:memberId',
 				   views: {
-					   managerEvaluations: {templateUrl: 'templates/common/evaluation.html', controller: 'EvaluationCtrl'}
+					   managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'assessmentCtrl'}
 				   }
 			   })
 		.state('manager.settings', {

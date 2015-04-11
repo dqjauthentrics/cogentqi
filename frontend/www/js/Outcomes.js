@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.outcomes', ['app.utility']).service('Outcomes', function ($cookieStore, $resource, $http, Utility) {
+angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $resource, $http, Utility) {
 	var svc = this;
 	svc.outcomes = null;
 	svc.currentOutcomes = [];

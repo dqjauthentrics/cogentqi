@@ -714,7 +714,7 @@ INSERT INTO `learning_module` (`id`, `resource_id`, `ends`, `sched_type`, `start
 
 CREATE TABLE IF NOT EXISTS `member` (
   `id` int(11) NOT NULL,
-  `organization_id` int(11) NOT NULL,
+  `organizationId` int(11) NOT NULL,
   `role_id` char(1) NOT NULL DEFAULT 'P',
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
@@ -730,7 +730,7 @@ CREATE TABLE IF NOT EXISTS `member` (
 -- Dumping data for table `member`
 --
 
-INSERT INTO `member` (`id`, `organization_id`, `role_id`, `first_name`, `last_name`, `job_title`, `email`, `username`, `password`, `avatar`, `level`) VALUES
+INSERT INTO `member` (`id`, `organizationId`, `role_id`, `first_name`, `last_name`, `job_title`, `email`, `username`, `password`, `avatar`, `level`) VALUES
 (1, 1, 'S', 'David', 'Quinn-Jacobs', 'CTO', 'dqj@cogentqi.com', 'dqj', 'f7ccee363ecaf9199fc3', 'img/avatars/user1.jpg', 4),
 (2, 1, 'S', 'JR', 'Hoyer', 'CEO', 'jrhoyer@cogentqi.com', 'jrhoyer', 'f7ccee363ecaf9199fc3', 'img/avatars/user2.jpg', 4),
 (3, 2, 'A', 'Melissa', 'Barbache', 'Area Manager', 'admin1@cogentqi.com', 'admin1', 'f7ccee363ecaf9199fc3', 'img/faux/users/1.jpg', 4),
@@ -822,7 +822,7 @@ INSERT INTO `organization` (`id`, `parent_id`, `name`, `summary`, `description`)
 
 CREATE TABLE IF NOT EXISTS `organization_outcome` (
   `id` int(11) NOT NULL,
-  `organization_id` int(11) NOT NULL,
+  `organizationId` int(11) NOT NULL,
   `outcome_id` int(11) NOT NULL,
   `evaluated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `evaluator_id` int(11) DEFAULT NULL,
@@ -834,7 +834,7 @@ CREATE TABLE IF NOT EXISTS `organization_outcome` (
 -- Dumping data for table `organization_outcome`
 --
 
-INSERT INTO `organization_outcome` (`id`, `organization_id`, `outcome_id`, `evaluated`, `evaluator_id`, `evaluator_comments`, `level`) VALUES
+INSERT INTO `organization_outcome` (`id`, `organizationId`, `outcome_id`, `evaluated`, `evaluator_id`, `evaluator_comments`, `level`) VALUES
 (32, 3, 1, '2015-03-28 15:48:12', NULL, NULL, 1),
 (33, 4, 1, '2015-03-28 15:48:12', NULL, NULL, 1),
 (34, 5, 1, '2015-03-28 15:48:12', NULL, NULL, 1),
@@ -1409,7 +1409,7 @@ ALTER TABLE `learning_module`
 -- Indexes for table `member`
 --
 ALTER TABLE `member`
-  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`), ADD KEY `organization_id` (`organization_id`);
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`), ADD KEY `organizationId` (`organizationId`);
 
 --
 -- Indexes for table `member_badge`
@@ -1427,7 +1427,7 @@ ALTER TABLE `organization`
 -- Indexes for table `organization_outcome`
 --
 ALTER TABLE `organization_outcome`
-  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `unique_id` (`id`), ADD KEY `organization_id` (`organization_id`), ADD KEY `outcome_id` (`outcome_id`), ADD KEY `evaluator_id` (`evaluator_id`);
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `unique_id` (`id`), ADD KEY `organizationId` (`organizationId`), ADD KEY `outcome_id` (`outcome_id`), ADD KEY `evaluator_id` (`evaluator_id`);
 
 --
 -- Indexes for table `outcome`
@@ -1620,7 +1620,7 @@ ADD CONSTRAINT `learning_module_ibfk_1` FOREIGN KEY (`resource_id`) REFERENCES `
 -- Constraints for table `member`
 --
 ALTER TABLE `member`
-ADD CONSTRAINT `member_ibfk_1` FOREIGN KEY (`organization_id`) REFERENCES `organization` (`id`);
+ADD CONSTRAINT `member_ibfk_1` FOREIGN KEY (`organizationId`) REFERENCES `organization` (`id`);
 
 --
 -- Constraints for table `organization`
@@ -1632,7 +1632,7 @@ ADD CONSTRAINT `organization_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `organ
 -- Constraints for table `organization_outcome`
 --
 ALTER TABLE `organization_outcome`
-ADD CONSTRAINT `organization_outcome_ibfk_1` FOREIGN KEY (`organization_id`) REFERENCES `organization` (`id`),
+ADD CONSTRAINT `organization_outcome_ibfk_1` FOREIGN KEY (`organizationId`) REFERENCES `organization` (`id`),
 ADD CONSTRAINT `organization_outcome_ibfk_2` FOREIGN KEY (`outcome_id`) REFERENCES `outcome` (`id`),
 ADD CONSTRAINT `organization_outcome_ibfk_3` FOREIGN KEY (`evaluator_id`) REFERENCES `member` (`id`);
 

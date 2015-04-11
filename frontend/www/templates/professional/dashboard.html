@@ -11,16 +11,16 @@
             <div class="col col50 padding">
                 <ion-list>
                     <ion-item class="top">Assessments</ion-item>
-                    <ion-item data-ng-if="!data.evaluations">None.</ion-item>
-                    <ion-item class="item-icon-right" data-ng-repeat="evaluation in data.evaluations" type="item-text-wrap"
-                              href="#/manager/evaluation/{{evaluation.id}}">
+                    <ion-item data-ng-if="!data.assessments">None.</ion-item>
+                    <ion-item class="item-icon-right" data-ng-repeat="assessment in data.assessments" type="item-text-wrap"
+                              href="#/manager/assessment/{{assessment.id}}">
                         <div style="white-space: normal !important;">
-                            <i class="{{i.icons.evaluation}} pad-right"></i>
-                            On <span style="font-weight:bold;">{{evaluation.lastModified | date:'medium'}}  ({{evaluation.lastModified|timeAgo}})</span>
+                            <i class="{{i.icons.assessment}} pad-right"></i>
+                            On <span style="font-weight:bold;">{{assessment.lastModified | date:'medium'}}  ({{assessment.lastModified|timeAgo}})</span>
 
-                            <div data-ng-if="evaluation.byMember">
-                                by {{evaluation.byMember.firstName}} {{evaluation.byMember.lastName}}
-                                <img data-ng-src="{{evaluation.byMember.avatar}}" alt=""
+                            <div data-ng-if="assessment.byMember">
+                                by {{assessment.byMember.firstName}} {{assessment.byMember.lastName}}
+                                <img data-ng-src="{{assessment.byMember.avatar}}" alt=""
                                      style="height: 8vmin; width: 8vmin; display: inline; vertical-align: middle;"/>
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.controllers.common', [])
+angular.module('ControllerCommon', [])
 
 	.controller('LoginController', [
 					'$scope', '$location', 'Authentication', function ($scope, $location, Authentication) {
@@ -24,7 +24,7 @@ angular.module('app.controllers.common', [])
 					}
 				])
 
-	.controller('MgrMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Evaluations, Organizations, Members) {
+	.controller('MgrMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Assessments, Organizations, Members) {
 					$scope.Instruments = Instruments;  //@todo Is this needed in views/directives?
 					$scope.Members = Members; //@todo Is this needed in views/directives?
 					$scope.Utility = Utility;
@@ -44,7 +44,7 @@ angular.module('app.controllers.common', [])
 					Organizations.retrieve().query(function (response) {
 						$scope.data.organizations = response;
 					});
-					Evaluations.retrieveMatrix($scope.data.currentInstrument, false).query(function (response) {
+					Assessments.retrieveMatrix($scope.data.currentInstrument, false).query(function (response) {
 						$scope.data.matrix = response;
 					});
 
@@ -56,9 +56,9 @@ angular.module('app.controllers.common', [])
 						if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
 							$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
 							$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
-							Evaluations.retrieveMatrix($scope.data.currentInstrument.id, false).query(function (response) {
+							Assessments.retrieveMatrix($scope.data.currentInstrument.id, false).query(function (response) {
 								$scope.data.matrix = response;
-								Evaluations.calcMatrixAverages($scope.data.currentInstrument, $scope.data.matrix, false);
+								Assessments.calcMatrixAverages($scope.data.currentInstrument, $scope.data.matrix, false);
 							});
 						}
 					};
@@ -66,16 +66,16 @@ angular.module('app.controllers.common', [])
 						return Instruments.findMatrixResponseRowHeader($scope.data.currentInstrument, 20)
 					};
 					$scope.getRowValues = function (dataRow) {
-						return Evaluations.findMatrixResponseRowValues($scope.data.currentInstrument, Instruments.currentSectionIdx, dataRow.responses)
+						return Assessments.findMatrixResponseRowValues($scope.data.currentInstrument, Instruments.currentSectionIdx, dataRow.responses)
 					};
 					$scope.findMember = function (memberId) {
 						return Utility.findObjectById($scope.data.members, memberId);
 					};
 				})
 
-	.controller('EvaluationCtrl', function ($scope, $timeout, $stateParams, Utility, Instruments, Evaluations, Members, Organizations, Resources) {
+	.controller('assessmentCtrl', function ($scope, $timeout, $stateParams, Utility, Instruments, Assessments, Members, Organizations, Resources) {
 					var collated = false;
-					$scope.Evaluations = Evaluations;
+					$scope.Assessments = Assessments;
 					$scope.Instruments = Instruments;
 					$scope.r0 = [];
 					$scope.r1 = [1];
@@ -90,34 +90,34 @@ angular.module('app.controllers.common', [])
 						recommendations: [],
 						resources: [],
 						instrument: {},
-						evaluation: null
+						assessment: null
 					};
 
 					/** @todo Retrieving too much data here. Retrieving current user's org should be done once at login and stored in user record.
-					 *        For a single evaluation, just retrieve a single Instrument and a single member and collate against only that one.
+					 *        For a single assessment, just retrieve a single Instrument and a single member and collate against only that one.
 					 */
 					Instruments.retrieve().query(function (response) {
 						$scope.data.instruments = response;
 						Instruments.collate($scope.data.instruments);
-						$scope.collateEvaluations();
-						$scope.getEvaluation();
+						$scope.collateAssessments();
+						$scope.getAssessment();
 					});
 					Members.retrieve().query(function (response) {
 						$scope.data.members = response;
-						$scope.collateEvaluations();
-						$scope.getEvaluation();
+						$scope.collateAssessments();
+						$scope.getAssessment();
 					});
 					Resources.retrieve().query(function (response) {
 						$scope.data.resources = response;
-						$scope.collateEvaluations();
-						$scope.getEvaluation();
+						$scope.collateAssessments();
+						$scope.getAssessment();
 					});
 
-					$scope.collateEvaluations = function () {
-						if (!collated && !Utility.empty($scope.data.evaluation) && !Utility.empty($scope.data.instruments) && !Utility.empty($scope.data.members)) {
+					$scope.collateAssessments = function () {
+						if (!collated && !Utility.empty($scope.data.assessment) && !Utility.empty($scope.data.instruments) && !Utility.empty($scope.data.members)) {
 							collated = true;
-							Evaluations.collate($scope.data.instruments, $scope.data.members, $scope.data.evaluation);
-							$scope.getEvaluation();
+							Assessments.collate($scope.data.instruments, $scope.data.members, $scope.data.assessment);
+							$scope.getassessment();
 						}
 					};
 					$scope.hasComment = function (question) {
@@ -161,7 +161,7 @@ angular.module('app.controllers.common', [])
 
 					$scope.getRecommendations = function () {
 						if (!Utility.empty($scope.data.instrument) && !Utility.empty($scope.data.resources)) {
-							$scope.data.recommendations = Evaluations.recommend($scope.data.instrument, $scope.data.resources);
+							$scope.data.recommendations = Assessments.recommend($scope.data.instrument, $scope.data.resources);
 						}
 					};
 
@@ -173,40 +173,40 @@ angular.module('app.controllers.common', [])
 					};
 
 					$scope.updateSliderResponse = function (question) {
-						Evaluations.sliderChange(question, $scope.data.instrument);
+						Assessments.sliderChange(question, $scope.data.instrument);
 						$scope.getRecommendations();
 					};
 					$scope.sliderTranslate = function (value) {
-						return Evaluations.scoreWord(value);
+						return Assessments.scoreWord(value);
 					};
 
-					$scope.getEvaluation = function () {
-						if (Utility.empty($scope.data.evaluation) && !Utility.empty($stateParams) && !Utility.empty($stateParams.evaluationId)) {
-							Evaluations.retrieveSingle($stateParams.evaluationId).query(function (response) {
+					$scope.getAssessment = function () {
+						if (Utility.empty($scope.data.assessment) && !Utility.empty($stateParams) && !Utility.empty($stateParams.assessmentId)) {
+							Assessments.retrieveSingle($stateParams.assessmentId).query(function (response) {
 								if (!Utility.empty(response) && !Utility.empty($scope.data.instruments)) {
 									$scope.data.instrument = Utility.findObjectById($scope.data.instruments, response.instrumentId);
-									Evaluations.collate($scope.data.instruments, $scope.data.members, response);
+									Assessments.collate($scope.data.instruments, $scope.data.members, response);
 								}
-								$scope.data.evaluation = response;
+								$scope.data.assessment = response;
 								$scope.getRecommendations();
 							});
 						}
-						if (!Utility.empty($scope.data.evaluation) && !Utility.empty($scope.data.evaluation.member)) {
-							Evaluations.avgRound = $scope.data.evaluation.member.level;
+						if (!Utility.empty($scope.data.assessment) && !Utility.empty($scope.data.assessment.member)) {
+							Assessments.avgRound = $scope.data.assessment.member.level;
 						}
 					};
 				})
 
-	.controller('EvaluationsCtrl', function ($scope, $stateParams, Utility, Evaluations, Members, Organizations) {
-					$scope.data = {members: [], evaluations: []};
+	.controller('assessmentsCtrl', function ($scope, $stateParams, Utility, Assessments, Members, Organizations) {
+					$scope.data = {members: [], assessments: []};
 
 					Members.retrieve().query(function (response) {
 						$scope.data.members = response;
-						Evaluations.associateMembers($scope.data.evaluations, $scope.data.members);
+						Assessments.associateMembers($scope.data.assessments, $scope.data.members);
 					});
-					Evaluations.retrieve().query(function (response) {
-						$scope.data.evaluations = response;
-						Evaluations.associateMembers($scope.data.evaluations, $scope.data.members);
+					Assessments.retrieve().query(function (response) {
+						$scope.data.assessments = response;
+						Assessments.associateMembers($scope.data.assessments, $scope.data.members);
 					});
 				})
 ;

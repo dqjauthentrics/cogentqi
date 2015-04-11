@@ -1,12 +1,11 @@
 <ion-view view-title='Assessment Matrix'>
     <ion-nav-buttons side="right">
-        <a href="/#tab/evaluations" style="font-size:1.2em;">Assessments >></a>
+        <a href="/#tab/assessments" style="font-size:1.2em;">Assessments >></a>
     </ion-nav-buttons>
     <ion-content has-bouncing="false">
         <div style="text-align:center; margin-top: 1em;">
-            <h3>{{a.sectionCurrentName()}}</h3>
+            <h3>{{data.currentInstrument.name}}</h3>
             <h4>Competency Summary Matrix</h4>
-
             <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId" data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
                     data-ng-options="instrument.id as instrument.name for instrument in data.instruments">
             </select>
@@ -15,7 +14,7 @@
             <table class="matrix">
                 <thead>
                 <tr>
-                    <th style="font-style: italic;">Most Recent<br/>Member Assessments</th>
+                    <th style="font-style: italic;">Assessments</th>
                     <th class="rotate" data-ng-repeat="name in getColHeaderNames() track by $index">
                         <div><span>{{name}}</span></div>
                     </th>
@@ -26,22 +25,14 @@
                 </thead>
                 <tbody>
                 <tr data-ng-repeat="dataRow in data.matrix">
-                    <td class="leftHeader" data-ng-init="member = findMember(dataRow.memberId)" data-ng-class="dataRow.memberId == -1? 'average':''">
-                        <div data-ng-switch="dataRow.memberId">
-                            <div data-ng-switch-when="-1" style="text-align: right;">
-                                {{dataRow.name}}
-                            </div>
-                            <div data-ng-switch-default>
-                                <img class="avatar-tiny" data-ng-src="{{member.avatar}}" alt="">
-                                <a href="/#/manager/member/{{dataRow.memberId}}">{{member.lastName}}, {{member.firstName}}</a>
-                            </div>
-                        </div>
+                    <td class="leftHeader" data-ng-class="dataRow.organizationId == -1? 'average':''">
+                        <a href="/#/administrator/organization/{{dataRow.organizationId}}">{{dataRow.name}}</a>
                     </td>
-                    <td data-ng-repeat="response in getRowValues(dataRow) track by $index" data-ng-class="dataRow.memberId == -1? 'average':''">
-                        <div class="matrixCircle {{data.currentInstrument.id == 1?'levelBg':'yesNoBg'}}{{response|number:0}}">{{response|number:0}}</div>
+                    <td data-ng-repeat="response in getRowValues(dataRow) track by $index" data-ng-class="dataRow.organizationId == -1? 'average':''">
+                        <div class="matrixCircle {{data.currentInstrument.id == 1?'levelBg':'yesNoBg'}}{{response|number:0}}">{{response|number:1}}</div>
                     </td>
                     <td class="average">
-                        <div class="matrixCircle {{data.currentInstrument.id == 1?'levelBg':'yesNoBg'}}{{dataRow.avgRound}}">{{dataRow.avgRound}}</div>
+                        <div class="matrixCircle {{data.currentInstrument.id == 1?'levelBg':'yesNoBg'}}{{dataRow.avgRound}}">{{dataRow.avg}}</div>
                     </td>
                 </tr>
                 </tbody>

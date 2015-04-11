@@ -1,6 +1,6 @@
 <?php
 namespace App;
-require_once "../lib/Evaluation.php";
+require_once "../lib/Assessment.php";
 require_once "../lib/Badge.php";
 require_once "../lib/OutcomeEvent.php";
 require_once "../lib/PlanItem.php";
@@ -11,9 +11,9 @@ class Member extends Model {
 		parent::initialize();
 
 		$urlName = $this->urlName();
-		$this->api->get("/$urlName/organization/:orgId", function ($orgId = NULL) use ($urlName) {
+		$this->api->get("/$urlName/organization/:organizationId", function ($organizationId = NULL) use ($urlName) {
 			$jsonRecords = [];
-			$dbRecords = $this->api->db->{$urlName}()->where("organization_id=?", $orgId);
+			$dbRecords = $this->api->db->{$urlName}()->where("organizationId=?", $organizationId);
 			foreach ($dbRecords as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
@@ -29,7 +29,7 @@ class Member extends Model {
 	public function map($member) {
 		$associative = parent::map($member);
 
-		$badgeRecords = $this->api->db->member_badge()->where('member_id', $member["id"]);
+		$badgeRecords = $this->api->db->MemberBadge()->where('memberId', $member["id"]);
 		$jsonBadges = [];
 		$badge = new Badge($this->api);
 		foreach ($badgeRecords as $badgeRecord) {
@@ -38,29 +38,29 @@ class Member extends Model {
 		$associative["badges"] = $jsonBadges;
 
 		if (!strstr($_SERVER["REQUEST_URI"], "/organization")) {
-			$evalRecords = $this->api->db->evaluation()->where('member_id', $member["id"])->order('last_modified DESC');
+			$evalRecords = $this->api->db->Assessment()->where('memberId', $member["id"])->order('lastModified DESC');
 			$jsonEvals = [];
-			$eval = new Evaluation($this->api);
+			$eval = new Assessment($this->api);
 			foreach ($evalRecords as $evalRecord) {
 				//$eval->mapExcludes = ["responses"];
 				$jsonEvals[] = $eval->map($evalRecord);
 			}
-			$associative["evaluations"] = $jsonEvals;
+			$associative["assessments"] = $jsonEvals;
 
-			$eventRecords = $this->api->db->outcome_event()->where('member_id', $member["id"])->order('occurred DESC');
+			$eventRecords = $this->api->db->OutcomeEvent()->where('memberId', $member["id"])->order('occurred DESC');
 			$jsonEvents = [];
 			foreach ($eventRecords as $eventRecord) {
 				$jsonEvents[] = [
 					'id'       => $eventRecord["id"],
 					'occurred' => $this->dateTime($eventRecord["occurred"]),
-					'outId'    => $eventRecord["outcome_id"],
+					'outId'    => $eventRecord["outcomeId"],
 					'name'     => $eventRecord["name"],
 					'cat'      => $eventRecord["category"]
 				];
 			}
 			$associative["events"] = $jsonEvents;
 
-			$planRecords = $this->api->db->plan_item()->where('member_id', $member["id"])->order('status_stamp DESC');
+			$planRecords = $this->api->db->PlanItem()->where('memberId', $member["id"])->order('status_stamp DESC');
 			$jsonPlanItems = [];
 			$planItem = new PlanItem($this->api);
 			foreach ($planRecords as $planRecord) {
@@ -69,12 +69,12 @@ class Member extends Model {
 			$associative["planItems"] = $jsonPlanItems;
 		}
 		else {
-			$lastEval = $this->api->db->evaluation()->where('member_id', $member["id"])->order('last_modified DESC')->fetch();
+			$lastEval = $this->api->db->Assessment()->where('memberId', $member["id"])->order('lastModified DESC')->fetch();
 			$associative["lastEval"] = ["id" => $lastEval["id"],
-										"dt" => $this->dateTime($lastEval["last_modified"]),
-										"sr" => $lastEval["score_rank"],
+										"dt" => $this->dateTime($lastEval["lastModified"]),
+										"sr" => $lastEval["rank"],
 										"sc" => $lastEval["score"],
-										"i" => $lastEval["instrument_id"]
+										"i" => $lastEval["instrumentId"]
 			];
 		}
 

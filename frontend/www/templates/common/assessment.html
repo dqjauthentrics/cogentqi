@@ -6,21 +6,21 @@
                 class="{{i.icons.pdf}}"></i></a>
         </div>
         <div class="row responsive-sm">
-            <div class="col col-100"><h3 style="text-align: center; margin:0 auto;">{{data.evaluation.instrument.name}}</h3></div>
+            <div class="col col-100"><h3 style="text-align: center; margin:0 auto;">{{data.assessment.instrument.name}}</h3></div>
         </div>
         <div class="row responsive-sm detail">
             <div class="col col-25 padding" style="text-align:center;">
-                <a href="#/manager/member/{{data.evaluation.member.id}}">
-                    <img class="border border{{Evaluations.avgRound}}" data-ng-src="{{data.evaluation.member.avatar}}" alt=""/>
+                <a href="#/manager/member/{{data.assessment.member.id}}">
+                    <img class="border border{{Assessments.avgRound}}" data-ng-src="{{data.assessment.member.avatar}}" alt=""/>
                 </a><br/>
 
-                <div class="name"><a href="#/manager/member/{{data.evaluation.member.id}}">
-                    {{data.evaluation.member.firstName}} {{data.evaluation.member.lastName}}</a>
+                <div class="name"><a href="#/manager/member/{{data.assessment.member.id}}">
+                    {{data.assessment.member.firstName}} {{data.assessment.member.lastName}}</a>
                 </div>
-                <div class="role">{{data.evaluation.member.roleName}}</div>
-                <div class="score" data-ng-show="Evaluations.avgRound > 0">
-                    <i class="logo level levelColor{{Evaluations.avgRound}} {{i.icons.levels[Evaluations.avgRound]}}">
-                        {{Evaluations.scoreWord(Evaluations.avgRound)}} <span style="font-size:0.6em;">({{Evaluations.avg}})</span>
+                <div class="role">{{data.assessment.member.roleName}}</div>
+                <div class="score" data-ng-show="Assessments.avgRound > 0">
+                    <i class="logo level levelColor{{Assessments.avgRound}} {{i.icons.levels[Assessments.avgRound]}}">
+                        {{Assessments.scoreWord(Assessments.avgRound)}} <span style="font-size:0.6em;">({{Assessments.avg}})</span>
                     </i>
                 </div>
             </div>
@@ -37,21 +37,21 @@
             </div>
         </div>
         <div class="row responsive-sm detail">
-            <div class="col col-100 evaluation">
-                <div style="display:none;">{{data.evaluation.last_modified}}</div>
-                <div id="section{{$index}}" data-ng-repeat="section in data.evaluation.instrument.sections" class="fadein fadeout">
-                    <div data-ng-show="Instruments.sectionIsCurrent(data.evaluation.instrument, section.id)">
+            <div class="col col-100 assessment">
+                <div style="display:none;">{{data.assessment.last_modified}}</div>
+                <div id="section{{$index}}" data-ng-repeat="section in data.assessment.instrument.sections" class="fadein fadeout">
+                    <div data-ng-show="Instruments.sectionIsCurrent(data.assessment.instrument, section.id)">
                         <div style="float:left; margin-left:1em;">
-                            <a ng-click="Instruments.sectionPrevious(data.evaluation.instrument)"><< {{section.previous}}</a>
+                            <a ng-click="Instruments.sectionPrevious(data.assessment.instrument)"><< {{section.previous}}</a>
                         </div>
                         <div style="float:right; margin-right:1em;">
-                            <a ng-click="Instruments.sectionNext(data.evaluation.instrument)">{{section.next}}>></a>
+                            <a ng-click="Instruments.sectionNext(data.assessment.instrument)">{{section.next}}>></a>
                         </div>
                         <div class="clearfix"></div>
                         <div style="height:1em;"></div>
                         <ion-list>
                             <ion-item class="top">
-                                <h2 style="float:left;">{{Instruments.sectionNumber(data.evaluation.instrument)}} {{section.name}}</h2>
+                                <h2 style="float:left;">{{Instruments.sectionNumber(data.assessment.instrument)}} {{section.name}}</h2>
                                 <div style="float:right; margin-right: 0.4em;">
                                     <button class="button button-balanced button-small" onclick="alert('Demo mode only.');">Save</button>
                                 </div>

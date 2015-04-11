@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.quiz', []).factory('Quiz', function () {
+angular.module('Quizzes', []).factory('Quizzes', function () {
 	var passingScore = 3;
 	var questions = [
 		{

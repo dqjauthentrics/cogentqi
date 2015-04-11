@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.graphs', []).service('Graphs', function () {
+angular.module('Graphs', []).service('Graphs', function () {
 	this.levelColors = ['gray', '#BB4444', '#EE7A00', '#68A', '#6A8'];
 	this.regularColors = ['#577', '#799', '#9BB', '#BDD', '#DFF'];
 

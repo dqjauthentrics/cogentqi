@@ -8,6 +8,6 @@
 
 namespace App;
 
-class QuestionTypeResponse extends Model {
+class QuestionChoice extends Model {
 
 }

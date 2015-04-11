@@ -10,15 +10,15 @@ class Resource extends Model {
 		$this->api->post("/resource/saveAlignments", function () {
 			$post = $this->api->request()->post();
 			if (!empty($post["resourceId"]) && !empty($post["instrumentId"])) {
-				$records = $this->api->db->resource_alignment()
-					->where('resource_id=? AND (question_id IN (SELECT id FROM question WHERE question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?)))',
+				$records = $this->api->db->ResourceAlignment()
+					->where('resourceId=? AND (questionId IN (SELECT id FROM Question WHERE questionGroupId IN (SELECT id FROM QuestionGroup WHERE instrumentId=?)))',
 						$post["resourceId"], $post["instrumentId"])->delete();
 
 				if (!empty($post["alignments"])) {
 					foreach ($post["alignments"] as $alignment) {
-						$resourceAlignment = ['resource_id' => $post["resourceId"], 'question_id' => $alignment["id"], 'weight' => $alignment["wt"]];
+						$resourceAlignment = ['resourceId' => $post["resourceId"], 'questionId' => $alignment["id"], 'weight' => $alignment["wt"]];
 						echo "save:" . json_encode($resourceAlignment) . "\n";
-						$this->api->db->resource_alignment()->insert($resourceAlignment);
+						$this->api->db->ResourceAlignment()->insert($resourceAlignment);
 					}
 				}
 			}
@@ -34,11 +34,11 @@ class Resource extends Model {
 		$associative = parent::map($resource);
 		$associative["rawScore"] = 0;
 		$associative["score"] = 0;
-		$alignmentRecords = $this->api->db->resource_alignment()->where('resource_id', $resource["id"]);
+		$alignmentRecords = $this->api->db->ResourceAlignment()->where('resourceId', $resource["id"]);
 		$jsonAlignments = [];
 		$alignment = new ResourceAlignment($this->api);
 		foreach ($alignmentRecords as $alignmentRecord) {
-			$alignment->mapExcludes = ["resource_id"];
+			$alignment->mapExcludes = ["resourceId"];
 			$jsonAlignments[] = $alignment->map($alignmentRecord);
 		}
 		$associative["alignments"] = $jsonAlignments;

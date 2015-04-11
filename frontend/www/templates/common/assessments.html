@@ -3,23 +3,23 @@
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
         <ion-list>
-            <ion-item class="gray" data-ng-if="!data.evaluations.length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
-            <ion-item class="item-remove-animate item-icon-right" ng-repeat="evaluation in data.evaluations"
-                      type="item-text-wrap" href="#/manager/evaluation/{{evaluation.id}}">
+            <ion-item class="gray" data-ng-if="!data.assessments.length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
+            <ion-item class="item-remove-animate item-icon-right" ng-repeat="assessment in data.assessments"
+                      type="item-text-wrap" href="#/manager/assessment/{{assessment.id}}">
                 <div class="row">
                     <div class="col col-35">
-                        <img class="border border{{evaluation.member.level}}" style="float:left; margin: 0 0.4em 0 0;"
-                             data-ng-src="{{evaluation.member.avatar}}">
+                        <img class="border border{{assessment.member.level}}" style="float:left; margin: 0 0.4em 0 0;"
+                             data-ng-src="{{assessment.member.avatar}}">
 
                         <div style="float:left;margin: 0.1em;">
                             <div class="title">
-                                {{evaluation.member.firstName}} {{evaluation.member.lastName}}
+                                {{assessment.member.firstName}} {{assessment.member.lastName}}
                             </div>
                             <div class="title" style="float:left;margin: 0.1em;">
-                                <div style="width:2em; text-align:center;" class="matrixCircle {{evaluation.instrumentId == 1?'levelBg':'yesNoBg'}}{{evaluation.member.level|number:0}}">
-                                    {{evaluation.member.level|number:0}}
+                                <div style="width:2em; text-align:center;" class="matrixCircle {{assessment.instrumentId == 1?'levelBg':'yesNoBg'}}{{assessment.member.level|number:0}}">
+                                    {{assessment.member.level|number:0}}
                                 </div>
-                                <span class="stamp">{{evaluation.lastSaved}}</span>
+                                <span class="stamp">{{assessment.lastSaved}}</span>
                             </div>
                         </div>
                     </div>

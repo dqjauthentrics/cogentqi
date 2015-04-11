@@ -21,41 +21,41 @@ class Model {
 	public $tableName = NULL;
 
 	public $colNameMap = [
-		'avatar'             => 'av',
-		'by_member_id'       => 'by',
-		'description'        => 'dsc',
-		'email'              => 'em',
-		'evaluation_id'      => 'ei',
-		'evaluator_comments' => 'ec',
-		'first_name'         => 'fn',
-		'instrument_id'      => 'ii',
-		'job_title'          => 'jt',
-		'last_name'          => 'ln',
-		'last_modified'      => 'lm',
-		'last_saved'         => 'ls',
-		'learning_module_id' => 'lmi',
-		'level'              => 'lv',
-		'location'           => 'loc',
-		'member_comments'    => 'mc',
-		'member_id'          => 'mi',
-		'name'               => 'n',
-		'number'             => 'nmb',
-		'organization_id'    => 'oi',
-		'outcome_id'         => 'oti',
-		'plan_item_id'       => 'pli',
-		'question_group_id'  => 'qg',
-		'question_id'        => 'qi',
-		'question_type_id'   => 'qt',
-		'resource_id'        => 'ri',
-		'resource_type_id'   => 'rti',
-		'role_id'            => 'r',
-		'rubric'             => 'ru',
-		'score'              => 'sc',
-		'score_rank'         => 'sr',
-		'sort_order'         => 'so',
-		'summary'            => 'sm',
-		'value'              => 'v',
-		'weight'             => 'wt',
+		'avatar'           => 'av',
+		'byMemberId'       => 'by',
+		'description'      => 'dsc',
+		'email'            => 'em',
+		'assessmentId'     => 'ei',
+		'assessorComments' => 'ac',
+		'firstName'        => 'fn',
+		'instrumentId'     => 'ii',
+		'job_title'        => 'jt',
+		'lastName'         => 'ln',
+		'lastModified'    => 'lm',
+		'last_saved'       => 'ls',
+		'learningModuleId' => 'lmi',
+		'level'            => 'lv',
+		'location'         => 'loc',
+		'memberComments'   => 'mc',
+		'memberId'         => 'mi',
+		'name'             => 'n',
+		'number'           => 'nmb',
+		'organizationId'   => 'oi',
+		'outcomeId'        => 'oti',
+		'planItemId'       => 'pli',
+		'questionGroupId'  => 'qg',
+		'questionId'       => 'qi',
+		'questionTypeId'   => 'qt',
+		'resourceId'       => 'ri',
+		'resourceTypeId'   => 'rti',
+		'roleId'           => 'r',
+		'rubric'           => 'ru',
+		'score'            => 'sc',
+		'rank'             => 'r',
+		'sortOrder'        => 'so',
+		'summary'          => 'sm',
+		'value'            => 'v',
+		'weight'           => 'wt',
 	];
 
 	/**
@@ -63,7 +63,8 @@ class Model {
 	 */
 	function __construct($api) {
 		$this->api = $api;
-		$this->tableName = $this->classNameToTableName();
+		$this->tableName = $this->baseClassName();
+		$this->tableName[0] = strtoupper($this->tableName[0]);
 		$this->initialize();
 	}
 
@@ -92,32 +93,6 @@ class Model {
 		return $path;
 	}
 
-	protected function classNameToTableName() {
-		$className = $this->baseClassName();
-		$tableName = "";
-		for ($i = 0; $i < strlen($className); $i++) {
-			$ch = substr($className, $i, 1);
-			if (ctype_upper($ch) && $i > 0) {
-				$tableName .= "_";
-			}
-			$tableName .= $ch;
-		}
-		return strtolower($tableName);
-	}
-
-	protected function colNameToJsonName($colName) {
-		$jsonName = "";
-		for ($i = 0; $i < strlen($colName); $i++) {
-			$ch = substr($colName, $i, 1);
-			if ($ch == "_") {
-				$i++;
-				$ch = strtoupper(substr($colName, $i, 1));
-			}
-			$jsonName .= $ch;
-		}
-		return $jsonName;
-	}
-
 	/**
 	 * @param array $dbRecord
 	 *
@@ -134,7 +109,7 @@ class Model {
 						$jsonName = $this->colNameMap[$colName];
 					}
 					else {
-						$jsonName = $this->colNameToJsonName($colName);
+						$jsonName = $colName;
 					}
 					if (in_array($colName, $this->dateTimeCols)) {
 						$jsonRecord[$jsonName] = @$this->dateTime($dbRecord[$colName]);
@@ -164,7 +139,7 @@ class Model {
 		});
 		$this->api->get("/$urlName/children/:parentId", function ($parentId = NULL) use ($urlName) {
 			$jsonRecords = [];
-			foreach ($this->api->db->{$this->tableName}()->where("parent_id=?", $parentId) as $dbRecord) {
+			foreach ($this->api->db->{$this->tableName}()->where("parentId=?", $parentId) as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
 			$this->api->sendResult($jsonRecords);

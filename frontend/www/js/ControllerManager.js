@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('app.controllers.manager', [])
+angular.module('ControllerManager', [])
 
 	.controller('DashboardCtrl', function ($scope, Organizations) {
 				})
 
 	.controller('MemberCtrl', function ($scope, $stateParams, Utility, Icons, Instruments, Organizations, Members) {
-					$scope.data = {organizations: [], instruments: [], member: {}, evaluations: [], instrument: null};
+					$scope.data = {organizations: [], instruments: [], member: {}, assessments: [], instrument: null};
 
 					$scope.Members = Members;
 					$scope.Icons = Icons;
@@ -28,10 +28,10 @@ angular.module('app.controllers.manager', [])
 						});
 					}
 					$scope.setRptConfigHx = function () {
-						if (!Utility.empty($scope.data.member) && Utility.empty($scope.data.member.rptConfigHx) && !Utility.empty($scope.data.instruments) && !Utility.empty($scope.data.member.evaluations)) {
+						if (!Utility.empty($scope.data.member) && Utility.empty($scope.data.member.rptConfigHx) && !Utility.empty($scope.data.instruments) && !Utility.empty($scope.data.member.assessments)) {
 							Instruments.collate($scope.data.instruments);
-							$scope.data.instrument = Utility.findObjectById($scope.data.instruments, $scope.data.member.evaluations[0].instrumentId);
-							$scope.data.member.rptConfigHx = Members.rptConfigHx($scope.data.instruments, $scope.data.member, $scope.data.member.evaluations);
+							$scope.data.instrument = Utility.findObjectById($scope.data.instruments, $scope.data.member.assessments[0].instrumentId);
+							$scope.data.member.rptConfigHx = Members.rptConfigHx($scope.data.instruments, $scope.data.member, $scope.data.member.assessments);
 						}
 					};
 
@@ -66,7 +66,7 @@ angular.module('app.controllers.manager', [])
 					};
 				})
 
-	.controller('ResourceCtrl', function ($scope, $stateParams, Utility, LearningModules, Organizations, Resources, Quiz) {
+	.controller('ResourceCtrl', function ($scope, $stateParams, Utility, LearningModules, Organizations, Resources, Quizzes) {
 					$scope.data = {learningModules: [], resources: [], resource: {}};
 					$scope.playerVars = {controls: 2, autoplay: 0, modestbranding: 1, rel: 0, theme: 'light'};
 

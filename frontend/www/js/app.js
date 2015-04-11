@@ -13,24 +13,24 @@ angular.module('app',
 				   'vr.directives.slider',
 				   'youtube-embed',
 				   'webcam',
-				   'app.routes',
-				   'app.icons',
-				   'app.instruments',
-				   'app.settings',
+				   'Routing',
+				   'Icons',
+				   'Instruments',
+				   'Settings',
 				   'Plans',
-				   'app.utility',
-				   'app.authentication',
-				   'app.quiz',
-				   'app.organizations',
-				   'app.members',
-				   'app.evaluations',
-				   'app.resources',
-				   'app.learningModules',
-				   'app.controllers.common',
-				   'app.controllers.manager',
-				   'app.controllers.administrator',
-				   'app.controllers.professional',
-				   'app.outcomes'
+				   'Utility',
+				   'Authentication',
+				   'Quizzes',
+				   'Organizations',
+				   'Members',
+				   'Assessments',
+				   'Resources',
+				   'LearningModules',
+				   'Outcomes',
+				   'ControllerCommon',
+				   'ControllerManager',
+				   'ControllerAdministrator',
+				   'ControllerProfessional'
 			   ]
 )
 	.config([
@@ -146,7 +146,7 @@ angular.module('app',
 					   scope: {weight: '=', range: '='}
 				   };
 			   })
-	.directive('quiz', function (Quiz) {
+	.directive('quiz', function (Quizzes) {
 				   return {
 					   restrict: 'AE',
 					   scope: {},
@@ -173,7 +173,7 @@ angular.module('app',
 						   };
 
 						   scope.getQuestion = function () {
-							   var q = Quiz.getQuestion(scope.id);
+							   var q = Quizzes.getQuestion(scope.id);
 							   if (q) {
 								   scope.question = q.question;
 								   scope.options = q.options;
@@ -187,7 +187,7 @@ angular.module('app',
 						   };
 
 						   scope.getPassingScore = function () {
-							   return Quiz.getPassingScore();
+							   return Quizzes.getPassingScore();
 						   };
 
 						   scope.checkAnswer = function () {

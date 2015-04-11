@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.icons', []).service('Icons', function () {
+angular.module('Icons', []).service('Icons', function () {
 	this.icons = {
 		add: "fa fa-plus-circle",
 		addProject: "fa fa-plus-circle",
@@ -15,7 +15,7 @@ angular.module('app.icons', []).service('Icons', function () {
 		dragHandle: "fa fa-thumbnails",
 		edit: "fa fa-pencil ",
 		email: "fa fa-mail",
-		evaluation: "fa fa-sliders",
+		assessment: "fa fa-sliders",
 		event: "fa fa-warning",
 		grades: "fa fa-tag-2",
 		home: "fa fa-home",

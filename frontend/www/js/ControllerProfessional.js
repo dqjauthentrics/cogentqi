@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('app.controllers.professional', [])
+angular.module('ControllerProfessional', [])
 
-	.controller('ProfDashboardCtrl', function ($cookieStore, $rootScope, $scope, Utility, Organizations, Members, Evaluations, Plans) {
-					$scope.data = {evaluations: [], members: [], planItems: [], user: $cookieStore.get('user')};
+	.controller('ProfDashboardCtrl', function ($cookieStore, $rootScope, $scope, Utility, Organizations, Members, Assessments, Plans) {
+					$scope.data = {assessments: [], members: [], planItems: [], user: $cookieStore.get('user')};
 
 					try {
 						Utility.getResource(Members.retrieve(), function (response) {
@@ -13,8 +13,8 @@ angular.module('app.controllers.professional', [])
 						Utility.getResource(Plans.retrieve($scope.data.user.id), function (response) {
 							$scope.data.planItems = response;
 						});
-						Utility.getResource(Evaluations.retrieveForMember($scope.data.user.id), function (response) {
-							$scope.data.evaluations = response;
+						Utility.getResource(Assessments.retrieveForMember($scope.data.user.id), function (response) {
+							$scope.data.assessments = response;
 							$scope.associate("evals");
 						});
 					}
@@ -23,8 +23,8 @@ angular.module('app.controllers.professional', [])
 					}
 
 					$scope.associate = function (lbl) {
-						if (!Utility.empty($scope.data.evaluations) && !Utility.empty($scope.data.members)) {
-							Evaluations.associateMembers($scope.data.evaluations, $scope.data.members);
+						if (!Utility.empty($scope.data.assessments) && !Utility.empty($scope.data.members)) {
+							Assessments.associateMembers($scope.data.assessments, $scope.data.members);
 						}
 					};
 					$scope.statusWord = function (statusId) {
