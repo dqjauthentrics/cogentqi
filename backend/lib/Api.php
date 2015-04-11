@@ -28,6 +28,9 @@ class AltIdsStructure extends \NotORM_Structure_Convention {
 		}
 		$name[0] = strtolower($name[0]);
 		$table[0] = strtoupper($table[0]);
+		if (strtolower($table) == "learningmodule") {
+			$table = "LearningModule";
+		}
 		return parent::getReferencedTable($name, $table);
 	}
 
@@ -38,6 +41,9 @@ class AltIdsStructure extends \NotORM_Structure_Convention {
 		}
 		$name[0] = strtolower($name[0]);
 		$table[0] = strtoupper($table[0]);
+		if (strtolower($table) == "learningmodule") {
+			$table = "LearningModule";
+		}
 		return sprintf($this->foreign, $this->getColumnFromTable($name), substr($table, strlen($this->prefix)));
 	}
 
