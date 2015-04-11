@@ -42,6 +42,9 @@ class AltIdsStructure extends \NotORM_Structure_Convention {
 	}
 	protected function getColumnFromTable($name) {
 		echo "getCT: $name ($this->table)\n";
+		if ($name == "learningModule") {
+			$this->table = "LearningModule";
+		}
 		if ($this->table != '%s' && preg_match('(^' . str_replace('%s', '(.*)', preg_quote($this->table)) . '$)', $name, $match)) {
 			if ($match[1] == "learningModule") {
 				$match[1] = "LearningModule";
