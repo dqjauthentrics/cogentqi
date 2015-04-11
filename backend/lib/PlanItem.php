@@ -23,8 +23,8 @@ class PlanItem extends Model {
 				'm'  => $planRecord["learningModuleId"],
 				's'  => $planRecord["status"],
 				'dt' => $this->dateTime($planRecord["statusStamp"]),
-				'n'  => $planRecord->learningModule->resource["name"],
-				'r'  => $planRecord->learningModule["resourceId"]
+				'n'  => $planRecord->LearningModule->resource["name"],
+				'r'  => $planRecord->LearningModule["resourceId"]
 			];
 		}
 		return $associative;
