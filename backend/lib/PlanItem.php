@@ -20,7 +20,7 @@ class PlanItem extends Model {
 		$associative = NULL;
 		if (!empty($planRecord)) {
 			$module = $planRecord->module;
-			$module = $this->api->db->Module()->where('id=?',$planRecord["moduleId"])->fetch();
+			$module = $this->api->db->Module()->where('id=1')->fetch();
 			$resourceId = !empty($module) ? $module["resourceId"] : NULL;
 			$resource = !empty($module) ? $module->Resource : NULL;
 			$resourceName = !empty($resource) ? $resource["name"] : NULL;
