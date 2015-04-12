@@ -149,20 +149,20 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('manager.assessments', {
 				   url: '/assessments',
 				   views: {
-					   managerassessments: {templateUrl: 'templates/common/assessments.html', controller: 'assessmentsCtrl'}
+					   managerassessments: {templateUrl: 'templates/common/assessments.html', controller: 'AssessmentsCtrl'}
 				   }
 			   })
 		.state('manager.assessment', {
 				   url: '/assessment/:assessmentId',
 				   views: {
-					   managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'assessmentCtrl'}
+					   managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'AssessmentCtrl'}
 				   }
 			   })
 
 		.state('manager.newAssessment', {
 				   url: '/assessment/n/:memberId',
 				   views: {
-					   managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'assessmentCtrl'}
+					   managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'AssessmentCtrl'}
 				   }
 			   })
 		.state('manager.planning', {
@@ -186,13 +186,13 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('manager.assessmentEmpSection', {
 				   url: '/assessment/:assessmentId/:memberId/:sectionIdx',
 				   views: {
-					   managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'assessmentCtrl'}
+					   managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'AssessmentCtrl'}
 				   }
 			   })
 		.state('manager.latestassessment', {
 				   url: '/assessment/:memberId',
 				   views: {
-					   managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'assessmentCtrl'}
+					   managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'AssessmentCtrl'}
 				   }
 			   })
 		.state('manager.settings', {

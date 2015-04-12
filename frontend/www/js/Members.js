@@ -54,7 +54,7 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 		var memberHx = [];
 		var maxY = 5;
 		if (!Utility.empty(instruments) && !Utility.empty(member) && !Utility.empty(assessments)) {
-			var instrument = Utility.findObjectById(instruments, assessments[0].instrumentId); //@todo Assumes all same instrument
+			var instrument = Utility.findObjectById(instruments, assessments[0].ii); //@todo Assumes all same instrument
 			if (instrument.id == 2) {
 				maxY = 2; //@todo Tie to instrument ranges in future.
 			}

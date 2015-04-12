@@ -1,16 +1,19 @@
 <ion-view view-title='Assessment Matrix'>
-    <ion-nav-buttons side="right">
-        <a href="/#tab/assessments" style="font-size:1.2em;">Assessments >></a>
-    </ion-nav-buttons>
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
+        <div style="float:right; margin:1em 1em -1em -1em; font-size:2em;"><a ng-href='#pdfPrintMatrix' ng-click="foo = printIt()"><i
+                class="{{i.icons.pdf}}"></i></a>
+        </div>
         <div style="text-align:center; margin-top: 1em;">
             <h3>{{data.currentInstrument.name}}</h3>
             <h4>Competency Summary Matrix</h4>
-            <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId" data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
+            <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId"
+                    data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
                     data-ng-options="instrument.id as instrument.name for instrument in data.instruments">
             </select>
         </div>
-        <div style="overflow: auto !important;">
+        <div style="overflow: auto !important;" id="matrixWrapper">
             <table class="matrix">
                 <thead>
                 <tr>
@@ -25,7 +28,7 @@
                 </thead>
                 <tbody>
                 <tr data-ng-repeat="dataRow in data.matrix">
-                     <td class="leftHeader" data-ng-class="dataRow.organizationId == -1? 'average':''">
+                    <td class="leftHeader" data-ng-class="dataRow.organizationId == -1? 'average':''">
                         <a href="/#/administrator/organization/{{dataRow.organizationId}}">{{dataRow.name}}</a>
                     </td>
                     <td data-ng-repeat="response in getRowValues(dataRow) track by $index" data-ng-class="dataRow.organizationId == -1? 'average':''">

@@ -68,7 +68,10 @@ class Model {
 	}
 
 	public static function dateTime($mysqlDateTime) {
-		return date("c", strtotime($mysqlDateTime));
+		if (!empty($mysqlDateTime)) {
+			return date("c", strtotime($mysqlDateTime));
+		}
+		return null;
 	}
 
 	public function initialize() {

@@ -10,10 +10,17 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 	svc.retrieve = function () {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			return $resource('/api/assessment/organization/' + user.organizationId, {}, {});
+			return $resource('/api/assessment/organization/' + user.organizationId, {}, {cache: false});
 		}
 		return null;
 	};
+	svc.retrieveSingle = function (assessmentId) {
+		if (!Utility.empty(assessmentId)) {
+			return $resource('/api/assessment/' + assessmentId, {}, {query: {method: 'GET', isArray: false}});
+		}
+		return null;
+	};
+
 	svc.associateMembers = function (assessments, members) {
 		if (!Utility.empty(assessments) && !Utility.empty(members)) {
 			for (var i = 0; i < assessments.length; i++) {
@@ -37,8 +44,8 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		return null;
 	};
 
-	svc.findQuestion = function(questionId, questions) {
-		for (var i=0; i<questions.length; i++) {
+	svc.findQuestion = function (questionId, questions) {
+		for (var i = 0; i < questions.length; i++) {
 			if (questions[i].qi == questionId) {
 				return questions[i];
 			}
@@ -46,14 +53,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		return null;
 	};
 
-	svc.retrieveSingle = function (assessmentId) {
-		if (!Utility.empty(assessmentId)) {
-			return $resource('/api/assessment/' + assessmentId, {}, {query: {method: 'GET', isArray: false}});
-		}
-		return null;
-	};
-
-	svc.scorify = function (instrument) {
+	svc.scorify = function (question, instrument) {
 		svc.avg = 0;
 		svc.avgRound = 0;
 		var total = 0;
@@ -187,17 +187,18 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 	};
 
 	svc.sliderChange = function (question, instrument) {
+		var scoreWord = null;
 		if (!Utility.empty(question) && !Utility.empty(question.rsp)) {
+			scoreWord = svc.scoreWord(question.rsp.ri);
 			var slider = $("#question_item_" + question.id);
-			var scoreWord = svc.scoreWord(question.rsp.ri);
 			var levelEl = slider.find("span.bubble.low");
 			levelEl.html(scoreWord);
 			slider.removeClass(function (index, css) {
 				return (css.match(/(^|\s)slider\S+/g) || []).join(' ');
 			}).addClass("slider" + question.rsp.ri);
-			question.rsp.r = scoreWord;
-			svc.scorify(instrument);
+			svc.scorify(question, instrument);
 		}
+		return scoreWord;
 	};
 
 	svc.findMatrixResponseRowValues = function (instrument, currentSectionIdx, allResponses) {

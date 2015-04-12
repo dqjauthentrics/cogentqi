@@ -43,6 +43,14 @@ angular.module('ControllerAdministrator', [])
 					$scope.getRowValues = function (dataRow) {
 						return Assessments.findMatrixResponseRowValues($scope.data.currentInstrument, Instruments.currentSectionIdx, dataRow.responses)
 					};
+					$scope.printIt = function () {
+						var printContents = $('#matrixWrapper').html();
+						console.log(printContents);
+						var popupWin = window.open('', '_blank', 'width=800,height=800');
+						popupWin.document.open();
+						popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="/css/style.css" /></head><body onload="window.print()">' + printContents + '</html>');
+						popupWin.document.close();
+					};
 				})
 
 	.controller('AdminOutcomeCtrl', function ($scope, $stateParams, Utility, Organizations, Resources, Outcomes) {

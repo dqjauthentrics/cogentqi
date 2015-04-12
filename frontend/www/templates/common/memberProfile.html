@@ -20,13 +20,10 @@
         <h3>Assessments To Date</h3>
 
         <div data-ng-repeat="assessment in data.member.assessments">
-            <a href="#/manager/assessment/{{assessment.id}}" style="color:#777; text-decoration: none;">
-                <i class="{{i.icons.assessment}}"></i>
-                {{assessment.lastModified|date:'medium'}}
-            </a>
+            <assessment-item assessment="assessment" i="i"></assessment-item>
         </div>
         <div>
-            <button class="button button-balanced" href="#/manager/assessment/n/{{data.member.id}}">
+            <button class="button button-action button-new" href="#/manager/assessment/n/{{data.member.id}}">
                 <i class="{{i.icons.add}}"></i> New Assessment
             </button>
         </div>

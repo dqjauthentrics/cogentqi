@@ -2,18 +2,25 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <div style="float:right; margin:1em 1em -1em -1em; font-size:2em;"><a ng-href='#here' ng-click="foo = printIt()"><i class="{{i.icons.pdf}}"></i></a>
+        <div style="float:right; margin-right: 0.4em;">
+            <button data-ng-if="data.assessment.es!='L'" class="button button-action button-save" data-ng-click="save()">
+                <i class="{{i.icons.save}}"></i> Save
+            </button>
+            <button class="button button-action button-{{data.assessment.es=='L'?'unlock':'lock'}}" data-ng-click="toggleLock()">
+                <i class="{{data.assessment.es=='L'? i.icons.unlocked : i.icons.locked}}"></i>
+            </button>
+            <button class="button button-action button-pdf" data-ng-click="printIt()"><i class="{{i.icons.pdf}}"></i></button>
+            <div class="clearfix"></div>
         </div>
-        <div id="assessmentPrintArea" style="background:#FFF;">
+        <div>
             <div class="row responsive-sm">
                 <div class="col col-100"><h3 style="text-align: center; margin:0 auto;">{{data.assessment.instrument.nm}}</h3></div>
             </div>
             <div class="row responsive-sm detail">
                 <div class="col col-25 padding" style="text-align:center;">
-                   <a href="#/manager/member/{{data.assessment.member.id}}">
+                    <a href="#/manager/member/{{data.assessment.member.id}}">
                         <img class="border border{{Assessments.avgRound}}" data-ng-src="{{data.assessment.member.av}}" alt=""/>
-                    </a><br/>
-
+                    </a>
                     <div class="name"><a href="#/manager/member/{{data.assessment.member.id}}">
                         {{data.assessment.member.fn}} {{data.assessment.member.ln}}</a>
                     </div>
@@ -22,6 +29,10 @@
                         <i class="logo level levelColor{{Assessments.avgRound}} {{i.icons.levels[Assessments.avgRound]}}">
                             {{Assessments.scoreWord(Assessments.avgRound)}} <span style="font-size:0.6em;">({{Assessments.avg}})</span>
                         </i>
+                    </div>
+                    <div>
+                        Performed by: {{data.assessment.assessor.fn}} {{data.assessment.assessor.ln}}
+                        <img class="avatar-tiny" src="{{data.assessment.assessor.av}}" alt=""/>
                     </div>
                 </div>
                 <div class="col col-75">
@@ -53,11 +64,6 @@
                             <ion-list>
                                 <ion-item class="top">
                                     <h2 style="float:left;">{{section.number}} {{section.name}}</h2>
-
-                                    <div style="float:right; margin-right: 0.4em;">
-                                        <button class="button button-balanced button-small" onclick="alert('Demo mode only.');">Save</button>
-                                    </div>
-                                    <div class="clearfix"></div>
                                 </ion-item>
                                 <ion-item class="item-remove-animate item-icon-right" data-ng-repeat="question in section.questions" type="item-text-wrap">
                                     <div style="float:left; max-width: 80%;">
@@ -66,24 +72,31 @@
                                         <div class="clearfix"></div>
                                         <div class="description" data-ng-bind-html="question.dsc"></div>
                                     </div>
-                                    <div data-ng-switch="question.typ" style="float:right;">
-                                        <div data-ng-switch-when="NAYesNo">
-                                            <div class="button-bar" style="max-width:12em; min-width:12em;">
-                                                <a class="button" data-ng-class="{'yesNoBg0': question.rsp.ri == 0}"
-                                                   data-ng-click="updateResponse(question, 0)">N/A</a>
-                                                <a class="button" data-ng-class="{'yesNoBg1': question.rsp.ri == 1}"
-                                                   data-ng-click="updateResponse(question, 1)">No</a>
-                                                <a class="button" data-ng-class="{'yesNoBg2': question.rsp.ri == 2}"
-                                                   data-ng-click="updateResponse(question, 2)">Yes</a>
+                                    <div data-ng-switch="data.assessment.es" class="response">
+                                        <div data-ng-switch-when="A">
+                                            <div data-ng-switch="question.typ" style="float:right;">
+                                                <div data-ng-switch-when="NAYesNo">
+                                                    <div class="button-bar" style="max-width:12em; min-width:12em;">
+                                                        <a class="button" data-ng-class="{'yesNoBg0': question.rsp.ri == 0}"
+                                                           data-ng-click="updateResponse(question, 0)">N/A</a>
+                                                        <a class="button" data-ng-class="{'yesNoBg1': question.rsp.ri == 1}"
+                                                           data-ng-click="updateResponse(question, 1)">No</a>
+                                                        <a class="button" data-ng-class="{'yesNoBg2': question.rsp.ri == 2}"
+                                                           data-ng-click="updateResponse(question, 2)">Yes</a>
+                                                    </div>
+                                                </div>
+                                                <div data-ng-switch-default="">
+                                                    <slider id="question_item_{{question.id}}" class="slider{{question.rsp.ri}}"
+                                                            data-ng-model="question.rsp.ri" floor="0.0" ceiling="5" step-width="1"
+                                                            data-ng-change="updateSliderResponse(question, this, true)"
+                                                            data-translate-fn="sliderTranslate"
+                                                            >
+                                                    </slider>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div data-ng-switch-default=>
-                                            <slider id="question_item_{{question.id}}" class="slider{{question.rsp.ri}}"
-                                                    data-ng-model="question.rsp.ri" floor="0.0" ceiling="5" step-width="1"
-                                                    data-ng-change="updateSliderResponse(question, this, true)"
-                                                    data-translate-fn="sliderTranslate"
-                                                    >
-                                            </slider>
+                                        <div data-ng-switch-default="">
+                                            <div data-ng-class="getResponseClass(question.typ, question.rsp.ri)">{{question.rsp.r}}</div>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>

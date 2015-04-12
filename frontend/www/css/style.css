@@ -11,10 +11,12 @@ textarea {
 a:hover {
     opacity: 0.8;
 }
+
 .button-small {
     font-weight: bold;
     margin: 0.4em;
 }
+
 .pad-right {
     margin-right: 0.4em;
 }
@@ -116,6 +118,8 @@ ion-list img {
 .avatar-tiny {
     width: 2em;
     height: 2em;
+    border-radius: 5em;
+    vertical-align: middle;
 }
 
 .avatar-small, .border {
@@ -124,7 +128,6 @@ ion-list img {
     vertical-align: middle;
     margin-right: 0.5em;
     border-radius: 5em;
-    border: 3px solid #c70002;
 }
 
 h1 {
@@ -346,6 +349,7 @@ table.cycle {
     line-height: 1.3vmin;
     display: inline;
 }
+
 .microBadge.small {
     height: 10vmin;
     width: 10vmin;
@@ -652,6 +656,49 @@ outcome-level-tag {
     color: green;
 }
 
+.assessment .response {
+    float: right;
+    margin: 0.5em;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.LIKERT5_0 {
+    color: #AAA;
+}
+
+.LIKERT5_1 {
+    color: #BB4444;
+}
+
+.LIKERT5_2 {
+    color: #EE7A00;
+}
+
+.LIKERT5_3 {
+    color: #CfB700;
+}
+
+.LIKERT5_4 {
+    color: #6A8;
+}
+
+.LIKERT5_5 {
+    color: green;
+}
+
+.NAYesNo_0 {
+    color: gray;
+}
+
+.NAYesNo_1 {
+    color: #FF0000;
+}
+
+.NAYesNo_2 {
+    color: #008000;
+}
+
 .matrix {
     margin: 7em auto 1em auto;
     padding-right: 5em;
@@ -823,11 +870,75 @@ p.comments {
     color: darkslategray;
 }
 
-.help ul { counter-reset:item; font-size: 2em;  line-height: 2.0em; font-weight: bold;}
-.help ul p { font-size: 0.7em; font-weight: normal; line-height: 1.1em; color: #444;}
-.help ul > li { counter-increment:item; }
-.help ul > li:before {content: counter(item) " "; }
+.help ul {
+    counter-reset: item;
+    font-size: 2em;
+    line-height: 2.0em;
+    font-weight: bold;
+}
 
-.help ul > li > ul { counter-reset:subitem; font-size: 1.6em; line-height: 2.0em; font-weight: normal;}
-.help ul > li > ul > li { counter-increment:subitem; }
-.help ul > li > ul > li:before { content: counter(item) "." counter(subitem) " "; }
+.help ul p {
+    font-size: 0.7em;
+    font-weight: normal;
+    line-height: 1.1em;
+    color: #444;
+}
+
+.help ul > li {
+    counter-increment: item;
+}
+
+.help ul > li:before {
+    content: counter(item) " ";
+}
+
+.help ul > li > ul {
+    counter-reset: subitem;
+    font-size: 1.6em;
+    line-height: 2.0em;
+    font-weight: normal;
+}
+
+.help ul > li > ul > li {
+    counter-increment: subitem;
+}
+
+.help ul > li > ul > li:before {
+    content: counter(item) "." counter(subitem) " ";
+}
+
+.button-action {
+    font-weight: bold;
+    margin: 0.2em;
+}
+.button-action:hover {
+    opacity: 0.7;
+    color: white;
+}
+.button-unlock {
+    background: red;
+    color: white;
+}
+.button-lock {
+    background: #ddb700;
+}
+.button-complete:hover {
+}
+
+.button-pdf {
+    background: darkblue;
+    color: white;
+}
+
+.button-save, .button-new {
+    background: darkgreen;
+    color: white;
+}
+
+.button-delete {
+    background: darkred;
+    color: white;
+}
+table.assessmentItem td {
+    padding: 0.1em;
+}

@@ -2,6 +2,7 @@
 
 angular.module('Icons', []).service('Icons', function () {
 	this.icons = {
+		active: "ion-edit",
 		add: "fa fa-plus-circle",
 		addProject: "fa fa-plus-circle",
 		addUser: "fa fa-plus-circle",
@@ -10,6 +11,7 @@ angular.module('Icons', []).service('Icons', function () {
 		buttonError: "fa fa-alert",
 		buttonSpinner: "fa fa-spinner fa-spin",
 		checked: "fa fa-check-mark-2",
+		completed: "ion-checkmark",
 		criterion: "fa fa-bookmark",
 		dashboard: "fa fa-tachometer",
 		dragHandle: "fa fa-thumbnails",
@@ -23,6 +25,8 @@ angular.module('Icons', []).service('Icons', function () {
 		instrument: "ion-clipboard",
 		learningModule: "ion-university",
 		loadingSpinner: "fa fa-spinner fa-spin",
+		locked: "ion-locked",
+		unlocked: "ion-unlocked",
 		manager: "fa fa-gear",
 		member: "fa fa-user-2",
 		members: "ion-person-stalker",
@@ -37,7 +41,7 @@ angular.module('Icons', []).service('Icons', function () {
 		remove: "fa fa-trash-bin",
 		reports: "fa fa-graph",
 		resource: "ion-university",
-		save: "fa fa-flash",
+		save: "ion-android-cloud-done",
 		signIn: "fa fa-entrance",
 		signOut: "fa fa-logout",
 		slider: "fa fa-params",

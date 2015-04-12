@@ -30,6 +30,8 @@ class Assessment extends Model {
 					'mc'         => $assessment["member_comments"],
 					'sc'         => $assessment["score"],
 					'rk'         => $assessment["rank"],
+					'es'         => $assessment["edit_status"],
+					'vs'         => $assessment["view_status"],
 					'member'     => [
 						'id' => (int)$assessment["member_id"],
 						'av' => $assessment->member["avatar"],
@@ -100,6 +102,47 @@ class Assessment extends Model {
 				}
 			}
 			$this->api->sendResult($jsonRecords);
+		});
+
+		/**
+		 * Save a single record, which is a full evaluation as returned by the get above.
+		 */
+		$this->api->post("/$urlName", function () {
+			$jsonPostData = json_decode(file_get_contents('php://input'));
+			$assessment = $jsonPostData->assessment;
+			$assessmentRecord = $this->api->db->assessment()->where('id=?', $assessment->id)->fetch();
+			if (!empty($assessmentRecord)) {
+				$assessmentRecord["score"] = $assessment->sc;
+				$assessmentRecord["rank"] = $assessment->rk;
+				$assessmentRecord["last_saved"] = "NOW()";
+				$assessmentRecord["assessor_comments"] = $assessment->ac;
+				$assessmentRecord["member_comments"] = $assessment->mc;
+				$assessmentRecord["edit_status"] = $assessment->es;
+				$assessmentRecord["view_status"] = $assessment->vs;
+				$assessmentRecord->update();
+				$sections = $assessment->instrument->sections;
+				if (!empty($sections)) {
+					foreach ($sections as $section) {
+						if (!empty($section->questions)) {
+							foreach ($section->questions as $question) {
+								$record = $this->api->db->assessment_response()
+									->where('assessment_id=? AND question_id=?', $jsonPostData->assessment->id, $question->id)
+									->fetch();
+								if (!empty($record)) {
+									$record["response_index"] = (int)$question->rsp->ri;
+									$record["response"] = $question->rsp->r;
+									//secho "SET: " . $question->id . ":" . $record["response_index"] . ":" . $record["response"] . "\n";
+									$record->update();
+								}
+							}
+						}
+					}
+				}
+				$this->api->sendResult("saved");
+			}
+			else {
+				$this->api->sendResult("not saved");
+			}
 		});
 
 
@@ -206,7 +249,18 @@ class Assessment extends Model {
 	 * @return array
 	 */
 	public function map($assessment) {
-		$associative = parent::map($assessment);
+		$associative = [
+			'id' => (int)$assessment["id"],
+			'lm' => Model::dateTime($assessment["last_modified"]),
+			'ls' => Model::dateTime($assessment["last_saved"]),
+			'ac' => $assessment["assessor_comments"],
+			'mc' => $assessment["member_comments"],
+			'sc' => $assessment["score"],
+			'rk' => $assessment["rank"],
+			'es' => $assessment["edit_status"],
+			'vs' => $assessment["view_status"],
+			'ii' => $assessment["instrument_id"],
+		];
 
 		$total = 0;
 		$nItems = 0;

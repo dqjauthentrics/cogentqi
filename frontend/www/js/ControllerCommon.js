@@ -73,9 +73,10 @@ angular.module('ControllerCommon', [])
 					};
 				})
 
-	.controller('assessmentCtrl',
-				function ($filter, $scope, $timeout, $stateParams, PDF, Utility, Instruments, Assessments, Members, Organizations, Resources) {
+	.controller('AssessmentCtrl',
+				function ($resource, $filter, $scope, $timeout, $stateParams, PDF, Utility, Instruments, Assessments, Members, Organizations, Resources) {
 					$scope.Instruments = Instruments;
+					$scope.res = null;
 					$scope.data = {recommendations: [], resources: [], assessment: null};
 
 					Resources.retrieve().query(function (response) {
@@ -122,7 +123,7 @@ angular.module('ControllerCommon', [])
 					};
 
 					$scope.updateSliderResponse = function (question) {
-						Assessments.sliderChange(question, $scope.data.assessment.instrument);
+						question.rsp.r = Assessments.sliderChange(question, $scope.data.assessment.instrument);
 						$scope.getRecommendations();
 					};
 
@@ -132,7 +133,8 @@ angular.module('ControllerCommon', [])
 
 					$scope.getAssessment = function () {
 						if (Utility.empty($scope.data.assessment) && !Utility.empty($stateParams) && !Utility.empty($stateParams.assessmentId)) {
-							Assessments.retrieveSingle($stateParams.assessmentId).query(function (response) {
+							$scope.res = $resource('/api/assessment/:id');
+							$scope.res.get({id: $stateParams.assessmentId}, function (response) {
 								$scope.data.assessment = response;
 								$scope.getRecommendations();
 							});
@@ -146,11 +148,28 @@ angular.module('ControllerCommon', [])
 						PDF.assessment($scope.data.assessment);
 						return true;
 					};
+
+					$scope.getResponseClass = function (responseType, responseIndex) {
+						return responseType + '_' + responseIndex;
+					};
+
+					$scope.toggleLock = function () {
+						var word = ($scope.data.assessment.es == 'L' ? 'unlock' : 'lock');
+						var cnf = confirm("Are you sure you wish to " + word + " this assessment?");
+						if (cnf) {
+							$scope.data.assessment.es = ($scope.data.assessment.es == 'L' ? 'A' : 'L');
+							$scope.res.save({assessment: $scope.data.assessment});
+						}
+					};
+					$scope.save = function () {
+						$scope.res.save({assessment: $scope.data.assessment});
+					};
 				})
 
-	.controller('assessmentsCtrl', function ($scope, $stateParams, Utility, Assessments, Members, Organizations) {
+	.controller('AssessmentsCtrl', function ($scope, $stateParams, Utility, Assessments, Members, Organizations) {
 					$scope.data = {members: [], assessments: []};
 
+					$scope.data.assessments = [];
 					Members.retrieve().query(function (response) {
 						$scope.data.members = response;
 						Assessments.associateMembers($scope.data.assessments, $scope.data.members);

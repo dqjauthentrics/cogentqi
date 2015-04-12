@@ -1,0 +1,17 @@
+<table class="assessmentItem" style="width:13em;">
+    <tr>
+        <td><i class="{{i.icons.assessment}}"></i></td>
+        <td><a href="#/manager/assessment/{{assessment.id}}">{{assessment.lm|date:'longDate'}}</a></td>
+        <td style="text-align:center; width:1em;">
+            <div style="font-size:1.0em; padding: 0.3em 0.4em; text-align:center;"
+                 data-ng-class="'matrixCircle ' + (assessment.typ == 'NAYesNo'?'yesNoBg':'levelBg') + assessment.rk"
+                    >
+                <div data-ng-switch="assessment.es">
+                    <div data-ng-switch-when="L"><i class="{{i.icons.locked}}"></i></div>
+                    <div data-ng-switch-when="A"><i class="{{i.icons.active}}"></i></div>
+                    <div data-ng-switch-when="C"><i class="{{i.icons.completed}}"></i></div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>

@@ -27,6 +27,7 @@ class Member extends Model {
 	 * @return array
 	 */
 	public function map($member) {
+		$this->mapExcludes = ["username", "password"];
 		$associative = parent::map($member);
 
 		$badgeRecords = $this->api->db->member_badge()->where('member_id', $member["id"]);
@@ -69,14 +70,24 @@ class Member extends Model {
 			$associative["planItems"] = $jsonPlanItems;
 		}
 		else {
-			$lastEval = $this->api->db->assessment()->where('member_id', $member["id"])->order('last_modified DESC')->fetch();
-			$associative["lastEval"] = [
-				"id" => $lastEval["id"],
-				"dt" => $this->dateTime($lastEval["last_modified"]),
-				"sr" => $lastEval["rank"],
-				"sc" => $lastEval["score"],
-				"i"  => $lastEval["instrument_id"]
-			];
+			$lastAssessment = $this->api->db->assessment()->where('member_id', $member["id"])->order('last_modified DESC')->fetch();
+			if (!empty($lastAssessment)) {
+				$associative["lastAssessment"] = [
+					'id'  => (int)$lastAssessment["id"],
+					'lm'  => Model::dateTime($lastAssessment["last_modified"]),
+					'ls'  => Model::dateTime($lastAssessment["last_saved"]),
+					'ac'  => $lastAssessment["assessor_comments"],
+					'mc'  => $lastAssessment["member_comments"],
+					'sc'  => $lastAssessment["score"],
+					'rk'  => $lastAssessment["rank"],
+					'es'  => $lastAssessment["edit_status"],
+					'vs'  => $lastAssessment["view_status"],
+					'typ' => @$lastAssessment->instrument->question_type["name"],
+				];
+			}
+			else {
+				$associative["lastAssessment"] = NULL;
+			}
 		}
 
 		return $associative;

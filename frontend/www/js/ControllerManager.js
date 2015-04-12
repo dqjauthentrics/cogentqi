@@ -30,7 +30,7 @@ angular.module('ControllerManager', [])
 					$scope.setRptConfigHx = function () {
 						if (!Utility.empty($scope.data.member) && Utility.empty($scope.data.member.rptConfigHx) && !Utility.empty($scope.data.instruments) && !Utility.empty($scope.data.member.assessments)) {
 							Instruments.collate($scope.data.instruments);
-							$scope.data.instrument = Utility.findObjectById($scope.data.instruments, $scope.data.member.assessments[0].instrumentId);
+							$scope.data.instrument = Utility.findObjectById($scope.data.instruments, $scope.data.member.assessments[0].ii);
 							$scope.data.member.rptConfigHx = Members.rptConfigHx($scope.data.instruments, $scope.data.member, $scope.data.member.assessments);
 						}
 					};

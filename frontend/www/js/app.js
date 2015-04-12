@@ -116,6 +116,9 @@ angular.module('app',
 	.directive('memberItem', function () {
 				   return {restrict: 'E', templateUrl: '../templates/common/memberItem.html'};
 			   })
+	.directive('assessmentItem', function () {
+				   return {restrict: 'E', templateUrl: '../templates/common/assessmentItem.html', scope: {assessment: '=', i: '='}};
+			   })
 	.directive('memberProfile', function () {
 				   return {restrict: 'E', templateUrl: '../templates/common/memberProfile.html'};
 			   })
