@@ -407,12 +407,12 @@ table.cycle {
 }
 
 .yesNoBg1, .yesNoBg1:hover {
-    background: red;
+    background: #FF0000;
     color: #FFF;
 }
 
 .yesNoBg2, .yesNoBg2:hover {
-    background: green;
+    background: #008000;
     color: #FFF;
 }
 
@@ -429,15 +429,15 @@ table.cycle {
 }
 
 .rubric1 {
-    color: red;
+    color: #FF0000;
 }
 
 .rubric2 {
-    color: #D0b000;
+    color: #D0B000;
 }
 
 .rubric3 {
-    color: green;
+    color: #008000;
 }
 
 .rubricBg0 {
@@ -495,7 +495,7 @@ table.cycle {
 }
 
 .levelBg3 {
-    background: gold;
+    background: #FFD700;
     color: #777;
 }
 
@@ -505,7 +505,7 @@ table.cycle {
 }
 
 .levelBg5 {
-    background: green;
+    background: #008000;
     color: #FFF;
 }
 

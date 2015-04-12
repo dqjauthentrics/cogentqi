@@ -33,7 +33,7 @@ angular.module('ControllerAdministrator', [])
 							$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
 							Assessments.retrieveMatrix($scope.data.currentInstrument.id, true).query(function (response) {
 								$scope.data.matrix = response;
-								assessments.calcMatrixAverages($scope.data.currentInstrument, $scope.data.matrix, true);
+								Assessments.calcMatrixAverages($scope.data.currentInstrument, $scope.data.matrix, true);
 							});
 						}
 					};
@@ -41,7 +41,7 @@ angular.module('ControllerAdministrator', [])
 						return Instruments.findMatrixResponseRowHeader($scope.data.currentInstrument, 20)
 					};
 					$scope.getRowValues = function (dataRow) {
-						return assessments.findMatrixResponseRowValues($scope.data.currentInstrument, Instruments.currentSectionIdx, dataRow.responses)
+						return Assessments.findMatrixResponseRowValues($scope.data.currentInstrument, Instruments.currentSectionIdx, dataRow.responses)
 					};
 				})
 

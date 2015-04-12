@@ -14,7 +14,7 @@ class Instrument extends Model {
 	public function map($instrument) {
 		$associative = parent::map($instrument);
 		try {
-			$questionTypeResponseRecords = $this->api->db->QuestionChoice()->where('questionTypeId=?', $instrument["questionTypeId"])->order('sortOrder');
+			$questionTypeResponseRecords = $this->api->db->question_choice()->where('question_type_id=?', $instrument["question_type_id"])->order('sort_order');
 			$jsonQuestionChoices = [];
 			$associative["minRange"] = 0;
 			$associative["maxRange"] = 0;
@@ -30,7 +30,7 @@ class Instrument extends Model {
 			}
 			$associative["questionTypeResponses"] = $jsonQuestionChoices;
 
-			$questionGroupRecords = $this->api->db->QuestionGroup()->where('instrumentId=?', $instrument["id"])->order('sortOrder');
+			$questionGroupRecords = $this->api->db->question_group()->where('instrument_id=?', $instrument["id"])->order('sort_order');
 			$jsonQuestionGroups = [];
 			$questionGroup = new QuestionGroup($this->api);
 			foreach ($questionGroupRecords as $questionGroupRecord) {
@@ -38,8 +38,8 @@ class Instrument extends Model {
 			}
 			$associative["questionGroups"] = $jsonQuestionGroups;
 
-			$questionRecords = $this->api->db->Question()
-				->where('questionGroupId IN (SELECT id FROM QuestionGroup WHERE instrumentId=?)', $instrument["id"])->order('sortOrder');
+			$questionRecords = $this->api->db->question()
+				->where('question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?)', $instrument["id"])->order('sort_order');
 			$jsonQuestions = [];
 			$question = new Question($this->api);
 			foreach ($questionRecords as $questionRecord) {
@@ -47,8 +47,8 @@ class Instrument extends Model {
 			}
 			$associative["questions"] = $jsonQuestions;
 
-			$resAlignRecords = $this->api->db->ResourceAlignment()
-				->where('questionId IN (SELECT id FROM question WHERE questionGroupId IN (SELECT id FROM QuestionGroup WHERE instrumentId=?))', $instrument["id"]);
+			$resAlignRecords = $this->api->db->resource_alignment()
+				->where('questionId IN (SELECT id FROM question WHERE question_group_id IN (SELECT id FROM question_group WHERE instrumentId=?))', $instrument["id"]);
 			$jsonAligns = [];
 			$resAlign = new Question($this->api);
 			foreach ($resAlignRecords as $resAlignRecord) {

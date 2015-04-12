@@ -25,7 +25,7 @@
                 </thead>
                 <tbody>
                 <tr data-ng-repeat="dataRow in data.matrix">
-                    <td class="leftHeader" data-ng-class="dataRow.organizationId == -1? 'average':''">
+                     <td class="leftHeader" data-ng-class="dataRow.organizationId == -1? 'average':''">
                         <a href="/#/administrator/organization/{{dataRow.organizationId}}">{{dataRow.name}}</a>
                     </td>
                     <td data-ng-repeat="response in getRowValues(dataRow) track by $index" data-ng-class="dataRow.organizationId == -1? 'average':''">

@@ -17,30 +17,27 @@ use \Slim\Slim;
  *          mirror their table names.
  */
 class AltIdsStructure extends \NotORM_Structure_Convention {
+
 	function getReferencedTable($name, $table) {
 		//echo "RT: $name/$table\n";
 		switch ($name) {
-			case "creatorId":
-			case "byMemberId":
-				return "Member";
-			case "learningModuleId":
-				return "LearningModule";
+			case "creator_id":
+			case "assessor":
+			case "assessor_id":
+				return "member";
 		}
-		$name[0] = strtolower($name[0]);
-		$table[0] = strtoupper($table[0]);
 		return parent::getReferencedTable($name, $table);
+	}
+
+	function getReferencingTable($name, $table) {
+		//echo "RingT: $name/$table\n";
+		return $this->prefix . $name;
 	}
 
 	function getReferencedColumn($name, $table) {
 		//echo "RC: $name/$table\n";
-		if ($table == "PlanItem" && $name == "LearningModule") {
-			return "learningModuleId";
-		}
-		$name[0] = strtolower($name[0]);
-		$table[0] = strtoupper($table[0]);
-		return sprintf($this->foreign, $this->getColumnFromTable($name), substr($table, strlen($this->prefix)));
+		return parent::getReferencedColumn($name, $table);
 	}
-
 }
 
 /**
@@ -68,10 +65,10 @@ class Api extends \Slim\Slim {
 		$this->pdo = new \PDO($dsn, $username, $password);
 		$className = $this->baseClassName();
 		if (TRUE || $className !== "Member") {
-			$structure = new AltIdsStructure($primary = 'id', $foreign = '%sId', $table = '%s', $prefix = '');
+			$structure = new AltIdsStructure($primary = 'id', $foreign = '%s_id', $table = '%s', $prefix = '');
 		}
 		else {
-			$structure = new \NotORM_Structure_Discovery($this->pdo, $cache = NULL, $foreign = '%sId');
+			$structure = new \NotORM_Structure_Discovery($this->pdo, $cache = NULL, $foreign = '%s_id');
 		}
 		$this->db = new \NotORM($this->pdo, $structure);
 		parent::__construct($options);

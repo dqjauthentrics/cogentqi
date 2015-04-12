@@ -5,67 +5,149 @@ require_once("AssessmentResponse.php");
 
 class Assessment extends Model {
 
-	public function initialize() {
-		$this->dateTimeCols = ['last_saved', 'lastModified'];
-		parent::initialize();
-
-		/** @var \NotORM $assessmentModel */
-		$assessmentModel = $this->api->db->Assessment();
-
+	public function initializeRoutes() {
 		$urlName = $this->urlName();
+
+		/**
+		 * Full, single assessment retrieval.  Save time and loading by assembling everything on server for a single request, and by using abbreviated field names.
+		 */
 		$this->api->get("/$urlName/:assessmentId", function ($assessmentId) use ($urlName) {
-			$jsonRecords = ['responses' => []];
-			$assessment = $this->api->db->Assessment()->where("id=?)", $assessmentId)->fetch();
+			$jsonRecords = [
+				'id',
+				'member'     => [],
+				'assessor'   => [],
+				'instrument' => '',
+				'sections'   => []
+			];
+			$responses = [];
+			$assessment = $this->api->db->assessment()->where("id=?", $assessmentId)->fetch();
 			if (!empty($assessment)) {
-				foreach ($assessment->AssessmentResponse as $response) {
-					$jsonRecords['responses'][] = [
-						'id' => $response["id"],
+				$jsonRecords = [
+					'id'         => (int)$assessment["id"],
+					'lm'         => Model::dateTime($assessment["last_modified"]),
+					'ls'         => Model::dateTime($assessment["last_saved"]),
+					'ac'         => $assessment["assessor_comments"],
+					'mc'         => $assessment["member_comments"],
+					'sc'         => $assessment["score"],
+					'rk'         => $assessment["rank"],
+					'member'     => [
+						'id' => (int)$assessment["member_id"],
+						'av' => $assessment->member["avatar"],
+						'fn' => $assessment->member["first_name"],
+						'ln' => $assessment->member["last_name"],
+						'ri' => $assessment->member["role_id"],
+						'jt' => $assessment->member["job_title"],
+						'lv' => $assessment->member["level"],
+						'rl' => @$assessment->member->role["name"]
+					],
+					'assessor'   => [
+						'id' => (int)$assessment["assessor_id"],
+						'av' => $assessment->assessor["avatar"],
+						'fn' => $assessment->assessor["first_name"],
+						'ln' => $assessment->assessor["last_name"],
+						'ri' => $assessment->assessor["role_id"],
+						'jt' => $assessment->assessor["job_title"],
+						'rl' => @$assessment->assessor->role["name"]
+					],
+					'instrument' => [
+						'id'       => (int)$assessment["instrument_id"],
+						'max'      => (int)$assessment->instrument["max_range"],
+						'min'      => (int)$assessment->instrument["min_range"],
+						'nm'       => $assessment->instrument["name"],
+						'sections' => [
+						]
+					]
+				];
+				foreach ($assessment->assessment_response() as $response) {
+					$questionId = $response["question_id"];
+					$responses[$questionId] = [
+						'id' => (int)$response["id"],
 						'r'  => $response["response"],
-						'ri' => $response["responseIndex"],
-						'ac' => $response["assessorComments"],
-						'mc' => $response["memberComments"],
+						'ri' => (int)$response["response_index"],
+						'ac' => $response["assessor_comments"],
+						'mc' => $response["member_comments"],
 					];
+				}
+				$i = 0;
+				$sections = $assessment->instrument->question_group();
+				$sectionNames = [];
+				foreach ($sections as $section) {
+					$sectionNames[] = $section["tag"];
+				}
+				$nSections = count($sections);
+				foreach ($sections as $section) {
+
+					$nextPos = $i < $nSections - 1 ? $i + 1 : 0;
+					$prevPos = $i > 0 ? $i - 1 : $nSections - 1;
+
+					$next = ($nextPos + 1) . ". " . $sectionNames[$nextPos];
+					$previous = ($prevPos + 1) . ". " . $sectionNames[$prevPos];
+
+					$jsonSection = ['id' => $section["id"], 'number' => ($i + 1), 'name' => $section["tag"], 'next' => $next, 'previous' => $previous, 'questions' => []];
+					foreach ($section->question() as $question) {
+						$jsonSection['questions'][] = [
+							'id'  => $question["id"],
+							'nb'  => $question["number"],
+							'nm'  => $question["name"],
+							'sum' => $question["summary"],
+							'dsc' => $question["description"],
+							'rsp' => $responses[$question["id"]],
+							'typ' => $question->question_type["name"]
+						];
+					}
+					$i++;
+					$jsonRecords['instrument']['sections'][] = $jsonSection;
 				}
 			}
 			$this->api->sendResult($jsonRecords);
 		});
 
+
+		/**
+		 * Get all assessments for an organization, ordered by most recent at top.
+		 */
 		$this->api->get("/$urlName/organization/:orgId", function ($organizationId = NULL) use ($urlName) {
 			$jsonRecords = [];
-			$dbRecords = $this->api->db->Assessment()->where("memberId IN (SELECT id FROM Member WHERE organizationId=?)", $organizationId)->order("lastModified DESC");
+			$dbRecords = $this->api->db->assessment()->where("member_id IN (SELECT id FROM Member WHERE organization_id=?)", $organizationId)->order("last_modified DESC");
 			foreach ($dbRecords as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
 			$this->api->sendResult($jsonRecords);
 		});
 
+		/**
+		 * Get all assessments for a given member.
+		 */
 		$this->api->get("/$urlName/member/:memberId", function ($memberId) use ($urlName) {
 			$jsonRecords = [];
-			foreach ($this->api->db->Assessment()->where("memberId=?", $memberId) as $dbRecord) {
+			foreach ($this->api->db->assessment()->where("member_id=?", $memberId)->order("last_modified DESC") as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
 			$this->api->sendResult($jsonRecords);
 		});
 
+		/**
+		 * Get a matrix of assessment values for all members in an organization.
+		 */
 		$this->api->get("/$urlName/matrix/:orgId/:instrumentId", function ($organizationId, $instrumentId) use ($urlName) {
 			$jsonRecords = [];
-			$dbRecords = $this->api->db->Assessment()->select('memberId,max(lastModified) as maxMod')
-				->where('instrumentId=? AND memberId IN (SELECT id FROM Member WHERE organizationId=?)', $instrumentId, $organizationId)
-				->group('memberId');
+			$dbRecords = $this->api->db->assessment()->select('member_id,max(last_modified) as maxMod')
+				->where('instrument_id=? AND member_id IN (SELECT id FROM member WHERE organization_id=?)', $instrumentId, $organizationId)
+				->group('member_id');
 			$maxes = [];
 			foreach ($dbRecords as $dbRecord) {
-				$maxes[$dbRecord["memberId"]] = $dbRecord["maxMod"];
+				$maxes[$dbRecord["member_id"]] = $dbRecord["maxMod"];
 			}
 
-			$dbRecords = $this->api->db->Assessment()->where("instrumentId=? AND memberId IN (SELECT id FROM Member WHERE organizationId=?)", $instrumentId, $organizationId);
+			$dbRecords = $this->api->db->assessment()->where("instrument_id=? AND member_id IN (SELECT id FROM member WHERE organization_id=?)", $instrumentId, $organizationId);
 			foreach ($dbRecords as $dbRecord) {
-				if ($dbRecord["lastModified"] == $maxes[$dbRecord["memberId"]]) {
+				if ($dbRecord["last_modified"] == $maxes[$dbRecord["member_id"]]) {
 					$responses = [];
-					$memberId = $dbRecord["memberId"];
+					$memberId = $dbRecord["member_id"];
 					/** @todo These are not sorted by question sortOrder!!! */
-					$responseRecords = $this->api->db->AssessmentResponse()->where("assessmentId=?", $dbRecord["id"]);
+					$responseRecords = $this->api->db->assessment_response()->where("assessment_id=?", $dbRecord["id"]);
 					foreach ($responseRecords as $responseRecord) {
-						$responses[] = (int)$responseRecord["responseIndex"];
+						$responses[] = (int)$responseRecord["response_index"];
 					}
 					$jsonRecords[] = ['memberId' => $memberId, 'responses' => $responses];
 				}
@@ -73,34 +155,52 @@ class Assessment extends Model {
 			$this->api->sendResult($jsonRecords);
 		});
 
-		$this->api->get("/$urlName/matrix/rollup/:orgId/:instrumentId", function ($organizationId, $instrumentId) use ($urlName) {
+		/**
+		 * Get a matrix of values for all organizations, calculating average values over their members.
+		 */
+		$this->api->get("/$urlName/matrix/rollup/:organizationId/:instrumentId", function ($organizationId, $instrumentId) use ($urlName) {
 			$jsonRecords = [];
+			$instrumentId = (int)$instrumentId;
+			$organizationId = (int)$organizationId;
 
-			$sql = "SELECT m.organizationId,o.name,er.questionId, avg(er.responseIndex) AS response
-					FROM AssessmentResponse er, Assessment e, member m, organization o, Question q
-					WHERE e.instrumentId=$instrumentId AND e.memberId=m.id AND
-						m.organizationId IN (SELECT id FROM organization WHERE parentId=$organizationId) AND er.assessmentId=e.id AND m.organizationId=o.id AND q.id=er.questionId
-					GROUP BY m.organizationId, o.name, er.questionId ORDER BY q.sortOrder";
+			$sql = "SELECT m.organization_id, o.name, ar.question_id, AVG(ar.response_index) AS response
+					FROM assessment_response ar, assessment a, member m, organization o, question q
+					WHERE a.instrument_id=$instrumentId AND a.member_id=m.id AND
+						m.organization_id IN (SELECT id FROM organization WHERE parent_id=$organizationId) AND ar.assessment_id=a.id AND m.organization_id=o.id
+						AND q.id=ar.question_id
+					GROUP BY m.organization_id, o.name, ar.question_id ORDER BY q.sort_order";
 			$dbRecords = $this->api->pdo->query($sql);
 			$responseSets = [];
 			$orgNames = [];
-			foreach ($dbRecords as $dbRecord) {
-				$organizationId = $dbRecord["organizationId"];
-				if (empty($responseSets[$organizationId])) {
-					$responseSets[$organizationId] = [];
-					$orgNames[$organizationId] = '';
+			if (!empty($dbRecords)) {
+				foreach ($dbRecords as $dbRecord) {
+					$orgId = $dbRecord["organization_id"];
+					if (empty($responseSets[$orgId])) {
+						$responseSets[$orgId] = [];
+						$orgNames[$orgId] = '';
+					}
+					$responseSets[$orgId][] = (double)number_format($dbRecord["response"], 1);
+					$orgNames[$orgId] = $dbRecord["name"];
 				}
-				$responseSets[$organizationId][] = (double)number_format($dbRecord["response"], 1);
-				$orgNames[$organizationId] = $dbRecord["name"];
-			}
-			foreach ($responseSets as $organizationId => $responses) {
-				$jsonRecords[] = ['organizationId' => $organizationId, 'name' => $orgNames[$organizationId], 'responses' => $responses];
+				foreach ($responseSets as $orgId => $responses) {
+					$jsonRecords[] = ['organizationId' => $orgId, 'name' => $orgNames[$orgId], 'responses' => $responses];
+				}
 			}
 			echo json_encode($jsonRecords);
 		});
 	}
 
 	/**
+	 * Override base method to indicate which columns are date/time.
+	 */
+	public function initialize() {
+		$this->dateTimeCols = ['last_saved', 'last_modified'];
+		parent::initialize();
+	}
+
+	/**
+	 * @todo This may/should be superfluous now.
+	 *
 	 * @param array $assessment
 	 *
 	 * @return array
@@ -111,7 +211,7 @@ class Assessment extends Model {
 		$total = 0;
 		$nItems = 0;
 		$responses = [];
-		$records = $this->api->db->AssessmentResponse()->where("assessmentId=?", $assessment["id"]);
+		$records = $this->api->db->assessment_response()->where("assessment_id=?", $assessment["id"]);
 		foreach ($records as $record) {
 			if ($record["response"] > 0) {
 				$nItems++;

@@ -29,7 +29,7 @@ class Outcome extends Model {
 		$associative = parent::map($outcome);
 		$jsonAlignments = [];
 		$alignment = new OutcomeAlignment($this->api);
-		foreach ($this->api->db->OutcomeAlignment()->where('outcomeId', $outcome["id"]) as $alignmentRecord) {
+		foreach ($this->api->db->outcome_alignment()->where('outcome_id', $outcome["id"]) as $alignmentRecord) {
 			$alignment->mapExcludes = ["outcomeId"];
 			$jsonAlignments[] = $alignment->map($alignmentRecord);
 		}
@@ -37,17 +37,17 @@ class Outcome extends Model {
 
 		$jsonOutcomeLevels = [];
 		if (!empty($this->singleOrganizationId)) {
-			$dbRecords = $this->api->db->OrganizationOutcome()->where('organizationId=?',$this->singleOrganizationId); //->order('outcomeId');
+			$dbRecords = $this->api->db->organization_outcome()->where('organization_id=?',$this->singleOrganizationId); //->order('outcomeId');
 			foreach ($dbRecords as $dbRecord) {
-				$outId = $dbRecord["outcomeId"];
+				$outId = $dbRecord["outcome_id"];
 				$jsonOutcomeLevels[$outId] = (int)$dbRecord["level"];
 			}
 		}
 		else {
-			$dbRecords = $this->api->db->OrganizationOutcome(); //->order('organizationId,outcomeId');
+			$dbRecords = $this->api->db->organization_outcome(); //->order('organizationId,outcomeId');
 			foreach ($dbRecords as $dbRecord) {
-				$organizationId = $dbRecord["organizationId"];
-				$outId = $dbRecord["outcomeId"];
+				$organizationId = $dbRecord["organization_id"];
+				$outId = $dbRecord["outcome_id"];
 				if (empty($jsonOutcomeLevels[$organizationId])) {
 					$jsonOutcomeLevels[$organizationId] = [];
 				}

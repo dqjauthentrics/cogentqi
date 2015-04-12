@@ -15,6 +15,7 @@ angular.module('app',
 				   'webcam',
 				   'Routing',
 				   'Icons',
+				   'PDF',
 				   'Instruments',
 				   'Settings',
 				   'Plans',
@@ -143,7 +144,7 @@ angular.module('app',
 				   return {
 					   restrict: 'E',
 					   templateUrl: '../templates/common/recommendationRanking.html',
-					   scope: {weight: '=', range: '='}
+					   scope: {weight: '=', range: '=', n: '='}
 				   };
 			   })
 	.directive('quiz', function (Quizzes) {

@@ -6,18 +6,18 @@
         </div>
         <div id="assessmentPrintArea" style="background:#FFF;">
             <div class="row responsive-sm">
-                <div class="col col-100"><h3 style="text-align: center; margin:0 auto;">{{data.assessment.instrument.name}}</h3></div>
+                <div class="col col-100"><h3 style="text-align: center; margin:0 auto;">{{data.assessment.instrument.nm}}</h3></div>
             </div>
             <div class="row responsive-sm detail">
                 <div class="col col-25 padding" style="text-align:center;">
-                    <a href="#/manager/member/{{data.assessment.member.id}}">
-                        <img class="border border{{Assessments.avgRound}}" data-ng-src="{{data.assessment.member.avatar}}" alt=""/>
+                   <a href="#/manager/member/{{data.assessment.member.id}}">
+                        <img class="border border{{Assessments.avgRound}}" data-ng-src="{{data.assessment.member.av}}" alt=""/>
                     </a><br/>
 
                     <div class="name"><a href="#/manager/member/{{data.assessment.member.id}}">
-                        {{data.assessment.member.firstName}} {{data.assessment.member.lastName}}</a>
+                        {{data.assessment.member.fn}} {{data.assessment.member.ln}}</a>
                     </div>
-                    <div class="role">{{data.assessment.member.roleName}}</div>
+                    <div class="role">{{data.assessment.member.rl}}</div>
                     <div class="score" data-ng-show="Assessments.avgRound > 0">
                         <i class="logo level levelColor{{Assessments.avgRound}} {{i.icons.levels[Assessments.avgRound]}}">
                             {{Assessments.scoreWord(Assessments.avgRound)}} <span style="font-size:0.6em;">({{Assessments.avg}})</span>
@@ -32,14 +32,14 @@
                             <a href="/#/manager/resource/{{recommendation.resourceId}}">
                                 <i class="{{i.icons.resource}}"></i>{{recommendation.number}} {{recommendation.name}} (score: {{recommendation.score|number:4}})
                             </a>
-                            <recommendation-ranking weight="recommendation.weight" range="getRange(recommendation.weight)"></recommendation-ranking>
+                            <recommendation-ranking weight="recommendation.weight" range="[1,1,1,1,1]" n="recommendation.weight"></recommendation-ranking>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row responsive-sm detail">
                 <div class="col col-100 assessment">
-                    <div style="display:none;">{{data.assessment.last_modified}}</div>
+                    <div style="display:none;">{{data.assessment.lm}}</div>
                     <div id="section{{$index}}" data-ng-repeat="section in data.assessment.instrument.sections" class="fadein fadeout">
                         <div data-ng-show="Instruments.sectionIsCurrent(data.assessment.instrument, section.id)">
                             <div style="float:left; margin-left:1em;">
@@ -52,7 +52,7 @@
                             <div style="height:1em;"></div>
                             <ion-list>
                                 <ion-item class="top">
-                                    <h2 style="float:left;">{{Instruments.sectionNumber(data.assessment.instrument)}} {{section.name}}</h2>
+                                    <h2 style="float:left;">{{section.number}} {{section.name}}</h2>
 
                                     <div style="float:right; margin-right: 0.4em;">
                                         <button class="button button-balanced button-small" onclick="alert('Demo mode only.');">Save</button>
@@ -61,25 +61,25 @@
                                 </ion-item>
                                 <ion-item class="item-remove-animate item-icon-right" data-ng-repeat="question in section.questions" type="item-text-wrap">
                                     <div style="float:left; max-width: 80%;">
-                                        <div class="number" data-ng-bind="section.number + '.' + question.number"></div>
-                                        <div class="text" data-ng-bind="question.name"></div>
+                                        <div class="number" data-ng-bind="section.number + '.' + question.nb"></div>
+                                        <div class="text" data-ng-bind="question.nm"></div>
                                         <div class="clearfix"></div>
-                                        <div class="description" data-ng-bind-html="question.description"></div>
+                                        <div class="description" data-ng-bind-html="question.dsc"></div>
                                     </div>
-                                    <div data-ng-switch="question.questionTypeId" style="float:right;">
-                                        <div data-ng-switch-when="2">
+                                    <div data-ng-switch="question.typ" style="float:right;">
+                                        <div data-ng-switch-when="NAYesNo">
                                             <div class="button-bar" style="max-width:12em; min-width:12em;">
-                                                <a class="button" data-ng-class="{'yesNoBg0': question.responseRecord.ri == 0}"
+                                                <a class="button" data-ng-class="{'yesNoBg0': question.rsp.ri == 0}"
                                                    data-ng-click="updateResponse(question, 0)">N/A</a>
-                                                <a class="button" data-ng-class="{'yesNoBg1': question.responseRecord.ri == 1}"
+                                                <a class="button" data-ng-class="{'yesNoBg1': question.rsp.ri == 1}"
                                                    data-ng-click="updateResponse(question, 1)">No</a>
-                                                <a class="button" data-ng-class="{'yesNoBg2': question.responseRecord.ri == 2}"
+                                                <a class="button" data-ng-class="{'yesNoBg2': question.rsp.ri == 2}"
                                                    data-ng-click="updateResponse(question, 2)">Yes</a>
                                             </div>
                                         </div>
                                         <div data-ng-switch-default=>
-                                            <slider id="question_item_{{question.id}}" class="slider{{question.responseRecord.ri}}"
-                                                    data-ng-model="question.responseRecord.ri" floor="0.0" ceiling="5" step-width="1"
+                                            <slider id="question_item_{{question.id}}" class="slider{{question.rsp.ri}}"
+                                                    data-ng-model="question.rsp.ri" floor="0.0" ceiling="5" step-width="1"
                                                     data-ng-change="updateSliderResponse(question, this, true)"
                                                     data-translate-fn="sliderTranslate"
                                                     >
@@ -96,8 +96,8 @@
                                         <div class="pull-left" style="margin-left:1em;">
                                             <div data-ng-switch="showComment(question)">
                                                 <div data-ng-switch-when="true">
-                                                <textarea cols="60" rows="3" data-ng-model="question.responseRecord.ec"
-                                                          data-ng-bind="question.responseRecord.ec"></textarea>
+                                                <textarea cols="60" rows="3" data-ng-model="question.rsp.ac"
+                                                          data-ng-bind="question.rsp.ac"></textarea>
                                                 </div>
                                                 <div data-ng-switch-when="false">
                                                     <p class="comments" data-ng-bind-html="getComment(question)"></p>
