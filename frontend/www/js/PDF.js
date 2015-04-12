@@ -115,6 +115,6 @@ angular.module('PDF', []).service('PDF', function ($filter, Utility) {
 	};
 
 	svc.assessment = function (assessment) {
-		svc.getBase64Image('http://target.cogentqi/js/config/target/target-logo.jpg', assessment, svc.generateAssessmentDoc);
+		svc.getBase64Image('/js/config/target/target-logo.jpg', assessment, svc.generateAssessmentDoc);
 	};
 });
