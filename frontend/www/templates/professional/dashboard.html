@@ -16,12 +16,11 @@
                               href="#/manager/assessment/{{assessment.id}}">
                         <div style="white-space: normal !important;">
                             <i class="{{i.icons.assessment}} pad-right"></i>
-                            On <span style="font-weight:bold;">{{assessment.lastModified | date:'medium'}}  ({{assessment.lastModified|timeAgo}})</span>
+                            On <span style="font-weight:bold;">{{assessment.lm | date:'medium'}}  ({{assessment.lm|timeAgo}})</span>
 
-                            <div data-ng-if="assessment.byMember">
-                                by {{assessment.byMember.firstName}} {{assessment.byMember.lastName}}
-                                <img data-ng-src="{{assessment.byMember.avatar}}" alt=""
-                                     style="height: 8vmin; width: 8vmin; display: inline; vertical-align: middle;"/>
+                            <div data-ng-if="assessment.assessor">
+                                by {{assessment.assessor.fn}} {{assessment.assessor.ln}}
+                                <img data-ng-src="{{assessment.assessor.av}}" alt="" class="avatar-tiny"/>
                             </div>
                         </div>
                         <i class="icon ion-chevron-right icon-accessory"></i>

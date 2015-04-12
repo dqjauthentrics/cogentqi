@@ -250,16 +250,25 @@ class Assessment extends Model {
 	 */
 	public function map($assessment) {
 		$associative = [
-			'id' => (int)$assessment["id"],
-			'lm' => Model::dateTime($assessment["last_modified"]),
-			'ls' => Model::dateTime($assessment["last_saved"]),
-			'ac' => $assessment["assessor_comments"],
-			'mc' => $assessment["member_comments"],
-			'sc' => $assessment["score"],
-			'rk' => $assessment["rank"],
-			'es' => $assessment["edit_status"],
-			'vs' => $assessment["view_status"],
-			'ii' => $assessment["instrument_id"],
+			'id'       => (int)$assessment["id"],
+			'lm'       => Model::dateTime($assessment["last_modified"]),
+			'ls'       => Model::dateTime($assessment["last_saved"]),
+			'ac'       => $assessment["assessor_comments"],
+			'mc'       => $assessment["member_comments"],
+			'sc'       => $assessment["score"],
+			'rk'       => $assessment["rank"],
+			'es'       => $assessment["edit_status"],
+			'vs'       => $assessment["view_status"],
+			'ii'       => $assessment["instrument_id"],
+			'assessor' => [
+				'id' => (int)$assessment["assessor_id"],
+				'av' => $assessment->assessor["avatar"],
+				'fn' => $assessment->assessor["first_name"],
+				'ln' => $assessment->assessor["last_name"],
+				'ri' => $assessment->assessor["role_id"],
+				'jt' => $assessment->assessor["job_title"],
+				'rl' => @$assessment->assessor->role["name"]
+			],
 		];
 
 		$total = 0;
