@@ -164,6 +164,12 @@ angular.module('ControllerCommon', [])
 					$scope.save = function () {
 						$scope.res.save({assessment: $scope.data.assessment});
 					};
+					$scope.canEdit = function() {
+						return true;
+					};
+					$scope.canLock = function() {
+						return !Utility.empty($scope.data.assessment) && $scope.data.assessment.member.roleId != 'T';
+					}
 				})
 
 	.controller('AssessmentsCtrl', function ($scope, $stateParams, Utility, Assessments, Members, Organizations) {

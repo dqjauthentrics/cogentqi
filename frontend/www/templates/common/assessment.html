@@ -3,10 +3,10 @@
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
         <div style="float:right; margin-right: 0.4em;">
-            <button data-ng-if="data.assessment.es!='L'" class="button button-action button-save" data-ng-click="save()">
+            <button data-ng-if="canEdit() && data.assessment.es!='L'" class="button button-action button-save" data-ng-click="save()">
                 <i class="{{i.icons.save}}"></i> Save
             </button>
-            <button class="button button-action button-{{data.assessment.es=='L'?'unlock':'lock'}}" data-ng-click="toggleLock()">
+            <button data-ng-if="canLock()" class="button button-action button-{{data.assessment.es=='L'?'unlock':'lock'}}" data-ng-click="toggleLock()">
                 <i class="{{data.assessment.es=='L'? i.icons.unlocked : i.icons.locked}}"></i>
             </button>
             <button class="button button-action button-pdf" data-ng-click="printIt()"><i class="{{i.icons.pdf}}"></i></button>
