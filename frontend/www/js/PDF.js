@@ -115,6 +115,8 @@ angular.module('PDF', []).service('PDF', function ($filter, Utility) {
 	};
 
 	svc.assessment = function (assessment) {
-		svc.getBase64Image('/js/config/target/target-logo.jpg', assessment, svc.generateAssessmentDoc);
+		/** @todo Use installation path here.
+		 */
+		svc.getBase64Image('/js/config/target/printedLogo.jpg', assessment, svc.generateAssessmentDoc);
 	};
 });
