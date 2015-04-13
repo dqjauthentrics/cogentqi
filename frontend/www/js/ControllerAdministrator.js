@@ -2,6 +2,10 @@
 
 angular.module('ControllerAdministrator', [])
 
+	.controller('AdminDashboardCtrl', function ($scope, $cookieStore, Utility) {
+					$scope.data = {user: $cookieStore.get('user'), role: 'administrator'};
+				})
+
 	.controller('AdminMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Assessments, Organizations, Members) {
 					$scope.Instruments = Instruments;  //@todo Is this needed in views/directives?
 					$scope.Members = Members; //@todo Is this needed in views/directives?
@@ -268,10 +272,6 @@ angular.module('ControllerAdministrator', [])
 					$scope.isCurrent = function (organization) {
 						return !Utility.empty(organization) && !Utility.empty($scope.data.currentOrg) && organization.id == $scope.data.currentOrg.id;
 					};
-				})
-
-	.controller('AdminDashboardCtrl', function ($scope, $stateParams, Utility) {
-					$scope.data = {organizations: [], currentMembers: [], currentOrg: {}};
 				})
 
 	.controller('AdminAlignmentsCtrl', function ($scope, $stateParams, Instruments, Resources, Outcomes) {

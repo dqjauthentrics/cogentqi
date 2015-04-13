@@ -2,7 +2,8 @@
 
 angular.module('ControllerManager', [])
 
-	.controller('DashboardCtrl', function ($scope, Organizations) {
+	.controller('DashboardCtrl', function ($scope, $cookieStore, Organizations) {
+					$scope.data = {user: $cookieStore.get('user'), role: 'manager'};
 				})
 
 	.controller('MemberCtrl', function ($scope, $stateParams, Utility, Icons, Instruments, Organizations, Members) {

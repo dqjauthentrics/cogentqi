@@ -6,7 +6,7 @@
             <h1>Learning Resource/Competency Alignments</h1>
             <div style="float:right; margin:0.5em;">
                 <button onclick="alert('Editing not available in demonstration mode.');" class="button button-energized">
-                    <i class="{{i.icons.edit}}"></i>
+                    <i class="{{i.edit}}"></i>
                 </button>
             </div>
             <h2><a href="#/manager/resource/{{data.resource.id}}">{{data.resource.name}}</a></h2>
@@ -37,7 +37,7 @@
                 <div class="description" data-ng-bind-html="question.description"></div>
             </ion-item>
         </ion-list>
-        <button data-ng-click="saveAlignments()" class="button button-balanced"><i class="{{i.icons.save}} fa-lg"></i> Save</button>
+        <button data-ng-click="saveAlignments()" class="button button-balanced"><i class="{{i.save}} fa-lg"></i> Save</button>
     </ion-content>
 </ion-view>
 

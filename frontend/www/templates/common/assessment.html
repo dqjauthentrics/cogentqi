@@ -4,12 +4,15 @@
     <ion-content has-bouncing="false" overflow-scroll="true">
         <div style="float:right; margin-right: 0.4em;">
             <button data-ng-if="canEdit() && data.assessment.es!='L'" class="button button-action button-save" data-ng-click="save()">
-                <i class="{{i.icons.save}}"></i> Save
+                <i class="{{i.save}}"></i>
             </button>
             <button data-ng-if="canLock()" class="button button-action button-{{data.assessment.es=='L'?'unlock':'lock'}}" data-ng-click="toggleLock()">
-                <i class="{{data.assessment.es=='L'? i.icons.unlocked : i.icons.locked}}"></i>
+                <i class="{{data.assessment.es=='L'? i.unlocked : i.locked}}"></i>
             </button>
-            <button class="button button-action button-pdf" data-ng-click="printIt()"><i class="{{i.icons.pdf}}"></i></button>
+            <button data-ng-if="canRemove() && data.assessment.es!='L'" class="button button-action button-remove" data-ng-click="remove()">
+                <i class="{{i.remove}}"></i>
+            </button>
+            <button class="button button-action button-pdf" data-ng-click="printIt()"><i class="{{i.pdf}}"></i></button>
             <div class="clearfix"></div>
         </div>
         <div>
@@ -19,16 +22,18 @@
             <div class="row responsive-sm detail">
                 <div class="col col-25 padding" style="text-align:center;">
                     <a href="#/manager/member/{{data.assessment.member.id}}">
-                        <img class="border border{{Assessments.avgRound}}" data-ng-src="{{data.assessment.member.av}}" alt=""/>
+                        <img class="border border{{assessment.rank}}" data-ng-src="{{data.assessment.member.av}}" alt=""/>
                     </a>
+
                     <div class="name"><a href="#/manager/member/{{data.assessment.member.id}}">
                         {{data.assessment.member.fn}} {{data.assessment.member.ln}}</a>
                     </div>
                     <div class="role">{{data.assessment.member.rl}}</div>
-                    <div class="score" data-ng-show="Assessments.avgRound > 0">
-                        <i class="logo level levelColor{{Assessments.avgRound}} {{i.icons.levels[Assessments.avgRound]}}">
-                            {{Assessments.scoreWord(Assessments.avgRound)}} <span style="font-size:0.6em;">({{Assessments.avg}})</span>
-                        </i>
+                    <div class="score" data-ng-show="data.assessment.avgRound > 0">
+                        <div style="font-size:1.0em; padding: 0.3em 0.4em; text-align:center;"
+                             data-ng-class="'matrixCircle ' + (data.assessment.typ == 'NAYesNo'?'yesNoBg':'levelBg') + data.assessment.avgRound"
+                                >{{data.assessment.scoreWord}} ({{data.assessment.avg}})
+                        </div>
                     </div>
                     <div>
                         Performed by: {{data.assessment.assessor.fn}} {{data.assessment.assessor.ln}}
@@ -41,7 +46,7 @@
                     <div class="recommendationsPane">
                         <div class="item" data-ng-repeat="recommendation in data.recommendations">
                             <a href="/#/manager/resource/{{recommendation.resourceId}}">
-                                <i class="{{i.icons.resource}}"></i>{{recommendation.number}} {{recommendation.name}} (score: {{recommendation.score|number:4}})
+                                <i class="{{i.resource}}"></i>{{recommendation.number}} {{recommendation.name}} (score: {{recommendation.score|number:4}})
                             </a>
                             <recommendation-ranking weight="recommendation.weight" range="[1,1,1,1,1]" n="recommendation.weight"></recommendation-ranking>
                         </div>
@@ -103,7 +108,7 @@
                                     <div>
                                         <div class="pull-left">
                                             <a data-ng-click="question.showComments = (question.showComments == undefined? true : !question.showComments)">
-                                                <i data-ng-class="hasComment(question)? i.icons.noteFilled : i.icons.noteEmpty"></i>
+                                                <i data-ng-class="hasComment(question)? i.noteFilled : i.noteEmpty"></i>
                                             </a>
                                         </div>
                                         <div class="pull-left" style="margin-left:1em;">

@@ -71,7 +71,16 @@ class Model {
 		if (!empty($mysqlDateTime)) {
 			return date("c", strtotime($mysqlDateTime));
 		}
-		return null;
+		return NULL;
+	}
+
+	public static function dbDateTme($dateTimeStr = NULL) {
+		if (empty($dateTimeStr)) {
+			$dateTimeStr = date('m/d/Y h:i:s a', time());
+		}
+		$time = strtotime($dateTimeStr);
+		$mysqlDate = date('Y-m-d H:i:s', $time);
+		return $mysqlDate;
 	}
 
 	public function initialize() {

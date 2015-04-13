@@ -3,10 +3,6 @@
 angular.module('Assessments', []).service('Assessments', function ($resource, $filter, $http, $cookieStore, Utility, Instruments, Resources, Members) {
 	var svc = this;
 
-	svc.avg = 0.0;
-	svc.avgRound = 0;
-	svc.matrixInstrumentId = null;
-
 	svc.retrieve = function () {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
@@ -54,8 +50,8 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 	};
 
 	svc.scorify = function (question, instrument) {
-		svc.avg = 0;
-		svc.avgRound = 0;
+		var avg = 0;
+		var avgRound = 0;
 		var total = 0;
 		var compCount = 0;
 		if (!Utility.empty(instrument) && !Utility.empty(instrument.sections)) {
@@ -71,11 +67,13 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 				}
 			}
 			if (total > 0) {
-				svc.avg = $filter('number')(total / compCount, 1);
-				svc.avgRound = Math.round(svc.avg);
+				avg = $filter('number')(total / compCount, 1);
+				avgRound = Math.round(avg);
 			}
 		}
+		return {avg: avg, avgRound: avgRound};
 	};
+
 	svc.scoreWord = function (score) {
 		var scoreWord = "N/A";
 		try {
@@ -188,6 +186,8 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 
 	svc.sliderChange = function (question, instrument) {
 		var scoreWord = null;
+		var avg = 0;
+		var avgRound = 0;
 		if (!Utility.empty(question) && !Utility.empty(question.rsp)) {
 			scoreWord = svc.scoreWord(question.rsp.ri);
 			var slider = $("#question_item_" + question.id);
@@ -196,9 +196,11 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 			slider.removeClass(function (index, css) {
 				return (css.match(/(^|\s)slider\S+/g) || []).join(' ');
 			}).addClass("slider" + question.rsp.ri);
-			svc.scorify(question, instrument);
+			var score = svc.scorify(question, instrument);
+			avg = score.avg;
+			avgRound = score.avgRound;
 		}
-		return scoreWord;
+		return {scoreWord: scoreWord, avg: avg, avgRound: avgRound};
 	};
 
 	svc.findMatrixResponseRowValues = function (instrument, currentSectionIdx, allResponses) {

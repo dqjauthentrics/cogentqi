@@ -30,6 +30,8 @@ class Authentication extends Model {
 					'organizationId' => $record["organization_id"],
 					'orgName'        => $record->organization["name"],
 					'avatar'         => $record["avatar"],
+					'jobTitle'       => $record["job_title"],
+					'role'           => @$record->role["name"],
 				];
 			}
 			$this->set($user);

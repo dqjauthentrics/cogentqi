@@ -23,9 +23,9 @@
             <assessment-item assessment="assessment" i="i"></assessment-item>
         </div>
         <div>
-            <button class="button button-action button-new" href="#/manager/assessment/n/{{data.member.id}}">
-                <i class="{{i.icons.add}}"></i> New Assessment
-            </button>
+            <a class="button button-action button-new" href="#/manager/assessment/n/{{data.member.id}}" title="Add a new assessment.">
+                <i class="{{i.add}}"></i>
+            </a>
         </div>
 
         <h3>Events</h3>
@@ -40,7 +40,7 @@
             </thead>
             <tbody>
             <tr data-ng-repeat="event in data.member.events">
-                <td><i class="{{i.icons.event}}"></i></td>
+                <td><i class="{{i.event}}"></i></td>
                 <td>{{event.occurred|date:'medium'}}</td>
                 <td>{{event.name}}</td>
                 <td>{{event.cat}}</td>

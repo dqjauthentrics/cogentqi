@@ -1,58 +1,49 @@
 'use strict';
 
 angular.module('Icons', []).service('Icons', function () {
-	this.icons = {
-		active: "ion-edit",
-		add: "fa fa-plus-circle",
-		addProject: "fa fa-plus-circle",
-		addUser: "fa fa-plus-circle",
-		back: "fa fa-arrow-sans-left",
-		begin: "fa fa-rocket-1",
-		buttonError: "fa fa-alert",
-		buttonSpinner: "fa fa-spinner fa-spin",
-		checked: "fa fa-check-mark-2",
-		completed: "ion-checkmark",
-		criterion: "fa fa-bookmark",
-		dashboard: "fa fa-tachometer",
-		dragHandle: "fa fa-thumbnails",
-		edit: "fa fa-pencil ",
-		email: "fa fa-mail",
-		assessment: "fa fa-sliders",
-		event: "fa fa-warning",
-		grades: "fa fa-tag-2",
-		home: "fa fa-home",
-		info: "fa fa-question-circle",
-		instrument: "ion-clipboard",
-		learningModule: "ion-university",
-		loadingSpinner: "fa fa-spinner fa-spin",
-		locked: "ion-locked",
-		unlocked: "ion-unlocked",
-		manager: "fa fa-gear",
-		member: "fa fa-user-2",
-		members: "ion-person-stalker",
-		next: "fa fa-triangle-right",
-		noteEmpty: "fa fa-comment-o",
-		noteFilled: "fa fa-comment",
-		outcome: "fa fa-flash",
-		pdf: "fa fa-file-pdf-o",
-		period: "fa fa-calendar",
-		previous: "fa fa-triangle-left",
-		project: "fa fa-briefcase-case-two",
-		remove: "fa fa-trash-bin",
-		reports: "fa fa-graph",
-		resource: "ion-university",
-		save: "ion-android-cloud-done",
-		signIn: "fa fa-entrance",
-		signOut: "fa fa-logout",
-		slider: "fa fa-params",
-		standard: "fa fa-paperclip",
-		steps: "fa fa-connection-4",
-		tag: "gray fa fa-tag",
-		unchecked: "fa fa-square-line",
-		upArrow: "fa fa-arrow-circle-up",
-		building: "fa fa-building-o",
-		buildingOn: "fa fa-building",
-
-		levels: ["fa fa-circle-o", "fa fa-minus-circle", "fa fa-circle-o", "fa fa-adjust", "fa fa-circle", "fa fa-plus-circle"]
-	};
+	this.active = "ion-edit";
+	this.add = "ion-plus-round";
+	this.addUser = "fa fa-plus-circle";
+	this.assessment = "fa fa-sliders";
+	this.back = "fa fa-arrow-sans-left";
+	this.begin = "fa fa-rocket-1";
+	this.building = "fa fa-building-o";
+	this.buildingOn = "fa fa-building";
+	this.checked = "fa fa-check-mark-2";
+	this.completed = "ion-checkmark";
+	this.criterion = "fa fa-bookmark";
+	this.dashboard = "fa fa-tachometer";
+	this.edit = "ion-compose";
+	this.email = "fa fa-mail";
+	this.event = "fa fa-warning";
+	this.home = "fa fa-home";
+	this.info = "fa fa-question-circle";
+	this.instrument = "ion-clipboard";
+	this.learningModule = "ion-university";
+	this.loadingSpinner = "fa fa-spinner fa-spin";
+	this.locked = "ion-locked";
+	this.manager = "fa fa-gear";
+	this.member = "fa fa-user-2";
+	this.members = "ion-person-stalker";
+	this.next = "fa fa-triangle-right";
+	this.noteEmpty = "fa fa-comment-o";
+	this.noteFilled = "fa fa-comment";
+	this.outcome = "ion-speedometer";
+	this.pdf = "fa fa-file-pdf-o";
+	this.period = "fa fa-calendar";
+	this.previous = "fa fa-triangle-left";
+	this.project = "fa fa-briefcase-case-two";
+	this.remove = "fa fa-trash";
+	this.reports = "fa fa-graph";
+	this.resource = "ion-university";
+	this.save = "ion-android-cloud-done";
+	this.signIn = "fa fa-entrance";
+	this.signOut = "fa fa-logout";
+	this.slider = "fa fa-params";
+	this.standard = "fa fa-paperclip";
+	this.steps = "fa fa-connection-4";
+	this.tag = "gray fa fa-tag";
+	this.unchecked = "fa fa-square-line";
+	this.unlocked = "ion-unlocked";
+	this.upArrow = "fa fa-arrow-circle-up";
 });

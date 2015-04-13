@@ -6,7 +6,7 @@
             <ion-item class="item-icon-right" ng-repeat="learningModule in data.learningModules" type="item-text-wrap" href="#/manager/resource/{{learningModule.resource.id}}">
                 <div class="row">
                     <div class="col">
-                        <div class="number"><i class="{{i.icons.learningModule}} fa-lg"></i> {{learningModule.resource.number}}</div>
+                        <div class="number"><i class="{{i.learningModule}} fa-lg"></i> {{learningModule.resource.number}}</div>
                         <div class="title">
                             <a href="#/manager/resource/{{learningModule.resource.id}}" title="">{{learningModule.resource.name}}</a>
                         </div>
@@ -22,7 +22,7 @@
                 </div>
                 <div class="row">
                     <div data-ng-repeat="tag in learningModule.resource.tags">
-                        <div class="tag"><i class="{{i.icons.tag}}"></i> {{tag}}</div>
+                        <div class="tag"><i class="{{i.tag}}"></i> {{tag}}</div>
                     </div>
                 </div>
             </ion-item>

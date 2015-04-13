@@ -5,11 +5,11 @@
         <div style="height:1em;"></div>
         <ion-list>
             <ion-item class="top"><h2>{{user.orgName}} Status</h2></ion-item>
-            <ion-item class="gray" data-ng-if="!data.outcomes.length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
+            <ion-item class="gray" data-ng-if="!data.outcomes.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
             <ion-item data-ng-repeat="outcome in data.outcomes" type="item-text-wrap">
                 <div class="detail">
                     <div class="name">
-                        <span class="circleNumber rubric rubricBg{{outcome.levels[outcome.id]}}"><i class="{{i.icons.outcome}} fa-lg">{{outcome.levels[outcome.id]}}</i></span>
+                        <span class="circleNumber rubric rubricBg{{outcome.levels[outcome.id]}}"><i class="{{i.outcome}} fa-lg">{{outcome.levels[outcome.id]}}</i></span>
                         {{outcome.number}} {{outcome.name}}
                     </div>
                     <div class="clearfix"></div>

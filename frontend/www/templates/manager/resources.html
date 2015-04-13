@@ -3,16 +3,16 @@
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
         <ion-list>
-            <ion-item class="gray" data-ng-if="!data.resources.length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
+            <ion-item class="gray" data-ng-if="!data.resources.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
             <ion-item class="item-icon-right" data-ng-repeat="resource in data.resources" type="item-text-wrap"
                       href="#/manager/resource/{{resource.id}}">
-                <div class="number"><i class="{{i.icons.resource}} fa-lg"></i> {{resource.number}}</div>
+                <div class="number"><i class="{{i.resource}} fa-lg"></i> {{resource.number}}</div>
                 <div class="title">
                     <a href="#/manager/resource/{{resource.id}}" title="">{{resource.name}}</a>
                 </div>
                 <div class="description" data-ng-bind-html="resource.summary"></div>
                 <div data-ng-repeat="tag in resource.tags">
-                    <div class="tag"><i class="{{i.icons.tag}}"></i> {{tag}}</div>
+                    <div class="tag"><i class="{{i.tag}}"></i> {{tag}}</div>
                 </div>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>

@@ -74,7 +74,8 @@ angular.module('ControllerCommon', [])
 				})
 
 	.controller('AssessmentCtrl',
-				function ($resource, $filter, $scope, $timeout, $stateParams, PDF, Utility, Instruments, Assessments, Members, Organizations, Resources) {
+				function ($resource, $ionicPopup, $filter, $cookieStore, $scope, $timeout, $stateParams, PDF, Utility, Instruments, Assessments, Members, Organizations,
+						  Resources) {
 					$scope.Instruments = Instruments;
 					$scope.res = null;
 					$scope.data = {recommendations: [], resources: [], assessment: null};
@@ -123,7 +124,11 @@ angular.module('ControllerCommon', [])
 					};
 
 					$scope.updateSliderResponse = function (question) {
-						question.rsp.r = Assessments.sliderChange(question, $scope.data.assessment.instrument);
+						var scoreInfo = Assessments.sliderChange(question, $scope.data.assessment.instrument);
+						question.rsp.r = scoreInfo.scoreWord;
+						$scope.data.assessment.avg = scoreInfo.avg;
+						$scope.data.assessment.avgRound = scoreInfo.avgRound;
+						$scope.data.assessment.scoreWord = Assessments.scoreWord(scoreInfo.avgRound);
 						$scope.getRecommendations();
 					};
 
@@ -136,11 +141,9 @@ angular.module('ControllerCommon', [])
 							$scope.res = $resource('/api/assessment/:id');
 							$scope.res.get({id: $stateParams.assessmentId}, function (response) {
 								$scope.data.assessment = response;
+								$scope.data.assessor = $cookieStore.get('user');
 								$scope.getRecommendations();
 							});
-						}
-						if (!Utility.empty($scope.data.assessment) && !Utility.empty($scope.data.assessment.member)) {
-							Assessments.avgRound = $scope.data.assessment.member.lv;
 						}
 					};
 
@@ -155,19 +158,27 @@ angular.module('ControllerCommon', [])
 
 					$scope.toggleLock = function () {
 						var word = ($scope.data.assessment.es == 'L' ? 'unlock' : 'lock');
-						var cnf = confirm("Are you sure you wish to " + word + " this assessment?");
-						if (cnf) {
-							$scope.data.assessment.es = ($scope.data.assessment.es == 'L' ? 'A' : 'L');
-							$scope.res.save({assessment: $scope.data.assessment});
-						}
+						var confirmPopup = $ionicPopup.confirm({title: Utility.ucfirst(word) + ' Confirmation', template: "Are you sure you wish to " + word + " this assessment?"});
+						confirmPopup.then(function (res) {
+							if (res) {
+								$scope.data.assessment.es = ($scope.data.assessment.es == 'L' ? 'A' : 'L');
+								$scope.res.save({assessment: $scope.data.assessment});
+							}
+						});
 					};
 					$scope.save = function () {
 						$scope.res.save({assessment: $scope.data.assessment});
 					};
-					$scope.canEdit = function() {
+					$scope.remove = function () {
+						$scope.res.delete({assessment: $scope.data.assessment});
+					};
+					$scope.canEdit = function () {
 						return true;
 					};
-					$scope.canLock = function() {
+					$scope.canRemove = function () {
+						return !Utility.empty($scope.data.assessment) && $scope.data.assessment.member.roleId != 'T' && $scope.canEdit();
+					};
+					$scope.canLock = function () {
 						return !Utility.empty($scope.data.assessment) && $scope.data.assessment.member.roleId != 'T';
 					}
 				})

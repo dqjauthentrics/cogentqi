@@ -15,7 +15,7 @@
                     <ion-item class="item-icon-right" data-ng-repeat="assessment in data.assessments" type="item-text-wrap"
                               href="#/manager/assessment/{{assessment.id}}">
                         <div style="white-space: normal !important;">
-                            <i class="{{i.icons.assessment}} pad-right"></i>
+                            <i class="{{i.assessment}} pad-right"></i>
                             On <span style="font-weight:bold;">{{assessment.lm | date:'medium'}}  ({{assessment.lm|timeAgo}})</span>
 
                             <div data-ng-if="assessment.assessor">
@@ -33,7 +33,7 @@
                     <ion-item data-ng-if="!data.planItems.length">None.</ion-item>
                     <ion-item class="item-icon-right" data-ng-repeat="item in data.planItems" type="item-text-wrap" href="#/manager/resource/{{item.r}}">
                         <div class="name">
-                            <i class="{{i.icons.resource}} pad-right"></i>
+                            <i class="{{i.resource}} pad-right"></i>
                             {{item.n}}
                         </div>
                         <p>

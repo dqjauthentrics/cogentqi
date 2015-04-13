@@ -909,25 +909,27 @@ p.comments {
 
 .button-action {
     font-weight: bold;
-    margin: 0.2em;
+    margin: 0.2em 0.1em;
+    font-size: 2em;
+    color: white;
+    border-radius: 0.2em;
 }
+
 .button-action:hover {
     opacity: 0.7;
     color: white;
 }
+
 .button-unlock {
     background: red;
-    color: white;
 }
+
 .button-lock {
-    background: #ddb700;
-}
-.button-complete:hover {
+    background: #cda700;
 }
 
 .button-pdf {
     background: darkblue;
-    color: white;
 }
 
 .button-save, .button-new {
@@ -935,10 +937,30 @@ p.comments {
     color: white;
 }
 
-.button-delete {
+.button-remove {
     background: darkred;
-    color: white;
 }
+
 table.assessmentItem td {
-    padding: 0.1em;
+    padding: 0.2em;
+}
+
+table.assessmentItem tr:hover {
+    background: #DDD;
+}
+
+.dashName {
+    font-weight: bold;
+    color: darkslategray;
+}
+
+.dashJob {
+    font-weight: normal;
+    color: gray;
+}
+
+.dashRole {
+    font-style: italic;
+    font-weight: normal;
+    color: gray;
 }

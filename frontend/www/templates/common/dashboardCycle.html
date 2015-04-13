@@ -1,12 +1,14 @@
 <table class="cycle">
     <tr>
         <td style="text-align:center; vertical-align: middle !important; padding-top:2em;">
-            <div style="float:left; margin-top:-7.6em; font-size:0.5em; line-height:1em; text-align: left;">
-                {{user.firstName}} {{user.lastName}}<br/>{{jobtitle}}
+            <div style="float:left; margin-top:-7.6em; font-size: 0.5em; line-height:1em; text-align: left;">
+                <div class="dashName">{{data.user.firstName}} {{data.user.lastName}}</div>
+                <div class="dashJob">{{data.user.jobTitle}}</div>
+                <div class="dashRole" data-ng-if="data.user.role != data.user.jobTitle">({{data.user.role}})</div>
             </div>
-            <a href="#/{{role}}/dashboard/matrix">Assessment</a>
+            <a href="#/{{data.role}}/dashboard/matrix">Assessment</a>
         </td>
-        <td style="text-align:center; vertical-align: bottom !important;"><a href="#/{{role}}/outcomes">Outcomes</a></td>
+        <td style="text-align:center; vertical-align: bottom !important;"><a href="#/{{data.role}}/outcomes">Outcomes</a></td>
     </tr>
     <tr>
         <td colspan="2">
@@ -17,10 +19,10 @@
     </tr>
     <tr>
         <td style="text-align:left; vertical-align: top !important;">
-            <div style="margin-left:1.0em;"><a href="#/{{role}}/resources">Professional<br/>Development</a></div>
+            <div style="margin-left:1.0em;"><a href="#/{{data.role}}/resources">Professional<br/>Development</a></div>
         </td>
-        <td style="text-align:left; vertical-align: top !important; padding-top:2em;"><a href="#/{{role}}/planning">
+        <td style="text-align:left; vertical-align: top !important; padding-top:2em;"><a href="#/{{data.role}}/planning">
             Planning</a>
         </td>
     </tr>
- </table>
+</table>

@@ -65,6 +65,12 @@ angular.module('Utility', []).factory('Utility', [
 			rgbToHex: function (r, g, b) {
 				return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 			},
+			ucfirst: function (str) {
+				str += '';
+				var f = str.charAt(0)
+					.toUpperCase();
+				return f + str.substr(1);
+			},
 			round: function (value, exp) {
 				if (typeof exp === 'undefined' || +exp === 0) {
 					return Math.round(value);

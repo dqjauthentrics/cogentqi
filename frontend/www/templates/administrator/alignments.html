@@ -6,27 +6,27 @@
             <div class="col">
                 <ion-list>
                     <ion-item class="top"><h2>Resources</h2></ion-item>
-                    <ion-item class="gray" data-ng-if="!data.resources.length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
+                    <ion-item class="gray" data-ng-if="!data.resources.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
                     <ion-item class="item-icon-right" data-ng-repeat="resource in data.resources" type="item-text-wrap"
                               href="#/administrator/alignment/{{resource.id}}">
-                        <i class="{{i.icons.resource}} fa-lg"></i> {{resource.number}} {{resource.name}}
+                        <i class="{{i.resource}} fa-lg"></i> {{resource.number}} {{resource.name}}
                         <i class="icon ion-chevron-right icon-accessory"></i>
                     </ion-item>
                     <ion-item>
-                        <button onclick="alert('TBD');" class="button button-balanced"><i class="{{i.icons.add}} fa-lg"></i> Add Resource</button>
+                        <button onclick="alert('TBD');" class="button button-balanced"><i class="{{i.add}} fa-lg"></i> Add Resource</button>
                     </ion-item>
                 </ion-list>
             </div>
             <div class="col">
                 <ion-list>
                     <ion-item class="top"><h2>Outcomes</h2></ion-item>
-                    <ion-item class="gray" data-ng-if="!data.outcomes.length"><i class="{{i.icons.loadingSpinner}}"></i> Loading...</ion-item>
+                    <ion-item class="gray" data-ng-if="!data.outcomes.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
                     <ion-item class="item-icon-right" data-ng-repeat="outcome in data.outcomes" type="item-text-wrap"
                               href="#/administrator/alignment/outcome/{{outcome.id}}">
-                        <i class="{{i.icons.outcome}} fa-lg"></i> {{outcome.number}} {{outcome.name}}
+                        <i class="{{i.outcome}} fa-lg"></i> {{outcome.number}} {{outcome.name}}
                     </ion-item>
                     <ion-item>
-                        <button onclick="alert('TBD');" class="button button-balanced"><i class="{{i.icons.add}} fa-lg"></i> Add Outcome</button>
+                        <button onclick="alert('TBD');" class="button button-balanced"><i class="{{i.add}} fa-lg"></i> Add Outcome</button>
                     </ion-item>
                 </ion-list>
             </div>

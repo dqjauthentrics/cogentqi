@@ -40,7 +40,7 @@ angular.module('app',
 					delete $httpProvider.defaults.headers.common['X-Requested-With'];
 				}
 			])
-	.run(function ($ionicPlatform, $rootScope, $location, $window, $cookieStore, angularLoad, Icons, Utility, Authentication) {
+	.run(function ($ionicPlatform, $ionicPopup, $rootScope, $location, $window, $cookieStore, angularLoad, Icons, Utility, Authentication) {
 			 $ionicPlatform.ready(function () {
 
 				 $rootScope.i = Icons;
@@ -80,9 +80,15 @@ angular.module('app',
 					 Authentication.check();
 				 };
 				 $rootScope.logout = function () {
-					 Authentication.logout();
-					 window.location.href = "/#/login";
-					 return 'logged out';
+					 var confirmPopup = $ionicPopup.confirm({title: 'Logout Confirmation', template: 'Are you sure you want to log out of the application?'});
+					 confirmPopup.then(function (res) {
+						 if (res) {
+							 Authentication.logout();
+							 window.location.href = "/#/login";
+							 return 'logged out';
+						 }
+					 });
+					 return '';
 				 };
 				 $rootScope.dashboardUrl = function () {
 					 return Authentication.getUserDashUrl($cookieStore.get('user'));
@@ -109,8 +115,7 @@ angular.module('app',
 	.directive('dashboardCycle', function () {
 				   return {
 					   restrict: 'E',
-					   templateUrl: '../templates/common/dashboardCycle.html',
-					   scope: {Members: '=', role: '=', member: '=', jobtitle: '='}
+					   templateUrl: '../templates/common/dashboardCycle.html'
 				   };
 			   })
 	.directive('memberItem', function () {
