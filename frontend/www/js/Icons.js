@@ -42,6 +42,8 @@ angular.module('Icons', []).service('Icons', function () {
 	this.slider = "fa fa-params";
 	this.standard = "fa fa-paperclip";
 	this.steps = "fa fa-connection-4";
+	this.swipeRight = "ion-chevron-left";
+	this.swipeLeft = "ion-chevron-right";
 	this.tag = "gray fa fa-tag";
 	this.unchecked = "fa fa-square-line";
 	this.unlocked = "ion-unlocked";

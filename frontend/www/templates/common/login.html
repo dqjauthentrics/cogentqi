@@ -30,13 +30,15 @@
                              <div style="float:left;"><img data-ng-src="/img/cycle2.png" alt="" style="max-height:10em; margin-right:1em;"/></div>
                              <form>
                                 <label class="item item-input">
-                                    <input type="text" placeholder="Email" data-ng-model="email">
+                                    <input type="text" placeholder="Email" data-ng-model="data.email">
                                 </label>
                                 <label class="item item-input">
-                                    <input type="password" placeholder="Password" data-ng-model="password">
+                                    <input type="password" placeholder="Password" data-ng-model="data.password">
                                 </label>
                                 <button class="button button-small" data-ng-click="login('password')">Log In</button>
                             </form>
+                             <div class="clearfix"></div>
+                             <div style="width:40%; min-width:300px; text-align:center; margin:0 auto;" data-ng-class="data.error" data-ng-if="data.msg">{{data.msg}}</div>
                         </div>
                     </div>
                 </div>
@@ -50,10 +52,10 @@
                         <div class="item item-text-wrap">
                             <form>
                                 <label class="item item-input">
-                                    <input type="text" placeholder="Email" data-ng-model="createEmail">
+                                    <input type="text" placeholder="Email" data-ng-model="data.email">
                                 </label>
                                 <label class="item item-input">
-                                    <input type="password" placeholder="Password" data-ng-model="createPassword">
+                                    <input type="password" placeholder="Password" data-ng-model="data.password">
                                 </label>
                                 <button class="button button-small" data-ng-click="createAccount()">Create an Account</button>
                             </form>

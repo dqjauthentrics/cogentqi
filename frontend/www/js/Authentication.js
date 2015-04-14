@@ -9,7 +9,8 @@ angular.module('Authentication', []).service('Authentication', function ($rootSc
 		 * @todo Use $state.go here, and will probably have to store the user.home differently for that use.
 		 */
 		var user = $cookieStore.get('user');
-		if (Utility.empty(user)) {
+		console.log("USER:", user);
+		if (Utility.empty(user) || user.home == undefined) {
 			window.location.href = "/#/login";
 		}
 		else {
@@ -25,19 +26,20 @@ angular.module('Authentication', []).service('Authentication', function ($rootSc
 	};
 
 	svc.getUserDashUrl = function (user) {
-		var roleLoc = 'professional';
 		if (user !== undefined && user !== null) {
+			var roleLoc = 'professional';
 			if (user.roleId == 'A') {
 				roleLoc = 'administrator';
 			}
 			else if (user.roleId == 'P' || user.roleId == 'M') {
 				roleLoc = 'manager';
 			}
+			return '/#/' + roleLoc + '/dashboard';
 		}
-		return '/#/' + roleLoc + '/dashboard';
+		return null;
 	};
 
-	svc.login = function (loginType, email, password) {
+	svc.login = function (loginType, email, password, successFn, failFn) {
 		switch (loginType) {
 			case 'google':
 			case 'twitter':
@@ -56,10 +58,15 @@ angular.module('Authentication', []).service('Authentication', function ($rootSc
 								}
 								$cookieStore.put('user', data);
 								$rootScope.user = $cookieStore.get('user');
-								svc.check();
+								if (!Utility.empty(data)) {
+									successFn($rootScope.user);
+								}
+								else {
+									failFn('Sorry, but your login credentials were not recognized.');
+								}
 							}).
 					error(function (data, status, headers, config) {
-							  svc.resultMsg = "Login failed.";
+							  failFn('Sorry, we are unable to connect with the authentication server.');
 						  });
 				break;
 			default:

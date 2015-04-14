@@ -2,7 +2,7 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <div style="float:right; margin-right: 0.4em;">
+        <div class="iconBar">
             <button data-ng-if="canEdit() && data.assessment.es!='L'" class="button button-action button-save" data-ng-click="save()">
                 <i class="{{i.save}}"></i>
             </button>
@@ -29,15 +29,15 @@
                         {{data.assessment.member.fn}} {{data.assessment.member.ln}}</a>
                     </div>
                     <div class="role">{{data.assessment.member.rl}}</div>
+                    <div>
+                        Performed by: {{data.assessment.assessor.fn}} {{data.assessment.assessor.ln}}
+                        <img class="avatar-tiny" src="{{data.assessment.assessor.av}}" alt=""/>
+                    </div>
                     <div class="score" data-ng-show="data.assessment.avgRound > 0">
                         <div style="font-size:1.0em; padding: 0.3em 0.4em; text-align:center;"
                              data-ng-class="'matrixCircle ' + (data.assessment.typ == 'NAYesNo'?'yesNoBg':'levelBg') + data.assessment.avgRound"
                                 >{{data.assessment.scoreWord}} ({{data.assessment.avg}})
                         </div>
-                    </div>
-                    <div>
-                        Performed by: {{data.assessment.assessor.fn}} {{data.assessment.assessor.ln}}
-                        <img class="avatar-tiny" src="{{data.assessment.assessor.av}}" alt=""/>
                     </div>
                 </div>
                 <div class="col col-75">

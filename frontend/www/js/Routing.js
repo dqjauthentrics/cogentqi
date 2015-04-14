@@ -137,7 +137,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('manager.members', {
 				   url: '/members',
 				   views: {
-					   managerMembers: {templateUrl: 'templates/manager/members.html', controller: 'MemberCtrl'}
+					   managerMembers: {templateUrl: 'templates/manager/members.html', controller: 'MembersCtrl'}
 				   }
 			   })
 		.state('manager.member', {
@@ -146,10 +146,22 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 					   managerMembers: {templateUrl: 'templates/manager/member.html', controller: 'MemberCtrl'}
 				   }
 			   })
+		.state('manager.memberProgress', {
+				   url: '/member/progress/:memberId',
+				   views: {
+					   managerMembers: {templateUrl: 'templates/manager/memberProgressBars.html', controller: 'MemberProgressCtrl'}
+				   }
+			   })
+		.state('manager.memberNotes', {
+				   url: '/member/notes/:memberId',
+				   views: {
+					   managerMembers: {templateUrl: 'templates/manager/memberNotes.html', controller: 'MemberNotesCtrl'}
+				   }
+			   })
 		.state('manager.assessments', {
 				   url: '/assessments',
 				   views: {
-					   managerassessments: {templateUrl: 'templates/common/assessments.html', controller: 'AssessmentsCtrl'}
+					   managerAssessments: {templateUrl: 'templates/common/assessments.html', controller: 'AssessmentsCtrl'}
 				   }
 			   })
 		.state('manager.assessment', {

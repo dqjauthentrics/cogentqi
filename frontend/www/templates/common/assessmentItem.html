@@ -3,6 +3,10 @@
         <td style="width:1em;">
             <i class="{{i.assessment}}"></i>
         </td>
+        <td data-ng-if="showmember">
+            <img src="{{assessment.member.av}}" class="avatar"/>
+            {{assessment.member.fn}} {{assessment.member.ln}}
+        </td>
         <td style="width:12em;">
             <a href="#/manager/assessment/{{assessment.id}}">{{assessment.lm|date:'EEE'}}, {{assessment.lm|date:'short'}}</a>
         </td>

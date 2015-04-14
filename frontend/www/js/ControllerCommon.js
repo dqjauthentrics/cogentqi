@@ -4,17 +4,22 @@ angular.module('ControllerCommon', [])
 
 	.controller('LoginController', [
 					'$scope', '$location', 'Authentication', function ($scope, $location, Authentication) {
-						var email = null;
-						var password = null;
-						var createEmail = null;
-						var createPassword = null;
-						$scope.auth = Authentication;
+						$scope.data = {email: '', password: '', msg: '', error: ''};
 
 						$scope.login = function (loginType) {
-							Authentication.login(loginType, this.email, this.password);
+							$scope.data.msg = Authentication.login(loginType, $scope.data.email, $scope.data.password,
+																   function (user) {
+																	   $scope.data.msg = "Succeeded!";
+																	   $scope.data.error = "success";
+																	   Authentication.check();
+																   },
+																   function (failMsg) {
+																	   $scope.data.msg = failMsg;
+																	   $scope.data.error = "error";
+																   });
 						};
 						$scope.createAccount = function () {
-							Authentication.createAccount(this.createEmail, this.createPassword);
+							Authentication.createAccount($scope.data.email, $scope.data.password);
 						};
 						$scope.logout = function () {
 							Authentication.logout();
@@ -74,7 +79,8 @@ angular.module('ControllerCommon', [])
 				})
 
 	.controller('AssessmentCtrl',
-				function ($resource, $ionicPopup, $filter, $cookieStore, $scope, $timeout, $stateParams, PDF, Utility, Instruments, Assessments, Members, Organizations,
+				function ($resource, $ionicPopup, $filter, $cookieStore, $scope, $timeout, $stateParams, PDF, Utility, Instruments, Assessments, Members,
+						  Organizations,
 						  Resources) {
 					$scope.Instruments = Instruments;
 					$scope.res = null;
@@ -158,7 +164,10 @@ angular.module('ControllerCommon', [])
 
 					$scope.toggleLock = function () {
 						var word = ($scope.data.assessment.es == 'L' ? 'unlock' : 'lock');
-						var confirmPopup = $ionicPopup.confirm({title: Utility.ucfirst(word) + ' Confirmation', template: "Are you sure you wish to " + word + " this assessment?"});
+						var confirmPopup = $ionicPopup.confirm({
+																   title: Utility.ucfirst(word) + ' Confirmation',
+																   template: "Are you sure you wish to " + word + " this assessment?"
+															   });
 						confirmPopup.then(function (res) {
 							if (res) {
 								$scope.data.assessment.es = ($scope.data.assessment.es == 'L' ? 'A' : 'L');
@@ -186,14 +195,12 @@ angular.module('ControllerCommon', [])
 	.controller('AssessmentsCtrl', function ($scope, $stateParams, Utility, Assessments, Members, Organizations) {
 					$scope.data = {members: [], assessments: []};
 
-					$scope.data.assessments = [];
-					Members.retrieve().query(function (response) {
+					Utility.getResource(Members.retrieve(), function (response) {
 						$scope.data.members = response;
 						Assessments.associateMembers($scope.data.assessments, $scope.data.members);
 					});
-					Assessments.retrieve().query(function (response) {
+					Utility.getResource(Assessments.retrieve(), function (response) {
 						$scope.data.assessments = response;
-						Assessments.associateMembers($scope.data.assessments, $scope.data.members);
 					});
 				})
 ;

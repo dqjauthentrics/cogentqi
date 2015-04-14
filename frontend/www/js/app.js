@@ -24,6 +24,7 @@ angular.module('app',
 				   'Quizzes',
 				   'Organizations',
 				   'Members',
+				   'MemberNotes',
 				   'Assessments',
 				   'Resources',
 				   'LearningModules',
@@ -122,10 +123,7 @@ angular.module('app',
 				   return {restrict: 'E', templateUrl: '../templates/common/memberItem.html'};
 			   })
 	.directive('assessmentItem', function () {
-				   return {restrict: 'E', templateUrl: '../templates/common/assessmentItem.html', scope: {assessment: '=', i: '='}};
-			   })
-	.directive('memberProfile', function () {
-				   return {restrict: 'E', templateUrl: '../templates/common/memberProfile.html'};
+				   return {restrict: 'E', templateUrl: '../templates/common/assessmentItem.html', scope: {assessment: '=', i: '=', showmember: '='}};
 			   })
 	.directive('levelTag', function () {
 				   return {

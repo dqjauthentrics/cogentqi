@@ -22,6 +22,7 @@ class AltIdsStructure extends \NotORM_Structure_Convention {
 		//echo "RT: $name/$table\n";
 		switch ($name) {
 			case "creator_id":
+			case "creator":
 			case "assessor":
 			case "assessor_id":
 				return "member";

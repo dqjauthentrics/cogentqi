@@ -4,6 +4,22 @@ a {
     color: #005090;
 }
 
+h1 {
+    font-size: 5vmin;
+}
+
+h2 {
+    font-size: 4vmin;
+}
+
+h3 {
+    font-size: 3vmin;
+}
+
+h4 {
+    font-size: 2vmin;
+}
+
 textarea {
     border: 1px solid #CCC !important;
 }
@@ -92,27 +108,21 @@ ion-header-bar a {
     color: #FFF !important;
 }
 
-ion-list img {
-    max-width: 50px;
-    max-height: 50px;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    margin: 0.5em;
-}
-
-.list .avatar img {
+ion-item img.avatar {
     max-width: 80px !important;
     max-height: 80px !important;
-    width: 80px !important;
-    height: 80px !important;
+    width: 7.5vmin !important;
+    height: 7.5vmin !important;
     float: left;
     margin-right: 1em;
+    vertical-align: middle;
+    border-radius: 50%;
 }
 
 .avatar-large {
     width: 14vmin;
     height: 14vmin;
+    border-radius: 10%;
 }
 
 .avatar-tiny {
@@ -122,9 +132,11 @@ ion-list img {
     vertical-align: middle;
 }
 
-.avatar-small, .border {
-    width: 100px;
-    height: 100px;
+.avatar-small {
+    max-width: 80px !important;
+    max-height: 80px !important;
+    width: 10vmin !important;
+    height: 10vmin !important;
     vertical-align: middle;
     margin-right: 0.5em;
     border-radius: 5em;
@@ -134,7 +146,8 @@ h1 {
     margin-top: 0.3em !important;
 }
 
-.item-content, .item {
+ion-item:hover {
+    background: #EEE;
 }
 
 ion-item .listIcon {
@@ -167,8 +180,8 @@ ion-item .listIcon {
 }
 
 .detail .name {
-    font-size: 4vmin;
-    line-height: 3.2vmin !important;
+    font-size: 3.8vmin;
+    line-height: 3.8vmin !important;
     font-weight: bold;
     color: darkslategray;
 }
@@ -332,8 +345,8 @@ table.cycle {
 }
 
 .microBadge.count {
-    height: 10vmin;
-    width: 10vmin;
+    height: 6vmin;
+    width: 6vmin;
     min-height: 30px;
     min-width: 30px;
     max-height: 60px;
@@ -915,16 +928,25 @@ p.comments {
     border-radius: 0.2em;
 }
 
+.button-action.button-small {
+    font-size: 1em;
+    padding: 0.1em 0.3em;
+}
+
 .button-action:hover {
     opacity: 0.7;
     color: white;
+}
+
+.button-right, .button-left {
+    background: #AAA;
 }
 
 .button-unlock {
     background: red;
 }
 
-.button-lock {
+.button-lock, .button-edit {
     background: #cda700;
 }
 
@@ -945,8 +967,8 @@ table.assessmentItem td {
     padding: 0.2em;
 }
 
-table.assessmentItem tr:hover {
-    background: #DDD;
+#profile table.assessmentItem tr:hover {
+    background: #EEE;
 }
 
 .dashName {
@@ -963,4 +985,73 @@ table.assessmentItem tr:hover {
     font-style: italic;
     font-weight: normal;
     color: gray;
+}
+
+.item-complex.item-icon-right .item-content {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.success {
+    color: darkgreen;
+    background: #EEFFEE;
+    border: 1px solid darkgreen;
+    padding: 0.5em;
+    border-radius: 1em;
+}
+
+.error {
+    color: red;
+    border: 1px solid red;
+    padding: 0.5em;
+    background: #FFEEEE;
+    border-radius: 1em;
+}
+
+#notes .item {
+    border: none !important;
+}
+
+.note {
+    position: relative;
+    padding: 1em 1.5em;
+    margin: 2em auto;
+    color: #444;
+    background: #FFEF00;
+    overflow: hidden;
+    float: left;
+}
+
+.note:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-width: 0 16px 16px 0;
+    border-style: solid;
+    border-color: #fff #fff #E9BF00 #E9BF00;
+    background: #E9BF00;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2);
+    /* Firefox 3.0 damage limitation */
+    display: block;
+    width: 0;
+}
+
+.note.rounded {
+    -moz-border-radius: 5px 0 5px 5px;
+    border-radius: 5px 0 5px 5px;
+}
+
+.note.rounded:before {
+    border-width: 8px;
+    border-color: #fff #fff transparent transparent;
+    -moz-border-radius: 0 0 0 5px;
+    border-radius: 0 0 0 5px;
+}
+
+.iconBar {
+    float: right;
+    margin-right: 0.4em;
 }

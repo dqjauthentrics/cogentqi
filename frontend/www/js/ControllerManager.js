@@ -6,18 +6,25 @@ angular.module('ControllerManager', [])
 					$scope.data = {user: $cookieStore.get('user'), role: 'manager'};
 				})
 
-	.controller('MemberCtrl', function ($scope, $stateParams, Utility, Icons, Instruments, Organizations, Members) {
-					$scope.data = {organizations: [], instruments: [], member: {}, assessments: [], instrument: null};
+	.controller('MemberNotesCtrl', function ($scope, $ionicPopup, $stateParams, Utility, MemberNotes, Members) {
+					$scope.data = {member: {}, notes: []};
 
-					$scope.Members = Members;
-					$scope.Icons = Icons;
+					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
+						Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
+							$scope.data.member = response;
+							Utility.getResource(MemberNotes.retrieve($stateParams.memberId), function (response) {
+								$scope.data.notes = response;
+							});
+						});
+					}
+				})
+
+	.controller('MemberProgressCtrl',
+				function ($scope, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments, Organizations, Members) {
+					$scope.data = {instruments: [], member: {}, instrument: null};
 
 					Instruments.retrieve().query(function (response) {
 						$scope.data.instruments = response;
-						$scope.setRptConfigHx();
-					});
-					Members.retrieve().query(function (response) {
-						$scope.data.members = response;
 						$scope.setRptConfigHx();
 					});
 
@@ -29,16 +36,64 @@ angular.module('ControllerManager', [])
 						});
 					}
 					$scope.setRptConfigHx = function () {
-						if (!Utility.empty($scope.data.member) && Utility.empty($scope.data.member.rptConfigHx) && !Utility.empty($scope.data.instruments) && !Utility.empty($scope.data.member.assessments)) {
+						if (!Utility.empty($scope.data.member) && Utility.empty($scope.data.member.rptConfigHx) && !Utility.empty($scope.data.instruments)) {
 							Instruments.collate($scope.data.instruments);
+							console.log($scope.data.member.assessments[0]);
 							$scope.data.instrument = Utility.findObjectById($scope.data.instruments, $scope.data.member.assessments[0].ii);
 							$scope.data.member.rptConfigHx = Members.rptConfigHx($scope.data.instruments, $scope.data.member, $scope.data.member.assessments);
+							//$ionicLoading.hide();
 						}
 					};
-
 					$scope.getRptConfigHx = function () {
 						return $scope.data.member.rptConfigHx;
 					};
+					$scope.swipeLeft = function () {
+						$location.url("/manager/member/notes/" + $stateParams.memberId);
+					};
+					$scope.swipeRight = function () {
+						console.log("right");
+						$location.url("/manager/member/" + $stateParams.memberId);
+					};
+				})
+
+	.controller('MemberCtrl',
+				function ($scope, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments, Organizations, Members) {
+					$scope.data = {member: {}, user: $cookieStore.get('user')};
+
+					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
+						Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
+							$scope.data.member = response;
+						});
+					}
+					$scope.swipeLeft = function () {
+						if ($location.url().indexOf("progress") > 0) {
+							$location.url("/manager/member/notes/" + $stateParams.memberId);
+						}
+						else {
+							$location.url("/manager/member/progress/" + $stateParams.memberId);
+						}
+					};
+					$scope.swipeRight = function () {
+						console.log("right");
+						$location.url("/manager/member/" + $stateParams.memberId);
+					};
+					$scope.canEdit = function () {
+						return $scope.user.roleId != 'T';
+					};
+					$scope.edit = function () {
+						$ionicPopup.alert({title: 'Demonstration', template: 'Sorry, editing not available in demonstration.'});
+					};
+				})
+
+	.controller('MembersCtrl', function ($scope, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments, Organizations, Members) {
+					$scope.data = {organizations: [], instruments: [], member: {}, assessments: [], instrument: null};
+
+					Utility.getResource(Instruments.retrieve(), function (response) {
+						$scope.data.instruments = response;
+					});
+					Utility.getResource(Members.retrieve(), function (response) {
+						$scope.data.members = response;
+					});
 				})
 
 	.controller('OutcomeCtrl', function ($scope, Utility, Instruments, Organizations, Outcomes) {

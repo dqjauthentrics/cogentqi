@@ -1,7 +1,73 @@
-<ion-view view-title="{{member.name}}" cache-view="false">
+<ion-view view-title="{{data.member.firstName}} {{data.member.lastName}}" cache-view="false" on-swipe-left="swipeLeft()">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
-    <ion-content class="padding detail" has-bouncing="false">
-        <member-profile member="data.member" role="member.roleName" rptConfigHx="getRptConfigHx()" i="Icons"></member-profile>
+    <ion-content class="padding detail" has-bouncing="false" id="profile">
+        <div class="iconBar">
+            <button class="button button-action button-edit" data-ng-click="edit()"><i class="{{i.edit}}"></i></button>
+            <button class="button button-action button-right" data-ng-click="swipeLeft()"><i class="{{i.swipeLeft}}"></i></button>
+        </div>
+        <div class="row row-responsive-sm">
+            <div class="col col-25 padding">
+
+                <img data-ng-src="{{data.member.avatar}}" class="avatar avatar-large">
+
+                <div class="name">{{data.member.firstName}} {{data.member.lastName}}</div>
+                <div class="title">{{data.member.jobTitle}}</div>
+                <div class="role" data-ng-if="data.member.roleName.length && data.member.roleName != data.member.jobTitle">({{data.member.roleName}})</div>
+                <h3 data-ng-if="data.member.badges.length > 0">Badges</h3>
+
+                <div style="float:left; margin: 0.5em;" data-ng-repeat="badge in data.member.badges">
+                    <micro-badge text="badge.title" size="'small'"></micro-badge>
+                </div>
+            </div>
+            <div class="col col-75 padding">
+                <h3>Assessments To Date</h3>
+
+                <div data-ng-repeat="assessment in data.member.assessments">
+                    <assessment-item assessment="assessment" i="i"></assessment-item>
+                </div>
+                <div>
+                    <a class="button button-action button-new button-small" href="#/manager/assessment/n/{{data.member.id}}" title="Add a new assessment.">
+                        <i class="{{i.add}}"></i> Add
+                    </a>
+                </div>
+
+                <h3>Events</h3>
+
+                <table class="events">
+                    <thead>
+                    <tr>
+                        <th colspan="2" style="text-align: left;">Occurred</th>
+                        <th style="text-align: left;">Name</th>
+                        <th style="text-align: left;">Process Area</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="event in data.member.events">
+                        <td><i class="{{i.event}}"></i></td>
+                        <td>{{event.occurred|date:'short'}}</td>
+                        <td>{{event.name}}</td>
+                        <td>{{event.cat}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row responsive-sm">
+            <div class="col col-100 padding">
+            </div>
+        </div>
+        <style>
+            .events td, .events th {
+                color: red;
+                border: 0 solid #CCC;
+                padding: 0.3em;
+            }
+
+            .events th {
+                background: #CCC;
+                color: #000;
+            }
+        </style>
     </ion-content>
 </ion-view>

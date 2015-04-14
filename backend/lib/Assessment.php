@@ -257,11 +257,20 @@ class Assessment extends Model {
 			'ls'       => Model::dateTime($assessment["last_saved"]),
 			'ac'       => $assessment["assessor_comments"],
 			'mc'       => $assessment["member_comments"],
-			'sc'       => $assessment["score"],
-			'rk'       => $assessment["rank"],
+			'sc'       => (double)$assessment["score"],
+			'rk'       => (int)$assessment["rank"],
 			'es'       => $assessment["edit_status"],
 			'vs'       => $assessment["view_status"],
-			'ii'       => $assessment["instrument_id"],
+			'ii'       => (int)$assessment["instrument_id"],
+			'member' => [
+				'id' => (int)$assessment["member_id"],
+				'av' => $assessment->member["avatar"],
+				'fn' => $assessment->member["first_name"],
+				'ln' => $assessment->member["last_name"],
+				'ri' => $assessment->member["role_id"],
+				'jt' => $assessment->member["job_title"],
+				'rl' => @$assessment->member->role["name"]
+			],
 			'assessor' => [
 				'id' => (int)$assessment["assessor_id"],
 				'av' => $assessment->assessor["avatar"],
