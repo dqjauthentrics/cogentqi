@@ -9,7 +9,6 @@ angular.module('Authentication', []).service('Authentication', function ($rootSc
 		 * @todo Use $state.go here, and will probably have to store the user.home differently for that use.
 		 */
 		var user = $cookieStore.get('user');
-		console.log("USER:", user);
 		if (Utility.empty(user) || user.home == undefined) {
 			window.location.href = "/#/login";
 		}

@@ -10,6 +10,7 @@ angular.module('app',
 				   'ngCookies',
 				   'ngAnimate',
 				   'ngResource',
+				   'xeditable',
 				   'vr.directives.slider',
 				   'youtube-embed',
 				   'webcam',
@@ -41,7 +42,7 @@ angular.module('app',
 					delete $httpProvider.defaults.headers.common['X-Requested-With'];
 				}
 			])
-	.run(function ($ionicPlatform, $ionicPopup, $rootScope, $location, $window, $cookieStore, angularLoad, Icons, Utility, Authentication) {
+	.run(function ($ionicPlatform, $ionicPopup, $rootScope, $location, $window, $cookieStore, editableOptions, angularLoad, Icons, Utility, Authentication) {
 			 $ionicPlatform.ready(function () {
 
 				 $rootScope.i = Icons;
@@ -107,6 +108,8 @@ angular.module('app',
 
 				 $rootScope.currentPlatform = ionic.Platform.platform();
 				 $rootScope.currentPlatformVersion = ionic.Platform.version();
+
+				 editableOptions.theme = 'bs3';
 			 });
 		 })
 

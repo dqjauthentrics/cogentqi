@@ -3,7 +3,7 @@
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
     <ion-content class="padding detail" has-bouncing="false" id="profile">
         <div class="iconBar">
-            <button class="button button-action button-edit" data-ng-click="edit()"><i class="{{i.edit}}"></i></button>
+            <button class="button button-action button-save" ng-click="save()" ng-show="isDirty()"><i class="{{i.save}}"></i></button>
             <button class="button button-action button-right" data-ng-click="swipeLeft()"><i class="{{i.swipeLeft}}"></i></button>
         </div>
         <div class="row row-responsive-sm">
@@ -11,7 +11,11 @@
 
                 <img data-ng-src="{{data.member.avatar}}" class="avatar avatar-large">
 
-                <div class="name">{{data.member.firstName}} {{data.member.lastName}}</div>
+                <div>
+                    <span onaftersave="setDirty()" edit-disabled="!canEdit()"
+                          editable-text="data.member.firstName">{{ data.member.firstName || 'empty' }}</span>
+                    <span onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.lastName">{{ data.member.lastName || 'empty' }}</span>
+                </div>
                 <div class="title">{{data.member.jobTitle}}</div>
                 <div class="role" data-ng-if="data.member.roleName.length && data.member.roleName != data.member.jobTitle">({{data.member.roleName}})</div>
                 <h3 data-ng-if="data.member.badges.length > 0">Badges</h3>

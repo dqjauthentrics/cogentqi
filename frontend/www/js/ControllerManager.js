@@ -58,7 +58,7 @@ angular.module('ControllerManager', [])
 
 	.controller('MemberCtrl',
 				function ($scope, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments, Organizations, Members) {
-					$scope.data = {member: {}, user: $cookieStore.get('user')};
+					$scope.data = {dirty: false, member: {}, user: $cookieStore.get('user')};
 
 					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 						Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
@@ -78,11 +78,17 @@ angular.module('ControllerManager', [])
 						$location.url("/manager/member/" + $stateParams.memberId);
 					};
 					$scope.canEdit = function () {
-						return $scope.user.roleId != 'T';
+						return $scope.data.user.roleId != 'T';
 					};
-					$scope.edit = function () {
-						$ionicPopup.alert({title: 'Demonstration', template: 'Sorry, editing not available in demonstration.'});
+					$scope.save = function () {
+						$ionicPopup.alert({title: 'Demonstration', template: 'Sorry, this is not available in demonstration.'});
 					};
+					$scope.setDirty = function () {
+						$scope.data.dirty = true;
+					};
+					$scope.isDirty = function () {
+						return $scope.data.dirty();
+					}
 				})
 
 	.controller('MembersCtrl', function ($scope, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments, Organizations, Members) {
