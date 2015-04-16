@@ -40,6 +40,15 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		return null;
 	};
 
+	svc.retrieveProgressByMonth = function (instrumentId, isRollUp) {
+		var user = $cookieStore.get('user');
+		if (!Utility.empty(instrumentId) && !Utility.empty(user) && !Utility.empty(user.organizationId)) {
+			return $resource('/api/assessment/progressbymonth/' + (isRollUp ? 'rollup/' : '') + user.organizationId + '/' + instrumentId, {},
+							 {query: {method: 'GET', isArray: false}});
+		}
+		return null;
+	};
+
 	svc.findQuestion = function (questionId, questions) {
 		for (var i = 0; i < questions.length; i++) {
 			if (questions[i].qi == questionId) {

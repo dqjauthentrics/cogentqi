@@ -1,6 +1,6 @@
 <ion-view view-title="Settings">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
-    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
         <div class="row responsive-sm" data-ng-if="!isIOS">
             <div class="col col-50" style="text-align: center;">

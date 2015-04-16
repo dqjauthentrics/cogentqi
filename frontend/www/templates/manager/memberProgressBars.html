@@ -1,10 +1,7 @@
-<ion-view view-title="{{data.member.firstName}} {{data.member.lastName}}" on-swipe-right="swipeRight()">
+<ion-view view-title="{{data.member.firstName}} {{data.member.lastName}}" on-swipe-right="goToMember()" on-swipe-left="goToNotes()">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
-    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content class="padding detail" has-bouncing="false">
-        <div class="iconBar">
-            <button class="button button-action button-right" data-ng-click="swipeLeft()"><i class="{{i.swipeLeft}}"></i></button>
-        </div>
         <div class="clearfix"></div>
         <h2 style="margin-left:1em;">Assessment Progress</h2>
 

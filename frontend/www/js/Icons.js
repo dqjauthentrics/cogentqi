@@ -26,6 +26,7 @@ angular.module('Icons', []).service('Icons', function () {
 	this.member = "fa fa-user-2";
 	this.members = "ion-person-stalker";
 	this.next = "fa fa-triangle-right";
+	this.notes = "ion-android-document";
 	this.noteEmpty = "fa fa-comment-o";
 	this.noteFilled = "fa fa-comment";
 	this.outcome = "ion-speedometer";
@@ -34,11 +35,11 @@ angular.module('Icons', []).service('Icons', function () {
 	this.previous = "fa fa-triangle-left";
 	this.project = "fa fa-briefcase-case-two";
 	this.remove = "fa fa-trash";
-	this.reports = "fa fa-graph";
+	this.reports = "fa fa-line-chart";
 	this.resource = "ion-university";
 	this.save = "ion-android-cloud-done";
 	this.signIn = "fa fa-entrance";
-	this.signOut = "fa fa-logout";
+	this.signOut = "ion-power";
 	this.slider = "fa fa-params";
 	this.standard = "fa fa-paperclip";
 	this.steps = "fa fa-connection-4";

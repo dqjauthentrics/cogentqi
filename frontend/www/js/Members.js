@@ -73,7 +73,7 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 						var response = svc.findResponse(assessment.responses, question.id);
 						dataSet.push({label: response.r, y: parseInt(response.ri)});
 					}
-					series.push({id: i, type: 'column', name: $filter('date')(assessment.lastModified, 'shortDate'), data: dataSet});
+					series.push({id: i, type: 'line', name: $filter('date')(assessment.lastModified, 'shortDate'), data: dataSet});
 				}
 				var rptCfg = Graphs.columnGraphConfig(section.name, null, 'Competency', 'Ranking', maxY, xLabels, series);
 				memberHx.push({title: section.name, config: rptCfg});

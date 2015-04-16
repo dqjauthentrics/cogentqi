@@ -13,18 +13,15 @@ angular.module('ControllerAdministrator', [])
 
 					$scope.data = {organizations: [], instruments: [], currentInstrument: {}, currentInstrumentId: 1};
 
-					Instruments.retrieve().query(function (response) {
+					Utility.getResource(Instruments.retrieve(), function (response) {
 						$scope.data.instruments = response;
 						Instruments.collate($scope.data.instruments);
 						if (!Utility.empty(response)) {
 							$scope.setCurrentInstrument(response[0].id);
 						}
 					});
-					Organizations.retrieve().query(function (response) {
+					Utility.getResource(Organizations.retrieve(), function (response) {
 						$scope.data.organizations = response;
-					});
-					Assessments.retrieveMatrix($scope.data.currentInstrument, false).query(function (response) {
-						$scope.data.matrix = response;
 					});
 
 					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.instrumentId)) {
@@ -35,7 +32,7 @@ angular.module('ControllerAdministrator', [])
 						if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
 							$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
 							$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
-							Assessments.retrieveMatrix($scope.data.currentInstrument.id, true).query(function (response) {
+							Utility.getResource(Assessments.retrieveMatrix($scope.data.currentInstrument.id, true), function (response) {
 								$scope.data.matrix = response;
 								Assessments.calcMatrixAverages($scope.data.currentInstrument, $scope.data.matrix, true);
 							});
@@ -49,15 +46,15 @@ angular.module('ControllerAdministrator', [])
 					};
 					$scope.printIt = function () {
 						/***
-						var printContents = $('#matrixWrapper').html();
-						console.log(printContents);
-						var popupWin = window.open('', '_blank', 'width=800,height=800');
-						popupWin.document.open();
-						popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="/css/style.css" /></head><body onload="window.print()">' + printContents + '</html>');
-						popupWin.document.close();
+						 var printContents = $('#matrixWrapper').html();
+						 console.log(printContents);
+						 var popupWin = window.open('', '_blank', 'width=800,height=800');
+						 popupWin.document.open();
+						 popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="/css/style.css" /></head><body onload="window.print()">' + printContents + '</html>');
+						 popupWin.document.close();
 						 ***/
 						html2canvas(document.getElementById('matrix'), {
-							onrendered: function(canvas) {
+							onrendered: function (canvas) {
 								var img = canvas.toDataURL("image/png")
 								window.open(img);
 							},
@@ -166,6 +163,71 @@ angular.module('ControllerAdministrator', [])
 						}
 						return rubric;
 					};
+				})
+
+	.controller('AdminProgressCtrl', function ($scope, $stateParams, Utility, Instruments, Organizations, Assessments) {
+					$scope.data = {
+						instruments: [], organizations: [], currentInstrumentId: 1, currentInstrument: null,
+						rptConfig: {
+							chart: {
+								type: 'line'
+							},
+							title: {
+								text: 'Competency Progress Analysis',
+								x: -20 //center
+							},
+							subtitle: {
+								text: 'Pharmacy Technician Evaluation',
+								x: -20
+							},
+							xAxis: {
+								categories: []
+							},
+							yAxis: {
+								min: 0,
+								title: {text: 'Average Rank'},
+								plotLines: [{value: 0, width: 1, color: '#808080'}]
+							},
+							tooltip: {},
+							legend: {layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth: 0},
+							plotOptions: {
+								line: {dataLabels: {enabled: true}}
+							},
+							exporting: {
+								enabled: true
+							},
+							series: [
+							]
+						}
+					};
+
+					Utility.getResource(Instruments.retrieve(), function (response) {
+						$scope.data.instruments = response;
+						Instruments.collate($scope.data.instruments);
+						if (!Utility.empty(response)) {
+							$scope.setCurrentInstrument(response[0].id);
+						}
+					});
+					Utility.getResource(Organizations.retrieve(), function (response) {
+						$scope.data.organizations = response;
+					});
+
+					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.instrumentId)) {
+						$scope.setCurrentInstrument($stateParams.instrumentId);
+					}
+
+					$scope.setCurrentInstrument = function (instrumentId) {
+						if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
+							$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
+							$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
+							Utility.getResource(Assessments.retrieveProgressByMonth($scope.data.currentInstrument.id, true), function (response) {
+								$scope.data.rptConfig.series = response.series;
+								$scope.data.rptConfig.xAxis.categories = response.labels;
+								console.log($scope.data.rptConfig.series);
+							});
+						}
+					};
+
 				})
 
 	.controller('AdminAlignmentCtrl', function ($scope, $stateParams, Utility, Instruments, Resources, Outcomes) {

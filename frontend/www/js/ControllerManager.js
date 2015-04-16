@@ -6,7 +6,7 @@ angular.module('ControllerManager', [])
 					$scope.data = {user: $cookieStore.get('user'), role: 'manager'};
 				})
 
-	.controller('MemberNotesCtrl', function ($scope, $ionicPopup, $stateParams, Utility, MemberNotes, Members) {
+	.controller('MemberNotesCtrl', function ($scope, $location, $ionicPopup, $stateParams, Utility, MemberNotes, Members) {
 					$scope.data = {member: {}, notes: []};
 
 					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
@@ -17,6 +17,14 @@ angular.module('ControllerManager', [])
 							});
 						});
 					}
+					$scope.goToProgress = function () {
+						console.log("going to progress");
+						$location.url("/manager/member/progress/" + $stateParams.memberId);
+					};
+					$scope.goToMember = function () {
+						console.log("going to member");
+						$location.url("/manager/member/" + $stateParams.memberId);
+					};
 				})
 
 	.controller('MemberProgressCtrl',
@@ -38,7 +46,6 @@ angular.module('ControllerManager', [])
 					$scope.setRptConfigHx = function () {
 						if (!Utility.empty($scope.data.member) && Utility.empty($scope.data.member.rptConfigHx) && !Utility.empty($scope.data.instruments)) {
 							Instruments.collate($scope.data.instruments);
-							console.log($scope.data.member.assessments[0]);
 							$scope.data.instrument = Utility.findObjectById($scope.data.instruments, $scope.data.member.assessments[0].ii);
 							$scope.data.member.rptConfigHx = Members.rptConfigHx($scope.data.instruments, $scope.data.member, $scope.data.member.assessments);
 							//$ionicLoading.hide();
@@ -47,35 +54,34 @@ angular.module('ControllerManager', [])
 					$scope.getRptConfigHx = function () {
 						return $scope.data.member.rptConfigHx;
 					};
-					$scope.swipeLeft = function () {
+					$scope.goToNotes = function () {
 						$location.url("/manager/member/notes/" + $stateParams.memberId);
 					};
-					$scope.swipeRight = function () {
-						console.log("right");
+					$scope.goToMember = function () {
 						$location.url("/manager/member/" + $stateParams.memberId);
 					};
 				})
 
 	.controller('MemberCtrl',
-				function ($scope, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments, Organizations, Members) {
+				function ($scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments, Organizations,
+						  Members) {
 					$scope.data = {dirty: false, member: {}, user: $cookieStore.get('user')};
+					$scope.roleNames = [
+						{value: 'M', text: 'Manager'},
+						{value: 'P', text: 'Pharmacist'},
+						{value: 'T', text: 'Pharmacy Technician'}
+					];
 
 					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 						Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
 							$scope.data.member = response;
 						});
 					}
-					$scope.swipeLeft = function () {
-						if ($location.url().indexOf("progress") > 0) {
-							$location.url("/manager/member/notes/" + $stateParams.memberId);
-						}
-						else {
-							$location.url("/manager/member/progress/" + $stateParams.memberId);
-						}
+					$scope.goToProgress = function () {
+						$location.url("/manager/member/progress/" + $stateParams.memberId);
 					};
-					$scope.swipeRight = function () {
-						console.log("right");
-						$location.url("/manager/member/" + $stateParams.memberId);
+					$scope.goToNotes = function () {
+						$location.url("/manager/member/notes/" + $stateParams.memberId);
 					};
 					$scope.canEdit = function () {
 						return $scope.data.user.roleId != 'T';
@@ -87,8 +93,12 @@ angular.module('ControllerManager', [])
 						$scope.data.dirty = true;
 					};
 					$scope.isDirty = function () {
-						return $scope.data.dirty();
-					}
+						return $scope.data.dirty;
+					};
+					$scope.showRole = function () {
+						var selected = $filter('filter')($scope.roleNames, {value: $scope.data.member.roleId});
+						return ($scope.data.member.roleId && selected.length) ? selected[0].text : 'Not set';
+					};
 				})
 
 	.controller('MembersCtrl', function ($scope, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments, Organizations, Members) {

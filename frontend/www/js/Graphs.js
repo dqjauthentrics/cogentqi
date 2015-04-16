@@ -70,7 +70,7 @@ angular.module('Graphs', []).service('Graphs', function () {
 	this.columnGraphConfig = function (title, subTitle, xTitle, yTitle, maxY, xLabels, series) {
 		return {
 			chart: {
-				type: 'column'
+				type: 'line'
 			},
 			title: {
 				text: title
@@ -98,7 +98,7 @@ angular.module('Graphs', []).service('Graphs', function () {
 				useHTML: true
 			},
 			plotOptions: {
-				column: {
+				line: {
 					pointPadding: 0.2,
 					borderWidth: 0
 				}

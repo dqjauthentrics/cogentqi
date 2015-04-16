@@ -1,23 +1,28 @@
-<ion-view view-title="{{data.member.firstName}} {{data.member.lastName}}" cache-view="false" on-swipe-left="swipeLeft()">
+<ion-view view-title="{{data.member.firstName}} {{data.member.lastName}}" cache-view="false" on-swipe-left="goToNotes()">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
-    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content class="padding detail" has-bouncing="false" id="profile">
         <div class="iconBar">
             <button class="button button-action button-save" ng-click="save()" ng-show="isDirty()"><i class="{{i.save}}"></i></button>
-            <button class="button button-action button-right" data-ng-click="swipeLeft()"><i class="{{i.swipeLeft}}"></i></button>
         </div>
         <div class="row row-responsive-sm">
             <div class="col col-25 padding">
 
                 <img data-ng-src="{{data.member.avatar}}" class="avatar avatar-large">
-
+                <div class="note noteIcon" data-ng-click="goToNotes()"></div>
                 <div>
-                    <span onaftersave="setDirty()" edit-disabled="!canEdit()"
-                          editable-text="data.member.firstName">{{ data.member.firstName || 'empty' }}</span>
-                    <span onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.lastName">{{ data.member.lastName || 'empty' }}</span>
+                    <span class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.firstName">
+                        {{ data.member.firstName || 'empty' }}
+                    </span>
+                    <span class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.lastName">
+                        {{ data.member.lastName || 'empty' }}
+                    </span>
                 </div>
-                <div class="title">{{data.member.jobTitle}}</div>
-                <div class="role" data-ng-if="data.member.roleName.length && data.member.roleName != data.member.jobTitle">({{data.member.roleName}})</div>
+
+                <span class="role" onaftersave="setDirty()" editable-select="data.member.roleId" e-ng-options="r.value as r.text for r in roleNames">
+                    {{ showRole() }}
+                </span>
+
                 <h3 data-ng-if="data.member.badges.length > 0">Badges</h3>
 
                 <div style="float:left; margin: 0.5em;" data-ng-repeat="badge in data.member.badges">
@@ -25,7 +30,9 @@
                 </div>
             </div>
             <div class="col col-75 padding">
-                <h3>Assessments To Date</h3>
+                <h3>Assessments To Date
+                    <a style="font-size:1.6em; margin:0.5em;" data-ng-if="data.member.assessments.length > 0" data-ng-click="goToProgress()"><i class="{{i.reports}}"></i></a>
+                </h3>
 
                 <div data-ng-repeat="assessment in data.member.assessments">
                     <assessment-item assessment="assessment" i="i"></assessment-item>

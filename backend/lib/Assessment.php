@@ -233,6 +233,67 @@ class Assessment extends Model {
 			}
 			echo json_encode($jsonRecords);
 		});
+
+
+		$this->api->get("/$urlName/progressbymonth/rollup/:organizationId/:instrumentId", function ($organizationId, $instrumentId) {
+			$graphData = ['labels' => [], 'series' => []];
+			$row = $this->api->pdo->query("SELECT retrieveOrgDescendantIds($organizationId) AS orgIds")->fetch();
+			$orgIds = $row["orgIds"];
+			$orgIds = $organizationId . (strlen($orgIds) > 0 ? "," : "") . $orgIds;
+
+			$sql = "SELECT qg.id,qg.tag AS name, YEAR(a.last_saved) AS yr, MONTH(a.last_saved) AS mo, AVG(ar.response_index) AS average
+				FROM question_group qg, question q, assessment a, assessment_response ar, member m, organization o
+				WHERE m.organization_id IN ($orgIds) AND m.organization_id=o.id AND m.id=a.member_id
+      				AND qg.instrument_id = $instrumentId AND q.question_group_id = qg.id AND ar.question_id = q.id AND ar.assessment_id=a.id
+      				AND a.last_saved >= DATE_SUB(NOW(),INTERVAL 1 YEAR)
+				GROUP BY YEAR(a.last_saved), MONTH(a.last_saved), qg.tag
+				ORDER BY qg.sort_order, YEAR(a.last_saved) ASC, MONTH(a.last_saved);";
+			$minYr = 9999;
+			$minMo = 99;
+			$dbRecords = $this->api->pdo->query($sql);
+			$seriesNames = [];
+			if (!empty($dbRecords)) {
+				foreach ($dbRecords as $rec) {
+					if ($rec["yr"] < $minYr) {
+						$minYr = $rec["yr"];
+						$minMo = $rec["mo"];
+					}
+					if ($rec["yr"] == $minYr && $rec["mo"] < $minMo) {
+						$minMo = $rec["mo"];
+					}
+					if (!in_array($rec["name"], $seriesNames)) {
+						$seriesNames[] = $rec["name"];
+					}
+				}
+				$currYr = $minYr;
+				$currMo = $minMo;
+				$graphData['labels'] = [];
+				for ($i = 0; $i < 12; $i++) {
+					$graphData['labels'][] = $currYr . '-' . $currMo;
+					$currMo++;
+					if ($currMo > 12) {
+						$currMo = 1;
+						$currYr++;
+					}
+				}
+				$dbRecords = $this->api->pdo->query($sql);
+				foreach ($dbRecords as $rec) {
+					$yrMo = $rec["yr"] . '-' . $rec["mo"];
+					$seriesPos = array_search($rec["name"], $seriesNames);
+					$dataPos = array_search($yrMo, $graphData["labels"]);
+					if ($seriesPos !== FALSE && $dataPos !== FALSE) {
+						if (empty($graphData['series'][$seriesPos])) {
+							$graphData['series'][$seriesPos] = [
+								'name' => $seriesNames[$seriesPos],
+								'data' => [NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL]
+							];
+						}
+						$graphData['series'][$seriesPos]['data'][$dataPos] = (double)number_format($rec["average"], 2);
+					}
+				}
+			}
+			echo json_encode($graphData);
+		});
 	}
 
 	/**
@@ -262,7 +323,7 @@ class Assessment extends Model {
 			'es'       => $assessment["edit_status"],
 			'vs'       => $assessment["view_status"],
 			'ii'       => (int)$assessment["instrument_id"],
-			'member' => [
+			'member'   => [
 				'id' => (int)$assessment["member_id"],
 				'av' => $assessment->member["avatar"],
 				'fn' => $assessment->member["first_name"],

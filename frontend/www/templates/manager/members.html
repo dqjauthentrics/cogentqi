@@ -1,6 +1,6 @@
 <ion-view view-title="People" cache-view="false">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
-    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
         <ion-list class="members">
             <ion-item class="gray" data-ng-if="!data.members.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>

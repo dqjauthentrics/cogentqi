@@ -67,13 +67,13 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('administrator.planning', {
 				   url: '/planning',
 				   views: {
-					   administratorResources: {templateUrl: 'templates/manager/planning.html', controller: 'PlanningCtrl'}
+					   administratorPlanning: {templateUrl: 'templates/manager/planning.html', controller: 'PlanningCtrl'}
 				   }
 			   })
-		.state('administrator.resources', {
-				   url: '/resources',
+		.state('administrator.progress', {
+				   url: '/progress',
 				   views: {
-					   administratorResources: {templateUrl: 'templates/manager/resources.html', controller: 'ResourceCtrl'}
+					   administratorProgress: {templateUrl: 'templates/administrator/progress.html', controller: 'AdminProgressCtrl'}
 				   }
 			   })
 		.state('administrator.resourceDetail', {

@@ -1,16 +1,17 @@
-<ion-view view-title="{{data.member.firstName}} {{data.member.lastName}}" cache-view="false" on-swipe-right="swipeRight()">
+<ion-view view-title="{{data.member.firstName}} {{data.member.lastName}}" cache-view="false" on-swipe-right="goToMember()" on-swipe-left="goToProgress()">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
-    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo ion-log-out"></i></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content class="padding detail" has-bouncing="false">
         <div class="row responsive-sm">
             <div class="col col-50 padding">
                 <h3>Notes</h3>
                 <ion-list id="notes">
                     <ion-item class="note" data-ng-repeat="note in data.notes">
-                        <div class="name">{{note.lm|date:'short'}}</div>
-                        <div class="description">{{note.c}}</div>
+                        <div class="description" editable-textarea="note.c" style="width:80%; height:10em;">
+                            {{ note.c }}
+                        </div>
                         <div>
-                            - {{note.creator.fn}} {{note.creator.fn}}
+                            - {{note.creator.fn}} {{note.creator.ln}}. {{note.lm|date:'short'}}
                             <img class="avatar avatar-tiny" data-ng-if="note.creator.av" data-ng-src="{{note.creator.av}}" alt=""/>
                         </div>
                     </ion-item>
@@ -19,7 +20,9 @@
             <div class="col col-50 padding">
                 <div>
                     <div class="note" style="width:100%; height:auto; float:left; padding:1em;">
-                        <textarea style="border:none; background:transparent; width:98%; height:10em; outline:none;"></textarea>
+                        <div editable-textarea="note.c" e-rows="7" e-cols="40">
+                            <pre>{{ note.c }}</pre>
+                        </div>
                     </div>
                     <a class="button button-action button-new button-small" title="Add this note." data-ng-click="addNote()">
                         <i class="{{i.add}}"></i> Add

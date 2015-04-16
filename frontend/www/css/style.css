@@ -69,10 +69,11 @@ h3 {
 }
 
 i.logo {
-    font-size: 34px !important;
+    font-size: 33px !important;
     font-weight: bold !important;
     margin-right: 0.3em;
     margin-left: 0.3em;
+    line-height: 33px;
 }
 
 .colorFacebook {
@@ -125,9 +126,9 @@ ion-item img.avatar {
     border-radius: 10%;
 }
 
-.avatar-tiny {
-    width: 2em;
-    height: 2em;
+.avatar-tiny, ion-item img.avatar.avatar-tiny {
+    width: 2em !important;
+    height: 2em !important;
     border-radius: 5em;
     vertical-align: middle;
 }
@@ -1019,7 +1020,18 @@ table.assessmentItem td {
     color: #444;
     background: #FFEF00;
     overflow: hidden;
-    float: left;
+}
+
+.noteIcon {
+    cursor: pointer;
+    float: none;
+    border: none;
+    width: 4em;
+    height: 4em;
+    font-size: 0.9em;
+    font-style: italic;
+    margin: 0.5em;
+    display: inline;
 }
 
 .note:before {
@@ -1031,9 +1043,6 @@ table.assessmentItem td {
     border-style: solid;
     border-color: #fff #fff #E9BF00 #E9BF00;
     background: #E9BF00;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px rgba(0, 0, 0, 0.2);
     /* Firefox 3.0 damage limitation */
     display: block;
     width: 0;
