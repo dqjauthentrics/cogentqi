@@ -169,35 +169,23 @@ angular.module('ControllerAdministrator', [])
 					$scope.data = {
 						instruments: [], organizations: [], currentInstrumentId: 1, currentInstrument: null,
 						rptConfig: {
-							chart: {
-								type: 'line'
+							chart: {type: 'line'},
+							title: {text: 'Competency Progress Analysis', x: -20},
+							subtitle: {text: 'Pharmacy Technician Evaluation', x: -20},
+							tooltip: {
+								formatter: function () {
+									return 'HERE';
+								}
 							},
-							title: {
-								text: 'Competency Progress Analysis',
-								x: -20 //center
-							},
-							subtitle: {
-								text: 'Pharmacy Technician Evaluation',
-								x: -20
-							},
-							xAxis: {
-								categories: []
-							},
-							yAxis: {
-								min: 0,
-								title: {text: 'Average Rank'},
-								plotLines: [{value: 0, width: 1, color: '#808080'}]
-							},
-							tooltip: {},
+							xAxis: {categories: []},
+							yAxis: [
+								{min: 0, title: {text: 'Average Rank'}, plotLines: [{value: 0, width: 1, color: '#808080'}]},
+								{min: 0, title: {text: 'Learning Modules Completed'}, opposite: true}
+							],
 							legend: {layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth: 0},
-							plotOptions: {
-								line: {dataLabels: {enabled: true}}
-							},
-							exporting: {
-								enabled: true
-							},
-							series: [
-							]
+							plotOptions: {line: {dataLabels: {enabled: true}}},
+							exporting: {enabled: true},
+							series: []
 						}
 					};
 
@@ -223,7 +211,7 @@ angular.module('ControllerAdministrator', [])
 							Utility.getResource(Assessments.retrieveProgressByMonth($scope.data.currentInstrument.id, true), function (response) {
 								$scope.data.rptConfig.series = response.series;
 								$scope.data.rptConfig.xAxis.categories = response.labels;
-								console.log($scope.data.rptConfig.series);
+								console.log($scope.data.rptConfig);
 							});
 						}
 					};

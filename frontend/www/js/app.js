@@ -6,7 +6,7 @@ angular.module('app',
 				   'angularLoad',
 				   'highcharts-ng',
 				   'ngSanitize',
-				   'ngTouch',
+/*				   'ngTouch', */
 				   'ngCookies',
 				   'ngAnimate',
 				   'ngResource',

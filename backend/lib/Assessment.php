@@ -251,7 +251,7 @@ class Assessment extends Model {
 			$minYr = 9999;
 			$minMo = 99;
 			$dbRecords = $this->api->pdo->query($sql);
-			$seriesNames = [];
+			$seriesNames = ['Modules'];
 			if (!empty($dbRecords)) {
 				foreach ($dbRecords as $rec) {
 					if ($rec["yr"] < $minYr) {
@@ -284,11 +284,70 @@ class Assessment extends Model {
 					if ($seriesPos !== FALSE && $dataPos !== FALSE) {
 						if (empty($graphData['series'][$seriesPos])) {
 							$graphData['series'][$seriesPos] = [
+								'yAxis'   => 0,
 								'name' => $seriesNames[$seriesPos],
-								'data' => [NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL]
+								'data' => [NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL],
+								//'marker' => ['radius' => '6'],
 							];
 						}
 						$graphData['series'][$seriesPos]['data'][$dataPos] = (double)number_format($rec["average"], 2);
+					}
+				}
+			}
+			$sql = "SELECT ot.name, YEAR(oo.evaluated) AS yr, MONTH(oo.evaluated) AS mo, AVG(oo.level) AS average
+					FROM outcome AS ot, organization_outcome as oo
+					WHERE oo.organization_id IN ($orgIds) AND oo.evaluated >= DATE_SUB(NOW(),INTERVAL 1 YEAR)
+					GROUP BY YEAR(oo.evaluated), MONTH(oo.evaluated), ot.name
+					ORDER BY ot.sort_order, YEAR(oo.evaluated), MONTH(oo.evaluated);";
+			$sql = "SELECT YEAR(oo.evaluated) AS yr, MONTH(oo.evaluated) AS mo, AVG(oo.level) AS average
+					FROM outcome AS ot, organization_outcome as oo
+					WHERE oo.organization_id IN ($orgIds) AND oo.evaluated >= DATE_SUB(NOW(),INTERVAL 1 YEAR)
+					GROUP BY YEAR(oo.evaluated), MONTH(oo.evaluated)
+					ORDER BY YEAR(oo.evaluated), MONTH(oo.evaluated);";
+			$dbRecords = $this->api->pdo->query($sql);
+			if (!empty($dbRecords)) {
+				$seriesPos = count($seriesNames);
+				foreach ($dbRecords as $rec) {
+					$yrMo = $rec["yr"] . '-' . $rec["mo"];
+					$dataPos = array_search($yrMo, $graphData["labels"]);
+					if ($dataPos !== FALSE) {
+						if (empty($graphData['series'][$seriesPos])) {
+							$graphData['series'][$seriesPos] = [
+								'yAxis'   => 0,
+								'name' => 'Outcomes',
+								'data' => [NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL],
+							];
+						}
+						$graphData['series'][$seriesPos]['data'][$dataPos] = (double)number_format($rec["average"], 2);
+					}
+				}
+			}
+			$sql = "SELECT r.name, YEAR(pi.status_stamp)  AS yr, MONTH(pi.status_stamp) AS mo, COUNT(*) AS cnt
+					FROM plan_item pi, module AS md, member AS m, resource r
+					WHERE pi.status='C' AND m.organization_id IN ($orgIds) AND pi.status_stamp >= DATE_SUB(NOW(), INTERVAL 1 YEAR) AND md.resource_id=r.id
+						 AND m.id=pi.member_id
+					GROUP BY YEAR(pi.status_stamp), MONTH(pi.status_stamp)
+					ORDER BY YEAR(pi.status_stamp), MONTH(pi.status_stamp);";
+			$dbRecords = $this->api->pdo->query($sql);
+			if (!empty($dbRecords)) {
+				$seriesPos = 0;
+				foreach ($dbRecords as $rec) {
+					$yrMo = $rec["yr"] . '-' . $rec["mo"];
+					$dataPos = array_search($yrMo, $graphData["labels"]);
+					if ($dataPos !== FALSE) {
+						if (empty($graphData['series'][$seriesPos])) {
+							$graphData['series'][$seriesPos] = [
+								'type'    => 'column',
+								'name'    => 'Modules',
+								'yAxis'   => 1,
+								'marker'  => ['symbol' => 'url(/img/badge32.png)'],
+								'data'    => [NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL],
+								'tooltip' => [
+									'formatter' => "function () {return 'HELLO';}"
+								]
+							];
+						}
+						$graphData['series'][$seriesPos]['data'][$dataPos] = ['y' => (double)$rec["cnt"], 'text' => (number_format($rec["cnt"], 0) . ' Modules Completed')];
 					}
 				}
 			}
