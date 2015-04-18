@@ -167,6 +167,8 @@ angular.module('ControllerAdministrator', [])
 
 	.controller('AdminProgressCtrl', function ($scope, $stateParams, Utility, Instruments, Organizations, Assessments) {
 					$scope.data = {
+						chart: null,
+						currentSeries: 0,
 						instruments: [], organizations: [], currentInstrumentId: 1, currentInstrument: null,
 						rptConfig: {
 							chart: {type: 'line'},
@@ -185,7 +187,54 @@ angular.module('ControllerAdministrator', [])
 							legend: {layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth: 0},
 							plotOptions: {line: {dataLabels: {enabled: true}}},
 							exporting: {enabled: true},
-							series: []
+							series: [],
+							func: function (chart) {
+								$scope.data.chart = chart;
+							}
+						},
+						rptConfig0: {
+							chart: {type: 'line'},
+							title: {text: 'Competency Progress Analysis', x: -20},
+							subtitle: {text: 'Pharmacy Technician Evaluation', x: -20},
+							tooltip: {
+								formatter: function () {
+									return 'HERE';
+								}
+							},
+							xAxis: {categories: []},
+							yAxis: [
+								{min: 0, title: {text: 'Average Rank'}, plotLines: [{value: 0, width: 1, color: '#808080'}]},
+								{min: 0, title: {text: 'Learning Modules Completed'}, opposite: true}
+							],
+							legend: {layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth: 0},
+							plotOptions: {line: {dataLabels: {enabled: true}}},
+							exporting: {enabled: true},
+							series: [],
+							func: function (chart) {
+								$scope.data.chart = chart;
+							}
+						},
+						rptConfig1: {
+							chart: {type: 'line'},
+							title: {text: 'Competency Progress Analysis', x: -20},
+							subtitle: {text: 'Pharmacy Technician Evaluation', x: -20},
+							tooltip: {
+								formatter: function () {
+									return 'HERE';
+								}
+							},
+							xAxis: {categories: []},
+							yAxis: [
+								{min: 0, title: {text: 'Average Rank'}, plotLines: [{value: 0, width: 1, color: '#808080'}]},
+								{min: 0, title: {text: 'Learning Modules Completed'}, opposite: true}
+							],
+							legend: {layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth: 0},
+							plotOptions: {line: {dataLabels: {enabled: true}}},
+							exporting: {enabled: true},
+							series: [],
+							func: function (chart) {
+								$scope.data.chart = chart;
+							}
 						}
 					};
 
@@ -209,11 +258,40 @@ angular.module('ControllerAdministrator', [])
 							$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
 							$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
 							Utility.getResource(Assessments.retrieveProgressByMonth($scope.data.currentInstrument.id, true), function (response) {
-								$scope.data.rptConfig.series = response.series;
+								for (var i = 0; i < response.series.length; i++) {
+									if (response.series[i].grouping == 0 || response.series[i].grouping == 2) {
+										$scope.data.rptConfig0.series.push(response.series[i]);
+										$scope.data.rptConfig.series.push(response.series[i]);
+									}
+									if (response.series[i].grouping == 1 || response.series[i].grouping == 2) {
+										response.series[i].visible = true;
+										$scope.data.rptConfig1.series.push(response.series[i]);
+									}
+								}
 								$scope.data.rptConfig.xAxis.categories = response.labels;
-								console.log($scope.data.rptConfig);
+								$scope.data.rptConfig0.xAxis.categories = response.labels;
+								$scope.data.rptConfig1.xAxis.categories = response.labels;
 							});
 						}
+					};
+					$scope.toggleProgress = function () {
+						if ($scope.data.currentSeries == 0) {
+							$scope.data.rptConfig = $scope.data.rptConfig1;
+							$scope.data.currentSeries = 1;
+						}
+						else {
+							$scope.data.rptConfig = $scope.data.rptConfig0;
+							$scope.data.currentSeries = 0;
+						}
+						/**
+						 while( $scope.data.chart.series.length > 0 ) {
+							$scope.data.chart.series[0].remove( false );
+						}
+						 for (var i=0; i<series.length; i++) {
+							$scope.data.chart.addSeries(series);
+						}
+						 **/
+						//$scope.data.chart.redraw();
 					};
 
 				})

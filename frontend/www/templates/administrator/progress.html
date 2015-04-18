@@ -1,7 +1,10 @@
-<ion-view view-title="Professional Development">
+<ion-view view-title="Professional Development" on-swipe-left="toggleProgress()" on-swipe-right="toggleProgress()">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
         <highchart id="progress" config="data.rptConfig"></highchart>
+        <div style="text-align: center; margin:1em;">
+            <button class="button button-calm" data-ng-click="toggleProgress()">{{data.currentSeries==0?'Outcomes View >>':'<< Assessments View'}}</button>
+        </div>
     </ion-content>
 </ion-view>
