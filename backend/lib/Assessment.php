@@ -153,7 +153,7 @@ class Assessment extends Model {
 		 */
 		$this->api->get("/$urlName/organization/:orgId", function ($organizationId = NULL) use ($urlName) {
 			$jsonRecords = [];
-			$dbRecords = $this->api->db->assessment()->where("member_id IN (SELECT id FROM Member WHERE organization_id=?)", $organizationId)->order("last_modified DESC");
+			$dbRecords = $this->api->db->assessment()->where("member_id IN (SELECT id FROM member WHERE organization_id=?)", $organizationId)->order("last_modified DESC");
 			foreach ($dbRecords as $dbRecord) {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
