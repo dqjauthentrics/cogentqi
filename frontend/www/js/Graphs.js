@@ -70,7 +70,7 @@ angular.module('Graphs', []).service('Graphs', function () {
 	this.columnGraphConfig = function (title, subTitle, xTitle, yTitle, maxY, xLabels, series) {
 		return {
 			chart: {
-				type: 'line'
+				type: 'column'
 			},
 			title: {
 				text: title
