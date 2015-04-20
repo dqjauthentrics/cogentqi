@@ -36,6 +36,7 @@ angular.module('Icons', []).service('Icons', function () {
 	this.project = "fa fa-briefcase-case-two";
 	this.remove = "fa fa-trash";
 	this.reports = "fa fa-line-chart";
+	this.barChart = "fa fa-bar-chart";
 	this.resource = "ion-university";
 	this.save = "ion-android-cloud-done";
 	this.signIn = "fa fa-entrance";

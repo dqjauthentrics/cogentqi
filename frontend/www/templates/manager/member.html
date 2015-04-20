@@ -32,6 +32,7 @@
             <div class="col col-75 padding">
                 <h3>Assessments To Date
                     <a style="font-size:1.6em; margin:0.5em;" data-ng-if="data.member.assessments.length > 0" data-ng-click="goToProgress()"><i class="{{i.reports}}"></i></a>
+                    <a style="font-size:1.6em; margin:0.5em;" data-ng-if="data.member.assessments.length > 0" data-ng-click="goToBarProgress()"><i class="{{i.barChart}}"></i></a>
                 </h3>
 
                 <div data-ng-repeat="assessment in data.member.assessments">

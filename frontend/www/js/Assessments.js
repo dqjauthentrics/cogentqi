@@ -48,6 +48,12 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		}
 		return null;
 	};
+	svc.retrieveIndividualProgressByMonth = function (memberId) {
+		if (!Utility.empty(memberId)) {
+			return $resource('/api/assessment/progressbymonth/single/' + memberId, {}, {query: {method: 'GET', isArray: false}});
+		}
+		return null;
+	};
 
 	svc.findQuestion = function (questionId, questions) {
 		for (var i = 0; i < questions.length; i++) {

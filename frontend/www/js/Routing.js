@@ -146,10 +146,16 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 					   managerMembers: {templateUrl: 'templates/manager/member.html', controller: 'MemberCtrl'}
 				   }
 			   })
-		.state('manager.memberProgress', {
+		.state('manager.progress', {
 				   url: '/member/progress/:memberId',
 				   views: {
-					   managerMembers: {templateUrl: 'templates/manager/memberProgressBars.html', controller: 'MemberProgressCtrl'}
+					   managerMembers: {templateUrl: 'templates/manager/progress.html', controller: 'MemberProgressCtrl'}
+				   }
+			   })
+		.state('manager.memberProgress', {
+				   url: '/member/barProgress/:memberId',
+				   views: {
+					   managerMembers: {templateUrl: 'templates/manager/memberProgressBars.html', controller: 'MemberBarProgressCtrl'}
 				   }
 			   })
 		.state('manager.memberNotes', {
