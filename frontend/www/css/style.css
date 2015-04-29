@@ -990,8 +990,10 @@ table.assessmentItem td {
 }
 
 .item-complex.item-icon-right .item-content {
+    /**
     padding-top: 0 !important;
     padding-bottom: 0 !important;
+    **/
 }
 
 .success {

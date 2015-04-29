@@ -6,7 +6,7 @@ angular.module('app',
 				   'angularLoad',
 				   'highcharts-ng',
 				   'ngSanitize',
-/*				   'ngTouch', */
+				   /*				   'ngTouch', */
 				   'ngCookies',
 				   'ngAnimate',
 				   'ngResource',
@@ -68,16 +68,30 @@ angular.module('app',
 					 StatusBar.styleDefault();
 				 }
 
-				 angularLoad.loadCSS('css/themes/' + subdomain + '.css').then(function () {
+				 angularLoad.loadCSS('site/' + subdomain + '/theme.css').then(function () {
 				 }).catch(function () {
 				 });
-				 angularLoad.loadScript('js/config/' + subdomain + '/installation.js').then(function () {
+				 angularLoad.loadScript('site/' + subdomain + '/installation.js').then(function () {
 					 $rootScope.installation = installation;
 					 $rootScope.installation.subdomain = subdomain;
 					 $rootScope.installation.operationalMode = operationalMode;
 				 }).catch(function () {
 				 });
 
+				 $rootScope.siteDir = function () {
+					 return "/site/" + $rootScope.installation.subdomain;
+				 };
+				 $rootScope.avatarUrl = function (memberId) {
+					 return "/site/" + $rootScope.installation.subdomain + "/avatars/" + memberId + ".jpg";
+				 };
+				 $rootScope.avatarAlt = function (member) {
+					 if (!Utility.empty(member.fn)) {
+						 return member.fn + ' ' + member.ln;
+					 }
+					 else {
+						 return member.firstName + ' ' + member.lastName;
+					 }
+				 };
 				 $rootScope.checkSession = function () {
 					 Authentication.check();
 				 };
@@ -113,6 +127,17 @@ angular.module('app',
 			 });
 		 })
 
+	.directive('errSrc', function () {
+				   return {
+					   link: function (scope, element, attrs) {
+						   element.bind('error', function () {
+							   if (attrs.src != attrs.errSrc) {
+								   attrs.$set('src', attrs.errSrc);
+							   }
+						   });
+					   }
+				   }
+			   })
 	.directive('headerButtons', function () {
 				   return {restrict: 'E', templateUrl: 'templates/_headerButtons.html'};
 			   })
@@ -121,6 +146,9 @@ angular.module('app',
 					   restrict: 'E',
 					   templateUrl: '../templates/common/dashboardCycle.html'
 				   };
+			   })
+	.directive('avatar', function () {
+				   return {restrict: 'E', templateUrl: '../templates/common/avatar.html', scope: {site: '=', memberId: '=', level: '=', alt: '='}};
 			   })
 	.directive('memberItem', function () {
 				   return {restrict: 'E', templateUrl: '../templates/common/memberItem.html'};

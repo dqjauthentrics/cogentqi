@@ -1,0 +1,12 @@
+.customerBg, .tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
+    background-color: #007dc6 !important;
+}
+
+.cycle a {
+    color: #007dc6 !important;
+}
+
+.tab-item:hover {
+    color: #FFF !important;
+    opacity: 1 !important;;
+}

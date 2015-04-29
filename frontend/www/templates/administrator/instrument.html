@@ -2,28 +2,39 @@
     <ion-nav-buttons side="left"><a href="/#/administrator/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <div class="detail">
-            <h1>{{data.instrument.name}}</h1>
 
-            <div style="float:right; margin:0.5em;">
-                <button onclick="alert('Editing not available in demonstration mode.');" class="button button-energized">
-                    <i class="{{i.edit}}"></i>
-                </button>
-            </div>
-
-            <div class="description">
-                {{data.instrument.summary}}
-            </div>
-            <div class="clearfix"></div>
+        <div style="float:right; margin:0.5em;">
+            <button onclick="alert('Saving changes not available in demonstration mode.');" class="button button-action button-save">
+                <i class="{{i.save}}"></i>
+            </button>
         </div>
-        <div style="float:right; margin-right:6em; font-weight:bold;">Competencies</div>
-        <div class="clearfix"></div>
+        <div class="detail">
+            <label for="name">Name:</label>
+
+            <div id="name" class="name" editable-text="data.instrument.name">{{data.instrument.name}}</div>
+            <label for="name">Description:</label>
+
+            <div id="description" class="name" editable-text="data.instrument.description">&nbsp;{{data.instrument.description}}</div>
+
+        </div>
         <ion-list>
             <ion-item class="item-icon-right" ng-repeat="question in data.instrument.questions" type="item-text-wrap">
-                <div class="name">{{question.name}}</div>
-                <div class="description" data-ng-bind-html="question.description"></div>
+                <div class="name" editable-textarea="question.name">{{ question.name }}</div>
             </ion-item>
         </ion-list>
     </ion-content>
 </ion-view>
+<style>
+    .editable-controls, .editable-wrap {
+        width: 100%;
+    }
+
+    textarea {
+        width: 95% !important;
+        min-height: 8em;
+    }
+    input[type=text] {
+        font-size: 2em;
+    }
+</style>
 

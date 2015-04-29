@@ -48,6 +48,9 @@ class AltIdsStructure extends \NotORM_Structure_Convention {
  *          The main API, or app, class.
  */
 class Api extends \Slim\Slim {
+	const DB_NAME_BASE = "cogentqi_v1_";
+	const DB_USERNAME = "cogentqiapp";
+	const DB_PASSWORD = "cogentqi42app";
 	const STATUS_OKAY = TRUE;
 	const STATUS_ERROR = FALSE;
 
@@ -57,13 +60,11 @@ class Api extends \Slim\Slim {
 	/**
 	 * Overrides Slim constructor to add pdo and db objects.
 	 *
-	 * @param string $dsn
-	 * @param string $username
-	 * @param string $password
+	 * @param string $installationInfix
 	 * @param array  $options
 	 */
-	function __construct($dsn, $username, $password, $options) {
-		$this->pdo = new \PDO($dsn, $username, $password);
+	function __construct($installationInfix, $options) {
+		$this->pdo = new \PDO($this->getServerConnectionString($installationInfix), self::DB_USERNAME, self::DB_PASSWORD);
 		$className = $this->baseClassName();
 		if (TRUE || $className !== "Member") {
 			$structure = new AltIdsStructure($primary = 'id', $foreign = '%s_id', $table = '%s', $prefix = '');
@@ -78,6 +79,18 @@ class Api extends \Slim\Slim {
 	public function baseClassName() {
 		$path = explode('\\', get_class($this));
 		return array_pop($path);
+	}
+
+	/**
+	 * @return string mixed
+	 */
+	public static function getInstallationInfixFromHostName() {
+		$parts = explode(".", @$_SERVER["SERVER_NAME"]);
+		return @$parts[0];
+	}
+
+	public function getServerConnectionString($installationInfix) {
+		return "mysql:dbname=" . self::DB_NAME_BASE . $this->getInstallationInfixFromHostName() . ";host=localhost";
 	}
 
 	/**

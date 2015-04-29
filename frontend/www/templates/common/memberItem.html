@@ -1,7 +1,6 @@
 <div class="row responsive-sm">
     <div class="col col-50">
-        <img class="avatar border border{{member.level}}" data-ng-src="{{member.avatar}}" style="float:left; margin-right:1em;"/>
-
+        <avatar site="siteDir()" member-id="member.id" level="member.level" alt="avatarAlt(member)"></avatar>
         <div style="float:left;">
             <div class="name">{{member.firstName}} {{member.lastName}}</div>
             <div class="title">{{member.jobTitle}}</div>
