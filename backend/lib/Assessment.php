@@ -673,7 +673,6 @@ class Assessment extends Model {
 			'ii'       => (int)$assessment["instrument_id"],
 			'member'   => [
 				'id' => (int)$assessment["member_id"],
-				//'av' => $assessment->member["avatar"],
 				'fn' => $assessment->member["first_name"],
 				'ln' => $assessment->member["last_name"],
 				'ri' => $assessment->member["role_id"],
@@ -682,7 +681,6 @@ class Assessment extends Model {
 			],
 			'assessor' => [
 				'id' => (int)$assessment["assessor_id"],
-				//'av' => $assessment->assessor["avatar"],
 				'fn' => $assessment->assessor["first_name"],
 				'ln' => $assessment->assessor["last_name"],
 				'ri' => $assessment->assessor["role_id"],
@@ -701,10 +699,14 @@ class Assessment extends Model {
 				$nItems++;
 				$total += (int)$record["response"];
 			}
-			$response = new AssessmentResponse($this->api);
-			$responseMapped = $response->map($record);
-			unset($responseMapped["assessmentId"]);
-			$responses[] = $responseMapped;
+			$responses[] = [
+				'id' => $record["id"],
+				'qi' => $record["question_id"],
+				'r'  => $record["response"],
+				'ri' => $record["response_index"],
+				'ec' => $record["assessor_comments"],
+				'mc' => $record["member_comments"]
+			];
 		}
 		if (!strstr($_SERVER["REQUEST_URI"], "/organization")) {
 			if (empty($this->mapExcludes) || !in_array("responses", $this->mapExcludes)) {
