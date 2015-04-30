@@ -34,7 +34,7 @@ class Assessment extends Model {
 					'vs'         => $assessment["view_status"],
 					'member'     => [
 						'id' => (int)$assessment["member_id"],
-						'av' => $assessment->member["avatar"],
+						//'av' => $assessment->member["avatar"],
 						'fn' => $assessment->member["first_name"],
 						'ln' => $assessment->member["last_name"],
 						'ri' => $assessment->member["role_id"],
@@ -44,11 +44,12 @@ class Assessment extends Model {
 					],
 					'assessor'   => [
 						'id' => (int)$assessment["assessor_id"],
-						'av' => $assessment->assessor["avatar"],
+						//'av' => $assessment->assessor["avatar"],
 						'fn' => $assessment->assessor["first_name"],
 						'ln' => $assessment->assessor["last_name"],
 						'ri' => $assessment->assessor["role_id"],
 						'jt' => $assessment->assessor["job_title"],
+						'lv' => $assessment->assessor["level"],
 						'rl' => @$assessment->assessor->role["name"]
 					],
 					'instrument' => [
@@ -298,11 +299,11 @@ class Assessment extends Model {
 			 * Truncate labels in case data does not go back a full year.
 			 */
 			$mo = $startMo;
-			$done = false;
+			$done = FALSE;
 			for ($yr = $startYr; (!$done && $yr <= $thisYr); $yr++) {
 				for ($i = $mo; (!$done && $i <= 12); $i++) {
 					if ($yr == $thisYr && $i > $thisMo) {
-						$done = true;
+						$done = TRUE;
 					}
 					else {
 						$graphData['labels'][] = $yr . "-" . sprintf("%02d", $i);
@@ -500,11 +501,11 @@ class Assessment extends Model {
 			 * Truncate labels in case data does not go back a full year.
 			 */
 			$mo = $startMo;
-			$done = false;
+			$done = FALSE;
 			for ($yr = $startYr; (!$done && $yr <= $thisYr); $yr++) {
 				for ($i = $mo; (!$done && $i <= 12); $i++) {
 					if ($yr == $thisYr && $i > $thisMo) {
-						$done = true;
+						$done = TRUE;
 					}
 					else {
 						$graphData['labels'][] = $yr . "-" . sprintf("%02d", $i);
@@ -643,7 +644,6 @@ class Assessment extends Model {
 	}
 
 
-
 	/**
 	 * Override base method to indicate which columns are date/time.
 	 */
@@ -673,7 +673,7 @@ class Assessment extends Model {
 			'ii'       => (int)$assessment["instrument_id"],
 			'member'   => [
 				'id' => (int)$assessment["member_id"],
-				'av' => $assessment->member["avatar"],
+				//'av' => $assessment->member["avatar"],
 				'fn' => $assessment->member["first_name"],
 				'ln' => $assessment->member["last_name"],
 				'ri' => $assessment->member["role_id"],
@@ -682,11 +682,12 @@ class Assessment extends Model {
 			],
 			'assessor' => [
 				'id' => (int)$assessment["assessor_id"],
-				'av' => $assessment->assessor["avatar"],
+				//'av' => $assessment->assessor["avatar"],
 				'fn' => $assessment->assessor["first_name"],
 				'ln' => $assessment->assessor["last_name"],
 				'ri' => $assessment->assessor["role_id"],
 				'jt' => $assessment->assessor["job_title"],
+				'lv' => $assessment->assessor["level"],
 				'rl' => @$assessment->assessor->role["name"]
 			],
 		];

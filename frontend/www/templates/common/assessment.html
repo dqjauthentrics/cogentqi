@@ -22,7 +22,7 @@
             <div class="row responsive-sm detail">
                 <div class="col col-25 padding" style="text-align:center;">
                     <a href="#/manager/member/{{data.assessment.member.id}}">
-                        <img class="border border{{assessment.rank}}" data-ng-src="{{data.assessment.member.av}}" alt=""/>
+                        <avatar site="siteDir()" sz="'medium'" member-id="data.assessment.member.id" level="data.assessment.sc" alt="avatarAlt(data.assessment.member)"></avatar>
                     </a>
 
                     <div class="name"><a href="#/manager/member/{{data.assessment.member.id}}">
@@ -31,8 +31,8 @@
                     <div class="role">{{data.assessment.member.rl}}</div>
                     <div>
                         Performed by: {{data.assessment.assessor.fn}} {{data.assessment.assessor.ln}}
-                        <img class="avatar-tiny" src="{{data.assessment.assessor.av}}" alt=""/>
-                    </div>
+                        <avatar site="siteDir()" sz="'tiny'" member-id="data.assessment.assessor.id" level="0" alt="avatarAlt(data.assessor)"></avatar>
+                     </div>
                     <div class="score" data-ng-show="data.assessment.avgRound > 0">
                         <div style="font-size:1.0em; padding: 0.3em 0.4em; text-align:center;"
                              data-ng-class="'matrixCircle ' + (data.assessment.typ == 'NAYesNo'?'yesNoBg':'levelBg') + data.assessment.avgRound"

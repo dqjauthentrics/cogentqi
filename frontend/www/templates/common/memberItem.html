@@ -1,6 +1,6 @@
 <div class="row responsive-sm">
     <div class="col col-50">
-        <avatar site="siteDir()" member-id="member.id" level="member.level" alt="avatarAlt(member)"></avatar>
+        <avatar site="siteDir()" member-id="member.id" sz="small" level="member.level" alt="avatarAlt(member)"></avatar>
         <div style="float:left;">
             <div class="name">{{member.firstName}} {{member.lastName}}</div>
             <div class="title">{{member.jobTitle}}</div>
@@ -13,7 +13,7 @@
     <div class="col col-25">
         <div data-ng-if="member.lastAssessment">
             <div style="text-decoration: underline;">Last Assessment</div>
-            <assessment-item assessment="member.lastAssessment" i="i"></assessment-item>
+            <assessment-item site="siteDir()" assessment="member.lastAssessment" i="i"></assessment-item>
         </div>
     </div>
 </div>

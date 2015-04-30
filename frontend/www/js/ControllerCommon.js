@@ -192,7 +192,7 @@ angular.module('ControllerCommon', [])
 					}
 				})
 
-	.controller('AssessmentsCtrl', function ($scope, $stateParams, Utility, Assessments, Members, Organizations) {
+	.controller('AssessmentsCtrl', function ($rootScope, $scope, $stateParams, Utility, Assessments, Members, Organizations) {
 					$scope.data = {members: [], assessments: []};
 
 					Utility.getResource(Members.retrieve(), function (response) {

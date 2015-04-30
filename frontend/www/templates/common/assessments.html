@@ -6,7 +6,7 @@
             <ion-item class="gray" data-ng-if="!data.assessments.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
             <ion-item class="item-remove-animate item-icon-right" ng-repeat="assessment in data.assessments"
                       type="item-text-wrap" href="#/manager/assessment/{{assessment.id}}">
-                <assessment-item assessment="assessment" i="i" showmember="true"></assessment-item>
+                <assessment-item i="i" assessment="assessment" site="siteDir()" show-member="true"></assessment-item>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
         </ion-list>

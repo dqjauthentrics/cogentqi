@@ -12,7 +12,7 @@
                         </div>
                         <div>
                             - {{note.creator.fn}} {{note.creator.ln}}. {{note.lm|date:'short'}}
-                            <img class="avatar avatar-tiny" data-ng-if="note.creator.av" data-ng-src="{{note.creator.av}}" alt=""/>
+                            <avatar site="siteDir()" sz="'tiny'" member-id="note.creator.id" level="0" alt="avatarAlt(note.creator)"></avatar>
                         </div>
                     </ion-item>
                 </ion-list>

@@ -1,4 +1,8 @@
-.customerBg, .tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
+.tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
+    background-color: #f2f8fd !important;
+}
+
+.customerBg {
     background-color: #007dc6 !important;
 }
 
@@ -6,7 +10,15 @@
     color: #007dc6 !important;
 }
 
-.tab-item:hover {
-    color: #FFF !important;
+.cycle a:hover {
+    color: #777 !important;
+}
+
+.tab-item:hover, .tab-item-active, a:hover {
+    color: #f47421 !important;
     opacity: 1 !important;;
+}
+
+.tabs-assertive > .tabs, .tabs.tabs-assertive {
+    color: #007dc6 !important;
 }

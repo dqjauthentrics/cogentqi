@@ -7,7 +7,8 @@
             <h3>{{a.sectionCurrentName()}}</h3>
             <h4>Competency Summary Matrix</h4>
 
-            <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId" data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
+            <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId"
+                    data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
                     data-ng-options="instrument.id as instrument.name for instrument in data.instruments">
             </select>
         </div>
@@ -32,7 +33,9 @@
                                 {{dataRow.name}}
                             </div>
                             <div data-ng-switch-default>
-                                <img class="avatar-tiny" data-ng-src="{{member.avatar}}" alt="">
+                                <a href="/#/manager/member/{{dataRow.memberId}}">
+                                    <avatar site="siteDir()" sz="'tiny'" member-id="member.id" level="member.level" alt="avatarAlt(member)"></avatar>
+                                </a>
                                 <a href="/#/manager/member/{{dataRow.memberId}}">{{member.lastName}}, {{member.firstName}}</a>
                             </div>
                         </div>

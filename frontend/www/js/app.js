@@ -79,18 +79,28 @@ angular.module('app',
 				 });
 
 				 $rootScope.siteDir = function () {
-					 return "/site/" + $rootScope.installation.subdomain;
+					 if (!Utility.empty($rootScope.installation) && !Utility.empty($rootScope.installation.subdomain)) {
+						 return "/site/" + $rootScope.installation.subdomain;
+					 }
+					 return '';
 				 };
 				 $rootScope.avatarUrl = function (memberId) {
-					 return "/site/" + $rootScope.installation.subdomain + "/avatars/" + memberId + ".jpg";
+					 if (!Utility.empty($rootScope.installation) && !Utility.empty($rootScope.installation.subdomain) && !Utility.empty(memberId)) {
+						 return "/site/" + $rootScope.installation.subdomain + "/avatars/" + memberId + ".jpg";
+					 }
+					 return '';
 				 };
 				 $rootScope.avatarAlt = function (member) {
-					 if (!Utility.empty(member.fn)) {
-						 return member.fn + ' ' + member.ln;
+					 if (!Utility.empty(member)) {
+
+						 if (!Utility.empty(member.fn)) {
+							 return member.fn + ' ' + member.ln;
+						 }
+						 else {
+							 return member.firstName + ' ' + member.lastName;
+						 }
 					 }
-					 else {
-						 return member.firstName + ' ' + member.lastName;
-					 }
+					 return '';
 				 };
 				 $rootScope.checkSession = function () {
 					 Authentication.check();
@@ -148,13 +158,16 @@ angular.module('app',
 				   };
 			   })
 	.directive('avatar', function () {
-				   return {restrict: 'E', templateUrl: '../templates/common/avatar.html', scope: {site: '=', memberId: '=', level: '=', alt: '='}};
+				   return {
+					   restrict: 'E', templateUrl: '../templates/common/avatar.html',
+					   scope: {site: '=', memberId: '=', level: '=', alt: '=', sz: '='}
+				   };
 			   })
 	.directive('memberItem', function () {
 				   return {restrict: 'E', templateUrl: '../templates/common/memberItem.html'};
 			   })
 	.directive('assessmentItem', function () {
-				   return {restrict: 'E', templateUrl: '../templates/common/assessmentItem.html', scope: {assessment: '=', i: '=', showmember: '='}};
+				   return {restrict: 'E', templateUrl: '../templates/common/assessmentItem.html', scope: {assessment: '=', i: '=', showMember: '=', site: '='}};
 			   })
 	.directive('levelTag', function () {
 				   return {

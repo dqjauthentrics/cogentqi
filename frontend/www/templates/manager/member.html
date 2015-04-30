@@ -8,7 +8,7 @@
         <div class="row row-responsive-sm">
             <div class="col col-25 padding">
 
-                <img data-ng-src="{{data.member.avatar}}" class="avatar avatar-large">
+                <avatar site="siteDir()" sz="'large'" member-id="data.member.id" level="data.member.level" alt="avatarAlt(data.member)"></avatar>
                 <div class="note noteIcon" data-ng-click="goToNotes()"></div>
                 <div>
                     <span class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.firstName">
@@ -31,12 +31,14 @@
             </div>
             <div class="col col-75 padding">
                 <h3>Assessments To Date
-                    <a style="font-size:1.6em; margin:0.5em;" data-ng-if="data.member.assessments.length > 0" data-ng-click="goToProgress()"><i class="{{i.reports}}"></i></a>
-                    <a style="font-size:1.6em; margin:0.5em;" data-ng-if="data.member.assessments.length > 0" data-ng-click="goToBarProgress()"><i class="{{i.barChart}}"></i></a>
+                    <a style="font-size:1.6em; margin:0.5em;" data-ng-if="data.member.assessments.length > 0" data-ng-click="goToProgress()"><i
+                            class="{{i.reports}}"></i></a>
+                    <a style="font-size:1.6em; margin:0.5em;" data-ng-if="data.member.assessments.length > 0" data-ng-click="goToBarProgress()"><i
+                            class="{{i.barChart}}"></i></a>
                 </h3>
 
                 <div data-ng-repeat="assessment in data.member.assessments">
-                    <assessment-item assessment="assessment" i="i"></assessment-item>
+                    <assessment-item site="siteDir()" assessment="assessment" i="i"></assessment-item>
                 </div>
                 <div>
                     <a class="button button-action button-new button-small" href="#/manager/assessment/n/{{data.member.id}}" title="Add a new assessment.">
