@@ -16,6 +16,7 @@ angular.module('Icons', []).service('Icons', function () {
 	this.edit = "ion-compose";
 	this.email = "fa fa-mail";
 	this.event = "fa fa-warning";
+	this.grid = "ion-ios-keypad-outline";
 	this.home = "fa fa-home";
 	this.info = "fa fa-question-circle";
 	this.instrument = "ion-clipboard";

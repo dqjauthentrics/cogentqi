@@ -180,14 +180,24 @@ class Assessment extends Model {
 			$dbRecords = $this->api->db->assessment()->select('member_id,max(last_modified) as maxMod')
 				->where('instrument_id=? AND member_id IN (SELECT id FROM member WHERE organization_id=?)', $instrumentId, $organizationId)
 				->group('member_id');
-			$maxes = [];
+			$members = [];
 			foreach ($dbRecords as $dbRecord) {
-				$maxes[$dbRecord["member_id"]] = $dbRecord["maxMod"];
+				$member = $dbRecord->member;
+				$members[$dbRecord["member_id"]] = [
+					'max' => $dbRecord["maxMod"],
+					'fn'  => $member["first_name"],
+					'ln'  => $member["last_name"],
+					'r'   => $member["role_id"],
+					'jt'  => $member["job_title"],
+					'em'  => $member["email"],
+					'lv'  => $member["level"],
+				];
 			}
 
 			$dbRecords = $this->api->db->assessment()->where("instrument_id=? AND member_id IN (SELECT id FROM member WHERE organization_id=?)", $instrumentId, $organizationId);
 			foreach ($dbRecords as $dbRecord) {
-				if ($dbRecord["last_modified"] == $maxes[$dbRecord["member_id"]]) {
+				$member = $members[$dbRecord["member_id"]];
+				if ($dbRecord["last_modified"] == $member["max"]) {
 					$responses = [];
 					$memberId = $dbRecord["member_id"];
 					/** @todo These are not sorted by question sortOrder!!! */
@@ -195,7 +205,15 @@ class Assessment extends Model {
 					foreach ($responseRecords as $responseRecord) {
 						$responses[] = (int)$responseRecord["response_index"];
 					}
-					$jsonRecords[] = ['memberId' => $memberId, 'responses' => $responses];
+					$jsonRecords[] = [
+						'memberId'  => $memberId,
+						'fn'        => $member['fn'],
+						'ln'        => $member['ln'],
+						'r'         => $member["r"],
+						'jt'        => $member["jt"],
+						'lv'        => $member["lv"],
+						'responses' => $responses
+					];
 				}
 			}
 			$this->api->sendResult($jsonRecords);
@@ -209,10 +227,16 @@ class Assessment extends Model {
 			$instrumentId = (int)$instrumentId;
 			$organizationId = (int)$organizationId;
 
+			$row = $this->api->pdo->query("SELECT retrieveOrgDescendantIds($organizationId) AS orgIds")->fetch();
+			$orgIds = $row["orgIds"];
+			$orgIds = $organizationId . (strlen($orgIds) > 0 ? "," : "") . $orgIds;
+
+			//$row = $this->api->pdo->query("SELECT GROUP_CONCAT(id) FROM organization WHERE parent_id=?", $organizationId)->fetch();
+			//$childIds = $row["orgIds"];
 			$sql = "SELECT m.organization_id, o.name, ar.question_id, AVG(ar.response_index) AS response
 					FROM assessment_response ar, assessment a, member m, organization o, question q
 					WHERE a.instrument_id=$instrumentId AND a.member_id=m.id AND
-						m.organization_id IN (SELECT id FROM organization WHERE parent_id=$organizationId) AND ar.assessment_id=a.id AND m.organization_id=o.id
+						m.organization_id IN (SELECT id FROM organization WHERE id IN($orgIds)) AND ar.assessment_id=a.id AND m.organization_id=o.id
 						AND q.id=ar.question_id
 					GROUP BY m.organization_id, o.name, ar.question_id ORDER BY q.sort_order";
 			$dbRecords = $this->api->pdo->query($sql);

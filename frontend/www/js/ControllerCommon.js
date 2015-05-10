@@ -30,11 +30,8 @@ angular.module('ControllerCommon', [])
 				])
 
 	.controller('MgrMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Assessments, Organizations, Members) {
-					$scope.Instruments = Instruments;  //@todo Is this needed in views/directives?
-					$scope.Members = Members; //@todo Is this needed in views/directives?
-					$scope.Utility = Utility;
-
-					$scope.data = {organizations: [], instruments: [], members: [], currentInstrument: {}, currentInstrumentId: 1};
+					$scope.Instruments = Instruments;  //@todo Remove paging need for this in assessmentMatrix.html?
+					$scope.data = {instruments: [], currentInstrument: {}, currentInstrumentId: 1};
 
 					Instruments.retrieve().query(function (response) {
 						$scope.data.instruments = response;
@@ -43,25 +40,20 @@ angular.module('ControllerCommon', [])
 							$scope.setCurrentInstrument(response[0].id);
 						}
 					});
-					Members.retrieve().query(function (response) {
-						$scope.data.members = response;
-					});
-					Organizations.retrieve().query(function (response) {
-						$scope.data.organizations = response;
-					});
-					Assessments.retrieveMatrix($scope.data.currentInstrument, false).query(function (response) {
-						$scope.data.matrix = response;
-					});
-
-					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.instrumentId)) {
-						$scope.setCurrentInstrument($stateParams.instrumentId);
-					}
-
-					$scope.setCurrentInstrument = function (instrumentId) {
-						if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
-							$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
+					$scope.setCurrentInstrument = function (instId) {
+						var orgId = null;
+						if (!Utility.empty($stateParams)) {
+							if (!Utility.empty($stateParams.instrumentId)) {
+								instId = $stateParams.instrumentId;
+							}
+							if (!Utility.empty($stateParams.organizationId)) {
+								orgId = $stateParams.organizationId;
+							}
+						}
+						if (!Utility.empty(instId) && !Utility.empty($scope.data.instruments)) {
+							$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instId);
 							$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
-							Assessments.retrieveMatrix($scope.data.currentInstrument.id, false).query(function (response) {
+							Utility.getResource(Assessments.retrieveMatrix($scope.data.currentInstrument.id, orgId, false), function (response) {
 								$scope.data.matrix = response;
 								Assessments.calcMatrixAverages($scope.data.currentInstrument, $scope.data.matrix, false);
 							});

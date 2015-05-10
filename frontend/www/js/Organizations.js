@@ -11,10 +11,11 @@ angular.module('Organizations', []).service('Organizations', function ($resource
 		return null;
 	};
 
-	svc.retrieve = function () {
+	svc.retrieve = function (organizationId) {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			return $resource('/api/organization/children/' + user.organizationId, {}, {});
+			var orgId = !Utility.empty(organizationId)? organizationId : user.organizationId;
+			return $resource('/api/organization/children/' + orgId, {}, {});
 		}
 		return null;
 	};

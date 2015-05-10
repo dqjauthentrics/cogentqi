@@ -6,11 +6,8 @@ angular.module('ControllerAdministrator', [])
 					$scope.data = {user: $cookieStore.get('user'), role: 'administrator'};
 				})
 
-	.controller('AdminMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Assessments, Organizations, Members) {
-					$scope.Instruments = Instruments;  //@todo Is this needed in views/directives?
-					$scope.Members = Members; //@todo Is this needed in views/directives?
-					$scope.Utility = Utility;
-
+	.controller('AdminMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Assessments, Organizations) {
+					$scope.Instruments = Instruments;  //@todo Remove paging need for this in views/directives?
 					$scope.data = {organizations: [], instruments: [], currentInstrument: {}, currentInstrumentId: 1};
 
 					Utility.getResource(Instruments.retrieve(), function (response) {
@@ -21,18 +18,26 @@ angular.module('ControllerAdministrator', [])
 						}
 					});
 					Utility.getResource(Organizations.retrieve(), function (response) {
+						console.log("retrieve organizations:", $stateParams);
 						$scope.data.organizations = response;
+						$scope.setCurrentInstrument($scope.currentInstrumentId);
 					});
 
-					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.instrumentId)) {
-						$scope.setCurrentInstrument($stateParams.instrumentId);
-					}
 
-					$scope.setCurrentInstrument = function (instrumentId) {
-						if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
-							$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
+					$scope.setCurrentInstrument = function (instId) {
+						var orgId = null;
+						if (!Utility.empty($stateParams)) {
+							if (!Utility.empty($stateParams.instrumentId)) {
+								instId = $stateParams.instrumentId;
+							}
+							if (!Utility.empty($stateParams.organizationId)) {
+								orgId = $stateParams.organizationId;
+							}
+						}
+						if (!Utility.empty(instId) && !Utility.empty($scope.data.instruments)) {
+							$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instId);
 							$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
-							Utility.getResource(Assessments.retrieveMatrix($scope.data.currentInstrument.id, true), function (response) {
+							Utility.getResource(Assessments.retrieveMatrix($scope.data.currentInstrument.id, orgId, true), function (response) {
 								$scope.data.matrix = response;
 								Assessments.calcMatrixAverages($scope.data.currentInstrument, $scope.data.matrix, true);
 							});
@@ -391,21 +396,35 @@ angular.module('ControllerAdministrator', [])
 					};
 				})
 
-	.controller('AdminMemberCtrl', function ($scope, Utility, Organizations, Members) {
-					$scope.data = {organizations: [], currentMembers: [], currentOrg: {}};
+	.controller('AdminMemberCtrl', function ($scope, $stateParams, Utility, Organizations, Members) {
+					$scope.data = {organizations: [], currentMembers: undefined, currentOrg: {}, parentOrg: {}};
 
 					$scope.Members = Members;  //@todo currently need to pass through to memberItem tag
 
-					Organizations.retrieve().query(function (response) {
+					var organizationId = null;
+					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.organizationId)) {
+						organizationId = $stateParams.organizationId;
+					}
+					Organizations.retrieve(organizationId).query(function (response) {
 						$scope.data.organizations = response;
-						$scope.setCurrentOrg(response[0]);  // @todo This shows up in the console, but does not update the view!
+						if (!Utility.empty(response)) {
+							$scope.data.parentOrg = response[0];
+							response.shift();
+							var firstChild = !Utility.empty(response) && !Utility.empty(response[1]) ? response[1] : null;
+							$scope.setCurrentOrg(firstChild);
+						}
 					});
 					$scope.setCurrentOrg = function (organization) {
 						$scope.data.currentOrg = organization;
 						$scope.data.currentMembers = [];
-						Organizations.members(organization.id).query(function (response) {
-							$scope.data.currentMembers = response;
-						});
+						if (!Utility.empty(organization)) {
+							Organizations.members(organization.id).query(function (response) {
+								$scope.data.currentMembers = response;
+							});
+						}
+					};
+					$scope.orgMatrix = function (organizationId) {
+						window.location = "#/administrator/dashboard/matrix/" + organizationId;
 					};
 					$scope.isCurrent = function (organization) {
 						return !Utility.empty(organization) && !Utility.empty($scope.data.currentOrg) && organization.id == $scope.data.currentOrg.id;

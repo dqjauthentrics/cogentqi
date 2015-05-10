@@ -28,6 +28,12 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 					   administratorMembers: {templateUrl: 'templates/administrator/members.html', controller: 'AdminMemberCtrl'}
 				   }
 			   })
+		.state('administrator.membersOrg', {
+				   url: '/members/:organizationId',
+				   views: {
+					   administratorMembers: {templateUrl: 'templates/administrator/members.html', controller: 'AdminMemberCtrl'}
+				   }
+			   })
 		.state('administrator.outcomes', {
 				   url: '/outcomes',
 				   views: {
@@ -47,7 +53,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 				   }
 			   })
 		.state('administrator.assessmentMatrix', {
-				   url: '/dashboard/matrix',
+				   url: '/dashboard/matrix/:organizationId?/',
 				   views: {
 					   administratorDashboard: {templateUrl: 'templates/administrator/assessmentMatrix.html', controller: 'AdminMatrixCtrl'}
 				   }
@@ -123,7 +129,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 				   }
 			   })
 		.state('manager.assessmentMatrix', {
-				   url: '/dashboard/matrix',
+				   url: '/dashboard/matrix/:organizationId?/',
 				   views: {
 					   managerDashboard: {templateUrl: 'templates/common/assessmentMatrix.html', controller: 'MgrMatrixCtrl'}
 				   }

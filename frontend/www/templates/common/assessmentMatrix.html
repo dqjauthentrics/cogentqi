@@ -27,16 +27,16 @@
                 </thead>
                 <tbody>
                 <tr data-ng-repeat="dataRow in data.matrix">
-                    <td class="leftHeader" data-ng-init="member = findMember(dataRow.memberId)" data-ng-class="dataRow.memberId == -1? 'average':''">
+                    <td class="leftHeader" data-ng-class="dataRow.memberId == -1? 'average':''">
                         <div data-ng-switch="dataRow.memberId">
                             <div data-ng-switch-when="-1" style="text-align: right;">
                                 {{dataRow.name}}
                             </div>
                             <div data-ng-switch-default>
                                 <a href="/#/manager/member/{{dataRow.memberId}}">
-                                    <avatar site="siteDir()" sz="'tiny'" member-id="member.id" level="member.level" alt="avatarAlt(member)"></avatar>
+                                    <avatar site="siteDir()" sz="'tiny'" member-id="dataRow.memberId" level="dataRow.lv" alt=""></avatar>
                                 </a>
-                                <a href="/#/manager/member/{{dataRow.memberId}}">{{member.lastName}}, {{member.firstName}}</a>
+                                <a href="/#/manager/member/{{dataRow.memberId}}">{{dataRow.ln}}, {{dataRow.fn}}</a>
                             </div>
                         </div>
                     </td>

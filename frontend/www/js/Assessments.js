@@ -32,10 +32,18 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		return null;
 	};
 
-	svc.retrieveMatrix = function (instrumentId, isRollUp) {
-		var user = $cookieStore.get('user');
-		if (!Utility.empty(instrumentId) && !Utility.empty(user) && !Utility.empty(user.organizationId)) {
-			return $resource('/api/assessment/matrix/' + (isRollUp ? 'rollup/' : '') + user.organizationId + '/' + instrumentId, {}, {});
+	svc.retrieveMatrix = function (instrumentId, organizationId, isRollUp) {
+		console.log("retriever: ", instrumentId, organizationId);
+		var orgId = organizationId;
+		if (Utility.empty(orgId)) {
+			var user = $cookieStore.get('user');
+			if (!Utility.empty(user.organizationId)) {
+				orgId = user.organizationId;
+			}
+		}
+		if (!Utility.empty(instrumentId) && !Utility.empty(orgId)) {
+			console.log("retriever call: ", instrumentId, organizationId);
+			return $resource('/api/assessment/matrix/' + (isRollUp ? 'rollup/' : '') + orgId + '/' + instrumentId, {}, {});
 		}
 		return null;
 	};

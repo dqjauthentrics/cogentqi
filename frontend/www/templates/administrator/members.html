@@ -6,18 +6,30 @@
         <div class="row responsive-sm">
             <div class="col col-25">
                 <ion-list>
-                    <ion-item class="header">{{user.orgName}} Organizations</ion-item>
+                    <ion-item class="header">{{data.parentOrg.name}}</ion-item>
                     <ion-item data-ng-class="isCurrent(organization)? 'active':''" class="item-icon-right" data-ng-repeat="organization in data.organizations"
                               type="item-text-wrap" data-ng-click="setCurrentOrg(organization)">
-                        <i class="{{i.organization}}"></i> {{organization.name}}
+                        <a data-ng-if="organization.nc" href="/#/administrator/members/{{organization.id}}">
+                            <i class="{{i.organization}}"></i> {{organization.name}}
+                        </a>
+
+                        <div data-ng-if="organization.nc == 0"><i class="{{i.organization}}"></i> {{organization.name}}</div>
                         <i style="color:black;" class="icon ion-chevron-right icon-accessory" data-ng-show="isCurrent(organization)"></i>
                     </ion-item>
                 </ion-list>
             </div>
             <div class="col col-75">
+                <div class="detail">
+                    <div style="float:right;">
+                        <a style="font-size:1.6em; margin:0.5em;" data-ng-if="data.currentMembers !== undefined > 0"
+                           data-ng-click="orgMatrix(data.currentOrg.id)"><i class="{{i.grid}}"></i></a>
+                    </div>
+                    <div class="name">{{data.currentOrg.name}}</div>
+                    <div class="summary">{{data.currentOrg.summary}}</div>
+                </div>
                 <ion-list>
-                    <ion-item class="header">{{data.currentOrg.name}}</ion-item>
-                    <ion-item class="gray" data-ng-if="!data.currentMembers.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
+                    <ion-item class="header">Members</ion-item>
+                    <ion-item class="gray" data-ng-if="data.currentMembers == undefined"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
                     <ion-item ng-repeat="member in data.currentMembers" class="item-icon-right item-text-wrap" href="#/manager/member/{{member.id}}">
                         <member-item member="member" m="Members"></member-item>
                         <i class="icon ion-chevron-right icon-accessory"></i>
