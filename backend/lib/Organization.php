@@ -18,6 +18,12 @@ class Organization extends Model {
 						'parentId' => (int)$dbRecord["parent_id"],
 						'name'     => $dbRecord["name"],
 						'summary'  => $dbRecord["summary"],
+						'ph'       => $dbRecord["phone"],
+						'fx'       => $dbRecord["fax"],
+						'ad'       => $dbRecord["address"],
+						'cy'       => $dbRecord["city"],
+						'st'       => $dbRecord["state"],
+						'zc'       => $dbRecord["postal"],
 						'nc'       => (int)$dbRecord["nChildren"],
 					];
 				}
@@ -27,6 +33,12 @@ class Organization extends Model {
 						'parentId' => (int)$dbRecord["parent_id"],
 						'name'     => $dbRecord["name"],
 						'summary'  => $dbRecord["summary"],
+						'ph'       => $dbRecord["phone"],
+						'fx'       => $dbRecord["fax"],
+						'ad'       => $dbRecord["address"],
+						'cy'       => $dbRecord["city"],
+						'st'       => $dbRecord["state"],
+						'zc'       => $dbRecord["postal"],
 						'nc'       => (int)$dbRecord["nChildren"],
 					];
 				}

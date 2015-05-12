@@ -4,7 +4,7 @@ angular.module('Icons', []).service('Icons', function () {
 	this.active = "ion-edit";
 	this.add = "ion-plus-round";
 	this.addUser = "fa fa-plus-circle";
-	this.assessment = "fa fa-sliders";
+	this.assessment = "ion-android-options";
 	this.back = "fa fa-arrow-sans-left";
 	this.begin = "fa fa-rocket-1";
 	this.building = "fa fa-building-o";
@@ -13,6 +13,7 @@ angular.module('Icons', []).service('Icons', function () {
 	this.completed = "ion-checkmark";
 	this.criterion = "fa fa-bookmark";
 	this.dashboard = "fa fa-tachometer";
+	this.drilldown = "fa fa-search-plus";
 	this.edit = "ion-compose";
 	this.email = "fa fa-mail";
 	this.event = "fa fa-warning";
@@ -31,6 +32,7 @@ angular.module('Icons', []).service('Icons', function () {
 	this.noteEmpty = "fa fa-comment-o";
 	this.noteFilled = "fa fa-comment";
 	this.outcome = "ion-speedometer";
+	this.organization = "fa fa-institution";
 	this.pdf = "fa fa-file-pdf-o";
 	this.period = "fa fa-calendar";
 	this.previous = "fa fa-triangle-left";
@@ -42,12 +44,13 @@ angular.module('Icons', []).service('Icons', function () {
 	this.save = "ion-android-cloud-done";
 	this.signIn = "fa fa-entrance";
 	this.signOut = "ion-power";
-	this.slider = "fa fa-params";
+	this.slider = "ion-android-options";
 	this.standard = "fa fa-paperclip";
 	this.steps = "fa fa-connection-4";
 	this.swipeRight = "ion-chevron-left";
 	this.swipeLeft = "ion-chevron-right";
 	this.tag = "gray fa fa-tag";
+	this.tree = "fa fa-sitemap";
 	this.unchecked = "fa fa-square-line";
 	this.unlocked = "ion-unlocked";
 	this.upArrow = "fa fa-arrow-circle-up";

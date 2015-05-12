@@ -4,6 +4,6 @@ var installation = {
 	appName: 'CogentQI',
 	trademarkName: 'CogentQI&#8482;',
 	name: 'Target Pharmacy',
-	logo: '<i class="logo fa fa-bullseye"></i>',
+	logo: '<img src="/site/target/images/logoHeader.png" alt=""/>',
 	login: {social: false, register: false}
 };

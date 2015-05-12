@@ -396,8 +396,8 @@ angular.module('ControllerAdministrator', [])
 					};
 				})
 
-	.controller('AdminMemberCtrl', function ($scope, $stateParams, Utility, Organizations, Members) {
-					$scope.data = {organizations: [], currentMembers: undefined, currentOrg: {}, parentOrg: {}};
+	.controller('AdminOrganizationCtrl', function ($scope, $stateParams, Utility, Organizations, Members) {
+					$scope.data = {canEdit: true, organizations: [], currentMembers: undefined, currentOrg: {}, parentOrg: {}};
 
 					$scope.Members = Members;  //@todo currently need to pass through to memberItem tag
 
@@ -405,16 +405,19 @@ angular.module('ControllerAdministrator', [])
 					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.organizationId)) {
 						organizationId = $stateParams.organizationId;
 					}
-					Organizations.retrieve(organizationId).query(function (response) {
+					Utility.getResource(Organizations.retrieve(organizationId), function (response) {
+						console.log("retrieving organizations for ", organizationId);
 						$scope.data.organizations = response;
 						if (!Utility.empty(response)) {
 							$scope.data.parentOrg = response[0];
 							response.shift();
-							var firstChild = !Utility.empty(response) && !Utility.empty(response[1]) ? response[1] : null;
+							var firstChild = !Utility.empty(response) && !Utility.empty(response[0]) ? response[0] : null;
+							console.log("firstChild:", firstChild, response[0]);
 							$scope.setCurrentOrg(firstChild);
 						}
 					});
 					$scope.setCurrentOrg = function (organization) {
+						console.log("setCurrentOrg:", organization);
 						$scope.data.currentOrg = organization;
 						$scope.data.currentMembers = [];
 						if (!Utility.empty(organization)) {
@@ -422,6 +425,18 @@ angular.module('ControllerAdministrator', [])
 								$scope.data.currentMembers = response;
 							});
 						}
+					};
+					$scope.save = function () {
+						$ionicPopup.alert({title: 'Demonstration', template: 'Sorry, this is not available in demonstration.'});
+					};
+					$scope.setDirty = function () {
+						$scope.data.dirty = true;
+					};
+					$scope.isDirty = function () {
+						return $scope.data.dirty;
+					};
+					$scope.drilldown = function (organizationId) {
+						window.location.href = '/#/administrator/organization/' + organizationId;
 					};
 					$scope.orgMatrix = function (organizationId) {
 						window.location = "#/administrator/dashboard/matrix/" + organizationId;

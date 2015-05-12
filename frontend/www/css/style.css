@@ -936,6 +936,10 @@ p.comments {
     border-radius: 0.2em;
 }
 
+.button-action.button-general {
+    background: #005090;
+}
+
 .button-action.button-small {
     font-size: 1em;
     padding: 0.1em 0.3em;

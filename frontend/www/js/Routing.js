@@ -22,16 +22,16 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 					   administratorDashboard: {templateUrl: 'templates/administrator/dashboard.html', controller: 'AdminDashboardCtrl'}
 				   }
 			   })
-		.state('administrator.members', {
-				   url: '/members',
+		.state('administrator.organization', {
+				   url: '/organization',
 				   views: {
-					   administratorMembers: {templateUrl: 'templates/administrator/members.html', controller: 'AdminMemberCtrl'}
+					   administratorOrganization: {templateUrl: 'templates/administrator/organizationOverview.html', controller: 'AdminOrganizationCtrl'}
 				   }
 			   })
-		.state('administrator.membersOrg', {
-				   url: '/members/:organizationId',
+		.state('administrator.organizationSpecific', {
+				   url: '/organization/:organizationId',
 				   views: {
-					   administratorMembers: {templateUrl: 'templates/administrator/members.html', controller: 'AdminMemberCtrl'}
+					   administratorOrganization: {templateUrl: 'templates/administrator/organizationOverview.html', controller: 'AdminOrganizationCtrl'}
 				   }
 			   })
 		.state('administrator.outcomes', {
