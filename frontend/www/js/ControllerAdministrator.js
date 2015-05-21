@@ -70,21 +70,19 @@ angular.module('ControllerAdministrator', [])
 				})
 
 	.controller('AdminOutcomeCtrl', function ($scope, $stateParams, Utility, Organizations, Resources, Outcomes) {
-					$scope.data = {orgOutcomes: [], organizations: [], resources: [], currentOrg: {}};
+					$scope.data = {orgOutcomes: [], organizations: [], currentOrg: {}};
 
-					Organizations.retrieve().query(function (response) {
+					Utility.getResource(Organizations.retrieve(), function (response) {
+						console.log("get orgs", response);
 						$scope.data.organizations = response;
 						$scope.setCurrentOrg(response[0]);
 					});
-					Outcomes.retrieve().query(function (response) {
+					Utility.getResource(Outcomes.retrieve(), function (response) {
+						console.log("get outcomes", response);
 						$scope.data.orgOutcomes = response;
 					});
-					Resources.retrieve().query(function (response) {
-						$scope.data.resources = response;
-					});
-
-
 					$scope.setCurrentOrg = function (organization) {
+						console.log("set org", organization);
 						$scope.data.currentOrg = organization;
 					};
 					$scope.getCurrentOrg = function (organization) {
@@ -114,6 +112,7 @@ angular.module('ControllerAdministrator', [])
 					$scope.getBarColor = function (outcome, currentOrgId) {
 						var color = 'stable';
 						if (!Utility.empty(outcome) && !Utility.empty(currentOrgId)) {
+							console.log("outcome:", currentOrgId, outcome);
 							var level = outcome.levels[currentOrgId][outcome.id];
 							var range = $("#range" + outcome.id);
 							switch (parseInt(level)) {

@@ -10,7 +10,7 @@ angular.module('ControllerProfessional', [])
 							$scope.data.members = response;
 							$scope.associate("members");
 						});
-						Utility.getResource(Plans.retrieve($scope.data.user.id), function (response) {
+						Utility.getResource(Plans.retrieve($cookieStore.get('user').id), function (response) {
 							$scope.data.planItems = response;
 						});
 						Utility.getResource(Assessments.retrieveForMember($scope.data.user.id), function (response) {
