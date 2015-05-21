@@ -127,15 +127,17 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 	};
 	svc.sectionIsCurrent = function (instrument, sectionId) {
 		var isCurrent = false;
-		if (svc.currentSectionIdx == undefined) {
-			svc.currentSectionIdx = 0;
-		}
-		try {
-			isCurrent =
-				!Utility.empty(instrument) && Array.isArray(instrument.sections) && parseInt(instrument.sections[svc.currentSectionIdx].id) == parseInt(sectionId);
-		}
-		catch (exception) {
-			console.log("exception:", exception);
+		if (!Utility.empty(instrument)) {
+			if (svc.currentSectionIdx == undefined) {
+				svc.currentSectionIdx = 0;
+			}
+			try {
+				isCurrent =
+					!Utility.empty(instrument) && Array.isArray(instrument.sections) && parseInt(instrument.sections[svc.currentSectionIdx].id) == parseInt(sectionId);
+			}
+			catch (exception) {
+				console.log("exception:", exception);
+			}
 		}
 		return isCurrent;
 	};
