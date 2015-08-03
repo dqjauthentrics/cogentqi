@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('PDF', []).service('PDF', function ($filter, Utility) {
+angular.module('PDF', []).service('PDF', function ($filter, $rootScope, Utility) {
 	var svc = this;
 
 	svc.safeName = function (name) {
@@ -58,7 +58,7 @@ angular.module('PDF', []).service('PDF', function ($filter, Utility) {
 	svc.generateAssessmentDoc = function (assessment, imageData) {
 		var doc = new jsPDF();
 		doc.text(15, 20, assessment.instrument.nm);
-		doc.addImage(imageData, 'JPEG', 165, 10, 40, 18);
+		doc.addImage(imageData, 'PNG', 165, 10);
 		doc.setFontSize(12);
 		doc.setTextColor(100, 100, 100);
 		doc.text(120, 20, $filter('date')(assessment.lm, 'medium'));
@@ -117,6 +117,6 @@ angular.module('PDF', []).service('PDF', function ($filter, Utility) {
 	svc.assessment = function (assessment) {
 		/** @todo Use installation path here.
 		 */
-		svc.getBase64Image('/js/config/target/printedLogo.jpg', assessment, svc.generateAssessmentDoc);
+		svc.getBase64Image($rootScope.siteDir() + '/images/printedLogo.png', assessment, svc.generateAssessmentDoc);
 	};
 });
