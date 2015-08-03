@@ -932,7 +932,7 @@ p.comments {
     font-weight: bold;
     margin: 0.2em 0.1em;
     font-size: 2em;
-    color: white;
+    color: #FFF;
     border-radius: 0.2em;
 }
 
@@ -947,7 +947,7 @@ p.comments {
 
 .button-action:hover {
     opacity: 0.7;
-    color: white;
+    color: #FFF;
 }
 
 .button-right, .button-left {
@@ -968,7 +968,7 @@ p.comments {
 
 .button-save, .button-new {
     background: darkgreen;
-    color: white;
+    color: #FFF;
 }
 
 .button-remove {

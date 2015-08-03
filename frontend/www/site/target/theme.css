@@ -5,3 +5,7 @@
 .cycle a {
     color: #444 !important;
 }
+
+.tab-item:hover {
+    color: yellow !important;
+}

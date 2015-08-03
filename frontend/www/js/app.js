@@ -68,7 +68,7 @@ angular.module('app',
 					 StatusBar.styleDefault();
 				 }
 
-				 angularLoad.loadCSS('site/' + subdomain + '/theme.css').then(function () {
+				 angularLoad.loadCSS('/site/' + subdomain + '/theme.css').then(function () {
 				 }).catch(function () {
 				 });
 				 angularLoad.loadScript('site/' + subdomain + '/installation.js').then(function () {
