@@ -272,7 +272,7 @@ angular.module('ControllerManager', [])
 					};
 				})
 
-	.controller('ResourceCtrl', function ($scope, $stateParams, Utility, LearningModules, Organizations, Resources, Quizzes) {
+	.controller('ResourceCtrl', function ($rootScope, $scope, $stateParams, Utility, LearningModules, Organizations, Resources, Quizzes) {
 					$scope.data = {learningModules: [], resources: [], resource: {}};
 					$scope.playerVars = {controls: 2, autoplay: 0, modestbranding: 1, rel: 0, theme: 'light'};
 
@@ -286,7 +286,8 @@ angular.module('ControllerManager', [])
 							if (!Utility.empty(resourceId)) {
 								$scope.data.resource = Utility.findObjectById($scope.data.resources, resourceId);
 								if (!Utility.empty($scope.data.resource)) {
-									$scope.data.resource.location = 'modules/' + $scope.data.resource.number.toLowerCase() + '.html';
+									var urlBase = $rootScope.siteDir();
+									$scope.data.resource.location = urlBase + '/modules/' + $scope.data.resource.number.toLowerCase() + '.html';
 								}
 							}
 						}

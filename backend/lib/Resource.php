@@ -4,21 +4,51 @@ require_once "../lib/ResourceAlignment.php";
 
 class Resource extends Model {
 
+	private function find($resourceId, $questionId, $records) {
+		if (!empty($records)) {
+			foreach ($records as $record) {
+				if ($record["question_id"] == $questionId && $record["resource_id"] == $resourceId) {
+					return $record;
+				}
+			}
+		}
+		return NULL;
+	}
+
 	public function initializeRoutes() {
 		parent::initializeRoutes();
 
 		$this->api->post("/resource/saveAlignments", function () {
 			$post = $this->api->request()->post();
-			if (!empty($post["resourceId"]) && !empty($post["instrumentId"])) {
-				$records = $this->api->db->resource_alignment()
-					->where('resourceId=? AND (questionId IN (SELECT id FROM question WHERE question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?)))',
-						$post["resourceId"], $post["instrumentId"])->delete();
-
-				if (!empty($post["alignments"])) {
-					foreach ($post["alignments"] as $alignment) {
-						$resourceAlignment = ['resourceId' => $post["resource_id"], 'question_id' => $alignment["id"], 'weight' => $alignment["wt"]];
-						echo "save:" . json_encode($resourceAlignment) . "\n";
-						$this->api->db->resource_alignment()->insert($resourceAlignment);
+			if (!empty($post["resourceId"]) && !empty($post["instrumentId"]) && !empty($post["alignments"])) {
+				$resourceId = $post["resourceId"];
+				$instrumentId = $post["instrumentId"];
+				$alignments = $post["alignments"];
+				if (!empty($alignments)) {
+					$records = $this->api->db->resource_alignment()
+						->where(
+							'resource_id=? AND (question_id IN (SELECT id FROM question WHERE question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?)))',
+							$resourceId, $instrumentId
+						);
+					foreach ($alignments as $questionId => $weight) {
+						$record = $this->find($resourceId, $questionId, $records);
+						if (!empty($record)) {
+							if (empty($weight)) {
+								$record->delete();
+							}
+							else {
+								$record["weight"] = $weight;
+								echo "SAVE:".$record["question_id"]."=".$record["weight"]."\n";
+								$result = $record->update();
+							}
+						}
+						else {
+							if (!empty($weight)) {
+								$resourceAlignment = ['resource_id' => $resourceId, 'question_id' => $questionId, 'weight' => $weight];
+								echo "save:" . json_encode($resourceAlignment) . "\n";
+								$result = $this->api->db->resource_alignment()->insert($resourceAlignment);
+							}
+						}
 					}
 				}
 			}

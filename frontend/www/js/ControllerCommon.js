@@ -172,7 +172,7 @@ angular.module('ControllerCommon', [])
 					};
 
 					$scope.getResponseClass = function (responseType, responseIndex) {
-						return responseType + '_' + responseIndex;
+						return 'viewOnly ' + responseType + '_' + responseIndex;
 					};
 
 					$scope.toggleLock = function () {

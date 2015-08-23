@@ -300,7 +300,8 @@ angular.module('ControllerAdministrator', [])
 
 				})
 
-	.controller('AdminAlignmentCtrl', function ($scope, $stateParams, Utility, Instruments, Resources, Outcomes) {
+	.controller('AdminAlignmentCtrl', function ($scope, $stateParams, $ionicPopup, Utility, Instruments, Resources, Outcomes) {
+					$scope.res = null;
 					$scope.data = {alignments: [], instruments: [], outcomes: [], resources: [], resource: {}, currentInstrument: null, currentInstrumentId: 1};
 
 					Utility.getResource(Instruments.retrieve(), function (response) {
@@ -319,6 +320,9 @@ angular.module('ControllerAdministrator', [])
 						$scope.setOutcome();
 					});
 
+					$scope.saveResourceAlignments = function () {
+						Resources.saveAlignments($scope.data.currentInstrumentId, $scope.data.resource.id, $scope.data.alignments, Utility.statusAlert);
+					};
 					$scope.setResourceAlignments = function () {
 						if (!Utility.empty($scope.data.resource) && !Utility.empty($scope.data.currentInstrument)) {
 							$scope.data.alignments = {};

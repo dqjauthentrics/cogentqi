@@ -49,7 +49,7 @@
                     <div class="recommendationsPane">
                         <div class="item" data-ng-repeat="recommendation in data.recommendations">
                             <a href="/#/manager/resource/{{recommendation.resourceId}}">
-                                <i class="{{i.resource}}"></i>{{recommendation.number}} {{recommendation.name}}
+                                <i class="{{i.resource}}"></i> {{recommendation.number}} {{recommendation.name}}
                             </a>
                             <recommendation-ranking weight="recommendation.weight" range="[1,1,1,1,1]" n="recommendation.weight"></recommendation-ranking>
                         </div>
@@ -75,9 +75,9 @@
                                 </ion-item>
                                 <ion-item class="item-remove-animate" data-ng-repeat="question in section.questions" type="item-text-wrap">
                                     <div>
-                                        <div>
-                                            <span class="number" data-ng-bind="section.number + '.' + question.nb"></span>
-                                            <span class="text" data-ng-bind="question.nm"></span>
+                                        <div style="display:table-row;">
+                                            <div style="display:table-cell;" class="number" data-ng-bind="section.number + '.' + question.nb"></div>
+                                            <div style="display:table-cell; line-height: 1em;" class="text" data-ng-bind="question.nm"></div>
                                         </div>
                                         <div class="description" data-ng-bind-html="question.dsc"></div>
                                     </div>
@@ -114,7 +114,7 @@
                                             </div>
                                         </div>
                                         <div data-ng-switch-default="">
-                                            <div data-ng-class="getResponseClass(question.typ, question.rsp.ri)">{{question.rsp.r}}</div>
+                                            <div data-ng-class=" getResponseClass(question.typ, question.rsp.ri)">{{question.rsp.r}}</div>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>

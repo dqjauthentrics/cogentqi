@@ -39,6 +39,8 @@ class Model {
 		'last_modified'      => 'lm',
 		'last_saved'         => 'ls',
 		'module_id'          => 'lmi',
+		'max_range'          => 'max',
+		'min_range'          => 'min',
 		'level'              => 'lv',
 		'location'           => 'loc',
 		'member_comments'    => 'mc',

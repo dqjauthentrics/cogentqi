@@ -30,7 +30,7 @@ slider {
 }
 
 .slider5 span.pointer {
-    border-top: 1em solid purple;
+    border-top: 1em solid #C000C0;
     color: #FFF;
 }
 
@@ -60,8 +60,8 @@ slider {
 }
 
 .rubric5 {
-    background: purple;
-    color: #FFF;
+    background: #C000C0;
+    color: #DDD;
 }
 
 slider span.bar {

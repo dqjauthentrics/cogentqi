@@ -26,24 +26,18 @@ angular.module('Resources', []).service('Resources', function ($resource, $http,
 		}
 	};
 
-	svc.saveAlignments = function (instrumentId, resourceId, questions) {
-		var alignments = [];
-		for (var i = 0; i < questions.length; i++) {
-			if (questions[i].alignment > 0) {
-				alignments.push({id: questions[i].id, wt: questions[i].alignment});
-			}
-		}
+	svc.saveAlignments = function (instrumentId, resourceId, alignments, callbackFn) {
 		$http({
-				  method: 'POST',
-				  url: "/api/resource/saveAlignments",
-				  data: $.param({instrumentId: instrumentId, resourceId: resourceId, alignments: alignments}),
-				  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			  }).
+			method: 'POST',
+			url: "/api/resource/saveAlignments",
+			data: $.param({instrumentId: instrumentId, resourceId: resourceId, alignments: alignments}),
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		}).
 			success(function (data, status, headers, config) {
-						console.log("saved");
+						callbackFn(1, data);
 					}).
 			error(function (data, status, headers, config) {
-					  console.log("save failed");
+					  callbackFn(0, data);
 				  });
 	}
 });

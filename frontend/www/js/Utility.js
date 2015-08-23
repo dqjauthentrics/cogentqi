@@ -1,8 +1,20 @@
 'use strict';
 
 angular.module('Utility', []).factory('Utility', [
-	function () {
+	"$ionicPopup",
+	function ($ionicPopup) {
 		return {
+			popup: function (title, message) {
+				$ionicPopup.alert({title: title, template: message});
+			},
+			statusAlert: function (status, data) {
+				if (status) {
+					$ionicPopup.alert({title: 'Updated', template: 'Your changes were saved.'});
+				}
+				else {
+					$ionicPopup.alert({title: 'Problem', template: 'Sorry, but there was a problem saving your changes.'});
+				}
+			},
 			empty: function (v) {
 				return v == null || v == undefined || v.length == 0;
 			},

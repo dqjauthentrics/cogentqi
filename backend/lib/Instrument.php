@@ -32,16 +32,8 @@ class Instrument extends Model {
 			$db = $this->api->db;
 			$choices = $db->question_choice()->where('question_type_id=?', $instrument["question_type_id"])->order('sort_order');
 			$jsonQuestionChoices = [];
-			$associative["minRange"] = 0;
-			$associative["maxRange"] = 0;
 			$questionChoice = new QuestionChoice($this->api);
 			foreach ($choices as $choice) {
-				if ($choice["value"] > $associative["maxRange"]) {
-					$associative["maxRange"] = $choice["value"];
-				}
-				if ($choice["value"] < $associative["minRange"] && $choice["value"] >= 0) {
-					$associative["minRange"] = $choice["value"];
-				}
 				$jsonQuestionChoices[] = $questionChoice->map($choice);
 			}
 			$associative["questionChoices"] = $jsonQuestionChoices;
