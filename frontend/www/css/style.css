@@ -957,12 +957,14 @@ p.comments {
     font-weight: bold;
     margin: 0.2em 0.1em;
     font-size: 2em;
-    color: #FFF;
     border-radius: 0.2em;
+    background: #444;
+    color: #FFF;
 }
 
 .button-action.button-general {
-    background: #005090;
+    background: #444;
+    color: #FFF;
 }
 
 .button-action.button-small {
@@ -979,24 +981,23 @@ p.comments {
     background: #AAA;
 }
 
-.button-unlock {
+.button-unlock:hover {
     background: red;
 }
 
-.button-lock, .button-edit {
+.button-lock:hover, .button-edit:hover {
     background: #cda700;
 }
 
-.button-pdf {
+.button-pdf:hover {
     background: darkblue;
 }
 
-.button-save, .button-new {
+.button-save:hover, .button-new:hover {
     background: darkgreen;
-    color: #FFF;
 }
 
-.button-remove {
+.button-remove:hover {
     background: darkred;
 }
 
