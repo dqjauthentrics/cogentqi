@@ -75,7 +75,7 @@ angular.module('ControllerCommon', [])
 						  Organizations, Resources) {
 					$scope.Instruments = Instruments;
 					$scope.res = null;
-					$scope.data = {recommendations: [], resources: [], assessment: null, currentChoices: null};
+					$scope.data = {dirty: false, recommendations: [], resources: [], assessment: null, currentChoices: null};
 
 					Resources.retrieve().query(function (response) {
 						$scope.data.resources = response;
@@ -121,6 +121,7 @@ angular.module('ControllerCommon', [])
 					};
 
 					$scope.updateSliderResponse = function (question) {
+						$scope.data.dirty = true;
 						var scoreInfo = Assessments.sliderChange(question, $scope.data.assessment.instrument);
 						question.rsp.r = scoreInfo.scoreWord;
 						$scope.currentChoices = question.rsp.ch;
@@ -163,7 +164,7 @@ angular.module('ControllerCommon', [])
 					};
 
 					$scope.rubricWidth = function (nChoices) {
-						return 100/nChoices;
+						return 100 / nChoices;
 					};
 
 					$scope.printIt = function () {
@@ -188,8 +189,14 @@ angular.module('ControllerCommon', [])
 							}
 						});
 					};
-					$scope.save = function () {
-						$scope.res.save({assessment: $scope.data.assessment});
+					$scope.save = function (event) {
+						var icon = $(event.target).find("i");
+						var saveClass = icon.attr("class");
+						icon.attr("class", "").addClass("fa fa-spinner fa-spin");
+						$scope.res.save({assessment: $scope.data.assessment}, function () {
+							icon.attr("class", saveClass);
+							$scope.data.dirty = false;
+						});
 					};
 					$scope.remove = function () {
 						$scope.res.delete({assessment: $scope.data.assessment});

@@ -11,7 +11,8 @@
             </div>
         </div>
         <div class="iconBar">
-            <button data-ng-if="canEdit() && data.assessment.es!='L'" class="button button-action button-save" data-ng-click="save()">
+            <button id="assessmentSave" data-ng-if="canEdit() && data.assessment.es!='L'"
+                    class="button button-action button-save {{data.dirty? 'button-dirty':'button-clean'}}" data-ng-click="save($event)">
                 <i class="{{i.save}}"></i>
             </button>
             <button data-ng-if="canLock()" class="button button-action button-{{data.assessment.es=='L'?'unlock':'lock'}}" data-ng-click="toggleLock()">

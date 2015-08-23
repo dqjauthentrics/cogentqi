@@ -219,7 +219,7 @@ class Assessment extends Model {
 									->fetch();
 								if (!empty($record)) {
 									$record["response_index"] = (int)$question->rsp->ri;
-									$record["response"] = $question->rsp->r;
+									$record["response"] = !empty($question->rsp) && !empty($question->rsp->r) ? $question->rsp->r : NULL;
 									$record["assessor_comments"] = $question->rsp->ac;
 									$record["member_comments"] = $question->rsp->mc;
 									//secho "SET: " . $question->id . ":" . $record["response_index"] . ":" . $record["response"] . "\n";

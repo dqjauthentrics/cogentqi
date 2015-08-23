@@ -1029,6 +1029,13 @@ p.comments {
     background: darkgreen;
 }
 
+.button-dirty {
+    background: #cda700 !important;
+}
+.button-clean {
+    background: darkgreen !important;
+}
+
 .button-remove:hover {
     background: darkred;
 }
