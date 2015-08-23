@@ -2,6 +2,14 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
+        <div style="float:left; margin:0.2vw 1vw 0 0;">
+            <h1 style="margin:0">{{data.assessment.instrument.nm}}</h1>
+
+            <div>
+                Performed by: {{data.assessment.assessor.fn}} {{data.assessment.assessor.ln}}
+                <avatar site="siteDir()" sz="'tiny'" member-id="data.assessment.assessor.id" level="0" alt="avatarAlt(data.assessor)"></avatar>
+            </div>
+        </div>
         <div class="iconBar">
             <button data-ng-if="canEdit() && data.assessment.es!='L'" class="button button-action button-save" data-ng-click="save()">
                 <i class="{{i.save}}"></i>
@@ -17,25 +25,20 @@
         </div>
         <div>
             <div class="row responsive-sm">
-                <div class="col col-100"><h3 style="text-align: center; margin:0 auto;">{{data.assessment.instrument.nm}}</h3></div>
-            </div>
-            <div class="row responsive-sm detail">
-                <div class="col col-25 padding" style="text-align:center;">
+                <div class="col col-25" style="text-align: center;">
+                    <h4 style="margin:1em 0 0 0;">
+                        <a href="#/manager/member/{{data.assessment.member.id}}">{{data.assessment.member.fn}} {{data.assessment.member.ln}}</a>
+                    </h4>
+
+                    <div class="role">{{data.assessment.member.rl}}</div>
                     <a href="#/manager/member/{{data.assessment.member.id}}">
-                        <avatar site="siteDir()" sz="'medium'" member-id="data.assessment.member.id" level="data.assessment.sc" alt="avatarAlt(data.assessment.member)"></avatar>
+                        <avatar site="siteDir()" sz="'medium'" member-id="data.assessment.member.id" level="data.assessment.sc"
+                                alt="avatarAlt(data.assessment.member)"></avatar>
                     </a>
 
-                    <div class="name"><a href="#/manager/member/{{data.assessment.member.id}}">
-                        {{data.assessment.member.fn}} {{data.assessment.member.ln}}</a>
-                    </div>
-                    <div class="role">{{data.assessment.member.rl}}</div>
-                    <div>
-                        Performed by: {{data.assessment.assessor.fn}} {{data.assessment.assessor.ln}}
-                        <avatar site="siteDir()" sz="'tiny'" member-id="data.assessment.assessor.id" level="0" alt="avatarAlt(data.assessor)"></avatar>
-                     </div>
                     <div class="score" data-ng-show="data.assessment.avgRound > 0">
-                        <div style="font-size:1.0em; padding: 0.3em 0.4em; text-align:center;"
-                             data-ng-class="'matrixCircle ' + (data.assessment.typ == 'NAYesNo'?'yesNoBg':'levelBg') + data.assessment.avgRound"
+                        <div style="font-size:1.0em; padding: 0.3em 0; text-align:center; width:14vmin; margin:0 auto;"
+                             data-ng-class="(data.assessment.typ == 'YESNO'?'yesNoBg':'levelBg') + data.assessment.avgRound"
                                 >{{data.assessment.scoreWord}} ({{data.assessment.avg}})
                         </div>
                     </div>
@@ -70,17 +73,18 @@
                                 <ion-item class="top">
                                     <h2 style="float:left;">{{section.number}} {{section.name}}</h2>
                                 </ion-item>
-                                <ion-item class="item-remove-animate item-icon-right" data-ng-repeat="question in section.questions" type="item-text-wrap">
-                                    <div style="float:left; max-width: 80%;">
-                                        <div class="number" data-ng-bind="section.number + '.' + question.nb"></div>
-                                        <div class="text" data-ng-bind="question.nm"></div>
-                                        <div class="clearfix"></div>
+                                <ion-item class="item-remove-animate" data-ng-repeat="question in section.questions" type="item-text-wrap">
+                                    <div>
+                                        <div>
+                                            <span class="number" data-ng-bind="section.number + '.' + question.nb"></span>
+                                            <span class="text" data-ng-bind="question.nm"></span>
+                                        </div>
                                         <div class="description" data-ng-bind-html="question.dsc"></div>
                                     </div>
                                     <div data-ng-switch="data.assessment.es" class="response">
                                         <div data-ng-switch-when="A">
-                                            <div data-ng-switch="question.typ" style="float:right;">
-                                                <div data-ng-switch-when="NAYesNo">
+                                            <div data-ng-switch="question.typ">
+                                                <div data-ng-switch-when="YESNO">
                                                     <div class="button-bar" style="max-width:12em; min-width:12em;">
                                                         <a class="button" data-ng-class="{'yesNoBg0': question.rsp.ri == 0}"
                                                            data-ng-click="updateResponse(question, 0)">N/A</a>
@@ -91,12 +95,21 @@
                                                     </div>
                                                 </div>
                                                 <div data-ng-switch-default="">
-                                                    <slider id="question_item_{{question.id}}" class="slider{{question.rsp.ri}}"
-                                                            data-ng-model="question.rsp.ri" floor="0.0" ceiling="5" step-width="1"
-                                                            data-ng-change="updateSliderResponse(question, this, true)"
-                                                            data-translate-fn="sliderTranslate"
-                                                            >
-                                                    </slider>
+                                                    <div class="rubric">
+                                                        <slider id="question_item_{{question.id}}" class="slider{{question.rsp.ri}}"
+                                                                ng-model="question.rsp.ri" floor="{{question.mn }}" ceiling="{{question.mx}}" step-width="1"
+                                                                ng-change="updateSliderResponse(question, this, true)"
+                                                                style="width:100%; margin-bottom:-1em;"
+                                                                >
+                                                        </slider>
+                                                        <div class="{{$index == question.rsp.ri? 'active':'inactive'}}"
+                                                             data-ng-repeat="choice in question.rsp.ch"
+                                                             data-ng-click="rubricSet(question,$index)"
+                                                             style="width:{{rubricWidth(question.mx+1)}}%;">
+                                                            <div class="rubric{{$index}}">{{choice.n}}</div>
+                                                            <p data-ng-if="choice.r.length > 0">{{choice.r}}</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

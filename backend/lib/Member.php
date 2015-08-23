@@ -29,6 +29,7 @@ class Member extends Model {
 	public function map($member) {
 		$this->mapExcludes = ["username", "password"];
 		$associative = parent::map($member);
+		$associative['role'] = $member->role["name"];
 
 		$badgeRecords = $this->api->db->member_badge()->where('member_id', $member["id"]);
 		$jsonBadges = [];

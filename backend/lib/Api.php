@@ -57,6 +57,8 @@ class Api extends \Slim\Slim {
 	public $db = NULL;
 	public $pdo = NULL;
 
+	private $user = NULL;
+
 	/**
 	 * Overrides Slim constructor to add pdo and db objects.
 	 *
@@ -76,6 +78,17 @@ class Api extends \Slim\Slim {
 		parent::__construct($options);
 	}
 
+	public function setUser($user) {
+		$this->user = $user;
+	}
+
+	public function user() {
+		return $this->user;
+	}
+
+	/**
+	 * @return string
+	 */
 	public function baseClassName() {
 		$path = explode('\\', get_class($this));
 		return array_pop($path);
@@ -89,6 +102,11 @@ class Api extends \Slim\Slim {
 		return @$parts[0];
 	}
 
+	/**
+	 * @param string $installationInfix
+	 *
+	 * @return string
+	 */
 	public function getServerConnectionString($installationInfix) {
 		return "mysql:dbname=" . self::DB_NAME_BASE . $this->getInstallationInfixFromHostName() . ";host=localhost";
 	}

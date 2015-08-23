@@ -3,31 +3,31 @@
 angular.module('ControllerCommon', [])
 
 	.controller('LoginController', [
-					'$scope', '$location', 'Authentication', function ($scope, $location, Authentication) {
-						$scope.data = {email: '', password: '', msg: '', error: ''};
+		'$scope', '$location', 'Authentication', function ($scope, $location, Authentication) {
+			$scope.data = {email: '', password: '', msg: '', error: ''};
 
-						$scope.login = function (loginType) {
-							$scope.data.msg = Authentication.login(loginType, $scope.data.email, $scope.data.password,
-																   function (user) {
-																	   $scope.data.msg = "Succeeded!";
-																	   $scope.data.error = "success";
-																	   Authentication.check();
-																   },
-																   function (failMsg) {
-																	   $scope.data.msg = failMsg;
-																	   $scope.data.error = "error";
-																   });
-						};
-						$scope.createAccount = function () {
-							Authentication.createAccount($scope.data.email, $scope.data.password);
-						};
-						$scope.logout = function () {
-							Authentication.logout();
-							window.location.href = "/#/login";
-							return 'logged out';
-						};
-					}
-				])
+			$scope.login = function (loginType) {
+				$scope.data.msg = Authentication.login(loginType, $scope.data.email, $scope.data.password,
+													   function (user) {
+														   $scope.data.msg = "Succeeded!";
+														   $scope.data.error = "success";
+														   Authentication.check();
+													   },
+													   function (failMsg) {
+														   $scope.data.msg = failMsg;
+														   $scope.data.error = "error";
+													   });
+			};
+			$scope.createAccount = function () {
+				Authentication.createAccount($scope.data.email, $scope.data.password);
+			};
+			$scope.logout = function () {
+				Authentication.logout();
+				window.location.href = "/#/login";
+				return 'logged out';
+			};
+		}
+	])
 
 	.controller('MgrMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Assessments, Organizations, Members) {
 					$scope.Instruments = Instruments;  //@todo Remove paging need for this in assessmentMatrix.html?
@@ -72,11 +72,10 @@ angular.module('ControllerCommon', [])
 
 	.controller('AssessmentCtrl',
 				function ($resource, $ionicPopup, $filter, $cookieStore, $scope, $timeout, $stateParams, PDF, Utility, Instruments, Assessments, Members,
-						  Organizations,
-						  Resources) {
+						  Organizations, Resources) {
 					$scope.Instruments = Instruments;
 					$scope.res = null;
-					$scope.data = {recommendations: [], resources: [], assessment: null};
+					$scope.data = {recommendations: [], resources: [], assessment: null, currentChoices: null};
 
 					Resources.retrieve().query(function (response) {
 						$scope.data.resources = response;
@@ -124,25 +123,47 @@ angular.module('ControllerCommon', [])
 					$scope.updateSliderResponse = function (question) {
 						var scoreInfo = Assessments.sliderChange(question, $scope.data.assessment.instrument);
 						question.rsp.r = scoreInfo.scoreWord;
+						$scope.currentChoices = question.rsp.ch;
 						$scope.data.assessment.avg = scoreInfo.avg;
 						$scope.data.assessment.avgRound = scoreInfo.avgRound;
-						$scope.data.assessment.scoreWord = Assessments.scoreWord(scoreInfo.avgRound);
+						$scope.data.assessment.scoreWord = Assessments.scoreWord(question);
 						$scope.getRecommendations();
 					};
 
+					$scope.rubricSet = function (question, value) {
+						question.rsp.ri = value;
+					};
+
 					$scope.sliderTranslate = function (value) {
-						return Assessments.scoreWord(value);
+						return value;
 					};
 
 					$scope.getAssessment = function () {
-						if (Utility.empty($scope.data.assessment) && !Utility.empty($stateParams) && !Utility.empty($stateParams.assessmentId)) {
-							$scope.res = $resource('/api/assessment/:id');
-							$scope.res.get({id: $stateParams.assessmentId}, function (response) {
-								$scope.data.assessment = response;
-								$scope.data.assessor = $cookieStore.get('user');
-								$scope.getRecommendations();
-							});
+						if (Utility.empty($scope.data.assessment) && !Utility.empty($stateParams)) {
+							var assessmentId = !Utility.empty($stateParams.assessmentId) ? $stateParams.assessmentId : -1;
+							if (assessmentId > 0) {
+								$scope.res = $resource('/api/assessment/:id');
+								$scope.res.get({id: assessmentId}, function (response) {
+									$scope.data.assessment = response;
+									$scope.data.assessor = $cookieStore.get('user');
+									$scope.getRecommendations();
+								});
+							}
+							else {
+								if (!Utility.empty($stateParams.memberId)) {
+									$scope.res = $resource('/api/assessment/new/:memberId');
+									$scope.res.get({memberId: $stateParams.memberId}, function (response) {
+										$scope.data.assessment = response;
+										$scope.data.assessor = $cookieStore.get('user');
+										$scope.getRecommendations();
+									});
+								}
+							}
 						}
+					};
+
+					$scope.rubricWidth = function (nChoices) {
+						return 100/nChoices;
 					};
 
 					$scope.printIt = function () {
@@ -157,9 +178,9 @@ angular.module('ControllerCommon', [])
 					$scope.toggleLock = function () {
 						var word = ($scope.data.assessment.es == 'L' ? 'unlock' : 'lock');
 						var confirmPopup = $ionicPopup.confirm({
-																   title: Utility.ucfirst(word) + ' Confirmation',
-																   template: "Are you sure you wish to " + word + " this assessment?"
-															   });
+							title: Utility.ucfirst(word) + ' Confirmation',
+							template: "Are you sure you wish to " + word + " this assessment?"
+						});
 						confirmPopup.then(function (res) {
 							if (res) {
 								$scope.data.assessment.es = ($scope.data.assessment.es == 'L' ? 'A' : 'L');

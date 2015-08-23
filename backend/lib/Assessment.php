@@ -1,10 +1,167 @@
 <?php
 namespace App;
+require_once "Instrument.php";
+use App\Instrument;
+
 require_once("AssessmentResponse.php");
 
 
 class Assessment extends Model {
 
+	const STATUS_ACTIVE = 'A';
+	const STATUS_LOCKED = 'L';
+
+	/**
+	 * Create a new assessment.
+	 *
+	 * @param int $assessorId
+	 * @param int $memberId
+	 * @param int $instrumentId
+	 *
+	 * @return null
+	 */
+	private function create($assessorId, $memberId, $instrumentId) {
+		$db = $this->api->db;
+		$assessment = NULL;
+		$db->transaction = 'BEGIN';
+		try {
+			$data = [
+				'id'            => NULL,
+				'member_id'     => $memberId,
+				'assessor_id'   => $assessorId,
+				'instrument_id' => $instrumentId,
+				'edit_status'   => Assessment::STATUS_ACTIVE,
+				'view_status'   => Assessment::STATUS_ACTIVE,
+			];
+			$assessment = $db->assessment()->insert($data);
+			if (!empty($assessment)) {
+				$responses = Instrument::createResponseTemplate($db, $instrumentId, $assessment["id"]);
+				if (!empty($responses)) {
+					$assessment = $db->assessment()->where("id=?", $assessment["id"])->fetch();
+					if (!empty($assessment)) {
+						$db->transaction = 'COMMIT';
+					}
+				}
+				else {
+					throw new \Exception("Unable to create assessment responses.");
+				}
+			}
+		}
+		catch (\Exception $exception) {
+			$db->transaction = 'ROLLBACK';
+		}
+		return $assessment;
+	}
+
+	/**
+	 * Fill and return a complete assessment record in JSON form using abbreviated column names to save transmission costs.
+	 *
+	 * @param $assessment
+	 *
+	 * @return array
+	 */
+	private function fill($assessment) {
+		$db = $this->api->db;
+		$jsonRecords = [
+			'id',
+			'member'     => [],
+			'assessor'   => [],
+			'instrument' => '',
+			'sections'   => []
+		];
+		$responses = [];
+		if (!empty($assessment)) {
+			$jsonRecords = [
+				'id'         => (int)$assessment["id"],
+				'lm'         => @Model::dateTime($assessment["last_modified"]),
+				'ls'         => @Model::dateTime($assessment["last_saved"]),
+				'ac'         => @$assessment["assessor_comments"],
+				'mc'         => @$assessment["member_comments"],
+				'sc'         => @$assessment["score"],
+				'rk'         => @$assessment["rank"],
+				'es'         => @$assessment["edit_status"],
+				'vs'         => @$assessment["view_status"],
+				'member'     => [
+					'id' => (int)$assessment["member_id"],
+					//'av' => $assessment->member["avatar"],
+					'fn' => @$assessment->member["first_name"],
+					'ln' => @$assessment->member["last_name"],
+					'ri' => @$assessment->member["role_id"],
+					'jt' => @$assessment->member["job_title"],
+					'lv' => @$assessment->member["level"],
+					'rl' => @$assessment->member->role["name"]
+				],
+				'assessor'   => [
+					'id' => (int)$assessment["assessor_id"],
+					//'av' => $assessment->assessor["avatar"],
+					'fn' => @$assessment->assessor["first_name"],
+					'ln' => @$assessment->assessor["last_name"],
+					'ri' => @$assessment->assessor["role_id"],
+					'jt' => @$assessment->assessor["job_title"],
+					'lv' => @$assessment->assessor["level"],
+					'rl' => @$assessment->assessor->role["name"]
+				],
+				'instrument' => [
+					'id'       => (int)$assessment["instrument_id"],
+					'max'      => (int)$assessment->instrument["max_range"],
+					'min'      => (int)$assessment->instrument["min_range"],
+					'nm'       => @$assessment->instrument["name"],
+					'sections' => [
+					]
+				]
+			];
+			foreach ($assessment->assessment_response() as $response) {
+				$questionId = $response["question_id"];
+				$typeId = $response->question->question_type["id"];
+				$questionChoice = new QuestionChoice($this->api);
+				$choices = $questionChoice->mapList($db->question_choice()->where('question_type_id=?', $typeId)->order('sort_order'));
+				$responses[$questionId] = [
+					'id' => (int)$response["id"],
+					'r'  => $response["response"],
+					'ri' => (int)$response["response_index"],
+					'ac' => $response["assessor_comments"],
+					'mc' => $response["member_comments"],
+					'ch' => $choices
+				];
+			}
+			$i = 0;
+			$sections = $assessment->instrument->question_group();
+			$sectionNames = [];
+			foreach ($sections as $section) {
+				$sectionNames[] = $section["tag"];
+			}
+			$nSections = count($sections);
+			foreach ($sections as $section) {
+				$nextPos = $i < $nSections - 1 ? $i + 1 : 0;
+				$prevPos = $i > 0 ? $i - 1 : $nSections - 1;
+
+				$next = ($nextPos + 1) . ". " . $sectionNames[$nextPos];
+				$previous = ($prevPos + 1) . ". " . $sectionNames[$prevPos];
+
+				$jsonSection = ['id' => $section["id"], 'number' => ($i + 1), 'name' => $section["tag"], 'next' => $next, 'previous' => $previous, 'questions' => []];
+				foreach ($section->question() as $question) {
+					$jsonSection['questions'][] = [
+						'id'  => $question["id"],
+						'nb'  => $question["number"],
+						'nm'  => $question["name"],
+						'sum' => $question["summary"],
+						'dsc' => !empty($question["summary"]) ? $question["summary"] : $question["description"],
+						'rsp' => @$responses[$question["id"]],
+						'typ' => $question->question_type["entry_type"],
+						'mn'  => $question->question_type["min_range"],
+						'mx'  => $question->question_type["max_range"],
+					];
+				}
+				$i++;
+				$jsonRecords['instrument']['sections'][] = $jsonSection;
+			}
+		}
+		return $jsonRecords;
+	}
+
+	/**
+	 *
+	 */
 	public function initializeRoutes() {
 		$urlName = $this->urlName();
 
@@ -12,96 +169,21 @@ class Assessment extends Model {
 		 * Full, single assessment retrieval.  Save time and loading by assembling everything on server for a single request, and by using abbreviated field names.
 		 */
 		$this->api->get("/$urlName/:assessmentId", function ($assessmentId) use ($urlName) {
-			$jsonRecords = [
-				'id',
-				'member'     => [],
-				'assessor'   => [],
-				'instrument' => '',
-				'sections'   => []
-			];
-			$responses = [];
 			$assessment = $this->api->db->assessment()->where("id=?", $assessmentId)->fetch();
-			if (!empty($assessment)) {
-				$jsonRecords = [
-					'id'         => (int)$assessment["id"],
-					'lm'         => Model::dateTime($assessment["last_modified"]),
-					'ls'         => Model::dateTime($assessment["last_saved"]),
-					'ac'         => $assessment["assessor_comments"],
-					'mc'         => $assessment["member_comments"],
-					'sc'         => $assessment["score"],
-					'rk'         => $assessment["rank"],
-					'es'         => $assessment["edit_status"],
-					'vs'         => $assessment["view_status"],
-					'member'     => [
-						'id' => (int)$assessment["member_id"],
-						//'av' => $assessment->member["avatar"],
-						'fn' => $assessment->member["first_name"],
-						'ln' => $assessment->member["last_name"],
-						'ri' => $assessment->member["role_id"],
-						'jt' => $assessment->member["job_title"],
-						'lv' => $assessment->member["level"],
-						'rl' => @$assessment->member->role["name"]
-					],
-					'assessor'   => [
-						'id' => (int)$assessment["assessor_id"],
-						//'av' => $assessment->assessor["avatar"],
-						'fn' => $assessment->assessor["first_name"],
-						'ln' => $assessment->assessor["last_name"],
-						'ri' => $assessment->assessor["role_id"],
-						'jt' => $assessment->assessor["job_title"],
-						'lv' => $assessment->assessor["level"],
-						'rl' => @$assessment->assessor->role["name"]
-					],
-					'instrument' => [
-						'id'       => (int)$assessment["instrument_id"],
-						'max'      => (int)$assessment->instrument["max_range"],
-						'min'      => (int)$assessment->instrument["min_range"],
-						'nm'       => $assessment->instrument["name"],
-						'sections' => [
-						]
-					]
-				];
-				foreach ($assessment->assessment_response() as $response) {
-					$questionId = $response["question_id"];
-					$responses[$questionId] = [
-						'id' => (int)$response["id"],
-						'r'  => $response["response"],
-						'ri' => (int)$response["response_index"],
-						'ac' => $response["assessor_comments"],
-						'mc' => $response["member_comments"],
-					];
-				}
-				$i = 0;
-				$sections = $assessment->instrument->question_group();
-				$sectionNames = [];
-				foreach ($sections as $section) {
-					$sectionNames[] = $section["tag"];
-				}
-				$nSections = count($sections);
-				foreach ($sections as $section) {
+			$jsonRecords = $this->fill($assessment);
+			$this->api->sendResult($jsonRecords);
+		});
 
-					$nextPos = $i < $nSections - 1 ? $i + 1 : 0;
-					$prevPos = $i > 0 ? $i - 1 : $nSections - 1;
-
-					$next = ($nextPos + 1) . ". " . $sectionNames[$nextPos];
-					$previous = ($prevPos + 1) . ". " . $sectionNames[$prevPos];
-
-					$jsonSection = ['id' => $section["id"], 'number' => ($i + 1), 'name' => $section["tag"], 'next' => $next, 'previous' => $previous, 'questions' => []];
-					foreach ($section->question() as $question) {
-						$jsonSection['questions'][] = [
-							'id'  => $question["id"],
-							'nb'  => $question["number"],
-							'nm'  => $question["name"],
-							'sum' => $question["summary"],
-							'dsc' => $question["description"],
-							'rsp' => $responses[$question["id"]],
-							'typ' => $question->question_type["name"]
-						];
-					}
-					$i++;
-					$jsonRecords['instrument']['sections'][] = $jsonSection;
-				}
-			}
+		/**
+		 * Create new assessment.
+		 */
+		$this->api->get("/$urlName/new/:assessorId/:memberId", function ($assessorId, $memberId) use ($urlName) {
+			$db = $this->api->db;
+			$member = $this->api->db->member[$memberId];
+			$roleId = $member["role_id"];
+			$schedItem = $db->instrument_schedule()->where("responsible_role_ids LIKE '%$roleId%'")->order('starts DESC')->limit(1)->fetch();
+			$assessment = $this->create($assessorId, $memberId, $schedItem["instrument_id"]);
+			$jsonRecords = $this->fill($assessment);
 			$this->api->sendResult($jsonRecords);
 		});
 
@@ -109,9 +191,15 @@ class Assessment extends Model {
 		 * Save a single record, which is a full evaluation as returned by the get above.
 		 */
 		$this->api->post("/$urlName", function () {
+			/** @var \NotORM $db */
+			$db = $this->api->db;
 			$jsonPostData = json_decode(file_get_contents('php://input'));
 			$assessment = $jsonPostData->assessment;
-			$assessmentRecord = $this->api->db->assessment()->where('id=?', $assessment->id)->fetch();
+			/**
+			 * @var \NotORM_Row $assessmentRecord
+			 * @var \NotORM_Row $record
+			 */
+			$assessmentRecord = $db->assessment()->where('id=?', $assessment->id)->fetch();
 			if (!empty($assessmentRecord)) {
 				$assessmentRecord["score"] = $assessment->sc;
 				$assessmentRecord["rank"] = $assessment->rk;
@@ -126,7 +214,7 @@ class Assessment extends Model {
 					foreach ($sections as $section) {
 						if (!empty($section->questions)) {
 							foreach ($section->questions as $question) {
-								$record = $this->api->db->assessment_response()
+								$record = $db->assessment_response()
 									->where('assessment_id=? AND question_id=?', $jsonPostData->assessment->id, $question->id)
 									->fetch();
 								if (!empty($record)) {

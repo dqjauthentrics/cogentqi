@@ -124,18 +124,16 @@ ion-item img.avatar {
 .avatar-large {
     width: 18vmin;
     height: 18vmin;
-    border-radius: 10%;
 }
 
 .avatar-medium {
     width: 14vmin;
     height: 14vmin;
-    border-radius: 10%;
 }
 
 .avatar-tiny, ion-item img.avatar.avatar-tiny {
-    width: 2em !important;
-    height: 2em !important;
+    width: 2.4em !important;
+    height: 2.4em !important;
     border-radius: 5em;
     vertical-align: middle;
 }
@@ -154,7 +152,7 @@ h1 {
     margin-top: 0.3em !important;
 }
 
-ion-item:hover {
+ion-item:hover .selector {
     background: #EEE;
 }
 
@@ -264,7 +262,6 @@ ion-item .stamp {
 .list div.description {
     color: #444;
     white-space: normal;
-    padding: 0.3em 0;
 }
 
 .list div.description ul {
@@ -279,6 +276,10 @@ ion-item .stamp {
 
 .list slider {
     float: right;
+}
+
+.assessment slider {
+    float: none !important;
 }
 
 .recommendationsPane {
@@ -449,42 +450,6 @@ table.cycle {
     font-size: 0.9em;
 }
 
-.rubric0 {
-    color: #AAA;
-}
-
-.rubric1 {
-    color: #FF0000;
-}
-
-.rubric2 {
-    color: #D0B000;
-}
-
-.rubric3 {
-    color: #008000;
-}
-
-.rubricBg0 {
-    background: #AAA;
-    color: #FFF;
-}
-
-.rubricBg1 {
-    background: red;
-    color: #FFF;
-}
-
-.rubricBg2 {
-    background: #F0D000;
-    color: #000;
-}
-
-.rubricBg3 {
-    background: green;
-    color: #FFF;
-}
-
 .outcomeLevelBg {
 }
 
@@ -521,7 +486,7 @@ table.cycle {
 
 .levelBg3 {
     background: #FFD700;
-    color: #777;
+    color: #444;
 }
 
 .levelBg4 {
@@ -530,7 +495,7 @@ table.cycle {
 }
 
 .levelBg5 {
-    background: #008000;
+    background: purple;
     color: #FFF;
 }
 
@@ -677,11 +642,73 @@ outcome-level-tag {
     color: green;
 }
 
-.assessment .response {
-    float: right;
-    margin: 0.5em;
-    font-size: 1.2em;
+.assessment .number {
     font-weight: bold;
+    font-size: 1.6vw;
+}
+
+.assessment .text {
+    font-weight: bold;
+    font-size: 1.6vw;
+}
+
+.assessment .rubric {
+    font-weight: normal;
+    font-style: italic;
+    color: #000;
+    line-height: 1.4vw;
+    font-size: 1.3vw;
+}
+
+.assessment .rubric > div {
+    display: table-cell;
+    padding: 0;
+    border: 1px solid #999;
+}
+
+.assessment .rubric > div > div {
+    padding: 0.5vw 1vw;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.4vw;
+}
+
+.assessment .rubric > div p {
+    white-space: normal !important;
+    padding: 0.2vw 1vw;
+    font-size: 1.0vw;
+}
+
+.assessment .rubric .active p {
+    opacity: 1;
+    color: #000;
+}
+
+.assessment .rubric .inactive p {
+    opacity: 0.85;
+    color: #666;
+}
+
+.assessment .rubric .active > div {
+    opacity: 1;
+    color: #FFF;
+    border: 1px solid black;
+}
+
+.assessment .rubric .inactive > div {
+    opacity: 0.75;
+    color: #AAA;
+}
+
+.assessment .rubric .active {
+    opacity: 1;
+    color: #000;
+}
+
+.assessment .rubric .inactive {
+    opacity: 0.75;
+    color: #666;
 }
 
 .LIKERT5_0 {
@@ -775,11 +802,10 @@ th.rotate > div > span {
 }
 
 .score {
-    background: #FFF;
-    padding: 4px 1px 4px 8px;
+    color: #FFF;
+    line-height: 1.1vw;
+    font-size: 1.0vw;
     vertical-align: middle;
-    margin-right: 1em;
-    border-radius: 4px;
 }
 
 .score .logo {
@@ -823,7 +849,6 @@ ion-item.top {
     color: #FFF;
     background: #666;
     padding: 0.1em 0.5em;
-    border-radius: 0.4em 0.4em 0 0;
 }
 
 ion-item.top h2 {

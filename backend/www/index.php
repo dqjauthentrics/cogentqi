@@ -42,6 +42,7 @@ if (!empty($objectNS)) {
 	$user = $auth->check();
 	if (!empty($user) || $object = "Authentication") {
 		new $objectNS($api);
+		$api->setUser($user);
 	}
 	else {
 		try {

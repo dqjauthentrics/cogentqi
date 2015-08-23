@@ -10,16 +10,21 @@ namespace App;
 class Model {
 	protected $debug = FALSE;
 
-	/** @var Api $this ->api */
+	/** @var Api $this ->api The API object. */
 	protected $api = NULL;
 
-	/** @var array $mapExcludes */
+	/** @var string[] $mapExcludes Exclude columns for this model, with respect to JSON encoding. */
 	protected $mapExcludes = [];
 
+	/** @var string[] $dateTimeCols Some columns might require special save/restore/format processing. */
 	protected $dateTimeCols = [];
 
+	/** @var string $tableName The name of the associated table for this model. */
 	public $tableName = NULL;
 
+	/**
+	 * @var array $colName Map  Map column names to their abbreviations when transmitting via JSON.
+	 */
 	public $colNameMap = [
 		'avatar'             => 'av',
 		'by_member_id'       => 'by',

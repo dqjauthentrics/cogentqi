@@ -16,6 +16,12 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		}
 		return null;
 	};
+	svc.create = function (assessorId, memberId, instrumentId) {
+		if (!Utility.empty(assessorId) && !Utility.empty(memberId) && !Utility.empty(instrumentId)) {
+			return $resource('/api/assessment/new/' + assessorId + '/' + memberId + '/' + instrumentId, {}, {query: {method: 'GET', isArray: false}});
+		}
+		return null;
+	};
 
 	svc.associateMembers = function (assessments, members) {
 		if (!Utility.empty(assessments) && !Utility.empty(members)) {
@@ -52,7 +58,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(instrumentId) && !Utility.empty(user) && !Utility.empty(user.organizationId)) {
 			return $resource('/api/assessment/progressbymonth/' + (isRollUp ? 'rollup/' : '') + user.organizationId + '/' + instrumentId, {},
-							 {query: {method: 'GET', isArray: false}});
+				{query: {method: 'GET', isArray: false}});
 		}
 		return null;
 	};
@@ -97,26 +103,36 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		return {avg: avg, avgRound: avgRound};
 	};
 
-	svc.scoreWord = function (score) {
-		var scoreWord = "N/A";
+	svc.scoreWord = function (question) {
+		var scoreWord = null;
 		try {
-			switch (parseInt(Math.round(score))) {
-				case 1:
-					scoreWord = "Unacceptable";
-					break;
-				case 2:
-					scoreWord = "Needs Improvement";
-					break;
-				case 3:
-					scoreWord = "Proficient";
-					break;
-				case 4:
-					scoreWord = "Highly Proficient";
-					break;
-				case 5:
-					scoreWord = "Distinguished";
-					break;
-				default:
+			var score = question.rsp.ri;
+			if (!Utility.empty(question.rsp.ch)) {
+				scoreWord = question.rsp.ch[question.rsp.ri].n;
+			}
+			if (Utility.empty(scoreWord)) {
+				scoreWord = "N/A";
+				switch (parseInt(Math.round(score))) {
+					case 1:
+						scoreWord = "Unacceptable";
+						break;
+					case 2:
+						scoreWord = "Needs Improvement";
+						break;
+					case 3:
+						scoreWord = "Proficient";
+						break;
+					case 4:
+						scoreWord = "Highly Proficient";
+						break;
+					case 5:
+						scoreWord = "Distinguished";
+						break;
+					case 6:
+						scoreWord = "WHat";
+						break;
+					default:
+				}
 			}
 		}
 		catch (exception) {
@@ -191,12 +207,12 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 				}
 				if (resource.score > 0 && recCnt < 10) {
 					recs.push({
-								  resourceId: resource.id,
-								  number: resource.number,
-								  name: resource.name,
-								  weight: scaledScore,
-								  score: resource.score
-							  });
+						resourceId: resource.id,
+						number: resource.number,
+						name: resource.name,
+						weight: scaledScore,
+						score: resource.score
+					});
 					recCnt++;
 				}
 			}
@@ -212,10 +228,10 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		var avg = 0;
 		var avgRound = 0;
 		if (!Utility.empty(question) && !Utility.empty(question.rsp)) {
-			scoreWord = svc.scoreWord(question.rsp.ri);
+			//scoreWord = svc.scoreWord(question);
 			var slider = $("#question_item_" + question.id);
-			var levelEl = slider.find("span.bubble.low");
-			levelEl.html(scoreWord);
+			//var levelEl = slider.find("span.bubble.low");
+			//levelEl.html(scoreWord);
 			slider.removeClass(function (index, css) {
 				return (css.match(/(^|\s)slider\S+/g) || []).join(' ');
 			}).addClass("slider" + question.rsp.ri);
@@ -223,7 +239,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 			avg = score.avg;
 			avgRound = score.avgRound;
 		}
-		return {scoreWord: scoreWord, avg: avg, avgRound: avgRound};
+		return {avg: avg, avgRound: avgRound};
 	};
 
 	svc.findMatrixResponseRowValues = function (instrument, currentSectionIdx, allResponses) {
