@@ -168,15 +168,72 @@ ion-item .listIcon {
 }
 
 .list div.text {
-    font-size: 1.2em;
+    font-size: 1.4vw;
     font-style: italic;
     font-weight: bold;
-    line-height: 1.4em;
+    line-height: 1.5vw;
     vertical-align: middle;
 }
 
+.assessment .item {
+    font-size: 1.6vmin;
+    padding: 1em;
+}
+
 .assessment .text {
+    font-weight: bold;
+    font-size: 1.6vw;
+    line-height: 1.6vw;
+    margin-bottom: 0.5em;
     margin-top: 0.3em;
+}
+
+.assessment .number {
+    font-weight: bold;
+    font-size: 1.4vw;
+    line-height: 1.5vw;
+    padding: 0.4em !important;
+}
+
+.assessment .description {
+    font-size: 1.4vw;
+    line-height: 1.5vw;
+    margin: 0.5em;
+}
+
+.assessment .navigator {
+    padding: 0.6em;
+    /**
+    background: gray;
+    color: #FFF;
+    border: 1px solid gray;
+    **/
+    font-weight: bold;
+    font-size: 1.5vw;
+}
+
+.assessment .navigator a, .assessment .navigator a:visited, .assessment .navigator a:hover {
+    color: #444;
+    text-decoration: none;
+}
+
+.assessment .navigator a:hover {
+    color: #888;
+}
+
+.assessment .previous {
+    float: left;
+    margin-left: 1em;
+}
+
+.assessment .next {
+    float: right;
+    margin-right: 1em;
+}
+
+.assessment .button-bar {
+    float: right;
+    margin: 0.5em;
 }
 
 .detail .title {
@@ -292,7 +349,7 @@ ion-item .stamp {
 .recommendationsPane .item {
     background: #EEFFEE;
     font-size: max(1em, 2.0vmin);
-    padding: 0.2em 0 0.2em 0.8em;
+    padding: 0.8em;
 }
 
 ion-content {
@@ -664,18 +721,6 @@ outcome-level-tag {
     float: right;
 }
 
-.assessment .number {
-    font-weight: bold;
-    font-size: 1.6vw;
-}
-
-.assessment .text {
-    font-weight: bold;
-    font-size: 1.6vw;
-    line-height: 1.6vw;
-    margin-bottom: 0.5em;
-}
-
 .assessment .rubric {
     font-weight: normal;
     font-style: italic;
@@ -886,7 +931,7 @@ ion-item.top {
 ion-item.top h2 {
     padding: 0.4em;
     color: #FFF;
-    font-size: 1.4em;
+    font-size: 1.8vw;
 }
 
 .fadein,
@@ -1032,6 +1077,7 @@ p.comments {
 .button-dirty {
     background: #cda700 !important;
 }
+
 .button-clean {
     background: darkgreen !important;
 }

@@ -115,6 +115,7 @@ angular.module('ControllerCommon', [])
 
 					$scope.updateResponse = function (question, value) {
 						if (!Utility.empty(question) && !Utility.empty(question.rsp) && !Utility.empty(value)) {
+							$scope.data.dirty = true;
 							question.rsp.ri = parseInt(value);
 							$scope.getRecommendations();
 						}
