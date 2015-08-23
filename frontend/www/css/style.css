@@ -344,6 +344,19 @@ table.cycle {
     font-weight: bold;
 }
 
+.resource li {
+    list-style-type: circle;
+    margin-left: 3em;
+}
+
+.resource div.text {
+    text-align: left;
+}
+
+.resource div.spacer {
+    height: 2em;
+}
+
 .microBadge {
     background: transparent url(../img/badge.png) center center no-repeat;
     background-size: contain;
