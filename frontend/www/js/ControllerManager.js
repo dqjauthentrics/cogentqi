@@ -67,14 +67,10 @@ angular.module('ControllerManager', [])
 				})
 
 	.controller('MemberCtrl',
-				function ($scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments, Organizations,
-						  Members) {
+				function ($rootScope, $scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments,
+						  Organizations, Members) {
 					$scope.data = {dirty: false, member: {}, user: $cookieStore.get('user')};
-					$scope.roleNames = [
-						{value: 'M', text: 'Manager'},
-						{value: 'P', text: 'Pharmacist'},
-						{value: 'T', text: 'Pharmacy Technician'}
-					];
+					$scope.roles = $rootScope.roles;
 
 					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 						Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
@@ -92,10 +88,11 @@ angular.module('ControllerManager', [])
 						$location.url("/manager/member/notes/" + $stateParams.memberId);
 					};
 					$scope.canEdit = function () {
-						return $scope.data.user.roleId != 'T';
+						return $scope.data.user.roleId == 'M' || $scope.data.user.roleId == 'A';
 					};
 					$scope.save = function () {
-						$ionicPopup.alert({title: 'Demonstration', template: 'Sorry, this is not available in demonstration.'});
+						Members.saveProfile($scope.data.member, Utility.statusAlert);
+						$scope.data.dirty = false;
 					};
 					$scope.setDirty = function () {
 						$scope.data.dirty = true;
@@ -104,8 +101,8 @@ angular.module('ControllerManager', [])
 						return $scope.data.dirty;
 					};
 					$scope.showRole = function () {
-						var selected = $filter('filter')($scope.roleNames, {value: $scope.data.member.roleId});
-						return ($scope.data.member.roleId && selected.length) ? selected[0].text : 'Not set';
+						var selected = $filter('filter')($scope.roles, {id: $scope.data.member.roleId});
+						return ($scope.data.member.roleId && selected.length) ? selected[0].n : 'Not set';
 					};
 				})
 

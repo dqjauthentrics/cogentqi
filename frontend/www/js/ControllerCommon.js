@@ -153,10 +153,11 @@ angular.module('ControllerCommon', [])
 							}
 							else {
 								if (!Utility.empty($stateParams.memberId)) {
-									$scope.res = $resource('/api/assessment/new/:memberId');
-									$scope.res.get({memberId: $stateParams.memberId}, function (response) {
+									var user = $cookieStore.get('user');
+									$scope.res = $resource('/api/assessment/new/:assessorId/:memberId');
+									$scope.res.get({assessorId: user.id, memberId: $stateParams.memberId}, function (response) {
 										$scope.data.assessment = response;
-										$scope.data.assessor = $cookieStore.get('user');
+										$scope.data.assessor = $scope.data.assessment.assessor.id;
 										$scope.getRecommendations();
 									});
 								}
@@ -186,6 +187,7 @@ angular.module('ControllerCommon', [])
 						confirmPopup.then(function (res) {
 							if (res) {
 								$scope.data.assessment.es = ($scope.data.assessment.es == 'L' ? 'A' : 'L');
+								$scope.res = $resource('/api/assessment/:id');
 								$scope.res.save({assessment: $scope.data.assessment});
 							}
 						});
@@ -194,12 +196,14 @@ angular.module('ControllerCommon', [])
 						var icon = $(event.target).find("i");
 						var saveClass = icon.attr("class");
 						icon.attr("class", "").addClass("fa fa-spinner fa-spin");
+						$scope.res = $resource('/api/assessment/:id');
 						$scope.res.save({assessment: $scope.data.assessment}, function () {
 							icon.attr("class", saveClass);
 							$scope.data.dirty = false;
 						});
 					};
 					$scope.remove = function () {
+						$scope.res = $resource('/api/assessment/:id');
 						$scope.res.delete({assessment: $scope.data.assessment});
 					};
 					$scope.canEdit = function () {

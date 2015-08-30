@@ -1,48 +1,49 @@
 'use strict';
 
 angular.module('app',
-			   [
-				   'ionic',
-				   'angularLoad',
-				   'highcharts-ng',
-				   'ngSanitize',
-				   /*				   'ngTouch', */
-				   'ngCookies',
-				   'ngAnimate',
-				   'ngResource',
-				   'xeditable',
-				   'vr.directives.slider',
-				   'youtube-embed',
-				   'webcam',
-				   'Routing',
-				   'Icons',
-				   'PDF',
-				   'Instruments',
-				   'Settings',
-				   'Plans',
-				   'Utility',
-				   'Authentication',
-				   'Quizzes',
-				   'Organizations',
-				   'Members',
-				   'MemberNotes',
-				   'Assessments',
-				   'Resources',
-				   'LearningModules',
-				   'Outcomes',
-				   'ControllerCommon',
-				   'ControllerManager',
-				   'ControllerAdministrator',
-				   'ControllerProfessional'
-			   ]
+	[
+		'ionic',
+		'angularLoad',
+		'highcharts-ng',
+		'ngSanitize',
+		/*				   'ngTouch', */
+		'ngCookies',
+		'ngAnimate',
+		'ngResource',
+		'xeditable',
+		'vr.directives.slider',
+		'youtube-embed',
+		'webcam',
+		'Roles',
+		'Routing',
+		'Icons',
+		'PDF',
+		'Instruments',
+		'Settings',
+		'Plans',
+		'Utility',
+		'Authentication',
+		'Quizzes',
+		'Organizations',
+		'Members',
+		'MemberNotes',
+		'Assessments',
+		'Resources',
+		'LearningModules',
+		'Outcomes',
+		'ControllerCommon',
+		'ControllerManager',
+		'ControllerAdministrator',
+		'ControllerProfessional'
+	]
 )
 	.config([
-				'$httpProvider', function ($httpProvider) {
-					$httpProvider.defaults.useXDomain = true;
-					delete $httpProvider.defaults.headers.common['X-Requested-With'];
-				}
-			])
-	.run(function ($ionicPlatform, $ionicPopup, $rootScope, $location, $window, $cookieStore, editableOptions, angularLoad, Icons, Utility, Authentication) {
+		'$httpProvider', function ($httpProvider) {
+			$httpProvider.defaults.useXDomain = true;
+			delete $httpProvider.defaults.headers.common['X-Requested-With'];
+		}
+	])
+	.run(function ($ionicPlatform, $ionicPopup, $rootScope, $location, $window, $cookieStore, editableOptions, angularLoad, Icons, Utility, Roles, Authentication) {
 			 $ionicPlatform.ready(function () {
 
 				 $rootScope.i = Icons;
@@ -67,6 +68,9 @@ angular.module('app',
 					 // org.apache.cordova.statusbar required
 					 StatusBar.styleDefault();
 				 }
+				 Utility.getResource(Roles.retrieve(), function (response) {
+					 $rootScope.roles = response;
+				 });
 
 				 angularLoad.loadCSS('/site/' + subdomain + '/theme.css').then(function () {
 				 }).catch(function () {
@@ -169,6 +173,13 @@ angular.module('app',
 	.directive('assessmentItem', function () {
 				   return {restrict: 'E', templateUrl: '../templates/common/assessmentItem.html', scope: {assessment: '=', i: '=', showMember: '=', site: '='}};
 			   })
+	.directive('assessmentList', function () {
+				   return {
+					   restrict: 'E',
+					   templateUrl: '../templates/common/assessmentList.html',
+					   scope: {i: '=', assessments: '=', showMember: '=', site: '='}
+				   };
+			   })
 	.directive('levelTag', function () {
 				   return {
 					   restrict: 'E',
@@ -267,12 +278,12 @@ angular.module('app',
 			   })
 
 	.filter('currentDateTime', [
-				'$filter', function ($filter) {
-					return function () {
-						return $filter('date')(new Date(), 'medium');
-					};
-				}
-			])
+		'$filter', function ($filter) {
+			return function () {
+				return $filter('date')(new Date(), 'medium');
+			};
+		}
+	])
 	.filter("timeAgo", function () {
 				//time: the time
 				//local: compared to what time? default: now
@@ -306,13 +317,13 @@ angular.module('app',
 
 					var
 						offset = Math.abs((local - time) / 1000),
-						span = [],
+						span   = [],
 						MINUTE = 60,
-						HOUR = 3600,
-						DAY = 86400,
-						WEEK = 604800,
-						MONTH = 2629744,
-						YEAR = 31556926,
+						HOUR   = 3600,
+						DAY    = 86400,
+						WEEK   = 604800,
+						MONTH  = 2629744,
+						YEAR   = 31556926,
 						DECADE = 315569260;
 
 					if (offset <= MINUTE) {

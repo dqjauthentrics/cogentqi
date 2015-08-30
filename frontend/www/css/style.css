@@ -513,6 +513,18 @@ table.cycle {
     color: #FFF;
 }
 
+.yesNoColor0, .yesNoColor0:hover {
+    color: #AAA;
+}
+
+.yesNoColor1, .yesNoColor1:hover {
+    color: #FF0000;
+}
+
+.yesNoColor2, .yesNoColor2:hover {
+    color: #008000;
+}
+
 .rubric {
     margin: 0.3em;
     border: 0 solid #AAA;
@@ -568,6 +580,30 @@ table.cycle {
 .levelBg5 {
     background: #C000C0;
     color: #FFF;
+}
+
+.levelColor0 {
+    color: #AAA;
+}
+
+.levelColor1 {
+    color: #BB4444;
+}
+
+.levelColor2 {
+    color: #EE7A00;
+}
+
+.levelColor3 {
+    color: #FFD700;
+}
+
+.levelColor4 {
+    color: #6A8;
+}
+
+.levelColor5 {
+    color: #C000C0;
 }
 
 select {
@@ -1187,4 +1223,27 @@ table.assessmentItem td {
 .iconBar {
     float: right;
     margin-right: 0.4em;
+}
+
+table.items {
+    border: 1px solid #AAA;
+    width: 100%;
+}
+
+table.items td, table.items th {
+    padding: 0.5em;
+}
+
+table.items th {
+    font-weight: bold;
+    background: #555;
+    color: #FFF;
+}
+
+table.items tr:nth-child(even) {
+    background: #F0F5FF;
+}
+
+table.items tr:nth-child(odd) {
+    background: #FFFFE0;
 }

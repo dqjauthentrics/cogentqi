@@ -3,52 +3,54 @@
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content class="padding detail" has-bouncing="false" id="profile">
         <div class="iconBar">
-            <button class="button button-action button-save" ng-click="save()" ng-show="isDirty()"><i class="{{i.save}}"></i></button>
+            <button class="button button-action button-save button-dirty" ng-click="save()" ng-show="isDirty()">
+                <i class="{{i.save}}"></i>
+            </button>
+            <button class="button button-action" data-ng-if="data.member.assessments.length > 0" data-ng-click="goToProgress()">
+                <i class="{{i.reports}}"></i>
+            </button>
+            <button class="button button-action" data-ng-if="data.member.assessments.length > 0" data-ng-click="goToBarProgress()">
+                <i class="{{i.barChart}}"></i>
+            </button>
+            <button class="button button-action" data-ng-if="data.member.assessments.length > 0" data-ng-click="goToNotes()">
+                <i class="{{i.stickyNote}}"></i>
+            </button>
         </div>
-        <div class="row row-responsive-sm">
-            <div class="col col-25 padding">
-
-                <avatar site="siteDir()" sz="'large'" member-id="data.member.id" level="data.member.level" alt="avatarAlt(data.member)"></avatar>
-                <div class="note noteIcon" data-ng-click="goToNotes()"></div>
-                <div>
-                    <span class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.firstName">
+        <div class="row responsive-md">
+            <div class="col col-25 padding card">
+                <div style="margin: 0 auto; text-align: center;">
+                    <div>
+                        <avatar site="siteDir()" sz="'large'" member-id="data.member.id" level="data.member.level" alt="avatarAlt(data.member)"></avatar>
+                    </div>
+                    <div class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.firstName">
                         {{ data.member.firstName || 'empty' }}
-                    </span>
-                    <span class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.lastName">
+                    </div>
+                    <div class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.lastName">
                         {{ data.member.lastName || 'empty' }}
-                    </span>
+                    </div>
+                    <div class="role" onaftersave="setDirty()" editable-select="data.member.roleId" e-ng-options="r.id as r.n for r in roles">
+                        {{ showRole() }}
+                    </div>
                 </div>
-
-                <span class="role" onaftersave="setDirty()" editable-select="data.member.roleId" e-ng-options="r.value as r.text for r in roleNames">
-                    {{ showRole() }}
-                </span>
-
                 <h3 data-ng-if="data.member.badges.length > 0">Badges</h3>
 
-                <div style="float:left; margin: 0.5em;" data-ng-repeat="badge in data.member.badges">
+                <div style="float:left; margin: 0.5em; text-align: center;" data-ng-repeat="badge in data.member.badges">
                     <micro-badge text="badge.title" size="'small'"></micro-badge>
                 </div>
             </div>
-            <div class="col col-75 padding">
-                <h3>Assessments to Date
-                    <a style="font-size:1.6em; margin:0.5em;" data-ng-if="data.member.assessments.length > 0" data-ng-click="goToProgress()"><i
-                            class="{{i.reports}}"></i></a>
-                    <a style="font-size:1.6em; margin:0.5em;" data-ng-if="data.member.assessments.length > 0" data-ng-click="goToBarProgress()"><i
-                            class="{{i.barChart}}"></i></a>
-                </h3>
+            <div class="col padding card">
+                <h3>Assessments to Date</h3>
 
-                <div data-ng-repeat="assessment in data.member.assessments">
-                    <assessment-item site="siteDir()" assessment="assessment" i="i"></assessment-item>
-                </div>
+                <assessment-list i="i" site="siteDir()" show-member="false" assessments="data.member.assessments"></assessment-list>
                 <div>
                     <a class="button button-action button-new button-small" href="#/manager/assessment/n/{{data.member.id}}" title="Add a new assessment.">
                         <i class="{{i.add}}"></i> Add
                     </a>
                 </div>
-
+            </div>
+            <div class="col padding card">
                 <h3>Events</h3>
-
-                <table class="events">
+                <table class="events items">
                     <thead>
                     <tr>
                         <th colspan="2" style="text-align: left;">Occurred</th>
@@ -65,10 +67,6 @@
                     </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-        <div class="row responsive-sm">
-            <div class="col col-100 padding">
             </div>
         </div>
         <style>

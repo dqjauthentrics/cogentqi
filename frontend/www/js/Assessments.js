@@ -18,12 +18,6 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		}
 		return null;
 	};
-	svc.create = function (assessorId, memberId, instrumentId) {
-		if (!Utility.empty(assessorId) && !Utility.empty(memberId) && !Utility.empty(instrumentId)) {
-			return $resource('/api/assessment/new/' + assessorId + '/' + memberId + '/' + instrumentId, {}, {query: {method: 'GET', isArray: false}});
-		}
-		return null;
-	};
 
 	svc.associateMembers = function (assessments, members) {
 		if (!Utility.empty(assessments) && !Utility.empty(members)) {

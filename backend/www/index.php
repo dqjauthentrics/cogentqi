@@ -40,7 +40,7 @@ $api->get("/test", function () use ($api, $installation) {
 if (!empty($objectNS)) {
 	$auth = new Authentication($api);
 	$user = $auth->check();
-	if (!empty($user) || $object = "Authentication") {
+	if (!empty($user) || $object == "Authentication") {
 		new $objectNS($api);
 		$api->setUser($user);
 	}

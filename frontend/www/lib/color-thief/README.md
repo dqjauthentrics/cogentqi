@@ -4,6 +4,7 @@ A script for grabbing the color palette from an image. Uses Javascript and the c
 
 [See a Demo](http://lokeshdhakar.com/projects/color-thief) | [Read more on my blog](http://lokeshdhakar.com/color-thief)
 
+
 ##How to use
 
 ###Get the dominant color from an image
@@ -31,20 +32,19 @@ getPalette(sourceImage[, colorCount, quality])
 returns [ [num, num, num], [num, num, num], ... ]
 ```
 
-##Credits and license
 
-###Author
-by Lokesh Dhakar  
-[lokeshdhakar.com](http://www.lokeshdhakar.com)  
-[twitter.com/lokesh](http://twitter.com/lokesh)
+## Changelog
 
-###Thanks
-* Nick Rabinowitz - For creating quantize.js.
-* John Schulz - For clean up and optimization. @JFSIII
-* Nathan Spady - For adding drag and drop support to the demo page.
+### v2.0.1 - UNRELEASED
 
-###License
-Licensed under the [Creative Commons Attribution 2.5 License](http://creativecommons.org/licenses/by/2.5/)
+- [Fix] MMCQ lib issues [#16](https://github.com/lokesh/color-thief/pull/16) by @nobodypb
+- [Fix] Incorrect bower.json main property path. [#37](https://github.com/lokesh/color-thief/pull/37) by @chellem, @joscha, @dkushner
+- [Fix] Quality less than 1 causes infinite loop [#33](https://github.com/lokesh/color-thief/pull/33) by @nteike
+- [Fix] MMCQ.quantize(...) can return false or undefined thus breaking the application (#55)[https://github.com/lokesh/color-thief/pull/55] by @mhahmadi
+- [Remove] Drop version number from bower.json [#70](https://github.com/lokesh/color-thief/pull/70) by @kkirsche
 
-* Free for use in both personal and commercial projects.
-* Attribution requires leaving author name, author homepage link, and the license info intact.
+### v2.0.0 - 2013-06-23
+
+- Embed quantize into color thief file
+- Strip out jQuery requirement
+- Credit those who helped with edits - Nathan Spady for drag and drop support.

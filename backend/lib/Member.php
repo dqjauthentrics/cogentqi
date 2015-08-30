@@ -19,6 +19,28 @@ class Member extends Model {
 			}
 			$this->api->sendResult($jsonRecords);
 		});
+
+		$this->api->post("/$urlName/saveProfile", function () {
+			$post = $this->api->request()->post();
+			if (!empty($post["member"])) {
+				$member = $post["member"];
+				if (!empty($member)) {
+					$memberRecord = $this->api->db->member()->where('id', $member["id"])->fetch();
+					if (!empty($memberRecord)) {
+						$memberRecord["first_name"] = $member["firstName"];
+						$memberRecord["last_name"] = $member["lastName"];
+						$memberRecord["role_id"] = $member["roleId"];
+						$result = $memberRecord->update();
+						if ($result !== FALSE) {
+							echo "1";
+							die();
+						}
+					}
+				}
+			}
+			echo "0";
+			die();
+		});
 	}
 
 	/**

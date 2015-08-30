@@ -170,22 +170,27 @@ class Model {
 		return $jsonRecord;
 	}
 
+	private function mapRecords($records) {
+		$jsonRecords = [];
+		foreach ($this->api->db->{$this->tableName}() as $dbRecord) {
+			$mapped = $this->map($dbRecord);
+			if ($mapped !== NULL) {
+				$jsonRecords[] = $mapped;
+			}
+		}
+		return $jsonRecords;
+	}
+
 	/**
 	 */
 	public function initializeRoutes() {
 		$urlName = $this->urlName();
 		$this->api->get("/$urlName", function ($parentId = NULL) use ($urlName) {
-			$jsonRecords = [];
-			foreach ($this->api->db->{$this->tableName}() as $dbRecord) {
-				$jsonRecords[] = $this->map($dbRecord);
-			}
+			$jsonRecords = $this->mapRecords($this->api->db->{$this->tableName}());
 			$this->api->sendResult($jsonRecords);
 		});
 		$this->api->get("/$urlName/children/:parentId", function ($parentId = NULL) {
-			$jsonRecords = [];
-			foreach ($this->api->db->{$this->tableName}()->where("parent_id=?", $parentId) as $dbRecord) {
-				$jsonRecords[] = $this->map($dbRecord);
-			}
+			$jsonRecords = $this->mapRecords($this->api->db->{$this->tableName}()->where("parent_id=?", $parentId));
 			$this->api->sendResult($jsonRecords);
 		});
 		$this->api->get("/$urlName/:id", function ($id) use ($urlName) {

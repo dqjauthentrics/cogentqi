@@ -38,14 +38,12 @@ class Resource extends Model {
 							}
 							else {
 								$record["weight"] = $weight;
-								echo "SAVE:".$record["question_id"]."=".$record["weight"]."\n";
 								$result = $record->update();
 							}
 						}
 						else {
 							if (!empty($weight)) {
 								$resourceAlignment = ['resource_id' => $resourceId, 'question_id' => $questionId, 'weight' => $weight];
-								echo "save:" . json_encode($resourceAlignment) . "\n";
 								$result = $this->api->db->resource_alignment()->insert($resourceAlignment);
 							}
 						}

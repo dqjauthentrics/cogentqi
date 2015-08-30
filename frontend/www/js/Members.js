@@ -19,6 +19,22 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 		return null;
 	};
 
+	svc.saveProfile = function (member, callbackFn) {
+		var memberRec = {id: member.id, firstName: member.firstName, lastName: member.lastName, roleId: member.roleId};
+		$http({
+			method: 'POST',
+			url: "/api/member/saveProfile",
+			data: $.param({member: memberRec}),
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		}).
+			success(function (data, status, headers, config) {
+						callbackFn(1, data);
+					}).
+			error(function (data, status, headers, config) {
+					  callbackFn(0, data);
+				  });
+	};
+
 	svc.roleName = function (member) {
 		var roleName = "-unknown role-";
 		if (!Utility.empty(member)) {
@@ -34,6 +50,8 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 					return "Administrator";
 				case "M":
 					return "Manager";
+				case "N":
+					return "Nurse";
 			}
 		}
 		return roleName;

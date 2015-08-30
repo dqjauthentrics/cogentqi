@@ -1,41 +1,45 @@
 <?php
 namespace App;
+require_once "Operation.php";
 require_once "Instrument.php";
+require_once "InstrumentSchedule.php";
+use App\Operation;
 use App\Instrument;
+use App\InstrumentSchedule;
 
 require_once("AssessmentResponse.php");
 
 
 class Assessment extends Model {
-
 	const STATUS_ACTIVE = 'A';
 	const STATUS_LOCKED = 'L';
 
 	/**
 	 * Create a new assessment.
 	 *
-	 * @param int $assessorId
-	 * @param int $memberId
-	 * @param int $instrumentId
+	 * @param int                $assessorId
+	 * @param int                $memberId
+	 * @param InstrumentSchedule $scheduleItem
 	 *
 	 * @return null
 	 */
-	private function create($assessorId, $memberId, $instrumentId) {
+	private function create($assessorId, $memberId, $scheduleItem) {
 		$db = $this->api->db;
 		$assessment = NULL;
 		$db->transaction = 'BEGIN';
 		try {
 			$data = [
-				'id'            => NULL,
-				'member_id'     => $memberId,
-				'assessor_id'   => $assessorId,
-				'instrument_id' => $instrumentId,
-				'edit_status'   => Assessment::STATUS_ACTIVE,
-				'view_status'   => Assessment::STATUS_ACTIVE,
+				'id'                     => NULL,
+				'member_id'              => $memberId,
+				'assessor_id'            => $assessorId,
+				'instrument_id'          => $scheduleItem["instrument_id"],
+				'instrument_schedule_id' => $scheduleItem["id"],
+				'edit_status'            => Assessment::STATUS_ACTIVE,
+				'view_status'            => Assessment::STATUS_ACTIVE,
 			];
 			$assessment = $db->assessment()->insert($data);
 			if (!empty($assessment)) {
-				$responses = Instrument::createResponseTemplate($db, $instrumentId, $assessment["id"]);
+				$responses = Instrument::createResponseTemplate($db, $scheduleItem["instrument_id"], $assessment["id"]);
 				if (!empty($responses)) {
 					$assessment = $db->assessment()->where("id=?", $assessment["id"])->fetch();
 					if (!empty($assessment)) {
@@ -45,6 +49,9 @@ class Assessment extends Model {
 				else {
 					throw new \Exception("Unable to create assessment responses.");
 				}
+			}
+			else {
+				throw new \Exception(json_encode($this->api->pdo->errorInfo()));
 			}
 		}
 		catch (\Exception $exception) {
@@ -179,11 +186,15 @@ class Assessment extends Model {
 		 */
 		$this->api->get("/$urlName/new/:assessorId/:memberId", function ($assessorId, $memberId) use ($urlName) {
 			$db = $this->api->db;
+			$jsonRecords = NULL;
 			$member = $this->api->db->member[$memberId];
 			$roleId = $member["role_id"];
-			$schedItem = $db->instrument_schedule()->where("responsible_role_ids LIKE '%$roleId%'")->order('starts DESC')->limit(1)->fetch();
-			$assessment = $this->create($assessorId, $memberId, $schedItem["instrument_id"]);
-			$jsonRecords = $this->fill($assessment);
+			$is = new InstrumentSchedule($this->api);
+			$scheduleItem = $is->latest($roleId, Operation::EXECUTE);
+			if (!empty($scheduleItem)) {
+				$assessment = $this->create($assessorId, $memberId, $scheduleItem);
+				$jsonRecords = $this->fill($assessment);
+			}
 			$this->api->sendResult($jsonRecords);
 		});
 
