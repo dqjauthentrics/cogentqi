@@ -63,6 +63,7 @@ class Instrument extends Model {
 				$jsonAligns[] = $resAlign->map($resAlignRecord);
 			}
 			$associative["alignments"] = $jsonAligns;
+			$associative["typeName"] = $instrument->question_type["entry_type"];
 		}
 		catch (\Exception $exception) {
 			$this->api->sendError($exception);

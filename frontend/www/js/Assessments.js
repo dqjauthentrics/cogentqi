@@ -35,7 +35,6 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 	};
 
 	svc.retrieveMatrix = function (instrumentId, organizationId, isRollUp) {
-		console.log("retriever: ", instrumentId, organizationId);
 		var orgId = organizationId;
 		if (Utility.empty(orgId)) {
 			var user = $cookieStore.get('user');
@@ -44,7 +43,6 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 			}
 		}
 		if (!Utility.empty(instrumentId) && !Utility.empty(orgId)) {
-			console.log("retriever call: ", instrumentId, organizationId);
 			return $resource('/api/assessment/matrix/' + (isRollUp ? 'rollup/' : '') + orgId + '/' + instrumentId, {}, {});
 		}
 		return null;
@@ -268,13 +266,13 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 				if (currentSectionIdx > Instruments.SECTION_SUMMARY) {
 					for (var j = 0; j < sections[i].questions.length; j++) {
 						if (i == currentSectionIdx || currentSectionIdx == Instruments.SECTION_ALL) {
-							responses.push(allResponses[pos]);
+							responses.push({r: allResponses[pos], t: sections[i].questions[j].typeName});
 						}
 						pos++;
 					}
 				}
 				else {
-					responses.push(sections[i].avgRound);
+					responses.push({r: sections[i].avgRound, t: sections[i].questions[0].typeName});
 				}
 			}
 		}

@@ -95,6 +95,7 @@ angular.module('ControllerManager', [])
 						$scope.data.dirty = false;
 					};
 					$scope.setDirty = function () {
+						console.log("dirty");
 						$scope.data.dirty = true;
 					};
 					$scope.isDirty = function () {
@@ -102,7 +103,7 @@ angular.module('ControllerManager', [])
 					};
 					$scope.showRole = function () {
 						var selected = $filter('filter')($scope.roles, {id: $scope.data.member.roleId});
-						return ($scope.data.member.roleId && selected.length) ? selected[0].n : 'Not set';
+						return ($scope.data.member.roleId && !Utility.empty(selected)) ? selected[0].n : 'Not set';
 					};
 				})
 

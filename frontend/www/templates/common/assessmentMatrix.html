@@ -41,10 +41,10 @@
                         </div>
                     </td>
                     <td data-ng-repeat="response in getRowValues(dataRow) track by $index" data-ng-class="dataRow.memberId == -1? 'average':''">
-                        <div class="matrixCircle {{data.currentInstrument.id == 1?'levelBg':'yesNoBg'}}{{response|number:0}}">{{response|number:0}}</div>
+                        <div class="matrixCircle {{response.t == 'LIKERT'?'levelBg':'yesNoBg'}}{{response.r|number:0}}">{{response.r|number:0}}</div>
                     </td>
                     <td class="average">
-                        <div class="matrixCircle {{data.currentInstrument.id == 1?'levelBg':'yesNoBg'}}{{dataRow.avgRound}}">{{dataRow.avgRound}}</div>
+                        <div class="matrixCircle {{data.currentInstrument.typeName == 'LIKERT'?'levelBg':'yesNoBg'}}{{dataRow.avgRound}}">{{dataRow.avgRound}}</div>
                     </td>
                 </tr>
                 </tbody>
@@ -52,17 +52,17 @@
         </div>
         <div class="row row-responsive-sm">
             <div class="col col-40" style="text-align:right;">
-                <a data-ng-click="Instruments.sectionPrevious(data.currentInstrument)"><< {{Instruments.sectionPreviousName(data.currentInstrument)}}</a>
+                <div class="instrumentNavBtn pull-right"><a data-ng-click="previous()"><< {{previousName()}}</a></div>
             </div>
             <div class="col col-10" style="text-align:center;">|</div>
             <div class="col col-40" style="text-align:left;">
-                <a data-ng-click="Instruments.sectionNext(data.currentInstrument)">{{Instruments.sectionNextName(data.currentInstrument)}} >></a>
+                <div class="instrumentNavBtn pull-left"><a data-ng-click="next()">{{nextName()}} >></a></div>
             </div>
         </div>
         <div class="row row-responsive-sm">
             <div class="col" style="text-align:center;">
-                <a class="button" data-ng-if="!Instruments.sectionIsAll()" data-ng-click="Instruments.sectionViewAll()">View All Competencies</a>
-                <a class="button" data-ng-if="!Instruments.sectionIsSummary()" data-ng-click="Instruments.sectionViewSummary()">View Section Summary</a>
+                <a class="button" data-ng-if="!isAll()" data-ng-click="viewAll()">View All Competencies</a>
+                <a class="button" data-ng-if="!isSummary()" data-ng-click="viewSummary()">View Section Summary</a>
             </div>
         </div>
     </ion-content>

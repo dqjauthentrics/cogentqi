@@ -7,8 +7,7 @@ angular.module('ControllerAdministrator', [])
 				})
 
 	.controller('AdminMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Assessments, Organizations) {
-					$scope.Instruments = Instruments;  //@todo Remove paging need for this in views/directives?
-					$scope.data = {organizations: [], instruments: [], currentInstrument: {}, currentInstrumentId: 1};
+					$scope.data = {organizations: [], instruments: [], currentInstrument: {}, currentInstrumentId: 1, responses: []};
 
 					Utility.getResource(Instruments.retrieve(), function (response) {
 						$scope.data.instruments = response;
@@ -18,13 +17,11 @@ angular.module('ControllerAdministrator', [])
 						}
 					});
 					Utility.getResource(Organizations.retrieve(), function (response) {
-						console.log("retrieve organizations:", $stateParams);
 						$scope.data.organizations = response;
 						$scope.setCurrentInstrument($scope.currentInstrumentId);
 					});
-
-
 					$scope.setCurrentInstrument = function (instId) {
+						$scope.resetResponses();
 						var orgId = null;
 						if (!Utility.empty($stateParams)) {
 							if (!Utility.empty($stateParams.instrumentId)) {
@@ -43,11 +40,18 @@ angular.module('ControllerAdministrator', [])
 							});
 						}
 					};
+					$scope.resetResponses = function () {
+						$scope.data.responses = null;
+					};
 					$scope.getColHeaderNames = function () {
 						return Instruments.findMatrixResponseRowHeader($scope.data.currentInstrument, 20)
 					};
 					$scope.getRowValues = function (dataRow) {
-						return Assessments.findMatrixResponseRowValues($scope.data.currentInstrument, Instruments.currentSectionIdx, dataRow.responses)
+						if (Utility.empty($scope.data.responses)) {
+							$scope.data.responses = Assessments.findMatrixResponseRowValues($scope.data.currentInstrument, Instruments.currentSectionIdx, dataRow.responses);
+							console.log("retrieved:", $scope.data.responses);
+						}
+						return $scope.data.responses;
 					};
 					$scope.printIt = function () {
 						/***
@@ -66,6 +70,34 @@ angular.module('ControllerAdministrator', [])
 							width: 3000,
 							height: 3000
 						});
+					};
+					$scope.next = function () {
+						Instruments.sectionNext($scope.data.currentInstrument);
+						$scope.resetResponses();
+					};
+					$scope.previous = function () {
+						Instruments.sectionPrevious($scope.data.currentInstrument);
+						$scope.resetResponses();
+					};
+					$scope.previousName = function () {
+						return Instruments.sectionPreviousName($scope.data.currentInstrument);
+					};
+					$scope.nextName = function () {
+						return Instruments.sectionNextName($scope.data.currentInstrument);
+					};
+					$scope.viewAll = function () {
+						Instruments.sectionViewAll();
+						$scope.resetResponses();
+					};
+					$scope.viewSummary = function () {
+						Instruments.sectionViewSummary();
+						$scope.resetResponses();
+					};
+					$scope.isAll = function () {
+						Instruments.sectionIsAll();
+					};
+					$scope.isSummary = function () {
+						Instruments.sectionIsSummary();
 					};
 				})
 

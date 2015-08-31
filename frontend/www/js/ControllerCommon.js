@@ -30,8 +30,7 @@ angular.module('ControllerCommon', [])
 	])
 
 	.controller('MgrMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Assessments, Organizations, Members) {
-					$scope.Instruments = Instruments;  //@todo Remove paging need for this in assessmentMatrix.html?
-					$scope.data = {instruments: [], currentInstrument: {}, currentInstrumentId: 1};
+					$scope.data = {instruments: [], currentInstrument: {}, currentInstrumentId: 1, responses: []};
 
 					Instruments.retrieve().query(function (response) {
 						$scope.data.instruments = response;
@@ -42,6 +41,7 @@ angular.module('ControllerCommon', [])
 					});
 					$scope.setCurrentInstrument = function (instId) {
 						var orgId = null;
+						$scope.resetResponses();
 						if (!Utility.empty($stateParams)) {
 							if (!Utility.empty($stateParams.instrumentId)) {
 								instId = $stateParams.instrumentId;
@@ -59,14 +59,49 @@ angular.module('ControllerCommon', [])
 							});
 						}
 					};
+					$scope.resetResponses = function () {
+						$scope.data.responses = null;
+					};
 					$scope.getColHeaderNames = function () {
 						return Instruments.findMatrixResponseRowHeader($scope.data.currentInstrument, 20)
 					};
 					$scope.getRowValues = function (dataRow) {
-						return Assessments.findMatrixResponseRowValues($scope.data.currentInstrument, Instruments.currentSectionIdx, dataRow.responses)
+						if (Utility.empty($scope.data.responses)) {
+							$scope.data.responses =
+								Assessments.findMatrixResponseRowValues($scope.data.currentInstrument, Instruments.currentSectionIdx, dataRow.responses);
+						}
+						return $scope.data.responses;
 					};
 					$scope.findMember = function (memberId) {
 						return Utility.findObjectById($scope.data.members, memberId);
+					};
+					$scope.next = function () {
+						Instruments.sectionNext($scope.data.currentInstrument);
+						$scope.resetResponses();
+					};
+					$scope.previous = function () {
+						Instruments.sectionPrevious($scope.data.currentInstrument);
+						$scope.resetResponses();
+					};
+					$scope.previousName = function () {
+						return Instruments.sectionPreviousName($scope.data.currentInstrument);
+					};
+					$scope.nextName = function () {
+						return Instruments.sectionNextName($scope.data.currentInstrument);
+					};
+					$scope.viewAll = function () {
+						Instruments.sectionViewAll();
+						$scope.resetResponses();
+					};
+					$scope.viewSummary = function () {
+						Instruments.sectionViewSummary();
+						$scope.resetResponses();
+					};
+					$scope.isAll = function () {
+						Instruments.sectionIsAll();
+					};
+					$scope.isSummary = function () {
+						Instruments.sectionIsSummary();
 					};
 				})
 

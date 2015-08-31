@@ -62,11 +62,11 @@
                     <div style="display:none;">{{data.assessment.lm}}</div>
                     <div id="section{{$index}}" data-ng-repeat="section in data.assessment.instrument.sections" class="fadein fadeout">
                         <div data-ng-show="Instruments.sectionIsCurrent(data.assessment.instrument, section.id)">
-                            <div class="navigator previous">
+                            <div class="instrumentNavBtn pull-left">
                                 <a ng-click="Instruments.sectionPrevious(data.assessment.instrument)"><< {{section.previous}}</a>
                             </div>
-                            <div class="navigator next">
-                                <a ng-click="Instruments.sectionNext(data.assessment.instrument)">{{section.next}}>></a>
+                            <div class="instrumentNavBtn pull-right">
+                                <a ng-click="Instruments.sectionNext(data.assessment.instrument)">{{section.next}} >></a>
                             </div>
                             <div class="clearfix"></div>
                             <div style="height:1em;"></div>

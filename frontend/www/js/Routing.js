@@ -155,19 +155,19 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('manager.progress', {
 				   url: '/member/progress/:memberId',
 				   views: {
-					   managerMembers: {templateUrl: 'templates/manager/progress.html', controller: 'MemberProgressCtrl'}
+					   managerMembers2: {templateUrl: 'templates/manager/progress.html', controller: 'MemberProgressCtrl'}
 				   }
 			   })
 		.state('manager.memberProgress', {
 				   url: '/member/barProgress/:memberId',
 				   views: {
-					   managerMembers: {templateUrl: 'templates/manager/memberProgressBars.html', controller: 'MemberBarProgressCtrl'}
+					   managerMembers3: {templateUrl: 'templates/manager/memberProgressBars.html', controller: 'MemberBarProgressCtrl'}
 				   }
 			   })
 		.state('manager.memberNotes', {
 				   url: '/member/notes/:memberId',
 				   views: {
-					   managerMembers: {templateUrl: 'templates/manager/memberNotes.html', controller: 'MemberNotesCtrl'}
+					   managerMembers4: {templateUrl: 'templates/manager/memberNotes.html', controller: 'MemberNotesCtrl'}
 				   }
 			   })
 		.state('manager.assessments', {

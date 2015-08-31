@@ -11,6 +11,7 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 		return $resource('/api/instrument/:id', {}, {});
 	};
 	svc.collate = function (instruments) {
+		console.log("collate");
 		if (!Utility.empty(instruments)) {
 			for (var i = 0; i < instruments.length; i++) {
 				var instrument = instruments[i];
@@ -29,9 +30,11 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 						previous: previous,
 						questions: []
 					};
-					for (var k = 0; k < instrument.questions.length; k++) {
-						if (instrument.questions[k].questionGroupId == instrument.sections[j].id) {
-							instrument.sections[j].questions.push(instrument.questions[k]);
+					if (!Utility.empty(instrument.questions)) {
+						for (var k = 0; k < instrument.questions.length; k++) {
+							if (!Utility.empty(instrument.questions[k]) && instrument.questions[k].questionGroupId == instrument.sections[j].id) {
+								instrument.sections[j].questions.push(instrument.questions[k]);
+							}
 						}
 					}
 				}

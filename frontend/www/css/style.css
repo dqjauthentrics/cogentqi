@@ -201,36 +201,6 @@ ion-item .listIcon {
     margin: 0.5em;
 }
 
-.assessment .navigator {
-    padding: 0.6em;
-    /**
-    background: gray;
-    color: #FFF;
-    border: 1px solid gray;
-    **/
-    font-weight: bold;
-    font-size: 1.5vw;
-}
-
-.assessment .navigator a, .assessment .navigator a:visited, .assessment .navigator a:hover {
-    color: #444;
-    text-decoration: none;
-}
-
-.assessment .navigator a:hover {
-    color: #888;
-}
-
-.assessment .previous {
-    float: left;
-    margin-left: 1em;
-}
-
-.assessment .next {
-    float: right;
-    margin-right: 1em;
-}
-
 .assessment .button-bar {
     float: right;
     margin: 0.5em;
@@ -1246,4 +1216,26 @@ table.items tr:nth-child(even) {
 
 table.items tr:nth-child(odd) {
     background: #FFFFE0;
+}
+
+.instrumentNavBtn {
+    width: 280px;
+    height: 50px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0.2em;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.instrumentNavBtn a, .instrumentNavBtn a:visited, .instrumentNavBtn a:hover {
+    color: #444;
+    text-decoration: none;
+    width: 100%;
+}
+
+.instrumentNavBtn a:hover {
+    color: #888;
 }

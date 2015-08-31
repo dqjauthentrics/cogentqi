@@ -43,7 +43,9 @@ class Organization extends Model {
 					];
 				}
 			}
-			array_unshift($jsonRecords, $parentJson);
+			if (!empty($parentJson)) {
+				array_unshift($jsonRecords, $parentJson);
+			}
 			$this->api->sendResult($jsonRecords);
 		});
 
