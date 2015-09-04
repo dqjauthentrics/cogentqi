@@ -43,6 +43,7 @@ angular.module('Icons', []).service('Icons', function () {
 	this.barChart = "fa fa-bar-chart";
 	this.resource = "ion-university";
 	this.save = "ion-android-cloud-done";
+	this.schedule = "fa fa-calendar";
 	this.signIn = "fa fa-entrance";
 	this.signOut = "ion-power";
 	this.slider = "ion-android-options";

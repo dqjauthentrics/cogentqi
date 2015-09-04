@@ -6,7 +6,8 @@ angular.module('app',
 		'angularLoad',
 		'highcharts-ng',
 		'ngSanitize',
-		/*				   'ngTouch', */
+		'pascalprecht.translate',
+		/*'ngTouch', */
 		'ngCookies',
 		'ngAnimate',
 		'ngResource',
@@ -19,6 +20,7 @@ angular.module('app',
 		'Icons',
 		'PDF',
 		'Instruments',
+		'InstrumentSchedule',
 		'Settings',
 		'Plans',
 		'Utility',
@@ -43,7 +45,22 @@ angular.module('app',
 			delete $httpProvider.defaults.headers.common['X-Requested-With'];
 		}
 	])
-	.run(function ($ionicPlatform, $ionicPopup, $rootScope, $location, $window, $cookieStore, editableOptions, angularLoad, Icons, Utility, Roles, Authentication) {
+
+	.config([
+		'$translateProvider', function ($translateProvider) {
+			var subdomain = 'nursing';
+			$translateProvider.useStaticFilesLoader({
+				prefix: '/site/' + subdomain + '/translations/locale-',
+				suffix: '.json'
+			});
+			$translateProvider.useSanitizeValueStrategy('sanitize');
+			$translateProvider.preferredLanguage('en_US');
+		}
+	])
+
+	.run(function ($ionicPlatform, $ionicPopup, $rootScope, $location, $window, $cookieStore,
+				   editableOptions, angularLoad, Icons, Utility, Roles,
+				   Authentication) {
 			 $ionicPlatform.ready(function () {
 
 				 $rootScope.i = Icons;
@@ -281,6 +298,13 @@ angular.module('app',
 		'$filter', function ($filter) {
 			return function () {
 				return $filter('date')(new Date(), 'medium');
+			};
+		}
+	])
+	.filter('replace', [
+		'$filter', function ($filter) {
+			return function (src, searchText, replaceText) {
+				return src.replace(searchText, replaceText);
 			};
 		}
 	])

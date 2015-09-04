@@ -25,12 +25,13 @@ class Member extends Model {
 			if (!empty($post["member"])) {
 				$member = $post["member"];
 				if (!empty($member)) {
+					/** @var \NotORM_Result $memberRecord */
 					$memberRecord = $this->api->db->member()->where('id', $member["id"])->fetch();
 					if (!empty($memberRecord)) {
-						$memberRecord["first_name"] = $member["firstName"];
-						$memberRecord["last_name"] = $member["lastName"];
-						$memberRecord["role_id"] = $member["roleId"];
-						$result = $memberRecord->update();
+						$data["first_name"] = $member["firstName"];
+						$data["last_name"] = $member["lastName"];
+						$data["role_id"] = $member["roleId"];
+						$result = $memberRecord->update($data);
 						if ($result !== FALSE) {
 							echo "1";
 							die();
@@ -44,7 +45,7 @@ class Member extends Model {
 	}
 
 	/**
-	 * @param array $member
+	 * @param \NotORM_Result $member
 	 *
 	 * @return array
 	 */

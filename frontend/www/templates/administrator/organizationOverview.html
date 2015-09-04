@@ -7,7 +7,8 @@
             <div class="col col-25">
                 <ion-list>
                     <ion-item class="header"><i class="{{i.tree}}"></i> {{data.parentOrg.name}}</ion-item>
-                    <ion-item data-ng-class="isCurrent(organization)? 'active':''" class="item-icon-right" data-ng-repeat="organization in data.organizations"
+                    <ion-item data-ng-class="isCurrent(organization)? 'active':''" class="item-icon-right"
+                              data-ng-repeat="organization in data.organizations"
                               type="item-text-wrap" data-ng-click="setCurrentOrg(organization)">
                         <i class="{{organization.nc > 0? i.tree : i.organization}}"></i> {{organization.name}}
                         <i style="color:black;" class="icon ion-chevron-right icon-accessory" data-ng-show="isCurrent(organization)"></i>
@@ -17,10 +18,13 @@
             <div class="col col-75">
                 <div class="detail" style="background:#DDD;">
                     <div style="float:right;">
-                        <button class="button button-action button-save" data-ng-click="save()" ng-show="isDirty()"><i class="{{i.save}}"></i></button>
-                        <button class="button button-action button-general"  data-ng-if="data.currentMembers !== undefined > 0"
-                           data-ng-click="orgMatrix(data.currentOrg.id)"><i class="{{i.grid}}"></i></button>
-                        <button class="button button-action button-general" data-ng-if="data.currentOrg.nc" data-ng-click="drilldown(data.currentOrg.id)">
+                        <button class="button button-action button-save" data-ng-click="save()" ng-show="isDirty()">
+                            <i class="{{i.save}}"></i>
+                        </button>
+                        <button class="button button-action button-general" data-ng-if="data.currentMembers !== undefined > 0"
+                                data-ng-click="orgMatrix(data.currentOrg.id)"><i class="{{i.grid}}"></i></button>
+                        <button class="button button-action button-general" data-ng-if="data.currentOrg.nc"
+                                data-ng-click="drilldown(data.currentOrg.id)">
                             <i class="{{i.tree}}"></i>
                         </button>
                     </div>
@@ -34,19 +38,25 @@
                             <tr>
                                 <td class="label">phone</td>
                                 <td>
-                                    <div onaftersave="setDirty()" edit-disabled="!data.canEdit" editable-text="data.currentOrg.ph">{{data.currentOrg.ph || 'empty'}}</div>
+                                    <div onaftersave="setDirty()" edit-disabled="!data.canEdit" editable-text="data.currentOrg.ph">{{data.currentOrg.ph ||
+                                        'empty'}}
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="label">fax</td>
                                 <td>
-                                    <div onaftersave="setDirty()" edit-disabled="!data.canEdit" editable-text="data.currentOrg.fx">{{data.currentOrg.fx || 'empty'}}</div>
+                                    <div onaftersave="setDirty()" edit-disabled="!data.canEdit" editable-text="data.currentOrg.fx">{{data.currentOrg.fx ||
+                                        'empty'}}
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="label">address</td>
                                 <td>
-                                    <div onaftersave="setDirty()" edit-disabled="!data.canEdit" editable-text="data.currentOrg.ad">{{data.currentOrg.ad || 'empty'}}</div>
+                                    <div onaftersave="setDirty()" edit-disabled="!data.canEdit" editable-text="data.currentOrg.ad">{{data.currentOrg.ad ||
+                                        'empty'}}
+                                    </div>
                                     <span onaftersave="setDirty()" edit-disabled="!data.canEdit" editable-text="data.currentOrg.cy">{{data.currentOrg.cy || 'empty'}}</span>,
                                     <span onaftersave="setDirty()" edit-disabled="!data.canEdit" editable-text="data.currentOrg.st">{{data.currentOrg.st || 'empty'}}</span>
                                     <span onaftersave="setDirty()" edit-disabled="!data.canEdit" editable-text="data.currentOrg.zc">{{data.currentOrg.zc || 'empty'}}</span>
@@ -65,7 +75,7 @@
                     </ion-item>
                 </ion-list>
                 <div data-ng-if="data.currentMembers.length == 0">
-                    This organization has no direct members.
+                    {{'This organization has no direct members.'|translate}}
                 </div>
             </div>
         </div>

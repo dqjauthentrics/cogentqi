@@ -7,7 +7,7 @@
         </div-->
         <div style="text-align:center; margin-top: 1em;">
             <h3>{{data.currentInstrument.name}}</h3>
-            <h4>Competency Summary Matrix</h4>
+            <h4>{{'Competency Summary Matrix'|translate}}</h4>
             <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId"
                     data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
                     data-ng-options="instrument.id as instrument.name for instrument in data.instruments">
@@ -22,7 +22,7 @@
                         <div><span>{{name}}</span></div>
                     </th>
                     <th class="rotate">
-                        <div><span style="font-weight:bold; color:#555; font-style:italic;">Averages</span></div>
+                        <div><span style="font-weight:bold; color:#555; font-style:italic;">{{'Averages'|translate}}</span></div>
                     </th>
                 </tr>
                 </thead>
@@ -43,17 +43,17 @@
         </div>
         <div class="row row-responsive-sm">
             <div class="col col-40" style="text-align:right;">
-                <div class="instrumentNavBtn pull-right"><a data-ng-click="previous()"><< {{previousName()}}</a></div>
+                <div class="instrumentNavBtn pull-right"><a data-ng-click="previous()"><< {{previousName()|translate}}</a></div>
             </div>
             <div class="col col-10" style="text-align:center;">|</div>
             <div class="col col-40" style="text-align:left;">
-                <div class="instrumentNavBtn pull-left"><a data-ng-click="next()">{{nextName()}} >></a></div>
+                <div class="instrumentNavBtn pull-left"><a data-ng-click="next()">{{nextName()|translate}} >></a></div>
             </div>
         </div>
         <div class="row row-responsive-sm">
             <div class="col" style="text-align:center;">
-                <a class="button" data-ng-if="!isAll()" data-ng-click="viewAll()">View All Competencies</a>
-                <a class="button" data-ng-if="!isSummary()" data-ng-click="viewSummary()">View Section Summary</a>
+                <a class="button" data-ng-if="!isAll()" data-ng-click="viewAll()">{{'View All Competencies'|translate}}</a>
+                <a class="button" data-ng-if="!isSummary()" data-ng-click="viewSummary()">{{'View Section Summary'|translate}}</a>
             </div>
         </div>
     </ion-content>

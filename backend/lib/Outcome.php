@@ -6,8 +6,19 @@ require_once "../lib/OrganizationOutcome.php";
 class Outcome extends Model {
 	private $singleOrganizationId = NULL;
 
-	function initialize() {
-		parent::initialize();
+	private function find($outcomeId, $questionId, $records) {
+		if (!empty($records)) {
+			foreach ($records as $record) {
+				if ($record["question_id"] == $questionId && $record["outcome_id"] == $outcomeId) {
+					return $record;
+				}
+			}
+		}
+		return NULL;
+	}
+
+	public function initializeRoutes() {
+		parent::initializeRoutes();
 
 		$urlName = $this->urlName();
 		$this->api->get("/$urlName/organization/:organizationId", function ($organizationId = NULL) use ($urlName) {
@@ -17,6 +28,40 @@ class Outcome extends Model {
 				$jsonRecords[] = $this->map($dbRecord);
 			}
 			$this->api->sendResult($jsonRecords);
+		});
+
+		$this->api->post("/$urlName/saveAlignments", function () {
+			$post = $this->api->request()->post();
+			if (!empty($post["outcomeId"]) && !empty($post["instrumentId"]) && !empty($post["alignments"])) {
+				$outcomeId = $post["outcomeId"];
+				$instrumentId = $post["instrumentId"];
+				$alignments = $post["alignments"];
+				if (!empty($alignments)) {
+					$records = $this->api->db->outcome_alignment()
+						->where(
+							'outcome_id=? AND (question_id IN (SELECT id FROM question WHERE question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?)))',
+							$outcomeId, $instrumentId
+						);
+					foreach ($alignments as $questionId => $weight) {
+						$record = $this->find($outcomeId, $questionId, $records);
+						if (!empty($record)) {
+							if (empty($weight)) {
+								$record->delete();
+							}
+							else {
+								$record["weight"] = $weight;
+								$result = $record->update();
+							}
+						}
+						else {
+							if (!empty($weight)) {
+								$alignment = ['outcome_id' => $outcomeId, 'question_id' => $questionId, 'weight' => $weight];
+								$result = $this->api->db->outcome_alignment()->insert($alignment);
+							}
+						}
+					}
+				}
+			}
 		});
 	}
 

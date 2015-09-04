@@ -6,9 +6,11 @@
                 <div class="dashJob">{{data.user.jobTitle}}</div>
                 <div class="dashRole" data-ng-if="data.user.role != data.user.jobTitle">({{data.user.role}})</div>
             </div>
-            <a style="margin-left:1.5em;" href="#/{{data.role}}/dashboard/matrix/">Assessment</a>
+            <a style="margin-left:1.5em;" href="#/{{data.role}}/dashboard/matrix/">{{'Assessment'|translate}}</a>
         </td>
-        <td style="text-align:center; vertical-align: bottom !important;"><a style="margin-left:-1em;" href="#/{{data.role}}/outcomes">Outcomes</a></td>
+        <td style="text-align:center; vertical-align: bottom !important;">
+            <a style="margin-left:-1em;" href="#/{{data.role}}/outcomes">{{'Outcomes'|translate}}</a>
+        </td>
     </tr>
     <tr>
         <td colspan="2">
@@ -19,11 +21,12 @@
     </tr>
     <tr>
         <td style="text-align:left; vertical-align: top !important;">
-            <div style="margin-left:1.0em;"><a href="#/{{data.role}}/{{(data.role=='administrator'? 'progress':'resources')}}">Professional<br/>Development</a>
+            <div style="margin-left:1.0em;"><a href="#/{{data.role}}/{{(data.role=='administrator'? 'progress':'resources')}}"
+                                               ng-bind-html="'Professional Development'|translate|replace:' ':'<br/>'"></a>
             </div>
         </td>
         <td style="text-align:left; vertical-align: top !important; padding-top:1.4em;">
-            <a href="#/{{data.role}}/planning" style="margin-left:-1.6em;">Planning</a>
+            <a href="#/{{data.role}}/planning" style="margin-left:-1.6em;">{{'Planning'|translate}}</a>
         </td>
     </tr>
 </table>

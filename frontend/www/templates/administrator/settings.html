@@ -6,13 +6,19 @@
             <div class="col col-50" style="text-align: center;">
                 <canvas id="snapshot" width="320" height="240"></canvas>
                 <div class="clearfix"></div>
-                <button data-ng-show="shotReady" class="button button-balanced" onclick="alert('Sorry, not available in demonstration mode.')">Save this as My Photo</button>
+                <button data-ng-show="shotReady" class="button button-balanced" onclick="alert('Sorry, not available in demonstration mode.')">
+                    {{'Save this as My Photo'|translate}}
+                </button>
             </div>
             <div class="col col-50" style="text-align: center;">
                 <webcam channel="webcamChannel" on-stream="webcamStream(stream)" on-streaming="webcamSuccess()" on-error="webcamError(err)"></webcam>
                 <div class="clearfix"></div>
-                <div data-ng-show="!webcamReady">Allow your browser to use your video camera (probably a message waiting for you above).</div>
-                <button data-ng-show="webcamReady" class="button button-balanced" data-ng-click="makeSnapshot()">Say "Cheese" and Press Me!</button>
+                <div data-ng-show="!webcamReady">
+                    {{'Allow your browser to use your video camera (probably a message waiting for you above).'|translate}}
+                </div>
+                <button data-ng-show="webcamReady" class="button button-balanced" data-ng-click="makeSnapshot()">
+                    'Say "Cheese" and Press Me!'|translate}}
+                </button>
             </div>
         </div>
         <div data-ng-if="isIOS">
@@ -81,9 +87,9 @@
         <div class="row responsive-sm">
             <div class="col col-100">
                 <ion-list type="card">
-                    <ion-item class="top">Settings for {{user.firstName}} {{user.lastName}}</ion-item>
+                    <ion-item class="top">{{'Settings for'|translate}} {{data.user.firstName}} {{data.user.lastName}}</ion-item>
                     <ion-item data-ng-repeat="setting in data.settings">
-                        <ion-toggle data-ng-model="settings.v">{{setting.n}}</ion-toggle>
+                        <ion-toggle data-ng-model="settings.v">{{setting.n|translate}}</ion-toggle>
                     </ion-item>
                 </ion-list>
             </div>

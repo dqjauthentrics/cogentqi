@@ -9,10 +9,10 @@
             </button>
         </div>
         <div class="detail">
-            <label for="name">Name:</label>
+            <label for="name">{{'Name:'|translate}}</label>
 
             <div id="name" class="name" editable-text="data.instrument.name">{{data.instrument.name}}</div>
-            <label for="name">Description:</label>
+            <label for="name">{{'Description:'|translate}}</label>
 
             <div id="description" class="name" editable-text="data.instrument.description">&nbsp;{{data.instrument.description}}</div>
 
@@ -33,6 +33,7 @@
         width: 95% !important;
         min-height: 8em;
     }
+
     input[type=text] {
         font-size: 2em;
     }

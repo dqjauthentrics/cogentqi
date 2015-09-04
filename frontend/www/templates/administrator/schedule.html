@@ -1,0 +1,33 @@
+<ion-view view-title="{{installation.name}}">
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+
+    <ion-content has-bouncing="false" overflow-scroll="true" style="margin-top:2em;">
+        <h1>{{'Assessment'|translate}}</h1>
+
+        <div class="row responsive-lg">
+            <div class="col">
+                <table class="items">
+                    <thead>
+                    <tr>
+                        <th>{{'Name'|translate}}</th>
+                        <th>{{'Starts'|translate}}</th>
+                        <th>{{'Ends'|translate}}</th>
+                        <th>{{'Status'|translate}}</th>
+                        <th>{{'Locked'|translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="item in data.scheduleItems" style="white-space: normal;">
+                        <td>{{item.name}}</td>
+                        <td>{{item.starts}}</td>
+                        <td>{{item.ends}}</td>
+                        <td>{{item.status}}</td>
+                        <td>{{item.lockedOn}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

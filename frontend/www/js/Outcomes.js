@@ -27,4 +27,18 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 		return null;
 	};
 
+	svc.saveAlignments = function (instrumentId, outcomeId, alignments, callbackFn) {
+		$http({
+			method: 'POST',
+			url: "/api/outcome/saveAlignments",
+			data: $.param({instrumentId: instrumentId, outcomeId: outcomeId, alignments: alignments}),
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		}).
+			success(function (data, status, headers, config) {
+						callbackFn(1, data);
+					}).
+			error(function (data, status, headers, config) {
+					  callbackFn(0, data);
+				  });
+	}
 });

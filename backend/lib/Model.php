@@ -74,6 +74,11 @@ class Model {
 		$this->initialize();
 	}
 
+	/**
+	 * @param string $mysqlDateTime
+	 *
+	 * @return bool|null|string
+	 */
 	public static function dateTime($mysqlDateTime) {
 		if (!empty($mysqlDateTime)) {
 			return date("c", strtotime($mysqlDateTime));
@@ -81,6 +86,11 @@ class Model {
 		return NULL;
 	}
 
+	/**
+	 * @param string|null $dateTimeStr
+	 *
+	 * @return bool|string
+	 */
 	public static function dbDateTme($dateTimeStr = NULL) {
 		if (empty($dateTimeStr)) {
 			$dateTimeStr = date('m/d/Y h:i:s a', time());
@@ -90,6 +100,9 @@ class Model {
 		return $mysqlDate;
 	}
 
+	/**
+	 *
+	 */
 	public function initialize() {
 		if ($this->debug) {
 			echo get_class($this) . " initializing routes..." . $this->urlName() . "\n";
@@ -97,6 +110,9 @@ class Model {
 		$this->initializeRoutes();
 	}
 
+	/**
+	 * @return string
+	 */
 	public function baseClassName() {
 		$path = explode('\\', get_class($this));
 		return array_pop($path);
@@ -111,6 +127,9 @@ class Model {
 		return $path;
 	}
 
+	/**
+	 * @return string
+	 */
 	protected function classNameToTableName() {
 		$className = $this->baseClassName();
 		$tableName = "";
@@ -124,6 +143,11 @@ class Model {
 		return strtolower($tableName);
 	}
 
+	/**
+	 * @param string $colName
+	 *
+	 * @return string
+	 */
 	protected function colNameToJsonName($colName) {
 		$jsonName = "";
 		for ($i = 0; $i < strlen($colName); $i++) {
@@ -138,7 +162,7 @@ class Model {
 	}
 
 	/**
-	 * @param array $dbRecord
+	 * @param \NotORM_Result $dbRecord
 	 *
 	 * @return array
 	 */
@@ -170,6 +194,11 @@ class Model {
 		return $jsonRecord;
 	}
 
+	/**
+	 * @param \NotORM_Result[] $records
+	 *
+	 * @return array
+	 */
 	private function mapRecords($records) {
 		$jsonRecords = [];
 		foreach ($this->api->db->{$this->tableName}() as $dbRecord) {
@@ -194,8 +223,10 @@ class Model {
 			$this->api->sendResult($jsonRecords);
 		});
 		$this->api->get("/$urlName/:id", function ($id) use ($urlName) {
+			/** @var \NotORM_Result $dbRecord */
 			$dbRecord = $this->api->db->{$this->tableName}()->where("id", $id);
-			if ($data = $dbRecord->fetch()) {
+			$data = $dbRecord->fetch();
+			if (!empty($data)) {
 				$this->api->sendResult($this->map($data));
 			}
 			else {
@@ -210,6 +241,7 @@ class Model {
 		});
 
 		$this->api->put("/$urlName/:id", function ($id) use ($urlName) {
+			/** @var \NotORM_Result $dbRecord */
 			$dbRecord = $this->api->db->{$this->tableName}()->where("id", $id);
 			if ($dbRecord->fetch()) {
 				$post = $this->api->request()->put();
@@ -222,6 +254,7 @@ class Model {
 		});
 
 		$this->api->delete("/$urlName/:id", function ($id) use ($urlName) {
+			/** @var \NotORM_Result $dbRecord */
 			$dbRecord = $this->api->db->{$this->tableName}()->where("id", $id);
 			if ($dbRecord->fetch()) {
 				$result = $dbRecord->delete();

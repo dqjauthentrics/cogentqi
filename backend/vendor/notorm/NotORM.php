@@ -35,7 +35,6 @@ abstract class NotORM_Abstract {
 	
 	protected function access($key, $delete = false) {
 	}
-	
 }
 
 
@@ -46,7 +45,7 @@ abstract class NotORM_Abstract {
 * @property-write string $rowClass = 'NotORM_Row' Class used for created objects
 * @property-write bool $jsonAsArray = false Use array instead of object in Result JSON serialization
 * @property-write string $transaction Assign 'BEGIN', 'COMMIT' or 'ROLLBACK' to start or stop transaction
-*/
+ */
 class NotORM extends NotORM_Abstract {
 	
 	/** Create database representation

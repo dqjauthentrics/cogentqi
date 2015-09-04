@@ -3,8 +3,10 @@ namespace App;
 
 class Organization extends Model {
 
+	/**
+	 * Add routes to default set for Organization.
+	 */
 	public function initializeRoutes() {
-
 		$urlName = $this->urlName();
 		$this->api->get("/$urlName/children/:parentId", function ($parentId = NULL) {
 			$jsonRecords = [];

@@ -1,34 +1,38 @@
 <!-- Each tab's child <ion-nav-view> directive will have its own navigation history that also transitions its views in and out.-->
 <ion-tabs class="tabs-icon-top tabs-assertive customerBg">
 
-    <ion-tab title="Dashboard" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/administrator/dashboard">
+    <ion-tab title="{{'Dashboard'|translate}}" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/administrator/dashboard">
         <ion-nav-view name="administratorDashboard"></ion-nav-view>
     </ion-tab>
 
-    <ion-tab title="Organizations" icon-off="{{i.organization}}" icon-on="{{i.organization}}" href="#/administrator/organization">
+    <ion-tab title="{{'Organizations'|translate}}" icon-off="{{i.organization}}" icon-on="{{i.organization}}" href="#/administrator/organization">
         <ion-nav-view name="administratorOrganization"></ion-nav-view>
     </ion-tab>
 
-    <ion-tab title="Outcomes" icon="{{i.outcome}}" href="#/administrator/outcomes">
+    <ion-tab title="{{'Schedule'|translate}}" icon="{{i.schedule}}" href="#/administrator/schedule">
+        <ion-nav-view name="administratorSchedule"></ion-nav-view>
+    </ion-tab>
+
+    <ion-tab title="{{'Outcomes'|translate}}" icon="{{i.outcome}}" href="#/administrator/outcomes">
         <ion-nav-view name="administratorOutcomes"></ion-nav-view>
     </ion-tab>
 
-    <ion-tab title="Alignments" href="#/administrator/alignments" icon="{{i.assessment}}">
+    <ion-tab title="{{'Alignments'|translate}}" href="#/administrator/alignments" icon="{{i.assessment}}">
         <ion-nav-view name="administratorAlignments"></ion-nav-view>
     </ion-tab>
 
-    <ion-tab title="Instruments" href="#/administrator/instruments" icon="{{i.instrument}}">
+    <ion-tab title="{{'Instruments'|translate}}" href="#/administrator/instruments" icon="{{i.instrument}}">
         <ion-nav-view name="administratorInstruments"></ion-nav-view>
     </ion-tab>
 
-    <ion-tab title="Resources" href="#/administrator/planning" hidden="true">
+    <ion-tab title="{{'Resources'|translate}}" href="#/administrator/planning" hidden="true">
         <ion-nav-view name="administratorPlanning"></ion-nav-view>
     </ion-tab>
-    <ion-tab title="Resources" href="#/administrator/progress" hidden="true">
+    <ion-tab title="{{'Resources'|translate}}" href="#/administrator/progress" hidden="true">
         <ion-nav-view name="administratorProgress"></ion-nav-view>
     </ion-tab>
 
-    <ion-tab title="Settings" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/administrator/settings">
+    <ion-tab title="{{'Settings'|translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/administrator/settings">
         <ion-nav-view name="administratorSettings"></ion-nav-view>
     </ion-tab>
 

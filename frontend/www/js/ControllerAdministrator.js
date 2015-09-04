@@ -48,7 +48,8 @@ angular.module('ControllerAdministrator', [])
 					};
 					$scope.getRowValues = function (dataRow) {
 						if (Utility.empty($scope.data.responses)) {
-							$scope.data.responses = Assessments.findMatrixResponseRowValues($scope.data.currentInstrument, Instruments.currentSectionIdx, dataRow.responses);
+							$scope.data.responses =
+								Assessments.findMatrixResponseRowValues($scope.data.currentInstrument, Instruments.currentSectionIdx, dataRow.responses);
 							console.log("retrieved:", $scope.data.responses);
 						}
 						return $scope.data.responses;
@@ -105,16 +106,13 @@ angular.module('ControllerAdministrator', [])
 					$scope.data = {orgOutcomes: [], organizations: [], currentOrg: {}};
 
 					Utility.getResource(Organizations.retrieve(), function (response) {
-						console.log("get orgs", response);
 						$scope.data.organizations = response;
 						$scope.setCurrentOrg(response[0]);
 					});
 					Utility.getResource(Outcomes.retrieve(), function (response) {
-						console.log("get outcomes", response);
 						$scope.data.orgOutcomes = response;
 					});
 					$scope.setCurrentOrg = function (organization) {
-						console.log("set org", organization);
 						$scope.data.currentOrg = organization;
 					};
 					$scope.getCurrentOrg = function (organization) {
@@ -144,7 +142,6 @@ angular.module('ControllerAdministrator', [])
 					$scope.getBarColor = function (outcome, currentOrgId) {
 						var color = 'stable';
 						if (!Utility.empty(outcome) && !Utility.empty(currentOrgId)) {
-							console.log("outcome:", currentOrgId, outcome);
 							var level = outcome.levels[currentOrgId][outcome.id];
 							var range = $("#range" + outcome.id);
 							switch (parseInt(level)) {
@@ -198,6 +195,21 @@ angular.module('ControllerAdministrator', [])
 								break;
 						}
 						return rubric;
+					};
+				})
+
+	.controller('AdminScheduleCtrl', function ($scope, $stateParams, Utility, InstrumentSchedule) {
+					$scope.data = {scheduleItems: [], currentScheduleItem: {}};
+
+					Utility.getResource(InstrumentSchedule.retrieve(), function (response) {
+						$scope.data.scheduleItems = response;
+						$scope.setCurrentItem(response[0]);
+					});
+					$scope.setCurrentItem = function (scheduleItem) {
+						$scope.data.currentScheduleItem = scheduleItem;
+					};
+					$scope.getCurrentItem = function () {
+						return $scope.data.currentScheduleItem;
 					};
 				})
 
@@ -334,7 +346,17 @@ angular.module('ControllerAdministrator', [])
 
 	.controller('AdminAlignmentCtrl', function ($scope, $stateParams, $ionicPopup, Utility, Instruments, Resources, Outcomes) {
 					$scope.res = null;
-					$scope.data = {alignments: [], instruments: [], outcomes: [], resources: [], resource: {}, currentInstrument: null, currentInstrumentId: 1};
+					$scope.data = {
+						dirty: false,
+						alignments: [],
+						instruments: [],
+						outcomes: [],
+						outcoume: {},
+						resources: [],
+						resource: {},
+						currentInstrument: null,
+						currentInstrumentId: 1
+					};
 
 					Utility.getResource(Instruments.retrieve(), function (response) {
 						$scope.data.instruments = response;
@@ -354,6 +376,9 @@ angular.module('ControllerAdministrator', [])
 
 					$scope.saveResourceAlignments = function () {
 						Resources.saveAlignments($scope.data.currentInstrumentId, $scope.data.resource.id, $scope.data.alignments, Utility.statusAlert);
+					};
+					$scope.saveOutcomeAlignments = function () {
+						Outcomes.saveAlignments($scope.data.currentInstrumentId, $scope.data.outcome.id, $scope.data.alignments, Utility.statusAlert);
 					};
 					$scope.setResourceAlignments = function () {
 						if (!Utility.empty($scope.data.resource) && !Utility.empty($scope.data.currentInstrument)) {
@@ -428,6 +453,12 @@ angular.module('ControllerAdministrator', [])
 								break;
 						}
 						return phrase;
+					};
+					$scope.isDirty = function () {
+						return $scope.dirty;
+					};
+					$scope.setDirty = function () {
+						$scope.dirty = true;
 					};
 				})
 
@@ -510,8 +541,8 @@ angular.module('ControllerAdministrator', [])
 					};
 
 				})
-	.controller('AdminSettingsCtrl', function ($scope, Utility, Organizations, Settings) {
-					$scope.data = {settings: []};
+	.controller('AdminSettingsCtrl', function ($cookieStore, $scope, Utility, Organizations, Settings) {
+					$scope.data = {settings: [], user: $cookieStore.get('user')};
 					var _video = null, patData = null;
 
 					$scope.webcamReady = false;

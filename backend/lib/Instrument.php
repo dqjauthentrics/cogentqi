@@ -5,6 +5,13 @@ require_once "../lib/Question.php";
 require_once "../lib/QuestionChoice.php";
 
 class Instrument extends Model {
+	/**
+	 * @param \NotORM $db
+	 * @param int $instrumentId
+	 * @param int $assessmentId
+	 *
+	 * @return array
+	 */
 	public static function createResponseTemplate($db, $instrumentId, $assessmentId) {
 		$questions = $db->question()->where('question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?)', $instrumentId)
 			->order('sort_order');
@@ -22,7 +29,7 @@ class Instrument extends Model {
 	}
 
 	/**
-	 * @param array $instrument
+	 * @param \NotORM_Result $instrument
 	 *
 	 * @return array
 	 */

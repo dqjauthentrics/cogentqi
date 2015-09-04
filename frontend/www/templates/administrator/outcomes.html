@@ -6,8 +6,9 @@
         <div class="row responsive-sm">
             <div class="col col-25">
                 <ion-list>
-                    <ion-item class="header">Your Organizations</ion-item>
-                    <ion-item data-ng-class="isCurrent(organization)? 'active':''" class="item-icon-right" ng-repeat="organization in data.organizations" type="item-text-wrap"
+                    <ion-item class="header">{{'Your Organizations'|translate}}</ion-item>
+                    <ion-item data-ng-class="isCurrent(organization)? 'active':''" class="item-icon-right" ng-repeat="organization in data.organizations"
+                              type="item-text-wrap"
                               data-ng-click="setCurrentOrg(organization)">
                         <i class="{{i.organization}}"></i> {{organization.name}}
                         <i style="color:black;" class="icon ion-chevron-right icon-accessory" data-ng-show="isCurrent(organization)"></i>
@@ -26,19 +27,21 @@
                             <div class="summary">{{outcome.summary}}</div>
                         </div>
                         <div style="float:right; width: 10em; margin: 0.1em;">
-                            <div class="phrase">{{outcomeLevelPhrase(outcome.levels[data.currentOrg.id][outcome.id])}}</div>
+                            <div class="phrase">{{outcomeLevelPhrase(outcome.levels[data.currentOrg.id][outcome.id])|translate}}</div>
                             <div id="range{{outcome.id}}" class="item range {{getBarColor(outcome, data.currentOrg.id)}}">
                                 <input type="range" name="outcomeLevel" min="0" max="3" data-ng-bind="outcome.levels[data.currentOrg.id][outcome.id]"
                                        data-ng-model="outcome.levels[data.currentOrg.id][outcome.id]" data-ng-change="getBarColor(outcome, data.currentOrg.id)"
                                         />
 
                                 <div class="clearfix"></div>
-                                <div><span class="phrase">{{outcome.levels[data.currentOrg.id][outcome.id]}}</span></div>
+                                <div><span class="phrase">{{outcome.levels[data.currentOrg.id][outcome.id]|translate}}</span></div>
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="rubric rubric{{outcome.levels[data.currentOrg.id][outcome.id]}}">{{getRubric(outcome.levels[data.currentOrg.id][outcome.id])}}</div>
-                        <div style="font-size:0.8em; color:gray; font-style:italic;" data-ng-bind="methodMessage(outcome.method)"></div>
+                        <div class="rubric rubric{{outcome.levels[data.currentOrg.id][outcome.id]}}">
+                            {{getRubric(outcome.levels[data.currentOrg.id][outcome.id])|translate}}
+                        </div>
+                        <div style="font-size:0.8em; color:gray; font-style:italic;" data-ng-bind="methodMessage(outcome.method)|translate"></div>
                     </ion-item>
                 </ion-list>
             </div>

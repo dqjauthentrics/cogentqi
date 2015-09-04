@@ -5,19 +5,19 @@ a {
 }
 
 h1 {
-    font-size: 4vmin;
+    font-size: 2em;
 }
 
 h2 {
-    font-size: 3.6vmin;
+    font-size: 1.6em;
 }
 
 h3 {
-    font-size: 3vmin;
+    font-size: 1.2em;
 }
 
 h4 {
-    font-size: 2vmin;
+    font-size: 1.0em;
 }
 
 textarea {
