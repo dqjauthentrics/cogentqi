@@ -26,6 +26,7 @@ class Organization extends Model {
 						'cy'       => $dbRecord["city"],
 						'st'       => $dbRecord["state"],
 						'zc'       => $dbRecord["postal"],
+						'dp'       => $dbRecord["is_department"],
 						'nc'       => (int)$dbRecord["nChildren"],
 					];
 				}
@@ -41,6 +42,7 @@ class Organization extends Model {
 						'cy'       => $dbRecord["city"],
 						'st'       => $dbRecord["state"],
 						'zc'       => $dbRecord["postal"],
+						'dp'       => $dbRecord["is_department"],
 						'nc'       => (int)$dbRecord["nChildren"],
 					];
 				}

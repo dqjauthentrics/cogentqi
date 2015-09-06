@@ -5,7 +5,7 @@
         <highchart id="progress" config="data.rptConfig"></highchart>
         <div style="text-align: center; margin:1em;">
             <button class="button button-calm" data-ng-click="toggleProgress()">
-                {{data.currentSeries==0?'Outcomes View >>'|translate:'<< Assessments View'|translate}}
+                {{(data.currentSeries==0?'Outcomes View >>':'<< Assessments View')|translate}}
             </button>
         </div>
     </ion-content>

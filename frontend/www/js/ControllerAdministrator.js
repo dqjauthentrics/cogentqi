@@ -462,28 +462,25 @@ angular.module('ControllerAdministrator', [])
 					};
 				})
 
-	.controller('AdminOrganizationCtrl', function ($scope, $stateParams, Utility, Organizations, Members) {
+	.controller('AdminOrganizationCtrl', function ($scope, $cookieStore, $stateParams, Utility, Icons, Organizations, Members) {
 					$scope.data = {canEdit: true, organizations: [], currentMembers: undefined, currentOrg: {}, parentOrg: {}};
-
 					$scope.Members = Members;  //@todo currently need to pass through to memberItem tag
+					var user = $cookieStore.get('user');
 
-					var organizationId = null;
-					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.organizationId)) {
-						organizationId = $stateParams.organizationId;
-					}
-					Utility.getResource(Organizations.retrieve(organizationId), function (response) {
-						console.log("retrieving organizations for ", organizationId);
-						$scope.data.organizations = response;
-						if (!Utility.empty(response)) {
-							$scope.data.parentOrg = response[0];
-							response.shift();
-							var firstChild = !Utility.empty(response) && !Utility.empty(response[0]) ? response[0] : null;
-							console.log("firstChild:", firstChild, response[0]);
-							$scope.setCurrentOrg(firstChild);
+					$scope.loadOrganizations = function (organizationId) {
+						if (!Utility.empty(organizationId)) {
+							Utility.getResource(Organizations.retrieve(organizationId), function (response) {
+								$scope.data.organizations = response;
+								if (!Utility.empty(response)) {
+									$scope.data.parentOrg = response[0];
+									response.shift();
+									var firstChild = !Utility.empty(response) && !Utility.empty(response[0]) ? response[0] : null;
+									$scope.setCurrentOrg(firstChild);
+								}
+							});
 						}
-					});
+					};
 					$scope.setCurrentOrg = function (organization) {
-						console.log("setCurrentOrg:", organization);
 						$scope.data.currentOrg = organization;
 						$scope.data.currentMembers = [];
 						if (!Utility.empty(organization)) {
@@ -491,6 +488,13 @@ angular.module('ControllerAdministrator', [])
 								$scope.data.currentMembers = response;
 							});
 						}
+					};
+					$scope.listIcon = function (organization) {
+						var icon = organization.nc > 0 ? Icons.tree : Icons.organization;
+						if (organization.dp) {
+							icon = Icons.group;
+						}
+						return icon;
 					};
 					$scope.save = function () {
 						$ionicPopup.alert({title: 'Demonstration', template: 'Sorry, this is not available in demonstration.'});
@@ -510,6 +514,18 @@ angular.module('ControllerAdministrator', [])
 					$scope.isCurrent = function (organization) {
 						return !Utility.empty(organization) && !Utility.empty($scope.data.currentOrg) && organization.id == $scope.data.currentOrg.id;
 					};
+
+					var organizationId = null;
+					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.organizationId)) {
+						organizationId = $stateParams.organizationId;
+					}
+					else {
+						if (!Utility.empty(user)) {
+							organizationId = user.organizationId;
+						}
+					}
+					$scope.loadOrganizations(organizationId);
+
 				})
 
 	.controller('AdminAlignmentsCtrl', function ($scope, $stateParams, Instruments, Resources, Outcomes) {

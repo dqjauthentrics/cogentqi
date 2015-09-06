@@ -10,7 +10,7 @@
                     <ion-item data-ng-class="isCurrent(organization)? 'active':''" class="item-icon-right"
                               data-ng-repeat="organization in data.organizations"
                               type="item-text-wrap" data-ng-click="setCurrentOrg(organization)">
-                        <i class="{{organization.nc > 0? i.tree : i.organization}}"></i> {{organization.name}}
+                        <i data-ng-class="listIcon(organization)"></i> {{organization.name}}
                         <i style="color:black;" class="icon ion-chevron-right icon-accessory" data-ng-show="isCurrent(organization)"></i>
                     </ion-item>
                 </ion-list>

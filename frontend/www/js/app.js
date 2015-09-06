@@ -103,7 +103,7 @@ angular.module('app',
 					 if (!Utility.empty($rootScope.installation) && !Utility.empty($rootScope.installation.subdomain)) {
 						 return "/site/" + $rootScope.installation.subdomain;
 					 }
-					 return '/site/target'; //@todo fallback
+					 return '/site/nursing'; //@todo fallback
 				 };
 				 $rootScope.avatarUrl = function (memberId) {
 					 if (!Utility.empty($rootScope.installation) && !Utility.empty($rootScope.installation.subdomain) && !Utility.empty(memberId)) {
