@@ -28,9 +28,9 @@
                         </div>
                         <div style="float:right; width: 10em; margin: 0.1em;">
                             <div class="phrase">{{outcomeLevelPhrase(outcome.levels[data.currentOrg.id][outcome.id])|translate}}</div>
-                            <div id="range{{outcome.id}}" class="item range {{getBarColor(outcome, data.currentOrg.id)}}">
+                            <div id="range{{outcome.id}}" class="item range {{getBarColor(outcome, data.currentOrg)}}">
                                 <input type="range" name="outcomeLevel" min="0" max="3" data-ng-bind="outcome.levels[data.currentOrg.id][outcome.id]"
-                                       data-ng-model="outcome.levels[data.currentOrg.id][outcome.id]" data-ng-change="getBarColor(outcome, data.currentOrg.id)"
+                                       data-ng-model="outcome.levels[data.currentOrg.id][outcome.id]" data-ng-change="getBarColor(outcome, data.currentOrg)"
                                         />
 
                                 <div class="clearfix"></div>

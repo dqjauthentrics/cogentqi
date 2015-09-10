@@ -6,7 +6,7 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 	svc.retrieve = function () {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			return $resource('/api/member/organization/' + user.organizationId, {}, {});
+			return $resource('/api/member/member/' + user.id, {}, {});
 		}
 		return null;
 	};

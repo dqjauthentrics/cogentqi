@@ -99,6 +99,34 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 		return names;
 	};
 
+	svc.sectionRange = function (instrument, sectionIdx) {
+		var range = {start: -1, end: -1};
+		if (!Utility.empty(instrument) && !Utility.empty(instrument.sections)) {
+			if (sectionIdx == svc.SECTION_ALL) {
+				range.start = 0;
+				range.end = instrument.questions.length - 1;
+			}
+			else {
+				var stop = sectionIdx;
+				range.start = 0;
+				range.end = 0;
+				for (var z = 0; z <= stop; z++) {
+					var sectionLen = instrument.sections[z].questions.length;
+					if (z < sectionIdx) {
+						range.start += sectionLen;
+					}
+					else {
+						range.end = (range.start + sectionLen) - 1;
+					}
+				}
+			}
+		}
+		return range;
+	};
+	svc.inSection = function (instrument, idx) {
+		var range = svc.sectionRange(instrument, svc.currentSectionIdx);
+		return idx >= range.start && idx <= range.end;
+	};
 	svc.getSectionNames = function (instrument) {
 		var names = [];
 		if (!Utility.empty(instrument) && !Utility.empty(instrument.sections)) {
@@ -118,12 +146,14 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 	};
 	svc.sectionViewAll = function () {
 		svc.currentSectionIdx = svc.SECTION_ALL;
+		return svc.currentSectionIdx;
 	};
 	svc.sectionIsAll = function () {
 		return svc.currentSectionIdx == svc.SECTION_ALL;
 	};
 	svc.sectionViewSummary = function () {
 		svc.currentSectionIdx = svc.SECTION_SUMMARY;
+		return svc.currentSectionIdx;
 	};
 	svc.sectionIsSummary = function () {
 		return svc.currentSectionIdx == svc.SECTION_SUMMARY;
@@ -188,6 +218,7 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 		if (svc.currentSectionIdx < 0) {
 			svc.currentSectionIdx = 0;
 		}
+		return svc.currentSectionIdx;
 	};
 	svc.sectionPrevious = function (instrument) {
 		if (svc.currentSectionIdx > 0) {
@@ -198,6 +229,7 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 				svc.currentSectionIdx = instrument.sections.length - 1;
 			}
 		}
+		return svc.currentSectionIdx;
 	};
 	svc.sectionIsFirst = function () {
 		return svc.currentSectionIdx <= 0;

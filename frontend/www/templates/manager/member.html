@@ -1,4 +1,4 @@
-<ion-view view-title="{{data.member.firstName}} {{data.member.lastName}}" cache-view="false" on-swipe-left="goToNotes()">
+<ion-view view-title="{{data.member.firstName + ' ' + data.member.lastName}}" cache-view="false" on-swipe-left="goToNotes()">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content class="padding detail" has-bouncing="false" id="profile">
@@ -16,17 +16,17 @@
                 <i class="{{i.stickyNote}}"></i>
             </button>
         </div>
-        <div class="row responsive-md">
-            <div class="col col-25 padding card">
+        <div class="row responsive-lg">
+            <div class="col col-25 card">
                 <div style="margin: 0 auto; text-align: center;">
                     <div>
                         <avatar site="siteDir()" sz="'large'" member-id="data.member.id" level="data.member.level" alt="avatarAlt(data.member)"></avatar>
                     </div>
                     <div class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.firstName">
-                        {{ data.member.firstName || 'empty' }}
+                        {{ data.member.firstName || ' ' }}
                     </div>
                     <div class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.lastName">
-                        {{ data.member.lastName || 'empty' }}
+                        {{ data.member.lastName || ' ' }}
                     </div>
                     <div class="role" onaftersave="setDirty()" editable-select="data.member.roleId" e-ng-options="r.id as r.n for r in roles">
                         {{ showRole() }}
@@ -34,28 +34,50 @@
                 </div>
                 <h3 data-ng-if="data.member.badges.length > 0">Badges</h3>
 
-                <div style="float:left; margin: 0.5em; text-align: center;" data-ng-repeat="badge in data.member.badges">
-                    <micro-badge text="badge.title" size="'small'"></micro-badge>
+                <div>
+                    <div style="float:left; margin: 0.5em; text-align: center;" data-ng-repeat="badge in data.member.badges">
+                        <micro-badge text="badge.title" size="'small'"></micro-badge>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <h3>{{'Contact'|translate}}</h3>
+
+                <div class="panel">
+                    <label for="address">{{'address'|translate}}</label>
+
+                    <div id="address" class="address" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.address">
+                        {{ data.member.address || ' ' }}
+                    </div>
+                    <label for="mobile">{{'mobile'|translate}}</label>
+
+                    <div id="mobile" class="phone" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.mobile">
+                        {{ (data.member.mobile || ' ')|tel }}
+                    </div>
+                    <label for="phone">{{'home phone'|translate}}</label>
+
+                    <div id="phone" class="phone" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.phone">
+                        {{ (data.member.phone || ' ')|tel }}
+                    </div>
                 </div>
             </div>
-            <div class="col padding card">
-                <h3>Assessments to Date</h3>
+            <div data-ng-if="data.member.isAssessible == 1" class="col padding card">
+                <h3>{{'Assessments to Date'|translate}}</h3>
 
                 <assessment-list i="i" site="siteDir()" show-member="false" assessments="data.member.assessments"></assessment-list>
                 <div>
                     <a class="button button-action button-new button-small" href="#/manager/assessment/n/{{data.member.id}}" title="Add a new assessment.">
-                        <i class="{{i.add}}"></i> Add
+                        <i class="{{i.add}}"></i> {{'Add'|translate}}
                     </a>
                 </div>
             </div>
-            <div class="col padding card">
-                <h3>Events</h3>
+            <div data-ng-if="data.member.isAssessible == 1" class="col cpadding card">
+                <h3>{{'Events'|translate}}</h3>
                 <table class="events items">
                     <thead>
                     <tr>
-                        <th colspan="2" style="text-align: left;">Occurred</th>
-                        <th style="text-align: left;">Name</th>
-                        <th style="text-align: left;">Process Area</th>
+                        <th colspan="2" style="text-align: left;">{{'Occurred'|translate}}</th>
+                        <th style="text-align: left;">{{'Name'|translate}}</th>
+                        <th style="text-align: left;">{{'Process Area'|translate}}</th>
                     </tr>
                     </thead>
                     <tbody>

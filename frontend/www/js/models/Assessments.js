@@ -311,8 +311,16 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 			for (var i = 0; i < matrix.length; i++) {
 				var rowTotal = 0;
 				var rowN = 0;
+				matrix[i].typeName = null;
 				for (j = 0; j < matrix[i].responses.length; j++) {
-					var response = parseInt(matrix[i].responses[j]);
+					var response = parseInt(matrix[i].responses[j][0]);
+					if (matrix[i].typeName == null) {
+						matrix[i].typeName = matrix[i].responses[j][1];
+						console.log(matrix[i].typeName);
+					}
+					else if (matrix[i].typeName !== 'MIXED' && matrix[i].typeName !== matrix[i].responses[j][1]) {
+						matrix[i].typeName = 'MIXED';
+					}
 					if (response > 0) {
 						rowN++;
 						rowTotal += response;
@@ -344,7 +352,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 			for (j = 0; j < colTotals.length; j++) {
 				var avg = (colTotals[j] > 0 && colNs[j] > 0 ? Utility.round(colTotals[j] / colNs[j], 1) : 0);
 				var avgRound = Math.round(avg);
-				matrix[mLen].responses[j] = avg;
+				matrix[mLen].responses[j] = [avg,'LIKERT'];
 				matrix[mLen].colAvgs[j] = {avg: avg, avgRound: avgRound};
 				if (avg > 0) {
 					total += avg;

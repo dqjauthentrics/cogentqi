@@ -65,6 +65,17 @@ h3 {
     background-color: #FFF !important;
 }
 
+.panel {
+    background: #DDD;
+    margin: 1em;
+    padding: 1em;
+}
+
+.card {
+    background: #DDD;
+    margin: 1em !important;
+}
+
 .card a.button, form .button, form .button-small {
     margin: 0.2em !important;
 }
@@ -226,7 +237,7 @@ ion-item .listIcon {
 }
 
 .detail .row {
-    margin: 1em;
+    margin: 0 auto;
 }
 
 ion-item {
@@ -610,7 +621,7 @@ outcome-level-tag {
     background: #F5F5F5;
     color: #555;
     font-style: italic;
-    text-align: right;
+    text-align: center;
 }
 
 .average .matrixCircle {
@@ -1238,4 +1249,13 @@ table.items tr:nth-child(odd) {
 
 .instrumentNavBtn a:hover {
     color: #888;
+}
+
+.hiddenPanel {
+    padding: 1em;
+    display: none;
+}
+
+.nextToggler {
+    cursor: pointer;
 }

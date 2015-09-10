@@ -59,6 +59,8 @@ class Api extends \Slim\Slim {
 
 	private $user = NULL;
 
+	public $debug = 1;
+
 	/**
 	 * Overrides Slim constructor to add pdo and db objects.
 	 *

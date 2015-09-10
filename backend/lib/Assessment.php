@@ -15,6 +15,49 @@ class Assessment extends Model {
 	const STATUS_LOCKED = 'L';
 
 	/**
+	 * @param string $currentType
+	 * @param string $testType
+	 *
+	 * @return string
+	 */
+	private function setType($currentType, $testType) {
+		if (empty($currentType)) {
+			return $testType;
+		}
+		else if ($currentType !== $testType) {
+			return 'M';
+		}
+		return $currentType;
+	}
+
+	/**
+	 * @param array $jsonRecords
+	 */
+	private function matrixTable($jsonRecords) {
+		?>
+		<table style="border:1px solid gray; padding: 1em;">
+			<?php
+			foreach ($jsonRecords as $rec) {
+				?>
+				<tr>
+					<td><?= $rec["id"] ?></td>
+					<td><?= $rec["n"] ?></td>
+					<?php
+					foreach ($rec["rsp"] as $rsp) {
+						?>
+						<td class="type<?= @$rsp[0] ?>"><?= @$rsp[0] . ':' . @$rsp[1] . ':' . @$rsp[2] ?></td>
+						<?php
+					}
+					?>
+				</tr>
+				<?php
+			}
+			?>
+		</table>
+		<?php
+	}
+
+	/**
 	 * Create a new assessment.
 	 *
 	 * @param int                $assessorId
@@ -274,6 +317,123 @@ class Assessment extends Model {
 		/**
 		 * Get a matrix of assessment values for all members in an organization.
 		 */
+		$this->api->get("/$urlName/newmatrix/:memberId/:instrumentId", function ($memberId, $instrumentId) use ($urlName) {
+			$jsonRecords = [];
+			$dbRecords = $this->api->db->assessment()->select('member_id,max(last_modified) as maxMod')
+				->where('instrument_id=? AND member_id IN (SELECT subordinate_id FROM relationship WHERE superior_id=?)', $instrumentId, $memberId)
+				->group('member_id');
+			$members = [];
+			$memberIds = [];
+			$columnSummaries = [];
+			foreach ($dbRecords as $dbRecord) {
+				$member = $dbRecord->member;
+				$memberIds[] = $dbRecord["member_id"];
+				$members[$dbRecord["member_id"]] = [
+					'max' => $dbRecord["maxMod"],
+					'fn'  => $member["first_name"],
+					'ln'  => $member["last_name"],
+					'r'   => $member["role_id"],
+					'jt'  => $member["job_title"],
+					'em'  => $member["email"],
+					'lv'  => $member["level"],
+				];
+			}
+			$memberIds = implode(",", $memberIds);
+			$dbRecords = $this->api->db->assessment()->where("instrument_id=? AND member_id IN ($memberIds)", $instrumentId);
+			$columns = [];
+			$matrix = ['total' => 0, 'count' => 0, 'typeName' => NULL];
+			foreach ($dbRecords as $dbRecord) {
+				$member = $members[$dbRecord["member_id"]];
+				if ($dbRecord["last_modified"] == $member["max"]) {
+					$responses = [];
+					$memberId = $dbRecord["member_id"];
+					$responseRecords = $this->api->db->assessment_response()->where("assessment_id=?", $dbRecord["id"]);
+					$sections = [];
+					$lastGroupId = NULL;
+					$colIdx = 0;
+					$row = ['total' => 0, 'count' => 0];
+					foreach ($responseRecords as $responseRecord) {
+						$groupId = $responseRecord->question["question_group_id"];
+						$typeId = substr($responseRecord->question->question_type["entry_type"], 0, 1);
+						$response = (int)$responseRecord["response_index"];
+						if (empty($sections[$groupId])) {
+							if (!empty($lastGroupId)) {
+								$sectAvg = $this->avg($sections[$lastGroupId]["total"], $sections[$lastGroupId]["count"]);
+								$responses[] = ['S', $sectAvg, $sections[$lastGroupId]["typeName"]];
+								if (empty($columns[$colIdx])) {
+									$columns[$colIdx] = ['typeName' => $typeId, 'total' => 0, 'count' => 0];
+								}
+								$columns[$colIdx]["total"] += $sectAvg;
+								$columns[$colIdx]["count"]++;
+								$columns[$colIdx]["t"] = 'S';
+								$colIdx++;
+							}
+							$sections[$groupId] = ['typeName' => $typeId, 'total' => 0, 'count' => 0];
+							$lastGroupId = $groupId;
+						}
+						if (empty($columns[$colIdx])) {
+							$columns[$colIdx] = ['typeName' => $typeId, 'total' => 0, 'count' => 0];
+						}
+						if (empty($row['typeName'])) {
+							$row['typeName'] = $typeId;
+						}
+						$responses[] = ['V', $response, $typeId];
+
+						$matrix['total'] += $response;
+						$matrix['count']++;
+						$matrix['typeName'] = $this->setType($matrix['typeName'], $typeId);
+
+						$row["total"] += $response;
+						$row["count"]++;
+						$row['typeName'] = $this->setType($row['typeName'], $typeId);
+
+						$columns[$colIdx]["total"] += $response;
+						$columns[$colIdx]["count"]++;
+
+						$sections[$groupId]["total"] += $response;
+						$sections[$groupId]["count"]++;
+						$sections[$groupId]['typeName'] = $this->setType($sections[$groupId]['typeName'], $typeId);
+
+						$colIdx++;
+					}
+					$responses[] = ['R', $this->avg($row['total'], $row['count']), $row['typeName']];
+					$jsonRecords[] = [
+						'id'  => $memberId,
+						'n'   => $member['fn'] . ' ' . $member['ln'],
+						'r'   => $member["r"],
+						'jt'  => $member["jt"],
+						'lv'  => $member["lv"],
+						'em'  => $member["em"],
+						'rsp' => $responses,
+					];
+				}
+			}
+			$columnSummaries = [];
+			foreach ($columns as $colIdx => $info) {
+				$columnSummaries[] = [
+					'C' . @$columns[$colIdx]['t'],
+					$this->avg($columns[$colIdx]["total"], $columns[$colIdx]["count"]),
+					$columns[$colIdx]["typeName"]
+				];
+			}
+			$columnSummaries[] = ['RC', $this->avg($matrix["total"], $matrix["count"]), $matrix["typeName"]];
+			$jsonRecords[] = [
+				'id'  => -1,
+				'n'   => 'Averages',
+				'rsp' => $columnSummaries,
+			];
+
+			if ($this->api->debug) {
+				$this->matrixTable($jsonRecords);
+			}
+			else {
+				$this->api->sendResult($jsonRecords);
+			}
+		});
+
+		/**
+		 * Get a matrix of assessment values for all members in an organization.
+		 */
 		$this->api->get("/$urlName/matrix/:orgId/:instrumentId", function ($organizationId, $instrumentId) use ($urlName) {
 			$jsonRecords = [];
 			$dbRecords = $this->api->db->assessment()->select('member_id,max(last_modified) as maxMod')
@@ -302,7 +462,8 @@ class Assessment extends Model {
 					/** @todo These are not sorted by question sortOrder!!! */
 					$responseRecords = $this->api->db->assessment_response()->where("assessment_id=?", $dbRecord["id"]);
 					foreach ($responseRecords as $responseRecord) {
-						$responses[] = (int)$responseRecord["response_index"];
+						$typeId = $responseRecord->question->question_type["entry_type"];
+						$responses[] = [(int)$responseRecord["response_index"], $typeId];
 					}
 					$jsonRecords[] = [
 						'memberId'  => $memberId,
@@ -770,7 +931,8 @@ class Assessment extends Model {
 	/**
 	 * Override base method to indicate which columns are date/time.
 	 */
-	public function initialize() {
+	public
+	function initialize() {
 		$this->dateTimeCols = ['last_saved', 'last_modified'];
 		parent::initialize();
 	}
@@ -782,7 +944,8 @@ class Assessment extends Model {
 	 *
 	 * @return array
 	 */
-	public function map($assessment) {
+	public
+	function map($assessment) {
 		$associative = [
 			'id'       => (int)$assessment["id"],
 			'lm'       => Model::dateTime($assessment["last_modified"]),

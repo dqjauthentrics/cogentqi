@@ -11,6 +11,16 @@ class Member extends Model {
 		parent::initialize();
 
 		$urlName = $this->urlName();
+		$this->api->get("/$urlName/member/:memberId", function ($memberId = NULL) use ($urlName) {
+			$jsonRecords = [];
+			$dbRecords = $this->api->db->{$this->tableName}()
+				->where("id IN (SELECT subordinate_id FROM relationship WHERE superior_id=?)", $memberId);
+			foreach ($dbRecords as $dbRecord) {
+				$jsonRecords[] = $this->map($dbRecord);
+			}
+			$this->api->sendResult($jsonRecords);
+		});
+
 		$this->api->get("/$urlName/organization/:organizationId", function ($organizationId = NULL) use ($urlName) {
 			$jsonRecords = [];
 			$dbRecords = $this->api->db->{$this->tableName}()->where("organization_id=?", $organizationId);

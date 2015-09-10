@@ -30,7 +30,7 @@ angular.module('ControllerCommon', [])
 	])
 
 	.controller('MgrMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Assessments, Organizations, Members) {
-					$scope.data = {instruments: [], currentInstrument: {}, currentInstrumentId: 1, responses: []};
+					$scope.data = {matrix: null, instruments: [], currentInstrument: {}, currentInstrumentId: 1, responses: []};
 
 					Instruments.retrieve().query(function (response) {
 						$scope.data.instruments = response;
@@ -59,29 +59,52 @@ angular.module('ControllerCommon', [])
 							});
 						}
 					};
+					$scope.getMatrixPortion = function () {
+						if ($scope.data.currentInstrument.currentSectionIdx == Instruments.SECTION_SUMMARY) {
+							return $scop.data.matrix.sections;
+						}
+						return $scope.data.matrix;
+					};
+					$scope.getCellClass = function (value, typeName) {
+						var cClass = '';
+						value = Math.round(value);
+						switch (typeName) {
+							case 'LIKERT':
+								cClass = 'matrixCircle levelBg' + value;
+								break;
+							case 'YESNO':
+								cClass = 'matrixCircle yesNoBg' + value;
+								break;
+						}
+						return cClass;
+					};
 					$scope.resetResponses = function () {
 						$scope.data.responses = null;
+					};
+					$scope.inSection = function (idx) {
+						return Instruments.inSection($scope.data.currentInstrument, idx);
 					};
 					$scope.getColHeaderNames = function () {
 						return Instruments.findMatrixResponseRowHeader($scope.data.currentInstrument, 20)
 					};
-					$scope.getRowValues = function (dataRow) {
-						if (Utility.empty($scope.data.responses)) {
-							$scope.data.responses =
+					$scope.getRowValues = function (idx, dataRow) {
+						idx = parseInt(idx);
+						if ($.inArray(idx, $scope.data.responses) < 0) {
+							$scope.data.responses[idx] =
 								Assessments.findMatrixResponseRowValues($scope.data.currentInstrument, Instruments.currentSectionIdx, dataRow.responses);
 						}
-						return $scope.data.responses;
+						return $scope.data.responses[idx];
 					};
 					$scope.findMember = function (memberId) {
 						return Utility.findObjectById($scope.data.members, memberId);
 					};
 					$scope.next = function () {
 						Instruments.sectionNext($scope.data.currentInstrument);
-						$scope.resetResponses();
+						//$scope.resetResponses();
 					};
 					$scope.previous = function () {
 						Instruments.sectionPrevious($scope.data.currentInstrument);
-						$scope.resetResponses();
+						//$scope.resetResponses();
 					};
 					$scope.previousName = function () {
 						return Instruments.sectionPreviousName($scope.data.currentInstrument);
@@ -91,11 +114,11 @@ angular.module('ControllerCommon', [])
 					};
 					$scope.viewAll = function () {
 						Instruments.sectionViewAll();
-						$scope.resetResponses();
+						//$scope.resetResponses();
 					};
 					$scope.viewSummary = function () {
 						Instruments.sectionViewSummary();
-						$scope.resetResponses();
+						//$scope.resetResponses();
 					};
 					$scope.isAll = function () {
 						Instruments.sectionIsAll();

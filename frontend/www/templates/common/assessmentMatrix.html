@@ -16,17 +16,17 @@
             <table class="matrix">
                 <thead>
                 <tr>
-                    <th style="font-style: italic;">Most Recent<br/>Member Assessments</th>
+                    <th style="font-style: italic;">{{'Most Recent'|translate}}<br/>{{'Member Assessments'|translate}}</th>
                     <th class="rotate" data-ng-repeat="name in getColHeaderNames() track by $index">
-                        <div><span>{{name}}</span></div>
+                        <div><span>{{name|translate}}</span></div>
                     </th>
                     <th class="rotate">
-                        <div><span style="font-weight:bold; color:#555; font-style:italic;">Averages</span></div>
+                        <div><span style="font-weight:bold; color:#555; font-style:italic;">{{'Averages'|translate}}</span></div>
                     </th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr data-ng-repeat="dataRow in data.matrix">
+                <tr data-ng-repeat="dataRow in getMatrixPortion()">
                     <td class="leftHeader" data-ng-class="dataRow.memberId == -1? 'average':''">
                         <div data-ng-switch="dataRow.memberId">
                             <div data-ng-switch-when="-1" style="text-align: right;">
@@ -40,11 +40,22 @@
                             </div>
                         </div>
                     </td>
-                    <td data-ng-repeat="response in getRowValues(dataRow) track by $index" data-ng-class="dataRow.memberId == -1? 'average':''">
-                        <div class="matrixCircle {{response.t == 'LIKERT'?'levelBg':'yesNoBg'}}{{response.r|number:0}}">{{response.r|number:0}}</div>
+                    <td data-ng-show="inSection($index)" data-ng-repeat="response in dataRow.responses track by $index"
+                        data-ng-class="dataRow.memberId == -1? 'average':''">
+                        <div data-ng-class="getCellClass(response[0], response[1])">
+                            <div data-ng-switch="dataRow.memberId">
+                                <div data-ng-switch-when="-1">
+                                    {{response[0]|number:1}}
+                                </div>
+                                <div data-ng-switch-default>
+                                    {{response[0]|number:0}}
+                                </div>
+                            </div>
                     </td>
                     <td class="average">
-                        <div class="matrixCircle {{data.currentInstrument.typeName == 'LIKERT'?'levelBg':'yesNoBg'}}{{dataRow.avgRound}}">{{dataRow.avgRound}}</div>
+                        <div data-ng-class="getCellClass(dataRow.avg, dataRow.typeName)"
+                             data-ng-bind="dataRow.typeName == 'MIXED'? 'N/A' : dataRow.avg">
+                        </div>
                     </td>
                 </tr>
                 </tbody>

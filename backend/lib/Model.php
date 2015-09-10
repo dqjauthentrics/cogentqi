@@ -74,6 +74,10 @@ class Model {
 		$this->initialize();
 	}
 
+	public static function avg($total, $count, $decimalPlaces = 1) {
+		return !empty($total) && !empty($count) ? round($total / $count, $decimalPlaces) : 0;
+	}
+
 	/**
 	 * @param string $mysqlDateTime
 	 *

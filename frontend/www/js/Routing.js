@@ -14,7 +14,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 	/**
 	 * Administrator user states.
 	 */
-		.state('administrator', {url: "/administrator", abstract: true, templateUrl: "templates/administrator/tabs.html"})
+		.state('administrator', {url: "/administrator", templateUrl: "templates/administrator/tabs.html", controller:"AdminTabsCtrl"})
 
 		.state('administrator.dashboard', {
 				   url: '/dashboard',

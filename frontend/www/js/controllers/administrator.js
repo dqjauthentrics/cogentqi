@@ -2,6 +2,18 @@
 
 angular.module('ControllerAdministrator', [])
 
+	.controller('AdminTabsCtrl', function ($scope, Utility) {
+					//$ionicNavBarDelegate.showBackButton(false);
+
+					$scope.$on('$ionicView.beforeEnter', function () {
+						//$ionicNavBarDelegate.showBackButton(false);
+					});
+
+					$scope.$on('$ionicView.leave', function () {
+						//$ionicNavBarDelegate.showBackButton(true);
+					});
+				})
+
 	.controller('AdminDashboardCtrl', function ($scope, $cookieStore, Utility) {
 					$scope.data = {user: $cookieStore.get('user'), role: 'administrator'};
 				})
@@ -139,10 +151,11 @@ angular.module('ControllerAdministrator', [])
 						}
 						return phrase;
 					};
-					$scope.getBarColor = function (outcome, currentOrgId) {
+					$scope.getBarColor = function (outcome, currentOrg) {
 						var color = 'stable';
-						if (!Utility.empty(outcome) && !Utility.empty(currentOrgId)) {
-							var level = outcome.levels[currentOrgId][outcome.id];
+						if (!Utility.empty(outcome) && !Utility.empty(currentOrg)) {
+							var id = currentOrg.id;
+							var level = outcome.levels[id][outcome.id];
 							var range = $("#range" + outcome.id);
 							switch (parseInt(level)) {
 								case 1:
