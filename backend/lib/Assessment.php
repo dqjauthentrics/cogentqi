@@ -31,21 +31,83 @@ class Assessment extends Model {
 	}
 
 	/**
-	 * @param array $jsonRecords
+	 * @param array $hdrs
+	 * @param array $rows
 	 */
-	private function matrixTable($jsonRecords) {
+	private function matrixTable($hdrs, $rows) {
 		?>
-		<table style="border:1px solid gray; padding: 1em;">
+		<style>
+			#matrix {
+				border-collapse: collapse;
+			}
+
+			#matrix th {
+				border: 1px solid gray;
+				padding: 0.1em;
+				font-size: 0.8em;
+				transform: rotate(305deg);
+				margin: 0;
+				height: 200px;
+			}
+
+			#matrix td {
+				border: 1px solid gray;
+				padding: 0.1em;
+				font-size: 0.9em;
+				margin: 0;
+			}
+
+			#matrix td.typeV {
+				background: #EEE;
+			}
+
+			#matrix td.typeS {
+				background: #EFE;
+			}
+
+			#matrix td.typeC {
+				background: #FEE;
+			}
+
+			#matrix td.typeCS {
+				background: #FEF;
+				font-weight: bold;
+			}
+
+			#matrix td.typeR {
+				background: #FFE;
+				font-weight: bold;
+			}
+
+			#matrix td.typeRC {
+				background: #FFE;
+				font-weight: bold;
+			}
+		</style>
+		<table id="matrix">
+			<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<?php
+				foreach ($hdrs as $hdr) {
+					?>
+					<th><?= @$hdr ?></th>
+					<?php
+				}
+				?>
+			</tr>
+			</thead>
 			<?php
-			foreach ($jsonRecords as $rec) {
+			foreach ($rows as $row) {
 				?>
 				<tr>
-					<td><?= $rec["id"] ?></td>
-					<td><?= $rec["n"] ?></td>
+					<td><?= $row["id"] ?></td>
+					<td><?= $row["n"] ?></td>
 					<?php
-					foreach ($rec["rsp"] as $rsp) {
+					foreach ($row["rsp"] as $rsp) {
 						?>
-						<td class="type<?= @$rsp[0] ?>"><?= @$rsp[0] . ':' . @$rsp[1] . ':' . @$rsp[2] ?></td>
+						<td class="type<?= @$rsp[0] ?> section<?= $rsp[3] ?>"><?= @$rsp[0] . ':' . @$rsp[1] . ':' . @$rsp[2] . ':' . @$rsp[3] ?></td>
 						<?php
 					}
 					?>
@@ -317,14 +379,13 @@ class Assessment extends Model {
 		/**
 		 * Get a matrix of assessment values for all members in an organization.
 		 */
-		$this->api->get("/$urlName/newmatrix/:memberId/:instrumentId", function ($memberId, $instrumentId) use ($urlName) {
-			$jsonRecords = [];
+		$this->api->get("/$urlName/newmatrix/:organizationId/:instrumentId", function ($organizationId, $instrumentId) use ($urlName) {
+			$rowRecords = [];
 			$dbRecords = $this->api->db->assessment()->select('member_id,max(last_modified) as maxMod')
-				->where('instrument_id=? AND member_id IN (SELECT subordinate_id FROM relationship WHERE superior_id=?)', $instrumentId, $memberId)
+				->where('instrument_id=? AND member_id IN (SELECT id FROM member WHERE organization_id=?)', $instrumentId, $organizationId)
 				->group('member_id');
 			$members = [];
 			$memberIds = [];
-			$columnSummaries = [];
 			foreach ($dbRecords as $dbRecord) {
 				$member = $dbRecord->member;
 				$memberIds[] = $dbRecord["member_id"];
@@ -342,6 +403,25 @@ class Assessment extends Model {
 			$dbRecords = $this->api->db->assessment()->where("instrument_id=? AND member_id IN ($memberIds)", $instrumentId);
 			$columns = [];
 			$matrix = ['total' => 0, 'count' => 0, 'typeName' => NULL];
+			$headers = [];
+			$groups = [];
+			$groupRecords = $this->api->db->question_group()->where('instrument_id=?', $instrumentId)->order('sort_order');
+			foreach ($groupRecords as $groupRecord) {
+				$groups[] = trim($groupRecord["number"] . ' ' . $groupRecord["tag"]);
+			}
+			$questionRecords = $this->api->db->question()
+				->where('question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?)', $instrumentId)->order('sort_order');
+			$lastGroupId = NULL;
+			$groupIdx = 0;
+			foreach ($questionRecords as $questionRecord) {
+				$groupId = $questionRecord["question_group_id"];
+				if ($lastGroupId != NULL && $groupId != $lastGroupId && $groupIdx < count($groups)) {
+					$headers[] = ['S', $groups[$groupIdx], 'H', $groupIdx];
+					$groupIdx++;
+				}
+				$lastGroupId = $groupId;
+				$headers[] = ['R', trim($questionRecord["number"] . ' ' . $questionRecord["name"]), 'H', $groupIdx];
+			}
 			foreach ($dbRecords as $dbRecord) {
 				$member = $members[$dbRecord["member_id"]];
 				if ($dbRecord["last_modified"] == $member["max"]) {
@@ -352,6 +432,7 @@ class Assessment extends Model {
 					$lastGroupId = NULL;
 					$colIdx = 0;
 					$row = ['total' => 0, 'count' => 0];
+					$groupIdx = 0;
 					foreach ($responseRecords as $responseRecord) {
 						$groupId = $responseRecord->question["question_group_id"];
 						$typeId = substr($responseRecord->question->question_type["entry_type"], 0, 1);
@@ -359,17 +440,19 @@ class Assessment extends Model {
 						if (empty($sections[$groupId])) {
 							if (!empty($lastGroupId)) {
 								$sectAvg = $this->avg($sections[$lastGroupId]["total"], $sections[$lastGroupId]["count"]);
-								$responses[] = ['S', $sectAvg, $sections[$lastGroupId]["typeName"]];
+								$responses[] = ['S', $sectAvg, $sections[$lastGroupId]["typeName"], $groupIdx - 1];
 								if (empty($columns[$colIdx])) {
 									$columns[$colIdx] = ['typeName' => $typeId, 'total' => 0, 'count' => 0];
 								}
 								$columns[$colIdx]["total"] += $sectAvg;
 								$columns[$colIdx]["count"]++;
+								$columns[$colIdx]["groupIdx"] = $groupIdx;
 								$columns[$colIdx]["t"] = 'S';
 								$colIdx++;
 							}
-							$sections[$groupId] = ['typeName' => $typeId, 'total' => 0, 'count' => 0];
+							$sections[$groupId] = ['typeName' => $typeId, 'total' => 0, 'count' => 0, 'groupIdx' => $groupIdx - 1];
 							$lastGroupId = $groupId;
+							$groupIdx++;
 						}
 						if (empty($columns[$colIdx])) {
 							$columns[$colIdx] = ['typeName' => $typeId, 'total' => 0, 'count' => 0];
@@ -377,7 +460,7 @@ class Assessment extends Model {
 						if (empty($row['typeName'])) {
 							$row['typeName'] = $typeId;
 						}
-						$responses[] = ['V', $response, $typeId];
+						$responses[] = ['V', $response, $typeId, $groupIdx - 1];
 
 						$matrix['total'] += $response;
 						$matrix['count']++;
@@ -389,15 +472,17 @@ class Assessment extends Model {
 
 						$columns[$colIdx]["total"] += $response;
 						$columns[$colIdx]["count"]++;
+						$columns[$colIdx]["groupIdx"] = $groupIdx;
 
 						$sections[$groupId]["total"] += $response;
 						$sections[$groupId]["count"]++;
 						$sections[$groupId]['typeName'] = $this->setType($sections[$groupId]['typeName'], $typeId);
+						$sections[$groupId]["groupIdx"] = $groupIdx - 1;
 
 						$colIdx++;
 					}
-					$responses[] = ['R', $this->avg($row['total'], $row['count']), $row['typeName']];
-					$jsonRecords[] = [
+					$responses[] = ['R', $this->avg($row['total'], $row['count']), $row['typeName'], $groupIdx];
+					$rowRecords[] = [
 						'id'  => $memberId,
 						'n'   => $member['fn'] . ' ' . $member['ln'],
 						'r'   => $member["r"],
@@ -413,21 +498,22 @@ class Assessment extends Model {
 				$columnSummaries[] = [
 					'C' . @$columns[$colIdx]['t'],
 					$this->avg($columns[$colIdx]["total"], $columns[$colIdx]["count"]),
-					$columns[$colIdx]["typeName"]
+					$columns[$colIdx]["typeName"],
+					$columns[$colIdx]["groupIdx"] - 1
 				];
 			}
-			$columnSummaries[] = ['RC', $this->avg($matrix["total"], $matrix["count"]), $matrix["typeName"]];
-			$jsonRecords[] = [
+			$columnSummaries[] = ['RC', $this->avg($matrix["total"], $matrix["count"]), $matrix["typeName"], $groupIdx];
+			$rowRecords[] = [
 				'id'  => -1,
 				'n'   => 'Averages',
 				'rsp' => $columnSummaries,
 			];
 
 			if ($this->api->debug) {
-				$this->matrixTable($jsonRecords);
+				$this->matrixTable($headers, $rowRecords);
 			}
 			else {
-				$this->api->sendResult($jsonRecords);
+				$this->api->sendResult([['hdrs' => $headers, 'rows' => $rowRecords, 'nSections' => $groupIdx - 1]]);
 			}
 		});
 
@@ -472,7 +558,7 @@ class Assessment extends Model {
 						'r'         => $member["r"],
 						'jt'        => $member["jt"],
 						'lv'        => $member["lv"],
-						'responses' => $responses
+						'responses' => $responses,
 					];
 				}
 			}

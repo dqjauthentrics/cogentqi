@@ -8,96 +8,96 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 	// Each state's controller can be found in controllers.js
 	$stateProvider
 		.state('login', {
-				   url: '/login', templateUrl: 'templates/common/login.html', controller: 'LoginController'
-			   })
+			url: '/login', templateUrl: 'templates/common/login.html', controller: 'LoginController'
+		})
 
 	/**
 	 * Administrator user states.
 	 */
-		.state('administrator', {url: "/administrator", templateUrl: "templates/administrator/tabs.html", controller:"AdminTabsCtrl"})
+		.state('administrator', {url: "/administrator", templateUrl: "templates/administrator/tabs.html", controller: "AdminTabsCtrl"})
 
 		.state('administrator.dashboard', {
-				   url: '/dashboard',
-				   views: {
-					   administratorDashboard: {templateUrl: 'templates/administrator/dashboard.html', controller: 'AdminDashboardCtrl'}
-				   }
-			   })
+			url: '/dashboard',
+			views: {
+				administratorDashboard: {templateUrl: 'templates/administrator/dashboard.html', controller: 'AdminDashboardCtrl'}
+			}
+		})
 		.state('administrator.organization', {
-				   url: '/organization',
-				   views: {
-					   administratorOrganization: {templateUrl: 'templates/administrator/organizationOverview.html', controller: 'AdminOrganizationCtrl'}
-				   }
-			   })
+			url: '/organization',
+			views: {
+				administratorOrganization: {templateUrl: 'templates/administrator/organizationOverview.html', controller: 'AdminOrganizationCtrl'}
+			}
+		})
 		.state('administrator.organizationSpecific', {
-				   url: '/organization/:organizationId',
-				   views: {
-					   administratorOrganization: {templateUrl: 'templates/administrator/organizationOverview.html', controller: 'AdminOrganizationCtrl'}
-				   }
-			   })
+			url: '/organization/:organizationId',
+			views: {
+				administratorOrganization: {templateUrl: 'templates/administrator/organizationOverview.html', controller: 'AdminOrganizationCtrl'}
+			}
+		})
 		.state('administrator.schedule', {
-				   url: '/schedule',
-				   views: {
-					   administratorSchedule: {templateUrl: 'templates/administrator/schedule.html', controller: 'AdminScheduleCtrl'}
-				   }
-			   })
+			url: '/schedule',
+			views: {
+				administratorSchedule: {templateUrl: 'templates/administrator/schedule.html', controller: 'AdminScheduleCtrl'}
+			}
+		})
 		.state('administrator.outcomes', {
-				   url: '/outcomes',
-				   views: {
-					   administratorOutcomes: {templateUrl: 'templates/administrator/outcomes.html', controller: 'AdminOutcomeCtrl'}
-				   }
-			   })
+			url: '/outcomes',
+			views: {
+				administratorOutcomes: {templateUrl: 'templates/administrator/outcomes.html', controller: 'AdminOutcomeCtrl'}
+			}
+		})
 		.state('administrator.alignment', {
-				   url: '/alignment/:resourceId',
-				   views: {
-					   administratorAlignments: {templateUrl: 'templates/administrator/alignment.html', controller: 'AdminAlignmentCtrl'}
-				   }
-			   })
+			url: '/alignment/:resourceId',
+			views: {
+				administratorAlignments: {templateUrl: 'templates/administrator/alignment.html', controller: 'AdminAlignmentCtrl'}
+			}
+		})
 		.state('administrator.outcome', {
-				   url: '/alignment/outcome/:outcomeId',
-				   views: {
-					   administratorAlignments: {templateUrl: 'templates/administrator/outcome.html', controller: 'AdminAlignmentCtrl'}
-				   }
-			   })
+			url: '/alignment/outcome/:outcomeId',
+			views: {
+				administratorAlignments: {templateUrl: 'templates/administrator/outcome.html', controller: 'AdminAlignmentCtrl'}
+			}
+		})
 		.state('administrator.assessmentMatrix', {
-				   url: '/dashboard/matrix/:organizationId?/',
-				   views: {
-					   administratorDashboard: {templateUrl: 'templates/administrator/assessmentMatrix.html', controller: 'AdminMatrixCtrl'}
-				   }
-			   })
+			url: '/dashboard/matrix/:organizationId?/',
+			views: {
+				administratorDashboard: {templateUrl: 'templates/administrator/assessmentMatrix.html', controller: 'AdminMatrixCtrl'}
+			}
+		})
 		.state('administrator.alignments', {
-				   url: '/alignments',
-				   views: {administratorAlignments: {templateUrl: 'templates/administrator/alignments.html', controller: 'AdminAlignmentsCtrl'}}
-			   })
+			url: '/alignments',
+			views: {administratorAlignments: {templateUrl: 'templates/administrator/alignments.html', controller: 'AdminAlignmentsCtrl'}}
+		})
 		.state('administrator.instruments', {
-				   url: '/instruments',
-				   views: {administratorInstruments: {templateUrl: 'templates/administrator/instruments.html', controller: 'AdminInstrumentsCtrl'}}
-			   })
+			url: '/instruments',
+			views: {administratorInstruments: {templateUrl: 'templates/administrator/instruments.html', controller: 'AdminInstrumentsCtrl'}}
+		})
 		.state('administrator.instrument', {
-				   url: '/instrument/:instrumentId',
-				   views: {administratorInstruments: {templateUrl: 'templates/administrator/instrument.html', controller: 'AdminInstrumentsCtrl'}}
-			   })
+			url: '/instrument/:instrumentId',
+			views: {administratorInstruments: {templateUrl: 'templates/administrator/instrument.html', controller: 'AdminInstrumentsCtrl'}}
+		})
 		.state('administrator.planning', {
-				   url: '/planning',
-				   views: {
-					   administratorPlanning: {templateUrl: 'templates/manager/planning.html', controller: 'PlanningCtrl'}
-				   }
-			   })
+			url: '/planning',
+			views: {
+				administratorPlanning: {templateUrl: 'templates/manager/planning.html', controller: 'PlanningCtrl'}
+			}
+		})
 		.state('administrator.progress', {
-				   url: '/progress',
-				   views: {
-					   administratorProgress: {templateUrl: 'templates/administrator/progress.html', controller: 'AdminProgressCtrl'}
-				   }
-			   })
+			url: '/progress',
+			views: {
+				administratorProgress: {templateUrl: 'templates/administrator/progress.html', controller: 'AdminProgressCtrl'}
+			}
+		})
 		.state('administrator.resourceDetail', {
-				   url: '/resource/:resourceId',
-				   views: {
-					   administratorResources: {templateUrl: 'templates/manager/resource.html', controller: 'ResourceCtrl'}
-				   }
-			   })
+			url: '/resource/:resourceId',
+			views: {
+				administratorResources: {templateUrl: 'templates/manager/resource.html', controller: 'ResourceCtrl'}
+			}
+		})
 		.state('administrator.settings', {
-				   url: '/settings',
-				   views: {administratorSettings: {templateUrl: 'templates/administrator/settings.html', controller: 'AdminSettingsCtrl'}}
-			   })
+			url: '/settings',
+			views: {administratorSettings: {templateUrl: 'templates/administrator/settings.html', controller: 'AdminSettingsCtrl'}}
+		})
 
 	/**
 	 * Professional user states.
@@ -105,21 +105,21 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('professional', {url: "/professional", abstract: true, templateUrl: "templates/professional/tabs.html"})
 
 		.state('professional.dashboard', {
-				   url: '/dashboard',
-				   views: {
-					   professionalDashboard: {templateUrl: 'templates/professional/dashboard.html', controller: 'ProfDashboardCtrl'}
-				   }
-			   })
+			url: '/dashboard',
+			views: {
+				professionalDashboard: {templateUrl: 'templates/professional/dashboard.html', controller: 'ProfDashboardCtrl'}
+			}
+		})
 		.state('professional.help', {
-				   url: '/help',
-				   views: {
-					   professionalHelp: {templateUrl: 'templates/professional/help.html', controller: 'ProfHelpCtrl'}
-				   }
-			   })
+			url: '/help',
+			views: {
+				professionalHelp: {templateUrl: 'templates/professional/help.html', controller: 'ProfHelpCtrl'}
+			}
+		})
 		.state('professional.settings', {
-				   url: '/settings',
-				   views: {professionalSettings: {templateUrl: 'templates/professional/settings.html', controller: 'ProfSettingsCtrl'}}
-			   })
+			url: '/settings',
+			views: {professionalSettings: {templateUrl: 'templates/professional/settings.html', controller: 'ProfSettingsCtrl'}}
+		})
 
 	/**
 	 * Manager user states.
@@ -127,110 +127,112 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('manager', {url: "/manager", abstract: true, templateUrl: "templates/manager/tabs.html"})
 
 		.state('manager.dashboard', {
-				   url: '/dashboard',
-				   views: {
-					   managerDashboard: {
-						   templateUrl: 'templates/manager/dashboard.html', controller: 'DashboardCtrl'
-					   }
-				   }
-			   })
+			url: '/dashboard',
+			views: {
+				managerDashboard: {
+					templateUrl: 'templates/manager/dashboard.html', controller: 'DashboardCtrl'
+				}
+			}
+		})
 		.state('manager.assessmentMatrix', {
-				   url: '/dashboard/matrix/:organizationId?/',
-				   views: {
-					   managerDashboard: {templateUrl: 'templates/common/assessmentMatrix.html', controller: 'MgrMatrixCtrl'}
-				   }
-			   })
+			url: '/dashboard/matrix/:organizationId?/',
+			views: {
+				managerDashboard: {templateUrl: 'templates/common/assessmentMatrix.html', controller: 'MgrMatrixCtrl'}
+			}
+		})
 		.state('manager.outcomes', {
-				   url: '/outcomes',
-				   views: {
-					   managerOutcomes: {templateUrl: 'templates/manager/outcomes.html', controller: 'OutcomeCtrl'}
-				   }
-			   })
+			url: '/outcomes',
+			views: {
+				managerOutcomes: {templateUrl: 'templates/manager/outcomes.html', controller: 'OutcomeCtrl'}
+			}
+		})
 		.state('manager.members', {
-				   url: '/members',
-				   views: {
-					   managerMembers: {templateUrl: 'templates/manager/members.html', controller: 'MembersCtrl'}
-				   }
-			   })
+			url: '/members',
+			views: {
+				managerMembers: {templateUrl: 'templates/manager/members.html', controller: 'MembersCtrl'}
+			}
+		})
 		.state('manager.member', {
-				   url: '/member/:memberId',
-				   views: {
-					   managerMembers: {templateUrl: 'templates/manager/member.html', controller: 'MemberCtrl'}
-				   }
-			   })
+			url: '/member/:memberId',
+			views: {
+				managerMembers: {templateUrl: 'templates/manager/member.html', controller: 'MemberCtrl'}
+			}
+		})
 		.state('manager.progress', {
-				   url: '/member/progress/:memberId',
-				   views: {
-					   managerMembers: {templateUrl: 'templates/manager/progress.html', controller: 'MemberProgressCtrl'}
-				   }
-			   })
+			url: '/member/progress/:memberId',
+			views: {
+				managerMembers: {templateUrl: 'templates/manager/progress.html', controller: 'MemberProgressCtrl'}
+			}
+		})
 		.state('manager.memberProgress', {
-				   url: '/member/barProgress/:memberId',
-				   views: {
-					   managerMembers: {templateUrl: 'templates/manager/memberProgressBars.html', controller: 'MemberBarProgressCtrl'}
-				   }
-			   })
+			url: '/member/barProgress/:memberId',
+			views: {
+				managerMembers: {templateUrl: 'templates/manager/memberProgressBars.html', controller: 'MemberBarProgressCtrl'}
+			}
+		})
 		.state('manager.memberNotes', {
-				   url: '/member/notes/:memberId',
-				   views: {
-					   managerMembers: {templateUrl: 'templates/manager/memberNotes.html', controller: 'MemberNotesCtrl'}
-				   }
-			   })
+			url: '/member/notes/:memberId',
+			views: {
+				managerMembers: {templateUrl: 'templates/manager/memberNotes.html', controller: 'MemberNotesCtrl'}
+			}
+		})
 		.state('manager.assessments', {
-				   url: '/assessments',
-				   views: {
-					   managerAssessments: {templateUrl: 'templates/common/assessments.html', controller: 'AssessmentsCtrl'}
-				   }
-			   })
+			url: '/assessments',
+			views: {
+				managerAssessments: {templateUrl: 'templates/assessment/matrix.html', controller: 'AssessmentMatrixCtrl'}
+			}
+		})
 		.state('manager.assessment', {
-				   url: '/assessment/:assessmentId',
-				   views: {
-					   managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'AssessmentCtrl'}
-				   }
-			   })
+			url: '/assessment/:assessmentId',
+			views: {
+				managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'AssessmentCtrl'}
+			}
+		})
 
 		.state('manager.newAssessment', {
-				   url: '/assessment/n/:memberId',
-				   views: {
-					   managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'AssessmentCtrl'}
-				   }
-			   })
+			url: '/assessment/n/:memberId',
+			views: {
+				managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'AssessmentCtrl'}
+			}
+		})
 		.state('manager.planning', {
-				   url: '/planning',
-				   views: {
-					   managerResources: {templateUrl: 'templates/manager/planning.html', controller: 'PlanningCtrl'}
-				   }
-			   })
+			url: '/planning',
+			views: {
+				managerResources: {templateUrl: 'templates/manager/planning.html', controller: 'PlanningCtrl'}
+			}
+		})
 		.state('manager.resources', {
-				   url: '/resources',
-				   views: {
-					   managerResources: {templateUrl: 'templates/manager/resources.html', controller: 'ResourceCtrl'}
-				   }
-			   })
+			url: '/resources',
+			views: {
+				managerResources: {templateUrl: 'templates/manager/resources.html', controller: 'ResourceCtrl'}
+			}
+		})
 		.state('manager.resourceDetail', {
-				   url: '/resource/:resourceId',
-				   views: {
-					   managerResources: {templateUrl: 'templates/manager/resource.html', controller: 'ResourceCtrl'}
-				   }
-			   })
+			url: '/resource/:resourceId',
+			views: {
+				managerResources: {templateUrl: 'templates/manager/resource.html', controller: 'ResourceCtrl'}
+			}
+		})
 		.state('manager.assessmentEmpSection', {
-				   url: '/assessment/:assessmentId/:memberId/:sectionIdx',
-				   views: {
-					   managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'AssessmentCtrl'}
-				   }
-			   })
+			url: '/assessment/:assessmentId/:memberId/:sectionIdx',
+			views: {
+				managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'AssessmentCtrl'}
+			}
+		})
 		.state('manager.latestassessment', {
-				   url: '/assessment/:memberId',
-				   views: {
-					   managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'AssessmentCtrl'}
-				   }
-			   })
+			url: '/assessment/:memberId',
+			views: {
+				managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'AssessmentCtrl'}
+			}
+		})
 		.state('manager.settings', {
-				   url: '/settings',
-				   views: {
-					   managerSettings: {templateUrl: 'templates/manager/settings.html', controller: 'MgrSettingsCtrl'}
-				   }
-			   });
+			url: '/settings',
+			views: {
+				managerSettings: {templateUrl: 'templates/manager/settings.html', controller: 'MgrSettingsCtrl'}
+			}
+		})
+	;
+
 
 	//$urlRouterProvider.otherwise('/manager/dashboard');
 	$urlRouterProvider.otherwise(function ($injector, $location) {

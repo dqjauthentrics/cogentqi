@@ -1,0 +1,58 @@
+<ion-view view-title='Assessment Matrix'>
+    <ion-nav-buttons side="right">
+        <a href="/#tab/assessments" style="font-size:1.2em;">Assessments >></a>
+    </ion-nav-buttons>
+    <ion-content has-bouncing="false">
+        <div style="text-align:center; margin-top: 1em;">
+            <h3>{{a.sectionCurrentName()}}</h3>
+            <h4>Competency Summary Matrix</h4>
+
+            <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId"
+                    data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
+                    data-ng-options="instrument.id as instrument.name for instrument in data.instruments">
+            </select>
+        </div>
+        <div style="overflow: auto !important;">
+            <table id="matrix" class="matrix">
+                <thead>
+                <tr>
+                    <th style="font-style: italic;">{{'Most Recent'|translate}}<br/>{{'Member Assessments'|translate}}</th>
+                    <th class="rotate" data-ng-repeat="hdr in data.matrix.hdrs track by $index" data-ng-class="getCellClass(hdr)"
+                        data-ng-show="show(hdr)">
+                        <div><span>{{hdr[1]|ellipsify:24}}</span></div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="row in data.matrix.rows">
+                    <td class="leftHeader" data-ng-class="row.id == -1? 'average':''">
+                        <div data-ng-switch="row.id">
+                            <div data-ng-switch-when="-1" style="text-align: right;">
+                                {{row.n}}
+                            </div>
+                            <div data-ng-switch-default>
+                                <a href="/#/manager/member/{{row.id}}">
+                                    <avatar site="siteDir()" sz="'tiny'" member-id="row.id" level="row.lv" alt=""></avatar>
+                                </a>
+                                <a href="/#/manager/member/{{row.id}}">{{row.n}}</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-ng-repeat="response in row.rsp track by $index" data-ng-class="getCellClass(response)"
+                        data-ng-show="show(response)">
+                        <div data-ng-class="getScoreClass(response)">{{response[1]}}</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row row-responsive-sm">
+            <div class="col" style="text-align:center;">
+                <a class="button" data-ng-click="previous()"><< {{previousName()|ellipsify:25}}</a>
+                <a class="button" data-ng-show="!isAll()" data-ng-click="viewAll()">Complete</a>
+                <a class="button" data-ng-show="!isSummary()" data-ng-click="viewSummary()">Sections</a>
+                <a class="button" data-ng-click="next()">{{nextName()|ellipsify:25}} >></a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1259,3 +1259,44 @@ table.items tr:nth-child(odd) {
 .nextToggler {
     cursor: pointer;
 }
+
+#matrix {
+    border-collapse: collapse;
+}
+
+#matrix td {
+    border: 1px solid gray;
+    padding: 0.4em;
+    font-size: 0.9em;
+    margin: 0;
+    font-weight: normal;
+}
+
+#matrix td.typeV {
+    background: #FFF;
+}
+
+#matrix td.typeS {
+    background: #EEE;
+    font-weight: bold;
+}
+
+#matrix td.typeC {
+    background: #EEE;
+    font-weight: bold;
+}
+
+#matrix td.typeCS {
+    background: #EEE;
+    font-weight: bold;
+}
+
+#matrix td.typeR {
+    background: #EEE;
+    font-weight: bold;
+}
+
+#matrix td.typeRC {
+    background: #EEE;
+    font-weight: bold;
+}

@@ -48,6 +48,20 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		return null;
 	};
 
+	svc.retrieveNewMatrix = function (instrumentId, organizationId, isRollUp) {
+		var orgId = organizationId;
+		if (Utility.empty(orgId)) {
+			var user = $cookieStore.get('user');
+			if (!Utility.empty(user.organizationId)) {
+				orgId = user.organizationId;
+			}
+		}
+		if (!Utility.empty(instrumentId) && !Utility.empty(orgId)) {
+			return $resource('/api/assessment/newmatrix/' + orgId + '/' + instrumentId, {}, {});
+		}
+		return null;
+	};
+
 	svc.retrieveProgressByMonth = function (instrumentId, isRollUp) {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(instrumentId) && !Utility.empty(user) && !Utility.empty(user.organizationId)) {
@@ -352,7 +366,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 			for (j = 0; j < colTotals.length; j++) {
 				var avg = (colTotals[j] > 0 && colNs[j] > 0 ? Utility.round(colTotals[j] / colNs[j], 1) : 0);
 				var avgRound = Math.round(avg);
-				matrix[mLen].responses[j] = [avg,'LIKERT'];
+				matrix[mLen].responses[j] = [avg, 'LIKERT'];
 				matrix[mLen].colAvgs[j] = {avg: avg, avgRound: avgRound};
 				if (avg > 0) {
 					total += avg;

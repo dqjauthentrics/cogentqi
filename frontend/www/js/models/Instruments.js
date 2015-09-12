@@ -10,8 +10,13 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 	svc.retrieve = function () {
 		return $resource('/api/instrument/:id', {}, {});
 	};
+	svc.groupName = function (group) {
+		if (group && group != undefined) {
+			return group.number + '. ' + group.tag;
+		}
+		return '';
+	};
 	svc.collate = function (instruments) {
-		console.log("collate");
 		if (!Utility.empty(instruments)) {
 			for (var i = 0; i < instruments.length; i++) {
 				var instrument = instruments[i];
@@ -20,8 +25,10 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 				instrument.sections = [];
 				for (var j = 0; j < gLen; j++) {
 					var questionGroup = groups[j];
-					var previous = (j > 0 ? j + '. ' + groups[(j - 1)].tag : gLen + '. ' + groups[(groups.length - 1)].tag);
-					var next = j < gLen - 1 ? (j + 2) + '. ' + groups[(j + 1)].tag : '1. ' + groups[0].tag;
+					//var previous = (j > 0 ? j + '. ' + groups[(j - 1)].tag : gLen + '. ' + groups[(groups.length - 1)].tag);
+					var previous = (j > 0 ? svc.groupName(groups[(j - 1)]) : svc.groupName(groups[(groups.length - 1)]));
+					var next = (j < gLen - 1 ? svc.groupName(groups[(j + 1)]) : svc.groupName(groups[0]));
+					//var next = j < gLen - 1 ? (j + 2) + '. ' + groups[(j + 1)].tag : '1. ' + groups[0].tag;
 					instrument.sections[j] = {
 						id: questionGroup.id,
 						number: questionGroup.number,

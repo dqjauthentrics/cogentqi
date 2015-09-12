@@ -15,6 +15,16 @@ angular.module('app')
 			};
 		}
 	])
+	.filter('ellipsify', [
+		'$filter', function ($filter) {
+			return function (src, maxLen) {
+				if (src && src !== undefined) {
+					return src.substring(0, maxLen) + '...';
+				}
+				return src;
+			};
+		}
+	])
 	.filter("timeAgo", function () {
 				//time: the time
 				//local: compared to what time? default: now

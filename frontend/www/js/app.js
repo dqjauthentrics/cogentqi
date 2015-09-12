@@ -34,6 +34,7 @@ angular.module('app',
 		'LearningModules',
 		'Outcomes',
 		'ControllerCommon',
+		'AssessmentControllers',
 		'ControllerManager',
 		'ControllerAdministrator',
 		'ControllerProfessional'
