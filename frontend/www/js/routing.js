@@ -231,6 +231,16 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 				managerSettings: {templateUrl: 'templates/manager/settings.html', controller: 'MgrSettingsCtrl'}
 			}
 		})
+
+		.state('assessment', {url: "/assessment", abstract: true, templateUrl: "templates/common/tabs.html"})
+
+		.state('assessment.matrix', {
+			url: '/matrix/:organizationId',
+			views: {
+				assessments: {templateUrl: 'templates/assessment/matrix.html', controller: 'AssessmentMatrixCtrl'}
+			}
+		})
+
 	;
 
 

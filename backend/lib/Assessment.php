@@ -1,8 +1,10 @@
 <?php
 namespace App;
+require_once "Matrix.php";
 require_once "Operation.php";
 require_once "Instrument.php";
 require_once "InstrumentSchedule.php";
+use App\Matrix;
 use App\Operation;
 use App\Instrument;
 use App\InstrumentSchedule;
@@ -13,111 +15,6 @@ require_once("AssessmentResponse.php");
 class Assessment extends Model {
 	const STATUS_ACTIVE = 'A';
 	const STATUS_LOCKED = 'L';
-
-	/**
-	 * @param string $currentType
-	 * @param string $testType
-	 *
-	 * @return string
-	 */
-	private function setType($currentType, $testType) {
-		if (empty($currentType)) {
-			return $testType;
-		}
-		else if ($currentType !== $testType) {
-			return 'M';
-		}
-		return $currentType;
-	}
-
-	/**
-	 * @param array $hdrs
-	 * @param array $rows
-	 */
-	private function matrixTable($hdrs, $rows) {
-		?>
-		<style>
-			#matrix {
-				border-collapse: collapse;
-			}
-
-			#matrix th {
-				border: 1px solid gray;
-				padding: 0.1em;
-				font-size: 0.8em;
-				transform: rotate(305deg);
-				margin: 0;
-				height: 200px;
-			}
-
-			#matrix td {
-				border: 1px solid gray;
-				padding: 0.1em;
-				font-size: 0.9em;
-				margin: 0;
-			}
-
-			#matrix td.typeV {
-				background: #EEE;
-			}
-
-			#matrix td.typeS {
-				background: #EFE;
-			}
-
-			#matrix td.typeC {
-				background: #FEE;
-			}
-
-			#matrix td.typeCS {
-				background: #FEF;
-				font-weight: bold;
-			}
-
-			#matrix td.typeR {
-				background: #FFE;
-				font-weight: bold;
-			}
-
-			#matrix td.typeRC {
-				background: #FFE;
-				font-weight: bold;
-			}
-		</style>
-		<table id="matrix">
-			<thead>
-			<tr>
-				<th>ID</th>
-				<th>Name</th>
-				<?php
-				foreach ($hdrs as $hdr) {
-					?>
-					<th><?= @$hdr ?></th>
-					<?php
-				}
-				?>
-			</tr>
-			</thead>
-			<?php
-			foreach ($rows as $row) {
-				?>
-				<tr>
-					<td><?= $row["id"] ?></td>
-					<td><?= $row["n"] ?></td>
-					<?php
-					foreach ($row["rsp"] as $rsp) {
-						?>
-						<td class="type<?= @$rsp[0] ?> section<?= $rsp[3] ?>"><?= @$rsp[0] . ':' . @$rsp[1] . ':' . @$rsp[2] . ':' . @$rsp[3] ?></td>
-						<?php
-					}
-					?>
-				</tr>
-				<?php
-			}
-			?>
-		</table>
-		<?php
-	}
 
 	/**
 	 * Create a new assessment.
@@ -380,140 +277,14 @@ class Assessment extends Model {
 		 * Get a matrix of assessment values for all members in an organization.
 		 */
 		$this->api->get("/$urlName/newmatrix/:organizationId/:instrumentId", function ($organizationId, $instrumentId) use ($urlName) {
-			$rowRecords = [];
-			$dbRecords = $this->api->db->assessment()->select('member_id,max(last_modified) as maxMod')
-				->where('instrument_id=? AND member_id IN (SELECT id FROM member WHERE organization_id=?)', $instrumentId, $organizationId)
-				->group('member_id');
-			$members = [];
-			$memberIds = [];
-			foreach ($dbRecords as $dbRecord) {
-				$member = $dbRecord->member;
-				$memberIds[] = $dbRecord["member_id"];
-				$members[$dbRecord["member_id"]] = [
-					'max' => $dbRecord["maxMod"],
-					'fn'  => $member["first_name"],
-					'ln'  => $member["last_name"],
-					'r'   => $member["role_id"],
-					'jt'  => $member["job_title"],
-					'em'  => $member["email"],
-					'lv'  => $member["level"],
-				];
-			}
-			$memberIds = implode(",", $memberIds);
-			$dbRecords = $this->api->db->assessment()->where("instrument_id=? AND member_id IN ($memberIds)", $instrumentId);
-			$columns = [];
-			$matrix = ['total' => 0, 'count' => 0, 'typeName' => NULL];
-			$headers = [];
-			$groups = [];
-			$groupRecords = $this->api->db->question_group()->where('instrument_id=?', $instrumentId)->order('sort_order');
-			foreach ($groupRecords as $groupRecord) {
-				$groups[] = trim($groupRecord["number"] . ' ' . $groupRecord["tag"]);
-			}
-			$questionRecords = $this->api->db->question()
-				->where('question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?)', $instrumentId)->order('sort_order');
-			$lastGroupId = NULL;
-			$groupIdx = 0;
-			foreach ($questionRecords as $questionRecord) {
-				$groupId = $questionRecord["question_group_id"];
-				if ($lastGroupId != NULL && $groupId != $lastGroupId && $groupIdx < count($groups)) {
-					$headers[] = ['S', $groups[$groupIdx], 'H', $groupIdx];
-					$groupIdx++;
-				}
-				$lastGroupId = $groupId;
-				$headers[] = ['R', trim($questionRecord["number"] . ' ' . $questionRecord["name"]), 'H', $groupIdx];
-			}
-			foreach ($dbRecords as $dbRecord) {
-				$member = $members[$dbRecord["member_id"]];
-				if ($dbRecord["last_modified"] == $member["max"]) {
-					$responses = [];
-					$memberId = $dbRecord["member_id"];
-					$responseRecords = $this->api->db->assessment_response()->where("assessment_id=?", $dbRecord["id"]);
-					$sections = [];
-					$lastGroupId = NULL;
-					$colIdx = 0;
-					$row = ['total' => 0, 'count' => 0];
-					$groupIdx = 0;
-					foreach ($responseRecords as $responseRecord) {
-						$groupId = $responseRecord->question["question_group_id"];
-						$typeId = substr($responseRecord->question->question_type["entry_type"], 0, 1);
-						$response = (int)$responseRecord["response_index"];
-						if (empty($sections[$groupId])) {
-							if (!empty($lastGroupId)) {
-								$sectAvg = $this->avg($sections[$lastGroupId]["total"], $sections[$lastGroupId]["count"]);
-								$responses[] = ['S', $sectAvg, $sections[$lastGroupId]["typeName"], $groupIdx - 1];
-								if (empty($columns[$colIdx])) {
-									$columns[$colIdx] = ['typeName' => $typeId, 'total' => 0, 'count' => 0];
-								}
-								$columns[$colIdx]["total"] += $sectAvg;
-								$columns[$colIdx]["count"]++;
-								$columns[$colIdx]["groupIdx"] = $groupIdx;
-								$columns[$colIdx]["t"] = 'S';
-								$colIdx++;
-							}
-							$sections[$groupId] = ['typeName' => $typeId, 'total' => 0, 'count' => 0, 'groupIdx' => $groupIdx - 1];
-							$lastGroupId = $groupId;
-							$groupIdx++;
-						}
-						if (empty($columns[$colIdx])) {
-							$columns[$colIdx] = ['typeName' => $typeId, 'total' => 0, 'count' => 0];
-						}
-						if (empty($row['typeName'])) {
-							$row['typeName'] = $typeId;
-						}
-						$responses[] = ['V', $response, $typeId, $groupIdx - 1];
-
-						$matrix['total'] += $response;
-						$matrix['count']++;
-						$matrix['typeName'] = $this->setType($matrix['typeName'], $typeId);
-
-						$row["total"] += $response;
-						$row["count"]++;
-						$row['typeName'] = $this->setType($row['typeName'], $typeId);
-
-						$columns[$colIdx]["total"] += $response;
-						$columns[$colIdx]["count"]++;
-						$columns[$colIdx]["groupIdx"] = $groupIdx;
-
-						$sections[$groupId]["total"] += $response;
-						$sections[$groupId]["count"]++;
-						$sections[$groupId]['typeName'] = $this->setType($sections[$groupId]['typeName'], $typeId);
-						$sections[$groupId]["groupIdx"] = $groupIdx - 1;
-
-						$colIdx++;
-					}
-					$responses[] = ['R', $this->avg($row['total'], $row['count']), $row['typeName'], $groupIdx];
-					$rowRecords[] = [
-						'id'  => $memberId,
-						'n'   => $member['fn'] . ' ' . $member['ln'],
-						'r'   => $member["r"],
-						'jt'  => $member["jt"],
-						'lv'  => $member["lv"],
-						'em'  => $member["em"],
-						'rsp' => $responses,
-					];
-				}
-			}
-			$columnSummaries = [];
-			foreach ($columns as $colIdx => $info) {
-				$columnSummaries[] = [
-					'C' . @$columns[$colIdx]['t'],
-					$this->avg($columns[$colIdx]["total"], $columns[$colIdx]["count"]),
-					$columns[$colIdx]["typeName"],
-					$columns[$colIdx]["groupIdx"] - 1
-				];
-			}
-			$columnSummaries[] = ['RC', $this->avg($matrix["total"], $matrix["count"]), $matrix["typeName"], $groupIdx];
-			$rowRecords[] = [
-				'id'  => -1,
-				'n'   => 'Averages',
-				'rsp' => $columnSummaries,
-			];
-
+			$orgName = $this->api->db->organization()->where('id=?', [$organizationId])->fetch();
+			$matrix = new Matrix($this->api, $this->api->pdo, $this->api->db);
+			list($mType, $headers, $rowRecords, $nSections) = $matrix->myMatrix($organizationId, $instrumentId);
 			if ($this->api->debug) {
-				$this->matrixTable($headers, $rowRecords);
+				$matrix->matrixTable($headers, $rowRecords);
 			}
 			else {
-				$this->api->sendResult([['hdrs' => $headers, 'rows' => $rowRecords, 'nSections' => $groupIdx - 1]]);
+				$this->api->sendResult([['org' => $orgName, 'mType' => $mType, 'hdrs' => $headers, 'rows' => $rowRecords, 'nSections' => $nSections]]);
 			}
 		});
 
