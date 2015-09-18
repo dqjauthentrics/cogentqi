@@ -172,8 +172,9 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 				svc.currentSectionIdx = 0;
 			}
 			try {
-				isCurrent =
-					!Utility.empty(instrument) && Array.isArray(instrument.sections) && parseInt(instrument.sections[svc.currentSectionIdx].id) == parseInt(sectionId);
+				isCurrent = svc.currentSectionIdx >= 0 &&
+					!Utility.empty(instrument) && Array.isArray(instrument.sections) &&
+					parseInt(instrument.sections[svc.currentSectionIdx].id) == parseInt(sectionId);
 			}
 			catch (exception) {
 				console.log("exception:", exception);

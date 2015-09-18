@@ -13,7 +13,7 @@
                     <ion-item class="top">Assessments</ion-item>
                     <ion-item data-ng-if="!data.assessments">None.</ion-item>
                     <ion-item class="item-icon-right" data-ng-repeat="assessment in data.assessments" type="item-text-wrap"
-                              href="#/manager/assessment/{{assessment.id}}">
+                              href="#/assessment/view/{{assessment.id}}">
                         <div style="white-space: normal !important;">
                             <i class="{{i.assessment}} pad-right"></i>
                             On <span style="font-weight:bold;">{{assessment.lm | date:'medium'}}  ({{assessment.lm|timeAgo}})</span>

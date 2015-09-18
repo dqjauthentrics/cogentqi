@@ -179,20 +179,20 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('manager.assessments', {
 			url: '/assessments',
 			views: {
-				managerAssessments: {templateUrl: 'templates/assessment/matrix.html', controller: 'AssessmentMatrixCtrl'}
+				managerAssessments: {templateUrl: 'templates/assessment/list.html', controller: 'AssessmentListCtrl'}
 			}
 		})
 		.state('manager.assessment', {
 			url: '/assessment/:assessmentId',
 			views: {
-				managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'AssessmentCtrl'}
+				assessments: {templateUrl: 'templates/common/view.html', controller: 'AssessmentCtrl'}
 			}
 		})
 
 		.state('manager.newAssessment', {
 			url: '/assessment/n/:memberId',
 			views: {
-				managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'AssessmentCtrl'}
+				assessments: {templateUrl: 'templates/common/view.html', controller: 'AssessmentCtrl'}
 			}
 		})
 		.state('manager.planning', {
@@ -216,13 +216,13 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('manager.assessmentEmpSection', {
 			url: '/assessment/:assessmentId/:memberId/:sectionIdx',
 			views: {
-				managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'AssessmentCtrl'}
+				assessments: {templateUrl: 'templates/common/view.html', controller: 'AssessmentCtrl'}
 			}
 		})
 		.state('manager.latestassessment', {
 			url: '/assessment/:memberId',
 			views: {
-				managerAssessments: {templateUrl: 'templates/common/assessment.html', controller: 'AssessmentCtrl'}
+				assessments: {templateUrl: 'templates/common/view.html', controller: 'AssessmentCtrl'}
 			}
 		})
 		.state('manager.settings', {
@@ -238,6 +238,13 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 			url: '/matrix/:organizationId',
 			views: {
 				assessments: {templateUrl: 'templates/assessment/matrix.html', controller: 'AssessmentMatrixCtrl'}
+			}
+		})
+
+		.state('assessment.view', {
+			url: '/view/:assessmentId',
+			views: {
+				assessments: {templateUrl: 'templates/assessment/view.html', controller: 'AssessmentViewCtrl'}
 			}
 		})
 

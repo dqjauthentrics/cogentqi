@@ -1,3 +1,7 @@
+body, h1, h2, h3, h4, h5, td, th, p, div, input, textarea {
+    font-family: 'Ubuntu', serif;
+}
+
 a {
     cursor: pointer;
     text-decoration: none;
@@ -124,8 +128,8 @@ ion-header-bar a {
 ion-item img.avatar {
     max-width: 80px !important;
     max-height: 80px !important;
-    width: 7.5vmin !important;
-    height: 7.5vmin !important;
+    width: 7.5em !important;
+    height: 7.5em !important;
     float: left;
     margin-right: 1em;
     vertical-align: middle;
@@ -133,13 +137,13 @@ ion-item img.avatar {
 }
 
 .avatar-large {
-    width: 18vmin;
-    height: 18vmin;
+    width: 14em;
+    height: 14em;
 }
 
 .avatar-medium {
-    width: 14vmin;
-    height: 14vmin;
+    width: 10em;
+    height: 10em;
 }
 
 .avatar-tiny, ion-item img.avatar.avatar-tiny {
@@ -152,8 +156,8 @@ ion-item img.avatar {
 .avatar-small {
     max-width: 80px !important;
     max-height: 80px !important;
-    width: 10vmin !important;
-    height: 10vmin !important;
+    width: 6em !important;
+    height: 6em !important;
     vertical-align: middle;
     margin-right: 0.5em;
     border-radius: 5em;
@@ -186,19 +190,6 @@ ion-item .listIcon {
     vertical-align: middle;
 }
 
-.assessment .item {
-    font-size: 1.6vmin;
-    padding: 1em;
-}
-
-.assessment .text {
-    font-weight: bold;
-    font-size: 1.6vw;
-    line-height: 1.6vw;
-    margin-bottom: 0.5em;
-    margin-top: 0.3em;
-}
-
 .assessment .number {
     font-weight: bold;
     font-size: 1.4vw;
@@ -218,21 +209,21 @@ ion-item .listIcon {
 }
 
 .detail .title {
-    font-size: 3vmin !important;
-    line-height: 3vmin !important;
+    font-size: 1.4em !important;
+    line-height: 1.4em !important;
     font-weight: normal;
 }
 
 .detail .name {
-    font-size: 3.8vmin;
-    line-height: 3.8vmin !important;
+    font-size: 1.5em;
+    line-height: 1.5em !important;
     font-weight: bold;
     color: darkslategray;
 }
 
 .detail .role {
-    font-size: 2.4vmin;
-    line-height: 3.5vmin !important;
+    font-size: 1.1em;
+    line-height: 1.1em !important;
     font-weight: normal;
 }
 
@@ -329,7 +320,6 @@ ion-item .stamp {
 
 .recommendationsPane .item {
     background: #EEFFEE;
-    font-size: max(1em, 2.0vmin);
     padding: 0.8em;
 }
 
@@ -511,7 +501,6 @@ table.cycle {
     border: 0 solid #AAA;
     border-radius: 0.3em;
     padding: 0.3em;
-    font-size: 0.9em;
 }
 
 .outcomeLevelBg {
@@ -742,8 +731,8 @@ outcome-level-tag {
     font-weight: normal;
     font-style: italic;
     color: #000;
-    line-height: 1.4vw;
-    font-size: 1.3vw;
+    line-height: 1.0em;
+    font-size: 0.8em;
 }
 
 .assessment .rubric > div {
@@ -753,22 +742,21 @@ outcome-level-tag {
 }
 
 .assessment .rubric > div > div {
-    padding: 0.5vw 1vw;
+    padding: 0.5em 1em;
     display: block;
     text-align: center;
     font-weight: bold;
-    font-size: 1.4vw;
 }
 
 .assessment .rubric > div p {
     white-space: normal !important;
-    padding: 0.2vw 1vw;
-    font-size: 1.0vw;
+    padding: 0.5em 1em;
 }
 
 .assessment .rubric .active p {
     opacity: 1;
     color: #000;
+    line-height: 1.1em;
 }
 
 .assessment .rubric .inactive p {
@@ -952,7 +940,6 @@ ion-item.top {
 ion-item.top h2 {
     padding: 0.4em;
     color: #FFF;
-    font-size: 1.8vw;
 }
 
 .fadein,

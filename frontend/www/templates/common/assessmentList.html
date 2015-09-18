@@ -15,7 +15,7 @@
             {{assessment.member.fn}} {{assessment.member.ln}}
         </td>
         <td style="width:12em;">
-            <a href="#/manager/assessment/{{assessment.id}}">{{assessment.lm|date:'EEE'}}, {{assessment.lm|date:'short'}}</a>
+            <a href="#/assessment/view/{{assessment.id}}">{{assessment.lm|date:'EEE'}}, {{assessment.lm|date:'short'}}</a>
         </td>
         <td style="width:14em; text-align:left;" data-ng-if="assessment.assessor">
             by {{assessment.assessor.fn}} {{assessment.assessor.ln}}

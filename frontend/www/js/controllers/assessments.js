@@ -2,6 +2,18 @@
 
 angular.module('AssessmentControllers', [])
 
+	.controller('AssessmentListCtrl', function ($rootScope, $scope, $stateParams, Utility, Assessments, Members, Organizations) {
+					$scope.data = {members: [], assessments: []};
+
+					Utility.getResource(Members.retrieve(), function (response) {
+						$scope.data.members = response;
+						Assessments.associateMembers($scope.data.assessments, $scope.data.members);
+					});
+					Utility.getResource(Assessments.retrieve(), function (response) {
+						$scope.data.assessments = response;
+					});
+				})
+
 	.controller('AssessmentMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Assessments) {
 					$scope.data = {
 						matrix: null, instruments: [], currentInstrument: {}, currentInstrumentId: null, currentSectionIdx: Instruments.SECTION_SUMMARY
@@ -90,4 +102,155 @@ angular.module('AssessmentControllers', [])
 					$scope.isSummary = function () {
 						return Instruments.sectionIsSummary();
 					};
-				});
+				})
+
+	.controller('AssessmentViewCtrl',
+				function ($resource, $ionicPopup, $filter, $cookieStore, $scope, $timeout, $stateParams, PDF, Utility,
+						  Instruments, Assessments, Members, Organizations, Resources) {
+					$scope.Instruments = Instruments;
+					$scope.res = null;
+					$scope.data = {dirty: false, recommendations: [], resources: [], assessment: null, currentChoices: null};
+
+					Utility.getResource(Resources.retrieve(), function (response) {
+						$scope.data.resources = response;
+						console.log("resource retrieval:", response);
+						$scope.getAssessment();
+					});
+
+					$scope.hasComment = function (question) {
+						return !Utility.empty(question.rsp) && !Utility.empty(question.rsp.ac) && question.rsp.ac.length > 0;
+					};
+
+					$scope.showComment = function (question) {
+						return !Utility.empty(question.showComments) && question.showComments;
+					};
+
+					$scope.getComment = function (question) {
+						if (!Utility.empty(question) && !Utility.empty(question.rsp)) {
+							var comment = question.rsp.ac;
+							if (!Utility.empty(comment)) {
+								comment = '"' + comment + '"';
+							}
+							return comment;
+						}
+						return null;
+					};
+
+					$scope.weightGreaterThanZero = function () {
+						return function (item) {
+							return item.weight > 0;
+						}
+					};
+
+					$scope.getRecommendations = function () {
+						if (!Utility.empty($scope.data.assessment) && !Utility.empty($scope.data.resources)) {
+							$scope.data.recommendations = Assessments.recommend($scope.data.assessment.instrument, $scope.data.resources);
+						}
+					};
+
+					$scope.updateResponse = function (question, value) {
+						if (!Utility.empty(question) && !Utility.empty(question.rsp) && !Utility.empty(value)) {
+							$scope.data.dirty = true;
+							question.rsp.ri = parseInt(value);
+							$scope.getRecommendations();
+						}
+					};
+
+					$scope.updateSliderResponse = function (question) {
+						$scope.data.dirty = true;
+						var scoreInfo = Assessments.sliderChange(question, $scope.data.assessment.instrument);
+						question.rsp.r = scoreInfo.scoreWord;
+						$scope.currentChoices = question.rsp.ch;
+						$scope.data.assessment.avg = scoreInfo.avg;
+						$scope.data.assessment.avgRound = scoreInfo.avgRound;
+						$scope.data.assessment.scoreWord = Assessments.scoreWord(question);
+						$scope.getRecommendations();
+					};
+
+					$scope.rubricSet = function (question, value) {
+						question.rsp.ri = value;
+					};
+
+					$scope.sliderTranslate = function (value) {
+						return value;
+					};
+
+					$scope.getAssessment = function () {
+						if (Utility.empty($scope.data.assessment) && !Utility.empty($stateParams)) {
+							var assessmentId = !Utility.empty($stateParams.assessmentId) ? $stateParams.assessmentId : -1;
+							if (assessmentId > 0) {
+								Utility.getResource(Assessments.retrieveSingle(assessmentId), function (response) {
+									console.log("assessment retrieval:", response);
+									Instruments.currentSectionIdx = 0;
+									$scope.data.assessment = response;
+									$scope.data.assessor = $cookieStore.get('user');
+									$scope.getRecommendations();
+								});
+							}
+							else {
+								if (!Utility.empty($stateParams.memberId)) {
+									var user = $cookieStore.get('user');
+									$scope.res = $resource('/api/assessment/new/:assessorId/:memberId');
+									$scope.res.get({assessorId: user.id, memberId: $stateParams.memberId}, function (response) {
+										Instruments.currentSectionIdx = 0;
+										$scope.data.assessment = response;
+										$scope.data.assessor = $scope.data.assessment.assessor.id;
+										$scope.getRecommendations();
+									});
+								}
+							}
+						}
+					};
+
+					$scope.rubricWidth = function (nChoices) {
+						return 100 / nChoices;
+					};
+
+					$scope.printIt = function () {
+						PDF.assessment($scope.data.assessment);
+						return true;
+					};
+
+					$scope.getResponseClass = function (responseType, responseIndex) {
+						return 'viewOnly ' + responseType + '_' + responseIndex;
+					};
+
+					$scope.toggleLock = function () {
+						var word = ($scope.data.assessment.es == 'L' ? 'unlock' : 'lock');
+						var confirmPopup = $ionicPopup.confirm({
+							title: Utility.ucfirst(word) + ' Confirmation',
+							template: "Are you sure you wish to " + word + " this assessment?"
+						});
+						confirmPopup.then(function (res) {
+							if (res) {
+								$scope.data.assessment.es = ($scope.data.assessment.es == 'L' ? 'A' : 'L');
+								$scope.res = $resource('/api/assessment/:id');
+								$scope.res.save({assessment: $scope.data.assessment});
+							}
+						});
+					};
+					$scope.save = function (event) {
+						var icon = $(event.target).find("i");
+						var saveClass = icon.attr("class");
+						icon.attr("class", "").addClass("fa fa-spinner fa-spin");
+						$scope.res = $resource('/api/assessment/:id');
+						$scope.res.save({assessment: $scope.data.assessment}, function () {
+							icon.attr("class", saveClass);
+							$scope.data.dirty = false;
+						});
+					};
+					$scope.remove = function () {
+						$scope.res = $resource('/api/assessment/:id');
+						$scope.res.delete({assessment: $scope.data.assessment});
+					};
+					$scope.canEdit = function () {
+						return true;
+					};
+					$scope.canRemove = function () {
+						return !Utility.empty($scope.data.assessment) && $scope.data.assessment.member.roleId != 'T' && $scope.canEdit();
+					};
+					$scope.canLock = function () {
+						return !Utility.empty($scope.data.assessment) && $scope.data.assessment.member.roleId != 'T';
+					}
+				})
+;
