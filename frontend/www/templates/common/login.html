@@ -1,73 +1,65 @@
 <ion-view title="cogentQI Login">
     <ion-content class="padding" scroll="false" has-bouncing="false">
-        <div class="row responsive-sm" data-ng-if="installation.social">
-            <div class="col">
-                <div class="card">
+        <div class="row responsive-lg">
+            <div class="col col-25 padding" data-ng-class="installation.social? 'card':''">
+                <div class="item item-text-wrap" data-ng-if="installation.social">
+                    <div class="item item-divider">
+                        Sign in with one of the following social media sites:
+                    </div>
                     <div class="item item-text-wrap">
-                        <div class="item item-divider">
-                            Sign in with one of the following social media sites:
-                        </div>
-                        <div class="item item-text-wrap">
-                            <div class="clearfix" style="height:0.5em;"></div>
-                            <a class="colorFacebook button button-facebook icon-center ion-social-facebook" data-ng-click="login('facebook')"> Facebook</a>
-                            <a class="colorGoogle button button-google icon-center ion-social-google" data-ng-click="login('google')"> Google+</a>
-                            <a class="colorTwitter button button-twitter icon-center ion-social-twitter" data-ng-click="login('twitter')"> Twitter</a>
+                        <div class="clearfix" style="height:0.5em;"></div>
+                        <a class="colorFacebook button button-facebook icon-center ion-social-facebook" data-ng-click="login('facebook')"> Facebook</a>
+                        <a class="colorGoogle button button-google icon-center ion-social-google" data-ng-click="login('google')"> Google+</a>
+                        <a class="colorTwitter button button-twitter icon-center ion-social-twitter" data-ng-click="login('twitter')"> Twitter</a>
 
-                            <div class="clearfix"></div>
-                        </div>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row responsive-sm">
-            <div class="col {{installation.register? 'col-50' : 'col-100'}} padding" style="text-align:left;">
-                <div class="card">
-                    <div class="item item-text-wrap">
-                        <div class="item item-divider">
-                            Sign in with your {{installation.name}} credentials:
-                        </div>
-                        <div class="item item-text-wrap">
-                            <div style="float:left;"><img data-ng-src="/img/cycle2.png" alt="" style="max-height:10em; margin-right:1em;"/></div>
-                            <div style="float:left">
-                                <form>
-                                    <label class="item item-input">
-                                        <input type="text" placeholder="Email" data-ng-model="data.email">
-                                    </label>
-                                    <label class="item item-input">
-                                        <input type="password" placeholder="Password" data-ng-model="data.password">
-                                    </label>
-                                    <button class="button button-small" data-ng-click="login('password')">Log In</button>
-                                </form>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div style="width:40%; min-width:300px; text-align:center; margin:0 auto;" data-ng-class="data.error" data-ng-if="data.msg">
-                                {{data.msg}}
-                            </div>
-                        </div>
+            <div class="col padding card" id="loginPanel">
+                <div class="item item-text-wrap" style="background-color: #DDD !important;">
+                    <div class="item item-divider">
+                        Sign in with your {{installation.name}} credentials:
                     </div>
-                </div>
-            </div>
-            <div class="col col-50" data-ng-if="installation.register">
-                <div class="card">
-                    <div class="item item-text-wrap">
-                        <div class="item item-divider">
-                            Don't have an account yet?
+                    <div class="row responsive-sm" style="background-color: #DDD !important;">
+                        <div class="col" style="text-align: center;">
+                            <img data-ng-src="/img/cycle2.png" alt="" style="max-height:10em; margin-right:1em"/>
                         </div>
-                        <div class="item item-text-wrap">
+                        <div class="col">
                             <form>
-                                <label class="item item-input">
-                                    <input type="text" placeholder="Email" data-ng-model="data.email">
-                                </label>
-                                <label class="item item-input">
-                                    <input type="password" placeholder="Password" data-ng-model="data.password">
-                                </label>
-                                <button class="button button-small" data-ng-click="createAccount()">Create an Account</button>
+                                <input type="text" placeholder="Email" data-ng-model="data.email">
+                                <input type="password" placeholder="Password" data-ng-model="data.password">
+                                <div class="clearfix"></div>
+                                <button class="button button-small" data-ng-click="login('password')">Log In</button>
                             </form>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="text-align:center; margin:0 auto;" data-ng-class="data.error" data-ng-if="data.msg">
+                            {{data.msg}}
                         </div>
                     </div>
                 </div>
             </div>
-            `
+            <div class="col col-25 padding" data-ng-class="installation.register? 'card':''">
+                <div class="item item-text-wrap" data-ng-if="installation.register">
+                    <div class="item item-divider">
+                        Don't have an account yet?
+                    </div>
+                    <div class="item item-text-wrap">
+                        <form>
+                            <label class="item item-input">
+                                <input type="text" placeholder="Email" data-ng-model="data.email">
+                            </label>
+                            <label class="item item-input">
+                                <input type="password" placeholder="Password" data-ng-model="data.password">
+                            </label>
+                            <button class="button button-small" data-ng-click="createAccount()">Create an Account</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </ion-content>
 </ion-view>

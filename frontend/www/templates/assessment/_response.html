@@ -1,0 +1,36 @@
+<div data-ng-switch="data.assessment.es" class="response">
+    <div data-ng-switch-when="A">
+        <div data-ng-switch="question.typ">
+            <div data-ng-switch-when="YESNO">
+                <div class="button-bar" style="max-width:12em; min-width:12em;">
+                    <a class="button" data-ng-class="{'yesNoBg0': question.rsp.ri == 0}"
+                       data-ng-click="updateResponse(question, 0)">N/A</a>
+                    <a class="button" data-ng-class="{'yesNoBg1': question.rsp.ri == 1}"
+                       data-ng-click="updateResponse(question, 1)">No</a>
+                    <a class="button" data-ng-class="{'yesNoBg2': question.rsp.ri == 2}"
+                       data-ng-click="updateResponse(question, 2)">Yes</a>
+                </div>
+            </div>
+            <div data-ng-switch-default="">
+                <div class="rubric">
+                    <slider id="question_item_{{question.id}}" class="slider{{question.rsp.ri}}"
+                            ng-model="question.rsp.ri" floor="{{question.mn }}" ceiling="{{question.mx}}" step-width="1"
+                            ng-change="updateSliderResponse(question, this, true)"
+                            style="width:100%; margin-bottom:-1em;"
+                            >
+                    </slider>
+                    <div class="{{$index == question.rsp.ri? 'active':'inactive'}}"
+                         data-ng-repeat="choice in question.rsp.ch"
+                         data-ng-click="rubricSet(question,$index)"
+                         style="width:{{rubricWidth(question.mx+1)}}%;">
+                        <div class="rubric{{$index}}">{{choice.n}}</div>
+                        <p data-ng-if="choice.r.length > 0">{{choice.r}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-ng-switch-default="">
+        <div data-ng-class=" getResponseClass(question.typ, question.rsp.ri)">{{question.rsp.r}}</div>
+    </div>
+</div>

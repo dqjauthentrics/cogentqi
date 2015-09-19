@@ -1291,3 +1291,10 @@ table.items tr:nth-child(odd) {
     background: #CCC;
     font-weight: bold;
 }
+
+#loginPanel input {
+    margin: 1em 0;
+    border-radius: 2px;
+    padding: 0.5em;
+    width: 100%;
+}

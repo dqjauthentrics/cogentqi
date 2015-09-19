@@ -149,6 +149,7 @@ angular.module('AssessmentControllers', [])
 					};
 
 					$scope.updateResponse = function (question, value) {
+						console.log("updateResponse:", value, question);
 						if (!Utility.empty(question) && !Utility.empty(question.rsp) && !Utility.empty(value)) {
 							$scope.data.dirty = true;
 							question.rsp.ri = parseInt(value);
@@ -157,6 +158,7 @@ angular.module('AssessmentControllers', [])
 					};
 
 					$scope.updateSliderResponse = function (question) {
+						console.log("updateSliderResponse:", question);
 						$scope.data.dirty = true;
 						var scoreInfo = Assessments.sliderChange(question, $scope.data.assessment.instrument);
 						question.rsp.r = scoreInfo.scoreWord;
@@ -168,6 +170,7 @@ angular.module('AssessmentControllers', [])
 					};
 
 					$scope.rubricSet = function (question, value) {
+						console.log("rubricSet:", question, value);
 						question.rsp.ri = value;
 					};
 

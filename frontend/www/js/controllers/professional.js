@@ -2,10 +2,14 @@
 
 angular.module('ControllerProfessional', [])
 
-	.controller('ProfDashboardCtrl', function ($cookieStore, $rootScope, $scope, Utility, Organizations, Members, Assessments, Plans) {
-					$scope.data = {assessments: [], members: [], planItems: [], user: $cookieStore.get('user')};
+	.controller('ProfDashboardCtrl', function ($cookieStore, $rootScope, $scope, Utility, Organizations, Members, Instruments, Assessments, Plans) {
+					$scope.data = {instruments: [], assessments: [], members: [], planItems: [], user: $cookieStore.get('user')};
 
 					try {
+						Utility.getResource(Instruments.retrieve(), function (response) {
+							$scope.data.instruments = response;
+							console.log(response);
+						});
 						Utility.getResource(Members.retrieve(), function (response) {
 							$scope.data.members = response;
 							$scope.associate("members");
@@ -26,6 +30,17 @@ angular.module('ControllerProfessional', [])
 						if (!Utility.empty($scope.data.assessments) && !Utility.empty($scope.data.members)) {
 							Assessments.associateMembers($scope.data.assessments, $scope.data.members);
 						}
+					};
+					$scope.assessmentName = function (instrumentId) {
+						var instrument = null;
+						if (!Utility.empty($scope.data.instruments)) {
+							for (var i = 0; i < $scope.data.instruments.length; i++) {
+								if ($scope.data.instruments[i].id == instrumentId) {
+									return $scope.data.instruments[i].name;
+								}
+							}
+						}
+						return instrument;
 					};
 					$scope.statusWord = function (statusId) {
 						var word = 'Enrolled';

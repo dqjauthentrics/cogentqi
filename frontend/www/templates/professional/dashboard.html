@@ -1,35 +1,41 @@
-<ion-view view-title="{{installation.name}} Dashboard">
+<ion-view view-title="{{installation.name}}">
     <ion-nav-buttons side="left"><a href="/#/professional/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <h1 style="margin:0.5em">
-            <avatar site="siteDir()" member-id="data.user.id" sz="'medium'" level="data.user.level" alt="avatarAlt(data.user)"></avatar>
-            {{data.user.firstName}} {{data.user.lastName}}
-        </h1>
+        <div class="row responsive-lg">
+            <div class="col padding card">
+                <a href="#/manager/member/{{data.user.id}}"
+                        ><avatar site="siteDir()" member-id="data.user.id" sz="'small'" level="data.user.level"
+                                 alt="avatarAlt(data.user)"></avatar></a>
+                <a href="#/manager/member/{{data.user.id}}">{{data.user.firstName}} {{data.user.lastName}}</a>
+            </div>
+        </div>
 
-        <div class="row responsive-sm">
-            <div class="col col50 padding">
+        <div class="row responsive-lg">
+            <div class="col padding card">
                 <ion-list>
-                    <ion-item class="top">Assessments</ion-item>
-                    <ion-item data-ng-if="!data.assessments">None.</ion-item>
+                    <ion-item class="top">{{'Assessments'|translate}}</ion-item>
+                    <ion-item data-ng-if="!data.assessments">{{'None'|translate}}</ion-item>
                     <ion-item class="item-icon-right" data-ng-repeat="assessment in data.assessments" type="item-text-wrap"
                               href="#/assessment/view/{{assessment.id}}">
                         <div style="white-space: normal !important;">
                             <i class="{{i.assessment}} pad-right"></i>
-                            On <span style="font-weight:bold;">{{assessment.lm | date:'medium'}}  ({{assessment.lm|timeAgo}})</span>
+                            <span class="name">{{assessmentName(assessment.ii)}}</span>
+                            {{'on'|translate}} {{assessment.lm | date:'medium'}}  ({{assessment.lm|timeAgo}})
 
                             <div data-ng-if="assessment.assessor">
                                 by {{assessment.assessor.fn}} {{assessment.assessor.ln}}
-                                <avatar site="siteDir()" member-id="assessment.assessor.id" sz="'tiny'" level="assessment.assessor.lv" alt="avatarAlt(dassessment.assessor)"></avatar>
+                                <avatar site="siteDir()" member-id="assessment.assessor.id" sz="'tiny'" level="assessment.assessor.lv"
+                                        alt="avatarAlt(dassessment.assessor)"></avatar>
                             </div>
                         </div>
                         <i class="icon ion-chevron-right icon-accessory"></i>
                     </ion-item>
                 </ion-list>
             </div>
-            <div class="col col50 padding">
+            <div class="col padding card">
                 <ion-list>
-                    <ion-item class="top">Professional Development Plan</ion-item>
+                    <ion-item class="top">{{'Learning Plan'|translate}}</ion-item>
                     <ion-item data-ng-if="!data.planItems.length">None.</ion-item>
                     <ion-item class="item-icon-right" data-ng-repeat="item in data.planItems" type="item-text-wrap" href="#/manager/resource/{{item.r}}">
                         <div class="name">

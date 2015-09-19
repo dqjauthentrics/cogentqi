@@ -58,9 +58,14 @@ angular.module('app',
 			$translateProvider.preferredLanguage('en_US');
 		}
 	])
+	.constant("APP_ROLES", {
+		"PROFESSIONAL": "professional",
+		"MANAGER": "manager",
+		"ADMINISTRATOR": "administrator"
+	})
 
 	.run(function ($ionicPlatform, $ionicPopup, $rootScope, $location, $window, $cookieStore,
-				   editableOptions, angularLoad, Icons, Utility, Roles,
+				   editableOptions, angularLoad, Icons, Utility, Roles, APP_ROLES,
 				   Authentication) {
 			 $ionicPlatform.ready(function () {
 
@@ -140,6 +145,40 @@ angular.module('app',
 				 };
 				 $rootScope.dashboardUrl = function () {
 					 return Authentication.getUserDashUrl($cookieStore.get('user'));
+				 };
+
+				 $rootScope.roleInfix = function () {
+					 var infix = APP_ROLES.PROFESSIONAL;
+					 var user = $cookieStore.get('user');
+					 if (user !== undefined && user !== null) {
+						 switch (user.roleId) {
+							 case 'A':
+								 infix = APP_ROLES.ADMINISTRATOR;
+								 break;
+							 case'M':
+								 infix = APP_ROLES.MANAGER;
+								 break;
+						 }
+					 }
+					 return infix;
+				 };
+
+				 $rootScope.isAdministrator = function () {
+					 console.log("isAdmin:", $rootScope.roleInfix() == APP_ROLES.ADMINISTRATOR);
+					 return $rootScope.roleInfix() == APP_ROLES.ADMINISTRATOR;
+				 };
+				 $rootScope.isManager = function () {
+					 return $rootScope.roleInfix() == APP_ROLES.MANAGER;
+				 };
+				 $rootScope.isProfessional = function () {
+					 return $rootScope.roleInfix() == APP_ROLES.PROFESSIONAL;
+				 };
+
+				 $rootScope.roleView = function (urlPortion) {
+					 var infix = $rootScope.roleInfix();
+					 var url = '#/' + infix + '/' + urlPortion;
+					 console.log('URL:', url);
+					 return url;
 				 };
 
 				 $rootScope.checkSession();

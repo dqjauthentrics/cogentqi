@@ -47,6 +47,37 @@ angular.module('app')
 				   };
 			   })
 
+	.directive('assessmentResponse', function () {
+				   return {
+					   restrict: 'E',
+					   templateUrl: '../templates/assessment/_response.html',
+				   };
+			   })
+
+	.directive('assessmentNameCard', function () {
+				   return {
+					   restrict: 'E',
+					   templateUrl: '../templates/assessment/_nameCard.html',
+					   scope: {member: '=', assessment: '=', site: '='}
+				   };
+			   })
+
+	.directive('assessmentRecommendations', function () {
+				   return {
+					   restrict: 'E',
+					   templateUrl: '../templates/assessment/_recommendations.html',
+					   scope: {title: '=', items: '='}
+				   };
+			   })
+
+	.directive('assessmentRecommendationRanking', function () {
+				   return {
+					   restrict: 'E',
+					   templateUrl: '../templates/assessment/_recommendationRanking.html',
+					   scope: {weight: '=', range: '=', n: '='}
+				   };
+			   })
+
 	.directive('levelTag', function () {
 				   return {
 					   restrict: 'E',
@@ -68,14 +99,6 @@ angular.module('app')
 					   restrict: 'E',
 					   templateUrl: '../templates/common/microBadge.html',
 					   scope: {text: '=', size: '='}
-				   };
-			   })
-
-	.directive('recommendationRanking', function () {
-				   return {
-					   restrict: 'E',
-					   templateUrl: '../templates/common/recommendationRanking.html',
-					   scope: {weight: '=', range: '=', n: '='}
 				   };
 			   })
 

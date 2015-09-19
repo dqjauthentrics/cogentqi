@@ -7,7 +7,9 @@
 
             <div>
                 Performed by: {{data.assessment.assessor.fn}} {{data.assessment.assessor.ln}}
-                <avatar site="siteDir()" sz="'tiny'" member-id="data.assessment.assessor.id" level="0" alt="avatarAlt(data.assessor)"></avatar>
+                <a href="/#/manager/member/{{data.assessment.assessor.id}}">
+                    <avatar site="siteDir()" sz="'tiny'" member-id="data.assessment.assessor.id" level="0" alt="avatarAlt(data.assessor)"></avatar>
+                </a>
             </div>
         </div>
         <div class="iconBar">
@@ -24,123 +26,62 @@
             <button class="button button-action button-pdf" data-ng-click="printIt()"><i class="{{i.pdf}}"></i></button>
             <div class="clearfix"></div>
         </div>
-        <div>
-             <div class="row responsive-lg">
-                <div class="col col-25 card" style="text-align: center;">
-                    <h4 style="margin:1em 0 0 0;">
-                        <a href="#/manager/member/{{data.assessment.member.id}}">{{data.assessment.member.fn}} {{data.assessment.member.ln}}</a>
-                    </h4>
-
-                    <div class="role">{{data.assessment.member.rl}}</div>
-                    <a href="#/manager/member/{{data.assessment.member.id}}">
-                        <avatar site="siteDir()" sz="'medium'" member-id="data.assessment.member.id" level="data.assessment.sc"
-                                alt="avatarAlt(data.assessment.member)"></avatar>
-                    </a>
-
-                    <div class="score" data-ng-show="data.assessment.avgRound > 0">
-                        <div style="font-size:1.0em; padding: 0.3em 0; text-align:center; width:14vmin; margin:0 auto;"
-                             data-ng-class="(data.assessment.typ == 'YESNO'?'yesNoBg':'levelBg') + data.assessment.avgRound"
-                                >{{data.assessment.scoreWord}} ({{data.assessment.avg}})
-                        </div>
-                    </div>
-                </div>
-                <div class="col card">
-                    <h5 data-ng-bind-html="installation.trademarkName + ' Recommended Modules'"></h5>
-
-                    <div class="recommendationsPane">
-                        <div class="item" data-ng-repeat="recommendation in data.recommendations">
-                            <a href="/#/manager/resource/{{recommendation.resourceId}}">
-                                <i class="{{i.resource}}"></i> {{recommendation.number}} {{recommendation.name}}
-                            </a>
-                            <recommendation-ranking weight="recommendation.weight" range="[1,1,1,1,1]" n="recommendation.weight"></recommendation-ranking>
-                        </div>
-                    </div>
-                </div>
+        <div class="row responsive-lg">
+            <div class="col col-25 card" style="text-align: center;">
+                <assessment-name-card site="siteDir()" member="data.assessment.member" assessment="data.assessment"></assessment-name-card>
             </div>
-            <div class="row responsive-sm detail">
-                <div class="col col-100 assessment">
-                    <div style="display:none;">{{data.assessment.lm}}</div>
-                    <div id="section{{$index}}" data-ng-repeat="section in data.assessment.instrument.sections" class="fadein fadeout">
-                        <div data-ng-show="Instruments.sectionIsCurrent(data.assessment.instrument, section.id)">
-                            <div class="instrumentNavBtn pull-left">
-                                <a ng-click="Instruments.sectionPrevious(data.assessment.instrument)"><< {{section.previous|ellipsify:22}}</a>
-                            </div>
-                            <div class="instrumentNavBtn pull-right">
-                                <a ng-click="Instruments.sectionNext(data.assessment.instrument)">{{section.next|ellipsify:22}} >></a>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div style="height:1em;"></div>
-                            <ion-list>
-                                <ion-item class="top">
-                                    <h2 style="float:left;">{{section.number}} {{section.name}}</h2>
-                                </ion-item>
-                                <ion-item class="item-remove-animate" data-ng-repeat="question in section.questions" type="item-text-wrap">
-                                    <div>
-                                        <div style="display:table-row;">
-                                            <div style="display:table-cell;" class="number" data-ng-bind="section.number + '.' + question.nb"></div>
-                                            <div style="display:table-cell; line-height: 1em;" class="text" data-ng-bind="question.nm"></div>
-                                        </div>
-                                        <div class="description" data-ng-bind-html="question.dsc"></div>
+            <div class="col card">
+                <assessment-recommendations title="installation.trademarkName + ' Recommended Modules'"
+                                            items="data.recommendations"></assessment-recommendations>
+            </div>
+        </div>
+        <div class="row responsive-sm detail">
+            <div class="col col-100 assessment">
+                <div style="display:none;">{{data.assessment.lm}}</div>
+                <div id="section{{$index}}" data-ng-repeat="section in data.assessment.instrument.sections" class="fadein fadeout">
+                    <div data-ng-show="Instruments.sectionIsCurrent(data.assessment.instrument, section.id)">
+                        <div class="instrumentNavBtn pull-left">
+                            <a ng-click="Instruments.sectionPrevious(data.assessment.instrument)"><< {{section.previous|ellipsify:22}}</a>
+                        </div>
+                        <div class="instrumentNavBtn pull-right">
+                            <a ng-click="Instruments.sectionNext(data.assessment.instrument)">{{section.next|ellipsify:22}} >></a>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div style="height:1em;"></div>
+                        <ion-list>
+                            <ion-item class="top">
+                                <h2 style="float:left;">{{section.number}} {{section.name}}</h2>
+                            </ion-item>
+                            <ion-item class="item-remove-animate" data-ng-repeat="question in section.questions" type="item-text-wrap">
+                                <div>
+                                    <div style="display:table-row;">
+                                        <div style="display:table-cell;" class="number" data-ng-bind="section.number + '.' + question.nb"></div>
+                                        <div style="display:table-cell; line-height: 1em;" class="text" data-ng-bind="question.nm"></div>
                                     </div>
-                                    <div data-ng-switch="data.assessment.es" class="response">
-                                        <div data-ng-switch-when="A">
-                                            <div data-ng-switch="question.typ">
-                                                <div data-ng-switch-when="YESNO">
-                                                    <div class="button-bar" style="max-width:12em; min-width:12em;">
-                                                        <a class="button" data-ng-class="{'yesNoBg0': question.rsp.ri == 0}"
-                                                           data-ng-click="updateResponse(question, 0)">N/A</a>
-                                                        <a class="button" data-ng-class="{'yesNoBg1': question.rsp.ri == 1}"
-                                                           data-ng-click="updateResponse(question, 1)">No</a>
-                                                        <a class="button" data-ng-class="{'yesNoBg2': question.rsp.ri == 2}"
-                                                           data-ng-click="updateResponse(question, 2)">Yes</a>
-                                                    </div>
-                                                </div>
-                                                <div data-ng-switch-default="">
-                                                    <div class="rubric">
-                                                        <slider id="question_item_{{question.id}}" class="slider{{question.rsp.ri}}"
-                                                                ng-model="question.rsp.ri" floor="{{question.mn }}" ceiling="{{question.mx}}" step-width="1"
-                                                                ng-change="updateSliderResponse(question, this, true)"
-                                                                style="width:100%; margin-bottom:-1em;"
-                                                                >
-                                                        </slider>
-                                                        <div class="{{$index == question.rsp.ri? 'active':'inactive'}}"
-                                                             data-ng-repeat="choice in question.rsp.ch"
-                                                             data-ng-click="rubricSet(question,$index)"
-                                                             style="width:{{rubricWidth(question.mx+1)}}%;">
-                                                            <div class="rubric{{$index}}">{{choice.n}}</div>
-                                                            <p data-ng-if="choice.r.length > 0">{{choice.r}}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                    <div class="description" data-ng-bind-html="question.dsc"></div>
+                                </div>
+                                <assessment-response></assessment-response>
+                                <div class="clearfix"></div>
+                                <div>
+                                    <div class="pull-left">
+                                        <a data-ng-click="question.showComments = (question.showComments == undefined? true : !question.showComments)">
+                                            <i data-ng-class="hasComment(question)? i.noteFilled : i.noteEmpty"></i>
+                                        </a>
+                                    </div>
+                                    <div class="pull-left" style="margin-left:1em;">
+                                        <div data-ng-switch="showComment(question)">
+                                            <div data-ng-switch-when="true">
+                                                <textarea cols="60" rows="3" data-ng-model="question.rsp.ac" data-ng-bind="question.rsp.ac"></textarea>
                                             </div>
-                                        </div>
-                                        <div data-ng-switch-default="">
-                                            <div data-ng-class=" getResponseClass(question.typ, question.rsp.ri)">{{question.rsp.r}}</div>
+                                            <div data-ng-switch-when="false">
+                                                <p class="comments" data-ng-bind-html="getComment(question)"></p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
-                                    <div>
-                                        <div class="pull-left">
-                                            <a data-ng-click="question.showComments = (question.showComments == undefined? true : !question.showComments)">
-                                                <i data-ng-class="hasComment(question)? i.noteFilled : i.noteEmpty"></i>
-                                            </a>
-                                        </div>
-                                        <div class="pull-left" style="margin-left:1em;">
-                                            <div data-ng-switch="showComment(question)">
-                                                <div data-ng-switch-when="true">
-                                                <textarea cols="60" rows="3" data-ng-model="question.rsp.ac"
-                                                          data-ng-bind="question.rsp.ac"></textarea>
-                                                </div>
-                                                <div data-ng-switch-when="false">
-                                                    <p class="comments" data-ng-bind-html="getComment(question)"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </ion-item>
-                            </ion-list>
-                        </div>
+                                </div>
+                            </ion-item>
+                        </ion-list>
                     </div>
                 </div>
             </div>
