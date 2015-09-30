@@ -17,12 +17,12 @@
     </ion-tab>
 
     <ion-tab title="{{'Assessments'|translate}}" icon-off="ion-clipboard" icon-on="ion-clipboard"
-             href="#/assessment/list" hidden="isAdministrator()">
+             href="#/assessment/list" class="{{!isAdministrator()?'ng-show':'ng-hide'}}">
         <ion-nav-view name="assessments"></ion-nav-view>
     </ion-tab>
 
     <ion-tab title="{{'Resources'|translate}}" icon-off="ion-university" icon-on="ion-university"
-             href="#/resource/list" hidden="isAdministrator()">
+             href="#/resource/list" class="{{!isAdministrator()?'ng-show':'ng-hide'}}">
         <ion-nav-view name="resources"></ion-nav-view>
     </ion-tab>
 
