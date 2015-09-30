@@ -6,38 +6,38 @@
         <ion-nav-view name="dashboard"></ion-nav-view>
     </ion-tab>
 
+    <ion-tab title="{{'Organization'|translate}}" icon-off="{{i.organization}}" icon-on="{{i.organization}}"
+             href="#/organization/list" class="{{isAdministrator()?'ng-show':'ng-hide'}}">
+        <ion-nav-view name="organization"></ion-nav-view>
+    </ion-tab>
+
     <ion-tab title="{{'People'|translate}}" icon-off="{{i.members}}" icon-on="{{i.members}}" onclick=""
-             href="#/{{roleInfix()}}/members" class="{{!isAdministrator()?'ng-show':'ng-hide'}}">
+             href="#/member/list" class="{{!isAdministrator()?'ng-show':'ng-hide'}}">
         <ion-nav-view name="members"></ion-nav-view>
     </ion-tab>
 
     <ion-tab title="{{'Assessments'|translate}}" icon-off="ion-clipboard" icon-on="ion-clipboard"
-             href="#/assessment/matrix">
+             href="#/assessment/list" hidden="isAdministrator()">
         <ion-nav-view name="assessments"></ion-nav-view>
     </ion-tab>
 
     <ion-tab title="{{'Resources'|translate}}" icon-off="ion-university" icon-on="ion-university"
-             href="#/{{roleInfix()}}/resources">
+             href="#/resource/list" hidden="isAdministrator()">
         <ion-nav-view name="resources"></ion-nav-view>
     </ion-tab>
 
-    <ion-tab title="{{'Organization'|translate}}" icon-off="{{i.organization}}" icon-on="{{i.organization}}"
-             href="#/{{roleInfix()}}/organization" class="{{isAdministrator()?'ng-show':'ng-hide'}}">
-        <ion-nav-view name="organization"></ion-nav-view>
-    </ion-tab>
-
-    <ion-tab title="{{'Settings'|translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear"
-             href="#/{{roleInfix()}}/settings">
+    <ion-tab title="{{(isAdministrator()?'Configuration':'Settings')|translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear"
+             href="{{'#/' + roleInfix() + (isAdministrator()?'/configuration':'/settings')}}">
         <ion-nav-view name="settings"></ion-nav-view>
     </ion-tab>
 
     <ion-tab data-ng-show="!isProfessional()" title="{{'Outcomes'|translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear"
-             href="#/{{roleInfix()}}/outcomes" hidden="true">
+             href="#/outcome/list" hidden="true">
         <ion-nav-view name="outcomes"></ion-nav-view>
     </ion-tab>
 
-    <ion-tab title="Help" icon-off="{{i.building}}" icon-on="{{i.buildingOn}}"
-             href="#/professional/help">
+    <ion-tab title="Help" icon-off="{{i.helpOff}}" icon-on="{{i.helpOn}}"
+             href="#/help/index">
         <ion-nav-view name="help"></ion-nav-view>
     </ion-tab>
 

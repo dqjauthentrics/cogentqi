@@ -423,14 +423,18 @@ class Assessment extends Model {
 					GROUP BY ot.name, YEAR(oo.evaluated), DATE_FORMAT(oo.evaluated, '%m'), ot.name
 					ORDER BY ot.sort_order, ot.name, YEAR(oo.evaluated), DATE_FORMAT(oo.evaluated, '%m');";
 			$dbRecords = $this->api->pdo->query($oSql);
+			$idx = 0;
 			foreach ($dbRecords as $rec) {
-				if ((int)$rec["yr"] < $startYr) {
-					$startYr = (int)$rec["yr"];
-					$startMo = (int)$rec["mo"];
+				if ($idx == 0) {
+					if ((int)$rec["yr"] < $startYr) {
+						$startYr = (int)$rec["yr"];
+						$startMo = (int)$rec["mo"];
+					}
 					if ($startYr == (int)$rec["yr"] && (int)$rec["mo"] < $thisMo) {
 						$startMo = (int)$rec["mo"];
 					}
 				}
+				$idx++;
 				if (!in_array($rec["name"], $seriesNames)) {
 					$seriesNames[] = $rec["name"];
 				}
@@ -452,7 +456,6 @@ class Assessment extends Model {
 				}
 				$mo = 1;
 			}
-
 
 			/** Get modules in first position so the bars lie behind the lines.
 			 */

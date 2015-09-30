@@ -55,6 +55,14 @@ h3 {
     color: #FFF;
 }
 
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
 .greenBg {
     background: darkgreen;
     color: #FFF;
@@ -121,21 +129,6 @@ i.logo {
     font-size: 1.4em;
 }
 
-ion-header-bar a {
-    color: #FFF !important;
-}
-
-ion-item img.avatar {
-    max-width: 80px !important;
-    max-height: 80px !important;
-    width: 7.5em !important;
-    height: 7.5em !important;
-    float: left;
-    margin-right: 1em;
-    vertical-align: middle;
-    border-radius: 50%;
-}
-
 .avatar-large {
     width: 14em;
     height: 14em;
@@ -167,6 +160,21 @@ h1 {
     margin-top: 0.3em !important;
 }
 
+ion-header-bar a {
+    color: #FFF !important;
+}
+
+ion-item img.avatar {
+    max-width: 80px !important;
+    max-height: 80px !important;
+    width: 7.5em !important;
+    height: 7.5em !important;
+    float: left;
+    margin-right: 1em;
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
 ion-item:hover .selector {
     background: #EEE;
 }
@@ -178,8 +186,12 @@ ion-item .listIcon {
     font-weight: bold;
     border: 2px solid #777;
     color: #777;
-    padding: 0.4em;
     border-radius: 0.3em;
+}
+
+ion-item.item-complex {
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
 .list div.text {
@@ -496,13 +508,6 @@ table.cycle {
     color: #008000;
 }
 
-.rubric {
-    margin: 0.3em;
-    border: 0 solid #AAA;
-    border-radius: 0.3em;
-    padding: 0.3em;
-}
-
 .outcomeLevelBg {
 }
 
@@ -604,6 +609,9 @@ outcome-level-tag {
     border-radius: 3vmin;
     margin: 0;
     text-decoration: none;
+}
+
+.matrixF, .matrixFg a {
 }
 
 .matrix td.average {
@@ -738,7 +746,7 @@ outcome-level-tag {
 .assessment .rubric > div {
     display: table-cell;
     padding: 0;
-    border: 2px solid #FFF;
+    border: 2px solid transparent;
 }
 
 .assessment .rubric > div > div {
@@ -932,9 +940,11 @@ ion-item .phrase {
 }
 
 ion-item.top {
-    color: #FFF;
-    background: #666;
-    padding: 0.1em 0.5em;
+    color: #FFF !important;
+    background: #666 !important;
+    padding: 0.3em 0.6em !important;
+    border: 1px solid #666;
+    border-radius: 3px 3px 0 0;
 }
 
 ion-item.top h2 {
@@ -1296,5 +1306,117 @@ table.items tr:nth-child(odd) {
     margin: 1em 0;
     border-radius: 2px;
     padding: 0.5em;
+    width: 100%;
+}
+
+#assessments table tr {
+    background: none !important;
+    border: none !important;
+}
+
+a.item-content {
+    background: transparent !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+#assessments table td, #assessments table {
+    border: none !important;
+}
+
+.item:nth-child(even) {
+    background: #F4F4F4; /*#FFFFF0;*/
+}
+
+.item:nth-child(odd) {
+    background: #FCFDFC; /*#F5FCFF;*/
+}
+
+.role {
+    font-style: italic;
+}
+
+.scoreTag {
+    font-size: 1.0em;
+    padding: 0.3em;
+    text-align: center;
+    width: 14vmin;
+    margin: 0 auto;
+    border-radius: 0 0 4px 4px;
+}
+
+table.perms td {
+    text-align: center;
+    color: green;
+}
+
+table.perms th {
+    text-align: center;
+}
+
+table.perms td:nth-child(1) {
+    text-align: left;
+    color: black;
+}
+
+table.perms th:nth-child(1) {
+    text-align: left;
+}
+
+.editable-date-dqj {
+    text-decoration: none !important;
+    color: #428bca !important;
+    border-bottom: dashed 1px #428bca !important;
+    background: transparent !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    cursor: pointer;
+    max-width: 6em;
+    text-align: center;
+}
+
+.tab-item:hover {
+    color: yellow;
+}
+
+.tab-item-active {
+    color: yellow;
+}
+.fat-btn-wrap {
+    margin: 1em auto;
+    width: auto;
+}
+.fat-btn-header {
+    display: table-row;
+    vertical-align: middle;
+}
+
+.fat-btn-icon {
+    display: table-cell;
+    font-size: 3em;
+    padding-right: 0.4em;
+    vertical-align: middle;
+}
+
+.fat-btn-title a {
+    text-decoration: none;
+    white-space: normal;
+    font-weight: bold;
+}
+
+.fat-btn-title {
+    vertical-align: middle;
+    display: table-cell;
+    font-size: 1.4em;
+    line-height: 1.4em;
+    padding-right: 1em;
+}
+
+.fat-btn-desc {
+    font-size: 1.0em;
+    line-height: 1.0em;
+    font-style: italic;
+    padding: 1em;
     width: 100%;
 }

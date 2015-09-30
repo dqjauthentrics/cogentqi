@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('Icons', []).service('Icons', function () {
-	this.active = "ion-edit";
+	this.active = "fa fa-circle";
 	this.add = "ion-plus-round";
 	this.addUser = "fa fa-plus-circle";
 	this.assessment = "ion-android-options";
@@ -20,6 +20,8 @@ angular.module('Icons', []).service('Icons', function () {
 	this.grid = "ion-ios-keypad-outline";
 	this.group = "fa fa-users";
 	this.home = "fa fa-home";
+	this.helpOn = "fa fa-info-circle";
+	this.helpOff = "fa fa-info";
 	this.info = "fa fa-question-circle";
 	this.instrument = "ion-clipboard";
 	this.learningModule = "ion-university";

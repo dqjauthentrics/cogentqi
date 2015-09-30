@@ -2,13 +2,21 @@
     <ion-nav-buttons side="left"><a href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
-        <ion-list id="assessments">
-            <ion-item class="gray" data-ng-if="!data.assessments.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
-            <ion-item class="item-remove-animate item-icon-right" ng-repeat="assessment in data.assessments"
-                      type="item-text-wrap" href="#/assessment/view/{{assessment.id}}">
-                <assessment-item i="i" assessment="assessment" site="siteDir()" show-member="true"></assessment-item>
-                <i class="icon ion-chevron-right icon-accessory"></i>
-            </ion-item>
-        </ion-list>
+        <div class="row responsive-lg">
+            <div class="col col-10"></div>
+            <div class="col card">
+                <ion-list id="assessments">
+                    <ion-item class="gray" data-ng-if="!data.assessments.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
+                    <ion-item class="item-remove-animate item-icon-right" ng-repeat="assessment in data.assessments"
+                              type="item-text-wrap" href="#/assessment/view/{{assessment.id}}">
+                        <assessment-item i="i" assessment="assessment" site="siteDir()" show-member="true"
+                                         name="assessmentName(assessment.ii)" role="roleName(assessment.member.ri)">
+                        </assessment-item>
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                    </ion-item>
+                </ion-list>
+            </div>
+            <div class="col col-10"></div>
+        </div>
     </ion-content>
 </ion-view>

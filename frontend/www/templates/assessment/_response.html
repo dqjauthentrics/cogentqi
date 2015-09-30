@@ -14,15 +14,16 @@
             <div data-ng-switch-default="">
                 <div class="rubric">
                     <slider id="question_item_{{question.id}}" class="slider{{question.rsp.ri}}"
-                            ng-model="question.rsp.ri" floor="{{question.mn }}" ceiling="{{question.mx}}" step-width="1"
+                            ng-model="question.rsp.ri" floor="{{question.mn}}" ceiling="{{question.mx}}" step-width="0.1"
                             ng-change="updateSliderResponse(question, this, true)"
-                            style="width:100%; margin-bottom:-1em;"
+                            precision="0"
+                            style="{{'width:' + (rubricWidth(question.mx) * 4)+ '%; margin-bottom:-1em; margin-left:' + (rubricWidth(question.mx)/2)+ '%;'}}"
                             >
                     </slider>
-                    <div class="{{$index == question.rsp.ri? 'active':'inactive'}}"
-                         data-ng-repeat="choice in question.rsp.ch"
-                         data-ng-click="rubricSet(question,$index)"
-                         style="width:{{rubricWidth(question.mx+1)}}%;">
+                    <div class="{{$index == question.rsp.ri? 'active':'inactive'}}" id="{{'rubric_'+question.id+'_'+$index}}"
+                         data-ng-repeat="choice in question.rsp.ch" data-ng-click="rubricSet(question,$index)"
+                         style="{{'width:' + rubricWidth(question.mx) + '%;'}}"
+                            >
                         <div class="rubric{{$index}}">{{choice.n}}</div>
                         <p data-ng-if="choice.r.length > 0">{{choice.r}}</p>
                     </div>

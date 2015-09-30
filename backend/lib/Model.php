@@ -199,7 +199,7 @@ class Model {
 	 *
 	 * @return array
 	 */
-	private function mapRecords($records) {
+	public function mapRecords($records) {
 		$jsonRecords = [];
 		foreach ($this->api->db->{$this->tableName}() as $dbRecord) {
 			$mapped = $this->map($dbRecord);

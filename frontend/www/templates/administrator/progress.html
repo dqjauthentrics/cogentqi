@@ -4,8 +4,11 @@
     <ion-content has-bouncing="false">
         <highchart id="progress" config="data.rptConfig"></highchart>
         <div style="text-align: center; margin:1em;">
-            <button class="button button-calm" data-ng-click="toggleProgress()">
-                {{(data.currentSeries==0?'Outcomes View >>':'<< Assessments View')|translate}}
+            <button class="button button-calm" data-ng-show="data.currentSeries == 0" data-ng-click="toggleProgress()">
+                {{('Outcomes View'|translate) + ' >>'}}
+            </button>
+            <button class="button button-calm" data-ng-show="data.currentSeries != 0" data-ng-click="toggleProgress()">
+                {{'<< ' + ('Assessments View'|translate)}}
             </button>
         </div>
     </ion-content>

@@ -36,7 +36,10 @@ angular.module('app')
 			   })
 
 	.directive('assessmentItem', function () {
-				   return {restrict: 'E', templateUrl: '../templates/common/assessmentItem.html', scope: {assessment: '=', i: '=', showMember: '=', site: '='}};
+				   return {
+					   restrict: 'E', templateUrl: '../templates/assessment/_item.html',
+					   scope: {assessment: '=', i: '=', showMember: '=', site: '=', name: '=', role: '='}
+				   };
 			   })
 
 	.directive('assessmentList', function () {
@@ -91,6 +94,13 @@ angular.module('app')
 					   restrict: 'E',
 					   templateUrl: '../templates/common/outcomeLevelTag.html',
 					   scope: {text: '=', level: '=', icon: '='}
+				   };
+			   })
+
+	.directive('scheduleTable', function () {
+				   return {
+					   restrict: 'E',
+					   templateUrl: '../templates/administrator/_scheduleTable.html',
 				   };
 			   })
 

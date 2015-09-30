@@ -3,6 +3,15 @@ namespace App;
 
 class Organization extends Model {
 
+	public function retrieveDescendantIds($parentOrganizationId, $includeParent = FALSE) {
+		$row = $this->api->pdo->query("SELECT retrieveOrgDescendantIds($parentOrganizationId) AS orgIds")->fetch();
+		$orgIds = $row["orgIds"];
+		if ($includeParent) {
+			$orgIds = $parentOrganizationId . (strlen($orgIds) > 0 ? "," : "") . $orgIds;
+		}
+		return $orgIds;
+	}
+
 	/**
 	 * Add routes to default set for Organization.
 	 */

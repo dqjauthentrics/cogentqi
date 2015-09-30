@@ -8,7 +8,7 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 	svc.retrieve = function (getLevelsForMyOrg) {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			var url = '/api/outcome' + (!Utility.empty(getLevelsForMyOrg) ? '/organization/' + user.organizationId : '');
+			var url = '/api/outcome' + (!Utility.empty(getLevelsForMyOrg) ? '/parent/' + user.organizationId : '');
 			return $resource(url, {}, {});
 		}
 		return null; //@todo What happens if this gets returned?  There would be an exception in the controller!

@@ -2,16 +2,36 @@
 
 angular.module('AssessmentControllers', [])
 
-	.controller('AssessmentListCtrl', function ($rootScope, $scope, $stateParams, Utility, Assessments, Members, Organizations) {
-					$scope.data = {members: [], assessments: []};
+	.controller('AssessmentListCtrl', function ($rootScope, $scope, $stateParams, Utility, Assessments, Members, Instruments) {
+					$scope.data = {members: [], assessments: [], instruments: []};
 
-					Utility.getResource(Members.retrieve(), function (response) {
-						$scope.data.members = response;
-						Assessments.associateMembers($scope.data.assessments, $scope.data.members);
+					Utility.getResource(Instruments.retrieve(), function (response) {
+						$scope.data.instruments = response;
+						$scope.getAssessments();
 					});
-					Utility.getResource(Assessments.retrieve(), function (response) {
-						$scope.data.assessments = response;
-					});
+
+					$scope.getResources = function () {
+						Utility.getResource(Members.retrieve(), function (response) {
+							$scope.data.members = response;
+							Assessments.associateMembers($scope.data.assessments, $scope.data.members);
+						});
+					};
+					$scope.getAssessments = function () {
+						Utility.getResource(Assessments.retrieve(), function (response) {
+							$scope.data.assessments = response;
+						});
+					};
+					$scope.assessmentName = function (instrumentId) {
+						var instrument = null;
+						if (!Utility.empty($scope.data.instruments)) {
+							for (var i = 0; i < $scope.data.instruments.length; i++) {
+								if ($scope.data.instruments[i].id == instrumentId) {
+									return $scope.data.instruments[i].name;
+								}
+							}
+						}
+						return instrument;
+					};
 				})
 
 	.controller('AssessmentMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Assessments) {
@@ -113,7 +133,6 @@ angular.module('AssessmentControllers', [])
 
 					Utility.getResource(Resources.retrieve(), function (response) {
 						$scope.data.resources = response;
-						console.log("resource retrieval:", response);
 						$scope.getAssessment();
 					});
 
@@ -149,7 +168,6 @@ angular.module('AssessmentControllers', [])
 					};
 
 					$scope.updateResponse = function (question, value) {
-						console.log("updateResponse:", value, question);
 						if (!Utility.empty(question) && !Utility.empty(question.rsp) && !Utility.empty(value)) {
 							$scope.data.dirty = true;
 							question.rsp.ri = parseInt(value);
@@ -158,19 +176,18 @@ angular.module('AssessmentControllers', [])
 					};
 
 					$scope.updateSliderResponse = function (question) {
-						console.log("updateSliderResponse:", question);
 						$scope.data.dirty = true;
 						var scoreInfo = Assessments.sliderChange(question, $scope.data.assessment.instrument);
+						console.log("scoreInfo:", scoreInfo);
 						question.rsp.r = scoreInfo.scoreWord;
 						$scope.currentChoices = question.rsp.ch;
-						$scope.data.assessment.avg = scoreInfo.avg;
-						$scope.data.assessment.avgRound = scoreInfo.avgRound;
-						$scope.data.assessment.scoreWord = Assessments.scoreWord(question);
+						$scope.data.assessment.sc = scoreInfo.avg;
+						$scope.data.assessment.rk = scoreInfo.avgRound;
+						$scope.data.assessment.scoreWord = Assessments.scoreWord(question, scoreInfo.avgRound);
 						$scope.getRecommendations();
 					};
 
 					$scope.rubricSet = function (question, value) {
-						console.log("rubricSet:", question, value);
 						question.rsp.ri = value;
 					};
 
@@ -183,9 +200,14 @@ angular.module('AssessmentControllers', [])
 							var assessmentId = !Utility.empty($stateParams.assessmentId) ? $stateParams.assessmentId : -1;
 							if (assessmentId > 0) {
 								Utility.getResource(Assessments.retrieveSingle(assessmentId), function (response) {
-									console.log("assessment retrieval:", response);
 									Instruments.currentSectionIdx = 0;
 									$scope.data.assessment = response;
+									var scoreInfo = Assessments.scorify($scope.data.assessment.instrument);
+									var question = $scope.data.assessment.instrument.sections[0].questions[0];
+									console.log("initial:", $scope.data.assessment);
+									$scope.data.assessment.sc = scoreInfo.avg;
+									$scope.data.assessment.rk = scoreInfo.avgRound;
+									$scope.data.assessment.scoreWord = Assessments.scoreWord(question, scoreInfo.avgRound);
 									$scope.data.assessor = $cookieStore.get('user');
 									$scope.getRecommendations();
 								});
@@ -206,7 +228,7 @@ angular.module('AssessmentControllers', [])
 					};
 
 					$scope.rubricWidth = function (nChoices) {
-						return 100 / nChoices;
+						return 100 / (parseInt(nChoices) + 1);
 					};
 
 					$scope.printIt = function () {

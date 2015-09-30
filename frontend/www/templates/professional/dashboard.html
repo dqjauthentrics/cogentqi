@@ -1,13 +1,13 @@
 <ion-view view-title="{{installation.name}}">
-    <ion-nav-buttons side="left"><a href="/#/professional/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="left"><a href="/#/{{roleInfix()}}/dashboard" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
         <div class="row responsive-lg">
             <div class="col padding card">
-                <a href="#/manager/member/{{data.user.id}}"
+                <a href="#/member/view/{{data.user.id}}"
                         ><avatar site="siteDir()" member-id="data.user.id" sz="'small'" level="data.user.level"
                                  alt="avatarAlt(data.user)"></avatar></a>
-                <a href="#/manager/member/{{data.user.id}}">{{data.user.firstName}} {{data.user.lastName}}</a>
+                <a href="#/member/view/{{data.user.id}}">{{data.user.firstName}} {{data.user.lastName}}</a>
             </div>
         </div>
 
@@ -37,7 +37,7 @@
                 <ion-list>
                     <ion-item class="top">{{'Learning Plan'|translate}}</ion-item>
                     <ion-item data-ng-if="!data.planItems.length">None.</ion-item>
-                    <ion-item class="item-icon-right" data-ng-repeat="item in data.planItems" type="item-text-wrap" href="#/manager/resource/{{item.r}}">
+                    <ion-item class="item-icon-right" data-ng-repeat="item in data.planItems" type="item-text-wrap" href="#/resource/view/{{item.r}}">
                         <div class="name">
                             <i class="{{i.resource}} pad-right"></i>
                             {{item.n}}

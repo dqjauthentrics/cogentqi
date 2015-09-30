@@ -9,7 +9,7 @@
             <a style="margin-left:1.5em;" href="#/assessment/matrix/">{{'Assessment'|translate}}</a>
         </td>
         <td style="text-align:center; vertical-align: bottom !important;">
-            <a style="margin-left:-1em;" href="#/{{data.role}}/outcomes">{{'Outcomes'|translate}}</a>
+            <a style="margin-left:-1em;" href="#/outcome/list">{{'Outcomes'|translate}}</a>
         </td>
     </tr>
     <tr>
@@ -21,8 +21,9 @@
     </tr>
     <tr>
         <td style="text-align:left; vertical-align: top !important;">
-            <div style="margin-left:1.0em;"><a href="#/{{data.role}}/{{(data.role=='administrator'? 'progress':'resources')}}"
-                                               ng-bind-html="'Professional Development'|translate|replace:' ':'<br/>'"></a>
+            <div style="margin-left:1.0em;">
+                <a href="{{'#/' + (data.role=='administrator'? data.role+'/progress':'resource/list')}}"
+                   ng-bind-html="'Professional Development'|translate|replace:' ':'<br/>'"></a>
             </div>
         </td>
         <td style="text-align:left; vertical-align: top !important; padding-top:1.4em;">

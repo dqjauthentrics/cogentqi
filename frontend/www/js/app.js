@@ -11,6 +11,7 @@ angular.module('app',
 		'ngCookies',
 		'ngAnimate',
 		'ngResource',
+		'ui.bootstrap',
 		'xeditable',
 		'vr.directives.slider',
 		'youtube-embed',
@@ -34,7 +35,14 @@ angular.module('app',
 		'LearningModules',
 		'Outcomes',
 		'ControllerCommon',
+		'MemberControllers',
+		'OrganizationControllers',
+		'InstrumentControllers',
+		'SettingsControllers',
+		'OutcomeControllers',
 		'AssessmentControllers',
+		'HelpControllers',
+		'ResourceControllers',
 		'ControllerManager',
 		'ControllerAdministrator',
 		'ControllerProfessional'
@@ -66,7 +74,7 @@ angular.module('app',
 
 	.run(function ($ionicPlatform, $ionicPopup, $rootScope, $location, $window, $cookieStore,
 				   editableOptions, angularLoad, Icons, Utility, Roles, APP_ROLES,
-				   Authentication) {
+				   $filter, Authentication) {
 			 $ionicPlatform.ready(function () {
 
 				 $rootScope.i = Icons;
@@ -146,6 +154,10 @@ angular.module('app',
 				 $rootScope.dashboardUrl = function () {
 					 return Authentication.getUserDashUrl($cookieStore.get('user'));
 				 };
+				 $rootScope.roleName = function (roleId) {
+					 var selected = $filter('filter')($rootScope.roles, {id: roleId});
+					 return (roleId && !Utility.empty(selected)) ? selected[0].n : '';
+				 };
 
 				 $rootScope.roleInfix = function () {
 					 var infix = APP_ROLES.PROFESSIONAL;
@@ -164,7 +176,6 @@ angular.module('app',
 				 };
 
 				 $rootScope.isAdministrator = function () {
-					 console.log("isAdmin:", $rootScope.roleInfix() == APP_ROLES.ADMINISTRATOR);
 					 return $rootScope.roleInfix() == APP_ROLES.ADMINISTRATOR;
 				 };
 				 $rootScope.isManager = function () {

@@ -15,6 +15,14 @@ angular.module('Utility', []).factory('Utility', [
 					$ionicPopup.alert({title: 'Problem', template: 'Sorry, but there was a problem saving your changes.'});
 				}
 			},
+			confirm: function (title, prompt, callback) {
+				var confirmPopup = $ionicPopup.confirm({title: title, template: prompt});
+				confirmPopup.then(function (res) {
+					if (res) {
+						callback();
+					}
+				});
+			},
 			empty: function (v) {
 				return v == null || v == undefined || v.length == 0;
 			},

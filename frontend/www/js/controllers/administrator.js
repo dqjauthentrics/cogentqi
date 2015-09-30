@@ -18,204 +18,23 @@ angular.module('ControllerAdministrator', [])
 					$scope.data = {user: $cookieStore.get('user'), role: 'administrator'};
 				})
 
-	.controller('AdminMatrixCtrl', function ($scope, $stateParams, Utility, Instruments, Assessments, Organizations) {
-					$scope.data = {organizations: [], instruments: [], currentInstrument: {}, currentInstrumentId: 1, responses: []};
+	.controller('AdminScheduleCtrl', function ($timeout, $scope, $stateParams, Utility, InstrumentSchedule) {
+					$scope.data = {dirty: false, scheduleItems: [], currentScheduleItem: {}, dob: new Date(1984, 4, 15)};
 
-					Utility.getResource(Instruments.retrieve(), function (response) {
-						$scope.data.instruments = response;
-						Instruments.collate($scope.data.instruments);
-						if (!Utility.empty(response)) {
-							$scope.setCurrentInstrument(response[0].id);
-						}
-					});
-					Utility.getResource(Organizations.retrieve(), function (response) {
-						$scope.data.organizations = response;
-						$scope.setCurrentInstrument($scope.currentInstrumentId);
-					});
-					$scope.setCurrentInstrument = function (instId) {
-						$scope.resetResponses();
-						var orgId = null;
-						if (!Utility.empty($stateParams)) {
-							if (!Utility.empty($stateParams.instrumentId)) {
-								instId = $stateParams.instrumentId;
-							}
-							if (!Utility.empty($stateParams.organizationId)) {
-								orgId = $stateParams.organizationId;
-							}
-						}
-						if (!Utility.empty(instId) && !Utility.empty($scope.data.instruments)) {
-							$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instId);
-							$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
-							Utility.getResource(Assessments.retrieveMatrix($scope.data.currentInstrument.id, orgId, true), function (response) {
-								$scope.data.matrix = response;
-								Assessments.calcMatrixAverages($scope.data.currentInstrument, $scope.data.matrix, true);
-							});
-						}
+					$scope.picker = {opened: false};
+					$scope.togglePicker = function () {
+						$timeout(function () {
+							$scope.picker.opened = !$scope.picker.opened;
+						}, 10)
 					};
-					$scope.resetResponses = function () {
-						$scope.data.responses = null;
-					};
-					$scope.getColHeaderNames = function () {
-						return Instruments.findMatrixResponseRowHeader($scope.data.currentInstrument, 20)
-					};
-					$scope.getRowValues = function (dataRow) {
-						if (Utility.empty($scope.data.responses)) {
-							$scope.data.responses =
-								Assessments.findMatrixResponseRowValues($scope.data.currentInstrument, Instruments.currentSectionIdx, dataRow.responses);
-							console.log("retrieved:", $scope.data.responses);
-						}
-						return $scope.data.responses;
-					};
-					$scope.printIt = function () {
-						/***
-						 var printContents = $('#matrixWrapper').html();
-						 console.log(printContents);
-						 var popupWin = window.open('', '_blank', 'width=800,height=800');
-						 popupWin.document.open();
-						 popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="/css/style.css" /></head><body onload="window.print()">' + printContents + '</html>');
-						 popupWin.document.close();
-						 ***/
-						html2canvas(document.getElementById('matrix'), {
-							onrendered: function (canvas) {
-								var img = canvas.toDataURL("image/png")
-								window.open(img);
-							},
-							width: 3000,
-							height: 3000
-						});
-					};
-					$scope.next = function () {
-						Instruments.sectionNext($scope.data.currentInstrument);
-						$scope.resetResponses();
-					};
-					$scope.previous = function () {
-						Instruments.sectionPrevious($scope.data.currentInstrument);
-						$scope.resetResponses();
-					};
-					$scope.previousName = function () {
-						return Instruments.sectionPreviousName($scope.data.currentInstrument);
-					};
-					$scope.nextName = function () {
-						return Instruments.sectionNextName($scope.data.currentInstrument);
-					};
-					$scope.viewAll = function () {
-						Instruments.sectionViewAll();
-						$scope.resetResponses();
-					};
-					$scope.viewSummary = function () {
-						Instruments.sectionViewSummary();
-						$scope.resetResponses();
-					};
-					$scope.isAll = function () {
-						Instruments.sectionIsAll();
-					};
-					$scope.isSummary = function () {
-						Instruments.sectionIsSummary();
-					};
-				})
-
-	.controller('AdminOutcomeCtrl', function ($scope, $stateParams, Utility, Organizations, Resources, Outcomes) {
-					$scope.data = {orgOutcomes: [], organizations: [], currentOrg: {}};
-
-					Utility.getResource(Organizations.retrieve(), function (response) {
-						$scope.data.organizations = response;
-						$scope.setCurrentOrg(response[0]);
-					});
-					Utility.getResource(Outcomes.retrieve(), function (response) {
-						$scope.data.orgOutcomes = response;
-					});
-					$scope.setCurrentOrg = function (organization) {
-						$scope.data.currentOrg = organization;
-					};
-					$scope.getCurrentOrg = function (organization) {
-						return $scope.data.currentOrg;
-					};
-					$scope.methodMessage = function (method) {
-						if (method == "D") {
-							return "NOTE: This outcome level is calculated through examination of data; it is not recommended that you manually change it.";
-						}
-						return "Manually configured outcome level.";
-					};
-					$scope.alignmentLevelPhrase = function (level) {
-						var phrase = 'No Alignment';
-						switch (parseInt(level)) {
-							case 1:
-								phrase = 'Partially Aligned';
-								break;
-							case 2:
-								phrase = 'Well-Aligned';
-								break;
-							case 3:
-								phrase = 'Highly Aligned';
-								break;
-						}
-						return phrase;
-					};
-					$scope.getBarColor = function (outcome, currentOrg) {
-						var color = 'stable';
-						if (!Utility.empty(outcome) && !Utility.empty(currentOrg)) {
-							var id = currentOrg.id;
-							var level = outcome.levels[id][outcome.id];
-							var range = $("#range" + outcome.id);
-							switch (parseInt(level)) {
-								case 1:
-									color = 'assertive';
-									break;
-								case 2:
-									color = 'energized';
-									break;
-								case 3:
-									color = 'balanced';
-									break;
-							}
-							range.removeClass('range-stable').removeClass('range-assertive').removeClass('range-energized').removeClass('range-balanced').addClass('range-' + color);
-						}
-						return 'range-' + color;
-					};
-					$scope.outcomeLevelPhrase = function (level) {
-						var phrase = 'No Data';
-						switch (parseInt(level)) {
-							case 1:
-								phrase = 'Unacceptable';
-								break;
-							case 2:
-								phrase = 'Acceptable';
-								break;
-							case 3:
-								phrase = 'Excellent';
-								break;
-						}
-						return phrase;
-					};
-					$scope.isCurrent = function (organization) {
-						return !Utility.empty(organization) && !Utility.empty($scope.data.currentOrg) && organization.id == $scope.data.currentOrg.id;
-					};
-					$scope.getRubric = function (level) {
-						var rubric = '';
-						switch (parseInt(level)) {
-							case 0:
-								rubric = 'This outcome is not relevant, at the moment.';
-								break;
-							case 1:
-								rubric = 'This outcome is unacceptable.  Urgent action is required.';
-								break;
-							case 2:
-								rubric =
-									'The level of performance for this outcome is acceptable and within the range of normal, but there is room for improvement.';
-								break;
-							case 3:
-								rubric = 'This performance level is excellent, exceeding the prescribed normal minimums.  No action is required.';
-								break;
-						}
-						return rubric;
-					};
-				})
-
-	.controller('AdminScheduleCtrl', function ($scope, $stateParams, Utility, InstrumentSchedule) {
-					$scope.data = {scheduleItems: [], currentScheduleItem: {}};
 
 					Utility.getResource(InstrumentSchedule.retrieve(), function (response) {
 						$scope.data.scheduleItems = response;
+						if (!Utility.empty($scope.data.scheduleItems)) {
+							for (var i = 0; i < $scope.data.scheduleItems.length; i++) {
+								$scope.data.scheduleItems[i].starts = new Date($scope.data.scheduleItems[i].starts);
+							}
+						}
 						$scope.setCurrentItem(response[0]);
 					});
 					$scope.setCurrentItem = function (scheduleItem) {
@@ -223,6 +42,51 @@ angular.module('ControllerAdministrator', [])
 					};
 					$scope.getCurrentItem = function () {
 						return $scope.data.currentScheduleItem;
+					};
+
+					$scope.lockToggle = function (scheduleItem) {
+						var prompt = 'Are you sure you want to ' + (scheduleItem.lockedOn ? 'UNLOCK this Assessment?' : 'LOCK this assessment');
+						Utility.confirm('Schedule Change', prompt, function () {
+							if (scheduleItem.lockedOn) {
+								scheduleItem.lockedOn = null;
+							}
+							else {
+								var currentdate = new Date();
+								var dateTime = currentdate.getDate() + "/"
+									+ (currentdate.getMonth() + 1) + "/"
+									+ currentdate.getFullYear() + " @ "
+									+ currentdate.getHours() + ":"
+									+ currentdate.getMinutes() + ":"
+									+ currentdate.getSeconds();
+								scheduleItem.lockedOn = dateTime;
+							}
+							$scope.dirty = true;
+						});
+					};
+					$scope.permToggle = function (item, role, p) {
+						var prompt = 'Are you sure you want to change this access parameter?';
+						Utility.confirm('Schedule Access Change', prompt, function () {
+							if (item.ops[role].indexOf(p) >= 0) {
+								item.ops[role] = item.ops[role].replace(p, '');
+							}
+							else {
+								item.ops[role] += p;
+							}
+							$scope.dirty = true;
+						});
+					};
+					$scope.setDirty = function () {
+						$scope.data.dirty = true;
+					};
+					$scope.setDetail = function (item) {
+						item.showDetail = !item.showDetail;
+						console.log(item.showDetail);
+					};
+					$scope.showDetail = function (item) {
+						return !!item.showDetail;
+					};
+					$scope.save = function () {
+						Utility.popup('TBD', 'Sorry. Configuration cannot be changed in this demonstration.');
 					};
 				})
 
@@ -475,72 +339,6 @@ angular.module('ControllerAdministrator', [])
 					};
 				})
 
-	.controller('AdminOrganizationCtrl', function ($scope, $cookieStore, $stateParams, Utility, Icons, Organizations, Members) {
-					$scope.data = {canEdit: true, organizations: [], currentMembers: undefined, currentOrg: {}, parentOrg: {}};
-					$scope.Members = Members;  //@todo currently need to pass through to memberItem tag
-					var user = $cookieStore.get('user');
-
-					$scope.loadOrganizations = function (organizationId) {
-						if (!Utility.empty(organizationId)) {
-							Utility.getResource(Organizations.retrieve(organizationId), function (response) {
-								$scope.data.organizations = response;
-								if (!Utility.empty(response)) {
-									$scope.data.parentOrg = response[0];
-									response.shift();
-									var firstChild = !Utility.empty(response) && !Utility.empty(response[0]) ? response[0] : null;
-									$scope.setCurrentOrg(firstChild);
-								}
-							});
-						}
-					};
-					$scope.setCurrentOrg = function (organization) {
-						$scope.data.currentOrg = organization;
-						$scope.data.currentMembers = [];
-						if (!Utility.empty(organization)) {
-							Organizations.members(organization.id).query(function (response) {
-								$scope.data.currentMembers = response;
-							});
-						}
-					};
-					$scope.listIcon = function (organization) {
-						var icon = organization.nc > 0 ? Icons.tree : Icons.organization;
-						if (organization.dp) {
-							icon = Icons.group;
-						}
-						return icon;
-					};
-					$scope.save = function () {
-						$ionicPopup.alert({title: 'Demonstration', template: 'Sorry, this is not available in demonstration.'});
-					};
-					$scope.setDirty = function () {
-						$scope.data.dirty = true;
-					};
-					$scope.isDirty = function () {
-						return $scope.data.dirty;
-					};
-					$scope.drilldown = function (organizationId) {
-						window.location.href = '/#/administrator/organization/' + organizationId;
-					};
-					$scope.orgMatrix = function (organizationId) {
-						window.location = "#/administrator/dashboard/matrix/" + organizationId;
-					};
-					$scope.isCurrent = function (organization) {
-						return !Utility.empty(organization) && !Utility.empty($scope.data.currentOrg) && organization.id == $scope.data.currentOrg.id;
-					};
-
-					var organizationId = null;
-					if (!Utility.empty($stateParams) && !Utility.empty($stateParams.organizationId)) {
-						organizationId = $stateParams.organizationId;
-					}
-					else {
-						if (!Utility.empty(user)) {
-							organizationId = user.organizationId;
-						}
-					}
-					$scope.loadOrganizations(organizationId);
-
-				})
-
 	.controller('AdminAlignmentsCtrl', function ($scope, $stateParams, Instruments, Resources, Outcomes) {
 					$scope.data = {instruments: [], resources: [], outcomes: []};
 
@@ -555,105 +353,4 @@ angular.module('ControllerAdministrator', [])
 					});
 				})
 
-	.controller('AdminInstrumentsCtrl', function ($scope, $stateParams, Utility, Instruments) {
-					$scope.data = {instruments: []};
-
-					Instruments.retrieve().query(function (response) {
-						$scope.data.instruments = response;
-						$scope.setCurrentInstrument();
-					});
-
-					$scope.setCurrentInstrument = function () {
-						if (!Utility.empty($stateParams)) {
-							$scope.data.instrument = Utility.findObjectById($scope.data.instruments, $stateParams.instrumentId);
-						}
-					};
-
-				})
-	.controller('AdminSettingsCtrl', function ($cookieStore, $scope, Utility, Organizations, Settings) {
-					$scope.data = {settings: [], user: $cookieStore.get('user')};
-					var _video = null, patData = null;
-
-					$scope.webcamReady = false;
-					$scope.shotReady = false;
-					$scope.patOpts = {x: 0, y: 0, w: 25, h: 25};
-					$scope.webcamChannel = {};
-					$scope.webcamError = false;
-
-					Settings.retrieve().query(function (response) {
-						$scope.data.settings = response;
-					});
-					$scope.webcamChannel = {
-						// the fields below are all optional
-						videoHeight: 280,
-						videoWidth: 280,
-						video: null // Will reference the video element on success
-					};
-					$scope.webcamError = function (err) {
-						$scope.$apply(
-							function () {
-								$scope.webcamError = err;
-							}
-						);
-					};
-					$scope.webcamStream = function (stream) {
-						console.log(stream);
-					};
-					$scope.getCamButtonText = function () {
-						return $scope.webcamReady ? 'Say Cheese and Take Snapshot!' : 'Allow Browser to Take Pictures (above)'
-					};
-					$scope.webcamSuccess = function () {
-						// The video element contains the captured camera data
-						_video = $scope.webcamChannel.video;
-						$scope.$apply(function () {
-							$scope.patOpts.w = _video.width;
-							$scope.patOpts.h = _video.height;
-							$scope.webcamReady = true;
-						});
-					};
-					/**
-					 * Make a snapshot of the camera data and show it in another canvas.
-					 */
-					$scope.makeSnapshot = function makeSnapshot() {
-						if (_video) {
-							var patCanvas = document.querySelector('#snapshot');
-							if (!patCanvas) {
-								return;
-							}
-							patCanvas.width = _video.width;
-							patCanvas.height = _video.height;
-							var ctxPat = patCanvas.getContext('2d');
-
-							var idata = getVideoData($scope.patOpts.x, $scope.patOpts.y, $scope.patOpts.w, $scope.patOpts.h);
-							ctxPat.putImageData(idata, 0, 0);
-
-							//sendSnapshotToServer(patCanvas.toDataURL());
-
-							patData = idata;
-							$scope.shotReady = true;
-						}
-					};
-					$scope.downloadSnapshot = function downloadSnapshot(dataURL) {
-						window.location.href = dataURL;
-					};
-					var getVideoData = function getVideoData(x, y, w, h) {
-						var hiddenCanvas = document.createElement('canvas');
-						hiddenCanvas.width = _video.width;
-						hiddenCanvas.height = _video.height;
-						var ctx = hiddenCanvas.getContext('2d');
-						ctx.drawImage(_video, 0, 0, _video.width, _video.height);
-						return ctx.getImageData(x, y, w, h);
-					};
-
-					/**
-					 * This function could be used to send the image data
-					 * to a backend server that expects base64 encoded images.
-					 *
-					 * In this example, we simply store it in the scope for display.
-					 */
-					var sendSnapshotToServer = function sendSnapshotToServer(imgBase64) {
-						$scope.snapshotData = imgBase64;
-					};
-
-				})
 ;

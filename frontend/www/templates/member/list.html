@@ -4,7 +4,7 @@
     <ion-content has-bouncing="false">
         <ion-list class="members">
             <ion-item class="gray" data-ng-if="!data.members.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
-            <ion-item class="item-icon-right" data-ng-repeat="member in data.members" type="item-text-wrap" href="#/manager/member/{{member.id}}">
+            <ion-item class="item-icon-right" data-ng-repeat="member in data.members" type="item-text-wrap" href="#/member/view/{{member.id}}">
                 <member-item></member-item>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>

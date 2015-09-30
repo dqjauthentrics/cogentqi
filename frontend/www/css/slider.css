@@ -68,7 +68,7 @@ slider span.bar {
     height: 2px;
     z-index: 0;
     padding: 0;
-    background: #333; /*linear-gradient(to right, gray, #BB4444, #EE7A00, #68A, #6A8, green);*/
+    background: transparent; /*linear-gradient(to right, gray, #BB4444, #EE7A00, #68A, #6A8, green);*/
     left: 0;
     top: 62%;
     cursor: pointer;

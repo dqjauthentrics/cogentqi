@@ -32,11 +32,11 @@
                             <div data-ng-switch-default>
                                 <div data-ng-switch="data.matrix.mType">
                                     <div data-ng-switch-when="M">
-                                        <a href="/#/manager/member/{{row.mid}}">
+                                        <a href="/#/member/view/{{row.mid}}">
                                             <avatar site="siteDir()" sz="'tiny'" member-id="row.mid" level="row.lv" alt=""></avatar>
                                         </a>
                                         <a href="/#/assessment/view/{{row.aid}}"><i class="{{i.assessment}}"></i></a>
-                                        <a href="/#/manager/member/{{row.mid}}">{{row.n}}</a>
+                                        <a href="/#/member/view/{{row.mid}}">{{row.n}}</a>
                                     </div>
                                     <div data-ng-switch-when="O">
                                         <a href="/#/assessment/matrix/{{row.oid}}">{{row.n}}</a>

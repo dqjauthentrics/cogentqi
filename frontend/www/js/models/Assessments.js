@@ -86,7 +86,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		return null;
 	};
 
-	svc.scorify = function (question, instrument) {
+	svc.scorify = function (instrument) {
 		var avg = 0;
 		var avgRound = 0;
 		var total = 0;
@@ -108,19 +108,20 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 				avgRound = Math.round(avg);
 			}
 		}
+		//console.log("scorify:", total, avg, avgRound);
 		return {avg: avg, avgRound: avgRound};
 	};
 
-	svc.scoreWord = function (question) {
+	svc.scoreWord = function (question, score) {
 		var scoreWord = null;
 		try {
-			var score = question.rsp.ri;
-			if (!Utility.empty(question.rsp.ch)) {
-				scoreWord = question.rsp.ch[question.rsp.ri].n;
+			score = parseInt(Math.round(score));
+			if (!Utility.empty(score)) {
+				scoreWord = question.rsp.ch[score].n;
 			}
 			if (Utility.empty(scoreWord)) {
 				scoreWord = "N/A";
-				switch (parseInt(Math.round(score))) {
+				switch (score) {
 					case 1:
 						scoreWord = "Unacceptable";
 						break;
@@ -257,16 +258,21 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		var avg = 0;
 		var avgRound = 0;
 		if (!Utility.empty(question) && !Utility.empty(question.rsp)) {
-			//scoreWord = svc.scoreWord(question);
+			//scoreWord = svc.scoreWord(question, question.rsp.ri);
 			var slider = $("#question_item_" + question.id);
 			//var levelEl = slider.find("span.bubble.low");
 			//levelEl.html(scoreWord);
 			slider.removeClass(function (index, css) {
 				return (css.match(/(^|\s)slider\S+/g) || []).join(' ');
 			}).addClass("slider" + question.rsp.ri);
-			var score = svc.scorify(question, instrument);
+			var score = svc.scorify(instrument);
 			avg = score.avg;
 			avgRound = score.avgRound;
+			var rubricBox = $("#rubric_" + question.id + "_" + avgRound);
+			var pos = rubricBox.position();
+			var pointer = slider.find(".pointer");
+			pointer.css({left: 100});
+			console.log("rubric:", pointer, pos, rubricBox.width());
 		}
 		return {avg: avg, avgRound: avgRound};
 	};
