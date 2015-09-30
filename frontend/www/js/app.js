@@ -57,7 +57,7 @@ angular.module('app',
 
 	.config([
 		'$translateProvider', function ($translateProvider) {
-			var subdomain = 'nursing';
+			var subdomain = 'healthcare';
 			$translateProvider.useStaticFilesLoader({
 				prefix: '/site/' + subdomain + '/translations/locale-',
 				suffix: '.json'
@@ -117,7 +117,7 @@ angular.module('app',
 					 if (!Utility.empty($rootScope.installation) && !Utility.empty($rootScope.installation.subdomain)) {
 						 return "/site/" + $rootScope.installation.subdomain;
 					 }
-					 return '/site/nursing'; //@todo fallback
+					 return '/site/healthcare'; //@todo fallback
 				 };
 				 $rootScope.avatarUrl = function (memberId) {
 					 if (!Utility.empty($rootScope.installation) && !Utility.empty($rootScope.installation.subdomain) && !Utility.empty(memberId)) {
