@@ -8,6 +8,7 @@ angular.module('app',
 		'ngSanitize',
 		'pascalprecht.translate',
 		/*'ngTouch', */
+		'textAngular',
 		'ngCookies',
 		'ngAnimate',
 		'ngResource',
@@ -78,6 +79,7 @@ angular.module('app',
 			 $ionicPlatform.ready(function () {
 
 				 $rootScope.i = Icons;
+				 $rootScope.dirty = false;
 
 				 var host = $location.host();
 				 var parts = host.split('.');
@@ -137,6 +139,9 @@ angular.module('app',
 					 }
 					 return '';
 				 };
+				 $rootScope.goTo = function (url) {
+					 $window.location.href = url;
+				 };
 				 $rootScope.checkSession = function () {
 					 Authentication.check();
 				 };
@@ -190,6 +195,13 @@ angular.module('app',
 					 var url = '#/' + infix + '/' + urlPortion;
 					 console.log('URL:', url);
 					 return url;
+				 };
+				 $rootScope.setDirty = function () {
+					 console.log("dirty");
+					 $rootScope.dirty = true;
+				 };
+				 $rootScope.isDirty = function () {
+					 return $rootScope.dirty;
 				 };
 
 				 $rootScope.checkSession();

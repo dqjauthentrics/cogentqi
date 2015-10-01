@@ -110,10 +110,16 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 				resources: {templateUrl: 'templates/resource/list.html', controller: 'ResourceCtrl'}
 			}
 		})
-		.state('resource.alignments', {
-			url: '/alignments',
+		.state('resource.edit', {
+			url: '/edit/:resourceId',
 			views: {
-				settings: {templateUrl: 'templates/resource/alignments.html', controller: 'ResourceAlignmentsCtrl'}
+				settings: {templateUrl: 'templates/resource/edit.html', controller: 'ResourceEditCtrl'}
+			}
+		})
+		.state('resource.configure', {
+			url: '/configure',
+			views: {
+				settings: {templateUrl: 'templates/resource/configList.html', controller: 'ResourceConfigureListCtrl'}
 			}
 		})
 		.state('resource.alignment', {
@@ -129,6 +135,24 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 			url: '/view/:memberId',
 			views: {
 				members: {templateUrl: 'templates/member/view.html', controller: 'MemberViewCtrl'}
+			}
+		})
+		.state('member.notes', {
+			url: '/notes/:memberId',
+			views: {
+				members: {templateUrl: 'templates/member/notes.html', controller: 'MemberNotesCtrl'}
+			}
+		})
+		.state('member.progress', {
+			url: '/progress/:memberId',
+			views: {
+				members: {templateUrl: 'templates/member/progress.html', controller: 'MemberProgressCtrl'}
+			}
+		})
+		.state('member.barprogress', {
+			url: '/barProgress/:memberId',
+			views: {
+				members: {templateUrl: 'templates/member/barProgress.html', controller: 'MemberBarProgressCtrl'}
 			}
 		})
 		.state('member.list', {
@@ -168,16 +192,22 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 			}
 		})
 		.state('outcome.alignments', {
-			url: '/list',
+			url: '/alignments',
 			views: {
-				outcomes: {templateUrl: 'templates/outcome/alignments.html', controller: 'OutcomeAlignmentsCtrl'}
+				settings: {templateUrl: 'templates/outcome/configList.html', controller: 'OutcomeAlignmentsCtrl'}
+			}
+		})
+		.state('outcome.alignment', {
+			url: '/alignment/:outcomeId',
+			views: {
+				settings: {templateUrl: 'templates/outcome/alignment.html', controller: 'OutcomeAlignmentCtrl'}
 			}
 		})
 
 		// Instruments
 		.state('instrument', {url: "/instrument", abstract: true, templateUrl: "templates/common/tabs.html"})
 		.state('instrument.view', {
-			url: '/instrument/:instrumentId',
+			url: '/view/:instrumentId',
 			views: {
 				settings: {templateUrl: 'templates/instrument/view.html', controller: 'InstrumentCtrl'}
 			}

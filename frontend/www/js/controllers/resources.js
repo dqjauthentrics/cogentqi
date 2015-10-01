@@ -3,6 +3,38 @@
 angular.module('ResourceControllers', [])
 
 	.controller(
+	'ResourceEditCtrl',
+	function ($rootScope, $scope, $sce, $templateRequest, $stateParams, Utility, LearningModules, Organizations, Resources, Quizzes) {
+		$scope.data = {resource: null, resources: null};
+
+		Resources.retrieve().query(function (response) {
+			$scope.data.resources = response;
+			if (!Utility.empty($stateParams)) {
+				var resourceId = $stateParams.resourceId;
+				if (!Utility.empty(resourceId)) {
+					$scope.data.resource = Utility.findObjectById($scope.data.resources, resourceId);
+					if (!Utility.empty($scope.data.resource)) {
+						$scope.setContent();
+					}
+				}
+			}
+		});
+
+		$scope.setContent = function () {
+			var url = $rootScope.siteDir() + '/modules/' + $scope.data.resource.number.toLowerCase() + '.html';
+			$templateRequest(url).then(function (template) {
+				$scope.data.content = template;
+			}, function () {
+				console.log("error occurred");
+			});
+		};
+
+		$scope.htmlEncode = function (value) {
+			return $('<div/>').text(value).html();
+		}
+	})
+
+	.controller(
 	'ResourceCtrl',
 	function ($rootScope, $scope, $stateParams, Utility, LearningModules, Organizations, Resources, Quizzes) {
 		$scope.data = {learningModules: [], resources: [], resource: {}};
@@ -83,6 +115,21 @@ angular.module('ResourceControllers', [])
 			}
 			$scope.setResourceAlignments();
 		};
+		$scope.setOutcomeAlignments = function () {
+			if (!Utility.empty($scope.data.outcome) && !Utility.empty($scope.data.currentInstrument)) {
+				$scope.data.alignments = {};
+				for (var z = 0; z < $scope.data.currentInstrument.questions.length; z++) {
+					var questionId = $scope.data.currentInstrument.questions[z].id;
+					$scope.data.alignments[questionId] = 0;
+				}
+				if (!Utility.empty($scope.data.outcome) && !Utility.empty($scope.data.outcome.alignments) && $scope.data.outcome.alignments.length > 0) {
+					for (var i = 0; i < $scope.data.outcome.alignments.length; i++) {
+						var alignment = $scope.data.outcome.alignments[i];
+						$scope.data.alignments[alignment.questionId] = alignment.weight;
+					}
+				}
+			}
+		};
 		$scope.setCurrentInstrument = function (instrumentId) {
 			if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
 				$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
@@ -115,7 +162,7 @@ angular.module('ResourceControllers', [])
 	})
 
 	.controller(
-	'ResourceAlignmentsCtrl',
+	'ResourceConfigureListCtrl',
 	function ($scope, $stateParams, Instruments, Resources) {
 		$scope.data = {instruments: [], resources: []};
 

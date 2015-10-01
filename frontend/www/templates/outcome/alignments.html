@@ -1,18 +1,20 @@
-<ion-view view-title="Alignments">
+<ion-view view-title="{{'Outcomes Management'|translate}}">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
         <div class="row responsive-sm">
             <div class="col">
                 <ion-list>
-                    <ion-item class="top"><h2>Outcomes</h2></ion-item>
+                    <ion-item class="top"><h2>{{'Outcome Alignments'|translate}}</h2></ion-item>
                     <ion-item class="gray" data-ng-if="!data.outcomes.length"><i class="{{i.loadingSpinner}}"></i> {{'Loading...'|translate}}</ion-item>
                     <ion-item class="item-icon-right" data-ng-repeat="outcome in data.outcomes" type="item-text-wrap"
-                              href="#/administrator/alignment/outcome/{{outcome.id}}">
+                              href="#/outcome/alignment/{{outcome.id}}">
                         <i class="{{i.outcome}} fa-lg"></i> {{outcome.number}} {{outcome.name}}
                     </ion-item>
                     <ion-item>
-                        <button onclick="alert('TBD');" class="button button-balanced"><i class="{{i.add}} fa-lg"></i> {{'Add Outcome'|translate}}</button>
+                        <button onclick="alert('TBD');" class="button button-balanced">
+                            <i class="{{i.add}} fa-lg"></i> {{'Add Outcome'|translate}}
+                        </button>
                     </ion-item>
                 </ion-list>
             </div>

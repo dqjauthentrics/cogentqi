@@ -28,7 +28,7 @@ angular.module('Icons', []).service('Icons', function () {
 	this.loadingSpinner = "fa fa-spinner fa-spin";
 	this.locked = "ion-locked";
 	this.manager = "fa fa-gear";
-	this.member = "fa fa-user-2";
+	this.member = "fa fa-user";
 	this.members = "ion-person-stalker";
 	this.next = "fa fa-triangle-right";
 	this.notes = "ion-android-document";

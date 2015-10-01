@@ -1383,10 +1383,12 @@ table.perms th:nth-child(1) {
 .tab-item-active {
     color: yellow;
 }
+
 .fat-btn-wrap {
     margin: 1em auto;
     width: auto;
 }
+
 .fat-btn-header {
     display: table-row;
     vertical-align: middle;
@@ -1397,6 +1399,7 @@ table.perms th:nth-child(1) {
     font-size: 3em;
     padding-right: 0.4em;
     vertical-align: middle;
+    color: darkslategray;
 }
 
 .fat-btn-title a {
@@ -1419,4 +1422,18 @@ table.perms th:nth-child(1) {
     font-style: italic;
     padding: 1em;
     width: 100%;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.ta-toolbar.btn-toolbar {
+    background: #F5F8FF;
+    border: 1px solid #999;
+    padding: 0.2em;
 }

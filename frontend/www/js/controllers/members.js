@@ -16,11 +16,11 @@ angular.module('MemberControllers', [])
 		}
 		$scope.goToProgress = function () {
 			console.log("going to progress");
-			$location.url("/manager/member/progress/" + $stateParams.memberId);
+			$location.url("/member/progress/" + $stateParams.memberId);
 		};
 		$scope.goToMember = function () {
 			console.log("going to member");
-			$location.url("/manager/member/" + $stateParams.memberId);
+			$location.url("/member/" + $stateParams.memberId);
 		};
 	})
 
@@ -54,13 +54,13 @@ angular.module('MemberControllers', [])
 		};
 		$scope.goToProgress = function () {
 			console.log("going to progress");
-			$location.url("/manager/member/progress/" + $stateParams.memberId);
+			$location.url("/member/progress/" + $stateParams.memberId);
 		};
 		$scope.goToNotes = function () {
-			$location.url("/manager/member/notes/" + $stateParams.memberId);
+			$location.url("/member/notes/" + $stateParams.memberId);
 		};
 		$scope.goToMember = function () {
-			$location.url("/manager/member/" + $stateParams.memberId);
+			$location.url("/member/" + $stateParams.memberId);
 		};
 	})
 
@@ -78,13 +78,13 @@ angular.module('MemberControllers', [])
 		}
 		$scope.goToBarProgress = function () {
 			console.log("going to progress");
-			$location.url("/manager/member/barProgress/" + $stateParams.memberId);
+			$location.url("/member/barProgress/" + $stateParams.memberId);
 		};
 		$scope.goToProgress = function () {
-			$location.url("/manager/member/progress/" + $stateParams.memberId);
+			$location.url("/member/progress/" + $stateParams.memberId);
 		};
 		$scope.goToNotes = function () {
-			$location.url("/manager/member/notes/" + $stateParams.memberId);
+			$location.url("/member/notes/" + $stateParams.memberId);
 		};
 		$scope.canEdit = function () {
 			return $scope.data.user.roleId == 'M' || $scope.data.user.roleId == 'A';
@@ -219,7 +219,7 @@ angular.module('MemberControllers', [])
 		};
 		$scope.goToBarProgress = function () {
 			console.log("going to progress");
-			$location.url("/manager/member/barProgress/" + $stateParams.memberId);
+			$location.url("/member/barProgress/" + $stateParams.memberId);
 		};
 		$scope.toggleProgress = function () {
 			if ($scope.data.currentSeries == 0) {

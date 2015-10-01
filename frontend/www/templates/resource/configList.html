@@ -1,4 +1,4 @@
-<ion-view view-title="Alignments">
+<ion-view view-title="{{'Learning Resources Management'|translate}}">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
@@ -7,9 +7,16 @@
                 <ion-list>
                     <ion-item class="top"><h2>{{'Resources'|translate}}</h2></ion-item>
                     <ion-item class="gray" data-ng-if="!data.resources.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
-                    <ion-item class="item-icon-right" data-ng-repeat="resource in data.resources" type="item-text-wrap"
-                              href="#/resource/alignment/{{resource.id}}">
-                        <i class="{{i.resource}} fa-lg"></i> {{resource.number}} {{resource.name}}
+                    <ion-item class="item-icon-right" data-ng-repeat="resource in data.resources" type="item-text-wrap">
+                        <div style="float:left;">
+                            <a class="button button-small button-positive"
+                               href="#/resource/edit/{{resource.id}}"><i class="{{i.edit}} fa-lg bold"></i></a>
+                            <a class="button button-small button-positive"
+                               href="#/resource/alignment/{{resource.id}}"><i class="{{i.slider}} fa-lg bold"></i></a>
+                        </div>
+                        <div style="float:left; margin-top:0.6em; margin-left:0.6em;">
+                            <i class="{{i.resource}} fa-lg"></i> {{resource.number}} {{resource.name}}
+                        </div>
                         <i class="icon ion-chevron-right icon-accessory"></i>
                     </ion-item>
                     <ion-item>

@@ -6,10 +6,10 @@
         <h1>{{'System Configuration'|translate}}</h1>
 
         <div class="row responsive-lg">
-            <div class="col col-25 card padding">
+            <div class="col card padding clickable" data-ng-click="goTo('/#/administrator/schedule')">
                 <div class="fat-btn-wrap">
                     <div class="fat-btn-header">
-                        <div class="fat-btn-icon"><i class="fa fa-calendar"></i></div>
+                        <div class="fat-btn-icon"><i class="{{i.schedule}}"></i></div>
                         <div class="fat-btn-title"><a href="/#/administrator/schedule">{{'Assessment Schedule'|translate}}</a></div>
                     </div>
                     <div class="fat-btn-desc" colspan="2">
@@ -17,36 +17,48 @@
                     </div>
                 </div>
             </div>
-            <div class="col card">
-                <div class="item item-divider">
-                    <a href="/#/resource/alignments">{{'Learning Resources'|translate}}</a>
-                </div>
-                <div class="item item-text-wrap">
-                    {{'Set up the educational resources available for your organization, along with their alignments to competencies.'|translate}}
-                </div>
-            </div>
-            <div class="col card">
-                <div class="item item-divider">
-                    <a href="/#/instrument/list">{{'Competency Frameworks'|translate}}</a>
-                </div>
-                <div class="item item-text-wrap">
-                    {{'Define the set(s) of competencies recognized by your organization for use in assessments.'|translate}}
+            <div class="col card padding clickable" data-ng-click="goTo('/#/resource/configure')">
+                <div class="fat-btn-wrap">
+                    <div class="fat-btn-header">
+                        <div class="fat-btn-icon"><i class="{{i.resource}}"></i></div>
+                        <div class="fat-btn-title"><a href="/#/resource/configure">{{'Learning Resources'|translate}}</a></div>
+                    </div>
+                    <div class="fat-btn-desc" colspan="2">
+                        {{'Set up the educational resources available for your organization, along with their alignments to competencies.'|translate}}
+                    </div>
                 </div>
             </div>
-            <div class="col card">
-                <div class="item item-divider">
-                    <a href="/#/outcome/alignments">{{'Outcomes'|translate}}</a>
-                </div>
-                <div class="item item-text-wrap">
-                    {{'Review the set of general outcomes tracked by your organization, along with their alignments to competencies.'|translate}}
+            <div class="col card padding clickable" data-ng-click="goTo('/#/instrument/list')">
+                <div class="fat-btn-wrap">
+                    <div class="fat-btn-header">
+                        <div class="fat-btn-icon"><i class="{{i.grid}}"></i></div>
+                        <div class="fat-btn-title"><a href="/#/instrument/list">{{'Competency Frameworks'|translate}}</a></div>
+                    </div>
+                    <div class="fat-btn-desc" colspan="2">
+                        {{'Define the set(s) of competencies recognized by your organization for use in assessments.'|translate}}
+                    </div>
                 </div>
             </div>
-            <div class="col card">
-                <div class="item item-divider">
-                    <a href="/#/settings/personal">{{'Personal Preferences'|translate}}</a>
+            <div class="col card padding clickable" data-ng-click="goTo('/#/outcome/alignments')">
+                <div class="fat-btn-wrap">
+                    <div class="fat-btn-header">
+                        <div class="fat-btn-icon"><i class="{{i.slider}}"></i></div>
+                        <div class="fat-btn-title"><a href="/#/outcome/alignments">{{'Outcomes'|translate}}</a></div>
+                    </div>
+                    <div class="fat-btn-desc" colspan="2">
+                        {{'Review the set of general outcomes tracked by your organization, along with their alignments to competencies.'|translate}}
+                    </div>
                 </div>
-                <div class="item item-text-wrap">
-                    {{'Review your personal profile settings.'|translate}}
+            </div>
+            <div class="col card padding clickable" data-ng-click="goTo('/#/settings/personal')">
+                <div class="fat-btn-wrap">
+                    <div class="fat-btn-header">
+                        <div class="fat-btn-icon"><i class="{{i.member}}"></i></div>
+                        <div class="fat-btn-title"><a href="/#/settings/personal">{{'Personal Preferences'|translate}}</a></div>
+                    </div>
+                    <div class="fat-btn-desc" colspan="2">
+                        {{'Review your personal profile settings.'|translate}}
+                    </div>
                 </div>
             </div>
         </div>

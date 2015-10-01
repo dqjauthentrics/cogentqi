@@ -128,4 +128,103 @@ angular.module('OutcomeControllers', [])
 			return rubric;
 		};
 	})
+
+	.controller(
+	'OutcomeAlignmentsCtrl',
+	function ($scope, $stateParams, Instruments, Outcomes) {
+		$scope.data = {instruments: [], resources: [], outcomes: []};
+
+		Instruments.retrieve().query(function (response) {
+			$scope.data.instruments = response;
+		});
+		Outcomes.retrieve().query(function (response) {
+			$scope.data.outcomes = response;
+		});
+	})
+
+	.controller(
+	'OutcomeAlignmentCtrl',
+	function ($scope, $stateParams, $ionicPopup, Utility, Instruments, Outcomes) {
+		$scope.res = null;
+		$scope.data = {
+			dirty: false,
+			alignments: [],
+			instruments: [],
+			outcomes: [],
+			outcoume: {},
+			resources: [],
+			resource: {},
+			currentInstrument: null,
+			currentInstrumentId: 1
+		};
+
+		Utility.getResource(Instruments.retrieve(), function (response) {
+			$scope.data.instruments = response;
+			Instruments.collate($scope.data.instruments);
+			if (!Utility.empty(response)) {
+				$scope.setCurrentInstrument(response[0].id);
+			}
+		});
+		Utility.getResource(Outcomes.retrieve(), function (response) {
+			$scope.data.outcomes = response;
+			$scope.setOutcome();
+		});
+
+		$scope.saveOutcomeAlignments = function () {
+			Outcomes.saveAlignments($scope.data.currentInstrumentId, $scope.data.outcome.id, $scope.data.alignments, Utility.statusAlert);
+		};
+		$scope.setOutcomeAlignments = function () {
+			if (!Utility.empty($scope.data.outcome) && !Utility.empty($scope.data.currentInstrument)) {
+				$scope.data.alignments = {};
+				for (var z = 0; z < $scope.data.currentInstrument.questions.length; z++) {
+					var questionId = $scope.data.currentInstrument.questions[z].id;
+					$scope.data.alignments[questionId] = 0;
+				}
+				if (!Utility.empty($scope.data.outcome) && !Utility.empty($scope.data.outcome.alignments) && $scope.data.outcome.alignments.length > 0) {
+					for (var i = 0; i < $scope.data.outcome.alignments.length; i++) {
+						var alignment = $scope.data.outcome.alignments[i];
+						$scope.data.alignments[alignment.questionId] = alignment.weight;
+					}
+				}
+			}
+		};
+		$scope.setOutcome = function () {
+			if (!Utility.empty($stateParams)) {
+				var outcomeId = $stateParams.outcomeId;
+				if (!Utility.empty(outcomeId)) {
+					$scope.data.outcome = Utility.findObjectById($scope.data.outcomes, outcomeId);
+					$scope.setOutcomeAlignments();
+				}
+			}
+			$scope.setOutcomeAlignments();
+		};
+		$scope.setCurrentInstrument = function (instrumentId) {
+			if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
+				$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
+				$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
+				$scope.setOutcomeAlignments();
+			}
+		};
+		$scope.alignmentLevelPhrase = function (level) {
+			var phrase = 'Not Aligned';
+			switch (parseInt(level)) {
+				case 1:
+					phrase = 'Partially Aligned';
+					break;
+				case 2:
+					phrase = 'Aligned';
+					break;
+				case 3:
+					phrase = 'Highly Aligned';
+					break;
+			}
+			return phrase;
+		};
+		$scope.isDirty = function () {
+			return $scope.dirty;
+		};
+		$scope.setDirty = function () {
+			$scope.dirty = true;
+		};
+	})
 ;
