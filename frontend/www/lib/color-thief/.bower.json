@@ -15,7 +15,7 @@
     "photo",
     "canvas"
   ],
-  "license": "CC BY 2.5",
+  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -23,11 +23,12 @@
     "test",
     "tests"
   ],
-  "_release": "050157dc19",
+  "version": "2.0.1",
+  "_release": "2.0.1",
   "_resolution": {
-    "type": "branch",
-    "branch": "master",
-    "commit": "050157dc1966a8b9bd14f32faeb5bd06b9fa2e09"
+    "type": "version",
+    "tag": "v2.0.1",
+    "commit": "de968be81645760f54a0358fb3a442f13adf2b38"
   },
   "_source": "git://github.com/lokesh/color-thief.git",
   "_target": "*",

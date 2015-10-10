@@ -27,7 +27,7 @@ class PlanItem extends Model {
 			$resourceName = !empty($resource) ? $resource["name"] : NULL;
 			$associative = [
 				'm'  => $planRecord["module_id"],
-				's'  => $planRecord["status"],
+				's'  => $planRecord["plan_item_status_id"],
 				'dt' => $this->dateTime($planRecord["status_stamp"]),
 				'n'  => $resourceName,
 				'r'  => $resourceId
