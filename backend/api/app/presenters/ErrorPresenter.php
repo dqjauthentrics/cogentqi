@@ -2,18 +2,19 @@
 
 namespace App\Presenters;
 
-use Nette;
-use App\Model;
-use Tracy\ILogger;
+use Nette,
+	App\Model,
+	ResourcesModule,
+	Tracy\ILogger;
 
 
-class ErrorPresenter extends BasePresenter {
+class ErrorPresenter extends ResourcesModule\BasePresenter {
 	/** @var ILogger */
 	private $logger;
 
-	public function __construct(ILogger $logger) {
-		$this->logger = $logger;
-	}
+	//public function __construct(ILogger $logger) {
+	//	$this->logger = $logger;
+	//}
 
 	/**
 	 * @param  Exception

@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Slim' => array($vendorDir . '/slim/slim'),
+    'Drahak\\Restful' => array($vendorDir . '/drahak/restful/src'),
 );

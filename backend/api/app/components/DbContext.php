@@ -1,7 +1,10 @@
 <?php
 namespace App\Components;
 
-use Nette\Database\Context, Nette\Database\Connection, Nette\Database\IStructure;
+use Nette\Database\Context,
+	Nette\Database\Connection,
+	Nette\Database\Table\IRow,
+	Nette\Database\IStructure;
 
 class DbContext extends Context {
 	/** @var string[] $mapExcludes Exclude columns for this model, with respect to JSON encoding. */
@@ -80,20 +83,16 @@ class DbContext extends Context {
 	/**
 	 * @return string
 	 */
-	protected function tableName() {
-		if (empty($this->tableName())) {
-			$className = $this->baseClassName();
-			$tableName = "";
-			for ($i = 0; $i < strlen($className); $i++) {
-				$ch = substr($className, $i, 1);
-				if (ctype_upper($ch) && $i > 0) {
-					$tableName .= "_";
-				}
-				$tableName .= $ch;
+	public static function tableName($className) {
+		$tableName = "";
+		for ($i = 0; $i < strlen($className); $i++) {
+			$ch = substr($className, $i, 1);
+			if (ctype_upper($ch) && $i > 0) {
+				$tableName .= "_";
 			}
-			$this->tableName;
+			$tableName .= $ch;
 		}
-		return strtolower($this->tableName);
+		return strtolower($tableName);
 	}
 
 	/**
@@ -115,34 +114,29 @@ class DbContext extends Context {
 	}
 
 	/**
-	 * @param \App\Model\BaseModel $dbRecord
+	 * @param IRow $dbRecord
 	 *
 	 * @return array
 	 */
 	public function map($dbRecord) {
 		$jsonRecord = [];
-		try {
-			$columnNames = array_keys(iterator_to_array($dbRecord));
-			for ($i = 0; $i < count($columnNames); $i++) {
-				$colName = $columnNames[$i];
-				if (empty($this->mapExcludes) || !in_array($colName, $this->mapExcludes)) {
-					if (FALSE && !empty($this->colNameMap[$colName])) {
-						$jsonName = $this->colNameMap[$colName];
-					}
-					else {
-						$jsonName = $this->colNameToJsonName($colName);
-					}
-					if (in_array($colName, $this->dateTimeCols)) {
-						$jsonRecord[$jsonName] = @$this->dateTime($dbRecord[$colName]);
-					}
-					else {
-						$jsonRecord[$jsonName] = @$dbRecord[$colName];
-					}
+		$columnNames = array_keys(iterator_to_array($dbRecord));
+		for ($i = 0; $i < count($columnNames); $i++) {
+			$colName = $columnNames[$i];
+			if (empty($this->mapExcludes) || !in_array($colName, $this->mapExcludes)) {
+				if (FALSE && !empty($this->colNameMap[$colName])) {
+					$jsonName = $this->colNameMap[$colName];
+				}
+				else {
+					$jsonName = $this->colNameToJsonName($colName);
+				}
+				if (in_array($colName, $this->dateTimeCols)) {
+					$jsonRecord[$jsonName] = @$this->dateTime($dbRecord[$colName]);
+				}
+				else {
+					$jsonRecord[$jsonName] = @$dbRecord[$colName];
 				}
 			}
-		}
-		catch (\Exception $exception) {
-			var_dump($exception);
 		}
 		return $jsonRecord;
 	}
@@ -154,7 +148,8 @@ class DbContext extends Context {
 	 */
 	public function mapRecords($records) {
 		$jsonRecords = [];
-		foreach ($this->api->db->{$this->tableName()}() as $dbRecord) {
+		$tableName = $this->tableName($this->baseClassName());
+		foreach ($this->api->db->{$tableName}() as $dbRecord) {
 			$mapped = $this->map($dbRecord);
 			if ($mapped !== NULL) {
 				$jsonRecords[] = $mapped;

@@ -29,17 +29,19 @@ class Authorization extends Permission {
 		$this->addResource('Organization');
 		$this->addResource('Recommendation');
 		$this->addResource('Instrument');
+		$this->addResource('QuestionType');
 
 		/**
 		 * Rules and privileges, by role.
 		 */
 		$this->allow(self::ROLE_GUEST, ['Homepage', 'Sign'], self::ALL);
 		$this->allow(self::ROLE_PROFESSIONAL, [
-			'Sign',
+			'Instrument',
 			'Member',
 			'Organization',
+			'QuestionType',
 			'Recommendation',
-			'Instrument'
+			'Sign',
 		], self::ALL);
 
 		# Admin has rights to everything

@@ -5,9 +5,10 @@ namespace App\Presenters;
 use
 	Nette,
 	\App\Model\Member,
+	ResourcesModule,
 	\App\Components\AjaxException;
 
-class SignPresenter extends BasePresenter {
+class SignPresenter extends ResourcesModule\BasePresenter {
 
 	public function actionIn($username, $password) {
 		$user = $this->getUser();
@@ -15,7 +16,7 @@ class SignPresenter extends BasePresenter {
 			$this->getUser()->logout();
 		}
 		$user->login($username, $password);
-		$this->sendResult(@$_SESSION["user"]);
+		$this->sendResult($this->user->identity->data);
 	}
 
 	public function actionOut() {
