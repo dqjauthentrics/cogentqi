@@ -23,24 +23,40 @@ class Authorization extends Permission {
 		/**
 		 * Recognized resources.
 		 */
-		$this->addResource('Sign');
 		$this->addResource('Homepage');
+		$this->addResource('Assessment');
+		$this->addResource('Instrument');
+		$this->addResource('InstrumentSchedule');
 		$this->addResource('Member');
 		$this->addResource('Organization');
-		$this->addResource('Recommendation');
-		$this->addResource('Instrument');
+		$this->addResource('Outcome');
+		$this->addResource('Question');
+		$this->addResource('QuestionChoice');
 		$this->addResource('QuestionType');
+		$this->addResource('Recommendation');
+		$this->addResource('Resource');
+		$this->addResource('Role');
+		$this->addResource('Setting');
+		$this->addResource('Sign');
 
 		/**
 		 * Rules and privileges, by role.
 		 */
 		$this->allow(self::ROLE_GUEST, ['Homepage', 'Sign'], self::ALL);
 		$this->allow(self::ROLE_PROFESSIONAL, [
+			'Assessment',
 			'Instrument',
+			'InstrumentSchedule',
 			'Member',
 			'Organization',
+			'Outcome',
+			'Question',
+			'QuestionChoice',
 			'QuestionType',
 			'Recommendation',
+			'Resource',
+			'Role',
+			'Setting',
 			'Sign',
 		], self::ALL);
 

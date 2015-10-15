@@ -6,7 +6,7 @@ angular.module('Organizations', []).service('Organizations', function ($resource
 	svc.retrieveMine = function () {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			return $resource('/api/organization/' + user.organizationId, {}, {query: {method: 'GET', isArray: false}});
+			return $resource('/api2/organization/read/' + user.organizationId, {}, {query: {method: 'GET', isArray: false}});
 		}
 		return null;
 	};
@@ -15,14 +15,14 @@ angular.module('Organizations', []).service('Organizations', function ($resource
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
 			var orgId = !Utility.empty(organizationId)? organizationId : user.organizationId;
-			return $resource('/api/organization/children/' + orgId, {}, {});
+			return $resource('/api2/organization/' + orgId + '/dependents/' + orgId, {}, {});
 		}
 		return null;
 	};
 
 	svc.members = function (organizationId) {
 		if (!Utility.empty(organizationId)) {
-			return $resource('/api/member/organization/' + organizationId, {}, {});
+			return $resource('/api2/organization/' + organizationId + '/members', {}, {});
 		}
 		return [];
 	};

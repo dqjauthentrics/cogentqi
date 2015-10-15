@@ -13,18 +13,23 @@ class AjaxException extends \Exception {
 	const ERROR_INVALID_LOGIN = ['code' => 404, 'message' => "Invalid login credentials"];
 
 	/**
-	 * @param array $code
-	 * @param null  $message
+	 * @param \Exception|array $code
+	 * @param null             $message
 	 */
 	public function __construct($code, $message = NULL) {
-		if (empty($message)) {
-			$message = $code['message'];
+		if ($code instanceof \Exception) {
+			$result = new AjaxResult(AjaxResult::STATUS_ERROR, $code->getMessage(), 500);
 		}
-		parent::__construct($message, $code['code'], NULL);
-		if ($code['code'] == 500) {
-			Debugger::log($this);
+		else {
+			if (empty($message)) {
+				$message = $code['message'];
+			}
+			parent::__construct($message, $code['code'], NULL);
+			if ($code['code'] == 500) {
+				Debugger::log($this);
+			}
+			$result = new AjaxResult(AjaxResult::STATUS_ERROR, $message, $code['code']);
 		}
-		$result = new AjaxResult(AjaxResult::STATUS_ERROR, $message, $code['code']);
 		$result->send();
 	}
 }

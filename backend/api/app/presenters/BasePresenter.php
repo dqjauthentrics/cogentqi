@@ -6,6 +6,7 @@ use Drahak\Restful\Application\UI\ResourcePresenter;
 
 use Nette,
 	Nette\Application\Responses\JsonResponse,
+	Nette\Database\Table\IRow,
 	App\Components\AjaxException,
 	App\Components\DbContext,
 	App\Model;
@@ -51,34 +52,50 @@ class BasePresenter extends ResourcePresenter {
 		return DbContext::tableName(str_replace("Presenter", "", $this->baseClassName()));
 	}
 
+	public function sendResource($type = IResource::JSON) {
+		//$this->sendResult($type);
+		echo json_encode($this->resource);
+		exit();
+	}
+
+	/**
+	 * @param int $id
+	 *
+	 * @return Nette\Database\Table\IRow
+	 */
+	public function retrieve($id, $doMapping = FALSE) {
+		$result = [];
+		$tableName = $this->tableName();
+		if (!empty($id)) {
+			$result = $this->database->table($tableName)->get($id);
+			if ($doMapping && !empty($record)) {
+				$result = $this->database->map($result);
+			}
+		}
+		else {
+			$result = $this->database->table($tableName)->fetchAll();
+			if ($doMapping && !empty($result)) {
+				$jsonRecords = [];
+				foreach ($result as $record) {
+					$jsonRecords[] = $this->database->map($record);
+				}
+				$result = $jsonRecords;
+			}
+		}
+		return $result;
+	}
+
 	/**
 	 * @param int $id
 	 *
 	 * @throws \App\Components\AjaxException
 	 */
 	public function actionRead($id) {
-		$this->resource = NULL;
-		$tableName = $this->tableName();
-		if (!empty($id)) {
-			$record = $this->database->table($tableName)->get($id);
-			if (!empty($record)) {
-				$this->resource = $this->database->map($record);
-			}
-		}
-		else {
-			$members = $this->database->table($tableName)->fetchAll();
-			if (!empty($members)) {
-				$records = [];
-				foreach ($members as $member) {
-					$records[] = $this->database->map($member);
-				}
-				$this->resource = $records;
-			}
-		}
+		$this->resource = $this->retrieve($id, TRUE);
 		if (empty($this->resource)) {
 			throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
 		}
-		$this->sendResource($this->typeMap['json']);
+		$this->sendResource();
 	}
 
 	/**

@@ -7,8 +7,14 @@ use Nette\Database\Context,
 	Nette\Database\IStructure;
 
 class DbContext extends Context {
+	const TYPE_STRING = 0;
+	const TYPE_DATE = 1;
+	const TYPE_DATETIME = 2;
+	const TYPE_INT = 3;
+	const TYPE_REAL = 4;
+
 	/** @var string[] $mapExcludes Exclude columns for this model, with respect to JSON encoding. */
-	protected $mapExcludes = [];
+	protected $mapExcludes = ['password'];
 
 	/** @var string[] $dateTimeCols Some columns might require special save/restore/format processing. */
 	protected $dateTimeCols = [];
@@ -16,44 +22,73 @@ class DbContext extends Context {
 	/**
 	 * @var array $colName Map  Map column names to their abbreviations when transmitting via JSON.
 	 */
-	public $colNameMap = [
-		'avatar'             => 'av',
-		'by_member_id'       => 'by',
-		'description'        => 'dsc',
-		'email'              => 'em',
-		'evaluation_id'      => 'ei',
-		'evaluator_comments' => 'ec',
-		'first_name'         => 'fn',
-		'instrument_id'      => 'ii',
-		'job_title'          => 'jt',
-		'last_name'          => 'ln',
-		'last_modified'      => 'lm',
-		'last_saved'         => 'ls',
-		'module_id'          => 'lmi',
-		'max_range'          => 'max',
-		'min_range'          => 'min',
-		'level'              => 'lv',
-		'location'           => 'loc',
-		'member_comments'    => 'mc',
-		'member_id'          => 'mi',
-		'name'               => 'n',
-		'number'             => 'nmb',
-		'organization_id'    => 'oi',
-		'outcome_id'         => 'oti',
-		'plan_item_id'       => 'pli',
-		'question_group_id'  => 'qg',
-		'question_id'        => 'qi',
-		'question_type_id'   => 'qt',
-		'resource_id'        => 'ri',
-		'resource_type_id'   => 'rti',
-		'role_id'            => 'r',
-		'rubric'             => 'ru',
-		'score'              => 'sc',
-		'rank'               => 'rk',
-		'sort_order'         => 'so',
-		'summary'            => 'sm',
-		'value'              => 'v',
-		'weight'             => 'wt',
+	public static $colNameMap = [
+		'ac'  => ['assessor_comments', self::TYPE_STRING],
+		'asi' => ['assessor_id', self::TYPE_INT],
+		'ad'  => ['address', self::TYPE_STRING],
+		'ari' => ['app_role_id', self::TYPE_STRING],
+		'asb' => ['is_assessable', self::TYPE_INT],
+		'av'  => ['avatar', self::TYPE_STRING],
+		'by'  => ['by_member_id', self::TYPE_STRING],
+		'cmi' => ['calc_method_id', self::TYPE_STRING],
+		'cy'  => ['city', self::TYPE_STRING],
+		'dt'  => ['date' => self::TYPE_DATE],
+		'dpt' => ['is_department', self::TYPE_INT],
+		'dsc' => ['description', self::TYPE_STRING],
+		'ec'  => ['evaluator_comments', self::TYPE_STRING],
+		'ei'  => ['evaluation_id', self::TYPE_INT],
+		'ev'  => ['evaluated', self::TYPE_DATETIME],
+		'evi' => ['evaluator_id', self::TYPE_INT],
+		'em'  => ['email', self::TYPE_STRING],
+		'en'  => ['ends', self::TYPE_DATETIME],
+		'es'  => ['edit_status', self::TYPE_STRING],
+		'fn'  => ['first_name', self::TYPE_STRING],
+		'fx'  => ['fax', self::TYPE_STRING],
+		'ii'  => ['instrument_id', self::TYPE_INT],
+		'isi' => ['instrument_schedule_id', self::TYPE_INT],
+		'jt'  => ['job_title', self::TYPE_STRING],
+		'lm'  => ['last_modified', self::TYPE_DATETIME],
+		'lmi' => ['module_id', self::TYPE_INT],
+		'ln'  => ['last_name', self::TYPE_STRING],
+		'loc' => ['location', self::TYPE_STRING],
+		'lk'  => ['locked_on', self::TYPE_DATETIME],
+		'ls'  => ['last_saved', self::TYPE_DATETIME],
+		'lv'  => ['level', self::TYPE_INT],
+		'max' => ['max_range', self::TYPE_INT],
+		'mb'  => ['mobile', self::TYPE_STRING],
+		'mc'  => ['member_comments', self::TYPE_STRING],
+		'mi'  => ['member_id', self::TYPE_INT],
+		'min' => ['min_range', self::TYPE_INT],
+		'mth' => ['method', self::TYPE_STRING],
+		'n'   => ['name', self::TYPE_STRING],
+		'nws' => ['nag_window_start', self::TYPE_DATETIME],
+		'nwe' => ['nag_window_end', self::TYPE_DATETIME],
+		'nmb' => ['number', self::TYPE_STRING],
+		'oi'  => ['organization_id', self::TYPE_INT],
+		'oti' => ['outcome_id', self::TYPE_INT],
+		'ph'  => ['phone', self::TYPE_STRING],
+		'pli' => ['plan_item_id', self::TYPE_INT],
+		'qg'  => ['question_group_id', self::TYPE_INT],
+		'qi'  => ['question_id', self::TYPE_INT],
+		'qt'  => ['question_type_id', self::TYPE_INT],
+		'r'   => ['role_id', self::TYPE_STRING],
+		'ri'  => ['resource_id', self::TYPE_INT],
+		'rk'  => ['rank', self::TYPE_INT],
+		'rti' => ['resource_type_id', self::TYPE_INT],
+		'ru'  => ['rubric', self::TYPE_STRING],
+		'sc'  => ['score', self::TYPE_REAL],
+		'sh'  => ['is_shared', self::TYPE_INT],
+		'sm'  => ['summary', self::TYPE_STRING],
+		'sr'  => ['starts', self::TYPE_DATETIME],
+		'st'  => ['status_id', self::TYPE_INT],
+		'sp'  => ['state', self::TYPE_STRING],
+		'so'  => ['sort_order', self::TYPE_INT],
+		'ttl' => ['title', self::TYPE_STRING],
+		'un'  => ['username', self::TYPE_STRING],
+		'v'   => ['value', self::TYPE_STRING],
+		'vs'  => ['view_status', self::TYPE_STRING],
+		'wt'  => ['weight', self::TYPE_REAL],
+		'zc'  => ['postal', self::TYPE_STRING],
 	];
 
 	/**
@@ -71,7 +106,7 @@ class DbContext extends Context {
 	 *
 	 * @return bool|string
 	 */
-	public static function dateTme($dateTimeStr = NULL) {
+	public function dateTme($dateTimeStr = NULL) {
 		if (empty($dateTimeStr)) {
 			$dateTimeStr = date('m/d/Y h:i:s a', time());
 		}
@@ -114,27 +149,83 @@ class DbContext extends Context {
 	}
 
 	/**
+	 * @param string $colName
+	 *
+	 * @return array|bool
+	 */
+	public function searchColMap($colName) {
+		foreach (self::$colNameMap as $abbrev => $info) {
+			if (@$info[0] == $colName) {
+				return [$abbrev, $info[1]];
+			}
+		}
+		return FALSE;
+	}
+
+	/**
+	 * @param string $colName
+	 *
+	 * @return mixed|string
+	 */
+	public function jsonCol($colName) {
+		$pos = $this->searchColMap($colName);
+		if ($pos !== FALSE) {
+			$jsonCol = $pos;
+		}
+		else {
+			$jsonCol = [$this->colNameToJsonName($colName), self::TYPE_STRING];
+		}
+		return $jsonCol;
+	}
+
+	/**
+	 * @param string $mysqlDateTime
+	 *
+	 * @return bool|null|string
+	 */
+	public static function presentationDateTime($mysqlDateTime) {
+		if (!empty($mysqlDateTime)) {
+			return date("c", strtotime($mysqlDateTime));
+		}
+		return NULL;
+	}
+
+	/**
+	 * @param $value
+	 * @param $dataType
+	 *
+	 * @return float|int
+	 */
+	public static function value($value, $dataType) {
+		if ($dataType == DbContext::TYPE_INT) {
+			$value = (int)@$value;
+		}
+		elseif ($dataType == DbContext::TYPE_DATETIME) {
+			$value = self::presentationDateTime($value);
+		}
+		elseif ($dataType == DbContext::TYPE_DATE) {
+			$value = self::presentationDateTime($value);
+		}
+		elseif ($dataType == DbContext::TYPE_REAL) {
+			$value = (double)$value;
+		}
+		return $value;
+	}
+
+	/**
 	 * @param IRow $dbRecord
 	 *
 	 * @return array
 	 */
 	public function map($dbRecord) {
 		$jsonRecord = [];
-		$columnNames = array_keys(iterator_to_array($dbRecord));
-		for ($i = 0; $i < count($columnNames); $i++) {
-			$colName = $columnNames[$i];
-			if (empty($this->mapExcludes) || !in_array($colName, $this->mapExcludes)) {
-				if (FALSE && !empty($this->colNameMap[$colName])) {
-					$jsonName = $this->colNameMap[$colName];
-				}
-				else {
-					$jsonName = $this->colNameToJsonName($colName);
-				}
-				if (in_array($colName, $this->dateTimeCols)) {
-					$jsonRecord[$jsonName] = @$this->dateTime($dbRecord[$colName]);
-				}
-				else {
-					$jsonRecord[$jsonName] = @$dbRecord[$colName];
+		if (!empty($dbRecord)) {
+			$columnNames = array_keys(iterator_to_array($dbRecord));
+			for ($i = 0; $i < count($columnNames); $i++) {
+				$colName = strtolower(trim($columnNames[$i]));
+				if (empty($this->mapExcludes) || !in_array($colName, $this->mapExcludes)) {
+					$jsonCol = $this->jsonCol($colName);
+					$jsonRecord[$jsonCol[0]] = self::value($dbRecord[$colName], $jsonCol[1]);
 				}
 			}
 		}

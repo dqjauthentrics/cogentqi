@@ -129,7 +129,6 @@ angular.module('app',
 				 };
 				 $rootScope.avatarAlt = function (member) {
 					 if (!Utility.empty(member)) {
-
 						 if (!Utility.empty(member.fn)) {
 							 return member.fn + ' ' + member.ln;
 						 }

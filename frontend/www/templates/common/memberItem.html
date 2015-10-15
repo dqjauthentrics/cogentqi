@@ -1,10 +1,10 @@
 <div class="row responsive-md">
     <div class="col col-50">
-        <avatar site="siteDir()" member-id="member.id" sz="small" level="member.level" alt="avatarAlt(member)"></avatar>
+        <avatar site="siteDir()" member-id="member.id" sz="small" level="member.lv" alt="avatarAlt(member)"></avatar>
         <div style="float:left;">
-            <div class="name">{{member.firstName}} {{member.lastName}}</div>
-            <div class="title">{{member.jobTitle}}</div>
-            <div class="role" data-ng-if="member.role.length && member.role != member.jobTitle">({{member.role}})</div>
+            <div class="name">{{member.fn}} {{member.ln}}</div>
+            <div class="title">{{member.jt}}</div>
+            <div class="role" data-ng-if="member.role.length && member.role != member.jt">({{member.role}})</div>
         </div>
     </div>
     <div class="col col-25">

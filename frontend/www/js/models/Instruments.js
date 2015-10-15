@@ -8,11 +8,11 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 	svc.currentSectionIdx = 0;
 
 	svc.retrieve = function () {
-		return $resource('/api/instrument/:id', {}, {});
+		return $resource('/api2/instrument/read/:id', {}, {});
 	};
 	svc.groupName = function (group) {
 		if (group && group != undefined) {
-			return group.number + '. ' + group.tag;
+			return group.nmb + '. ' + group.tag;
 		}
 		return '';
 	};
@@ -31,7 +31,7 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 					//var next = j < gLen - 1 ? (j + 2) + '. ' + groups[(j + 1)].tag : '1. ' + groups[0].tag;
 					instrument.sections[j] = {
 						id: questionGroup.id,
-						number: questionGroup.number,
+						number: questionGroup.nmb,
 						name: questionGroup.tag,
 						next: next,
 						previous: previous,
@@ -39,7 +39,7 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 					};
 					if (!Utility.empty(instrument.questions)) {
 						for (var k = 0; k < instrument.questions.length; k++) {
-							if (!Utility.empty(instrument.questions[k]) && instrument.questions[k].questionGroupId == instrument.sections[j].id) {
+							if (!Utility.empty(instrument.questions[k]) && instrument.questions[k].qg == instrument.sections[j].id) {
 								instrument.sections[j].questions.push(instrument.questions[k]);
 							}
 						}

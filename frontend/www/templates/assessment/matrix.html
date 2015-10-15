@@ -7,7 +7,7 @@
             <h3>{{a.sectionCurrentName()}}</h3>
             <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId"
                     data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
-                    data-ng-options="instrument.id as instrument.name for instrument in data.instruments">
+                    data-ng-options="instrument.id as instrument.n for instrument in data.instruments">
             </select>
             <h2>{{data.matrix.org.name}}</h2>
         </div>

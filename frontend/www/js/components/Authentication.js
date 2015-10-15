@@ -4,6 +4,19 @@ angular.module('Authentication', []).service('Authentication', function ($rootSc
 	var svc = this;
 	svc.resultMsg = "";
 
+	svc.login2 = function (username, password) {
+		$http({
+			method: 'POST',
+			url: "/api2/sign/in",
+			data: $.param({username: username, password: password}),
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		}).success(function (data, status, headers, config) {
+			console.log("api2 login succeeded", data);
+		}).error(function (data, status, headers, config) {
+			console.log("api2 login failed");
+		});
+	};
+
 	svc.check = function () {
 		/**
 		 * @todo Use $state.go here, and will probably have to store the user.home differently for that use.
@@ -46,27 +59,25 @@ angular.module('Authentication', []).service('Authentication', function ($rootSc
 				break;
 			case 'password':
 				$http({
-						  method: 'POST',
-						  url: "/api/authentication",
-						  data: $.param({username: email, password: password}),
-						  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-					  }).
-					success(function (data, status, headers, config) {
-								if (!Utility.empty(data)) {
-									data.home = svc.getUserDashUrl(data);
-								}
-								$cookieStore.put('user', data);
-								$rootScope.user = $cookieStore.get('user');
-								if (!Utility.empty(data)) {
-									successFn($rootScope.user);
-								}
-								else {
-									failFn('Sorry, but your login credentials were not recognized.');
-								}
-							}).
-					error(function (data, status, headers, config) {
-							  failFn('Sorry, we are unable to connect with the authentication server.');
-						  });
+					method: 'POST',
+					url: "/api/authentication",
+					data: $.param({username: email, password: password}),
+					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+				}).success(function (data, status, headers, config) {
+					if (!Utility.empty(data)) {
+						data.home = svc.getUserDashUrl(data);
+					}
+					$cookieStore.put('user', data);
+					$rootScope.user = $cookieStore.get('user');
+					if (!Utility.empty(data)) {
+						successFn($rootScope.user);
+					}
+					else {
+						failFn('Sorry, but your login credentials were not recognized.');
+					}
+				}).error(function (data, status, headers, config) {
+					failFn('Sorry, we are unable to connect with the authentication server.');
+				});
 				break;
 			default:
 		}

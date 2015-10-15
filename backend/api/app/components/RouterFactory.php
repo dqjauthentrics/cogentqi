@@ -5,6 +5,8 @@ namespace App\Components;
 use Nette,
 	Nette\Application\Routers\RouteList,
 	Nette\Application\Routers\Route,
+	Drahak\Restful\Application\IResourceRouter,
+	Drahak\Restful\Application\Routes\ResourceRoute,
 	Drahak\Restful\Application\Routes\CrudRoute;
 
 
@@ -15,13 +17,18 @@ class RouterFactory {
 	 */
 	public static function createRouter() {
 		$router = new RouteList;
+		$router[] = new CrudRoute('questionType/read[/<id>]', 'QuestionType');
+		$router[] = new CrudRoute('instrumentSchedule/read[/<id>]', 'InstrumentSchedule');
 		$router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
 		$router[] = new Route('<presenter=Sign>/<action=in>/<username>/<password>');
 		$router[] = new CrudRoute('<presenter>/<id>', 'Base');
-		$router[] = new CrudRoute('questionType/<id>', 'QuestionType');
-
-		new CrudRoute('<module>/crud', 'BasePresenter');
-
+		$router[] = new ResourceRoute('<presenter>/<id>/<relation>[/<recursive>]', [
+			'presenter' => 'Base',
+			'action'    => [
+				IResourceRouter::GET    => 'read<Relation>',
+				IResourceRouter::DELETE => 'delete<Relation>'
+			]
+		], IResourceRouter::GET | IResourceRouter::DELETE);
 		return $router;
 	}
 

@@ -12,6 +12,7 @@ angular.module('ControllerCommon', [])
 														   $scope.data.msg = "Succeeded!";
 														   $scope.data.error = "success";
 														   Authentication.check();
+														   Authentication.login2($scope.data.email, $scope.data.password);
 													   },
 													   function (failMsg) {
 														   $scope.data.msg = failMsg;
