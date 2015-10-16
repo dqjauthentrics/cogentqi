@@ -7,14 +7,20 @@ use ResourcesModule\BasePresenter,
 
 class AssessmentPresenter extends BasePresenter {
 
-	public function actionRead($id) {
+	/**
+	 * @param int $id
+	 * @param int $mode
+	 *
+	 * @throws \App\Components\AjaxException
+	 */
+	public function actionRead($id, $mode = self::MODE_LISTING) {
 		$this->resource = [];
 		$result = $this->retrieve($id);
 		if (empty($result)) {
 			throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
 		}
 		if (!empty($id)) {
-			$this->resource = Assessment::map($this->database, $result);
+			$this->resource = Assessment::map($this->database, $result, $mode);
 		}
 		else {
 			foreach ($result as $record) {

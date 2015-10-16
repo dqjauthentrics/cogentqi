@@ -10,7 +10,7 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 		if (!Utility.empty(user)) {
 			var url = '/api2/outcome';
 			if (!Utility.empty(getLevelsForMyOrg)) {
-				url = '/api2/organization/' + user.organizationId + '/outcomes';
+				url = '/api2/organization/' + user.organizationId + '/r/outcomes';
 			}
 			return $resource(url, {}, {});
 		}

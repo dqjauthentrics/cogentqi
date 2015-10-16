@@ -8,13 +8,13 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 	svc.retrieve = function () {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			return $resource('/api/assessment/organization/' + user.organizationId, {}, {cache: false});
+			return $resource('/api2/organization/' + user.organizationId + '/r/assessments', {}, {cache: false});
 		}
 		return null;
 	};
 	svc.retrieveSingle = function (assessmentId) {
 		if (!Utility.empty(assessmentId)) {
-			return $resource('/api/assessment/' + assessmentId, {}, {query: {method: 'GET', isArray: false}});
+			return $resource('/api2/assessment/' + assessmentId + '/m/1', {}, {query: {method: 'GET', isArray: false}});
 		}
 		return null;
 	};
@@ -188,7 +188,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		var recSubset = [];
 		if (!Utility.empty(instrument) && Array.isArray(instrument.sections) && Array.isArray(resources)) {
 			for (k = 0; k < resources.length; k++) {
-				resources[k].score = 0;
+				resources[k].sc = 0;
 				resources[k].nAlignments = 0;
 			}
 			var minScore = null;
@@ -206,17 +206,17 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 							var nAlignments = resource.alignments.length;
 							for (var z = 0; z < nAlignments; z++) {
 								var alignment = resource.alignments[z];
-								var resQuestionId = parseInt(alignment.questionId);
+								var resQuestionId = parseInt(alignment.qi);
 								var questionId = parseInt(question.id);
 								if (resQuestionId == questionId) {
-									resources[k].score += svc.resourceScore(instrument, alignment.weight, question.rsp.ri, nAlignments);
+									resources[k].sc += svc.resourceScore(instrument, alignment.wt, question.rsp.ri, nAlignments);
 									resources[k].nAlignments++;
 									nTotalAlignments++;
-									if (maxScore === null || resources[k].score > maxScore) {
-										maxScore = resources[k].score;
+									if (maxScore === null || resources[k].sc > maxScore) {
+										maxScore = resources[k].sc;
 									}
-									else if (minScore === null || (resources[k].score < minScore && resources[k].score > 0)) {
-										minScore = resources[k].score;
+									else if (minScore === null || (resources[k].sc < minScore && resources[k].sc > 0)) {
+										minScore = resources[k].sc;
 									}
 								}
 							}
@@ -228,23 +228,23 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 			var recs = [];
 			for (k = 0; k < resources.length; k++) {
 				resource = resources[k];
-				if (resource.score > 0) {
-					var scaledScore = svc.scale(resource.score, minScore, maxScore, instrument.min, svc.nRankings);
-					//console.log("RES:" + resource.name + ", raw=" + resource.score + ", scaled => " + scaledScore);
-					//console.log("REC: min=", minScore, ", max=", maxScore, ",nTotalAlignments=", nTotalAlignments, ", score=", resource.score, ", scaled=",
+				if (resource.sc > 0) {
+					var scaledScore = svc.scale(resource.sc, minScore, maxScore, instrument.min, svc.nRankings);
+					//console.log("RES:" + resource.name + ", raw=" + resource.sc + ", scaled => " + scaledScore);
+					//console.log("REC: min=", minScore, ", max=", maxScore, ",nTotalAlignments=", nTotalAlignments, ", score=", resource.sc, ", scaled=",
 					//			scaledScore, ", n=", resource.nAlignments);
 					recs.push({
-						resourceId: resource.id,
-						number: resource.number,
-						name: resource.name,
-						weight: scaledScore,
-						score: resource.score
+						id: resource.id,
+						nmb: resource.nmb,
+						n: resource.n,
+						wt: scaledScore,
+						sc: resource.sc
 					});
 					recCnt++;
 				}
 			}
 			recs = recs.sort(function (a, b) {
-				return a.score > b.score ? -1 : a.score < b.score ? 1 : 0;
+				return a.sc > b.sc ? -1 : a.sc < b.sc ? 1 : 0;
 			});
 			for (var zz = 0; (zz < 10 && zz < recs.length); zz++) {
 				recSubset.push(recs[zz]);

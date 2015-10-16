@@ -20,15 +20,15 @@
             <div class="col col-25 card">
                 <div style="margin: 0 auto; text-align: center;">
                     <div>
-                        <avatar site="siteDir()" sz="'large'" member-id="data.member.id" level="data.member.level" alt="avatarAlt(data.member)"></avatar>
+                        <avatar site="siteDir()" sz="'large'" member-id="data.member.id" level="data.member.lv" alt="avatarAlt(data.member)"></avatar>
                     </div>
-                    <div class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.firstName">
-                        {{ data.member.firstName || ' ' }}
+                    <div class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.fn">
+                        {{ data.member.fn || ' ' }}
                     </div>
-                    <div class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.lastName">
-                        {{ data.member.lastName || ' ' }}
+                    <div class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.ln">
+                        {{ data.member.ln || ' ' }}
                     </div>
-                    <div class="role" onaftersave="setDirty()" editable-select="data.member.roleId" e-ng-options="r.id as r.n for r in roles">
+                    <div class="role" onaftersave="setDirty()" editable-select="data.member.r" e-ng-options="r.id as r.n for r in roles">
                         {{ showRole() }}
                     </div>
                 </div>
@@ -45,18 +45,18 @@
                 <div class="panel">
                     <label for="address">{{'address'|translate}}</label>
 
-                    <div id="address" class="address" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.address">
-                        {{ data.member.address || ' ' }}
+                    <div id="address" class="address" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.ad">
+                        {{ data.member.ad || ' ' }}
                     </div>
                     <label for="mobile">{{'mobile'|translate}}</label>
 
-                    <div id="mobile" class="phone" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.mobile">
-                        {{ (data.member.mobile || ' ')|tel }}
+                    <div id="mobile" class="phone" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.mb">
+                        {{ (data.member.mb || ' ')|tel }}
                     </div>
                     <label for="phone">{{'home phone'|translate}}</label>
 
-                    <div id="phone" class="phone" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.phone">
-                        {{ (data.member.phone || ' ')|tel }}
+                    <div id="phone" class="phone" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.ph">
+                        {{ (data.member.ph || ' ')|tel }}
                     </div>
                 </div>
             </div>

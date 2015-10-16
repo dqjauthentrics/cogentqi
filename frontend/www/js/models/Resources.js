@@ -4,7 +4,7 @@ angular.module('Resources', []).service('Resources', function ($resource, $http,
 	var svc = this;
 
 	svc.retrieve = function () {
-		return $resource('/api2/resource', {}, {});
+		return $resource('/api2/resource/m/1', {}, {});
 	};
 
 	svc.findAlignments = function (instrument, resourceId) {

@@ -15,6 +15,10 @@ use Nette,
  * Base presenter for all application presenters.
  */
 class BasePresenter extends ResourcePresenter {
+	const MODE_LISTING = 0;
+	const MODE_RECORD = 1;
+	const MODE_RELATED = 2;
+	const MODE_RECURSIVE = 3;
 
 	/** @var DbContext */
 	protected $database = NULL;
@@ -25,26 +29,23 @@ class BasePresenter extends ResourcePresenter {
 	/**
 	 * @var array $typeMap Needed for Restful
 	 */
-	protected $typeMap = [
-		'json' => IResource::JSON,
-		'xml'  => IResource::XML
-	];
+	protected $typeMap = ['json' => IResource::JSON, 'xml' => IResource::XML];
 
 	/**
+	 * BasePresenter constructor.
 	 *
+	 * @param DbContext $database
 	 */
-	public function actionContent() {
-		$this->resource->title = 'REST API';
-		$this->resource->subtitle = $this->name;
-		$this->sendResource();
+	public function __construct(DbContext $database) {
+		parent::__construct();
+		$this->database = $database;
 	}
 
 	/**
-	 *
+	 * Override parent function to use JSON, always, as a default.
 	 */
-	public function actionDetail($id) {
-		$this->resource = ['detail' => $this->name];
-		$this->sendResource();
+	public function sendResource() {
+		parent::sendResource(IResource::JSON);
 	}
 
 	/**
@@ -63,7 +64,7 @@ class BasePresenter extends ResourcePresenter {
 		$tableName = $this->tableName();
 		if (!empty($id)) {
 			$result = $this->database->table($tableName)->get($id);
-			if ($doMapping && !empty($record)) {
+			if ($doMapping && !empty($result)) {
 				$result = $this->database->map($result);
 			}
 		}
@@ -82,29 +83,17 @@ class BasePresenter extends ResourcePresenter {
 
 	/**
 	 * @param int $id
+	 * @param int $mode
 	 *
 	 * @throws \App\Components\AjaxException
 	 */
-	public function actionRead($id) {
+	public function actionRead($id, $mode = self::MODE_LISTING) {
 		$this->resource = $this->retrieve($id, TRUE);
 		if (empty($this->resource)) {
 			throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
 		}
-		$this->sendResource();
-	}
-
-	/**
-	 * BasePresenter constructor.
-	 *
-	 * @param DbContext $database
-	 */
-	public function __construct(DbContext $database) {
-		parent::__construct();
-		$this->database = $database;
-	}
-
-	public function sendResource() {
-		parent::sendResource(IResource::JSON);
+		//$this->sendResource();
+		$this->sendResult($this->resource);
 	}
 
 	/**

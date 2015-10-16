@@ -34,7 +34,7 @@ class Instrument extends Model {
 	 *
 	 * @return array
 	 */
-	public function map($db, $instrument) {
+	public function mapOLD($db, $instrument) {
 		$map = $db->map($instrument);
 		$db = $this->api->db;
 		$choices = $db->table('question_choice')->where('question_type_id=?', $instrument["question_type_id"])->order('sort_order');

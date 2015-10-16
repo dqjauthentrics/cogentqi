@@ -101,8 +101,8 @@ angular.module('MemberControllers', [])
 			return $scope.data.dirty;
 		};
 		$scope.showRole = function () {
-			var selected = $filter('filter')($scope.roles, {id: $scope.data.member.roleId});
-			return ($scope.data.member.roleId && !Utility.empty(selected)) ? selected[0].n : 'Not set';
+			var selected = $filter('filter')($scope.roles, {id: $scope.data.member.r});
+			return ($scope.data.member.r && !Utility.empty(selected)) ? selected[0].n : 'Not set';
 		};
 	})
 

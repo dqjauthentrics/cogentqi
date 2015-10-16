@@ -26,7 +26,7 @@ angular.module('AssessmentControllers', [])
 						if (!Utility.empty($scope.data.instruments)) {
 							for (var i = 0; i < $scope.data.instruments.length; i++) {
 								if ($scope.data.instruments[i].id == instrumentId) {
-									return $scope.data.instruments[i].name;
+									return $scope.data.instruments[i].n;
 								}
 							}
 						}
@@ -157,7 +157,7 @@ angular.module('AssessmentControllers', [])
 
 					$scope.weightGreaterThanZero = function () {
 						return function (item) {
-							return item.weight > 0;
+							return item.wt > 0;
 						}
 					};
 
@@ -178,7 +178,6 @@ angular.module('AssessmentControllers', [])
 					$scope.updateSliderResponse = function (question) {
 						$scope.data.dirty = true;
 						var scoreInfo = Assessments.sliderChange(question, $scope.data.assessment.instrument);
-						console.log("scoreInfo:", scoreInfo);
 						question.rsp.r = scoreInfo.scoreWord;
 						$scope.currentChoices = question.rsp.ch;
 						$scope.data.assessment.sc = scoreInfo.avg;

@@ -5,35 +5,52 @@ use Nette,
 	ResourcesModule\BasePresenter,
 	App\Model\Member,
 	ResourcesModule,
+	Nette\Database\Table\IRow,
 	App\Components\AjaxException;
 
 class MemberPresenter extends BasePresenter {
 
 	/**
-	public function actionRead($id) {
-		if ($this->user->isAllowed('Organization', 'dependents')) {
-			$members = $this->database->table('member')->where("parent_id = ?", $id);
-			if (empty($organizations)) {
-				throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
+	 * @param int $id
+	 * @param int $mode
+	 *
+	 * @throws \App\Components\AjaxException
+	 */
+	public function actionRead($id, $mode = self::MODE_LISTING) {
+		if ($this->user->isAllowed('Member', 'read')) {
+			if (!empty($id)) {
+				/** @var IRow $member */
+				$member = $this->database->table('member')->get($id);
+				if (empty($member)) {
+					throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
+				}
+				$jsonRec = Member::map($this->database, $member, $mode);
 			}
-			$jsonRecs = [];
-			foreach ($organizations->fetchAll() as $organization) {
-				$jsonRecs[] = $this->database->map($organization);
+			else {
+				$members = $this->database->table('member')->fetchAll();
+				if (empty($members)) {
+					throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
+				}
+				$jsonRec = [];
+				foreach ($members as $member) {
+					$jsonRec = Member::map($this->database, $member, $mode);
+				}
 			}
-			$this->sendResult($jsonRecs);
+			$this->sendResult($jsonRec);
 		}
 		else {
 			throw new AjaxException(AjaxException::ERROR_NOT_ALLOWED);
 		}
 	}
-	 **/
+
 
 	/**
 	 * @param int $id
+	 * @param int $mode
 	 *
 	 * @throws \App\Components\AjaxException
 	 */
-	public function actionReadDependents($id) {
+	public function actionReadDependents($id, $mode = self::MODE_LISTING) {
 		if ($this->user->isAllowed('Member', 'dependents')) {
 			$members = $this->database->table('member')->where("id IN (SELECT subordinate_id FROM relationship WHERE superior_id=?)", $id);
 			if (empty($members)) {
@@ -52,11 +69,11 @@ class MemberPresenter extends BasePresenter {
 
 	/**
 	 * @param int $id
-	 * @param int $recursive
+	 * @param int $mode
 	 *
 	 * @throws \App\Components\AjaxException
 	 */
-	public function actionReadPlanItems($id, $recursive = 0) {
+	public function actionReadPlanItems($id, $mode = self::MODE_LISTING) {
 		if ($this->user->isAllowed('Member', 'planItems')) {
 			$planItems = $this->database->table('plan_item')->where("member_id = ?", $id)->fetchAll();
 			if (empty($planItems)) {

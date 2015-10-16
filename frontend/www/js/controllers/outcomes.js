@@ -183,7 +183,7 @@ angular.module('OutcomeControllers', [])
 				if (!Utility.empty($scope.data.outcome) && !Utility.empty($scope.data.outcome.alignments) && $scope.data.outcome.alignments.length > 0) {
 					for (var i = 0; i < $scope.data.outcome.alignments.length; i++) {
 						var alignment = $scope.data.outcome.alignments[i];
-						$scope.data.alignments[alignment.questionId] = alignment.weight;
+						$scope.data.alignments[alignment.questionId] = alignment.wt;
 					}
 				}
 			}

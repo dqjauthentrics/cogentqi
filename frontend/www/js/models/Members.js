@@ -6,7 +6,7 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 	svc.retrieve = function () {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			return $resource('/api/member/member/' + user.id, {}, {});
+			return $resource('/api2/organization/' + user.organizationId + '/r/members', {}, {});
 		}
 		return null;
 	};
@@ -14,7 +14,7 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 	svc.retrieveSingle = function (memberId) {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user) && !Utility.empty(memberId)) {
-			return $resource('/api/member/' + memberId, {}, {query: {method: 'GET', isArray: false}});
+			return $resource('/api2/member/' + memberId + '/m/1', {}, {query: {method: 'GET', isArray: false}});
 		}
 		return null;
 	};

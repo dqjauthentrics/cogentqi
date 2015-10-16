@@ -46,6 +46,7 @@ class Authorization extends Permission {
 		$this->allow(self::ROLE_GUEST, ['Homepage', 'Sign'], self::ALL);
 		$this->allow(self::ROLE_PROFESSIONAL, [
 			'Assessment',
+			'Homepage',
 			'Instrument',
 			'InstrumentSchedule',
 			'Member',

@@ -66,6 +66,7 @@ class DbContext extends Context {
 		'nws' => ['nag_window_start', self::TYPE_DATETIME],
 		'nwe' => ['nag_window_end', self::TYPE_DATETIME],
 		'nmb' => ['number', self::TYPE_STRING],
+		'occ' => ['occurred', self::TYPE_DATETIME],
 		'oi'  => ['organization_id', self::TYPE_INT],
 		'oti' => ['outcome_id', self::TYPE_INT],
 		'ph'  => ['phone', self::TYPE_STRING],

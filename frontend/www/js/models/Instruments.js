@@ -8,7 +8,7 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 	svc.currentSectionIdx = 0;
 
 	svc.retrieve = function () {
-		return $resource('/api2/instrument/:id', {}, {});
+		return $resource('/api2/instrument/:id/m/1', {}, {});
 	};
 	svc.groupName = function (group) {
 		if (group && group != undefined) {
@@ -70,7 +70,7 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 					for (var j = 0; j < svc.instruments[i].alignments.length; j++) {
 						var alignment = svc.instruments[i].alignments[j];
 						if (parseInt(alignment.questionId) == parseInt(questionId) && parseInt(alignment.resourceId) == parseInt(resourceId)) {
-							return svc.instruments.alignments[i].weight;
+							return svc.instruments.alignments[i].wt;
 						}
 					}
 				}

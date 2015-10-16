@@ -5,7 +5,11 @@ use ResourcesModule\BasePresenter;
 
 class SettingPresenter extends BasePresenter {
 
-	public function actionRead($id) {
+	/**
+	 * @param int $id
+	 * @param int $mode
+	 */
+	public function actionRead($id, $mode = self::MODE_LISTING) {
 		$user = @$_SESSION["user"];
 		$roleId = empty($user) ? 'T' : @$user["roleId"];
 

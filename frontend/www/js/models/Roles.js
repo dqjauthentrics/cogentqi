@@ -4,6 +4,6 @@ angular.module('Roles', []).service('Roles', function ($cookieStore, $resource, 
 	var svc = this;
 
 	svc.retrieve = function () {
-		return $resource('/api/role', {}, {});
+		return $resource('/api2/role', {}, {});
 	};
 });
