@@ -4,6 +4,7 @@ namespace App\Presenters;
 use Nette,
 	ResourcesModule\BasePresenter,
 	App\Model\Member,
+	App\Model\Outcome,
 	App\Components\AjaxException;
 
 class OrganizationPresenter extends BasePresenter {
@@ -21,16 +22,16 @@ class OrganizationPresenter extends BasePresenter {
 				if (empty($org) || empty($org->treeIds)) {
 					throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
 				}
-				$members = $this->database->table('member')->where("organization_id IN (?)", $org->treeIds);
+				$members = $this->database->table('member')->where("organization_id IN (?)", $org->treeIds)->fetchAll();
 			}
 			else {
-				$members = $this->database->table('member')->where("organization_id = ?", $id);
+				$members = $this->database->table('member')->where("organization_id = ?", $id)->fetchAll();
 			}
 			if (empty($members)) {
 				throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
 			}
 			$jsonRecs = [];
-			foreach ($members->fetchAll() as $member) {
+			foreach ($members as $member) {
 				$memberMap = Member::map($this->database, $member);
 				$jsonRecs[] = $memberMap;
 			}
@@ -49,12 +50,12 @@ class OrganizationPresenter extends BasePresenter {
 	 */
 	public function actionReadDependents($id, $recursive = 0) {
 		if ($this->user->isAllowed('Organization', 'dependents')) {
-			$organizations = $this->database->table('organization')->where("parent_id = ?", $id);
+			$organizations = $this->database->table('organization')->where("parent_id = ?", $id)->fetchAll();
 			if (empty($organizations)) {
 				throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
 			}
 			$jsonRecs = [];
-			foreach ($organizations->fetchAll() as $organization) {
+			foreach ($organizations as $organization) {
 				$jsonRecs[] = $this->database->map($organization);
 			}
 			$this->sendResult($jsonRecs);
@@ -72,13 +73,17 @@ class OrganizationPresenter extends BasePresenter {
 	 */
 	public function actionReadOutcomes($id, $recursive = 0) {
 		if ($this->user->isAllowed('Organization', 'dependents')) {
-			$outcomes = $this->database->table('organization_outcome')->where("organization_id = ?", $id);
+			$subSubSelect = "(SELECT id FROM organization WHERE parent_id = ?)";
+			$subSelect = "(SELECT outcome_id FROM organization_outcome WHERE organization_id IN $subSubSelect)";
+			$where = "id IN $subSelect";
+			$outcomes = $this->database->table('outcome')->where($where, $id)->fetchAll();
 			if (empty($outcomes)) {
 				throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
 			}
 			$jsonRecs = [];
-			foreach ($outcomes->fetchAll() as $outcome) {
-				$jsonRecs[] = $this->database->map($outcome);
+			foreach ($outcomes as $outcome) {
+				$jsonRec = Outcome::map($this->database, $outcome);
+				$jsonRecs[] = $jsonRec;
 			}
 			$this->sendResult($jsonRecs);
 		}

@@ -9,8 +9,8 @@
                     <ion-item class="gray" data-ng-if="!data.instruments.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
                     <ion-item class="item item-icon-right item-text-wrap" data-ng-repeat="instrument in data.instruments"
                               href="#/instrument/view/{{instrument.id}}">
-                        <div class="name">{{instrument.name}}</div>
-                        <div class="summary">{{instrument.summary}}</div>
+                        <div class="name">{{instrument.n}}</div>
+                        <div class="summary">{{instrument.sm}}</div>
                         <i class="icon ion-chevron-right icon-accessory"></i>
                     </ion-item>
                     <ion-item>

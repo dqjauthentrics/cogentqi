@@ -1,7 +1,6 @@
 <?php
 namespace App\Presenters;
 
-use App\Components\AjaxResult;
 use Nette,
 	ResourcesModule\BasePresenter,
 	App\Components\AjaxException;

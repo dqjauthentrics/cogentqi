@@ -3,11 +3,10 @@
 namespace App\Presenters;
 
 use Nette,
-	ResourcesModule,
-	App\Model;
+	ResourcesModule\BasePresenter;
 
 
-class HomepagePresenter extends ResourcesModule\BasePresenter {
+class HomepagePresenter extends BasePresenter {
 
 	public function renderDefault() {
 	}

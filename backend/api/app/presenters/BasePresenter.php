@@ -6,7 +6,6 @@ use Drahak\Restful\Application\UI\ResourcePresenter;
 
 use Nette,
 	Nette\Application\Responses\JsonResponse,
-	Nette\Database\Table\IRow,
 	App\Components\AjaxException,
 	App\Components\DbContext,
 	App\Model;
@@ -48,23 +47,19 @@ class BasePresenter extends ResourcePresenter {
 		$this->sendResource();
 	}
 
+	/**
+	 * @return string
+	 */
 	public function tableName() {
 		return DbContext::tableName(str_replace("Presenter", "", $this->baseClassName()));
-	}
-
-	public function sendResource($type = IResource::JSON) {
-		//$this->sendResult($type);
-		echo json_encode($this->resource);
-		exit();
 	}
 
 	/**
 	 * @param int $id
 	 *
-	 * @return Nette\Database\Table\IRow
+	 * @return Nette\Database\Table\IRow|array
 	 */
 	public function retrieve($id, $doMapping = FALSE) {
-		$result = [];
 		$tableName = $this->tableName();
 		if (!empty($id)) {
 			$result = $this->database->table($tableName)->get($id);
@@ -108,6 +103,10 @@ class BasePresenter extends ResourcePresenter {
 		$this->database = $database;
 	}
 
+	public function sendResource() {
+		parent::sendResource(IResource::JSON);
+	}
+
 	/**
 	 * @param $element
 	 *
@@ -145,7 +144,7 @@ class BasePresenter extends ResourcePresenter {
 	public function sendResult($data) {
 		header("Access-Control-Allow-Origin: *");
 		header('Access-Control-Allow-Credentials: true');
-		header('Access-Control-Max-Age: 86400');    // cache for 1 day
+		header('Access-Control-Max-Age: 30');
 		header("Content-Type", "application/json");
 		if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 			if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'])) {
@@ -156,7 +155,7 @@ class BasePresenter extends ResourcePresenter {
 			}
 			exit(0);
 		}
-		$this->sendResponse(new JsonResponse($data));
+		echo json_encode($data);
 		exit();
 	}
 

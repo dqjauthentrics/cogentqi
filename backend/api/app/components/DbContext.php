@@ -4,6 +4,7 @@ namespace App\Components;
 use Nette\Database\Context,
 	Nette\Database\Connection,
 	Nette\Database\Table\IRow,
+	Nette\Database\Table\Selection,
 	Nette\Database\IStructure;
 
 class DbContext extends Context {
@@ -31,6 +32,7 @@ class DbContext extends Context {
 		'av'  => ['avatar', self::TYPE_STRING],
 		'by'  => ['by_member_id', self::TYPE_STRING],
 		'cmi' => ['calc_method_id', self::TYPE_STRING],
+		'ct'  => ['content', self::TYPE_STRING],
 		'cy'  => ['city', self::TYPE_STRING],
 		'dt'  => ['date' => self::TYPE_DATE],
 		'dpt' => ['is_department', self::TYPE_INT],
@@ -72,15 +74,17 @@ class DbContext extends Context {
 		'qi'  => ['question_id', self::TYPE_INT],
 		'qt'  => ['question_type_id', self::TYPE_INT],
 		'r'   => ['role_id', self::TYPE_STRING],
+		'rds' => ['role_ids', self::TYPE_STRING],
 		'ri'  => ['resource_id', self::TYPE_INT],
 		'rk'  => ['rank', self::TYPE_INT],
 		'rti' => ['resource_type_id', self::TYPE_INT],
 		'ru'  => ['rubric', self::TYPE_STRING],
 		'sc'  => ['score', self::TYPE_REAL],
+		'sct' => ['sched_type', self::TYPE_STRING],
 		'sh'  => ['is_shared', self::TYPE_INT],
 		'sm'  => ['summary', self::TYPE_STRING],
 		'sr'  => ['starts', self::TYPE_DATETIME],
-		'st'  => ['status_id', self::TYPE_INT],
+		'st'  => ['status_id', self::TYPE_STRING],
 		'sp'  => ['state', self::TYPE_STRING],
 		'so'  => ['sort_order', self::TYPE_INT],
 		'ttl' => ['title', self::TYPE_STRING],
@@ -233,14 +237,13 @@ class DbContext extends Context {
 	}
 
 	/**
-	 * @param \NotORM_Result[] $records
+	 * @param IRow[]|Selection $records
 	 *
 	 * @return array
 	 */
 	public function mapRecords($records) {
 		$jsonRecords = [];
-		$tableName = $this->tableName($this->baseClassName());
-		foreach ($this->api->db->{$tableName}() as $dbRecord) {
+		foreach ($records as $dbRecord) {
 			$mapped = $this->map($dbRecord);
 			if ($mapped !== NULL) {
 				$jsonRecords[] = $mapped;

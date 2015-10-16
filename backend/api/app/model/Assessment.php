@@ -2,11 +2,13 @@
 namespace App\Model;
 
 use Nette\Database\Table\IRow,
-	PDO,
-	App\Components\DbContext;
-use ResourcesModule\BasePresenter;
+	App\Components\DbContext,
+	App\Instrument,
+	App\InstrumentSchedule;
 
 class Assessment extends BaseModel {
+	const STATUS_ACTIVE = 'A';
+	const STATUS_LOCKED = 'L';
 
 	public static $mappedColumns = [
 		'id'                     => DbContext::TYPE_INT,
@@ -33,9 +35,146 @@ class Assessment extends BaseModel {
 	public static function map($database, $assessment, $brief = TRUE) {
 		$map = [];
 		if (!empty($assessment)) {
-			$map = parent::mapColumns($database, $assessment, self::$mappedColumns);
-			$map['typ'] = @$assessment->instrument->question_type["name"];
+			if ($brief) {
+				$map = parent::mapColumns($database, $assessment, self::$mappedColumns);
+				$map['typ'] = @$assessment->ref('instrument')->question_type["name"];
+			}
+			else {
+				$map = self::full($database, $assessment);
+			}
 		}
 		return $map;
 	}
+
+	/**
+	 * Create a new assessment.
+	 *
+	 * @param \App\Components\DbContext $database
+	 * @param int                       $assessorId
+	 * @param int                       $memberId
+	 * @param InstrumentSchedule        $scheduleItem
+	 *
+	 * @return null
+	 */
+	private static function create($database, $assessorId, $memberId, $scheduleItem) {
+		$assessment = NULL;
+		$database->transaction = 'BEGIN';
+		try {
+			$data = [
+				'id'                     => NULL,
+				'member_id'              => $memberId,
+				'assessor_id'            => $assessorId,
+				'instrument_id'          => $scheduleItem["instrument_id"],
+				'instrument_schedule_id' => $scheduleItem["id"],
+				'edit_status'            => Assessment::STATUS_ACTIVE,
+				'view_status'            => Assessment::STATUS_ACTIVE,
+			];
+			$assessment = $database->table('assessment')->insert($data);
+			if (!empty($assessment)) {
+				$responses = Instrument::createResponseTemplate($database, $scheduleItem["instrument_id"], $assessment["id"]);
+				if (!empty($responses)) {
+					$assessment = $database->table('assessment')->where("id=?", $assessment["id"])->fetch();
+					if (!empty($assessment)) {
+						$database->transaction = 'COMMIT';
+					}
+				}
+				else {
+					throw new \Exception("Unable to create assessment responses.");
+				}
+			}
+			else {
+				throw new \Exception(json_encode($database->pdo->errorInfo()));
+			}
+		}
+		catch (\Exception $exception) {
+			$database->transaction = 'ROLLBACK';
+		}
+		return $assessment;
+	}
+
+	/**
+	 * Fill and return a complete assessment record in JSON form using abbreviated column names to save transmission costs.
+	 *
+	 * @param \App\Components\DbContext  $database
+	 * @param \Nette\Database\Table\IRow $assessment
+	 *
+	 * @return array
+	 */
+	private static function full($database, $assessment) {
+		$jsonRecords = [
+			'id',
+			'member'     => [],
+			'assessor'   => [],
+			'instrument' => '',
+			'sections'   => []
+		];
+		$responses = [];
+		if (!empty($assessment)) {
+			$jsonRecords = [
+				'id'         => (int)$assessment["id"],
+				'lm'         => @$database->presentationDateTime($assessment["last_modified"]),
+				'ls'         => @$database->presentationDateTime($assessment["last_saved"]),
+				'ac'         => @$assessment["assessor_comments"],
+				'mc'         => @$assessment["member_comments"],
+				'sc'         => @$assessment["score"],
+				'rk'         => @$assessment["rank"],
+				'es'         => @$assessment["edit_status"],
+				'vs'         => @$assessment["view_status"],
+				'member'     => $database->map($assessment->ref('member')),
+				'assessor'   => $database->map($assessment->ref('member', 'assessor_id')),
+				'instrument' => $database->map($assessment->ref('instrument')),
+			];
+			$responses = $assessment->related('assessment_response');
+			foreach ($responses as $response) {
+				$questionId = $response["question_id"];
+				$typeId = $response->question->question_type["id"];
+				$choiceRecords = $database->table('question_choice')->where('question_type_id=?', $typeId)->order('sort_order');
+				/** @var IRow[] $choices */
+				$choices = $database->mapRecords($choiceRecords);
+				$responses[$questionId] = [
+					'id' => (int)$response["id"],
+					'r'  => $response["response"],
+					'ri' => (int)$response["response_index"],
+					'ac' => $response["assessor_comments"],
+					'mc' => $response["member_comments"],
+					'ch' => $choices
+				];
+			}
+			$i = 0;
+			$sections = $assessment->ref('instrument')->related('question_group');
+			$sectionNames = [];
+			foreach ($sections as $section) {
+				$sectionNames[] = $section["tag"];
+			}
+			$nSections = count($sections);
+			/** @var IRow $section */
+			foreach ($sections as $section) {
+				$nextPos = $i < $nSections - 1 ? $i + 1 : 0;
+				$prevPos = $i > 0 ? $i - 1 : $nSections - 1;
+
+				$next = ($nextPos + 1) . ". " . $sectionNames[$nextPos];
+				$previous = ($prevPos + 1) . ". " . $sectionNames[$prevPos];
+
+				$jsonSection = ['id' => $section["id"], 'number' => ($i + 1), 'name' => $section["tag"], 'next' => $next, 'previous' => $previous, 'questions' => []];
+				$questions = $section->related('question');
+				foreach ($questions as $question) {
+					$jsonSection['questions'][] = [
+						'id'  => $question["id"],
+						'nb'  => $question["number"],
+						'nm'  => $question["name"],
+						'sum' => $question["summary"],
+						'dsc' => $question["description"],
+						'rsp' => @$responses[$question["id"]],
+						'typ' => $question->question_type["entry_type"],
+						'mn'  => $question->question_type["min_range"],
+						'mx'  => $question->question_type["max_range"],
+					];
+				}
+				$i++;
+				$jsonRecords['instrument']['sections'][] = $jsonSection;
+			}
+		}
+		return $jsonRecords;
+	}
+
 }

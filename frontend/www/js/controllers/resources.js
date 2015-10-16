@@ -21,7 +21,7 @@ angular.module('ResourceControllers', [])
 		});
 
 		$scope.setContent = function () {
-			var url = $rootScope.siteDir() + '/modules/' + $scope.data.resource.number.toLowerCase() + '.html';
+			var url = $rootScope.siteDir() + '/modules/' + $scope.data.resource.nmb.toLowerCase() + '.html';
 			$templateRequest(url).then(function (template) {
 				$scope.data.content = template;
 			}, function () {
@@ -53,7 +53,7 @@ angular.module('ResourceControllers', [])
 					$scope.data.resource = Utility.findObjectById($scope.data.resources, resourceId);
 					if (!Utility.empty($scope.data.resource)) {
 						var urlBase = $rootScope.siteDir();
-						$scope.data.resource.location = urlBase + '/modules/' + $scope.data.resource.number.toLowerCase() + '.html';
+						$scope.data.resource.loc = urlBase + '/modules/' + $scope.data.resource.nmb.toLowerCase() + '.html';
 					}
 				}
 			}
@@ -99,7 +99,7 @@ angular.module('ResourceControllers', [])
 				if (!Utility.empty($scope.data.resource) && !Utility.empty($scope.data.resource.alignments) && $scope.data.resource.alignments.length > 0) {
 					for (var i = 0; i < $scope.data.resource.alignments.length; i++) {
 						var alignment = $scope.data.resource.alignments[i];
-						$scope.data.alignments[alignment.questionId] = alignment.weight;
+						$scope.data.alignments[alignment.questionId] = alignment.wt;
 					}
 				}
 			}
@@ -109,7 +109,7 @@ angular.module('ResourceControllers', [])
 				var resourceId = $stateParams.resourceId;
 				if (!Utility.empty(resourceId)) {
 					$scope.data.resource = Utility.findObjectById($scope.data.resources, resourceId);
-					$scope.data.resource.location = 'modules/' + $scope.data.resource.number.toLowerCase() + '.html';
+					$scope.data.resource.location = 'modules/' + $scope.data.resource.nmb.toLowerCase() + '.html';
 					$scope.setResourceAlignments();
 				}
 			}
@@ -125,7 +125,7 @@ angular.module('ResourceControllers', [])
 				if (!Utility.empty($scope.data.outcome) && !Utility.empty($scope.data.outcome.alignments) && $scope.data.outcome.alignments.length > 0) {
 					for (var i = 0; i < $scope.data.outcome.alignments.length; i++) {
 						var alignment = $scope.data.outcome.alignments[i];
-						$scope.data.alignments[alignment.questionId] = alignment.weight;
+						$scope.data.alignments[alignment.questionId] = alignment.wt;
 					}
 				}
 			}

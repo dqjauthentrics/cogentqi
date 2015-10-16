@@ -11,15 +11,15 @@
         <div class="detail">
             <label for="name">{{'Name:'|translate}}</label>
 
-            <div id="name" class="name" editable-text="data.instrument.name">{{data.instrument.name}}</div>
+            <div id="name" class="name" editable-text="data.instrument.n">{{data.instrument.n}}</div>
             <label for="name">{{'Description:'|translate}}</label>
 
-            <div id="description" class="name" editable-text="data.instrument.description">&nbsp;{{data.instrument.description}}</div>
+            <div id="description" class="name" editable-text="data.instrument.dsc">&nbsp;{{data.instrument.dsc}}</div>
 
         </div>
         <ion-list>
             <ion-item class="item-icon-right" ng-repeat="question in data.instrument.questions" type="item-text-wrap">
-                <div class="name" editable-textarea="question.name">{{ question.name }}</div>
+                <div class="name" editable-textarea="question.n">{{ question.n }}</div>
             </ion-item>
         </ion-list>
     </ion-content>

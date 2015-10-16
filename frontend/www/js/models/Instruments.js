@@ -8,7 +8,7 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 	svc.currentSectionIdx = 0;
 
 	svc.retrieve = function () {
-		return $resource('/api2/instrument/read/:id', {}, {});
+		return $resource('/api2/instrument/:id', {}, {});
 	};
 	svc.groupName = function (group) {
 		if (group && group != undefined) {

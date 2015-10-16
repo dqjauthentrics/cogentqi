@@ -194,7 +194,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('outcome.alignments', {
 			url: '/alignments',
 			views: {
-				settings: {templateUrl: 'templates/outcome/configList.html', controller: 'OutcomeAlignmentsCtrl'}
+				settings: {templateUrl: 'templates/outcome/alignments.html', controller: 'OutcomeAlignmentsCtrl'}
 			}
 		})
 		.state('outcome.alignment', {

@@ -32,7 +32,7 @@ angular.module('ControllerAdministrator', [])
 						$scope.data.scheduleItems = response;
 						if (!Utility.empty($scope.data.scheduleItems)) {
 							for (var i = 0; i < $scope.data.scheduleItems.length; i++) {
-								$scope.data.scheduleItems[i].starts = new Date($scope.data.scheduleItems[i].starts);
+								$scope.data.scheduleItems[i].sr = new Date($scope.data.scheduleItems[i].sr);
 							}
 						}
 						$scope.setCurrentItem(response[0]);
@@ -45,10 +45,10 @@ angular.module('ControllerAdministrator', [])
 					};
 
 					$scope.lockToggle = function (scheduleItem) {
-						var prompt = 'Are you sure you want to ' + (scheduleItem.lockedOn ? 'UNLOCK this Assessment?' : 'LOCK this assessment');
+						var prompt = 'Are you sure you want to ' + (scheduleItem.lk ? 'UNLOCK this Assessment?' : 'LOCK this assessment');
 						Utility.confirm('Schedule Change', prompt, function () {
-							if (scheduleItem.lockedOn) {
-								scheduleItem.lockedOn = null;
+							if (scheduleItem.lk) {
+								scheduleItem.lk = null;
 							}
 							else {
 								var currentdate = new Date();
@@ -58,7 +58,7 @@ angular.module('ControllerAdministrator', [])
 									+ currentdate.getHours() + ":"
 									+ currentdate.getMinutes() + ":"
 									+ currentdate.getSeconds();
-								scheduleItem.lockedOn = dateTime;
+								scheduleItem.lk = dateTime;
 							}
 							$scope.dirty = true;
 						});

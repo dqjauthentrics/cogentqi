@@ -9,7 +9,7 @@
                     <ion-item class="gray" data-ng-if="!data.outcomes.length"><i class="{{i.loadingSpinner}}"></i> {{'Loading...'|translate}}</ion-item>
                     <ion-item class="item-icon-right" data-ng-repeat="outcome in data.outcomes" type="item-text-wrap"
                               href="#/outcome/alignment/{{outcome.id}}">
-                        <i class="{{i.outcome}} fa-lg"></i> {{outcome.number}} {{outcome.name}}
+                        <i class="{{i.outcome}} fa-lg"></i> {{outcome.nmb}} {{outcome.n}}
                     </ion-item>
                     <ion-item>
                         <button onclick="alert('TBD');" class="button button-balanced">

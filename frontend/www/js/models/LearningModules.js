@@ -4,6 +4,6 @@ angular.module('LearningModules', []).service('LearningModules', function ($reso
 	var svc = this;
 
 	svc.retrieve = function () {
-		return $resource('/api/module', {}, {});
+		return $resource('/api2/module', {}, {});
 	};
 });

@@ -10,12 +10,12 @@
                     <i class="{{i.save}}"></i>
                 </button>
             </div>
-            <h2>{{data.outcome.name}}</h2>
+            <h2>{{data.outcome.n}}</h2>
 
             <div class="description">{{data.outcome.summary}}</div>
             <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId"
                     data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
-                    data-ng-options="instrument.id as instrument.name for instrument in data.instruments">
+                    data-ng-options="instrument.id as instrument.n for instrument in data.instruments">
             </select>
 
             <div class="clearfix"></div>
@@ -24,7 +24,7 @@
         <div class="clearfix"></div>
         <ion-list>
             <ion-item class="item-icon-right" ng-repeat="question in data.currentInstrument.questions" type="item-text-wrap">
-                <div class="name">{{question.name}}</div>
+                <div class="name">{{question.n}}</div>
                 <div style="float:right; width: 10em; margin: 1em 0.5em;">
                     <div class="phrase">{{alignmentLevelPhrase(data.alignments[question.id])|translate}}</div>
                     <div class="item range range-positive" style="background: {{(data.alignments[question.id]>0? '#F0F8FF':'#FFF')}};">
@@ -35,7 +35,7 @@
                         <div><span class="phrase">{{data.alignments[question.id]}}</span></div>
                     </div>
                 </div>
-                <div class="description" data-ng-bind-html="question.description"></div>
+                <div class="description" data-ng-bind-html="question.dsc"></div>
             </ion-item>
         </ion-list>
     </ion-content>

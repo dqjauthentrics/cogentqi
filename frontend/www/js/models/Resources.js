@@ -4,7 +4,7 @@ angular.module('Resources', []).service('Resources', function ($resource, $http,
 	var svc = this;
 
 	svc.retrieve = function () {
-		return $resource('/api/resource', {}, {});
+		return $resource('/api2/resource', {}, {});
 	};
 
 	svc.findAlignments = function (instrument, resourceId) {
@@ -14,11 +14,11 @@ angular.module('Resources', []).service('Resources', function ($resource, $http,
 			}
 			for (var j = 0; j < instrument.alignments.length; j++) {
 				var alignment = instrument.alignments[j];
-				var questionId = parseInt(alignment.questionId);
-				if (parseInt(resourceId) == parseInt(alignment.resourceId)) {
+				var questionId = parseInt(alignment.qi);
+				if (parseInt(resourceId) == parseInt(alignment.ri)) {
 					for (k = 0; k < instrument.questions.length; k++) {
 						if (parseInt(instrument.questions[k].id) == questionId) {
-							instrument.questions[k].alignment = alignment.weight;
+							instrument.questions[k].alignment = alignment.wt;
 						}
 					}
 				}

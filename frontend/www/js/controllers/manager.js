@@ -23,7 +23,7 @@ angular.module('ControllerManager', [])
 							collated = true;
 							for (var i = 0; i < $scope.data.learningModules.length; i++) {
 								$scope.data.learningModules[i].resource =
-									Utility.findObjectById($scope.data.resources, $scope.data.learningModules[i].resourceId);
+									Utility.findObjectById($scope.data.resources, $scope.data.learningModules[i].ri);
 							}
 						}
 					};

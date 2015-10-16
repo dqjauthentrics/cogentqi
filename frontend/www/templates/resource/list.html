@@ -6,11 +6,11 @@
             <ion-item class="gray" data-ng-if="!data.resources.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
             <ion-item class="item-icon-right" data-ng-repeat="resource in data.resources" type="item-text-wrap"
                       href="#/resource/view/{{resource.id}}">
-                <div class="number"><i class="{{i.resource}} fa-lg"></i> {{resource.number}}</div>
+                <div class="number"><i class="{{i.resource}} fa-lg"></i> {{resource.nmb}}</div>
                 <div class="title">
-                    <a href="#/resource/view/{{resource.id}}" title="">{{resource.name}}</a>
+                    <a href="#/resource/view/{{resource.id}}" title="">{{resource.n}}</a>
                 </div>
-                <div class="description" data-ng-bind-html="resource.summary"></div>
+                <div class="description" data-ng-bind-html="resource.sm"></div>
                 <div data-ng-repeat="tag in resource.tags">
                     <div class="tag"><i class="{{i.tag}}"></i> {{tag}}</div>
                 </div>

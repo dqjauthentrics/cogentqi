@@ -5,8 +5,10 @@
         <div class="row responsive-lg">
             <div class="col padding card">
                 <a href="#/member/view/{{data.user.id}}"
-                        ><avatar site="siteDir()" member-id="data.user.id" sz="'small'" level="data.user.level"
-                                 alt="avatarAlt(data.user)"></avatar></a>
+                        >
+                    <avatar site="siteDir()" member-id="data.user.id" sz="'small'" level="data.user.level"
+                            alt="avatarAlt(data.user)"></avatar>
+                </a>
                 <a href="#/member/view/{{data.user.id}}">{{data.user.firstName}} {{data.user.lastName}}</a>
             </div>
         </div>
@@ -21,7 +23,7 @@
                         <div style="white-space: normal !important;">
                             <i class="{{i.assessment}} pad-right"></i>
                             <span class="name">{{assessmentName(assessment.ii)}}</span>
-                            {{'on'|translate}} {{assessment.lm | date:'medium'}}  ({{assessment.lm|timeAgo}})
+                            {{'on'|translate}} {{assessment.lm | date:'medium'}} ({{assessment.lm|timeAgo}})
 
                             <div data-ng-if="assessment.assessor">
                                 by {{assessment.assessor.fn}} {{assessment.assessor.ln}}

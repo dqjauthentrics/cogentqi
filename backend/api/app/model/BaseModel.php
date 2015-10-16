@@ -19,7 +19,7 @@ class BaseModel {
 	public static function mapColumns($database, $record, $mappedColumns) {
 		$map = [];
 		foreach ($mappedColumns as $colName => $dataType) {
-			$value = self::value(@$record[$colName], $dataType);
+			$value = $database->value(@$record[$colName], $dataType);
 			$jsonCol = $database->jsonCol($colName);
 			$map[$jsonCol[0]] = $value;
 		}

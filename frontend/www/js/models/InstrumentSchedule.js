@@ -4,6 +4,6 @@ angular.module('InstrumentSchedule', []).service('InstrumentSchedule', function 
 	var svc = this;
 
 	svc.retrieve = function () {
-		return $resource('/api/instrumentSchedule/:id', {}, {});
+		return $resource('/api2/instrumentSchedule/:id', {}, {});
 	};
 });

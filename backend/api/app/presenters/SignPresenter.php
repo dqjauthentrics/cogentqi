@@ -4,11 +4,10 @@ namespace App\Presenters;
 
 use
 	Nette,
-	\App\Model\Member,
-	ResourcesModule,
-	\App\Components\AjaxException;
+	ResourcesModule\BasePresenter,
+	App\Components\AjaxException;
 
-class SignPresenter extends ResourcesModule\BasePresenter {
+class SignPresenter extends BasePresenter {
 
 	/**
 	 * @param null $username
