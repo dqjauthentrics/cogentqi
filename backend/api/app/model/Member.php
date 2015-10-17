@@ -6,22 +6,6 @@ use Nette\Database\Table\IRow,
 	ResourcesModule\BasePresenter;
 
 class Member extends BaseModel {
-	var $id;
-	var $first_name;
-	var $last_name;
-	var $organization_id;
-	var $role_id;
-	var $job_title;
-	var $email;
-	var $username;
-	var $password;
-	var $avatar;
-	var $level;
-	var $is_assessable;
-	var $address;
-	var $phone;
-	var $mobile;
-
 	/**
 	 * @param \App\Components\DbContext  $db
 	 * @param \Nette\Database\Table\IRow $member
@@ -58,7 +42,25 @@ class Member extends BaseModel {
 			$jsonBadges[] = MemberBadge::map($db, $badgeRecord);
 		}
 		$map["badges"] = $jsonBadges;
-		$map["lastAssessment"] = self::mapLastAssessment($db, $member, $mode);
+		$map["lastAssessment"] = self::mapLastAssessment($db, $member);
+		if ($mode != BasePresenter::MODE_LISTING) {
+			$jsonAssessments = [];
+			foreach ($db->table('assessment')->where("member_id=?", $member["id"])->order("last_modified DESC") as $dbRecord) {
+				$jsonAssessments[] = [
+					'id'  => (int)$dbRecord["id"],
+					'ii'  => (int)$dbRecord["instrument_id"],
+					'asi' => (int)$dbRecord["assessor_id"],
+					'isi' => (int)$dbRecord["instrument_schedule_id"],
+					'mi'  => (int)$dbRecord["member_id"],
+					'lm'  => $db->presentationDateTime($dbRecord["last_modified"]),
+					'sc'  => (double)$dbRecord["score"],
+					'rk'  => (int)$dbRecord["rank"],
+					'es'  => $dbRecord["edit_status"],
+					'vs'  => $dbRecord["view_status"],
+				];
+			}
+			$map["assessments"] = $jsonAssessments;
+		}
 		return $map;
 	}
 

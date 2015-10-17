@@ -70,12 +70,9 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 
 	svc.rptConfigHx = function (instruments, member, assessments) {
 		var memberHx = [];
-		var maxY = 5;
 		if (!Utility.empty(instruments) && !Utility.empty(member) && !Utility.empty(assessments)) {
 			var instrument = Utility.findObjectById(instruments, assessments[0].ii); //@todo Assumes all same instrument
-			if (instrument.id == 2) {
-				maxY = 2; //@todo Tie to instrument ranges in future.
-			}
+			var maxY = instrument.max;
 			for (var z = 0; z < instrument.sections.length; z++) {
 				var series = [];
 				var xLabels = [];
@@ -86,15 +83,15 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 					for (var j = 0; j < section.questions.length; j++) {
 						var question = section.questions[j];
 						if (i == 0) {
-							xLabels.push(question.name);
+							xLabels.push(question.n);
 						}
 						var response = svc.findResponse(assessment.responses, question.id);
 						dataSet.push({label: response.r, y: parseInt(response.ri)});
 					}
 					series.push({id: i, type: 'column', name: $filter('date')(assessment.lastModified, 'shortDate'), data: dataSet});
 				}
-				var rptCfg = Graphs.columnGraphConfig(section.name, null, 'Competency', 'Ranking', maxY, xLabels, series);
-				memberHx.push({title: section.name, config: rptCfg});
+				var rptCfg = Graphs.columnGraphConfig(section.n, null, 'Competency', 'Ranking', maxY, xLabels, series);
+				memberHx.push({title: section.n, config: rptCfg});
 			}
 		}
 		return memberHx;

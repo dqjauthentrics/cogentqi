@@ -89,6 +89,12 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 				assessments: {templateUrl: 'templates/assessment/view.html', controller: 'AssessmentViewCtrl'}
 			}
 		})
+		.state('assessment.new', {
+			url: '/new/:memberId/:assessmentId',
+			views: {
+				assessments: {templateUrl: 'templates/assessment/view.html', controller: 'AssessmentViewCtrl'}
+			}
+		})
 		.state('assessment.list', {
 			url: '/list',
 			views: {

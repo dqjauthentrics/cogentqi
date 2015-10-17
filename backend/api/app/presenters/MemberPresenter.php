@@ -2,8 +2,11 @@
 namespace App\Presenters;
 
 use Nette,
+	Drahak\Restful\IResource,
 	ResourcesModule\BasePresenter,
 	App\Model\Member,
+	App\Model\Assessment,
+	App\Model\PlanItem,
 	ResourcesModule,
 	Nette\Database\Table\IRow,
 	App\Components\AjaxException;
@@ -37,6 +40,8 @@ class MemberPresenter extends BasePresenter {
 				}
 			}
 			$this->sendResult($jsonRec);
+			//$this->resource = $jsonRec;
+			//$this->sendResource(IResource::XML);
 		}
 		else {
 			throw new AjaxException(AjaxException::ERROR_NOT_ALLOWED);
@@ -81,7 +86,30 @@ class MemberPresenter extends BasePresenter {
 			}
 			$jsonRecs = [];
 			foreach ($planItems as $planItem) {
-				$jsonRecs[] = $this->database->map($planItem);
+				$jsonRecs[] = PlanItem::map($this->database, $planItem);
+			}
+			$this->sendResult($jsonRecs);
+		}
+		else {
+			throw new AjaxException(AjaxException::ERROR_NOT_ALLOWED);
+		}
+	}
+
+	/**
+	 * @param int $id
+	 * @param int $mode
+	 *
+	 * @throws \App\Components\AjaxException
+	 */
+	public function actionReadAssessments($id, $mode = self::MODE_LISTING) {
+		if ($this->user->isAllowed('Member', 'assessments')) {
+			$assessments = $this->database->table('assessment')->where("member_id = ?", $id)->fetchAll();
+			if (empty($assessments)) {
+				throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
+			}
+			$jsonRecs = [];
+			foreach ($assessments as $assessment) {
+				$jsonRecs[] = Assessment::map($this->database, $assessment, $mode);
 			}
 			$this->sendResult($jsonRecs);
 		}

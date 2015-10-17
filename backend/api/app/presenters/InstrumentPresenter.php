@@ -70,7 +70,7 @@ class InstrumentPresenter extends BasePresenter {
 			else {
 				$instruments = $this->database->table('instrument')->fetchAll();
 				foreach ($instruments as $instrument) {
-					$result[] = $this->map($instrument);
+					$result[] = $this->map($instrument, $mode);
 				}
 			}
 		}

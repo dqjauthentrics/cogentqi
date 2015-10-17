@@ -11,7 +11,7 @@
         <micro-badge data-ng-if="member.badges.length" text="member.badges.length + ''" size="'count'"></micro-badge>
     </div>
     <div class="col col-25">
-        <div data-ng-if="member.lastAssessment">
+        <div data-ng-if="member.lastAssessment.length > 0">
             <div style="text-decoration: underline;">Last Assessment</div>
             <assessment-item site="siteDir()" assessment="member.lastAssessment" i="i"></assessment-item>
         </div>

@@ -8,7 +8,6 @@ use \Nette\Database,
 
 class BaseModel {
 
-
 	/**
 	 * @param \App\Components\DbContext  $database
 	 * @param \Nette\Database\Table\IRow $record

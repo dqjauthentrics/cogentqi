@@ -1,15 +1,13 @@
 <?php
 namespace ResourcesModule;
 
-use Drahak\Restful\IResource;
-use Drahak\Restful\Application\UI\ResourcePresenter;
-
 use Nette,
 	Nette\Application\Responses\JsonResponse,
+	Drahak\Restful\IResource,
+	Drahak\Restful\Application\UI\ResourcePresenter,
 	App\Components\AjaxException,
 	App\Components\DbContext,
 	App\Model;
-
 
 /**
  * Base presenter for all application presenters.
@@ -20,8 +18,22 @@ class BasePresenter extends ResourcePresenter {
 	const MODE_RELATED = 2;
 	const MODE_RECURSIVE = 3;
 
+	const EXECUTE = "X";
+	const CREATE = "C";
+	const READ = "R";
+	const UPDATE = "U";
+	const DELETE = "D";
+
+	/**
+	 * @var bool
+	 */
+	public $debug = FALSE;
+
 	/** @var DbContext */
 	protected $database = NULL;
+
+	/** @var \PDO */
+	protected $pdo = NULL;
 
 	/** @var string $tableName The name of the associated table for this model. */
 	public $tableName = NULL;
@@ -39,13 +51,18 @@ class BasePresenter extends ResourcePresenter {
 	public function __construct(DbContext $database) {
 		parent::__construct();
 		$this->database = $database;
+		$this->pdo = $this->database->getConnection()->pdo;
 	}
 
 	/**
 	 * Override parent function to use JSON, always, as a default.
+	 *
+	 * @param string $format
+	 *
+	 * @return \Nette\Application\IResponse|void
 	 */
-	public function sendResource() {
-		parent::sendResource(IResource::JSON);
+	public function sendResource($format = IResource::JSON) {
+		parent::sendResource($format);
 	}
 
 	/**

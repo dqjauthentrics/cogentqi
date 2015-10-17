@@ -18,6 +18,13 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		}
 		return null;
 	};
+	svc.create = function (memberId) {
+		var user = $cookieStore.get('user');
+		if (!Utility.empty(user)) {
+			return $resource('/api2/assessment', {memberId: memberId, assessorId: user.id}, {query: {method: 'POST'}});
+		}
+		return null;
+	};
 
 	svc.associateMembers = function (assessments, members) {
 		if (!Utility.empty(assessments) && !Utility.empty(members)) {
@@ -29,7 +36,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 	};
 	svc.retrieveForMember = function (memberId) {
 		if (!Utility.empty(memberId)) {
-			return $resource('/api/assessment/member/' + memberId, {}, {});
+			return $resource('/api2/member/' + memberId + '/r/assessments', {}, {});
 		}
 		return null;
 	};
@@ -43,21 +50,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 			}
 		}
 		if (!Utility.empty(instrumentId) && !Utility.empty(orgId)) {
-			return $resource('/api/assessment/matrix/' + (isRollUp ? 'rollup/' : '') + orgId + '/' + instrumentId, {}, {});
-		}
-		return null;
-	};
-
-	svc.retrieveNewMatrix = function (instrumentId, organizationId, isRollUp) {
-		var orgId = organizationId;
-		if (Utility.empty(orgId)) {
-			var user = $cookieStore.get('user');
-			if (!Utility.empty(user.organizationId)) {
-				orgId = user.organizationId;
-			}
-		}
-		if (!Utility.empty(instrumentId) && !Utility.empty(orgId)) {
-			return $resource('/api/assessment/newmatrix/' + orgId + '/' + instrumentId, {}, {});
+			return $resource('/api2/assessment/matrix/o/' + orgId + '/i/' + instrumentId, {}, {});
 		}
 		return null;
 	};
@@ -65,14 +58,14 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 	svc.retrieveProgressByMonth = function (instrumentId, isRollUp) {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(instrumentId) && !Utility.empty(user) && !Utility.empty(user.organizationId)) {
-			return $resource('/api/assessment/progressbymonth/' + (isRollUp ? 'rollup/' : '') + user.organizationId + '/' + instrumentId, {},
-				{query: {method: 'GET', isArray: false}});
+			return $resource('/api2/assessment/report/pbm/o/' + user.organizationId + '/i/' + instrumentId + +(isRollUp ? '/r/rollup/' : ''),
+				{}, {query: {method: 'GET', isArray: false}});
 		}
 		return null;
 	};
 	svc.retrieveIndividualProgressByMonth = function (memberId) {
 		if (!Utility.empty(memberId)) {
-			return $resource('/api/assessment/progressbymonth/single/' + memberId, {}, {query: {method: 'GET', isArray: false}});
+			return $resource('/api2/assessment/report/pbmi/m/' + memberId, {}, {query: {method: 'GET', isArray: false}});
 		}
 		return null;
 	};
