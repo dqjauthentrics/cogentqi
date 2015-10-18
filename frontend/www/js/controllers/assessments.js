@@ -219,8 +219,6 @@ angular.module('AssessmentControllers', [])
 				else {
 					if (!Utility.empty($stateParams.memberId)) {
 						Utility.getResource(Assessments.create($stateParams.memberId), function (response) {
-							//$scope.res = $resource('/api/assessment/new/:assessorId/:memberId');
-							//$scope.res.get({assessorId: user.id, memberId: $stateParams.memberId}, function (response) {
 							Instruments.currentSectionIdx = 0;
 							$scope.data.assessment = response;
 							$scope.data.assessor = $scope.data.assessment.assessor.id;

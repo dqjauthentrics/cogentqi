@@ -38,6 +38,61 @@ a:hover {
     margin: 0.4em;
 }
 
+.popup-head {
+    background: #555;
+    color: #FFF;
+}
+
+.popup-title {
+    color: #FFF;
+}
+
+.popup-body {
+    color: #444;
+}
+
+.popError .popup-head {
+    color: #FFF;
+    background: #C00000;
+    font-weight: bold;
+}
+
+.popError .popup-title {
+    color: #FFF;
+}
+
+.popError .popup-body {
+    color: #C00000;
+}
+
+.popSuccess .popup-head {
+    color: #FFF;
+    background: darkgreen;
+    font-weight: bold;
+}
+
+.popSuccess .popup-title {
+    color: #FFF;
+}
+
+.popSuccess .popup-body {
+    color: darkgreen;
+}
+
+.popWarning .popup-head {
+    color: #666;
+    background: gold;
+    font-weight: bold;
+}
+
+.popWarning .popup-title {
+    color: #666;
+}
+
+.popWarning .popup-body {
+    color: #666;
+}
+
 .pad-right {
     margin-right: 0.4em;
 }
@@ -1151,6 +1206,15 @@ table.assessmentItem td {
     border-radius: 1em;
 }
 
+.noteTools {
+    float: right;
+}
+
+.noteTool {
+    margin: 0.2em;
+    color: #666;
+}
+
 #notes .item {
     border: none !important;
 }
@@ -1160,8 +1224,13 @@ table.assessmentItem td {
     padding: 1em 1.5em;
     margin: 2em auto;
     color: #444;
-    background: #FFEF00;
+    background: #FFEF00 !important;
     overflow: hidden;
+}
+
+.note textarea {
+    background: transparent;
+    border: none;
 }
 
 .noteIcon {
@@ -1174,6 +1243,28 @@ table.assessmentItem td {
     font-style: italic;
     margin: 0.5em;
     display: inline;
+}
+
+.note.important {
+    background: lightpink !important;
+    border-color: #fff #fff pink pink;
+}
+
+.panel .note.important:before {
+    border-color: #DDD #DDD pink pink;
+}
+
+.note.okay {
+    background: #cfc !important;
+    border-color: #fff #fff #6A6 #6A6;
+}
+
+.panel .note.okay:before {
+    border-color: #DDD #DDD #6A6 #6A6;
+}
+
+.panel .note:before {
+    border-color: #DDD #DDD #E9BF00 #E9BF00;
 }
 
 .note:before {

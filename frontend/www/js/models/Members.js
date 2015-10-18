@@ -20,19 +20,18 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 	};
 
 	svc.saveProfile = function (member, callbackFn) {
-		var memberRec = {id: member.id, firstName: member.firstName, lastName: member.lastName, roleId: member.roleId};
+		var memberRec = {id: member.id, fn: member.fn, ln: member.ln, r: member.r, ph: member.ph, ad: member.ad, mb: member.mb};
 		$http({
-			method: 'POST',
-			url: "/api/member/saveProfile",
+			method: 'PUT',
+			url: "/api2/member",
 			data: $.param({member: memberRec}),
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-			success(function (data, status, headers, config) {
-						callbackFn(1, data);
-					}).
-			error(function (data, status, headers, config) {
-					  callbackFn(0, data);
-				  });
+		}).success(function (data, status, headers, config) {
+			console.log(data, status);
+			callbackFn(status, data);
+		}).error(function (data, status, headers, config) {
+			callbackFn(0, data);
+		});
 	};
 
 	svc.roleName = function (member) {

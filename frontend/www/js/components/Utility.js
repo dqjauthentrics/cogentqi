@@ -5,18 +5,29 @@ angular.module('Utility', []).factory('Utility', [
 	function ($ionicPopup) {
 		return {
 			popup: function (title, message) {
-				$ionicPopup.alert({title: title, template: message});
+				$ionicPopup.alert({title: '<i class="fa fa-info-circle fa-lg 2x"></i> ' +title, template: message});
 			},
 			statusAlert: function (status, data) {
 				if (status) {
-					$ionicPopup.alert({title: 'Updated', template: 'Your changes were saved.'});
+					$ionicPopup.alert({
+						title: '<i class="fa fa-thumbs-up fa-lg 2x"></i> Updated',
+						template: 'Your changes were saved.',
+						cssClass: 'popSuccess'
+					});
 				}
 				else {
-					$ionicPopup.alert({title: 'Problem', template: 'Sorry, but there was a problem saving your changes.'});
+					$ionicPopup.alert({
+						title: '<i class="fa fa-warning fa-lg 2x"></i> Problem',
+						template: 'Sorry, but there was a problem saving your changes.',
+						cssClass: 'popError'
+					});
 				}
 			},
 			confirm: function (title, prompt, callback) {
-				var confirmPopup = $ionicPopup.confirm({title: title, template: prompt});
+				var confirmPopup = $ionicPopup.confirm({
+					title: '<i class="fa fa-exclamation-triangle fa-lg 2x"></i> ' + title,
+					template: prompt, cssClass: 'popWarning'
+				});
 				confirmPopup.then(function (res) {
 					if (res) {
 						callback();

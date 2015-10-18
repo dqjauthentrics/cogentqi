@@ -2,6 +2,7 @@
 
 namespace App\Components;
 
+use Drahak\Restful\IResource;
 use Nette,
 	Nette\Application\Routers\RouteList,
 	Nette\Application\Routers\Route,
@@ -22,17 +23,28 @@ class RouterFactory {
 		$router[] = new Route('assessment/report/pbm/o/<organizationId>/i/<instrumentId>[/r/<rollUp>]', 'Assessment:progressByMonth');
 		$router[] = new Route('assessment/report/pbmi/m/<memberId>', 'Assessment:progressByMonthIndividual');
 
+		$router[] = new Route('message/send', 'Message:send');
+		/**
+		 * $router[] = new Route('message/send', [
+		 * 'presenter' => [Route::VALUE => 'Message'],
+		 * 'action'    => [
+		 * IResourceRouter::GET  => 'send',
+		 * IResourceRouter::POST => 'send'
+		 * ]
+		 * ]);
+		 **/
 		$router[] = new CrudRoute('<presenter>[/<id>][/r/<relation>][/m/<mode>]',
 			[
 				'presenter' => [
 					Route::VALUE        => 'Homepage',
-					//Route::FILTER_TABLE => [
-						//'plan-items' => 'planItems',
-					//],
+					Route::FILTER_TABLE => [
+						'member-note' => 'MemberNote',
+					],
 				],
 				'action'    => [
 					IResourceRouter::POST   => 'create<Relation>',
 					IResourceRouter::GET    => 'read<Relation>',
+					IResourceRouter::PUT    => 'update<Relation>',
 					IResourceRouter::DELETE => 'delete<Relation>'
 				],
 			]);

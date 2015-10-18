@@ -28,6 +28,8 @@ class Authorization extends Permission {
 		$this->addResource('Instrument');
 		$this->addResource('InstrumentSchedule');
 		$this->addResource('Member');
+		$this->addResource('MemberNote');
+		$this->addResource('Message');
 		$this->addResource('Module');
 		$this->addResource('Organization');
 		$this->addResource('Outcome');
@@ -50,7 +52,9 @@ class Authorization extends Permission {
 			'Instrument',
 			'InstrumentSchedule',
 			'Member',
+			'MemberNote',
 			'Module',
+			'Message',
 			'Organization',
 			'Outcome',
 			'Question',

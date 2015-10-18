@@ -20,6 +20,9 @@ class DbContext extends Context {
 	/** @var string[] $dateTimeCols Some columns might require special save/restore/format processing. */
 	protected $dateTimeCols = [];
 
+	/** @var \PDO $pdo */
+	protected $pdo = NULL;
+
 	/**
 	 * @var array $colName Map  Map column names to their abbreviations when transmitting via JSON.
 	 */
@@ -31,6 +34,7 @@ class DbContext extends Context {
 		'asb'  => ['is_assessable', self::TYPE_INT],
 		'av'   => ['avatar', self::TYPE_STRING],
 		'by'   => ['by_member_id', self::TYPE_STRING],
+		'cid'  => ['creator_id', self::TYPE_INT],
 		'cmi'  => ['calc_method_id', self::TYPE_STRING],
 		'ct'   => ['content', self::TYPE_STRING],
 		'cy'   => ['city', self::TYPE_STRING],
@@ -47,6 +51,7 @@ class DbContext extends Context {
 		'fn'   => ['first_name', self::TYPE_STRING],
 		'fx'   => ['fax', self::TYPE_STRING],
 		'ii'   => ['instrument_id', self::TYPE_INT],
+		'pv'   => ['is_private', self::TYPE_INT],
 		'isi'  => ['instrument_schedule_id', self::TYPE_INT],
 		'jt'   => ['job_title', self::TYPE_STRING],
 		'lm'   => ['last_modified', self::TYPE_DATETIME],
@@ -106,6 +111,7 @@ class DbContext extends Context {
 	 */
 	function __construct(Connection $connection, IStructure $structure, $conventions = NULL, $cacheStorage = NULL) {
 		parent::__construct($connection, $structure, $conventions, $cacheStorage);
+		$this->pdo = $connection->pdo;
 	}
 
 	/**
@@ -237,6 +243,41 @@ class DbContext extends Context {
 			}
 		}
 		return $jsonRecord;
+	}
+
+	/**
+	 * @param string $tableName
+	 *
+	 * @return array
+	 */
+	public function getColNames($tableName) {
+		$q = $this->pdo->prepare("DESCRIBE $tableName");
+		$q->execute();
+		$colNames = $q->fetchAll(\PDO::FETCH_COLUMN);
+		return $colNames;
+	}
+
+	/**
+	 * @param array  $jsonRecord
+	 * @param string $tableName
+	 *
+	 * @return array
+	 */
+	public function unmap($jsonRecord, $tableName) {
+		$tblCols = $this->getColNames($tableName);
+		$newData = [];
+		if (!empty($jsonRecord)) {
+			foreach ($jsonRecord as $jsonColName => $value) {
+				$fullName = @self::$colNameMap[$jsonColName][0];
+				if (empty($fullName)) {
+					$fullName = $jsonColName;
+				}
+				if (in_array($fullName,$tblCols)) {
+					$newData[$fullName] = $value;
+				}
+			}
+		}
+		return $newData;
 	}
 
 	/**

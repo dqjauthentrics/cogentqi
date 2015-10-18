@@ -14,7 +14,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 	};
 	svc.retrieveSingle = function (assessmentId) {
 		if (!Utility.empty(assessmentId)) {
-			return $resource('/api2/assessment/' + assessmentId + '/m/1', {}, {query: {method: 'GET', isArray: false}});
+			return $resource('/api2/assessment/' + assessmentId + '/m/1', {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;
 	};
@@ -36,7 +36,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 	};
 	svc.retrieveForMember = function (memberId) {
 		if (!Utility.empty(memberId)) {
-			return $resource('/api2/member/' + memberId + '/r/assessments', {}, {});
+			return $resource('/api2/member/' + memberId + '/r/assessments', {}, {cache: false});
 		}
 		return null;
 	};
@@ -50,7 +50,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 			}
 		}
 		if (!Utility.empty(instrumentId) && !Utility.empty(orgId)) {
-			return $resource('/api2/assessment/matrix/o/' + orgId + '/i/' + instrumentId, {}, {});
+			return $resource('/api2/assessment/matrix/o/' + orgId + '/i/' + instrumentId, {}, {cache: false});
 		}
 		return null;
 	};
@@ -59,13 +59,13 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(instrumentId) && !Utility.empty(user) && !Utility.empty(user.organizationId)) {
 			return $resource('/api2/assessment/report/pbm/o/' + user.organizationId + '/i/' + instrumentId + +(isRollUp ? '/r/rollup/' : ''),
-				{}, {query: {method: 'GET', isArray: false}});
+				{}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;
 	};
 	svc.retrieveIndividualProgressByMonth = function (memberId) {
 		if (!Utility.empty(memberId)) {
-			return $resource('/api2/assessment/report/pbmi/m/' + memberId, {}, {query: {method: 'GET', isArray: false}});
+			return $resource('/api2/assessment/report/pbmi/m/' + memberId, {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;
 	};

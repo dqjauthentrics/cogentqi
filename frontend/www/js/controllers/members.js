@@ -4,23 +4,70 @@ angular.module('MemberControllers', [])
 	.controller(
 	'MemberNotesCtrl',
 	function ($scope, $location, $ionicPopup, $stateParams, Utility, MemberNotes, Members) {
-		$scope.data = {member: {}, notes: []};
+		$scope.data = {member: {}, notes: [], newNote: {ct: '', mi: null}};
 
 		if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 			Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
 				$scope.data.member = response;
+				$scope.data.newNote.mi = response.id;
 				Utility.getResource(MemberNotes.retrieve($stateParams.memberId), function (response) {
 					$scope.data.notes = response;
 				});
 			});
 		}
 		$scope.goToProgress = function () {
-			console.log("going to progress");
 			$location.url("/member/progress/" + $stateParams.memberId);
 		};
 		$scope.goToMember = function () {
-			console.log("going to member");
 			$location.url("/member/" + $stateParams.memberId);
+		};
+		$scope.remove = function (note) {
+			Utility.confirm('Note Removal', 'Are you sure you want to delete this note?', function () {
+				for (var i = 0; i < $scope.data.notes.length; i++) {
+					if ($scope.data.notes[i].id == note.id) {
+						note.workingTrash = true;
+						MemberNotes.remove(note.id, function (status, data) {
+							if (status == 200) {
+								$scope.data.notes.splice(i, 1);
+								note.workingTrash = null;
+							}
+						});
+						return;
+					}
+				}
+			});
+		};
+		$scope.addNote = function () {
+			if (Utility.empty($scope.data.newNote.ct)) {
+				Utility.popup('Nothing to Save!', 'You must enter some note text before saving it.');
+			}
+			MemberNotes.save($scope.data.newNote, function (status, data) {
+				if (status == 200) {
+					$scope.data.notes.unshift(data);
+					$scope.data.newNote.ct = '';
+				}
+			});
+		};
+		$scope.flag = function (note) {
+			note.flag = note.flag == 0 ? 1 : 0;
+			note.workingFlag = true;
+			MemberNotes.save(note, function (status, data) {
+				note.workingFlag = null;
+			});
+		};
+		$scope.thumbsUp = function (note) {
+			note.flag = note.flag == 2 ? 0 : 2;
+			note.workingThumb = true;
+			MemberNotes.save(note, function (status, data) {
+				note.workingThumb = null;
+			});
+		};
+		$scope.save = function (note) {
+			note.workingSave = true;
+			MemberNotes.save(note, function (status, data) {
+				note.dirty = null;
+				note.workingSave = null;
+			});
 		};
 	})
 
@@ -66,7 +113,7 @@ angular.module('MemberControllers', [])
 
 	.controller(
 	'MemberViewCtrl',
-	function ($rootScope, $scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments,
+	function ($http, $rootScope, $scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments,
 			  Organizations, Members) {
 		$scope.data = {dirty: false, member: {}, user: $cookieStore.get('user')};
 		$scope.roles = $rootScope.roles;
@@ -90,7 +137,9 @@ angular.module('MemberControllers', [])
 			return $scope.data.user.roleId == 'M' || $scope.data.user.roleId == 'A';
 		};
 		$scope.save = function () {
-			Members.saveProfile($scope.data.member, Utility.statusAlert);
+			Members.saveProfile($scope.data.member, function (response, data) {
+				Utility.statusAlert(response)
+			});
 			$scope.data.dirty = false;
 		};
 		$scope.setDirty = function () {
@@ -103,6 +152,22 @@ angular.module('MemberControllers', [])
 		$scope.showRole = function () {
 			var selected = $filter('filter')($scope.roles, {id: $scope.data.member.r});
 			return ($scope.data.member.r && !Utility.empty(selected)) ? selected[0].n : 'Not set';
+		};
+		$scope.sendEmail = function (member) {
+			window.location.href = 'mailto:' + member.em + '?subject=Regarding Your CQI Improvement Plan';
+		};
+		$scope.sendText = function (member) {
+			console.log("sending");
+			$http({
+				method: 'GET',
+				url: "/api2/message/send",
+				data: {memberId: member.id, message: 'Hello there.'},
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).success(function (data, status, headers, config) {
+				console.log("done");
+				Utility.popup('Done', 'Message sent.');
+			}).error(function (data, status, headers, config) {
+			});
 		};
 	})
 

@@ -17,6 +17,8 @@ angular.module('Icons', []).service('Icons', function () {
 	this.edit = "ion-compose";
 	this.email = "fa fa-mail";
 	this.event = "fa fa-warning";
+	this.flag = "fa fa-flag";
+	this.flagOff = "fa fa-flag-o";
 	this.grid = "ion-ios-keypad-outline";
 	this.group = "fa fa-users";
 	this.home = "fa fa-home";
@@ -34,6 +36,8 @@ angular.module('Icons', []).service('Icons', function () {
 	this.notes = "ion-android-document";
 	this.noteEmpty = "fa fa-comment-o";
 	this.noteFilled = "fa fa-comment";
+	this.okay = "fa fa-thumbs-up";
+	this.okayOff = "fa fa-thumbs-o-up";
 	this.outcome = "ion-speedometer";
 	this.organization = "fa fa-institution";
 	this.pdf = "fa fa-file-pdf-o";

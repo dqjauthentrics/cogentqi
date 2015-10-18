@@ -1,3 +1,15 @@
 .customerBg, .tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
     background-color: navy !important;
 }
+
+.button.button-positive.active, .button.button-positive.activated {
+    border-color: #999;
+    background-color: #999;
+    color: #FFF;
+}
+
+.button.button-positive {
+    border-color: #AAA;
+    color: #FFF;
+    background-color: #AAA;
+}

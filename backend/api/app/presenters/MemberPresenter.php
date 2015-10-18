@@ -6,6 +6,7 @@ use Nette,
 	ResourcesModule\BasePresenter,
 	App\Model\Member,
 	App\Model\Assessment,
+	App\Model\MemberNote,
 	App\Model\PlanItem,
 	ResourcesModule,
 	Nette\Database\Table\IRow,
@@ -48,6 +49,26 @@ class MemberPresenter extends BasePresenter {
 		}
 	}
 
+	/**
+	 * Save a member profile record.
+	 */
+	public function actionUpdate() {
+		$data = @$this->getInput()->getData();
+		if (!empty($data["member"])) {
+			$memberForm = $data["member"];
+			if (!empty($memberForm) && is_array($memberForm)) {
+				/** @var \Nette\Database\Table\ActiveRow $member */
+				$member = $this->database->table('member')->get($memberForm["id"]);
+				if (!empty($member)) {
+					$data = $this->database->unmap($memberForm, 'member');
+					if ($member->update($data)) {
+						$this->sendResult(1);
+					}
+				}
+			}
+		}
+		$this->sendResult(0);
+	}
 
 	/**
 	 * @param int $id
@@ -87,6 +108,29 @@ class MemberPresenter extends BasePresenter {
 			$jsonRecs = [];
 			foreach ($planItems as $planItem) {
 				$jsonRecs[] = PlanItem::map($this->database, $planItem);
+			}
+			$this->sendResult($jsonRecs);
+		}
+		else {
+			throw new AjaxException(AjaxException::ERROR_NOT_ALLOWED);
+		}
+	}
+
+	/**
+	 * @param int $id
+	 * @param int $mode
+	 *
+	 * @throws \App\Components\AjaxException
+	 */
+	public function actionReadNotes($id, $mode = self::MODE_LISTING) {
+		if ($this->user->isAllowed('Member', 'notes')) {
+			$notes = $this->database->table('member_note')->where("member_id = ?", $id)->order('last_modified DESC')->fetchAll();
+			if (empty($notes)) {
+				throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
+			}
+			$jsonRecs = [];
+			foreach ($notes as $note) {
+				$jsonRecs[] = MemberNote::map($this->database, $note);
 			}
 			$this->sendResult($jsonRecs);
 		}
