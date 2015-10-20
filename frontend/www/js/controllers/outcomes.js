@@ -148,6 +148,7 @@ angular.module('OutcomeControllers', [])
 		$scope.res = null;
 		$scope.data = {
 			dirty: false,
+			saving: false,
 			alignments: [],
 			instruments: [],
 			outcomes: [],
@@ -170,8 +171,14 @@ angular.module('OutcomeControllers', [])
 			$scope.setOutcome();
 		});
 
-		$scope.saveOutcomeAlignments = function () {
-			Outcomes.saveAlignments($scope.data.currentInstrumentId, $scope.data.outcome.id, $scope.data.alignments, Utility.statusAlert);
+		$scope.save = function () {
+			$scope.data.saving = true;
+			Outcomes.saveAlignments($scope.data.currentInstrumentId, $scope.data.outcome.id, $scope.data.alignments,
+									function (status, data) {
+										$scope.data.saving = false;
+										$scope.data.dirty = false;
+										Utility.statusAlert(status, data);
+									});
 		};
 		$scope.setOutcomeAlignments = function () {
 			if (!Utility.empty($scope.data.outcome) && !Utility.empty($scope.data.currentInstrument)) {
@@ -183,7 +190,7 @@ angular.module('OutcomeControllers', [])
 				if (!Utility.empty($scope.data.outcome) && !Utility.empty($scope.data.outcome.alignments) && $scope.data.outcome.alignments.length > 0) {
 					for (var i = 0; i < $scope.data.outcome.alignments.length; i++) {
 						var alignment = $scope.data.outcome.alignments[i];
-						$scope.data.alignments[alignment.questionId] = alignment.wt;
+						$scope.data.alignments[alignment.qi] = alignment.wt;
 					}
 				}
 			}
@@ -219,12 +226,6 @@ angular.module('OutcomeControllers', [])
 					break;
 			}
 			return phrase;
-		};
-		$scope.isDirty = function () {
-			return $scope.dirty;
-		};
-		$scope.setDirty = function () {
-			$scope.dirty = true;
 		};
 	})
 ;

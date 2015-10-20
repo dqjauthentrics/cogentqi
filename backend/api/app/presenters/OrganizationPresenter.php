@@ -83,7 +83,7 @@ class OrganizationPresenter extends BasePresenter {
 			}
 			$jsonRecs = [];
 			foreach ($outcomes as $outcome) {
-				$jsonRec = Outcome::map($this->database, $outcome);
+				$jsonRec = Outcome::map($this->database, $outcome, self::MODE_LISTING, $id);
 				$jsonRecs[] = $jsonRec;
 			}
 			$this->sendResult($jsonRecs);

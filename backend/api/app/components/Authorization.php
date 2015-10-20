@@ -33,6 +33,7 @@ class Authorization extends Permission {
 		$this->addResource('Module');
 		$this->addResource('Organization');
 		$this->addResource('Outcome');
+		$this->addResource('OutcomeAlignment');
 		$this->addResource('Question');
 		$this->addResource('QuestionChoice');
 		$this->addResource('QuestionType');
@@ -57,6 +58,7 @@ class Authorization extends Permission {
 			'Message',
 			'Organization',
 			'Outcome',
+			'OutcomeAlignment', //@TBD
 			'Question',
 			'QuestionChoice',
 			'QuestionType',
@@ -65,6 +67,10 @@ class Authorization extends Permission {
 			'Role',
 			'Setting',
 			'Sign',
+		], self::ALL);
+
+		$this->allow(self::ROLE_ADMINISTRATOR, [
+			'OutcomeAlignment',
 		], self::ALL);
 
 		# Admin has rights to everything

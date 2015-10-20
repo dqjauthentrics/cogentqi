@@ -77,6 +77,7 @@ class DbContext extends Context {
 		'ph'   => ['phone', self::TYPE_STRING],
 		'pli'  => ['plan_item_id', self::TYPE_INT],
 		'pisi' => ['plan_item_status_id', self::TYPE_INT],
+		'mfm'  => ['message_format', self::TYPE_STRING],
 		'qg'   => ['question_group_id', self::TYPE_INT],
 		'qi'   => ['question_id', self::TYPE_INT],
 		'qt'   => ['question_type_id', self::TYPE_INT],
@@ -86,6 +87,7 @@ class DbContext extends Context {
 		'rk'   => ['rank', self::TYPE_INT],
 		'rti'  => ['resource_type_id', self::TYPE_INT],
 		'ru'   => ['rubric', self::TYPE_STRING],
+		'rwt'  => ['rel_wt', self::TYPE_REAL],
 		'sc'   => ['score', self::TYPE_REAL],
 		'sct'  => ['sched_type', self::TYPE_STRING],
 		'sh'   => ['is_shared', self::TYPE_INT],
@@ -272,7 +274,7 @@ class DbContext extends Context {
 				if (empty($fullName)) {
 					$fullName = $jsonColName;
 				}
-				if (in_array($fullName,$tblCols)) {
+				if (in_array($fullName, $tblCols)) {
 					$newData[$fullName] = $value;
 				}
 			}

@@ -4,8 +4,11 @@ angular.module('Utility', []).factory('Utility', [
 	"$ionicPopup",
 	function ($ionicPopup) {
 		return {
+			empty: function (v) {
+				return v == null || v == undefined || v.length == 0;
+			},
 			popup: function (title, message) {
-				$ionicPopup.alert({title: '<i class="fa fa-info-circle fa-lg 2x"></i> ' +title, template: message});
+				$ionicPopup.alert({title: '<i class="fa fa-info-circle fa-lg 2x"></i> ' + title, template: message});
 			},
 			statusAlert: function (status, data) {
 				if (status) {
@@ -16,9 +19,16 @@ angular.module('Utility', []).factory('Utility', [
 					});
 				}
 				else {
+					var msgAppend = '';
+					try {
+						msgAppend = data.toString();
+						msgAppend = ' <br/><br/><div style="color:#777;">(' + msgAppend + ')</div>';
+					}
+					catch (exception) {
+					}
 					$ionicPopup.alert({
 						title: '<i class="fa fa-warning fa-lg 2x"></i> Problem',
-						template: 'Sorry, but there was a problem saving your changes.',
+						template: 'Sorry, but there was a problem saving your changes.' + msgAppend,
 						cssClass: 'popError'
 					});
 				}
@@ -33,9 +43,6 @@ angular.module('Utility', []).factory('Utility', [
 						callback();
 					}
 				});
-			},
-			empty: function (v) {
-				return v == null || v == undefined || v.length == 0;
 			},
 			randomIntBetween: function (min, max) {
 				return Math.floor(Math.random() * (max - min + 1) + min);

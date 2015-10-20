@@ -28,7 +28,6 @@
         </div>
         <div class="row responsive-lg">
             <div class="col col-25 card" style="text-align: center;">
-                {{data.assessmnent.member}}
                 <assessment-name-card site="siteDir()" member="data.assessment.member" assessment="data.assessment"></assessment-name-card>
             </div>
             <div class="col card">
@@ -38,6 +37,9 @@
         </div>
         <div class="row responsive-sm detail">
             <div class="col col-100 assessment">
+                <div class="row responsive-lg">
+                    <i class="{{i.loadingSpinner}} fa-lg fa-2x" style="color:#999; margin:1em auto; text-align:center;" data-ng-show="data.assessment == null"></i>
+                </div>
                 <div style="display:none;">{{data.assessment.lm}}</div>
                 <div id="section{{$index}}" data-ng-repeat="section in data.assessment.instrument.sections" class="fadein fadeout">
                     <div data-ng-show="Instruments.sectionIsCurrent(data.assessment.instrument, section.id)">

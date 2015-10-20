@@ -114,8 +114,8 @@ angular.module('MemberControllers', [])
 	.controller(
 	'MemberViewCtrl',
 	function ($http, $rootScope, $scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments,
-			  Organizations, Members) {
-		$scope.data = {dirty: false, member: {}, user: $cookieStore.get('user')};
+			  Organizations, Members, Messages) {
+		$scope.data = {dirty: false, member: {}, user: $cookieStore.get('user'), newMessage: ''};
 		$scope.roles = $rootScope.roles;
 
 		if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
@@ -157,16 +157,28 @@ angular.module('MemberControllers', [])
 			window.location.href = 'mailto:' + member.em + '?subject=Regarding Your CQI Improvement Plan';
 		};
 		$scope.sendText = function (member) {
-			console.log("sending");
-			$http({
-				method: 'GET',
-				url: "/api2/message/send",
-				data: {memberId: member.id, message: 'Hello there.'},
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			}).success(function (data, status, headers, config) {
-				console.log("done");
-				Utility.popup('Done', 'Message sent.');
-			}).error(function (data, status, headers, config) {
+			var myPopup = $ionicPopup.show({
+				template: '<input type="text" ng-model="data.newMessage"/>',
+				title: 'Enter a brief text message to send:',
+				scope: $scope,
+				buttons: [
+					{text: 'Cancel'},
+					{
+						text: '<b>Send</b>',
+						type: 'button-positive',
+						onTap: function (e) {
+							if (!$scope.data.newMessage) {
+								e.preventDefault(); //don't allow the user to close unless he enters text
+							}
+							else {
+								return $scope.data.newMessage;
+							}
+						}
+					}
+				]
+			});
+			myPopup.then(function (res) {
+				Messages.sendText(member, $scope.data.newMessage);
 			});
 		};
 	})

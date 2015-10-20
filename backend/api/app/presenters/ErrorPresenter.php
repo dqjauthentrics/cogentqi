@@ -4,13 +4,15 @@ namespace App\Presenters;
 
 use Nette,
 	App\Model,
+	Nette\Application\UI\Presenter,
 	ResourcesModule\BasePresenter,
 	Nette\Application\Responses\ForwardResponse,
 	Nette\Application\Responses\CallbackResponse,
+	App\Components\DbContext,
 	Tracy\ILogger;
 
 
-class ErrorPresenter extends BasePresenter {
+class ErrorPresenter extends Presenter {
 	/** @var ILogger */
 	private $logger;
 
@@ -19,7 +21,7 @@ class ErrorPresenter extends BasePresenter {
 	 */
 	public function __construct(ILogger $logger) {
 		$this->logger = $logger;
-		parent::__construct($this->database);
+		parent::__construct($logger);
 	}
 
 	/**

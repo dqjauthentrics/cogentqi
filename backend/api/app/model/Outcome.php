@@ -8,30 +8,30 @@ use ResourcesModule\BasePresenter;
 class Outcome extends BaseModel {
 
 	/**
-	 * @param \App\Components\DbContext  $db
+	 * @param \App\Components\DbContext  $database
 	 * @param \Nette\Database\Table\IRow $outcome
-	 * @param bool                       $brief
+	 * @param int                        $mode
+	 * @param int                        $singleOrganizationId
 	 *
 	 * @return array
 	 */
-	public static function map($db, $outcome, $singleOrganizationId = NULL, $brief = TRUE) {
-		$map = $db->map($outcome);
+	public static function map($database, $outcome, $mode = BasePresenter::MODE_LISTING, $singleOrganizationId = NULL) {
+		$map = $database->map($outcome);
 		$jsonAlignments = [];
-		foreach ($db->table('outcome_alignment')->where('outcome_id', $outcome["id"]) as $alignmentRecord) {
-			$jsonAlignments[] = $db->map($alignmentRecord);
+		foreach ($database->table('outcome_alignment')->where('outcome_id', $outcome["id"]) as $alignmentRecord) {
+			$jsonAlignments[] = $database->map($alignmentRecord);
 		}
 		$map["alignments"] = $jsonAlignments;
-
 		$jsonOutcomeLevels = [];
 		if (!empty($singleOrganizationId)) {
-			$dbRecords = $db->table('organization_outcome')->where('organization_id=?', $singleOrganizationId)->fetchAll(); //->order('outcomeId');
+			$dbRecords = $database->table('organization_outcome')->where('organization_id=?', $singleOrganizationId)->fetchAll(); //->order('outcomeId');
 			foreach ($dbRecords as $dbRecord) {
 				$outId = (int)$dbRecord["outcome_id"];
 				$jsonOutcomeLevels[$outId] = (int)$dbRecord["level"];
 			}
 		}
 		else {
-			$dbRecords = $db->table('organization_outcome')->fetchAll(); //->order('organizationId,outcomeId');
+			$dbRecords = $database->table('organization_outcome')->fetchAll(); //->order('organizationId,outcomeId');
 			foreach ($dbRecords as $dbRecord) {
 				$organizationId = (int)$dbRecord["organization_id"];
 				$outId = (int)$dbRecord["outcome_id"];

@@ -1,6 +1,25 @@
 'use strict';
 
 angular.module('ControllerCommon', [])
+	.controller(
+	'CommonTabsCtrl',
+	function ($scope, Utility) {
+		//$ionicNavBarDelegate.showBackButton(false);
+
+		$scope.$on('$ionicView.beforeEnter', function () {
+			//$ionicNavBarDelegate.showBackButton(false);
+		});
+
+		$scope.$on('$ionicView.leave', function () {
+			//$ionicNavBarDelegate.showBackButton(true);
+		});
+
+		$scope.go = function (url) {
+			console.log("going to " + url);
+			location.href = url;
+		}
+	})
+
 
 	.controller('LoginController', [
 		'$scope', '$location', 'Authentication', function ($scope, $location, Authentication) {
@@ -9,10 +28,10 @@ angular.module('ControllerCommon', [])
 			$scope.login = function (loginType) {
 				$scope.data.msg = Authentication.login(loginType, $scope.data.email, $scope.data.password,
 													   function (user) {
-														   $scope.data.msg = "Succeeded!";
+														   $scope.data.msg = "";
 														   $scope.data.error = "success";
 														   Authentication.check();
-														   Authentication.login2($scope.data.email, $scope.data.password);
+														   //Authentication.login2($scope.data.email, $scope.data.password);
 													   },
 													   function (failMsg) {
 														   $scope.data.msg = failMsg;

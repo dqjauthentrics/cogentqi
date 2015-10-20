@@ -36,8 +36,8 @@ angular.module('ResourceControllers', [])
 
 	.controller(
 	'ResourceCtrl',
-	function ($rootScope, $scope, $stateParams, Utility, LearningModules, Organizations, Resources, Quizzes) {
-		$scope.data = {learningModules: [], resources: [], resource: {}};
+	function ($http, $rootScope, $scope, $stateParams, Utility, LearningModules, Organizations, Resources, Quizzes) {
+		$scope.data = {learningModules: [], resources: [], resource: {}, content: ''};
 		$scope.playerVars = {controls: 2, autoplay: 0, modestbranding: 1, rel: 0, theme: 'light'};
 
 		LearningModules.retrieve().query(function (response) {
@@ -45,7 +45,6 @@ angular.module('ResourceControllers', [])
 		});
 
 		Resources.retrieve().query(function (response) {
-			console.log("resources: retrieve()");
 			$scope.data.resources = response;
 			if (!Utility.empty($stateParams)) {
 				var resourceId = $stateParams.resourceId;
@@ -66,6 +65,7 @@ angular.module('ResourceControllers', [])
 		$scope.res = null;
 		$scope.data = {
 			dirty: false,
+			saving: false,
 			alignments: [],
 			instruments: [],
 			resources: [],
@@ -86,10 +86,17 @@ angular.module('ResourceControllers', [])
 			$scope.setResource();
 		});
 
-		$scope.saveResourceAlignments = function () {
-			Resources.saveAlignments($scope.data.currentInstrumentId, $scope.data.resource.id, $scope.data.alignments, Utility.statusAlert);
+		$scope.save = function () {
+			$scope.data.saving = true;
+			Resources.saveAlignments($scope.data.currentInstrumentId, $scope.data.resource.id, $scope.data.alignments,
+									 function (status, data) {
+										 $scope.data.saving = false;
+										 $scope.data.dirty = false;
+										 Utility.statusAlert(status, data);
+									 }
+			);
 		};
-		$scope.setResourceAlignments = function () {
+		$scope.initialize = function () {
 			if (!Utility.empty($scope.data.resource) && !Utility.empty($scope.data.currentInstrument)) {
 				$scope.data.alignments = {};
 				for (var z = 0; z < $scope.data.currentInstrument.questions.length; z++) {
@@ -99,7 +106,7 @@ angular.module('ResourceControllers', [])
 				if (!Utility.empty($scope.data.resource) && !Utility.empty($scope.data.resource.alignments) && $scope.data.resource.alignments.length > 0) {
 					for (var i = 0; i < $scope.data.resource.alignments.length; i++) {
 						var alignment = $scope.data.resource.alignments[i];
-						$scope.data.alignments[alignment.questionId] = alignment.wt;
+						$scope.data.alignments[alignment.qi] = alignment.wt;
 					}
 				}
 			}
@@ -110,10 +117,10 @@ angular.module('ResourceControllers', [])
 				if (!Utility.empty(resourceId)) {
 					$scope.data.resource = Utility.findObjectById($scope.data.resources, resourceId);
 					$scope.data.resource.location = 'modules/' + $scope.data.resource.nmb.toLowerCase() + '.html';
-					$scope.setResourceAlignments();
+					$scope.initialize();
 				}
 			}
-			$scope.setResourceAlignments();
+			$scope.initialize();
 		};
 		$scope.setOutcomeAlignments = function () {
 			if (!Utility.empty($scope.data.outcome) && !Utility.empty($scope.data.currentInstrument)) {
@@ -134,7 +141,7 @@ angular.module('ResourceControllers', [])
 			if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
 				$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
 				$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
-				$scope.setResourceAlignments();
+				$scope.initialize();
 				$scope.setOutcomeAlignments();
 			}
 		};

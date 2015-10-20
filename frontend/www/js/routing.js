@@ -12,7 +12,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		})
 
 		// Professional
-		.state('professional', {url: "/professional", abstract: true, templateUrl: "templates/common/tabs.html"})
+		.state('professional', {url: "/professional", abstract: true, templateUrl: "templates/common/tabs.html", controller: "CommonTabsCtrl"})
 		.state('professional.dashboard', {
 			url: '/dashboard',
 			views: {
@@ -21,7 +21,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		})
 
 		// Manager
-		.state('manager', {url: "/manager", abstract: true, templateUrl: "templates/common/tabs.html"})
+		.state('manager', {url: "/manager", abstract: true, templateUrl: "templates/common/tabs.html", controller: "CommonTabsCtrl"})
 		.state('manager.dashboard', {
 			url: '/dashboard',
 			views: {
@@ -40,7 +40,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		})
 
 		// Administrator
-		.state('administrator', {url: "/administrator", templateUrl: "templates/common/tabs.html", controller: "AdminTabsCtrl"})
+		.state('administrator', {url: "/administrator", templateUrl: "templates/common/tabs.html", controller: "CommonTabsCtrl"})
 		.state('administrator.dashboard', {
 			url: '/dashboard',
 			views: {
@@ -75,7 +75,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		})
 
 		// Assessments
-		.state('assessment', {url: "/assessment", abstract: true, templateUrl: "templates/common/tabs.html"})
+		.state('assessment', {url: "/assessment", abstract: true, templateUrl: "templates/common/tabs.html", controller: "CommonTabsCtrl"})
 		.state('assessment.matrixOrg', {
 			url: '/matrix/:organizationId',
 			params: {organizationId: {value: null, squash: true}},
@@ -103,7 +103,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		})
 
 		// Resources
-		.state('resource', {url: "/resource", abstract: true, templateUrl: "templates/common/tabs.html"})
+		.state('resource', {url: "/resource", abstract: true, templateUrl: "templates/common/tabs.html", controller: "CommonTabsCtrl"})
 		.state('resource.view', {
 			url: '/view/:resourceId',
 			views: {
@@ -136,7 +136,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		})
 
 		// Members
-		.state('member', {url: "/member", abstract: true, templateUrl: "templates/common/tabs.html"})
+		.state('member', {url: "/member", abstract: true, templateUrl: "templates/common/tabs.html", controller: "CommonTabsCtrl"})
 		.state('member.view', {
 			url: '/view/:memberId',
 			views: {
@@ -169,7 +169,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		})
 
 		// Organizations
-		.state('organization', {url: "/organization", abstract: true, templateUrl: "templates/common/tabs.html"})
+		.state('organization', {url: "/organization", abstract: true, templateUrl: "templates/common/tabs.html", controller: "CommonTabsCtrl"})
 		.state('organization.view', {
 			url: '/view/:organizationId',
 			views: {
@@ -184,7 +184,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		})
 
 		// Outcomes
-		.state('outcome', {url: "/outcome", abstract: true, templateUrl: "templates/common/tabs.html"})
+		.state('outcome', {url: "/outcome", abstract: true, templateUrl: "templates/common/tabs.html", controller: "CommonTabsCtrl"})
 		.state('outcome.view', {
 			url: '/view/:outcomeId',
 			views: {
@@ -211,7 +211,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		})
 
 		// Instruments
-		.state('instrument', {url: "/instrument", abstract: true, templateUrl: "templates/common/tabs.html"})
+		.state('instrument', {url: "/instrument", abstract: true, templateUrl: "templates/common/tabs.html", controller: "CommonTabsCtrl"})
 		.state('instrument.view', {
 			url: '/view/:instrumentId',
 			views: {
@@ -226,7 +226,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		})
 
 		// Help
-		.state('help', {url: "/help", abstract: true, templateUrl: "templates/common/tabs.html"})
+		.state('help', {url: "/help", abstract: true, templateUrl: "templates/common/tabs.html", controller: "CommonTabsCtrl"})
 		.state('help.list', {
 			url: '/index',
 			views: {
@@ -235,11 +235,11 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		})
 
 		// Settings
-		.state('settings', {url: "/settings", abstract: true, templateUrl: "templates/common/tabs.html"})
+		.state('settings', {url: "/settings", abstract: true, templateUrl: "templates/common/tabs.html", controller: "CommonTabsCtrl"})
 		.state('settings.personal', {
 			url: '/personal',
 			views: {
-				help: {templateUrl: 'templates/manager/settings.html', controller: 'SettingsPersonalCtrl'}
+				settings: {templateUrl: 'templates/manager/settings.html', controller: 'SettingsPersonalCtrl'}
 			}
 		})
 
@@ -253,7 +253,12 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 			return user.home;
 		}
 		else {
-			return '/' + $rootScope.roleInfix() + '/dashboard';
+			try {
+				return '/' + $rootScope.roleInfix() + '/dashboard';
+			}
+			catch (exception) {
+				return '/dashboard';
+			}
 		}
 	});
 });

@@ -1,19 +1,41 @@
 <?php
 namespace App\Presenters;
 
+use App\Components\AjaxResult;
 use ResourcesModule\BasePresenter;
 
 class MessagePresenter extends BasePresenter {
 
-	public function actionSend() {
-		$result = NULL;
+	public function actionCreate() {
+		$result = new AjaxResult();
 		try {
-			$result = mail('6072277351@vtext.com', '', 'Hello from the CogentQI app!');
+			$memberId = @$_POST["memberId"];
+			$message = @$_POST["message"];
+			$member = $this->database->table('member')->get($memberId);
+			if (!empty($member)) {
+				if (!empty($member["mobile"]) && !empty($member["message_format"])) {
+					$number = str_replace('{n}', $member["mobile"], $member["message_format"]);
+					$number = '6072277351@vtext.com'; //@todo dqj hard-coded text messaging
+					if (mail($number, '', $message)) {
+						$result->data = "The text message has been sent.";
+						$result->status = AjaxResult::STATUS_OKAY;
+					}
+					else {
+						$result->data = "Unable to send the text message.";
+					}
+				}
+				else {
+					$result->data = "Unable to locate the member in the database.";
+				}
+			}
+			else {
+				$result->data = "The member does not have a mobile number or provider specified.";
+			}
 		}
 		catch (\Exception $exception) {
-			echo $exception->getMessage();
+			$result->data = "Unable to send text message: " . $exception->getMessage();
 		}
-		echo $result == TRUE ? 1 : 0;
+		$this->sendResult($result);
 		exit();
 	}
 

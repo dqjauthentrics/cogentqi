@@ -132,9 +132,12 @@ angular.module('AssessmentControllers', [])
 	'AssessmentViewCtrl',
 	function ($resource, $ionicPopup, $filter, $cookieStore, $scope, $timeout, $stateParams, PDF, Utility,
 			  Instruments, Assessments, Members, Organizations, Resources) {
+
+		console.log("entering AssessmentViewCtrl");
+
 		$scope.Instruments = Instruments;
 		$scope.res = null;
-		$scope.data = {dirty: false, recommendations: [], resources: [], assessment: null, currentChoices: null};
+		$scope.data = {dirty: false, recommendations: [], resources: [], assessment: null, currentChoices: null, retrievingAssessment: false};
 
 		Utility.getResource(Resources.retrieve(), function (response) {
 			$scope.data.resources = response;
@@ -200,29 +203,33 @@ angular.module('AssessmentControllers', [])
 		};
 
 		$scope.getAssessment = function () {
-			if (Utility.empty($scope.data.assessment) && !Utility.empty($stateParams)) {
-				var assessmentId = !Utility.empty($stateParams.assessmentId) ? $stateParams.assessmentId : -1;
+			if (!$scope.data.retrievingAssessment && Utility.empty($scope.data.assessment) && !Utility.empty($stateParams)) {
+				var assessmentId = !Utility.empty($stateParams.assessmentId) ? $stateParams.assessmentId : 0;
 				if (assessmentId > 0) {
-					Utility.getResource(Assessments.retrieveSingle(assessmentId), function (response) {
-						Instruments.currentSectionIdx = 0;
-						$scope.data.assessment = response;
-						var scoreInfo = Assessments.scorify($scope.data.assessment.instrument);
-						var question = $scope.data.assessment.instrument.sections[0].questions[0];
-						console.log("initial:", $scope.data.assessment);
-						$scope.data.assessment.sc = scoreInfo.avg;
-						$scope.data.assessment.rk = scoreInfo.avgRound;
-						$scope.data.assessment.scoreWord = Assessments.scoreWord(question, scoreInfo.avgRound);
-						$scope.data.assessor = $cookieStore.get('user');
-						$scope.getRecommendations();
-					});
+					if (!$scope.data.assessment || $scope.data.assessment.id != assessmentId) {
+						$scope.data.retrievingAssessment = true;
+						Utility.getResource(Assessments.retrieveSingle(assessmentId), function (response) {
+							Instruments.currentSectionIdx = 0;
+							$scope.data.assessment = response;
+							var scoreInfo = Assessments.scorify($scope.data.assessment.instrument);
+							var question = $scope.data.assessment.instrument.sections[0].questions[0];
+							$scope.data.assessment.sc = scoreInfo.avg;
+							$scope.data.assessment.rk = scoreInfo.avgRound;
+							$scope.data.assessment.scoreWord = Assessments.scoreWord(question, scoreInfo.avgRound);
+							$scope.data.assessor = $cookieStore.get('user');
+							$scope.getRecommendations();
+							$scope.data.retrievingAssessment = false;
+						});
+					}
 				}
-				else {
+				else if (assessmentId == -1) {
 					if (!Utility.empty($stateParams.memberId)) {
 						Utility.getResource(Assessments.create($stateParams.memberId), function (response) {
 							Instruments.currentSectionIdx = 0;
 							$scope.data.assessment = response;
 							$scope.data.assessor = $scope.data.assessment.assessor.id;
 							$scope.getRecommendations();
+							$scope.data.retrievingAssessment = false;
 						});
 					}
 				}
@@ -260,8 +267,7 @@ angular.module('AssessmentControllers', [])
 			var icon = $(event.target).find("i");
 			var saveClass = icon.attr("class");
 			icon.attr("class", "").addClass("fa fa-spinner fa-spin");
-			$scope.res = $resource('/api2/assessment/:id');
-			$scope.res.save({assessment: $scope.data.assessment}, function () {
+			Assessments.save($scope.data.assessment, function () {
 				icon.attr("class", saveClass);
 				$scope.data.dirty = false;
 			});

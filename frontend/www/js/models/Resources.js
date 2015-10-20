@@ -27,17 +27,20 @@ angular.module('Resources', []).service('Resources', function ($resource, $http,
 	};
 
 	svc.saveAlignments = function (instrumentId, resourceId, alignments, callbackFn) {
-		$http({
-			method: 'POST',
-			url: "/api/resource/saveAlignments",
-			data: $.param({instrumentId: instrumentId, resourceId: resourceId, alignments: alignments}),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-			success(function (data, status, headers, config) {
-						callbackFn(1, data);
-					}).
-			error(function (data, status, headers, config) {
-					  callbackFn(0, data);
-				  });
+		try {
+			$http({
+				method: 'PUT',
+				url: "/api2/resource-alignment",
+				data: $.param({instrumentId: instrumentId, resourceId: resourceId, alignments: alignments}),
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).success(function (data, status, headers, config) {
+				callbackFn(data, data);
+			}).error(function (data, status, headers, config) {
+				callbackFn(0, data);
+			});
+		}
+		catch (exception) {
+			callbackFn(0, exception);
+		}
 	}
 });

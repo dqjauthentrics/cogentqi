@@ -15,7 +15,7 @@ angular.module('Organizations', []).service('Organizations', function ($resource
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
 			var orgId = !Utility.empty(organizationId)? organizationId : user.organizationId;
-			return $resource('/api2/organization/' + orgId + '/r/dependents', {}, {});
+			return $resource('/api2/organization/' + orgId + '/r/dependents', {}, {query: {method: 'GET', isArray: true}});
 		}
 		return null;
 	};

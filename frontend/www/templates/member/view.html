@@ -36,7 +36,7 @@
 
                 <div>
                     <div style="float:left; margin: 0.5em; text-align: center;" data-ng-repeat="badge in data.member.badges">
-                        <micro-badge text="badge.title" size="'small'"></micro-badge>
+                        <micro-badge text="badge.ttl" size="'small'"></micro-badge>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -115,6 +115,24 @@
                         <a data-ng-click="sendText(data.member)"><i class="fa fa-mobile fa-2x"></i></a>
                     </span>
                 </div>
+
+                <label for="provider">{{'mobile provider'|translate}}</label>
+
+                <div>
+                    <select id="provider" data-ng-model="data.member.mfm" data-ng-change="setDirty()">
+                        <option value="">-Cannot Receive Texts-</option>
+                        <option value="{n}@txt.att.net">AT&T</option>
+                        <option value="{n}@vtext.com">Verizon</option>
+                        <option value="{n}@tmomail.net">T-Mobile</option>
+                        <option value="{n}@messaging.sprintpcs.com">Sprint PCS</option>
+                        <option value="{n}@vmobl.com">Virgin Mobile</option>
+                        <option value="{n}@email.uscc.net">US Cellular</option>
+                        <option value="{n}@messaging.nextel.com">Nextel</option>
+                        <option value="{n}@myboostmobile.com">Boost</option>
+                        <option value="{n}@message.alltel.com">Alltel</option>
+                    </select>
+                </div>
+
                 <label for="phone">{{'home phone'|translate}}</label>
 
                 <div id="phone" class="phone" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="data.member.ph">

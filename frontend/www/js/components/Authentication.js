@@ -60,17 +60,17 @@ angular.module('Authentication', []).service('Authentication', function ($rootSc
 			case 'password':
 				$http({
 					method: 'POST',
-					url: "/api/authentication",
+					url: "/api2/sign/in",
 					data: $.param({username: email, password: password}),
 					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-				}).success(function (data, status, headers, config) {
-					if (!Utility.empty(data)) {
-						data.home = svc.getUserDashUrl(data);
-					}
-					$cookieStore.put('user', data);
-					$rootScope.user = $cookieStore.get('user');
-					if (!Utility.empty(data)) {
-						successFn($rootScope.user);
+				}).success(function (result, status, headers, config) {
+					if (!Utility.empty(result) && result.status) {
+						result.data.home = svc.getUserDashUrl(result.data);
+						$cookieStore.put('user', result.data);
+						$rootScope.user = $cookieStore.get('user');
+						if (!Utility.empty(result.data)) {
+							successFn($rootScope.user);
+						}
 					}
 					else {
 						failFn('Sorry, but your login credentials were not recognized.');

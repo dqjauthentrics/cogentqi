@@ -9,7 +9,7 @@ use Tracy\Debugger;
 class AjaxException extends \Exception {
 	const ERROR_NOT_FOUND = ['code' => 404, 'message' => "Not found."];
 	const ERROR_NOT_ALLOWED = ['code' => 403, 'message' => "Not allowed."];
-	const ERROR_DATABASE = ['code' => 500, 'message' => "Database error."];
+	const ERROR_FATAL = ['code' => 500, 'message' => "Database error."];
 	const ERROR_INVALID_LOGIN = ['code' => 404, 'message' => "Invalid login credentials"];
 
 	/**
@@ -22,7 +22,7 @@ class AjaxException extends \Exception {
 		}
 		else {
 			if (empty($message)) {
-				$message = $code['message'];
+				$message = @$code['message'];
 			}
 			parent::__construct($message, $code['code'], NULL);
 			if ($code['code'] == 500) {

@@ -2,13 +2,26 @@
 
 angular.module('Assessments', []).service('Assessments', function ($resource, $filter, $http, $cookieStore, Utility, Instruments, Resources, Members) {
 	var svc = this;
-
 	svc.nRankings = 5;
 
 	svc.retrieve = function () {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
 			return $resource('/api2/organization/' + user.organizationId + '/r/assessments', {}, {cache: false});
+		}
+		return null;
+	};
+	svc.save = function (assessment, callbackFn) {
+		var user = $cookieStore.get('user');
+		if (!Utility.empty(user)) {
+			$http.post("/api2/assessment", {assessment: assessment})
+				.then(function (data, status, headers, config) {
+						  console.log("data/status", data, status);
+						  callbackFn(data.status, data.message);
+					  },
+					  function (data, status, headers, config) {
+						  callbackFn(0, data);
+					  });
 		}
 		return null;
 	};

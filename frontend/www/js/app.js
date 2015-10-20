@@ -20,6 +20,7 @@ angular.module('app',
 		'Roles',
 		'Routing',
 		'Icons',
+		'Messages',
 		'PDF',
 		'Instruments',
 		'InstrumentSchedule',
@@ -67,6 +68,7 @@ angular.module('app',
 			$translateProvider.preferredLanguage('en_US');
 		}
 	])
+
 	.constant("APP_ROLES", {
 		"PROFESSIONAL": "professional",
 		"MANAGER": "manager",

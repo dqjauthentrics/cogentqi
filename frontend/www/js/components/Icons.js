@@ -39,7 +39,7 @@ angular.module('Icons', []).service('Icons', function () {
 	this.okay = "fa fa-thumbs-up";
 	this.okayOff = "fa fa-thumbs-o-up";
 	this.outcome = "ion-speedometer";
-	this.organization = "fa fa-institution";
+	this.organization = "fa fa-sitemap";
 	this.pdf = "fa fa-file-pdf-o";
 	this.period = "fa fa-calendar";
 	this.previous = "fa fa-triangle-left";

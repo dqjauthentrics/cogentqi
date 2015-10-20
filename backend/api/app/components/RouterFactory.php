@@ -18,21 +18,10 @@ class RouterFactory {
 	 */
 	public static function createRouter() {
 		$router = new RouteList;
-		$router[] = new Route('<presenter=Sign>/<action=in>/<username>/<password>');
 		$router[] = new Route('assessment/matrix/o/<organizationId>/i/<instrumentId>', 'Assessment:matrix');
 		$router[] = new Route('assessment/report/pbm/o/<organizationId>/i/<instrumentId>[/r/<rollUp>]', 'Assessment:progressByMonth');
 		$router[] = new Route('assessment/report/pbmi/m/<memberId>', 'Assessment:progressByMonthIndividual');
-
 		$router[] = new Route('message/send', 'Message:send');
-		/**
-		 * $router[] = new Route('message/send', [
-		 * 'presenter' => [Route::VALUE => 'Message'],
-		 * 'action'    => [
-		 * IResourceRouter::GET  => 'send',
-		 * IResourceRouter::POST => 'send'
-		 * ]
-		 * ]);
-		 **/
 		$router[] = new CrudRoute('<presenter>[/<id>][/r/<relation>][/m/<mode>]',
 			[
 				'presenter' => [

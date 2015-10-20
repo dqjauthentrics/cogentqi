@@ -37,7 +37,7 @@ class MemberPresenter extends BasePresenter {
 				}
 				$jsonRec = [];
 				foreach ($members as $member) {
-					$jsonRec = Member::map($this->database, $member, $mode);
+					$jsonRec[] = Member::map($this->database, $member, $mode);
 				}
 			}
 			$this->sendResult($jsonRec);
