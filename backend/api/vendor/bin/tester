@@ -1,1 +1,4 @@
-../nette/tester/src/tester
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/tester.php';
