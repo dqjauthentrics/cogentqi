@@ -1,5 +1,6 @@
 <?php
 require dirname(__DIR__) . '/vendor/autoload.php';
+require_once(dirname(__DIR__).'/vendor/drahak/restful/src/Drahak/Restful/DI/RestfulExtension.php');
 $server = @$_SERVER["SERVER_NAME"];
 $parts = @explode(".", $server);
 $infix = @$parts[0];
