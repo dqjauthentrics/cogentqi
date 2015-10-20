@@ -2,7 +2,7 @@ parameters:
 
 
 database:
-    dsn: 'mysql:host=localhost;dbname=cogentqi_v1_healthcare'
+    dsn: 'mysql:host=localhost;dbname=cogentqi_v1_test'
     user: 'cogentqiapp'
     password: 'cogentqi42app'
     options:      [PDO::MYSQL_ATTR_COMPRESS = true, lazy = yes]
