@@ -40,6 +40,10 @@ class Assessment extends BaseModel {
 			switch ($mode) {
 				case BasePresenter::MODE_LISTING:
 					$map = parent::mapColumns($database, $assessment, self::$mappedColumns);
+					$instrument = $assessment->ref('instrument');
+					$schedule = $assessment->ref('instrument_schedule');
+					$map['instrument'] = $database->map($instrument);
+					$map['schedule'] = $database->map($schedule);
 					break;
 				default:
 					$map = self::full($database, $assessment);
@@ -76,7 +80,9 @@ class Assessment extends BaseModel {
 		if (!empty($assessment)) {
 			/** @var IRow $instrument */
 			$instrument = $assessment->ref('instrument');
+			$schedule = $assessment->ref('instrument_schedule');
 			$map['instrument'] = $database->map($instrument);
+			$map['schedule'] = $database->map($schedule);
 			$responses = $assessment->related('assessment_response');
 			foreach ($responses as $response) {
 				$questionId = $response["question_id"];

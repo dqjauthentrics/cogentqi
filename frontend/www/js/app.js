@@ -183,7 +183,6 @@ angular.module('app',
 				 };
 
 				 $rootScope.isAdministrator = function () {
-					 console.log("isAdministrator:", $rootScope.roleInfix() == APP_ROLES.ADMINISTRATOR);
 					 return $rootScope.roleInfix() == APP_ROLES.ADMINISTRATOR;
 				 };
 				 $rootScope.isManager = function () {

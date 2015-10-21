@@ -120,7 +120,7 @@ class BasePresenter extends ResourcePresenter {
 	 * @throws \Nette\Application\ForbiddenRequestException
 	 */
 	public function checkRequirements($element) {
-		if (!$this->user->isAllowed($this->presenter->name, $this->action)) {
+		if (get_class($this) !== "App\Presenters\SignPresenter" && !$this->user->isAllowed($this->presenter->name, $this->action)) {
 			throw new AjaxException(AjaxException::ERROR_NOT_ALLOWED);
 		}
 		parent::checkRequirements($element);

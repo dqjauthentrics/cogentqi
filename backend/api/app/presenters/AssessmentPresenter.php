@@ -2,7 +2,6 @@
 namespace App\Presenters;
 
 use App\Components\AjaxResult,
-	App\Components\DbContext,
 	ResourcesModule\BasePresenter,
 	App\Model,
 	App\Model\Assessment,

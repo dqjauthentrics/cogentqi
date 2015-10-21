@@ -19,6 +19,12 @@ class Member extends BaseModel {
 		if (empty($mapped)) {
 			$mappped = NULL;
 		}
+		else {
+			$instrument = $lastAssessment->ref('instrument');
+			$schedule = $lastAssessment->ref('instrument_schedule');
+			$mapped['instrument'] = $database->map($instrument);
+			$mapped['schedule'] = $database->map($schedule);
+		}
 		return $mapped;
 	}
 

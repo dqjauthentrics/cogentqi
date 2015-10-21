@@ -1,0 +1,12 @@
+parameters:
+
+
+database:
+    dsn: 'mysql:host=localhost;dbname=cogentqi_v1_pharmacy'
+    user: 'cogentqiapp'
+    password: 'cogentqi42app'
+    options:      [PDO::MYSQL_ATTR_COMPRESS = true, lazy = yes]
+    debugger:     true        # debugger bar panel
+    explain:      true        # explain queries in debugger bar
+    conventions:  discovered  # or static or name of your class, default is discovered
+    autowired:    true

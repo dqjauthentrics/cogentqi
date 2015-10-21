@@ -1,4 +1,4 @@
-<ion-view view-title='Help' |translate>
+<ion-view view-title="Help">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true" class="help">
@@ -6,7 +6,9 @@
             <ion-item class="top">
                 <list-searcher></list-searcher>
             </ion-item>
-            <ion-item class="item-icon-right" data-ng-repeat="item in filtered = (data.items|filter:data.searchFilter)" href="#/help/view/{{item.id}}">
+            <ion-item class="item-icon-right" data-ng-repeat="item in filtered = (data.items|filter:data.searchFilter)"
+                      href="#/help/view/{{item.id}}"
+            >
                 <div class="name">{{item.title}}</div>
                 <div class="teaser">{{item.teaser}}</div>
                 <i class="icon ion-chevron-right icon-accessory"></i>

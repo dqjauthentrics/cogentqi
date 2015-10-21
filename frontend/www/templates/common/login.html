@@ -1,7 +1,7 @@
-<ion-view title="cogentQI Login">
+<ion-view title="{{installation.name}} Login">
     <ion-content class="padding" scroll="false" has-bouncing="false">
-        <div class="row responsive-lg">
-            <div class="col col-25 padding" data-ng-class="installation.social? 'card':''">
+        <div class="row responsive-sm">
+            <div class="col padding" data-ng-class="installation.social? 'card':''">
                 <div class="item item-text-wrap" data-ng-if="installation.social">
                     <div class="item item-divider">
                         Sign in with one of the following social media sites:
@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col padding card" id="loginPanel">
+            <div class="col col-80 padding card" id="loginPanel">
                 <div class="item item-text-wrap" style="background-color: #DDD !important;">
                     <div class="item item-divider">
                         Sign in with your {{installation.name}} credentials:
@@ -42,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col col-25 padding" data-ng-class="installation.register? 'card':''">
+            <div class="col padding" data-ng-class="installation.register? 'card':''">
                 <div class="item item-text-wrap" data-ng-if="installation.register">
                     <div class="item item-divider">
                         Don't have an account yet?

@@ -61,6 +61,11 @@ class SignPresenter extends BasePresenter {
 		$this->sendResult($result);
 	}
 
+	public function actionOut() {
+		$this->getUser()->logout();
+		$this->sendResult(["msg" => "logged out"]);
+	}
+
 	/**
 	 *
 	 */
