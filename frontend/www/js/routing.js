@@ -30,14 +30,6 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 				}
 			}
 		})
-		.state('manager.settings', {
-			url: '/settings',
-			views: {
-				settings: {
-					templateUrl: 'templates/settings/personal.html', controller: 'SettingsPersonalCtrl'
-				}
-			}
-		})
 
 		// Administrator
 		.state('administrator', {url: "/administrator", templateUrl: "templates/common/tabs.html", controller: "CommonTabsCtrl"})
@@ -65,7 +57,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 				settings: {templateUrl: 'templates/administrator/progress.html', controller: 'AdminProgressCtrl'}
 			}
 		})
-		.state('administrator.settings', {
+		.state('administrator.configuration', {
 			url: '/configuration',
 			views: {
 				settings: {
@@ -107,13 +99,13 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('resource.view', {
 			url: '/view/:resourceId',
 			views: {
-				resources: {templateUrl: 'templates/resource/view.html', controller: 'ResourceCtrl'}
+				resources: {templateUrl: 'templates/resource/view.html', controller: 'ResourceViewCtrl'}
 			}
 		})
 		.state('resource.list', {
 			url: '/list',
 			views: {
-				resources: {templateUrl: 'templates/resource/list.html', controller: 'ResourceCtrl'}
+				resources: {templateUrl: 'templates/resource/list.html', controller: 'ResourceListCtrl'}
 			}
 		})
 		.state('resource.edit', {
@@ -191,10 +183,10 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 				outcomes: {templateUrl: 'templates/outcome/view.html', controller: 'OutcomeViewCtrl'}
 			}
 		})
-		.state('outcome.list', {
-			url: '/list',
+		.state('outcome.organization', {
+			url: '/organization',
 			views: {
-				outcomes: {templateUrl: 'templates/outcome/outcomes.html', controller: 'OutcomeListCtrl'}
+				outcomes: {templateUrl: 'templates/outcome/organizationOutcomes.html', controller: 'OutcomeOrganizationCtrl'}
 			}
 		})
 		.state('outcome.alignments', {
@@ -230,7 +222,13 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('help.list', {
 			url: '/index',
 			views: {
-				help: {templateUrl: 'templates/help/index.html', controller: 'HelpIndexCtrl'}
+				help: {templateUrl: 'templates/help/index.html', controller: 'HelpCtrl'}
+			}
+		})
+		.state('help.view', {
+			url: '/view/:helpId',
+			views: {
+				help: {templateUrl: 'templates/help/view.html', controller: 'HelpCtrl'}
 			}
 		})
 
@@ -239,7 +237,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('settings.personal', {
 			url: '/personal',
 			views: {
-				settings: {templateUrl: 'templates/manager/settings.html', controller: 'SettingsPersonalCtrl'}
+				settings: {templateUrl: 'templates/common/settings.html', controller: 'SettingsPersonalCtrl'}
 			}
 		})
 

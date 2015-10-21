@@ -5,24 +5,33 @@ angular.module('AssessmentControllers', [])
 	.controller(
 	'AssessmentListCtrl',
 	function ($rootScope, $scope, $stateParams, Utility, Assessments, Members, Instruments) {
-		$scope.data = {members: [], assessments: [], instruments: []};
+		$scope.data = {isLoading: true, searchFilter: null, members: [], assessments: [], instruments: []};
 
-		Utility.getResource(Instruments.retrieve(), function (response) {
-			$scope.data.instruments = response;
-			$scope.getAssessments();
-		});
+		if (Utility.empty($scope.data.instruments)) {
+			Utility.getResource(Instruments.retrieve(), function (response) {
+				$scope.data.instruments = response;
+				$scope.getAssessments();
+			});
+		}
 
-		$scope.getResources = function () {
-			Utility.getResource(Members.retrieve(), function (response) {
-				$scope.data.members = response;
-				Assessments.associateMembers($scope.data.assessments, $scope.data.members);
-			});
-		};
-		$scope.getAssessments = function () {
-			Utility.getResource(Assessments.retrieve(), function (response) {
-				$scope.data.assessments = response;
-			});
-		};
+		if (Utility.empty($scope.data.members)) {
+			$scope.getResources = function () {
+				Utility.getResource(Members.retrieve(), function (response) {
+					$scope.data.members = response;
+					Assessments.associateMembers($scope.data.assessments, $scope.data.members);
+				});
+			};
+		}
+
+		if (Utility.empty($scope.data.assessments)) {
+			$scope.getAssessments = function () {
+				Utility.getResource(Assessments.retrieve(), function (response) {
+					$scope.data.assessments = response;
+					$scope.data.isLoading = false;
+				});
+			};
+		}
+
 		$scope.assessmentName = function (instrumentId) {
 			var instrument = null;
 			if (!Utility.empty($scope.data.instruments)) {
@@ -34,6 +43,11 @@ angular.module('AssessmentControllers', [])
 			}
 			return instrument;
 		};
+		$scope.assessmentFilter = function (assessment) {
+			return Members.filterer(assessment.member, $scope.data.searchFilter) ||
+				Members.filterer(assessment.assessor, $scope.data.searchFilter)
+				;
+		}
 	})
 
 	.controller(

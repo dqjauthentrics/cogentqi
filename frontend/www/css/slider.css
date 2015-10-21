@@ -34,6 +34,51 @@ slider {
     color: #FFF;
 }
 
+.outcomeLevel {
+    border: 1px solid #999;
+    border-radius: 0.3em;
+    font-size: 0.9em;
+    font-weight: normal;
+    padding: 0.4em;
+    margin: 0.4em;
+}
+
+.outcomeLevel0 {
+    color: gray !important;
+}
+
+.outcomeLevel1 {
+    color: orange !important;
+}
+
+.outcomeLevel2 {
+    color: #68A !important;
+}
+
+.outcomeLevel3 {
+    color: darkgreen !important;
+}
+
+.outcomeLevelBg0 {
+    background: gray;
+    color: #FFF;
+}
+
+.outcomeLevelBg1 {
+    background: orange;
+    color: #FFF;
+}
+
+.outcomeLevelBg2 {
+    background: #68A;
+    color: #FFF;
+}
+
+.outcomeLevelBg3 {
+    background: darkgreen;
+    color: #FFF;
+}
+
 .rubric0 {
     background: gray;
     color: #FFF;

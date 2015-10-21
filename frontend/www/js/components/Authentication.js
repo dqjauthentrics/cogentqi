@@ -11,9 +11,9 @@ angular.module('Authentication', []).service('Authentication', function ($rootSc
 			data: $.param({username: username, password: password}),
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		}).success(function (data, status, headers, config) {
-			console.log("api2 login succeeded", data);
+			//console.log("api2 login succeeded", data);
 		}).error(function (data, status, headers, config) {
-			console.log("api2 login failed");
+			//console.log("api2 login failed");
 		});
 	};
 

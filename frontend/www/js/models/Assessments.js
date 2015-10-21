@@ -16,7 +16,6 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		if (!Utility.empty(user)) {
 			$http.post("/api2/assessment", {assessment: assessment})
 				.then(function (data, status, headers, config) {
-						  console.log("data/status", data, status);
 						  callbackFn(data.status, data.message);
 					  },
 					  function (data, status, headers, config) {
@@ -71,7 +70,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 	svc.retrieveProgressByMonth = function (instrumentId, isRollUp) {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(instrumentId) && !Utility.empty(user) && !Utility.empty(user.organizationId)) {
-			return $resource('/api2/assessment/report/pbm/o/' + user.organizationId + '/i/' + instrumentId + +(isRollUp ? '/r/rollup/' : ''),
+			return $resource('/api2/assessment/report/pbm/o/' + user.organizationId + '/i/' + instrumentId + (isRollUp ? '/r/rollup/' : ''),
 				{}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;
@@ -278,7 +277,6 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 			var pos = rubricBox.position();
 			var pointer = slider.find(".pointer");
 			pointer.css({left: 100});
-			console.log("rubric:", pointer, pos, rubricBox.width());
 		}
 		return {avg: avg, avgRound: avgRound};
 	};
@@ -342,7 +340,6 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 					var response = parseInt(matrix[i].responses[j][0]);
 					if (matrix[i].typeName == null) {
 						matrix[i].typeName = matrix[i].responses[j][1];
-						console.log(matrix[i].typeName);
 					}
 					else if (matrix[i].typeName !== 'MIXED' && matrix[i].typeName !== matrix[i].responses[j][1]) {
 						matrix[i].typeName = 'MIXED';

@@ -72,7 +72,6 @@ angular.module('ControllerAdministrator', [])
 		};
 		$scope.setDetail = function (item) {
 			item.showDetail = !item.showDetail;
-			console.log(item.showDetail);
 		};
 		$scope.showDetail = function (item) {
 			return !!item.showDetail;

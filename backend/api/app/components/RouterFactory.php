@@ -18,6 +18,7 @@ class RouterFactory {
 	 */
 	public static function createRouter() {
 		$router = new RouteList;
+		$router[] = new Route('sign/in/u/<username>/p/<password>', 'Sign:debug');
 		$router[] = new Route('assessment/matrix/o/<organizationId>/i/<instrumentId>', 'Assessment:matrix');
 		$router[] = new Route('assessment/report/pbm/o/<organizationId>/i/<instrumentId>[/r/<rollUp>]', 'Assessment:progressByMonth');
 		$router[] = new Route('assessment/report/pbmi/m/<memberId>', 'Assessment:progressByMonthIndividual');

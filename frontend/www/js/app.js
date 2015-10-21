@@ -169,7 +169,7 @@ angular.module('app',
 					 var infix = APP_ROLES.PROFESSIONAL;
 					 var user = $cookieStore.get('user');
 					 if (user !== undefined && user !== null) {
-						 switch (user.roleId) {
+						 switch (user.appRole) {
 							 case 'A':
 								 infix = APP_ROLES.ADMINISTRATOR;
 								 break;
@@ -178,10 +178,12 @@ angular.module('app',
 								 break;
 						 }
 					 }
+					 //console.log("roleInfix:", user, infix);
 					 return infix;
 				 };
 
 				 $rootScope.isAdministrator = function () {
+					 console.log("isAdministrator:", $rootScope.roleInfix() == APP_ROLES.ADMINISTRATOR);
 					 return $rootScope.roleInfix() == APP_ROLES.ADMINISTRATOR;
 				 };
 				 $rootScope.isManager = function () {
@@ -194,11 +196,9 @@ angular.module('app',
 				 $rootScope.roleView = function (urlPortion) {
 					 var infix = $rootScope.roleInfix();
 					 var url = '#/' + infix + '/' + urlPortion;
-					 console.log('URL:', url);
 					 return url;
 				 };
 				 $rootScope.setDirty = function () {
-					 console.log("dirty");
 					 $rootScope.dirty = true;
 				 };
 				 $rootScope.isDirty = function () {

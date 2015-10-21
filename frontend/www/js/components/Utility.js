@@ -124,6 +124,28 @@ angular.module('Utility', []).factory('Utility', [
 				// Shift back
 				value = value.toString().split('e');
 				return +(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp));
+			},
+			exists: function (url, yesFn, noFn) {
+				try {
+					$.ajax({
+						type: 'GET',
+						url: '/api2/exists.php?f=' + url,
+						success: function (data) {
+							if (data == 1) {
+								yesFn();
+							}
+							else {
+								noFn();
+							}
+						},
+						error: function () {
+							noFn();
+						}
+					});
+				}
+				catch (exception) {
+					noFn();
+				}
 			}
 		}
 	}

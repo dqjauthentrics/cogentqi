@@ -501,7 +501,7 @@ table.cycle {
     width: 3em;
 }
 
-.levelBadge, .outcomeLevel {
+.levelBadge {
     padding: 0.4em;
     border-radius: 0.3em;
     font-size: 0.8em !important;
@@ -513,11 +513,6 @@ table.cycle {
     margin: 0.4em;
     max-width: 50vmin;
     white-space: normal !important;
-}
-
-.outcomeLevel {
-    border: 1px solid darkslategray;
-    border-radius: 0.5em;
 }
 
 .level {
@@ -561,25 +556,6 @@ table.cycle {
 
 .yesNoColor2, .yesNoColor2:hover {
     color: #008000;
-}
-
-.outcomeLevelBg {
-}
-
-.outcomeLevelBg0 {
-    background: #AAA !important;
-}
-
-.outcomeLevelBg1 {
-    background: red !important;
-}
-
-.outcomeLevelBg2 {
-    background: gold !important;
-}
-
-.outcomeLevelBg3 {
-    background: green !important;
 }
 
 .levelBg0 {
@@ -650,10 +626,10 @@ outcome-level-tag {
 }
 
 .circleNumber {
-    font-size: 2vmin;
-    padding: 0.8vmin 1.3vmin;
+    font-size: 1.4em;
+    padding: 0.8em 1.3em;
     border: none;
-    border-radius: 5vmin;
+    border-radius: 5em;
     float: left;
     margin: 0 0.5em 0.5em 0;
 }
@@ -678,60 +654,6 @@ outcome-level-tag {
 
 .average .matrixCircle {
     font-style: normal !important;
-}
-
-.outcomeLevelBg0 {
-    background: #EEE;
-    color: #FFF;
-}
-
-.outcomeLevelBg1 {
-    background: #BBB;
-    color: #444;
-}
-
-.outcomeLevelBg2 {
-    background: #999;
-    color: #444;
-}
-
-.outcomeLevelBg3 {
-    background: #666;
-    color: #FFF;
-}
-
-.outcomeLevelBg4 {
-    background: #333;
-    color: #FFF;
-}
-
-.outcomeLevelBg5 {
-    background: #000;
-    color: #FFF;
-}
-
-.outcomeLevelText0 {
-    color: #EEE;
-}
-
-.outcomeLevelText1 {
-    color: #BBB;
-}
-
-.outcomeLevelText2 {
-    color: #999;
-}
-
-.outcomeLevelText3 {
-    color: #666;
-}
-
-.outcomeLevelText4 {
-    color: #333;
-}
-
-.outcomeLevelText5 {
-    color: #000;
 }
 
 .border0 {
@@ -1527,4 +1449,58 @@ table.perms th:nth-child(1) {
     background: #F5F8FF;
     border: 1px solid #999;
     padding: 0.2em;
+}
+
+.outcomeItemTable {
+    display: table;
+    width: 100%;
+}
+
+.outcomeItemTable > div {
+    display: table-row;
+    vertical-align: top;
+}
+
+.outcomeItemTable > div > div {
+    display: table-cell;
+    padding: 0 0.4em;
+    vertical-align: top;
+}
+
+.outcomeItemTable .rubric {
+    padding: 0.3em;
+    border-radius: 4px;
+}
+
+.outcomeItemTable .range {
+    background: #999 !important;
+}
+
+.outcomeItemTable .range.disabled {
+    background: transparent !important;
+    border: none;
+    outline: none;
+    opacity: 0.5;
+}
+
+.outcomeItemTable .range > div > span.phrase {
+    color: #FFF !important;
+}
+
+.outcomeItemTable .outcomeMethod {
+    font-size: 0.8em;
+    color: gray;
+    font-style: italic;
+    margin-top: 1em;
+}
+
+input[type="search"] {
+    padding: 0.1em 1em;
+    width: 16em;
+}
+
+.itemCount {
+    margin: 0 1em;
+    float: right;
+    color: #000;
 }

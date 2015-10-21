@@ -1,0 +1,30 @@
+<div class="outcomeItemTable">
+    <div>
+        <div>
+            <span class="outcomeLevel{{data.levels[$index]}}"><i class="{{i.outcome}} fa-lg fa-2x"></i></span>
+        </div>
+        <div class="name">
+            {{outcome.nmb}} {{outcome.n}}
+            <div class="summary">{{outcome.sm}}</div>
+            <div class="rubricWrap">
+                <div class="outcomeLevel outcomeLevelBg{{data.levels[$index]}}">
+                    {{getRubric(data.levels[$index])|translate}}
+                </div>
+            </div>
+            <div class="outcomeMethod" data-ng-bind="methodMessage(outcome.mth)|translate"></div>
+        </div>
+        <div style="width:25%;">
+            <div class="outcomeLevel{{data.levels[$index]}} phrase">{{outcomeLevelPhrase(data.levels[$index])|translate}}</div>
+            <div id="range{{outcome.id}}"
+                 class="item range {{getBarColor(outcome, data.currentOrg)}} {{outcome.mth == 'D'? 'disabled':''}}">
+                <input type="range" name="outcomeLevel" min="0" max="3" data-ng-bind="data.levels[$index]"
+                       data-ng-model="data.levels[$index]" data-ng-change="getBarColor(outcome, data.currentOrg)"
+                       data-ng-disabled="outcome.mth =='D'"
+                        />
+
+                <div class="clearfix"></div>
+                <div><span class="phrase outcomeLevel{{data.levels[$index]}}">{{data.levels[$index]|translate}}</span></div>
+            </div>
+        </div>
+    </div>
+</div>

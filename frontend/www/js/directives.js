@@ -13,26 +13,22 @@ angular.module('app')
 				   }
 			   })
 
-	.directive('headerButtons', function () {
-				   return {restrict: 'E', templateUrl: 'templates/_headerButtons.html'};
-			   })
-
 	.directive('dashboardCycle', function () {
 				   return {
 					   restrict: 'E',
-					   templateUrl: '../templates/common/dashboardCycle.html'
+					   templateUrl: '../templates/common/_dashboardCycle.html'
 				   };
 			   })
 
 	.directive('avatar', function () {
 				   return {
-					   restrict: 'E', templateUrl: '../templates/common/avatar.html',
+					   restrict: 'E', templateUrl: '../templates/common/_avatar.html',
 					   scope: {site: '=', memberId: '=', level: '=', alt: '=', sz: '='}
 				   };
 			   })
 
 	.directive('memberItem', function () {
-				   return {restrict: 'E', templateUrl: '../templates/common/memberItem.html'};
+				   return {restrict: 'E', templateUrl: '../templates/common/_memberItem.html'};
 			   })
 
 	.directive('assessmentItem', function () {
@@ -45,7 +41,7 @@ angular.module('app')
 	.directive('assessmentList', function () {
 				   return {
 					   restrict: 'E',
-					   templateUrl: '../templates/common/assessmentList.html',
+					   templateUrl: '../templates/common/_assessmentList.html',
 					   scope: {i: '=', assessments: '=', showMember: '=', site: '='}
 				   };
 			   })
@@ -53,7 +49,7 @@ angular.module('app')
 	.directive('assessmentResponse', function () {
 				   return {
 					   restrict: 'E',
-					   templateUrl: '../templates/assessment/_response.html',
+					   templateUrl: '../templates/assessment/_response.html'
 				   };
 			   })
 
@@ -84,30 +80,48 @@ angular.module('app')
 	.directive('levelTag', function () {
 				   return {
 					   restrict: 'E',
-					   templateUrl: '../templates/common/levelTag.html',
+					   templateUrl: '../templates/common/_levelTag.html',
 					   scope: {text: '=', level: '=', icon: '='}
+				   };
+			   })
+	.directive('listSearcher', function () {
+				   return {
+					   restrict: 'E',
+					   templateUrl: '../templates/common/_listSearcher.html'
+				   };
+			   })
+	.directive('headerNavigation', function () {
+				   return {
+					   restrict: 'E',
+					   templateUrl: '../templates/common/_headerNavigation.html'
 				   };
 			   })
 
 	.directive('outcomeLevelTag', function () {
 				   return {
 					   restrict: 'E',
-					   templateUrl: '../templates/common/outcomeLevelTag.html',
+					   templateUrl: '../templates/common/_outcomeLevelTag.html',
 					   scope: {text: '=', level: '=', icon: '='}
+				   };
+			   })
+	.directive('outcomeItemTable', function () {
+				   return {
+					   restrict: 'E',
+					   templateUrl: '../templates/outcome/_itemTable.html'
 				   };
 			   })
 
 	.directive('scheduleTable', function () {
 				   return {
 					   restrict: 'E',
-					   templateUrl: '../templates/administrator/_scheduleTable.html',
+					   templateUrl: '../templates/administrator/_scheduleTable.html'
 				   };
 			   })
 
 	.directive('microBadge', function () {
 				   return {
 					   restrict: 'E',
-					   templateUrl: '../templates/common/microBadge.html',
+					   templateUrl: '../templates/common/_microBadge.html',
 					   scope: {text: '=', size: '='}
 				   };
 			   })
@@ -116,7 +130,7 @@ angular.module('app')
 				   return {
 					   restrict: 'AE',
 					   scope: {},
-					   templateUrl: 'templates/common/quiz.html',
+					   templateUrl: 'templates/common/_quiz.html',
 					   link: function (scope, elem, attrs) {
 
 						   scope.start = function () {

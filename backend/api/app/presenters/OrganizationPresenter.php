@@ -67,26 +67,25 @@ class OrganizationPresenter extends BasePresenter {
 	}
 
 	/**
+	 * Returns a simple array of values for outcome levels for the given organization, retrieving only the most recent.
+	 *
 	 * @param int $id
 	 * @param int $mode
 	 *
 	 * @throws \App\Components\AjaxException
 	 */
 	public function actionReadOutcomes($id, $mode = self::MODE_LISTING) {
-		if ($this->user->isAllowed('Organization', 'dependents')) {
-			$subSubSelect = "(SELECT id FROM organization WHERE parent_id = ?)";
-			$subSelect = "(SELECT outcome_id FROM organization_outcome WHERE organization_id IN $subSubSelect)";
-			$where = "id IN $subSelect";
-			$outcomes = $this->database->table('outcome')->where($where, $id)->fetchAll();
-			if (empty($outcomes)) {
-				throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
-			}
-			$jsonRecs = [];
+		if ($this->user->isAllowed('Organization', 'outcomes')) {
+			$outcomes = $this->database->table('outcome')->select('id')->fetchAll();
+			$levels = [];
 			foreach ($outcomes as $outcome) {
-				$jsonRec = Outcome::map($this->database, $outcome, self::MODE_LISTING, $id);
-				$jsonRecs[] = $jsonRec;
+				$orgOutLevel = $this->database->table('organization_outcome')
+					->select("level")
+					->where('organization_id=? AND outcome_id=?', $id, $outcome["id"])
+					->order('evaluated DESC')->fetch();
+				$levels[] = !empty($orgOutLevel) ? (int)$orgOutLevel["level"] : 0;
 			}
-			$this->sendResult($jsonRecs);
+			$this->sendResult($levels);
 		}
 		else {
 			throw new AjaxException(AjaxException::ERROR_NOT_ALLOWED);

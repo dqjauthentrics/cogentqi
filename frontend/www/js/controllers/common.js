@@ -15,7 +15,7 @@ angular.module('ControllerCommon', [])
 		});
 
 		$scope.go = function (url) {
-			console.log("going to " + url);
+			console.log("URL:" + url);
 			location.href = url;
 		}
 	})

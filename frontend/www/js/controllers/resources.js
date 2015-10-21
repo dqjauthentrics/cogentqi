@@ -35,28 +35,38 @@ angular.module('ResourceControllers', [])
 	})
 
 	.controller(
-	'ResourceCtrl',
+	'ResourceViewCtrl',
 	function ($http, $rootScope, $scope, $stateParams, Utility, LearningModules, Organizations, Resources, Quizzes) {
-		$scope.data = {learningModules: [], resources: [], resource: {}, content: ''};
+		$scope.data = {learningModules: [], resource: {}, content: ''};
 		$scope.playerVars = {controls: 2, autoplay: 0, modestbranding: 1, rel: 0, theme: 'light'};
 
-		LearningModules.retrieve().query(function (response) {
-			$scope.data.learningModules = response;
-		});
-
-		Resources.retrieve().query(function (response) {
-			$scope.data.resources = response;
-			if (!Utility.empty($stateParams)) {
-				var resourceId = $stateParams.resourceId;
-				if (!Utility.empty(resourceId)) {
-					$scope.data.resource = Utility.findObjectById($scope.data.resources, resourceId);
-					if (!Utility.empty($scope.data.resource)) {
-						var urlBase = $rootScope.siteDir();
-						$scope.data.resource.loc = urlBase + '/modules/' + $scope.data.resource.nmb.toLowerCase() + '.html';
-					}
-				}
+		if (!Utility.empty($stateParams)) {
+			var resourceId = $stateParams.resourceId;
+			if (!Utility.empty(resourceId)) {
+				Utility.getResource(Resources.retrieve(resourceId), function (response) {
+					$scope.data.resource = response;
+					var urlBase = $rootScope.siteDir();
+					$scope.data.resource.loc = urlBase + '/modules/' + $scope.data.resource.nmb.toLowerCase() + '.html';
+				});
 			}
-		});
+		}
+	})
+
+	.controller(
+	'ResourceListCtrl',
+	function ($http, $rootScope, $scope, $stateParams, Utility, LearningModules, Organizations, Resources, Quizzes) {
+		$scope.data = {isLoading: true, searchFilter: '', learningModules: [], resources: []};
+
+		if (Utility.empty($scope.data.resources)) {
+			Utility.getResource(Resources.retrieve(), function (response) {
+				$scope.data.resources = response;
+				$scope.data.isLoading = false;
+			});
+		}
+
+		$scope.resourceFilter = function (resource) {
+			return Resources.filterer(resource, $scope.data.searchFilter);
+		}
 	})
 
 	.controller(

@@ -27,7 +27,6 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 			data: $.param({member: memberRec}),
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		}).success(function (data, status, headers, config) {
-			console.log(data, status);
 			callbackFn(status, data);
 		}).error(function (data, status, headers, config) {
 			callbackFn(0, data);
@@ -95,5 +94,23 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 		}
 		return memberHx;
 	};
+
+	svc.filterer = function (member, filterText) {
+		try {
+			if (filterText != null && !Utility.empty(member)) {
+				filterText = filterText.toLowerCase();
+				return filterText == null ||
+					member.fn.toLowerCase().indexOf(filterText) >= 0 ||
+					member.ln.toLowerCase().indexOf(filterText) >= 0 ||
+					(member.rn != undefined ? member.rn.toLowerCase().indexOf(filterText) >= 0 : false)
+					;
+			}
+		}
+		catch (exception) {
+			console.log(exception);
+		}
+		return true;
+	}
+
 
 });

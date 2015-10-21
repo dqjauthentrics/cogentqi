@@ -2,7 +2,7 @@
 <ion-tabs class="tabs-icon-top tabs-assertive customerBg">
 
     <ion-tab title="{{'Dashboard'|translate}}" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong"
-             ng-click="go('#/{{roleInfix()}}/dashboard')">
+             ng-click="go(dashboardUrl())">
         <ion-nav-view name="dashboard"></ion-nav-view>
     </ion-tab>
 
@@ -27,7 +27,7 @@
     </ion-tab>
 
     <ion-tab title="{{(isAdministrator()?'Configuration':'Settings')|translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear"
-             ng-click="go('#/' + roleInfix() + (isAdministrator()?'/configuration':'/settings'))">
+             ng-click="go('#' + (isAdministrator()?'/administrator/configuration':'/settings/personal'))">
         <ion-nav-view name="settings"></ion-nav-view>
     </ion-tab>
 

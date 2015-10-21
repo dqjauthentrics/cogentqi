@@ -29,7 +29,9 @@ class Outcome extends BaseModel {
 				$outId = (int)$dbRecord["outcome_id"];
 				$jsonOutcomeLevels[$outId] = (int)$dbRecord["level"];
 			}
+			$map["levels"] = $jsonOutcomeLevels;
 		}
+		/**
 		else {
 			$dbRecords = $database->table('organization_outcome')->fetchAll(); //->order('organizationId,outcomeId');
 			foreach ($dbRecords as $dbRecord) {
@@ -40,8 +42,9 @@ class Outcome extends BaseModel {
 				}
 				$jsonOutcomeLevels[$organizationId][$outId] = (int)$dbRecord["level"];
 			}
+			$map["levels"] = $jsonOutcomeLevels;
 		}
-		$map["levels"] = $jsonOutcomeLevels;
+		 **/
 		return $map;
 	}
 }

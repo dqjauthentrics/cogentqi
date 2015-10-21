@@ -1,0 +1,27 @@
+<ion-view view-title="{{installation.name}}">
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-content has-bouncing="false" overflow-scroll="true" style="margin-top:2em;">
+        <div class="row responsive-lg">
+            <div class="col col-25">
+                <ion-list>
+                    <ion-item class="top">{{'Your Organization'|translate}}</ion-item>
+                    <ion-item data-ng-class="isCurrent(organization)? 'active':''" class="item-icon-right" ng-repeat="organization in data.organizations"
+                              type="item-text-wrap"
+                              data-ng-click="setCurrentOrg(organization)">
+                        <i class="{{i.organization}}"></i> {{organization.n}}
+                        <i style="color:black;" class="icon ion-chevron-right icon-accessory" data-ng-show="isCurrent(organization)"></i>
+                    </ion-item>
+                </ion-list>
+            </div>
+            <div class="col col-75">
+                <ion-list>
+                    <ion-item class="top">{{data.currentOrg.n}}</ion-item>
+                    <ion-item data-ng-repeat="outcome in data.outcomes track by $index" style="white-space: normal;">
+                        <outcome-item-table></outcome-item-table>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

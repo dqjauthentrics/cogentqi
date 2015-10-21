@@ -11,21 +11,49 @@ use
 class SignPresenter extends BasePresenter {
 
 	/**
+	 * @param string $username
+	 * @param string $password
+	 *
+	 * @return \App\Components\AjaxResult
 	 */
-	public function actionCreate() {
+	private function signIn($username, $password) {
 		$result = new AjaxResult();
 		try {
 			$user = $this->getUser();
 			if ($user->loggedIn) {
 				$this->getUser()->logout();
 			}
-			if (!empty($_POST)) {
-				$username = $_POST["username"];
-				$password = $_POST["password"];
-				$user->login($username, $password);
-				$result->status = AjaxResult::STATUS_OKAY;
-				$result->data = $this->user->identity->data;
-			}
+			$user->login($username, $password);
+			$result->status = AjaxResult::STATUS_OKAY;
+			$result->data = $this->user->identity->data;
+		}
+		catch (\Exception $exception) {
+			$result->data = $exception->getMessage();
+		}
+		return $result;
+	}
+
+	/**
+	 */
+	public function actionCreate() {
+		$result = new AjaxResult();
+		try {
+			$result = $this->signIn($_POST["username"], $_POST["password"]);
+		}
+		catch (\Exception $exception) {
+			$result->data = $exception->getMessage();
+		}
+		$this->sendResult($result);
+	}
+
+	/**
+	 * @param string $username
+	 * @param string $password
+	 */
+	public function actionDebug($username, $password) {
+		$result = new AjaxResult();
+		try {
+			$result = $this->signIn($username, $password);
 		}
 		catch (\Exception $exception) {
 			$result->data = $exception->getMessage();

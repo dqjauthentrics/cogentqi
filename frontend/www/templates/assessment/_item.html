@@ -5,7 +5,7 @@
         {{assessment.member.fn}}
         <br/>
         {{assessment.member.ln}}
-        <div class="role">{{role}}</div>
+        <div class="role">{{assessment.member.rn}}</div>
     </div>
     <div class="col padding">
         <span class="name">{{n}}</span>
@@ -16,6 +16,7 @@
         <img style="text-align:right;" class="avatar border border{{assessment.assessor.lv}} avatar-tiny"
              data-ng-src="{{site}}/avatars/{{assessment.assessor.id}}.png"
              alt="{{assessment.assessor.fn}} {{assessment.assessor.ln}}" err-src="{{site}}/avatars/genericUser.png"/>
+        <div class="role">{{assessment.assessor.rn}}</div>
     </div>
     <div class="col padding col-10" style="text-align: center;">
         <div style="width:2em;">

@@ -26,10 +26,10 @@ angular.module('LocalStore', []).factory('LocalStore', [
 			},
 			storeCallback: function (error) {
 				if (error) {
-					console.log('ERROR: Synchronization failed');
+					//console.log('ERROR: Synchronization failed');
 				}
 				else {
-					console.log('Synchronization succeeded');
+					//console.log('Synchronization succeeded');
 				}
 			}
 		}

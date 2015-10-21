@@ -100,7 +100,6 @@ angular.module('MemberControllers', [])
 			return $scope.data.member.rptConfigHx;
 		};
 		$scope.goToProgress = function () {
-			console.log("going to progress");
 			$location.url("/member/progress/" + $stateParams.memberId);
 		};
 		$scope.goToNotes = function () {
@@ -124,7 +123,6 @@ angular.module('MemberControllers', [])
 			});
 		}
 		$scope.goToBarProgress = function () {
-			console.log("going to progress");
 			$location.url("/member/barProgress/" + $stateParams.memberId);
 		};
 		$scope.goToProgress = function () {
@@ -143,7 +141,6 @@ angular.module('MemberControllers', [])
 			$scope.data.dirty = false;
 		};
 		$scope.setDirty = function () {
-			console.log("dirty");
 			$scope.data.dirty = true;
 		};
 		$scope.isDirty = function () {
@@ -295,7 +292,6 @@ angular.module('MemberControllers', [])
 			}
 		};
 		$scope.goToBarProgress = function () {
-			console.log("going to progress");
 			$location.url("/member/barProgress/" + $stateParams.memberId);
 		};
 		$scope.toggleProgress = function () {
@@ -314,13 +310,18 @@ angular.module('MemberControllers', [])
 	.controller(
 	'MemberListCtrl',
 	function ($scope, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments, Organizations, Members) {
-		$scope.data = {organizations: [], instruments: [], member: {}, assessments: [], instrument: null};
+		$scope.data = {isLoading:true, searchFilter: null, organizations: [], instruments: [], member: {}, assessments: [], instrument: null};
 
 		Utility.getResource(Instruments.retrieve(), function (response) {
 			$scope.data.instruments = response;
 		});
 		Utility.getResource(Members.retrieve(), function (response) {
 			$scope.data.members = response;
+			$scope.data.isLoading = false;
 		});
+
+		$scope.memberFilter = function (member) {
+			return Members.filterer(member, $scope.data.searchFilter);
+		}
 	})
 ;

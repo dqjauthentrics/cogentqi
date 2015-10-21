@@ -40,11 +40,6 @@ class Assessment extends BaseModel {
 			switch ($mode) {
 				case BasePresenter::MODE_LISTING:
 					$map = parent::mapColumns($database, $assessment, self::$mappedColumns);
-					$map['typ'] = @$assessment->ref('instrument')->question_type["name"];
-					$member = $assessment->ref('member');
-					$map['member'] = $database->map($member);
-					$map["member"]["lastAssessment"] = Member::mapLastAssessment($database, $member, $mode);
-					$map['assessor'] = $database->map($assessment->ref('member', 'assessor_id'));
 					break;
 				default:
 					$map = self::full($database, $assessment);
@@ -53,7 +48,16 @@ class Assessment extends BaseModel {
 			$member = $assessment->ref('member');
 			$map['member'] = $database->map($member);
 			$map["member"]["lastAssessment"] = Member::mapLastAssessment($database, $member, $mode);
-			$map['assessor'] = $database->map($assessment->ref('member', 'assessor_id'));
+			$role = $assessment->ref('member')->ref('role');
+			$map["member"]['role'] = $role["name"];
+			$map["member"]['rn'] = $role["name"];
+			$map["member"]['ari'] = $role["app_role_id"];
+			$assessor = $assessment->ref('member', 'assessor_id');
+			$map['assessor'] = $database->map($assessor);
+			$role = $assessor->ref('role');
+			$map["assessor"]['role'] = $role["name"];
+			$map["assessor"]['rn'] = $role["name"];
+			$map["assessor"]['ari'] = $role["app_role_id"];
 		}
 		return $map;
 	}

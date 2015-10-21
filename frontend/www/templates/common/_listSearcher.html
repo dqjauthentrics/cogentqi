@@ -1,0 +1,7 @@
+<label class="item-input-wrapper" style="width:100%;">
+    <i class="icon ion-ios-search placeholder-icon"></i>
+    <input type="search" placeholder="{{'search...'|translate}}" ng-model="data.searchFilter">
+
+    <div class="itemCount">{{filtered.length}} {{'records'|translate}}</div>
+    <div style="margin-left:1em;" class="gray" data-ng-show="data.isLoading"><i class="{{i.loadingSpinner}}"></i> Loading...</div>
+</label>

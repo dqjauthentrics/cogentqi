@@ -5,12 +5,12 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 	svc.outcomes = null;
 	svc.currentOutcomes = [];
 
-	svc.retrieve = function (getLevelsForMyOrg) {
+	svc.retrieve = function (organizationId) {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
 			var url = '/api2/outcome';
-			if (!Utility.empty(getLevelsForMyOrg)) {
-				url = '/api2/organization/' + user.organizationId + '/r/outcomes';
+			if (!Utility.empty(organizationId)) {
+				url = '/api2/organization/' + organizationId + '/r/outcomes';
 			}
 			return $resource(url, {}, {});
 		}

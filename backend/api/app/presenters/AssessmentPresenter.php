@@ -28,7 +28,7 @@ class AssessmentPresenter extends BasePresenter {
 		}
 		else {
 			foreach ($result as $record) {
-				$this->resource[] = Assessment::map($this->database, $result);
+				$this->resource[] = Assessment::map($this->database, $record);
 			}
 		}
 		$this->sendResource();
@@ -54,6 +54,7 @@ class AssessmentPresenter extends BasePresenter {
 	/**
 	 * @param array $formAssessment
 	 *
+	 * @return \App\Components\AjaxResult
 	 * @throws \App\Components\AjaxException
 	 */
 	private function save($formAssessment) {

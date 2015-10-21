@@ -24,26 +24,31 @@ angular.module('OutcomeControllers', [])
 		};
 		$scope.methodMessage = function (method) {
 			if (method == "D") {
-				return "NOTE: This outcome level is calculated through examination of data; it is not recommended that you manually change it.";
+				return '<span style="color:red !important;">' +
+					'NOTE: This outcome level is calculated through examination of data; it is not recommended that you manually change it.' +
+					'</span>';
 			}
 			return "Manually configured outcome level.";
 		};
 	})
 
 	.controller(
-	'OutcomeListCtrl',
+	'OutcomeOrganizationCtrl',
 	function ($scope, $stateParams, Utility, Organizations, Resources, Outcomes) {
-		$scope.data = {orgOutcomes: [], organizations: [], currentOrg: {}};
+		$scope.data = {outcomes: [], organizations: [], currentOrg: {}, levels: []};
 
+		Utility.getResource(Outcomes.retrieve(), function (response) {
+			$scope.data.outcomes = response;
+		});
 		Utility.getResource(Organizations.retrieve(), function (response) {
 			$scope.data.organizations = response;
 			$scope.setCurrentOrg(response[0]);
 		});
-		Utility.getResource(Outcomes.retrieve(true), function (response) {
-			$scope.data.orgOutcomes = response;
-		});
 		$scope.setCurrentOrg = function (organization) {
 			$scope.data.currentOrg = organization;
+			Utility.getResource(Outcomes.retrieve($scope.data.currentOrg.id), function (response) {
+				$scope.data.levels = response;
+			});
 		};
 		$scope.getCurrentOrg = function (organization) {
 			return $scope.data.currentOrg;
@@ -73,7 +78,7 @@ angular.module('OutcomeControllers', [])
 			var color = 'stable';
 			if (!Utility.empty(outcome) && !Utility.empty(currentOrg)) {
 				var id = currentOrg.id;
-				var level = outcome.levels[id][outcome.id];
+				var level = outcome.lv;
 				var range = $("#range" + outcome.id);
 				switch (parseInt(level)) {
 					case 1:

@@ -2,12 +2,21 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
-        <ion-list class="members">
-            <ion-item class="gray" data-ng-if="!data.members.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
-            <ion-item class="item-icon-right" data-ng-repeat="member in data.members" type="item-text-wrap" href="#/member/view/{{member.id}}">
-                <member-item></member-item>
-                <i class="icon ion-chevron-right icon-accessory"></i>
-            </ion-item>
-        </ion-list>
+        <div class="row responsive-lg">
+            <div class="col col-10"></div>
+            <div class="col card">
+                <ion-list class="members">
+                    <ion-item class="top">
+                        <list-searcher></list-searcher>
+                    </ion-item>
+                    <ion-item class="item-icon-right" data-ng-repeat="member in filtered = (data.members|filter:memberFilter)" type="item-text-wrap"
+                              href="#/member/view/{{member.id}}">
+                        <member-item></member-item>
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                    </ion-item>
+                </ion-list>
+            </div>
+            <div class="col col-10"></div>
+        </div>
     </ion-content>
 </ion-view>
