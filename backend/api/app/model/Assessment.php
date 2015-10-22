@@ -1,6 +1,7 @@
 <?php
 namespace App\Model;
 
+use App\Components\AjaxException;
 use Nette\Database\Table\IRow,
 	App\Components\DbContext,
 	App\Model\Instrument,
@@ -151,6 +152,9 @@ class Assessment extends BaseModel {
 		try {
 			$member = $database->table('member')->get($memberId);
 			$scheduleItem = InstrumentSchedule::latest($database, $member["role_id"], BasePresenter::EXECUTE);
+			if (empty($scheduleItem)) {
+				throw new AjaxException(AjaxException::ERROR_FATAL, "No valid schedule for which to create assessment.");
+			}
 			$data = [
 				'id'                     => NULL,
 				'member_id'              => $memberId,
@@ -167,6 +171,7 @@ class Assessment extends BaseModel {
 					$assessment = $database->table('assessment')->where("id=?", $assessment["id"])->fetch();
 					if (!empty($assessment)) {
 						$database->commit();
+						$assessment = Assessment::map($database, $assessment, BasePresenter::MODE_RELATED);
 					}
 				}
 				else {

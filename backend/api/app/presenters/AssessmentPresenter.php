@@ -114,7 +114,6 @@ class AssessmentPresenter extends BasePresenter {
 	 * @param int $assessorId
 	 */
 	public function actionCreate($memberId, $assessorId) {
-		var_dump($_POST);
 		$formAssessment = $this->request->getPost("assessment");
 		if (!empty($formAssessment)) {
 			$result = $this->save($formAssessment);
@@ -123,10 +122,31 @@ class AssessmentPresenter extends BasePresenter {
 			$result = [];
 			$assessment = Assessment::create($this->database, $assessorId, $memberId);
 			if (!empty($assessment)) {
-				$result = Assessment::map($this->database, $assessment, BasePresenter::MODE_RELATED);
+				$result = $assessment;
 			}
 		}
 		$this->sendResult($result);
+	}
+
+	/**
+	 * @param int $assessmentId
+	 *
+	 * @return \App\Components\AjaxResult
+	 * @throws \App\Components\AjaxException
+	 */
+	public function actionDelete($assessmentId) {
+		$result = new AjaxResult();
+		try {
+			$assessment = $this->database->table('assessment')->get($assessmentId);
+			if (!empty($assessment)) {
+				$result->status = AjaxResult::STATUS_OKAY;
+				$result->message = "Assessment removed.";
+			}
+		}
+		catch (\Exception $exception) {
+			throw new AjaxException(AjaxException::ERROR_FATAL, $exception);
+		}
+		return $result;
 	}
 
 	/**

@@ -37,6 +37,9 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		}
 		return null;
 	};
+	svc.remove = function (assessmentId) {
+		return $resource('/api2/assessment/', assessmentId, {}, {query: {method: 'DELETE'}});
+	};
 
 	svc.associateMembers = function (assessments, members) {
 		if (!Utility.empty(assessments) && !Utility.empty(members)) {
@@ -71,7 +74,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(instrumentId) && !Utility.empty(user) && !Utility.empty(user.organizationId)) {
 			return $resource('/api2/assessment/report/pbm/o/' + user.organizationId + '/i/' + instrumentId + (isRollUp ? '/r/rollup/' : ''),
-				{}, {query: {method: 'GET', isArray: false, cache: false}});
+							 {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;
 	};
@@ -239,12 +242,12 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 					//console.log("REC: min=", minScore, ", max=", maxScore, ",nTotalAlignments=", nTotalAlignments, ", score=", resource.sc, ", scaled=",
 					//			scaledScore, ", n=", resource.nAlignments);
 					recs.push({
-						id: resource.id,
-						nmb: resource.nmb,
-						n: resource.n,
-						wt: scaledScore,
-						sc: resource.sc
-					});
+								  id: resource.id,
+								  nmb: resource.nmb,
+								  n: resource.n,
+								  wt: scaledScore,
+								  sc: resource.sc
+							  });
 					recCnt++;
 				}
 			}

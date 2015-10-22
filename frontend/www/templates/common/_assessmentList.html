@@ -24,6 +24,7 @@
                  alt="{{assessment.assessor.fn}} {{assessment.assessor.ln}}" err-src="{{site}}/avatars/genericUser.png"/>
         </td>
         <td style="text-align:center; width:1.2em;">
+            <a data-ng-onclick="removeAssessment(assessment.id)"><i class="{{i.remove}}"></i></a>
             <div data-ng-class="(assessment.typ == 'YESNO'?'yesNoColor':'levelColor') + assessment.rk">
                 <div data-ng-switch="assessment.es">
                     <div data-ng-switch-when="L"><i class="{{i.locked}}"></i></div>

@@ -178,6 +178,12 @@ angular.module('MemberControllers', [])
 				Messages.sendText(member, $scope.data.newMessage);
 			});
 		};
+		$scope.removeAssessment = function (assessmentId) {
+			Utility.getResource(Resources.remove(assessmentId), function (response) {
+				console.log(response);
+				Utility.popup('Responsee', response.message);
+			});
+		};
 	})
 
 	.controller(
