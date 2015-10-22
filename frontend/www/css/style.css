@@ -1526,6 +1526,7 @@ input[type="search"] {
 
 }
 
+/**
 .assessmentItem tr.ng-enter, .assessmentItem tr.ng-leave {
     -webkit-transition: 0.5s linear all;
     transition: 0.5s linear all;
@@ -1537,4 +1538,130 @@ input[type="search"] {
 
 .assessmentItem tr.ng-leave, .assessmentItem tr.ng-enter.ng-enter-active {
     opacity: 1;
+}
+**/
+@keyframes openspace {
+    to {
+        height: auto
+    }
+}
+
+.assessmentItem tr.ng-leave {
+    -webkit-animation: removed-item-animation .6s cubic-bezier(.55,-0.04,.91,.94) forwards;
+    -o-animation: removed-item-animation .6s cubic-bezier(.55,-0.04,.91,.94) forwards;
+    animation: removed-item-animation .6s cubic-bezier(.55,-0.04,.91,.94) forwards
+}
+
+@keyframes removed-item-animation {
+    from {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1)
+    }
+
+    to {
+        -webkit-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
+        opacity: 0
+    }
+}
+
+@-webkit-keyframes new-item-animation {
+    from {
+        opacity: 0;
+        -webkit-transform: scale(0);
+        transform: scale(0)
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+}
+
+@-o-keyframes new-item-animation {
+    from {
+        opacity: 0;
+        -o-transform: scale(0);
+        transform: scale(0)
+    }
+
+    to {
+        opacity: 1;
+        -o-transform: scale(1);
+        transform: scale(1)
+    }
+}
+
+@-webkit-keyframes openspace {
+    to {
+        height: auto
+    }
+}
+
+@-o-keyframes openspace {
+    to {
+        height: auto
+    }
+}
+
+@-webkit-keyframes restored-item-animation {
+    from {
+        opacity: 0;
+        -webkit-transform: scale(0);
+        transform: scale(0)
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+}
+
+@-o-keyframes restored-item-animation {
+    from {
+        opacity: 0;
+        -o-transform: scale(0);
+        transform: scale(0)
+    }
+
+    to {
+        opacity: 1;
+        -o-transform: scale(1);
+        transform: scale(1)
+    }
+}
+
+@-webkit-keyframes removed-item-animation {
+    from {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+
+    to {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 0
+    }
+}
+
+@-o-keyframes removed-item-animation {
+    from {
+        opacity: 1;
+        -o-transform: scale(1);
+        transform: scale(1)
+    }
+
+    to {
+        -o-transform: scale(0);
+        transform: scale(0);
+        opacity: 0
+    }
 }
