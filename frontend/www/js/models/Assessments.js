@@ -37,8 +37,30 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		}
 		return null;
 	};
-	svc.remove = function (assessmentId) {
-		return $resource('/api2/assessment/', assessmentId, {}, {query: {method: 'DELETE'}});
+	svc.remove = function (assessmentId, callbackFn) {
+		try {
+			$http({
+					  url: "/api2/assessment/" + assessmentId,
+					  method: 'DELETE',
+					  data: $.param({id: assessmentId}),
+					  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+				  })
+				.success(function (data, status, headers, config) {
+					if (data.status == 1 || data.status == 0) {
+						callbackFn(data.status, data.message);
+					}
+					else {
+						callbackFn(0, 'An unknown error occurred.');
+					}
+				})
+				.error(function (data, status, headers, config) {
+					callbackFn(0, data.message);
+				});
+		}
+		catch (exception) {
+			console.log("EXCEPTION:", exception);
+			Utility.statusAlert(0, 'Sorry, but there was an error deleting the assessment');
+		}
 	};
 
 	svc.associateMembers = function (assessments, members) {
@@ -389,4 +411,5 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 			matrix[mLen].avgRound = Math.round(matrix[mLen].avg);
 		}
 	};
-});
+})
+;

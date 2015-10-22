@@ -42,7 +42,7 @@ angular.module('app')
 		return {
 			restrict: 'E',
 			templateUrl: '../templates/common/_assessmentList.html',
-			scope: {i: '=', assessments: '=', showMember: '=', site: '=', removeAssessment: '='}
+			scope: {i: '=', assessments: '=', showMember: '=', site: '=', remover: '='}
 		};
 	})
 

@@ -134,19 +134,43 @@ class AssessmentPresenter extends BasePresenter {
 	 * @return \App\Components\AjaxResult
 	 * @throws \App\Components\AjaxException
 	 */
-	public function actionDelete($assessmentId) {
+	public function actionDelete($id) {
 		$result = new AjaxResult();
+		file_put_contents("/tmp/dqj.dbg", "S1:$id\n", FILE_APPEND);
+		$this->database->beginTransaction();
 		try {
-			$assessment = $this->database->table('assessment')->get($assessmentId);
+			$assessment = $this->database->table('assessment')->where('id=?', $id)->fetch();
+			file_put_contents("/tmp/dqj.dbg", "S2:$id\n", FILE_APPEND);
+			/**
+			 * @var \Nette\Database\Table\Selection $assessment
+			 * @var \Nette\Database\Table\Selection $response
+			 */
 			if (!empty($assessment)) {
+				file_put_contents("/tmp/dqj.dbg", "S3:$id\n", FILE_APPEND);
+				$responses = $this->database->table('assessment_response')->where('assessment_id = ?', $id)->fetchAll();
+				if (!empty($responses)) {
+					foreach ($responses as $response) {
+						$response->delete();
+					}
+				}
+				file_put_contents("/tmp/dqj.dbg", "S4:$id\n", FILE_APPEND);
+				$assessment->delete();
+				file_put_contents("/tmp/dqj.dbg", "S5:$id\n", FILE_APPEND);
+				$this->database->rollBack();
+				file_put_contents("/tmp/dqj.dbg", "S6:$id\n", FILE_APPEND);
+				//$this->database->commit();
 				$result->status = AjaxResult::STATUS_OKAY;
 				$result->message = "Assessment removed.";
+				$result->data = $assessment;
+				file_put_contents("/tmp/dqj.dbg", "S7:$id\n", FILE_APPEND);
 			}
 		}
 		catch (\Exception $exception) {
+			file_put_contents("/tmp/dqj.dbg", "S8:$id\n", FILE_APPEND);
+			$this->database->rollBack();
 			throw new AjaxException(AjaxException::ERROR_FATAL, $exception);
 		}
-		return $result;
+		$this->sendResult($result);
 	}
 
 	/**

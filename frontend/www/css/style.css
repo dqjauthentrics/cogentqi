@@ -145,6 +145,7 @@ h3 {
 
 .card a.button, form .button, form .button-small {
     margin: 0.2em !important;
+    color: #FFF;
 }
 
 i.logo {
@@ -1503,4 +1504,37 @@ input[type="search"] {
     margin: 0 1em;
     float: right;
     color: #000;
+}
+
+.remover {
+    color: gray;
+    margin: 0 0.4em;
+}
+
+.repeat-item.ng-enter, .repeat-item.ng-leave {
+    -webkit-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+}
+
+.repeat-item.ng-enter, .repeat-item.ng-leave.ng-leave-active {
+    opacity: 0;
+
+}
+
+.repeat-item.ng-leave, .repeat-item.ng-enter.ng-enter-active {
+    opacity: 1;
+
+}
+
+.assessmentItem tr.ng-enter, .assessmentItem tr.ng-leave {
+    -webkit-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+}
+
+.assessmentItem tr.ng-enter, .assessmentItem tr.ng-leave.ng-leave-active {
+    opacity: 0;
+}
+
+.assessmentItem tr.ng-leave, .assessmentItem tr.ng-enter.ng-enter-active {
+    opacity: 1;
 }

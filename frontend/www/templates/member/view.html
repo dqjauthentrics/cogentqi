@@ -43,13 +43,13 @@
             </div>
             <div data-ng-if="data.member.asb == 1" class="col padding card">
                 <h3>{{'Assessments to Date'|translate}}</h3>
-                <assessment-list i="i" site="siteDir()" remove-assessment="removeAssessment" show-member="false" assessments="data.member.assessments"></assessment-list>
+                <assessment-list i="i" site="siteDir()" remover="remover" show-member="false" assessments="data.member.assessments"></assessment-list>
                 <div>
                     <a class="button button-action button-new button-small" href="#/assessment/new/{{data.member.id}}/-1"
-                       title="{{'Add a new assessment.'|translate}}">
-                        <i class="{{i.add}}"></i> {{'Add'|translate}}
-                    </a>
-                </div>
+                title="{{'Add a new assessment.'|translate}}">
+                <i class="{{i.add}}"></i> {{'Add'|translate}}
+                </a>
+            </div>
             </div>
             <div data-ng-if="data.member.isAssessible == 1" class="col padding card">
                 <h3>{{'Events'|translate}}</h3>

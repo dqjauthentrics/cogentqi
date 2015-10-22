@@ -295,10 +295,10 @@ angular.module('AssessmentControllers', [])
 				return true;
 			};
 			$scope.canRemove = function () {
-				return !Utility.empty($scope.data.assessment) && $scope.data.assessment.member.ri != 'T' && $scope.canEdit();
+				return !Utility.empty($scope.data.assessment) && $scope.data.assessment.member.ari != 'P' && $scope.canEdit();
 			};
 			$scope.canLock = function () {
-				return !Utility.empty($scope.data.assessment) && $scope.data.assessment.member.ri != 'T';
+				return !Utility.empty($scope.data.assessment) && $scope.data.assessment.member.ari != 'P';
 			}
 		})
 ;
