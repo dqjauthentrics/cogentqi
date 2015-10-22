@@ -217,36 +217,41 @@ angular.module('AssessmentControllers', [])
 		};
 
 		$scope.getAssessment = function () {
-			if (!$scope.data.retrievingAssessment && Utility.empty($scope.data.assessment) && !Utility.empty($stateParams)) {
-				var assessmentId = !Utility.empty($stateParams.assessmentId) ? $stateParams.assessmentId : 0;
-				if (assessmentId > 0) {
-					if (!$scope.data.assessment || $scope.data.assessment.id != assessmentId) {
-						$scope.data.retrievingAssessment = true;
-						Utility.getResource(Assessments.retrieveSingle(assessmentId), function (response) {
-							Instruments.currentSectionIdx = 0;
-							$scope.data.assessment = response;
-							var scoreInfo = Assessments.scorify($scope.data.assessment.instrument);
-							var question = $scope.data.assessment.instrument.sections[0].questions[0];
-							$scope.data.assessment.sc = scoreInfo.avg;
-							$scope.data.assessment.rk = scoreInfo.avgRound;
-							$scope.data.assessment.scoreWord = Assessments.scoreWord(question, scoreInfo.avgRound);
-							$scope.data.assessor = $cookieStore.get('user');
-							$scope.getRecommendations();
-							$scope.data.retrievingAssessment = false;
-						});
+			try {
+				if (!$scope.data.retrievingAssessment && Utility.empty($scope.data.assessment) && !Utility.empty($stateParams)) {
+					var assessmentId = !Utility.empty($stateParams.assessmentId) ? $stateParams.assessmentId : 0;
+					if (assessmentId > 0) {
+						if (!$scope.data.assessment || $scope.data.assessment.id != assessmentId) {
+							$scope.data.retrievingAssessment = true;
+							Utility.getResource(Assessments.retrieveSingle(assessmentId), function (response) {
+								Instruments.currentSectionIdx = 0;
+								$scope.data.assessment = response;
+								var scoreInfo = Assessments.scorify($scope.data.assessment.instrument);
+								var question = $scope.data.assessment.instrument.sections[0].questions[0];
+								$scope.data.assessment.sc = scoreInfo.avg;
+								$scope.data.assessment.rk = scoreInfo.avgRound;
+								$scope.data.assessment.scoreWord = Assessments.scoreWord(question, scoreInfo.avgRound);
+								$scope.data.assessor = $cookieStore.get('user');
+								$scope.getRecommendations();
+								$scope.data.retrievingAssessment = false;
+							});
+						}
+					}
+					else if (assessmentId == -1) {
+						if (!Utility.empty($stateParams.memberId)) {
+							Utility.getResource(Assessments.create($stateParams.memberId), function (response) {
+								Instruments.currentSectionIdx = 0;
+								$scope.data.assessment = response;
+								$scope.data.assessor = $scope.data.assessment.assessor.id;
+								$scope.getRecommendations();
+								$scope.data.retrievingAssessment = false;
+							});
+						}
 					}
 				}
-				else if (assessmentId == -1) {
-					if (!Utility.empty($stateParams.memberId)) {
-						Utility.getResource(Assessments.create($stateParams.memberId), function (response) {
-							Instruments.currentSectionIdx = 0;
-							$scope.data.assessment = response;
-							$scope.data.assessor = $scope.data.assessment.assessor.id;
-							$scope.getRecommendations();
-							$scope.data.retrievingAssessment = false;
-						});
-					}
-				}
+			}
+			catch (exception) {
+				console.log("EXCEPTION:", exception);
 			}
 		};
 

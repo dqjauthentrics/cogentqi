@@ -116,8 +116,6 @@ class AssessmentPresenter extends BasePresenter {
 	public function actionCreate($memberId, $assessorId) {
 		var_dump($_POST);
 		$formAssessment = $this->request->getPost("assessment");
-		var_dump($formAssessment);
-		exit();
 		if (!empty($formAssessment)) {
 			$result = $this->save($formAssessment);
 		}
