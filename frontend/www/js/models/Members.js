@@ -14,7 +14,7 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 	svc.retrieveSingle = function (memberId) {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user) && !Utility.empty(memberId)) {
-			return $resource('/api2/member/' + memberId + '/m/1', {}, {query: {method: 'GET', isArray: false}});
+			return $resource('/api2/member/' + memberId + '/m/1', {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;
 	};
@@ -22,11 +22,11 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 	svc.saveProfile = function (member, callbackFn) {
 		var memberRec = {id: member.id, fn: member.fn, ln: member.ln, r: member.r, ph: member.ph, ad: member.ad, mb: member.mb};
 		$http({
-			method: 'PUT',
-			url: "/api2/member",
-			data: $.param({member: memberRec}),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).success(function (data, status, headers, config) {
+				  method: 'PUT',
+				  url: "/api2/member",
+				  data: $.param({member: memberRec}),
+				  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			  }).success(function (data, status, headers, config) {
 			callbackFn(status, data);
 		}).error(function (data, status, headers, config) {
 			callbackFn(0, data);
@@ -84,7 +84,7 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 							xLabels.push(question.n);
 						}
 						var response = svc.findResponse(assessment.responses, question.id);
-						dataSet.push({label: response.r, y: parseInt(response.ri)});
+						dataSet.push({label: response.r, y: parseInt(response.rdx)});
 					}
 					series.push({id: i, type: 'column', name: $filter('date')(assessment.lastModified, 'shortDate'), data: dataSet});
 				}

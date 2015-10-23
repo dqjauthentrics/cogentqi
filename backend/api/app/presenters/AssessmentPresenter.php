@@ -82,8 +82,8 @@ class AssessmentPresenter extends BasePresenter {
 									if (!empty($dbResponse)) {
 										$response = $formQuestion["rsp"];
 										$responseUpdater = [
-											"response_index"    => (int)$response["ri"],
-											"response"          => !empty($response["r"]) ? $response["r"] : NULL,
+											"response_index"    => (int)$response["rdx"],
+											"response"          => !empty($response["rp"]) ? $response["rp"] : NULL,
 											"assessor_comments" => $response["ac"],
 											"member_comments"   => $response["mc"]
 										];
@@ -136,33 +136,25 @@ class AssessmentPresenter extends BasePresenter {
 	 */
 	public function actionDelete($id) {
 		$result = new AjaxResult();
-		file_put_contents("/tmp/dqj.dbg", "S1:$id\n", FILE_APPEND);
 		$this->database->beginTransaction();
 		try {
 			$assessment = $this->database->table('assessment')->where('id=?', $id)->fetch();
-			file_put_contents("/tmp/dqj.dbg", "S2:$id\n", FILE_APPEND);
 			/**
 			 * @var \Nette\Database\Table\Selection $assessment
 			 * @var \Nette\Database\Table\Selection $response
 			 */
 			if (!empty($assessment)) {
-				file_put_contents("/tmp/dqj.dbg", "S3:$id\n", FILE_APPEND);
 				$responses = $this->database->table('assessment_response')->where('assessment_id = ?', $id)->fetchAll();
 				if (!empty($responses)) {
 					foreach ($responses as $response) {
 						$response->delete();
 					}
 				}
-				file_put_contents("/tmp/dqj.dbg", "S4:$id\n", FILE_APPEND);
 				$assessment->delete();
-				file_put_contents("/tmp/dqj.dbg", "S5:$id\n", FILE_APPEND);
-				$this->database->rollBack();
-				file_put_contents("/tmp/dqj.dbg", "S6:$id\n", FILE_APPEND);
-				//$this->database->commit();
+				$this->database->commit();
 				$result->status = AjaxResult::STATUS_OKAY;
 				$result->message = "Assessment removed.";
 				$result->data = $assessment;
-				file_put_contents("/tmp/dqj.dbg", "S7:$id\n", FILE_APPEND);
 			}
 		}
 		catch (\Exception $exception) {

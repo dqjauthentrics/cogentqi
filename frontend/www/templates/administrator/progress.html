@@ -2,6 +2,8 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
+        <div class="clearfix"></div>
+        <div style="margin:2em;"></div>
         <highchart id="progress" config="data.rptConfig"></highchart>
         <div style="text-align: center; margin:1em;">
             <button class="button button-calm" data-ng-show="data.currentSeries == 0" data-ng-click="toggleProgress()">

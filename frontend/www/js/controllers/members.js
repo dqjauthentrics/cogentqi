@@ -214,7 +214,6 @@ angular.module('MemberControllers', [])
 					subtitle: {text: 'Evaluation', x: -20},
 					tooltip: {
 						formatter: function () {
-							return 'HERE';
 						}
 					},
 					xAxis: {categories: []},
@@ -236,7 +235,6 @@ angular.module('MemberControllers', [])
 					subtitle: {text: 'Evaluation', x: -20},
 					tooltip: {
 						formatter: function () {
-							return 'HERE';
 						}
 					},
 					xAxis: {categories: []},

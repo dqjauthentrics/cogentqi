@@ -92,12 +92,12 @@ class Assessment extends BaseModel {
 				/** @var IRow[] $choices */
 				$choices = $database->mapRecords($choiceRecords);
 				$responses[$questionId] = [
-					'id' => (int)$response["id"],
-					'r'  => $response["response"],
-					'ri' => (int)$response["response_index"],
-					'ac' => $response["assessor_comments"],
-					'mc' => $response["member_comments"],
-					'ch' => $choices
+					'id'  => (int)$response["id"],
+					'rp'  => $response["response"],
+					'rdx' => (int)$response["response_index"],
+					'ac'  => $response["assessor_comments"],
+					'mc'  => $response["member_comments"],
+					'ch'  => $choices
 				];
 			}
 			$i = 0;

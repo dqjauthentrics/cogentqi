@@ -24,16 +24,16 @@ angular.module('PDF', []).service('PDF', function ($filter, $rootScope, Utility)
 
 	svc.getResponseColor = function (question) {
 		if (question.rsp.typ == "NAYesNo") {
-			if (question.rsp.ri == 2) {
+			if (question.rsp.rdx == 2) {
 				doc.setTextColor(0, 150, 0);
 			}
-			else if (question.rsp.ri == 1) {
+			else if (question.rsp.rdx == 1) {
 				doc.setTextColor(150, 0, 0);
 			}
 		}
 		else { // LIKERT5
 			var rgb = null;
-			switch (question.rsp.ri) {
+			switch (question.rsp.rdx) {
 				case 1:
 					rgb = Utility.hexToRgb('#BB4444');
 					break;
@@ -102,7 +102,7 @@ angular.module('PDF', []).service('PDF', function ($filter, $rootScope, Utility)
 				if (rgb !== null) {
 					doc.setTextColor(rgb.r, rgb.g, rgb.b);
 				}
-				doc.text(164, questionY, question.rsp.r);
+				doc.text(164, questionY, question.rsp.rp);
 				//html += '<tr><td>&nbsp;</td><td>' + question.name + '</td><td>' + question.rsp.r + '</td></tr>';
 			}
 			//html += '</tbody></table>';

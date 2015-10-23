@@ -145,6 +145,12 @@ h3 {
 
 .card a.button, form .button, form .button-small {
     margin: 0.2em !important;
+    padding: 0.6em 1em;
+    background: #666;
+    color: #EEE;
+}
+
+.card a.button:hover, form .button:hover, form .button-small:hover {
     color: #FFF;
 }
 
@@ -1547,9 +1553,9 @@ input[type="search"] {
 }
 
 .assessmentItem tr.ng-leave {
-    -webkit-animation: removed-item-animation .6s cubic-bezier(.55,-0.04,.91,.94) forwards;
-    -o-animation: removed-item-animation .6s cubic-bezier(.55,-0.04,.91,.94) forwards;
-    animation: removed-item-animation .6s cubic-bezier(.55,-0.04,.91,.94) forwards
+    -webkit-animation: removed-item-animation .6s cubic-bezier(.55, -0.04, .91, .94) forwards;
+    -o-animation: removed-item-animation .6s cubic-bezier(.55, -0.04, .91, .94) forwards;
+    animation: removed-item-animation .6s cubic-bezier(.55, -0.04, .91, .94) forwards
 }
 
 @keyframes removed-item-animation {

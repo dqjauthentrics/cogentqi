@@ -126,7 +126,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 			for (var i = 0; i < sections.length; i++) {
 				var section = sections[i];
 				for (var j = 0; j < section.questions.length; j++) {
-					var responseValue = !Utility.empty(section.questions[j].rsp) ? section.questions[j].rsp.ri : 0;
+					var responseValue = !Utility.empty(section.questions[j].rsp) ? section.questions[j].rsp.rdx : 0;
 					if (responseValue > 0) {
 						total += responseValue;
 						compCount++;
@@ -239,7 +239,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 								var resQuestionId = parseInt(alignment.qi);
 								var questionId = parseInt(question.id);
 								if (resQuestionId == questionId) {
-									resources[k].sc += svc.resourceScore(instrument, alignment.wt, question.rsp.ri, nAlignments);
+									resources[k].sc += svc.resourceScore(instrument, alignment.wt, question.rsp.rdx, nAlignments);
 									resources[k].nAlignments++;
 									nTotalAlignments++;
 									if (maxScore === null || resources[k].sc > maxScore) {
@@ -288,13 +288,13 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		var avg = 0;
 		var avgRound = 0;
 		if (!Utility.empty(question) && !Utility.empty(question.rsp)) {
-			//scoreWord = svc.scoreWord(question, question.rsp.ri);
+			//scoreWord = svc.scoreWord(question, question.rsp.rdx);
 			var slider = $("#question_item_" + question.id);
 			//var levelEl = slider.find("span.bubble.low");
 			//levelEl.html(scoreWord);
 			slider.removeClass(function (index, css) {
 				return (css.match(/(^|\s)slider\S+/g) || []).join(' ');
-			}).addClass("slider" + question.rsp.ri);
+			}).addClass("slider" + question.rsp.rdx);
 			var score = svc.scorify(instrument);
 			avg = score.avg;
 			avgRound = score.avgRound;

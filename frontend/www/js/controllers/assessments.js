@@ -151,7 +151,15 @@ angular.module('AssessmentControllers', [])
 
 			$scope.Instruments = Instruments;
 			$scope.res = null;
-			$scope.data = {dirty: false, recommendations: [], resources: [], assessment: null, currentChoices: null, retrievingAssessment: false};
+			$scope.data = {
+				dirty: false,
+				recommendations: [],
+				resources: [],
+				assessment: null,
+				currentChoices: null,
+				retrievingAssessment: false,
+				recommendationTitle: installation.trademarkName + ' Recommended Modules'
+			};
 
 			Utility.getResource(Resources.retrieve(), function (response) {
 				$scope.data.resources = response;
@@ -192,7 +200,7 @@ angular.module('AssessmentControllers', [])
 			$scope.updateResponse = function (question, value) {
 				if (!Utility.empty(question) && !Utility.empty(question.rsp) && !Utility.empty(value)) {
 					$scope.data.dirty = true;
-					question.rsp.ri = parseInt(value);
+					question.rsp.rdx = parseInt(value);
 					$scope.getRecommendations();
 				}
 			};
@@ -200,7 +208,7 @@ angular.module('AssessmentControllers', [])
 			$scope.updateSliderResponse = function (question) {
 				$scope.data.dirty = true;
 				var scoreInfo = Assessments.sliderChange(question, $scope.data.assessment.instrument);
-				question.rsp.r = scoreInfo.scoreWord;
+				question.rsp.rp = scoreInfo.scoreWord;
 				$scope.currentChoices = question.rsp.ch;
 				$scope.data.assessment.sc = scoreInfo.avg;
 				$scope.data.assessment.rk = scoreInfo.avgRound;
@@ -209,7 +217,7 @@ angular.module('AssessmentControllers', [])
 			};
 
 			$scope.rubricSet = function (question, value) {
-				question.rsp.ri = value;
+				question.rsp.rdx = value;
 			};
 
 			$scope.sliderTranslate = function (value) {

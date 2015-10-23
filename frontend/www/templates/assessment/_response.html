@@ -3,24 +3,24 @@
         <div data-ng-switch="question.typ">
             <div data-ng-switch-when="YESNO">
                 <div class="button-bar" style="max-width:12em; min-width:12em;">
-                    <a class="button" data-ng-class="{'yesNoBg0': question.rsp.ri == 0}"
+                    <a class="button" data-ng-class="{'yesNoBg0': question.rsp.rdx == 0}"
                        data-ng-click="updateResponse(question, 0)">N/A</a>
-                    <a class="button" data-ng-class="{'yesNoBg1': question.rsp.ri == 1}"
+                    <a class="button" data-ng-class="{'yesNoBg1': question.rsp.rdx == 1}"
                        data-ng-click="updateResponse(question, 1)">No</a>
-                    <a class="button" data-ng-class="{'yesNoBg2': question.rsp.ri == 2}"
+                    <a class="button" data-ng-class="{'yesNoBg2': question.rsp.rdx == 2}"
                        data-ng-click="updateResponse(question, 2)">Yes</a>
                 </div>
             </div>
             <div data-ng-switch-default="">
                 <div class="rubric">
-                    <slider id="question_item_{{question.id}}" class="slider{{question.rsp.ri}}"
-                            ng-model="question.rsp.ri" floor="{{question.mn}}" ceiling="{{question.mx}}" step-width="0.1"
+                    <slider id="question_item_{{question.id}}" class="slider{{question.rsp.rdx}}"
+                            ng-model="question.rsp.rdx" floor="{{question.mn}}" ceiling="{{question.mx}}" step-width="0.1"
                             ng-change="updateSliderResponse(question, this, true)"
                             precision="0"
                             style="{{'width:' + (rubricWidth(question.mx) * 4)+ '%; margin-bottom:-1em; margin-left:' + (rubricWidth(question.mx)/2)+ '%;'}}"
                             >
                     </slider>
-                    <div class="{{$index == question.rsp.ri? 'active':'inactive'}}" id="{{'rubric_'+question.id+'_'+$index}}"
+                    <div class="{{$index == question.rsp.rdx? 'active':'inactive'}}" id="{{'rubric_'+question.id+'_'+$index}}"
                          data-ng-repeat="choice in question.rsp.ch" data-ng-click="rubricSet(question,$index)"
                          style="{{'width:' + rubricWidth(question.mx) + '%;'}}"
                             >
@@ -32,6 +32,6 @@
         </div>
     </div>
     <div data-ng-switch-default="">
-        <div data-ng-class=" getResponseClass(question.typ, question.rsp.ri)">{{question.rsp.r}}</div>
+        <div data-ng-class=" getResponseClass(question.typ, question.rsp.rdx)">{{question.rsp.rp}}</div>
     </div>
 </div>
