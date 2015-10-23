@@ -75,7 +75,8 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 				var series = [];
 				var xLabels = [];
 				var section = instrument.sections[z];
-				for (var i = 0; i < assessments.length && i < 3; i++) {
+				var start = assessments.length >= 3? 2 : assessments.length;
+				for (var i = start;  i >= 0; i--) {
 					var assessment = assessments[i];
 					var dataSet = [];
 					for (var j = 0; j < section.questions.length; j++) {
@@ -84,9 +85,9 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 							xLabels.push(question.n);
 						}
 						var response = svc.findResponse(assessment.responses, question.id);
-						dataSet.push({label: response.r, y: parseInt(response.rdx)});
+						dataSet.push({label: response.rp, y: parseInt(response.rdx)});
 					}
-					series.push({id: i, type: 'column', name: $filter('date')(assessment.lastModified, 'shortDate'), data: dataSet});
+					series.push({id: i, type: 'column', name: $filter('date')(assessment.lm, 'shortDate'), data: dataSet});
 				}
 				var rptCfg = Graphs.columnGraphConfig(section.n, null, 'Competency', 'Ranking', maxY, xLabels, series);
 				memberHx.push({title: section.n, config: rptCfg});

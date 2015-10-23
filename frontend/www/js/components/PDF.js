@@ -78,7 +78,7 @@ angular.module('PDF', []).service('PDF', function ($filter, $rootScope, Utility)
 			var section = assessment.instrument.sections[i];
 			doc.setFontSize(12);
 			doc.setTextColor(50, 100, 150);
-			doc.text(15, sectionY, section.name);
+			doc.text(15, sectionY, section.n);
 			//html += '<tr><th colspan="3">' + section.name + '</th></tr>';
 			var splitHeight = 0;
 			questionY = sectionY + 5;

@@ -84,14 +84,15 @@ class Assessment extends BaseModel {
 			$schedule = $assessment->ref('instrument_schedule');
 			$map['instrument'] = $database->map($instrument);
 			$map['schedule'] = $database->map($schedule);
-			$responses = $assessment->related('assessment_response');
+			$jsonResponses = [];
+			$responses = $database->table('assessment_response')->where('assessment_id=?', $assessment["id"]); //@todo ORDER!
 			foreach ($responses as $response) {
 				$questionId = $response["question_id"];
 				$typeId = $response->question->question_type["id"];
 				$choiceRecords = $database->table('question_choice')->where('question_type_id=?', $typeId)->order('sort_order');
 				/** @var IRow[] $choices */
 				$choices = $database->mapRecords($choiceRecords);
-				$responses[$questionId] = [
+				$jsonResponses[$questionId] = [
 					'id'  => (int)$response["id"],
 					'rp'  => $response["response"],
 					'rdx' => (int)$response["response_index"],
@@ -99,6 +100,9 @@ class Assessment extends BaseModel {
 					'mc'  => $response["member_comments"],
 					'ch'  => $choices
 				];
+				$rec = $jsonResponses[$questionId];
+				$rec["qi"] = (int)$response["question_id"];
+				$map["responses"][] = $rec;
 			}
 			$i = 0;
 			$sections = $instrument->related('question_group');
@@ -115,8 +119,8 @@ class Assessment extends BaseModel {
 				$next = ($nextPos + 1) . ". " . $sectionNames[$nextPos];
 				$previous = ($prevPos + 1) . ". " . $sectionNames[$prevPos];
 
-				$jsonSection = ['id' => $section["id"], 'number' => ($i + 1), 'name' => $section["tag"], 'next' => $next, 'previous' => $previous, 'questions' => []];
-				$questions = $section->related('question');
+				$jsonSection = ['id' => $section["id"], 'nmb' => ($i + 1), 'n' => $section["tag"], 'nxt' => $next, 'prv' => $previous, 'questions' => []];
+				$questions = $database->table('question')->where('question_group_id=?', $section["id"])->order('sort_order ASC');
 				foreach ($questions as $question) {
 					$jsonSection['questions'][] = [
 						'id'  => $question["id"],
@@ -124,7 +128,7 @@ class Assessment extends BaseModel {
 						'n'   => $question["name"],
 						'sum' => $question["summary"],
 						'dsc' => $question["description"],
-						'rsp' => @$responses[$question["id"]],
+						'rsp' => @$jsonResponses[$question["id"]],
 						'typ' => $question->question_type["entry_type"],
 						'mn'  => $question->question_type["min_range"],
 						'mx'  => $question->question_type["max_range"],

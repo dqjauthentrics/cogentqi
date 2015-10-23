@@ -31,10 +31,10 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 					//var next = j < gLen - 1 ? (j + 2) + '. ' + groups[(j + 1)].tag : '1. ' + groups[0].tag;
 					instrument.sections[j] = {
 						id: questionGroup.id,
-						number: questionGroup.nmb,
-						name: questionGroup.tag,
-						next: next,
-						previous: previous,
+						nmb: questionGroup.nmb,
+						n: questionGroup.tag,
+						nxt: next,
+						prv: previous,
 						questions: []
 					};
 					if (!Utility.empty(instrument.questions)) {
@@ -94,12 +94,12 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 				if (svc.currentSectionIdx > svc.SECTION_SUMMARY) {
 					if (i == svc.currentSectionIdx || svc.currentSectionIdx == svc.SECTION_ALL) {
 						for (var j = 0; j < sections[i].questions.length; j++) {
-							names.push(svc.matrixName(sections[i].questions[j].name, maxLength));
+							names.push(svc.matrixName(sections[i].questions[j].n, maxLength));
 						}
 					}
 				}
 				else {
-					names.push(svc.matrixName(sections[i].name, maxLength));
+					names.push(svc.matrixName(sections[i].n, maxLength));
 				}
 			}
 		}
@@ -138,7 +138,7 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 		var names = [];
 		if (!Utility.empty(instrument) && !Utility.empty(instrument.sections)) {
 			for (var z = 0; z < instrument.sections.length; z++) {
-				names.push(instrument.sections[z].name);
+				names.push(instrument.sections[z].n);
 			}
 		}
 		return names;
@@ -189,7 +189,7 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 				return 'Section Summary';
 			}
 			if (svc.currentSectionIdx >= 0 && svc.currentSectionIdx < instrument.sections.length) {
-				name = instrument.sections[svc.currentSectionIdx].name;
+				name = instrument.sections[svc.currentSectionIdx].n;
 			}
 		}
 		return name;
@@ -197,10 +197,10 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 	svc.sectionPreviousName = function (instrument) {
 		if (!Utility.empty(instrument) && Array.isArray(instrument.sections)) {
 			if (svc.currentSectionIdx >= 0) {
-				return instrument.sections[svc.currentSectionIdx].previous;
+				return instrument.sections[svc.currentSectionIdx].prv;
 			}
 			else {
-				return instrument.sections[0].previous;
+				return instrument.sections[0].prv;
 			}
 		}
 		return null;
@@ -208,10 +208,10 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 	svc.sectionNextName = function (instrument) {
 		if (!Utility.empty(instrument) && Array.isArray(instrument.sections)) {
 			if (svc.currentSectionIdx >= 0) {
-				return instrument.sections[svc.currentSectionIdx].next;
+				return instrument.sections[svc.currentSectionIdx].nxt;
 			}
 			else {
-				return instrument.sections[(instrument.sections.length - 1)].next;
+				return instrument.sections[(instrument.sections.length - 1)].nxt;
 			}
 		}
 		return null;

@@ -82,6 +82,7 @@ class DbContext extends Context {
 		'qi'   => ['question_id', self::TYPE_INT],
 		'qt'   => ['question_type_id', self::TYPE_INT],
 		'r'    => ['role_id', self::TYPE_STRING],
+		'rp'   => ['response', self::TYPE_STRING],
 		'rds'  => ['role_ids', self::TYPE_STRING],
 		'rdx'  => ['response_index', self::TYPE_INT],
 		'ri'   => ['resource_id', self::TYPE_INT],

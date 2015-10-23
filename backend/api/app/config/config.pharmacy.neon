@@ -1,6 +1,5 @@
 parameters:
 
-
 database:
     dsn: 'mysql:host=localhost;dbname=cogentqi_v1_pharmacy'
     user: 'cogentqiapp'

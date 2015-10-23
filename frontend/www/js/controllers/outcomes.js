@@ -17,7 +17,7 @@ angular.module('OutcomeControllers', [])
 			if (!Utility.empty($scope.data.instruments) && !Utility.empty(questionId)) {
 				var question = Instruments.findQuestion($scope.data.instruments, questionId);
 				if (!Utility.empty(question)) {
-					return question.name;
+					return question.n;
 				}
 			}
 			return null;

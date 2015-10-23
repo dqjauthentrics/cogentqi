@@ -37,7 +37,7 @@ angular.module('ControllerProfessional', [])
 			if (!Utility.empty($scope.data.instruments)) {
 				for (var i = 0; i < $scope.data.instruments.length; i++) {
 					if ($scope.data.instruments[i].id == instrumentId) {
-						return $scope.data.instruments[i].name;
+						return $scope.data.instruments[i].n;
 					}
 				}
 			}

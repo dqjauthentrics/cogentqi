@@ -84,6 +84,7 @@ angular.module('Graphs', []).service('Graphs', function () {
 			},
 			yAxis: {
 				min: 0,
+				allowDecimals: false,
 				max: maxY,
 				title: {
 					text: yTitle

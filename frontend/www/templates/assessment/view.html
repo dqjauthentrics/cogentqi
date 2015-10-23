@@ -44,10 +44,10 @@
                 <div id="section{{$index}}" data-ng-repeat="section in data.assessment.instrument.sections" class="fadein fadeout">
                     <div data-ng-show="Instruments.sectionIsCurrent(data.assessment.instrument, section.id)">
                         <div class="instrumentNavBtn pull-left">
-                            <a ng-click="Instruments.sectionPrevious(data.assessment.instrument)"><< {{section.previous|ellipsify:22}}</a>
+                            <a ng-click="Instruments.sectionPrevious(data.assessment.instrument)"><< {{section.prv|ellipsify:22}}</a>
                         </div>
                         <div class="instrumentNavBtn pull-right">
-                            <a ng-click="Instruments.sectionNext(data.assessment.instrument)">{{section.next|ellipsify:22}} >></a>
+                            <a ng-click="Instruments.sectionNext(data.assessment.instrument)">{{section.nxt|ellipsify:22}} >></a>
                         </div>
                         <div class="clearfix"></div>
                         <div style="height:1em;"></div>

@@ -158,7 +158,6 @@ class AssessmentPresenter extends BasePresenter {
 			}
 		}
 		catch (\Exception $exception) {
-			file_put_contents("/tmp/dqj.dbg", "S8:$id\n", FILE_APPEND);
 			$this->database->rollBack();
 			throw new AjaxException(AjaxException::ERROR_FATAL, $exception);
 		}

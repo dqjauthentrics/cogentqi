@@ -51,21 +51,9 @@ class Member extends BaseModel {
 		$map["lastAssessment"] = self::mapLastAssessment($database, $member);
 		if ($mode != BasePresenter::MODE_LISTING) {
 			$jsonAssessments = [];
-			foreach ($database->table('assessment')->where("member_id=?", $member["id"])->order("last_modified DESC") as $databaseRecord) {
-				$jsonAssessments[] = [
-					'id'       => (int)$databaseRecord["id"],
-					'ii'       => (int)$databaseRecord["instrument_id"],
-					'asi'      => (int)$databaseRecord["assessor_id"],
-					'isi'      => (int)$databaseRecord["instrument_schedule_id"],
-					'mi'       => (int)$databaseRecord["member_id"],
-					'lm'       => $database->presentationDateTime($databaseRecord["last_modified"]),
-					'sc'       => (double)$databaseRecord["score"],
-					'rk'       => (int)$databaseRecord["rank"],
-					'es'       => $databaseRecord["edit_status"],
-					'vs'       => $databaseRecord["view_status"],
-					'typ'      => @$databaseRecord->ref('instrument')->question_type["name"],
-					'assessor' => $database->map($databaseRecord->ref('member', 'assessor_id'))
-				];
+			$assessments = $database->table('assessment')->where("member_id=?", $member["id"])->order("last_modified DESC")->fetchAll();
+			foreach ($assessments as $databaseRecord) {
+				$jsonAssessments[] = Assessment::map($database, $databaseRecord, BasePresenter::MODE_RELATED);
 			}
 			$map["assessments"] = $jsonAssessments;
 		}
