@@ -3,6 +3,8 @@
 angular.module('Assessments', []).service('Assessments', function ($resource, $filter, $http, $cookieStore, Utility, Instruments, Resources, Members) {
 	var svc = this;
 	svc.nRankings = 5;
+	svc.list = null;
+	svc.current = null;
 
 	svc.retrieve = function () {
 		var user = $cookieStore.get('user');

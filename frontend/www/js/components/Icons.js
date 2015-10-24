@@ -27,7 +27,7 @@ angular.module('Icons', []).service('Icons', function () {
 	this.info = "fa fa-question-circle";
 	this.instrument = "ion-clipboard";
 	this.learningModule = "ion-university";
-	this.loadingSpinner = "fa fa-spinner fa-spin";
+	this.loadingSpinner = "fa fa-refresh fa-spin";
 	this.locked = "ion-locked";
 	this.manager = "fa fa-gear";
 	this.member = "fa fa-user";

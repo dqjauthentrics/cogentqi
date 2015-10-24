@@ -115,13 +115,20 @@ angular.module('MemberControllers', [])
 		'MemberViewCtrl',
 		function ($http, $rootScope, $scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments,
 				  Organizations, Members, Messages, Assessments) {
-			$scope.data = {showMember: false, dirty: false, member: {}, user: $cookieStore.get('user'), newMessage: ''};
+			$scope.Members = Members;
+			$scope.data = {isLoading: true, showMember: false, dirty: false, user: $cookieStore.get('user'), newMessage: ''};
 			$scope.roles = $rootScope.roles;
 
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
-				Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
-					$scope.data.member = response;
-				});
+				if (Members.current == null || Members.current.id != $stateParams.memberId) {
+					Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
+						Members.current = response;
+						$scope.data.isLoading = false;
+					});
+				}
+				else {
+					$scope.data.isLoading = false;
+				}
 			}
 			$scope.goToBarProgress = function () {
 				$location.url("/member/barProgress/" + $stateParams.memberId);
@@ -136,7 +143,7 @@ angular.module('MemberControllers', [])
 				return $scope.data.user.roleId == 'M' || $scope.data.user.roleId == 'A';
 			};
 			$scope.save = function () {
-				Members.saveProfile($scope.data.member, function (response, data) {
+				Members.saveProfile(Members.current, function (response, data) {
 					Utility.statusAlert(response)
 				});
 				$scope.data.dirty = false;
@@ -148,8 +155,13 @@ angular.module('MemberControllers', [])
 				return $scope.data.dirty;
 			};
 			$scope.showRole = function () {
-				var selected = $filter('filter')($scope.roles, {id: $scope.data.member.r});
-				return ($scope.data.member.r && !Utility.empty(selected)) ? selected[0].n : 'Not set';
+				if ($scope.Members.current != null) {
+					var selected = $filter('filter')($scope.roles, {id: $scope.Members.current.r});
+					return ($scope.Members.current.r && !Utility.empty(selected)) ? selected[0].n : 'Not set';
+				}
+				else {
+					return '';
+				}
 			};
 			$scope.sendEmail = function (member) {
 				window.location.href = 'mailto:' + member.em + '?subject=Regarding Your CQI Improvement Plan';
@@ -185,9 +197,9 @@ angular.module('MemberControllers', [])
 									if (!Utility.empty(assessmentId)) {
 										Assessments.remove(assessmentId, function (status, message) {
 											if (status == 1) {
-												for (var i = 0; i < $scope.data.member.assessments.length; i++) {
-													if ($scope.data.member.assessments[i].id == assessmentId) {
-														$scope.data.member.assessments.splice(i, 1);
+												for (var i = 0; i < $scope.Members.current.assessments.length; i++) {
+													if ($scope.Members.current.assessments[i].id == assessmentId) {
+														$scope.Members.current.assessments.splice(i, 1);
 														break;
 													}
 												}
@@ -328,16 +340,19 @@ angular.module('MemberControllers', [])
 
 	.controller(
 		'MemberListCtrl',
-		function ($scope, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments, Organizations, Members) {
-			$scope.data = {isLoading: true, searchFilter: null, organizations: [], instruments: [], member: {}, assessments: [], instrument: null};
+		function ($scope, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Members) {
+			$scope.Members = Members;
+			$scope.data = {isLoading: true, searchFilter: null};
 
-			Utility.getResource(Instruments.retrieve(), function (response) {
-				$scope.data.instruments = response;
-			});
-			Utility.getResource(Members.retrieve(), function (response) {
-				$scope.data.members = response;
+			if ($scope.Members.list == null) {
+				Utility.getResource(Members.retrieve(), function (response) {
+					$scope.Members.list = response;
+					$scope.data.isLoading = false;
+				});
+			}
+			else {
 				$scope.data.isLoading = false;
-			});
+			}
 
 			$scope.memberFilter = function (member) {
 				return Members.filterer(member, $scope.data.searchFilter);

@@ -4,45 +4,20 @@ angular.module('AssessmentControllers', [])
 
 	.controller(
 		'AssessmentListCtrl',
-		function ($rootScope, $scope, $stateParams, Utility, Assessments, Members, Instruments) {
-			$scope.data = {isLoading: true, searchFilter: null, members: [], assessments: [], instruments: []};
+		function ($rootScope, $scope, $stateParams, Utility, Assessments, Members) {
+			$scope.Assessments = Assessments;
+			$scope.data = {isLoading: true, searchFilter: null};
 
-			if (Utility.empty($scope.data.instruments)) {
-				Utility.getResource(Instruments.retrieve(), function (response) {
-					$scope.data.instruments = response;
-					$scope.getAssessments();
+			if ($scope.Assessments.list == null) {
+				Utility.getResource(Assessments.retrieve(), function (response) {
+					$scope.Assessments.list = response;
+					$scope.data.isLoading = false;
 				});
 			}
-
-			if (Utility.empty($scope.data.members)) {
-				$scope.getResources = function () {
-					Utility.getResource(Members.retrieve(), function (response) {
-						$scope.data.members = response;
-						Assessments.associateMembers($scope.data.assessments, $scope.data.members);
-					});
-				};
+			else {
+				$scope.data.isLoading = false;
 			}
 
-			if (Utility.empty($scope.data.assessments)) {
-				$scope.getAssessments = function () {
-					Utility.getResource(Assessments.retrieve(), function (response) {
-						$scope.data.assessments = response;
-						$scope.data.isLoading = false;
-					});
-				};
-			}
-
-			$scope.assessmentName = function (instrumentId) {
-				var instrument = null;
-				if (!Utility.empty($scope.data.instruments)) {
-					for (var i = 0; i < $scope.data.instruments.length; i++) {
-						if ($scope.data.instruments[i].id == instrumentId) {
-							return $scope.data.instruments[i].n;
-						}
-					}
-				}
-				return instrument;
-			};
 			$scope.assessmentFilter = function (assessment) {
 				return Members.filterer(assessment.member, $scope.data.searchFilter) ||
 					Members.filterer(assessment.assessor, $scope.data.searchFilter)
@@ -149,22 +124,19 @@ angular.module('AssessmentControllers', [])
 
 			console.log("entering AssessmentViewCtrl");
 
+			$scope.Assessments = Assessments;
 			$scope.Instruments = Instruments;
+			$scope.Resources = Resources;
 			$scope.res = null;
 			$scope.data = {
 				dirty: false,
+				isLoading: true,
 				recommendations: [],
 				resources: [],
-				assessment: null,
 				currentChoices: null,
-				retrievingAssessment: false,
-				recommendationTitle: installation.trademarkName + ' Recommended Modules'
+				recommendationTitle: (installation !== undefined? installation.trademarkName : '') + ' Recommended Modules'
 			};
 
-			Utility.getResource(Resources.retrieve(), function (response) {
-				$scope.data.resources = response;
-				$scope.getAssessment();
-			});
 
 			$scope.hasComment = function (question) {
 				return !Utility.empty(question.rsp) && !Utility.empty(question.rsp.ac) && question.rsp.ac.length > 0;
@@ -192,8 +164,8 @@ angular.module('AssessmentControllers', [])
 			};
 
 			$scope.getRecommendations = function () {
-				if (!Utility.empty($scope.data.assessment) && !Utility.empty($scope.data.resources)) {
-					$scope.data.recommendations = Assessments.recommend($scope.data.assessment.instrument, $scope.data.resources);
+				if ($scope.Assessments.current !== null && $scope.Resources.list !== null) {
+					$scope.data.recommendations = Assessments.recommend($scope.Assessments.current.instrument, $scope.Resources.list);
 				}
 			};
 
@@ -207,12 +179,12 @@ angular.module('AssessmentControllers', [])
 
 			$scope.updateSliderResponse = function (question) {
 				$scope.data.dirty = true;
-				var scoreInfo = Assessments.sliderChange(question, $scope.data.assessment.instrument);
+				var scoreInfo = Assessments.sliderChange(question, $scope.Assessments.current.instrument);
 				question.rsp.rp = scoreInfo.scoreWord;
 				$scope.currentChoices = question.rsp.ch;
-				$scope.data.assessment.sc = scoreInfo.avg;
-				$scope.data.assessment.rk = scoreInfo.avgRound;
-				$scope.data.assessment.scoreWord = Assessments.scoreWord(question, scoreInfo.avgRound);
+				$scope.Assessments.current.sc = scoreInfo.avg;
+				$scope.Assessments.current.rk = scoreInfo.avgRound;
+				$scope.Assessments.current.scoreWord = Assessments.scoreWord(question, scoreInfo.avgRound);
 				$scope.getRecommendations();
 			};
 
@@ -226,35 +198,39 @@ angular.module('AssessmentControllers', [])
 
 			$scope.getAssessment = function () {
 				try {
-					if (!$scope.data.retrievingAssessment && Utility.empty($scope.data.assessment) && !Utility.empty($stateParams)) {
+					if (!Utility.empty($stateParams)) {
 						var assessmentId = !Utility.empty($stateParams.assessmentId) ? $stateParams.assessmentId : 0;
-						if (assessmentId > 0) {
-							if (!$scope.data.assessment || $scope.data.assessment.id != assessmentId) {
-								$scope.data.retrievingAssessment = true;
-								Utility.getResource(Assessments.retrieveSingle(assessmentId), function (response) {
-									Instruments.currentSectionIdx = 0;
-									$scope.data.assessment = response;
-									var scoreInfo = Assessments.scorify($scope.data.assessment.instrument);
-									var question = $scope.data.assessment.instrument.sections[0].questions[0];
-									$scope.data.assessment.sc = scoreInfo.avg;
-									$scope.data.assessment.rk = scoreInfo.avgRound;
-									$scope.data.assessment.scoreWord = Assessments.scoreWord(question, scoreInfo.avgRound);
-									$scope.data.assessor = $cookieStore.get('user');
-									$scope.getRecommendations();
-									$scope.data.retrievingAssessment = false;
-								});
+						if ($scope.Assessments.current === null || $scope.Assessments.current.id != assessmentId) {
+							if (assessmentId > 0) {
+								if (!$scope.Assessments.current || $scope.Assessments.current.id != assessmentId) {
+									Utility.getResource(Assessments.retrieveSingle(assessmentId), function (response) {
+										Instruments.currentSectionIdx = 0;
+										$scope.Assessments.current = response;
+										var scoreInfo = Assessments.scorify($scope.Assessments.current.instrument);
+										var question = $scope.Assessments.current.instrument.sections[0].questions[0];
+										$scope.Assessments.current.sc = scoreInfo.avg;
+										$scope.Assessments.current.rk = scoreInfo.avgRound;
+										$scope.Assessments.current.scoreWord = Assessments.scoreWord(question, scoreInfo.avgRound);
+										$scope.data.assessor = $cookieStore.get('user');
+										$scope.getRecommendations();
+										$scope.data.isLoading = false;
+									});
+								}
+							}
+							else if (assessmentId == -1) {
+								if (!Utility.empty($stateParams.memberId)) {
+									Utility.getResource(Assessments.create($stateParams.memberId), function (response) {
+										Instruments.currentSectionIdx = 0;
+										$scope.Assessments.current = response;
+										$scope.data.assessor = $scope.Assessments.current.assessor.id;
+										$scope.getRecommendations();
+										$scope.data.isLoading = false;
+									});
+								}
 							}
 						}
-						else if (assessmentId == -1) {
-							if (!Utility.empty($stateParams.memberId)) {
-								Utility.getResource(Assessments.create($stateParams.memberId), function (response) {
-									Instruments.currentSectionIdx = 0;
-									$scope.data.assessment = response;
-									$scope.data.assessor = $scope.data.assessment.assessor.id;
-									$scope.getRecommendations();
-									$scope.data.retrievingAssessment = false;
-								});
-							}
+						else {
+							$scope.data.isLoading = false;
 						}
 					}
 				}
@@ -268,7 +244,7 @@ angular.module('AssessmentControllers', [])
 			};
 
 			$scope.printIt = function () {
-				PDF.assessment($scope.data.assessment);
+				PDF.assessment($scope.Assessments.current);
 				return true;
 			};
 
@@ -277,16 +253,16 @@ angular.module('AssessmentControllers', [])
 			};
 
 			$scope.toggleLock = function () {
-				var word = ($scope.data.assessment.es == 'L' ? 'unlock' : 'lock');
+				var word = ($scope.Assessments.current.es == 'L' ? 'unlock' : 'lock');
 				var confirmPopup = $ionicPopup.confirm({
 														   title: Utility.ucfirst(word) + ' Confirmation',
 														   template: "Are you sure you wish to " + word + " this assessment?"
 													   });
 				confirmPopup.then(function (res) {
 					if (res) {
-						$scope.data.assessment.es = ($scope.data.assessment.es == 'L' ? 'A' : 'L');
+						$scope.Assessments.current.es = ($scope.Assessments.current.es == 'L' ? 'A' : 'L');
 						$scope.res = $resource('/api2/assessment/:id');
-						$scope.res.save({assessment: $scope.data.assessment});
+						$scope.res.save({assessment: $scope.Assessments.current});
 					}
 				});
 			};
@@ -294,7 +270,7 @@ angular.module('AssessmentControllers', [])
 				var icon = $(event.target).find("i");
 				var saveClass = icon.attr("class");
 				icon.attr("class", "").addClass("fa fa-spinner fa-spin");
-				Assessments.save($scope.data.assessment, function () {
+				Assessments.save($scope.Assessments.current, function () {
 					icon.attr("class", saveClass);
 					$scope.data.dirty = false;
 				});
@@ -303,10 +279,22 @@ angular.module('AssessmentControllers', [])
 				return true;
 			};
 			$scope.canRemove = function () {
-				return !Utility.empty($scope.data.assessment) && $scope.data.assessment.member.ari != 'P' && $scope.canEdit();
+				return !Utility.empty($scope.Assessments.current) && $scope.Assessments.current.member.ari != 'P' && $scope.canEdit();
 			};
 			$scope.canLock = function () {
-				return !Utility.empty($scope.data.assessment) && $scope.data.assessment.member.ari != 'P';
+				return !Utility.empty($scope.Assessments.current) && $scope.Assessments.current.member.ari != 'P';
+			};
+
+
+			// Main
+			if ($scope.Resources.list === null) {
+				Utility.getResource(Resources.retrieve(), function (response) {
+					$scope.Resources.list = response;
+					$scope.getAssessment();
+				});
+			}
+			else {
+				$scope.getAssessment();
 			}
 		})
 ;

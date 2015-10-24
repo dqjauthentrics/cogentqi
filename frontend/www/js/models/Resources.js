@@ -2,6 +2,8 @@
 
 angular.module('Resources', []).service('Resources', function ($resource, $http, Utility) {
 	var svc = this;
+	svc.list = null;
+	svc.current = null;
 
 	svc.retrieve = function (resourceId) {
 		var url = '/api2/resource';
@@ -35,11 +37,11 @@ angular.module('Resources', []).service('Resources', function ($resource, $http,
 	svc.saveAlignments = function (instrumentId, resourceId, alignments, callbackFn) {
 		try {
 			$http({
-				method: 'PUT',
-				url: "/api2/resource-alignment",
-				data: $.param({instrumentId: instrumentId, resourceId: resourceId, alignments: alignments}),
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			}).success(function (data, status, headers, config) {
+					  method: 'PUT',
+					  url: "/api2/resource-alignment",
+					  data: $.param({instrumentId: instrumentId, resourceId: resourceId, alignments: alignments}),
+					  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+				  }).success(function (data, status, headers, config) {
 				callbackFn(data, data);
 			}).error(function (data, status, headers, config) {
 				callbackFn(0, data);

@@ -2,52 +2,49 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <div style="float:left; margin:0.2vw 1vw 0 0;">
-            <h1 style="margin:0">{{data.assessment.instrument.n}}</h1>
+        <page-loader i="i" loading="data.isLoading"></page-loader>
+        <div style="float:left; margin:0.2vw 1vw 0 0;" ng-show="!data.isLoading">
+            <h1 style="margin:0">{{Assessments.current.instrument.n}}</h1>
 
             <div>
-                Performed by: {{data.assessment.assessor.fn}} {{data.assessment.assessor.ln}}
-                <a href="/#/member/view/{{data.assessment.assessor.id}}">
-                    <avatar site="siteDir()" sz="'tiny'" member-id="data.assessment.assessor.id" level="0" alt="avatarAlt(data.assessor)"></avatar>
+                Performed by: {{Assessments.current.assessor.fn}} {{Assessments.current.assessor.ln}}
+                <a href="/#/member/view/{{Assessments.current.assessor.id}}">
+                    <avatar site="siteDir()" sz="'tiny'" member-id="Assessments.current.assessor.id" level="0" alt="avatarAlt(data.assessor)"></avatar>
                 </a>
             </div>
         </div>
-        <div class="iconBar">
-            <button id="assessmentSave" data-ng-if="canEdit() && data.assessment.es!='L'"
+        <div class="iconBar" ng-show="!data.isLoading">
+            <button id="assessmentSave" data-ng-if="canEdit() && Assessments.current.es!='L'"
                     class="button button-action button-save {{data.dirty? 'button-dirty':'button-clean'}}" data-ng-click="save($event)">
                 <i class="{{i.save}}"></i>
             </button>
-            <button data-ng-if="canLock()" class="button button-action button-{{data.assessment.es=='L'?'unlock':'lock'}}" data-ng-click="toggleLock()">
-                <i class="{{data.assessment.es=='L'? i.unlocked : i.locked}}"></i>
+            <button data-ng-if="canLock()" class="button button-action button-{{Assessments.current.es=='L'?'unlock':'lock'}}" data-ng-click="toggleLock()">
+                <i class="{{Assessments.current.es=='L'? i.unlocked : i.locked}}"></i>
             </button>
-            <button data-ng-if="canRemove() && data.assessment.es!='L'" class="button button-action button-remove" data-ng-click="remove()">
+            <button data-ng-if="canRemove() && Assessments.current.es!='L'" class="button button-action button-remove" data-ng-click="remove()">
                 <i class="{{i.remove}}"></i>
             </button>
             <button class="button button-action button-pdf" data-ng-click="printIt()"><i class="{{i.pdf}}"></i></button>
             <div class="clearfix"></div>
         </div>
-        <div class="row responsive-lg">
+        <div class="row responsive-lg" ng-show="!data.isLoading">
             <div class="col col-25 card" style="text-align: center;">
-                <assessment-name-card site="siteDir()" member="data.assessment.member" assessment="data.assessment"></assessment-name-card>
+                <assessment-name-card site="siteDir()" member="Assessments.current.member" assessment="Assessments.current"></assessment-name-card>
             </div>
             <div class="col card">
                 <assessment-recommendations title="data.recommendationsTitle" items="data.recommendations"></assessment-recommendations>
             </div>
         </div>
-        <div class="row responsive-sm detail">
+        <div class="row responsive-lg detail" ng-show="!data.isLoading">
             <div class="col col-100 assessment">
-                <div class="row responsive-lg">
-                    <i class="{{i.loadingSpinner}} fa-lg fa-2x" style="color:#999; margin:1em auto; text-align:center;"
-                       data-ng-show="data.assessment == null"></i>
-                </div>
-                <div style="display:none;">{{data.assessment.lm}}</div>
-                <div id="section{{$index}}" data-ng-repeat="section in data.assessment.instrument.sections" class="fadein fadeout">
-                    <div data-ng-show="Instruments.sectionIsCurrent(data.assessment.instrument, section.id)">
+                <div style="display:none;">{{Assessments.current.lm}}</div>
+                <div id="section{{$index}}" data-ng-repeat="section in Assessments.current.instrument.sections" class="fadein fadeout">
+                    <div data-ng-show="Instruments.sectionIsCurrent(Assessments.current.instrument, section.id)">
                         <div class="instrumentNavBtn pull-left">
-                            <a ng-click="Instruments.sectionPrevious(data.assessment.instrument)"><< {{section.prv|ellipsify:22}}</a>
+                            <a ng-click="Instruments.sectionPrevious(Assessments.current.instrument)"><< {{section.prv|ellipsify:22}}</a>
                         </div>
                         <div class="instrumentNavBtn pull-right">
-                            <a ng-click="Instruments.sectionNext(data.assessment.instrument)">{{section.nxt|ellipsify:22}} >></a>
+                            <a ng-click="Instruments.sectionNext(Assessments.current.instrument)">{{section.nxt|ellipsify:22}} >></a>
                         </div>
                         <div class="clearfix"></div>
                         <div style="height:1em;"></div>

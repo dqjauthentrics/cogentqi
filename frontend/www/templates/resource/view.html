@@ -5,14 +5,14 @@
         <table class="resource detail">
             <tr>
                 <td>
-                    <div class="number"><i class="{{i.resource}} fa-lg"></i> {{data.resource.nmb}}</div>
-                    <div class="title">{{data.resource.n}}</div>
+                    <div class="number"><i class="{{i.resource}} fa-lg"></i> {{Resources.current.nmb}}</div>
+                    <div class="title">{{Resources.current.n}}</div>
                 </td>
             </tr>
             <tr>
                 <td style="text-align:center;">
                     <div style="width:50%; min-width:300px; margin:0 auto;">
-                        <ng-include src="data.resource.loc"></ng-include>
+                        <ng-include src="Resources.current.loc"></ng-include>
                     </div>
                 </td>
             </tr>

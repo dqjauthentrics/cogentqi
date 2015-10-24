@@ -34,7 +34,7 @@ angular.module('app')
 	.directive('assessmentItem', function () {
 		return {
 			restrict: 'E', templateUrl: '../templates/assessment/_item.html',
-			scope: {assessment: '=', i: '=', showMember: '=', site: '=', name: '=', role: '=', prefix: '='}
+			scope: {assessment: '=', i: '=', showMember: '=', site: '=', prefix: '='}
 		};
 	})
 
@@ -123,6 +123,14 @@ angular.module('app')
 			restrict: 'E',
 			templateUrl: '../templates/common/_microBadge.html',
 			scope: {text: '=', size: '='}
+		};
+	})
+
+	.directive('pageLoader', function () {
+		return {
+			restrict: 'E',
+			templateUrl: '../templates/common/_pageLoader.html',
+			scope: {loading: '=', i: '='}
 		};
 	})
 

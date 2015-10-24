@@ -1,4 +1,4 @@
-<div data-ng-switch="data.assessment.es" class="response">
+<div data-ng-switch="Assessments.current.es" class="response">
     <div data-ng-switch-when="A">
         <div data-ng-switch="question.typ">
             <div data-ng-switch-when="YESNO">
@@ -17,7 +17,7 @@
                             ng-model="question.rsp.rdx" floor="{{question.mn}}" ceiling="{{question.mx}}" step-width="0.1"
                             ng-change="updateSliderResponse(question, this, true)"
                             precision="0"
-                            style="{{'width:' + (rubricWidth(question.mx) * 4)+ '%; margin-bottom:-1em; margin-left:' + (rubricWidth(question.mx)/2)+ '%;'}}"
+                            style="{{'width:' + (rubricWidth(question.mx) * question.mx)+ '%; margin-bottom:-1em; margin-left:' + (rubricWidth(question.mx)/2)+ '%;'}}"
                             >
                     </slider>
                     <div class="{{$index == question.rsp.rdx? 'active':'inactive'}}" id="{{'rubric_'+question.id+'_'+$index}}"

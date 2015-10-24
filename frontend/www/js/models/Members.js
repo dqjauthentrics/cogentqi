@@ -2,6 +2,8 @@
 
 angular.module('Members', ['Graphs']).service('Members', function ($filter, $resource, $http, $cookieStore, Graphs, Utility, Instruments) {
 	var svc = this;
+	svc.list = null;
+	svc.current = null;
 
 	svc.retrieve = function () {
 		var user = $cookieStore.get('user');
@@ -75,8 +77,8 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 				var series = [];
 				var xLabels = [];
 				var section = instrument.sections[z];
-				var start = assessments.length >= 3? 2 : assessments.length;
-				for (var i = start;  i >= 0; i--) {
+				var start = assessments.length >= 3 ? 2 : assessments.length;
+				for (var i = start; i >= 0; i--) {
 					var assessment = assessments[i];
 					var dataSet = [];
 					for (var j = 0; j < section.questions.length; j++) {

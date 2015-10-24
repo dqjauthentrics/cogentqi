@@ -2,6 +2,7 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
+        <page-loader i="i" loading="data.isLoading"></page-loader>
         <div class="row responsive-lg">
             <div class="col col-10"></div>
             <div class="col card">
@@ -9,11 +10,9 @@
                     <ion-item class="top">
                         <list-searcher></list-searcher>
                     </ion-item>
-                    <ion-item class="item-remove-animate item-icon-right" ng-repeat="assessment in filtered=(data.assessments|filter:assessmentFilter)"
+                    <ion-item class="item-remove-animate item-icon-right" ng-repeat="assessment in filtered=(Assessments.list|filter:assessmentFilter)"
                               type="item-text-wrap" href="#/assessment/view/{{assessment.id}}">
-                        <assessment-item i="i" assessment="assessment" site="siteDir()" show-member="true"
-                                         name="assessmentName(assessment.ii)">
-                        </assessment-item>
+                        <assessment-item i="i" assessment="assessment" site="siteDir()" show-member="true"></assessment-item>
                         <i class="icon ion-chevron-right icon-accessory"></i>
                     </ion-item>
                 </ion-list>

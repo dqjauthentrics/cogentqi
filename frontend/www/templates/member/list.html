@@ -9,7 +9,7 @@
                     <ion-item class="top">
                         <list-searcher></list-searcher>
                     </ion-item>
-                    <ion-item class="item-icon-right" data-ng-repeat="member in filtered = (data.members|filter:memberFilter)" type="item-text-wrap"
+                    <ion-item class="item-icon-right" data-ng-repeat="member in filtered = (Members.list|filter:memberFilter)" type="item-text-wrap"
                               href="#/member/view/{{member.id}}">
                         <member-item></member-item>
                         <i class="icon ion-chevron-right icon-accessory"></i>
