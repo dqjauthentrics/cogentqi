@@ -5,10 +5,14 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 	svc.list = null;
 	svc.current = null;
 
-	svc.retrieve = function () {
+	svc.retrieve = function (includeInactive) {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			return $resource('/api2/organization/' + user.organizationId + '/r/members', {}, {});
+			var url = '/api2/organization/' + user.organizationId + '/r/members';
+			if (includeInactive) {
+				url += '/i/1';
+			}
+			return $resource(url, {}, {});
 		}
 		return null;
 	};
@@ -30,6 +34,19 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 				  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			  }).success(function (data, status, headers, config) {
 			callbackFn(status, data);
+		}).error(function (data, status, headers, config) {
+			callbackFn(0, data);
+		});
+	};
+
+	svc.deOrReactivate = function (member, callbackFn) {
+		$http({
+				  method: 'GET',
+				  url: "/api2/member/" + member.id + '/r/dereactivate',
+				  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			  }).success(function (data, status, headers, config) {
+			console.log("data:", data);
+			callbackFn(data);
 		}).error(function (data, status, headers, config) {
 			callbackFn(0, data);
 		});

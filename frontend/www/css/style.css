@@ -136,11 +136,7 @@ h3 {
     background: #DDD;
     margin: 1em;
     padding: 1em;
-}
-
-.card {
-    background: #DDD;
-    margin: 1em !important;
+    height: 100%;
 }
 
 .card a.button, form .button, form .button-small {
@@ -1049,6 +1045,7 @@ p.comments {
 .button-action.button-small {
     font-size: 1em;
     padding: 0.1em 0.3em;
+    color: #FFF;
 }
 
 .button-action:hover {
@@ -1360,7 +1357,7 @@ a.item-content {
     font-size: 1.0em;
     padding: 0.3em;
     text-align: center;
-    width: 14vmin;
+    width: 140px;
     margin: 0 auto;
     border-radius: 0 0 4px 4px;
 }
@@ -1532,20 +1529,6 @@ input[type="search"] {
 
 }
 
-/**
-.assessmentItem tr.ng-enter, .assessmentItem tr.ng-leave {
-    -webkit-transition: 0.5s linear all;
-    transition: 0.5s linear all;
-}
-
-.assessmentItem tr.ng-enter, .assessmentItem tr.ng-leave.ng-leave-active {
-    opacity: 0;
-}
-
-.assessmentItem tr.ng-leave, .assessmentItem tr.ng-enter.ng-enter-active {
-    opacity: 1;
-}
-**/
 @keyframes openspace {
     to {
         height: auto
@@ -1670,4 +1653,35 @@ input[type="search"] {
         transform: scale(0);
         opacity: 0
     }
+}
+
+.item-input-wrapper {
+    color: #000;
+}
+
+.itemInactive {
+    border: 1px dashed red !important;
+}
+
+.itemInactiveText {
+    color: red;
+}
+
+.itemInactive .name, .itemInactive .role {
+    text-decoration: line-through !important;
+}
+
+.panel.inactive {
+    background: #FFEEEE;
+}
+
+.events td, .events th {
+    color: red;
+    border: 0 solid #CCC;
+    padding: 0.3em;
+}
+
+.events th {
+    background: #CCC;
+    color: #000;
 }

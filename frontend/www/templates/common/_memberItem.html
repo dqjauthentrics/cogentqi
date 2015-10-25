@@ -5,6 +5,7 @@
             <div class="name">{{member.fn}} {{member.ln}}</div>
             <div class="title">{{member.jt}}</div>
             <div class="role" data-ng-if="member.role.length && member.role != member.jt">({{member.role}})</div>
+            <div class="itemInactiveText" ng-if="member.ae">{{'Inactive as of:'|translate}} {{member.ae|date}}</div>
         </div>
     </div>
     <div class="col col-25">
@@ -16,9 +17,3 @@
         </div>
     </div>
 </div>
-<style>
-    .assessmentItem td {
-        padding: 0.3em;
-        vertical-align: middle;
-    }
-</style>

@@ -118,6 +118,33 @@ angular.module('app')
 		};
 	})
 
+	.directive('memberAssessments', function () {
+		return {
+			restrict: 'E',
+			templateUrl: '../templates/member/_assessments.html'
+		};
+	})
+
+	.directive('memberContact', function () {
+		return {
+			restrict: 'E',
+			templateUrl: '../templates/member/_contact.html'
+		};
+	})
+
+	.directive('memberEvents', function () {
+		return {
+			restrict: 'E',
+			templateUrl: '../templates/member/_events.html'
+		};
+	})
+	.directive('memberOverview', function () {
+		return {
+			restrict: 'E',
+			templateUrl: '../templates/member/_overview.html'
+		};
+	})
+
 	.directive('microBadge', function () {
 		return {
 			restrict: 'E',

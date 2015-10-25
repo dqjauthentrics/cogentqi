@@ -13,20 +13,22 @@ class OrganizationPresenter extends BasePresenter {
 	/**
 	 * @param int $id
 	 * @param int $mode
+	 * @param int $inactive
 	 *
 	 * @throws \App\Components\AjaxException
 	 */
-	public function actionReadMembers($id, $mode = self::MODE_LISTING) {
+	public function actionReadMembers($id, $mode = self::MODE_LISTING, $inactive = 0) {
 		if ($this->user->isAllowed('Member', 'members')) {
+			$activeStatus = (!$inactive ? 'active_end IS NULL AND ' : '');
 			if ($mode == self::MODE_RECURSIVE) {
 				$org = $this->database->table('organization')->where('id=?', $id);
 				if (empty($org) || empty($org->treeIds)) {
 					throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
 				}
-				$members = $this->database->table('member')->where("organization_id IN (?)", $org->treeIds)->fetchAll();
+				$members = $this->database->table('member')->where("$activeStatus organization_id IN (?)", $org->treeIds)->fetchAll();
 			}
 			else {
-				$members = $this->database->table('member')->where("organization_id = ?", $id)->fetchAll();
+				$members = $this->database->table('member')->where("$activeStatus organization_id = ?", $id)->fetchAll();
 			}
 			if (empty($members)) {
 				throw new AjaxException(AjaxException::ERROR_NOT_FOUND);

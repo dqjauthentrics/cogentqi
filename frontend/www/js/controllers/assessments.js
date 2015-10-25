@@ -134,7 +134,7 @@ angular.module('AssessmentControllers', [])
 				recommendations: [],
 				resources: [],
 				currentChoices: null,
-				recommendationTitle: (installation !== undefined? installation.trademarkName : '') + ' Recommended Modules'
+				recommendationTitle: 'Recommended Modules'
 			};
 
 
@@ -221,6 +221,8 @@ angular.module('AssessmentControllers', [])
 								if (!Utility.empty($stateParams.memberId)) {
 									Utility.getResource(Assessments.create($stateParams.memberId), function (response) {
 										Instruments.currentSectionIdx = 0;
+										Members.list = null; // force reload of members list
+										Members.current = null; // force reload of current member
 										$scope.Assessments.current = response;
 										$scope.data.assessor = $scope.Assessments.current.assessor.id;
 										$scope.getRecommendations();

@@ -4,6 +4,7 @@ namespace App\Presenters;
 use Nette,
 	Drahak\Restful\IResource,
 	ResourcesModule\BasePresenter,
+	App\Components\AjaxResult,
 	App\Model\Member,
 	App\Model\Assessment,
 	App\Model\MemberNote,
@@ -31,7 +32,7 @@ class MemberPresenter extends BasePresenter {
 				$jsonRec = Member::map($this->database, $member, $mode);
 			}
 			else {
-				$members = $this->database->table('member')->fetchAll();
+				$members = $this->database->table('member')->where('active_end IS NULL')->fetchAll();
 				if (empty($members)) {
 					throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
 				}
@@ -87,6 +88,31 @@ class MemberPresenter extends BasePresenter {
 				$jsonRecs[] = $this->database->map($member);
 			}
 			$this->sendResult($jsonRecs);
+		}
+		else {
+			throw new AjaxException(AjaxException::ERROR_NOT_ALLOWED);
+		}
+	}
+
+	/**
+	 * @param int $id
+	 * @param int $mode
+	 *
+	 * @throws \App\Components\AjaxException
+	 */
+	public function actionReadDereactivate($id, $mode = self::MODE_LISTING) {
+		$result = new AjaxResult();
+		if ($this->user->isAllowed('Member', 'deactivate')) {
+			$member = $this->database->table('member')->where("id=?", $id)->fetch();
+			if (!empty($member)) {
+				$memberUpdate = ["active_end" => !empty($member["active_end"]) ? NULL : $this->database->dateTme()];
+				if ($member->update($memberUpdate)) {
+					$result->status = AjaxResult::STATUS_OKAY;
+					$result->code = 200;
+				}
+				$result->data = Member::map($this->database, $member, self::MODE_RELATED);
+			}
+			$this->sendResult($result);
 		}
 		else {
 			throw new AjaxException(AjaxException::ERROR_NOT_ALLOWED);

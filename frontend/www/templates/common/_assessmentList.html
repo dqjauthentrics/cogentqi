@@ -1,38 +1,34 @@
-<table class="assessmentItem items">
-    <thead>
-    <tr>
-        <th data-ng-if="showMember">{{'Member'|translate}}</th>
-        <th>{{'Last Modified'|translate}}</th>
-        <th>{{'Assessor'|translate}}</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr data-ng-repeat="assessment in assessments">
-        <td data-ng-if="showMember">
-            <img class="avatar border border{{assessment.member.lv}} avatar-small" data-ng-src="{{site}}/avatars/{{assessment.member.id}}.png" alt=""
-                 err-src="{{site}}/avatars/genericUser.png"/>
-            {{assessment.member.fn}} {{assessment.member.ln}}
-        </td>
-        <td style="width:12em;">
-            <a class="remover" data-ng-click="remover(assessment.id)"><i class="{{i.remove}}"></i></a>
-            <a href="#/assessment/view/{{assessment.id}}">{{assessment.lm|date:'EEE'}}, {{assessment.lm|date:'short'}}</a>
-        </td>
-        <td style="width:14em; text-align:left;" data-ng-if="assessment.assessor">
-            by {{assessment.assessor.fn}} {{assessment.assessor.ln}}
-            <img style="text-align:right;" class="avatar border border{{assessment.assessor.lv}} avatar-tiny"
-                 data-ng-src="{{site}}/avatars/{{assessment.assessor.id}}.png"
-                 alt="{{assessment.assessor.fn}} {{assessment.assessor.ln}}" err-src="{{site}}/avatars/genericUser.png"/>
-        </td>
-        <td style="text-align:center; width:1.2em;">
-            <div data-ng-class="(assessment.typ == 'YESNO'?'yesNoColor':'levelColor') + assessment.rk">
-                <div data-ng-switch="assessment.es">
-                    <div data-ng-switch-when="L"><i class="{{i.locked}}"></i></div>
-                    <div data-ng-switch-when="A"><i class="{{i.active}}"></i></div>
-                    <div data-ng-switch-when="C"><i class="{{i.completed}}"></i></div>
-                </div>
-            </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<ion-scroll style="height:300px;" scrollbar-y="true">
+    <ion-list>
+        <ion-item ng-repeat="assessment in assessments">
+            <table style="width:100%;">
+                <tr>
+                    <td data-ng-if="showMember">
+                        <img class="avatar border border{{assessment.member.lv}} avatar-small" data-ng-src="{{site}}/avatars/{{assessment.member.id}}.png"
+                             alt=""
+                             err-src="{{site}}/avatars/genericUser.png"/>
+                        {{assessment.member.fn}} {{assessment.member.ln}}
+                    </td>
+                    <td>
+                        <a class="remover" data-ng-click="remover(assessment.id)"><i class="{{i.remove}}"></i></a>
+                        <a href="#/assessment/view/{{assessment.id}}">{{assessment.lm|date:'EEE'}}, {{assessment.lm|date:'short'}}</a>
+                    </td>
+                    <td style="text-align:left;" data-ng-if="assessment.assessor">
+                        by {{assessment.assessor.fn}} {{assessment.assessor.ln}}
+                        <img style="text-align:right;" class="avatar border border{{assessment.assessor.lv}} avatar-tiny"
+                             data-ng-src="{{site}}/avatars/{{assessment.assessor.id}}.png"
+                             alt="{{assessment.assessor.fn}} {{assessment.assessor.ln}}" err-src="{{site}}/avatars/genericUser.png"/>
+                    </td>
+                    <td style="text-align:center;">
+                        <div data-ng-class="(assessment.typ == 'YESNO'?'yesNoColor':'levelColor') + assessment.rk">
+                            <div data-ng-switch="assessment.es">
+                                <div data-ng-switch-when="L"><i class="{{i.locked}}"></i></div>
+                                <div data-ng-switch-when="A"><i class="{{i.active}}"></i></div>
+                                <div data-ng-switch-when="C"><i class="{{i.completed}}"></i></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+    </ion-list>
+</ion-scroll>

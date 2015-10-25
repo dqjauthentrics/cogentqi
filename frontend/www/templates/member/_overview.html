@@ -1,0 +1,26 @@
+<div class="panel" ng-class="Members.current.ae? 'inactive':''">
+    <div style="margin: 0 auto; text-align: center;">
+        <div>
+            <avatar site="siteDir()" sz="'large'" member-id="Members.current.id" level="Members.current.lv"
+                    alt="avatarAlt(Members.current)"></avatar>
+        </div>
+        <div class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.fn">
+            {{ Members.current.fn || ' ' }}
+        </div>
+        <div class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.ln">
+            {{ Members.current.ln || ' ' }}
+        </div>
+        <div class="role" onaftersave="setDirty()" editable-select="Members.current.r" e-ng-options="r.id as r.n for r in roles">
+            {{ showRole() }}
+        </div>
+        <div class="inactiveText" ng-if="Members.current.ae">{{'Inactive as of:'|translate}} {{Members.current.ae|date}}</div>
+    </div>
+    <h3 data-ng-if="Members.current.badges.length > 0">Badges</h3>
+
+    <div>
+        <div style="float:left; margin: 0.5em; text-align: center;" data-ng-repeat="badge in Members.current.badges">
+            <micro-badge text="badge.ttl" size="'small'"></micro-badge>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

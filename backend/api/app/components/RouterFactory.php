@@ -24,7 +24,7 @@ class RouterFactory {
 		$router[] = new Route('assessment/report/pbm/o/<organizationId>/i/<instrumentId>[/r/<rollUp>]', 'Assessment:progressByMonth');
 		$router[] = new Route('assessment/report/pbmi/m/<memberId>', 'Assessment:progressByMonthIndividual');
 		$router[] = new Route('message/send', 'Message:send');
-		$router[] = new CrudRoute('<presenter>[/<id>][/r/<relation>][/m/<mode>]',
+		$router[] = new CrudRoute('<presenter>[/<id>][/r/<relation>][/m/<mode>][/i/<inactive>]',
 			[
 				'presenter' => [
 					Route::VALUE        => 'Homepage',

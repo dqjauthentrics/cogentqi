@@ -9,8 +9,11 @@
                     <ion-item class="top">
                         <list-searcher></list-searcher>
                     </ion-item>
-                    <ion-item class="item-icon-right" data-ng-repeat="member in filtered = (Members.list|filter:memberFilter)" type="item-text-wrap"
-                              href="#/member/view/{{member.id}}">
+                    <ion-item class="item-icon-right"
+                              ng-repeat="member in filtered = (Members.list|filter:memberFilter)"
+                              type="item-text-wrap"
+                              href="#/member/view/{{member.id}}"
+                              ng-class="(member.ae? 'itemInactive':'')">
                         <member-item></member-item>
                         <i class="icon ion-chevron-right icon-accessory"></i>
                     </ion-item>

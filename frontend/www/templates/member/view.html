@@ -1,7 +1,7 @@
 <ion-view view-title="{{Members.current.firstName + ' ' + Members.current.lastName}}" cache-view="false" on-swipe-left="goToNotes()">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
-    <ion-content class="padding detail" has-bouncing="false" id="profile">
+    <ion-content class="padding detail" has-bouncing="false" id="profile" style="height:auto;">
         <page-loader i="i" loading="data.isLoading"></page-loader>
         <div class="iconBar" ng-show="!data.isLoading">
             <button class="button button-action button-save button-dirty" ng-click="save()" ng-show="isDirty()">
@@ -16,142 +16,39 @@
             <button class="button button-action" data-ng-if="Members.current.assessments.length > 0" data-ng-click="goToNotes()">
                 <i class="{{i.stickyNote}}"></i>
             </button>
+            <button class="button button-action" data-ng-click="deOrReactivate()" title="{{(Members.current.ae?'Reactivate':'Deactivate')|translate}}">
+                <i ng-class="Members.current.ae? i.reactivate : i.deactivate"></i>
+            </button>
         </div>
-        <div class="row responsive-lg" ng-show="!data.isLoading">
-            <div class="col col-25 card">
-                <div style="margin: 0 auto; text-align: center;">
-                    <div>
-                        <avatar site="siteDir()" sz="'large'" member-id="Members.current.id" level="Members.current.lv" alt="avatarAlt(Members.current)"></avatar>
+        <div data-ng-switch="Members.current.asb">
+            <div data-ng-switch-when="1">
+                <div class="row responsive-lg" ng-show="!data.isLoading">
+                    <div class="col col-33 padding">
+                        <member-overview></member-overview>
                     </div>
-                    <div class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.fn">
-                        {{ Members.current.fn || ' ' }}
-                    </div>
-                    <div class="name" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.ln">
-                        {{ Members.current.ln || ' ' }}
-                    </div>
-                    <div class="role" onaftersave="setDirty()" editable-select="Members.current.r" e-ng-options="r.id as r.n for r in roles">
-                        {{ showRole() }}
+                    <div class="col col-67 padding" data-ng-show="!data.isLoading && Members.current.asb == 1">
+                        <member-assessments></member-assessments>
                     </div>
                 </div>
-                <h3 data-ng-if="Members.current.badges.length > 0">Badges</h3>
-
-                <div>
-                    <div style="float:left; margin: 0.5em; text-align: center;" data-ng-repeat="badge in Members.current.badges">
-                        <micro-badge text="badge.ttl" size="'small'"></micro-badge>
+                <div class="row responsive-lg" ng-show="!data.isLoading">
+                    <div class="col col-33 padding" ng-show="!data.isLoading">
+                        <member-contact></member-contact>
                     </div>
-                    <div class="clearfix"></div>
+                    <div class="col col-67 padding" data-ng-show="!data.isLoading && Members.current.asb == 1">
+                        <member-events></member-events>
+                    </div>
                 </div>
             </div>
-            <div data-ng-show="!data.isLoading && Members.current.asb == 1" class="col padding card">
-                <h3>{{'Assessments to Date'|translate}}</h3>
-                <assessment-list i="i" site="siteDir()" remover="remover" show-member="false" assessments="Members.current.assessments"></assessment-list>
-                <div>
-                    <a class="button button-action button-new button-small" href="#/assessment/new/{{Members.current.id}}/-1"
-                       title="{{'Add a new assessment.'|translate}}">
-                        <i class="{{i.add}}"></i> {{'Add'|translate}}
-                    </a>
-                </div>
-            </div>
-            <div data-ng-show="!data.isLoading && Members.current.isAssessible == 1" class="col padding card">
-                <h3>{{'Events'|translate}}</h3>
-                <table class="events items">
-                    <thead>
-                    <tr>
-                        <th colspan="2" style="text-align: left;">{{'Occurred'|translate}}</th>
-                        <th style="text-align: left;">{{'Name'|translate}}</th>
-                        <th style="text-align: left;">{{'Process Area'|translate}}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr data-ng-repeat="event in Members.current.events">
-                        <td><i class="{{i.event}}"></i></td>
-                        <td>{{event.occ|date:'short'}}</td>
-                        <td>{{event.n}}</td>
-                        <td>{{event.cat}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col col-25 padding card panel" ng-show="!data.isLoading">
-                <h3>{{'Contact'|translate}}</h3>
-
-                <label for="email">{{'email'|translate}}</label>
-
-                <div id="email">
-                    <span class="email" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.em">
-                        {{Members.current.em || '-'}}
-                    </span>
-                    <span>
-                        <a data-ng-click="sendEmail(Members.current)"><i class="fa fa-envelope fa-lg"></i></a>
-                    </span>
-                </div>
-
-                <label for="address">{{'address'|translate}}</label>
-
-                <div id="address" class="address" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.ad">
-                    {{ Members.current.ad || '-' }}
-                </div>
-                <label for="city">{{'city'|translate}}</label>
-
-                <div id="city" class="city" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.cy">
-                    {{ Members.current.cy || '-' }}
-                </div>
-                <label for="state">{{'state'|translate}}</label>
-
-                <div id="state" class="state" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.sp">
-                    {{ Members.current.sp || '-' }}
-                </div>
-                <label for="postal">{{'postal code'|translate}}</label>
-
-                <div id="postal" class="postal" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.zc">
-                    {{ Members.current.zc || '-' }}
-                </div>
-                <label for="mobile">{{'mobile'|translate}}</label>
-
-                <div id="mobile">
-                    <span class="phone" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.mb">
-                        {{ (Members.current.mb || '-')|tel }}
-                    </span>
-                    <span>
-                        <a data-ng-click="sendText(Members.current)"><i class="fa fa-mobile fa-2x"></i></a>
-                    </span>
-                </div>
-
-                <label for="provider">{{'mobile provider'|translate}}</label>
-
-                <div>
-                    <select id="provider" data-ng-model="Members.current.mfm" data-ng-change="setDirty()">
-                        <option value="">-Cannot Receive Texts-</option>
-                        <option value="{n}@txt.att.net">AT&T</option>
-                        <option value="{n}@vtext.com">Verizon</option>
-                        <option value="{n}@tmomail.net">T-Mobile</option>
-                        <option value="{n}@messaging.sprintpcs.com">Sprint PCS</option>
-                        <option value="{n}@vmobl.com">Virgin Mobile</option>
-                        <option value="{n}@email.uscc.net">US Cellular</option>
-                        <option value="{n}@messaging.nextel.com">Nextel</option>
-                        <option value="{n}@myboostmobile.com">Boost</option>
-                        <option value="{n}@message.alltel.com">Alltel</option>
-                    </select>
-                </div>
-
-                <label for="phone">{{'home phone'|translate}}</label>
-
-                <div id="phone" class="phone" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.ph">
-                    {{ (Members.current.ph || '-')|tel }}
+            <div data-ng-switch-default>
+                <div class="row responsive-lg" ng-show="!data.isLoading">
+                    <div class="col col-25 col-offset-25 padding">
+                        <member-overview></member-overview>
+                    </div>
+                    <div class="col col-25 padding" ng-show="!data.isLoading">
+                        <member-contact></member-contact>
+                    </div>
                 </div>
             </div>
         </div>
-        <style>
-            .events td, .events th {
-                color: red;
-                border: 0 solid #CCC;
-                padding: 0.3em;
-            }
-
-            .events th {
-                background: #CCC;
-                color: #000;
-            }
-        </style>
     </ion-content>
 </ion-view>

@@ -144,7 +144,8 @@ angular.module('MemberControllers', [])
 			};
 			$scope.save = function () {
 				Members.saveProfile(Members.current, function (response, data) {
-					Utility.statusAlert(response)
+					Utility.statusAlert(response);
+					Members.list = null; // force reload of list
 				});
 				$scope.data.dirty = false;
 			};
@@ -195,6 +196,7 @@ angular.module('MemberControllers', [])
 				Utility.confirm('Assessment Deletion Confirmation', "Are you sure you wish to PERMANENTLY remove this assessment?",
 								function () {
 									if (!Utility.empty(assessmentId)) {
+										Members.list = null; // force reload of member list
 										Assessments.remove(assessmentId, function (status, message) {
 											if (status == 1) {
 												for (var i = 0; i < $scope.Members.current.assessments.length; i++) {
@@ -210,6 +212,16 @@ angular.module('MemberControllers', [])
 										});
 									}
 								});
+			};
+			$scope.deOrReactivate = function () {
+				var word1 = Members.current.ae ? 'Reactivation' : 'Deactivation';
+				var word2 = Members.current.ae ? 'RE-ACTIVATE' : 'DEACTIVATE';
+				Utility.confirm('Member ' + word1, 'Are you sure you want to ' + word2 + ' this member?', function () {
+					Members.deOrReactivate(Members.current, function (response) {
+						Members.current = response.data;
+						Members.list = null; // force reload of members
+					});
+				});
 			};
 		})
 
@@ -342,20 +354,29 @@ angular.module('MemberControllers', [])
 		'MemberListCtrl',
 		function ($scope, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Members) {
 			$scope.Members = Members;
-			$scope.data = {isLoading: true, searchFilter: null};
+			$scope.data = {isLoading: true, searchFilter: null, showIncludeInactive: true, includeInactive: false};
 
-			if ($scope.Members.list == null) {
-				Utility.getResource(Members.retrieve(), function (response) {
+			$scope.getMembers = function () {
+				Utility.getResource(Members.retrieve($scope.data.includeInactive), function (response) {
 					$scope.Members.list = response;
 					$scope.data.isLoading = false;
 				});
+			};
+			$scope.memberFilter = function (member) {
+				return Members.filterer(member, $scope.data.searchFilter);
+			};
+			$scope.changeActive = function () {
+				console.log("changing...");
+				$scope.data.isLoading = true;
+				$scope.getMembers();
+			};
+
+			// Main
+			if ($scope.Members.list == null) {
+				$scope.getMembers();
 			}
 			else {
 				$scope.data.isLoading = false;
-			}
-
-			$scope.memberFilter = function (member) {
-				return Members.filterer(member, $scope.data.searchFilter);
 			}
 		})
 ;

@@ -13,6 +13,7 @@ angular.module('Icons', []).service('Icons', function () {
 	this.completed = "ion-checkmark";
 	this.criterion = "fa fa-bookmark";
 	this.dashboard = "fa fa-tachometer";
+	this.deactivate = "fa fa-ban";
 	this.drilldown = "fa fa-search-plus";
 	this.edit = "ion-compose";
 	this.email = "fa fa-mail";
@@ -44,6 +45,7 @@ angular.module('Icons', []).service('Icons', function () {
 	this.period = "fa fa-calendar";
 	this.previous = "fa fa-triangle-left";
 	this.project = "fa fa-briefcase-case-two";
+	this.reactivate = "fa fa-bolt";
 	this.remove = "fa fa-trash";
 	this.reports = "fa fa-line-chart";
 	this.stickyNote = "fa fa-sticky-note";
