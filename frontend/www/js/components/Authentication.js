@@ -40,10 +40,10 @@ angular.module('Authentication', []).service('Authentication', function ($rootSc
 	svc.getUserDashUrl = function (user) {
 		if (user !== undefined && user !== null) {
 			var roleLoc = 'professional';
-			if (user.roleId == 'A') {
+			if (user.appRole == 'A') {
 				roleLoc = 'administrator';
 			}
-			else if (user.roleId == 'P' || user.roleId == 'M') {
+			else if (user.appRole == 'M') {
 				roleLoc = 'manager';
 			}
 			return '/#/' + roleLoc + '/dashboard';
