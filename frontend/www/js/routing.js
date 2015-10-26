@@ -117,7 +117,7 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('resource.configure', {
 			url: '/configure',
 			views: {
-				settings: {templateUrl: 'templates/resource/configList.html', controller: 'ResourceConfigureListCtrl'}
+				settings: {templateUrl: 'templates/resource/configList.html', controller: 'ResourceListCtrl'}
 			}
 		})
 		.state('resource.alignment', {

@@ -38,7 +38,7 @@ class AssessmentPresenter extends BasePresenter {
 	 * @param int $instrumentId
 	 */
 	public function actionMatrix($organizationId, $instrumentId) {
-		$organization = $this->database->table('organization')->get($organizationId);
+		$organization = $this->database->map($this->database->table('organization')->get($organizationId));
 		$matrix = new Matrix($this->database);
 		list($mType, $headers, $rowRecords, $nSections) = $matrix->myMatrix($organizationId, $instrumentId);
 		if ($this->debug) {
@@ -129,10 +129,11 @@ class AssessmentPresenter extends BasePresenter {
 	}
 
 	/**
-	 * @param int $assessmentId
+	 * @param int $id
 	 *
 	 * @return \App\Components\AjaxResult
 	 * @throws \App\Components\AjaxException
+	 *
 	 */
 	public function actionDelete($id) {
 		$result = new AjaxResult();

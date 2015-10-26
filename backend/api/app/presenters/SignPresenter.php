@@ -67,9 +67,9 @@ class SignPresenter extends BasePresenter {
 	}
 
 	/**
-	 *
+	 * @param int $id
 	 */
-	public function actionDelete() {
+	public function actionDelete($id) {
 		$this->getUser()->logout();
 		$this->sendResult(["msg" => "logged out"]);
 	}

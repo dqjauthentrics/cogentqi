@@ -912,6 +912,14 @@ ion-item.header {
     color: #FFF;
 }
 
+ion-item li, .ta-editor .ta-bind li {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #999;
+    margin-left: 3em;
+    list-style-type: square;
+}
+
 ion-item .phrase {
     text-align: center;
     font-weight: bold;

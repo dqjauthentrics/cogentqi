@@ -5,18 +5,20 @@
         <div class="row responsive-sm">
             <div class="col">
                 <ion-list>
-                    <ion-item class="top"><h2>{{'Resources'|translate}}</h2></ion-item>
-                    <ion-item class="gray" data-ng-if="!data.resources.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
-                    <ion-item class="item-icon-right" data-ng-repeat="resource in data.resources" type="item-text-wrap">
+                    <ion-item class="top">
+                        <list-searcher></list-searcher>
+                    </ion-item>
+                    <ion-item class="item-icon-right" ng-repeat="resource in Resources.list" type="item-text-wrap">
                         <div style="float:left;">
                             <a class="button button-small button-positive"
                                href="#/resource/edit/{{resource.id}}"><i class="{{i.edit}} fa-lg bold"></i></a>
                             <a class="button button-small button-positive"
                                href="#/resource/alignment/{{resource.id}}"><i class="{{i.slider}} fa-lg bold"></i></a>
                         </div>
-                        <div style="float:left; margin-top:0.6em; margin-left:0.6em;">
+                        <div class="name">
                             <i class="{{i.resource}} fa-lg"></i> {{resource.nmb}} {{resource.n}}
                         </div>
+                        <div class="summary" ng-bind-html="resource.sm"></div>
                         <i class="icon ion-chevron-right icon-accessory"></i>
                     </ion-item>
                     <ion-item>

@@ -4,11 +4,12 @@
     <ion-content has-bouncing="false">
         <div style="text-align:center; margin-top: 1em;">
             <h3>{{a.sectionCurrentName()}}</h3>
-            <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId"
+            <select data-ng-if="data.instruments.length > 1" style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId"
                     data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
                     data-ng-options="instrument.id as instrument.n for instrument in data.instruments">
             </select>
-            <h2>{{data.matrix.org.name}}</h2>
+            <h1 data-ng-if="data.instruments.length == 1">{{data.currentInstrument.n}}</h1>
+            <h2>{{data.matrix.org.n}}</h2>
         </div>
         <div style="overflow: auto !important;">
             <table id="matrix" class="matrix">

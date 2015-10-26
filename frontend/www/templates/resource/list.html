@@ -2,11 +2,10 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <page-loader i="i" loading="data.isLoading"></page-loader>
         <ion-list style="margin:1em;">
             <ion-item class="top">
                 <list-searcher></list-searcher>
-           </ion-item>
+            </ion-item>
             <ion-item class="item-icon-right" data-ng-repeat="resource in filtered = (Resources.list|filter:resourceFilter)" type="item-text-wrap"
                       href="#/resource/view/{{resource.id}}">
                 <div class="number"><i class="{{i.resource}} fa-lg"></i> {{resource.nmb}}</div>

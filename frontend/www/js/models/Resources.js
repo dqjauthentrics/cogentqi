@@ -15,6 +15,32 @@ angular.module('Resources', []).service('Resources', function ($resource, $http,
 		}
 	};
 
+	svc.save = function (resource, callbackFn) {
+		$http({
+				  method: 'POST',
+				  url: "/api2/resource",
+				  data: {resource: resource},
+				  type: 'json'
+			  }).success(function (data, status, headers, config) {
+			callbackFn(status, data);
+		}).error(function (data, status, headers, config) {
+			callbackFn(0, data);
+		});
+	};
+
+	svc.remove = function (id, callbackFn) {
+		$http({
+				  method: 'DELETE',
+				  url: "/api2/resource",
+				  data: $.param({id: id}),
+				  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			  }).success(function (data, status, headers, config) {
+			callbackFn(status, data);
+		}).error(function (data, status, headers, config) {
+			callbackFn(0, data);
+		});
+	};
+
 	svc.findAlignments = function (instrument, resourceId) {
 		if (!Utility.empty(instrument) && !Utility.empty(instrument.questions)) {
 			for (var k = 0; k < instrument.questions.length; k++) {

@@ -36,24 +36,4 @@ class MemberNotePresenter extends BasePresenter {
 		}
 		$this->sendResult($result);
 	}
-
-	/**
-	 */
-	public function actionDelete() {
-		$result = 0;
-		$data = @$this->getInput()->getData();
-		if (!empty($data["id"])) {
-			$id = $data["id"];
-			if (!empty($id)) {
-				/** @var Nette\Database\Table\ActiveRow $note */
-				$note = $this->database->table('member_note')->get($id);
-				if (!empty($note)) {
-					$note->delete();
-					$result = 1;
-				}
-			}
-		}
-		$this->sendResult($result);
-	}
-
 }

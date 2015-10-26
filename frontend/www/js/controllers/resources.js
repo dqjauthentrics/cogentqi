@@ -4,34 +4,53 @@ angular.module('ResourceControllers', [])
 
 	.controller(
 		'ResourceEditCtrl',
-		function ($rootScope, $scope, $sce, $templateRequest, $stateParams, Utility, LearningModules, Organizations, Resources, Quizzes) {
-			$scope.data = {resource: null, resources: null};
+		function ($rootScope, $scope, $sce, $templateRequest, $stateParams, Utility, Resources) {
+			$scope.data = {dirty: false, saving: false, content: '', isLoading: true};
+			$scope.Resources = Resources;
 
-			Resources.retrieve().query(function (response) {
-				$scope.data.resources = response;
-				if (!Utility.empty($stateParams)) {
-					var resourceId = $stateParams.resourceId;
-					if (!Utility.empty(resourceId)) {
-						$scope.data.resource = Utility.findObjectById($scope.data.resources, resourceId);
-						if (!Utility.empty($scope.data.resource)) {
-							$scope.setContent();
-						}
-					}
-				}
-			});
+			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.resourceId)) {
+				Utility.getResource(Resources.retrieve($stateParams.resourceId), function (response) {
+					$scope.Resources.current = response;
+					console.log("loaded resource", $scope.Resources.current);
+					$scope.data.isLoading = false;
+				});
+			}
 
 			$scope.setContent = function () {
-				var url = $rootScope.siteDir() + '/modules/' + $scope.data.resource.nmb.toLowerCase() + '.html';
-				$templateRequest(url).then(function (template) {
-					$scope.data.content = template;
-				}, function () {
-					console.log("error occurred");
+				try {
+					var url = $rootScope.siteDir() + '/modules/' + $scope.Resources.current.nmb.toLowerCase() + '.html';
+					$templateRequest(url).then(function (template) {
+						$scope.data.content = template;
+					}, function () {
+						console.log("error occurred");
+					});
+				}
+				catch (exception) {
+					$scope.data.content = exception;
+				}
+			};
+			$scope.getResources = function () {
+				Utility.getResource(Resources.retrieve(), function (response) {
+					$scope.Resources.list = response;
 				});
 			};
-
 			$scope.htmlEncode = function (value) {
 				return $('<div/>').text(value).html();
-			}
+			};
+			$scope.save = function () {
+				$scope.data.saving = true;
+				Resources.save($scope.Resources.current,
+							   function (status, data) {
+								   $scope.data.saving = false;
+								   $scope.data.dirty = false;
+								   $scope.Resources.list = null;
+								   $scope.getResources();
+								   if (!status) {
+									   Utility.statusAlert(status, data);
+								   }
+							   }
+				);
+			};
 		})
 
 	.controller(
@@ -183,18 +202,4 @@ angular.module('ResourceControllers', [])
 				$scope.dirty = true;
 			};
 		})
-
-	.controller(
-		'ResourceConfigureListCtrl',
-		function ($scope, $stateParams, Instruments, Resources) {
-			$scope.data = {instruments: [], resources: []};
-
-			Instruments.retrieve().query(function (response) {
-				$scope.data.instruments = response;
-			});
-			Resources.retrieve().query(function (response) {
-				$scope.data.resources = response;
-			});
-		})
-
 ;

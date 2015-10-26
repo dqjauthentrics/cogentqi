@@ -2,7 +2,7 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <h2>Resource Editor</h2>
+        <h2>{{'Resource Editor'|translate}}</h2>
 
         <div class="iconBar">
             <button data-ng-show="isDirty()" class="button button-action button-save {{isDirty()? 'button-dirty':'button-clean'}}"
@@ -13,9 +13,19 @@
         <div class="row responsive-lg">
             <div class="col card">
                 <label class="item item-input">
-                    <input type="text" placeholder="name" data-ng-model="data.resource.n" data-ng-change="setDirty()">
+                    <input type="text" placeholder="name" data-ng-model="Resources.current.n" data-ng-change="setDirty()">
                 </label>
-                <text-angular data-ng-change="setDirty()" data-ng-model="data.content"></text-angular>
+                <label class="item item-input">
+                    <input type="text" placeholder="number" data-ng-model="Resources.current.nmb" data-ng-change="setDirty()">
+                </label>
+                <label class="item item-input">
+                    {{'Summary'|translate}}
+                </label>
+                <text-angular data-ng-change="setDirty()" data-ng-model="Resources.current.sm"></text-angular>
+                <label class="item item-input">
+                    {{'Description'|translate}}
+                </label>
+                <text-angular data-ng-change="setDirty()" data-ng-model="Resources.current.dsc"></text-angular>
             </div>
         </div>
     </ion-content>

@@ -114,6 +114,26 @@ class BasePresenter extends ResourcePresenter {
 	}
 
 	/**
+	 * @param int $id
+	 */
+	public function actionDelete($id) {
+		$result = 0;
+		$data = @$this->getInput()->getData();
+		if (!empty($data["id"])) {
+			$id = $data["id"];
+			if (!empty($id)) {
+				/** @var Nette\Database\Table\ActiveRow $resource */
+				$resource = $this->database->table($this->tableName())->get($id);
+				if (!empty($resource)) {
+					$resource->delete();
+					$result = 1;
+				}
+			}
+		}
+		$this->sendResult($result);
+	}
+
+	/**
 	 * @param $element
 	 *
 	 * @throws AjaxException

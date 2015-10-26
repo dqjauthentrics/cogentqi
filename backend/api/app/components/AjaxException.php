@@ -17,15 +17,16 @@ class AjaxException extends \Exception {
 	 * @param null             $message
 	 */
 	public function __construct($code, $message = NULL) {
-		if ($code instanceof \Exception) {
+		if (is_object($code)) {
 			$result = new AjaxResult(AjaxResult::STATUS_ERROR, $code->getMessage(), 500);
 		}
 		else {
 			if (empty($message)) {
 				$message = @$code['message'];
 			}
-			parent::__construct($message, $code['code'], NULL);
-			if ($code['code'] == 500) {
+			$codeNumber = (is_int($code) ? $code : is_array($code) ? $code["code"] : 500);
+			parent::__construct($message, $codeNumber, NULL);
+			if ($codeNumber == 500) {
 				Debugger::log($this);
 			}
 			$result = new AjaxResult(AjaxResult::STATUS_ERROR, $message, $code['code']);

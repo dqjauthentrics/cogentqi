@@ -3,12 +3,46 @@ namespace App\Presenters;
 
 use Nette,
 	ResourcesModule\BasePresenter,
+	Nette\Database\Table\IRow,
 	App\Model\Member,
-	App\Model\Outcome,
+	App\Model\Organization,
 	App\Model\Assessment,
 	App\Components\AjaxException;
 
 class OrganizationPresenter extends BasePresenter {
+
+	/**
+	 * @param int $id
+	 * @param int $mode
+	 *
+	 * @throws \App\Components\AjaxException
+	 */
+	public function actionRead($id, $mode = self::MODE_LISTING) {
+		if ($this->user->isAllowed('Member', 'read')) {
+			if (!empty($id)) {
+				/** @var IRow $organization */
+				$organization = $this->database->table('organization')->get($id);
+				if (empty($organization)) {
+					throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
+				}
+				$jsonRec = Organization::map($this->database, $organization, $mode);
+			}
+			else {
+				$organizations = $this->database->table('organization')->where('parent_id=?')->fetchAll();
+				if (empty($organizations)) {
+					throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
+				}
+				$jsonRec = [];
+				foreach ($organizations as $organization) {
+					$jsonRec[] = Organization::map($this->database, $organization, $mode);
+				}
+			}
+			$this->sendResult($jsonRec);
+		}
+		else {
+			throw new AjaxException(AjaxException::ERROR_NOT_ALLOWED);
+		}
+	}
 
 	/**
 	 * @param int $id
@@ -53,11 +87,13 @@ class OrganizationPresenter extends BasePresenter {
 	 */
 	public function actionReadDependents($id, $mode = self::MODE_LISTING) {
 		if ($this->user->isAllowed('Organization', 'dependents')) {
-			$organizations = $this->database->table('organization')->where("parent_id = ?", $id)->fetchAll();
+			$parentOrg = $this->database->table('organization')->where("id=?", $id)->fetch();
+			$organizations = $this->database->table('organization')->where("parent_id=?", $id)->fetchAll();
 			if (empty($organizations)) {
 				throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
 			}
 			$jsonRecs = [];
+			array_unshift($organizations, $parentOrg);
 			foreach ($organizations as $organization) {
 				$jsonRecs[] = $this->database->map($organization);
 			}
