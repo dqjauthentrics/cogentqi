@@ -184,8 +184,10 @@ class Matrix {
 		$lastGroupId = NULL;
 		$groups = [];
 		$groupRecords = $this->database->table('question_group')->where('instrument_id=?', $instrumentId)->order('sort_order');
+		$groupNumbers = [];
 		foreach ($groupRecords as $groupRecord) {
 			$groups[] = trim($groupRecord["number"] . ' ' . $groupRecord["tag"]);
+			$groupNumbers[$groupRecord["id"]] = trim($groupRecord["number"]);
 		}
 		$questionRecords = $this->database->table('question')
 			->where('question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?)', $instrumentId)->order('sort_order');
@@ -196,9 +198,11 @@ class Matrix {
 				$groupIdx++;
 			}
 			$lastGroupId = $groupId;
-			$headers[] = ['R', trim($questionRecord["number"] . ' ' . $questionRecord["name"]), 'H', $groupIdx];
+			$headers[] = ['R', $groupNumbers[$groupId] . '.' . trim($questionRecord["number"] . ' ' . $questionRecord["name"]), 'H', $groupIdx];
 		}
-		$headers[] = ['S', $groups[0], 'H', $groupIdx];
+		if (count($groups) > 0) {
+			$headers[] = ['S', $groups[(count($groups) - 1)], 'H', $groupIdx];
+		}
 		$headers[] = ['R', 'Averages', 'H', -1];
 		return $headers;
 	}
@@ -257,9 +261,9 @@ class Matrix {
 						$memberId = $assessment["member_id"];
 						$assessmentId = $assessment["id"];
 						$sql = "SELECT q.name, ar.response, ar.response_index, q.question_group_id, t.entry_type " .
-								"FROM assessment_response ar, question q, question_type t " .
-								"WHERE ar.question_id=q.id AND t.id=q.question_type_id AND ar.assessment_id=$assessmentId " .
-								"ORDER BY q.sort_order";
+							"FROM assessment_response ar, question q, question_type t " .
+							"WHERE ar.question_id=q.id AND t.id=q.question_type_id AND ar.assessment_id=$assessmentId " .
+							"ORDER BY q.sort_order";
 						$responseRecords = $this->pdo->query($sql);
 						$sections = [];
 						$lastGroupId = NULL;
@@ -311,31 +315,31 @@ class Matrix {
 						$this->addMatrixSection($sections, $columns, $responses, $typeId, $lastGroupId, $colIdx, $groupIdx);
 						$responses[] = ['R', $this->avg($row['total'], $row['count']), $row['typeName'], $groupIdx];
 						$tableRowValues[] = [
-								'aid' => $assessmentId,
-								'mid' => $memberId,
-								'n'   => $member['fn'] . ' ' . $member['ln'],
-								'r'   => $member["r"],
-								'jt'  => $member["jt"],
-								'lv'  => $member["lv"],
-								'em'  => $member["em"],
-								'rsp' => $responses,
+							'aid' => $assessmentId,
+							'mid' => $memberId,
+							'n'   => $member['fn'] . ' ' . $member['ln'],
+							'r'   => $member["r"],
+							'jt'  => $member["jt"],
+							'lv'  => $member["lv"],
+							'em'  => $member["em"],
+							'rsp' => $responses,
 						];
 					}
 				}
 				$columnSummaries = [];
 				foreach ($columns as $colIdx => $info) {
 					$columnSummaries[] = [
-							'C' . @$columns[$colIdx]['t'],
-							$this->avg($columns[$colIdx]["total"], $columns[$colIdx]["count"]),
-							$columns[$colIdx]["typeName"],
-							$columns[$colIdx]["groupIdx"] - 1
+						'C' . @$columns[$colIdx]['t'],
+						$this->avg($columns[$colIdx]["total"], $columns[$colIdx]["count"]),
+						$columns[$colIdx]["typeName"],
+						$columns[$colIdx]["groupIdx"] - 1
 					];
 				}
 				$columnSummaries[] = ['RC', $this->avg($matrix["total"], $matrix["count"]), $matrix["typeName"], $groupIdx];
 				$tableRowValues[] = [
-						'mid' => -1,
-						'n'   => 'Averages',
-						'rsp' => $columnSummaries,
+					'mid' => -1,
+					'n'   => 'Averages',
+					'rsp' => $columnSummaries,
 				];
 			}
 		}

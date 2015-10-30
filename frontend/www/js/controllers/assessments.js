@@ -81,6 +81,7 @@ angular.module('AssessmentControllers', [])
 				return cClass;
 			};
 			$scope.show = function (response) {
+				console.log("show", response[3], $scope.data.currentSectionIdx);
 				if (response && response !== undefined) {
 					if ($scope.data.currentSectionIdx == Instruments.SECTION_SUMMARY) {
 						return response[0] == 'S' || response[0] == 'CS';
@@ -89,7 +90,7 @@ angular.module('AssessmentControllers', [])
 						return $scope.data.currentSectionIdx < 0 || $scope.data.currentSectionIdx == response[3];
 					}
 				}
-				return true;
+				return false;
 			};
 			$scope.next = function () {
 				$scope.data.currentSectionIdx = Instruments.sectionNext($scope.data.currentInstrument);

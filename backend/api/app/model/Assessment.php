@@ -176,6 +176,7 @@ class Assessment extends BaseModel {
 					if (!empty($assessment)) {
 						$database->commit();
 						$assessment = Assessment::map($database, $assessment, BasePresenter::MODE_RELATED);
+						Recommendation::recommend($database, $assessment["id"]);
 					}
 				}
 				else {

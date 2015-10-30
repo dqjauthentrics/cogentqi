@@ -42,6 +42,19 @@ class AjaxResult {
 	}
 
 	/**
+	 * @param \Exception $exception
+	 * @param mixed      $data
+	 */
+	public function setException($exception, $data = NULL) {
+		$this->status = self::STATUS_ERROR;
+		$this->code = 500;
+		$this->message = $exception->getMessage();
+		if (!empty($data)) {
+			$this->data = $data;
+		}
+	}
+
+	/**
 	 * @param mixed|null $data
 	 *
 	 * @return array

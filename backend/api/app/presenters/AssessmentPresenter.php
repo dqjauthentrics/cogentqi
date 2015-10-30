@@ -4,6 +4,7 @@ namespace App\Presenters;
 use App\Components\AjaxResult,
 	ResourcesModule\BasePresenter,
 	App\Model,
+	App\Model\Recommendation,
 	App\Model\Assessment,
 	App\Model\Matrix,
 	App\Components\AjaxException;
@@ -180,5 +181,13 @@ class AssessmentPresenter extends BasePresenter {
 	public function actionProgressByMonthIndividual($memberId) {
 		$graphData = Assessment::progressByMonthIndividual($this->pdo, $memberId);
 		$this->sendResult($graphData);
+	}
+
+	/**
+	 * @param int $id
+	 */
+	public function actionReadRecommendations($id) {
+		$result = Recommendation::recommend($this->database, $id);
+		$this->sendResult($result);
 	}
 }

@@ -181,14 +181,20 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		return scoreWord;
 	};
 
-	svc.resourceScore = function (instrument, alignmentWeight, memberScore, nAlignments) {
+	svc.resourceScore = function (instrument, alignmentWeight, response, nAlignments) {
 		var score = 0;
+		var memberScore = response.rdx;
 		if (!Utility.empty(instrument) && !Utility.empty(instrument.max) && memberScore > 0 && nAlignments > 0) {
 			var range = instrument.max - instrument.min;
-			//score = (alignmentWeight * ((instrument.max + 1) - memberScore)) / nAlignments;
+			if (true) {
+				if (response.ow > 0 && response.of > 0) {
+					memberScore -= (response.ow * response.of);
+				}
+				if (response.ew > 0 && response.ef > 0) {
+					memberScore -= (response.ew * response.ef);
+				}
+			}
 			score = (alignmentWeight * Math.pow((range - memberScore), 2));
-			//console.log("RESOURCE SCORE: range=", range, ", alignmentWeight=", alignmentWeight, ", memberScore=", memberScore, ", nAlignments=", nAlignments,
-			//			", => score: ", score);
 		}
 		return score;
 	};
@@ -241,7 +247,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 								var resQuestionId = parseInt(alignment.qi);
 								var questionId = parseInt(question.id);
 								if (resQuestionId == questionId) {
-									resources[k].sc += svc.resourceScore(instrument, alignment.wt, question.rsp.rdx, nAlignments);
+									resources[k].sc += svc.resourceScore(instrument, alignment.wt, question.rsp, nAlignments);
 									resources[k].nAlignments++;
 									nTotalAlignments++;
 									if (maxScore === null || resources[k].sc > maxScore) {

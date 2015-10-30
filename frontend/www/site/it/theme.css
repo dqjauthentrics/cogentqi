@@ -11,23 +11,12 @@ a, a:visited {
     background-size: 100% 100% !important;
 }
 
-.bar-assertive.customerBg .title {
-    line-height: 54px;
-}
-
 ion-header-bar {
-    height: 54px !important;
-    line-height: 54px !important;
     background: #FFF url(/site/it/images/bg-top-nav.png) !important;
 }
 
 ion-header-bar img {
     vertical-align: top !important;
-}
-
-i.logo {
-    font-size: 44px;
-    line-height: 54px;
 }
 
 ion-content {
