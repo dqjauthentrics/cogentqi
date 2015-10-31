@@ -87,15 +87,14 @@ class OrganizationPresenter extends BasePresenter {
 	 */
 	public function actionReadDependents($id, $mode = self::MODE_LISTING) {
 		if ($this->user->isAllowed('Organization', 'dependents')) {
+			$jsonRecs = [];
 			$parentOrg = $this->database->table('organization')->where("id=?", $id)->fetch();
 			$organizations = $this->database->table('organization')->where("parent_id=?", $id)->fetchAll();
-			if (empty($organizations)) {
-				throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
-			}
-			$jsonRecs = [];
-			array_unshift($organizations, $parentOrg);
-			foreach ($organizations as $organization) {
-				$jsonRecs[] = $this->database->map($organization);
+			if (!empty($organizations)) {
+				array_unshift($organizations, $parentOrg);
+				foreach ($organizations as $organization) {
+					$jsonRecs[] = $this->database->map($organization);
+				}
 			}
 			$this->sendResult($jsonRecs);
 		}

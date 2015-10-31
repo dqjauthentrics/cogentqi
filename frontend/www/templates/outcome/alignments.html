@@ -5,9 +5,10 @@
         <div class="row responsive-sm">
             <div class="col">
                 <ion-list>
-                    <ion-item class="top"><h2>{{'Outcome Alignments'|translate}}</h2></ion-item>
-                    <ion-item class="gray" data-ng-if="!data.outcomes.length"><i class="{{i.loadingSpinner}}"></i> {{'Loading...'|translate}}</ion-item>
-                    <ion-item class="item-icon-right" data-ng-repeat="outcome in data.outcomes" type="item-text-wrap"
+                    <ion-item class="top">
+                        <list-searcher></list-searcher>
+                    </ion-item>
+                    <ion-item class="item-icon-right" ng-repeat="outcome in filtered = (Outcomes.list|filter:outcomeFilter)" type="item-text-wrap"
                               href="#/outcome/alignment/{{outcome.id}}">
                         <i class="{{i.outcome}} fa-lg"></i> {{outcome.nmb}} {{outcome.n}}
                     </ion-item>

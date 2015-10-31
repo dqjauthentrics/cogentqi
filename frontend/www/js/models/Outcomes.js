@@ -2,29 +2,25 @@
 
 angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $resource, $http, Utility) {
 	var svc = this;
-	svc.outcomes = null;
-	svc.currentOutcomes = [];
+	svc.list = null;
+	svc.current = null;
 
-	svc.retrieve = function (organizationId) {
+	svc.retrieve = function () {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			var url = '/api2/outcome';
-			if (!Utility.empty(organizationId)) {
-				url = '/api2/organization/' + organizationId + '/r/outcomes';
-			}
-			return $resource(url, {}, {});
+			return $resource('/api2/outcome', {}, {});
 		}
-		return null; //@todo What happens if this gets returned?  There would be an exception in the controller!
+		return null;
 	};
-
-	svc.findOrgOutcomes = function (organizationId) {
-		return svc.outcomes;
+	svc.retrieveForOrg = function (parentOrgId) {
+		var url = '/api2/outcome/' + parentOrgId + '/r/organizations';
+		return $resource(url, {}, {query: {method: 'GET', isArray: false, cache: false}});
 	};
 
 	svc.find = function (outcomeId) {
-		for (var i = 0; i < svc.outcomes.length; i++) {
-			if (svc.outcomes[i].id == outcomeId) {
-				return svc.outcomes[i];
+		for (var i = 0; i < svc.list.length; i++) {
+			if (svc.list[i].id == outcomeId) {
+				return svc.list[i];
 			}
 		}
 		return null;
@@ -33,11 +29,11 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 	svc.saveAlignments = function (instrumentId, outcomeId, alignments, callbackFn) {
 		try {
 			$http({
-				method: 'PUT',
-				url: "/api2/outcome-alignment",
-				data: $.param({instrumentId: instrumentId, outcomeId: outcomeId, alignments: alignments}),
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			}).success(function (data, status, headers, config) {
+					  method: 'PUT',
+					  url: "/api2/outcome-alignment",
+					  data: $.param({instrumentId: instrumentId, outcomeId: outcomeId, alignments: alignments}),
+					  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+				  }).success(function (data, status, headers, config) {
 				callbackFn(data, data);
 			}).error(function (data, status, headers, config) {
 				callbackFn(0, data);
@@ -46,5 +42,22 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 		catch (exception) {
 			callbackFn(0, exception);
 		}
-	}
+	};
+
+	svc.filterer = function (outcome, filterText) {
+		try {
+			if (filterText != null && !Utility.empty(outcome)) {
+				filterText = filterText.toLowerCase();
+				return filterText == null ||
+					outcome.nmb.toLowerCase().indexOf(filterText) >= 0 ||
+					outcome.n.toLowerCase().indexOf(filterText) >= 0 ||
+					outcome.sm.toLowerCase().indexOf(filterText) >= 0
+					;
+			}
+		}
+		catch (exception) {
+			console.log("outcome filter exception: ", exception);
+		}
+		return true;
+	};
 });

@@ -3,7 +3,7 @@
     <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
         <div class="row responsive-lg">
-            <div class="col card">
+            <div class="col  panel">
                 <div class="detail">
                     <h1>{{'Outcome Alignments'|translate}}</h1>
 
@@ -12,9 +12,9 @@
                             <i data-ng-class="data.saving? i.loadingSpinner : i.save"></i>
                         </button>
                     </div>
-                    <h2>{{data.outcome.n}}</h2>
+                    <h2>{{Outcomes.current.n}}</h2>
 
-                    <div class="description">{{data.outcome.summary}}</div>
+                    <div class="description">{{Outcomes.current.sm}}</div>
                     <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId"
                             data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
                             data-ng-options="instrument.id as instrument.n for instrument in data.instruments">
