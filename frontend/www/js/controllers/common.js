@@ -1,3 +1,7 @@
+/**
+ * @author     David Quinn-Jacobs
+ * @copyright  CogentQI.com, 2015.  All rights reserved.
+ */
 'use strict';
 
 angular.module('ControllerCommon', [])
@@ -15,7 +19,6 @@ angular.module('ControllerCommon', [])
 		});
 
 		$scope.go = function (url) {
-			console.log("URL:" + url);
 			location.href = url;
 		}
 	})

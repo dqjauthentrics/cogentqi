@@ -1,3 +1,7 @@
+/**
+ * @author     David Quinn-Jacobs
+ * @copyright  CogentQI.com, 2015.  All rights reserved.
+ */
 'use strict';
 
 angular.module('ResourceControllers', [])
@@ -11,7 +15,6 @@ angular.module('ResourceControllers', [])
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.resourceId)) {
 				Utility.getResource(Resources.retrieve($stateParams.resourceId), function (response) {
 					$scope.Resources.current = response;
-					console.log("loaded resource", $scope.Resources.current);
 					$scope.data.isLoading = false;
 				});
 			}

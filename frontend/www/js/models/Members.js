@@ -1,3 +1,7 @@
+/**
+ * @author     David Quinn-Jacobs
+ * @copyright  CogentQI.com, 2015.  All rights reserved.
+ */
 'use strict';
 
 angular.module('Members', ['Graphs']).service('Members', function ($filter, $resource, $http, $cookieStore, Graphs, Utility, Instruments) {
@@ -45,7 +49,6 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 				  url: "/api2/member/" + member.id + '/r/dereactivate',
 				  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			  }).success(function (data, status, headers, config) {
-			console.log("data:", data);
 			callbackFn(data);
 		}).error(function (data, status, headers, config) {
 			callbackFn(0, data);

@@ -1,3 +1,7 @@
+/**
+ * @author     David Quinn-Jacobs
+ * @copyright  CogentQI.com, 2015.  All rights reserved.
+ */
 'use strict';
 
 angular.module('MemberControllers', [])
@@ -368,7 +372,6 @@ angular.module('MemberControllers', [])
 				return Members.filterer(member, $scope.data.searchFilter);
 			};
 			$scope.changeActive = function () {
-				console.log("changing...");
 				$scope.data.isLoading = true;
 				$scope.getMembers();
 			};

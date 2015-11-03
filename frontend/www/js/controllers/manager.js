@@ -1,3 +1,7 @@
+/**
+ * @author     David Quinn-Jacobs
+ * @copyright  CogentQI.com, 2015.  All rights reserved.
+ */
 'use strict';
 
 angular.module('ControllerManager', [])
@@ -56,7 +60,7 @@ angular.module('ControllerManager', [])
 						);
 					};
 					$scope.webcamStream = function (stream) {
-						console.log(stream);
+						//console.log(stream);
 					};
 					$scope.getCamButtonText = function () {
 						return $scope.webcamReady ? 'Say Cheese and Take Snapshot!' : 'Allow Browser to Take Pictures (above)'

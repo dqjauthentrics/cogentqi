@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @author     David Quinn-Jacobs
+ * @copyright  CogentQI.com, 2015.  All rights reserved.
+ */
 namespace App\Components;
 
 use Drahak\Restful\IResource;
