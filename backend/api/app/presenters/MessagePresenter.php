@@ -6,14 +6,19 @@ use ResourcesModule\BasePresenter;
 
 class MessagePresenter extends BasePresenter {
 
+	public function actionRead($id, $mode = self::MODE_LISTING) {
+		echo "message";
+		exit();
+	}
+
 	public function actionCreate() {
 		$result = new AjaxResult();
 		try {
 			$memberId = @$_POST["memberId"];
 			$message = @$_POST["message"];
 			$member = $this->database->table('member')->get($memberId);
-			if (!empty($member)) {
-				if (!empty($member["mobile"]) && !empty($member["message_format"])) {
+			if (TRUE || !empty($member)) {
+				if (TRUE || (!empty($member["mobile"]) && !empty($member["message_format"]))) {
 					$number = str_replace('{n}', $member["mobile"], $member["message_format"]);
 					$number = '6072277351@vtext.com'; //@todo dqj hard-coded text messaging
 					if (mail($number, '', $message)) {
