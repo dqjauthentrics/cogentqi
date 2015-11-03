@@ -14,8 +14,9 @@ class MessagePresenter extends BasePresenter {
 	public function actionCreate() {
 		$result = new AjaxResult();
 		try {
-			$memberId = @$_POST["memberId"];
-			$message = @$_POST["message"];
+			$data = @$this->getInput()->getData();
+			$memberId = @$data["memberId"];
+			$message = @$data["message"];
 			$member = $this->database->table('member')->get($memberId);
 			if (TRUE || !empty($member)) {
 				if (TRUE || (!empty($member["mobile"]) && !empty($member["message_format"]))) {
