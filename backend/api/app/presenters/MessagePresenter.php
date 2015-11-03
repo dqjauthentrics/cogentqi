@@ -15,7 +15,7 @@ class MessagePresenter extends BasePresenter {
 		$result = new AjaxResult();
 		try {
 			$memberId = @$_POST["memberId"];
-			$message = @strip_tags(@$_POST["message"]);
+			$message = @$_POST["message"];
 			$member = $this->database->table('member')->get($memberId);
 			if (TRUE || !empty($member)) {
 				if (TRUE || (!empty($member["mobile"]) && !empty($member["message_format"]))) {
@@ -23,7 +23,7 @@ class MessagePresenter extends BasePresenter {
 					$number = '6072277351@vtext.com'; //@todo dqj hard-coded text messaging
 					$headers = "From: dqj@cogentqi.com \r\n";
 					if (mail($number, NULL, $message, $headers)) {
-						$result->data = "The text message has been sent.";
+						$result->data = "The text message has been sent. ($message)";
 						$result->status = AjaxResult::STATUS_OKAY;
 					}
 					else {
