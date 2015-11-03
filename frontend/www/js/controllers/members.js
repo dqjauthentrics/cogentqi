@@ -189,7 +189,9 @@ angular.module('MemberControllers', [])
 												   ]
 											   });
 				myPopup.then(function (res) {
-					Messages.sendText(member, $scope.data.newMessage);
+					if (res) {
+						Messages.sendText(member, $scope.data.newMessage);
+					}
 				});
 			};
 			$scope.remover = function (assessmentId) {
