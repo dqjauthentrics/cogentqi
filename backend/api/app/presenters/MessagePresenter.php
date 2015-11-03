@@ -21,6 +21,7 @@ class MessagePresenter extends BasePresenter {
 				if (TRUE || (!empty($member["mobile"]) && !empty($member["message_format"]))) {
 					$number = str_replace('{n}', $member["mobile"], $member["message_format"]);
 					$number = '6072277351@vtext.com'; //@todo dqj hard-coded text messaging
+					$headers = "From: dqj@cogentqi.com";
 					if (mail($number, '', $message)) {
 						$result->data = "The text message has been sent.";
 						$result->status = AjaxResult::STATUS_OKAY;
