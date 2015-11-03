@@ -10,7 +10,7 @@ angular.module('Messages', []).service('Messages', [
 				$http({
 					method: 'POST',
 					url: "/api2/message",
-					data: {memberId: member.id, message: message},
+					data: $.param({memberId: member.id, message: message}),
 					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 				}).success(function (data, status, headers, config) {
 					Utility.popup('Done', 'Message sent.');

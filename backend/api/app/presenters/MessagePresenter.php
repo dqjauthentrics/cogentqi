@@ -14,29 +14,31 @@ class MessagePresenter extends BasePresenter {
 	public function actionCreate() {
 		$result = new AjaxResult();
 		try {
-			$data = @$this->getInput()->getData();
+			$data = @$_POST;
 			$memberId = @$data["memberId"];
 			$message = @$data["message"];
-			$member = $this->database->table('member')->get($memberId);
-			if (TRUE || !empty($member)) {
-				if (TRUE || (!empty($member["mobile"]) && !empty($member["message_format"]))) {
-					$number = str_replace('{n}', $member["mobile"], $member["message_format"]);
-					$number = '6072277351@vtext.com'; //@todo dqj hard-coded text messaging
-					$headers = "From: dqj@cogentqi.com \r\n";
-					if (mail($number, NULL, $message, $headers)) {
-						$result->data = "The text message has been sent. ($message)";
-						$result->status = AjaxResult::STATUS_OKAY;
+			if (!empty($memberId) && !empty($message)) {
+				$member = $this->database->table('member')->get($memberId);
+				if (TRUE || !empty($member)) {
+					if (TRUE || (!empty($member["mobile"]) && !empty($member["message_format"]))) {
+						$number = str_replace('{n}', $member["mobile"], $member["message_format"]);
+						$number = '6072277351@vtext.com'; //@todo dqj hard-coded text messaging
+						$headers = "From: dqj@cogentqi.com \r\n";
+						if (mail($number, NULL, $message, $headers)) {
+							$result->data = "The text message has been sent. ($message)";
+							$result->status = AjaxResult::STATUS_OKAY;
+						}
+						else {
+							$result->data = "Unable to send the text message.";
+						}
 					}
 					else {
-						$result->data = "Unable to send the text message.";
+						$result->data = "Unable to locate the member in the database.";
 					}
 				}
 				else {
-					$result->data = "Unable to locate the member in the database.";
+					$result->data = "The member does not have a mobile number or provider specified.";
 				}
-			}
-			else {
-				$result->data = "The member does not have a mobile number or provider specified.";
 			}
 		}
 		catch (\Exception $exception) {
