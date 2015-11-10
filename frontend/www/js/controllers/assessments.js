@@ -138,7 +138,7 @@ angular.module('AssessmentControllers', [])
 				recommendations: [],
 				resources: [],
 				currentChoices: null,
-				recommendationTitle: 'Recommended Modules'
+				recommendationsTitle: 'Recommended Modules'
 			};
 
 

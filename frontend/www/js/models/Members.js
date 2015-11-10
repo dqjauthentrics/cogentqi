@@ -55,28 +55,6 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 		});
 	};
 
-	svc.roleName = function (member) {
-		var roleName = "-unknown role-";
-		if (!Utility.empty(member)) {
-			roleName = member.roleId;
-			switch (member.roleId) {
-				case "S":
-					return "System Administrator";
-				case "P":
-					return "Pharmacist";
-				case "T":
-					return "Pharmacy Technician";
-				case "A":
-					return "Administrator";
-				case "M":
-					return "Manager";
-				case "N":
-					return "Nurse";
-			}
-		}
-		return roleName;
-	};
-
 	svc.findResponse = function (responses, questionId) {
 		if (!Utility.empty(responses) && !Utility.empty(questionId)) {
 			for (var i = 0; i < responses.length; i++) {

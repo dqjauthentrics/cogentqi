@@ -6,12 +6,9 @@
 namespace App\Model;
 
 use App\Components\AjaxException;
-use Nette\Database\Table\IRow,
-	App\Components\DbContext,
-	App\Model\Instrument,
-	App\Model\InstrumentSchedule,
-	ResourcesModule\BasePresenter,
-	App\Model\Member;
+use App\Components\DbContext;
+use Nette\Database\Table\IRow;
+use ResourcesModule\BasePresenter;
 
 class Assessment extends BaseModel {
 	const STATUS_ACTIVE = 'A';
@@ -134,8 +131,8 @@ class Assessment extends BaseModel {
 						'dsc' => $question["description"],
 						'rsp' => @$jsonResponses[$question["id"]],
 						'typ' => $question->question_type["entry_type"],
-						'mn'  => $question->question_type["min_range"],
-						'mx'  => $question->question_type["max_range"],
+						'min' => $question->question_type["min_range"],
+						'max' => $question->question_type["max_range"],
 					];
 				}
 				$i++;

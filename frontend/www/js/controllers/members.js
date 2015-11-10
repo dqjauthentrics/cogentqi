@@ -87,7 +87,6 @@ angular.module('MemberControllers', [])
 
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 				Members.retrieveSingle($stateParams.memberId).query(function (response) {
-					response.roleName = Members.roleName(response);
 					$scope.data.member = response;
 					$scope.setRptConfigHx();
 				});

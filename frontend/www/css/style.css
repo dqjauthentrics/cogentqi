@@ -8,6 +8,11 @@ a {
     color: #005090;
 }
 
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: bold;
+    color: #666;
+}
+
 h1 {
     font-size: 2em;
 }
@@ -134,9 +139,7 @@ h3 {
 
 .panel {
     background: #DDD;
-    margin: 1em;
     padding: 1em;
-    height: 100%;
 }
 
 .card a.button, form .button, form .button-small {
@@ -381,10 +384,14 @@ ion-item .stamp {
     float: none !important;
 }
 
+.recommendationsPane, .assessmentNameCard {
+    min-height: 17em;
+    max-height: 17em;
+    height: 17em;
+}
+
 .recommendationsPane {
-    max-height: 15em;
     overflow-y: auto;
-    border: 1px solid #999;
     border-radius: 0.2em;
 }
 
@@ -938,6 +945,7 @@ ion-item.top {
 ion-item.top h2 {
     padding: 0.4em;
     color: #FFF;
+    font-weight: bold;
 }
 
 .fadein,

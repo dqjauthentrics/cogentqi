@@ -164,10 +164,6 @@ angular.module('app',
 				 $rootScope.dashboardUrl = function () {
 					 return Authentication.getUserDashUrl($cookieStore.get('user'));
 				 };
-				 $rootScope.roleName = function (roleId) {
-					 var selected = $filter('filter')($rootScope.roles, {id: roleId});
-					 return (roleId && !Utility.empty(selected)) ? selected[0].n : '';
-				 };
 
 				 $rootScope.roleInfix = function () {
 					 var infix = APP_ROLES.PROFESSIONAL;

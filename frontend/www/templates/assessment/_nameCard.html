@@ -1,10 +1,14 @@
-<h4 style="margin:1em 0 0 0;"><a href="#/member/view/{{member.id}}">{{member.fn}} {{member.ln}}</a></h4>
-<div class="role">{{member.rl}}</div>
-<a href="#/member/view/{{member.id}}">
-    <avatar site="site" sz="'medium'" member-id="member.id" level="assessment.sc" alt="avatarAlt(member)"></avatar>
-</a>
-<div class="score" data-ng-show="assessment.rk > 0">
-    <div class="scoreTag" data-ng-class="(assessment.typ == 'YESNO'?'yesNoBg':'levelBg') + assessment.rk">
-        {{assessment.scoreWord}} ({{assessment.sc}})
+<div class="assessmentNameCard panel">
+    <h4><a href="#/member/view/{{member.id}}">{{member.fn}} {{member.ln}}</a></h4>
+
+    <div class="role">{{member.rl}}</div>
+    <a href="#/member/view/{{member.id}}">
+        <avatar site="site" sz="'medium'" member-id="member.id" level="assessment.sc" alt="avatarAlt(member)"></avatar>
+    </a>
+
+    <div class="score" data-ng-show="assessment.rk > 0">
+        <div class="scoreTag" data-ng-class="(assessment.typ == 'YESNO'?'yesNoBg':'levelBg') + assessment.rk">
+            {{assessment.scoreWord}} ({{assessment.sc}})
+        </div>
     </div>
 </div>

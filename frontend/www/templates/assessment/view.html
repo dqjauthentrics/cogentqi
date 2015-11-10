@@ -27,11 +27,11 @@
             <button class="button button-action button-pdf" data-ng-click="printIt()"><i class="{{i.pdf}}"></i></button>
             <div class="clearfix"></div>
         </div>
-        <div class="row responsive-lg" ng-show="!data.isLoading">
-            <div class="col col-25 card" style="text-align: center;">
+        <div class="row responsive-md" ng-show="!data.isLoading">
+            <div class="col col-25 assessmentNameCardWrap" style="text-align: center;">
                 <assessment-name-card site="siteDir()" member="Assessments.current.member" assessment="Assessments.current"></assessment-name-card>
             </div>
-            <div class="col card">
+            <div class="col col-75 recommendationsPaneWrao">
                 <assessment-recommendations title="data.recommendationsTitle" items="data.recommendations"></assessment-recommendations>
             </div>
         </div>
@@ -50,7 +50,7 @@
                         <div style="height:1em;"></div>
                         <ion-list>
                             <ion-item class="top">
-                                <h2 style="float:left;">{{section.number}} {{section.name}}</h2>
+                                <h2 style="float:left;">{{section.nmb}} {{section.n}}</h2>
                             </ion-item>
                             <ion-item class="item-remove-animate" data-ng-repeat="question in section.questions" type="item-text-wrap">
                                 <div>
