@@ -49,10 +49,10 @@ ion-header-bar a {
 }
 
 .tab-item-active {
-    color: #FFF;
+    color: yellow;
 }
 
 .tab-item:hover {
-    color: #FFF !important;
+    color: yellow !important;
 }
 
