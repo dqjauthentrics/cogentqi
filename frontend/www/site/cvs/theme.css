@@ -49,10 +49,10 @@ ion-header-bar a {
 }
 
 .tab-item-active {
-    color: #06EdF0;
+    color: #FFF;
 }
 
 .tab-item:hover {
-    color: #06EdF0 !important;
+    color: #FFF !important;
 }
 
