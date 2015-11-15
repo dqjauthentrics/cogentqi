@@ -3,9 +3,14 @@
 class MemberController extends \Phalcon\Mvc\Controller {
 
 	public function indexAction() {
-		$members = Member::find();
+		$members = Member::query()
+			->where("last_name LIKE :n:")
+			->bind(["n" => "B%"])
+			->orderBy("last_name")
+			->execute();
+		//$members = Member::find();
 		foreach ($members as $member) {
-			echo $member->email.'<br/>';
+			echo $member->last_name . ":" . $member->email . '<br/>';
 		}
 	}
 
