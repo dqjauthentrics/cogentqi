@@ -115,8 +115,8 @@ angular.module('app',
 			angularLoad.loadCSS('/site/' + subdomain + '/theme.css').then(function () {
 			}).catch(function () {
 			});
-			angularLoad.loadScript('site/' + subdomain + '/installation.js').then(function () {
-				$rootScope.installation = installation;
+			angularLoad.loadScript('site/' + subdomain + '/config.js').then(function () {
+				$rootScope.installation = configuration;
 				$rootScope.installation.subdomain = subdomain;
 				$rootScope.installation.operationalMode = operationalMode;
 			}).catch(function () {

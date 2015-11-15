@@ -22,6 +22,9 @@ $configurator->createRobotLoader()->addDirectory(__DIR__)->register();
 $configurator->addConfig(__DIR__ . '/config/config.neon');
 $configurator->addConfig(__DIR__ . "/config/config.$infix.neon");
 
+$frontendSiteDir = dirname(dirname(dirname(__DIR__)))."/frontend/www/site/$infix";
+$configuration = new Configuration($frontendSiteDir, $infix);
+
 Drahak\Restful\DI\RestfulExtension::install($configurator);
 $container = $configurator->createContainer();
 
