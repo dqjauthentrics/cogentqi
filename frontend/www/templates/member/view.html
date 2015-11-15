@@ -13,10 +13,10 @@
             <button class="button button-action" data-ng-if="Members.current.assessments.length > 0" data-ng-click="goToBarProgress()">
                 <i class="{{i.barChart}}"></i>
             </button>
-            <button class="button button-action" data-ng-if="Members.current.assessments.length > 0" data-ng-click="goToNotes()">
+            <button class="button button-action" data-ng-if="!roleIs([APP_ROLES.PROFESSIONAL])" data-ng-click="goToNotes()">
                 <i class="{{i.stickyNote}}"></i>
             </button>
-            <button class="button button-action" data-ng-click="deOrReactivate()" title="{{(Members.current.ae?'Reactivate':'Deactivate')|translate}}">
+            <button class="button button-action" data-ng-if="!roleIs([APP_ROLES.PROFESSIONAL])" data-ng-click="deOrReactivate()" title="{{(Members.current.ae?'Reactivate':'Deactivate')|translate}}">
                 <i ng-class="Members.current.ae? i.reactivate : i.deactivate"></i>
             </button>
         </div>

@@ -131,7 +131,7 @@ class MemberPresenter extends BasePresenter {
 	 */
 	public function actionReadPlanItems($id, $mode = self::MODE_LISTING) {
 		if ($this->user->isAllowed('Member', 'planItems')) {
-			$planItems = $this->database->table('plan_item')->where("member_id = ?", $id)->fetchAll();
+			$planItems = $this->database->table('plan_item')->where("member_id = ?", $id)->order('status_stamp DESC')->fetchAll();
 			if (empty($planItems)) {
 				throw new AjaxException(AjaxException::ERROR_NOT_FOUND);
 			}

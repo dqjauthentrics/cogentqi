@@ -26,6 +26,15 @@ angular.module('ControllerProfessional', [])
 				$scope.data.assessments = response;
 				$scope.associate("evals");
 			});
+			$scope.recommendationFilter = function(planItem) {
+				return planItem.s == 'R';
+			};
+			$scope.nonRecommendationFilter = function(planItem) {
+				return planItem.s != 'R' && planItem.s != 'C';
+			};
+			$scope.completedFilter = function(planItem) {
+				return planItem.s == 'C';
+			};
 		}
 		catch (exception) {
 			console.log("EXCEPTION:", exception);
@@ -48,16 +57,19 @@ angular.module('ControllerProfessional', [])
 			return instrument;
 		};
 		$scope.statusWord = function (statusId) {
-			var word = 'Enrolled';
+			var word = 'Unknown';
 			switch (statusId) {
-				case 'W':
-					word = 'Withdrawn';
-					break;
 				case 'C':
 					word = 'Completed';
 					break;
+				case 'E':
+					word = 'Enrolled';
+					break;
 				case 'R':
 					word = 'Recommended';
+					break;
+				case 'W':
+					word = 'Withdrawn';
 					break;
 			}
 			return word;
