@@ -3,6 +3,7 @@
  * @author     David Quinn-Jacobs
  * @copyright  CogentQI.com, 2015.  All rights reserved.
  */
+require_once(dirname(__DIR__) . '/app/components/Configuration.php');
 require dirname(__DIR__) . '/vendor/autoload.php';
 $server = @$_SERVER["SERVER_NAME"];
 $parts = @explode(".", $server);
