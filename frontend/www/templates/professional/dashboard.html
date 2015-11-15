@@ -16,7 +16,7 @@
         <div class="row responsive-lg">
             <div class="col padding card">
                 <ion-list>
-                    <ion-item class="top"><i class="{{i.assessment}}"></i> {{'Assessments'|translate}}</ion-item>
+                    <ion-item class="top fat"><i class="{{i.assessment}}"></i> {{'Assessments'|translate}}</ion-item>
                     <ion-item data-ng-if="!data.assessments">{{'None'|translate}}</ion-item>
                     <ion-item class="item-icon-right" data-ng-repeat="assessment in data.assessments" type="item-text-wrap"
                               href="#/assessment/view/{{assessment.id}}">
@@ -37,7 +37,7 @@
             </div>
             <div class="col padding card">
                 <ion-list>
-                    <ion-item class="top" style="background:goldenrod !important; color:#FFF !important;"><i class="{{i.recommendation}}"></i>
+                    <ion-item class="top fat" style="background:goldenrod !important; color:#FFF !important;"><i class="{{i.recommendation}}"></i>
                         {{'Recommendations'|translate}}
                     </ion-item>
                     <ion-item data-ng-if="!data.planItems.length">None.</ion-item>
@@ -58,7 +58,7 @@
             </div>
             <div class="col padding card">
                 <ion-list>
-                    <ion-item class="top" style="background:darkgreen !important; color:#FFF;"><i class="{{i.plan}}"></i> {{'Learning Plan'|translate}}
+                    <ion-item class="top fat" style="background:darkgreen !important; color:#FFF;"><i class="{{i.plan}}"></i> {{'Learning Plan'|translate}}
                     </ion-item>
                     <ion-item data-ng-if="!data.planItems.length">None.</ion-item>
                     <ion-item class="item-icon-right" data-ng-repeat="item in items = (data.planItems|filter:nonRecommendationFilter)" type="item-text-wrap"
@@ -77,7 +77,7 @@
             </div>
             <div class="col padding card">
                 <ion-list>
-                    <ion-item class="top" style="background:navy !important; color:#FFF;"><i class="{{i.completed}}"></i> {{'Completed Courses'|translate}}
+                    <ion-item class="top fat" style="background:navy !important; color:#FFF;"><i class="{{i.completed}}"></i> {{'Completed Courses'|translate}}
                     </ion-item>
                     <ion-item data-ng-if="!data.planItems.length">None.</ion-item>
                     <ion-item class="item-icon-right" data-ng-repeat="item in items = (data.planItems|filter:completedFilter)" type="item-text-wrap"

@@ -947,6 +947,11 @@ ion-item.top h2 {
     color: #FFF;
     font-weight: bold;
 }
+ion-item.top.fat {
+    padding: 2em;
+    font-size: 1.4em;
+    border-radius: 0.5em 0.5em 0 0 !important;
+}
 
 .fadein,
 .fadeout {
