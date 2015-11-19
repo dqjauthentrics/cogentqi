@@ -1,0 +1,5 @@
+<?php
+return [
+	'name' => 'IT Professional Development',
+	'logo' => '<img src="/site/it/images/headerLogo.png" alt=""/>',
+];
