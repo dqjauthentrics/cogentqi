@@ -8,7 +8,6 @@ class MemberController extends \Phalcon\Mvc\Controller {
 			->bind(["n" => "B%"])
 			->orderBy("last_name")
 			->execute();
-		//$members = Member::find();
 		foreach ($members as $member) {
 			echo $member->last_name . ":" . $member->email . '<br/>';
 		}
