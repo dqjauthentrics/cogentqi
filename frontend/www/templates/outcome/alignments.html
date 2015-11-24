@@ -10,6 +10,12 @@
                     </ion-item>
                     <ion-item class="item-icon-right" ng-repeat="outcome in filtered = (Outcomes.list|filter:outcomeFilter)" type="item-text-wrap"
                               href="#/outcome/alignment/{{outcome.id}}">
+                        <div style="float:left; margin-right:1em;">
+                            <a class="button button-small button-positive"
+                               href="#/outcome/view/{{outcome.id}}"><i class="{{i.edit}} fa-lg bold"></i> {{'Edit'|translate}}</a>
+                            <a class="button button-small button-positive"
+                               href="#/outcome/alignment/{{outcome.id}}"><i class="{{i.slider}} fa-lg bold"></i> {{'Align'|translate}}</a>
+                        </div>
                         <i class="{{i.outcome}} fa-lg"></i> {{outcome.nmb}} {{outcome.n}}
                     </ion-item>
                     <ion-item>

@@ -7,33 +7,35 @@
 angular.module('OutcomeControllers', [])
 
 	.controller(
-		'OutcomeCtrl',
-		function ($scope, Utility, Instruments, Organizations, Outcomes) {
-			$scope.data = {learningModules: []};
+		'OutcomeViewCtrl',
+		function ($scope, $stateParams, Utility, Instruments, Organizations, Outcomes) {
+			$scope.data = {outcome: null, currentInstrument: null, instruments: null};
+			$scope.Instruments = Instruments;
 
-			Instruments.retrieve().query(function (response) {
+			Utility.getResource(Instruments.retrieve(), function (response) {
 				$scope.data.instruments = response;
-			});
-			Outcomes.retrieve().query(function (response) {
-				$scope.Outcomes.list = response;
-			});
-			$scope.findQuestionName = function (questionId) {
-				if (!Utility.empty($scope.data.instruments) && !Utility.empty(questionId)) {
-					var question = Instruments.findQuestion($scope.data.instruments, questionId);
-					if (!Utility.empty(question)) {
-						return question.n;
-					}
+				Instruments.collate($scope.data.instruments);
+				if (!Utility.empty(response)) {
+					$scope.setCurrentInstrument(response);
 				}
-				return null;
-			};
-			$scope.methodMessage = function (method) {
-				if (method == "D") {
-					return '<span style="color:red !important;">' +
-						'NOTE: This outcome level is calculated through examination of data; it is not recommended that you manually change it.' +
-						'</span>';
+			});
+			$scope.setCurrentInstrument = function (instrument) {
+				if (!Utility.empty(instrument) && !Utility.empty($scope.data.instruments)) {
+					$scope.data.currentInstrument = instrument;
+					$scope.data.currentInstrumentId = instrument.id;
+					$scope.setOutcome();
 				}
-				return "Manually configured outcome level.";
 			};
+			$scope.setOutcome = function () {
+				if (!Utility.empty($stateParams)) {
+					var outcomeId = $stateParams.outcomeId;
+					Utility.getResource(Outcomes.retrieveSingle(outcomeId), function (response) {
+						$scope.data.outcome = response;
+					});
+				}
+				$scope.setOutcomeAlignments();
+			};
+
 		})
 
 	.controller(
