@@ -15,9 +15,10 @@ class MemberController extends ApiControllerBase {
 		if ($this->isLoggedIn()) {
 			$members = Member::query()
 				->where("last_name LIKE :n:")
-				->bind(["n" => "B%"])
+				->bind(["n" => "%B%"])
 				->orderBy("last_name")
 				->execute();
+			/** @var Member $member */
 			foreach ($members as $member) {
 				$data[] = $member->last_name . ":" . $member->email;
 			}

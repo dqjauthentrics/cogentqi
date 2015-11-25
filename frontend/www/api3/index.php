@@ -14,12 +14,6 @@ try {
 		'Api\Models'      => $config->application->modelsDir,
 		'Api\Controllers' => $config->application->controllersDir,
 	]);
-	$loader->registerDirs([
-			$config->application->controllersDir,
-			$config->application->componentsDir,
-			$config->application->modelsDir
-		], TRUE
-	);
 	$loader->register();
 
 	include APP_PATH . "/config/services.php";
