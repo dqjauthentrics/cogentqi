@@ -138,13 +138,16 @@ class Recommendation extends BaseModel {
             foreach ($assessment->related('assessment_response') as $response) {
                 $scoredQuestions[$response->question->id] = [
                     'response' => $response->response,
-                    'maxResponse' => $response->question->max_range,
+                    'maxResponse' => $response->question->question_type->max_range,
                     'importance' => $response->question->importance,
                     'outcome_threshold' => $response->question->outcome_threshold,
                     'outcome_value' => $response->outcome_value,
                     'event_threshold' =>$response->question->event_threshold,
                     'event_value' => $response->event_value,
                 ];
+				if ($response->question->importance <= 0) {
+					throw new \Exception('Question importance must be greater than zero');
+				}
             }
             $result->data = self::createRankedResourceList($database, $scoredQuestions, $member);
 		}
@@ -188,9 +191,8 @@ class Recommendation extends BaseModel {
         $resourceCoverages = [];
         foreach ($resourceAlignments as $alignment) {
             $rId = $alignment['resource_id'];
-            if (!array_key_exists($resourceCoverages, $rId)) {
-                $resourceCoverages[$rId] =
-                    [
+            if (!array_key_exists($rId, $resourceCoverages)) {
+                $resourceCoverages[$rId] = [
                         'resourceId' => $rId,
                         'totalWeight' => 0,
                         'questions' => [],
@@ -198,7 +200,7 @@ class Recommendation extends BaseModel {
                     ];
             }
             if ($alignment['weight'] == $maxCoveringStrengths[$alignment['question_id']]) {
-                $coverage = $resourceCoverages[$rId];
+                $coverage = &$resourceCoverages[$rId];
                 $coverage['totalWeight'] +=
                     $filteredQuestions[$alignment['question_id']]['importance'];
                 $coverage['questions'][$alignment['question_id']] = 0;
@@ -207,7 +209,7 @@ class Recommendation extends BaseModel {
         self::sortResourceCoverages($resourceCoverages);
 
         while (true) {
-            for ($i = count($resourceCoverages) - 1; $i >= 0; $i++) {
+            for ($i = count($resourceCoverages) - 1; $i >= 0; $i--) {
                 $coverage = $resourceCoverages[$i];
                 unset($resourceCoverages[$i]);
                 if ($coverage['totalWeight'] != 0) {
@@ -221,23 +223,43 @@ class Recommendation extends BaseModel {
                 break;
             }
         }
-        self::setTotalResponseErrors($rankedCoverages);
+        self::setTotalResponseErrors($rankedCoverages, $filteredQuestions);
         // Sort final resource list in descending order of the total response error
         usort($rankedCoverages, function($c1, $c2) {
-           return $c2['totalResposeError'] - $c1['totalResposeError'];
+           return $c2['totalResponseError'] - $c1['totalResponseError'];
         });
         // Return a list of resource ids
         $resourceList = [];
         for ($i = 0; $i < count($rankedCoverages); $i++) {
             array_push($resourceList, $rankedCoverages[$i]['resourceId']);
         }
-        return $resourceList;
+        return self::fillResourceData($database, $resourceList);
     }
 
-    private static function setTotalResponseErrors(&$rankedCoverages) {
+    private static function fillResourceData($database, $resourceIds) {
+        $resources = [];
+        $resourceRows = $database->table('resource')->
+            where('id IN', $resourceIds);
+        $hashedRows = [];
+        foreach ($resourceRows as $resource) {
+            $hashedRows[$resource['id']] = $resource;
+        }
+        for ($i = 0; $i < count($resourceIds); $i++) {
+            $resource = $hashedRows[$resourceIds[$i]];
+            $resources[] = [
+                'id' => $resource['id'],
+                'name' => $resource['name'],
+                'summary' => $resource['summary'],
+            ];
+        }
+        return $resources;
+    }
+
+    private static function setTotalResponseErrors(&$rankedCoverages, $scoredQuestions) {
         foreach($rankedCoverages as $coverage) {
-            foreach ($coverage['questions'] as $question) {
-                $coverage['totalResponseError'] += 1 - $question['response']/$question['maxResponse'];
+            foreach ($coverage['questions'] as $questionId => $dummy) {
+                $question = $scoredQuestions[$questionId];
+                $coverage['totalResponseError'] += 1 - ($question['response']/$question['maxResponse']);
             }
         }
     }
@@ -259,7 +281,7 @@ class Recommendation extends BaseModel {
     }
 
     private static function reduceResourceCoverages($selectedCoverage, &$coverages, $scoredQuestions) {
-        foreach ($coverages as $coverage) {
+        foreach ($coverages as &$coverage) {
             foreach ($selectedCoverage['questions'] as $question => $dummy) {
                 if (array_key_exists($question, $coverage['questions'])){
                     unset($coverage['questions'][$question]);
@@ -267,6 +289,7 @@ class Recommendation extends BaseModel {
                 }
             }
         }
+        unset($coverage);
         self::sortResourceCoverages($coverages);
     }
 

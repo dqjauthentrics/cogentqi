@@ -42,6 +42,7 @@ class Authorization extends Permission {
 		$this->addResource('QuestionChoice');
 		$this->addResource('QuestionType');
 		$this->addResource('Recommendation');
+		$this->addResource('Recommendations');
 		$this->addResource('Resource');
 		$this->addResource('Role');
 		$this->addResource('Setting');
@@ -67,6 +68,7 @@ class Authorization extends Permission {
 			'QuestionChoice',
 			'QuestionType',
 			'Recommendation',
+			'Recommendations',
 			'Resource',
 			'Role',
 			'Setting',

@@ -13,8 +13,13 @@ use ResourcesModule\BasePresenter,
 
 class RecommendationsPresenter extends BasePresenter {
 
-    public function actionAssessmentRecommendations($assessmentId) {
-        $result = Recommendation::createRecommendationsForAssessment($this->database, $assessmentId);
+    /**
+     * @param int $id  an assessment id
+     * @param int $mode
+     */
+    public function actionRead($id, $mode = self::MODE_LISTING) {
+        $result = Recommendation::createRecommendationsForAssessment(
+            $this->database, $id);
         $this->sendResult($result);
     }
 }
