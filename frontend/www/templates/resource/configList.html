@@ -9,11 +9,11 @@
                         <list-searcher></list-searcher>
                     </ion-item>
                     <ion-item class="item-icon-right" ng-repeat="resource in Resources.list" type="item-text-wrap">
-                        <div style="float:left;">
+                        <div style="float:left; margin-right:1em;">
                             <a class="button button-small button-positive"
-                               href="#/resource/edit/{{resource.id}}"><i class="{{i.edit}} fa-lg bold"></i></a>
+                               href="#/resource/edit/{{resource.id}}"><i class="{{i.edit}} fa-lg bold"></i> {{'Edit'|translate}}</a>
                             <a class="button button-small button-positive"
-                               href="#/resource/alignment/{{resource.id}}"><i class="{{i.slider}} fa-lg bold"></i></a>
+                               href="#/resource/alignment/{{resource.id}}"><i class="{{i.slider}} fa-lg bold"></i> {{'Align'|translate}}</a>
                         </div>
                         <div class="name">
                             <i class="{{i.resource}} fa-lg"></i> {{resource.nmb}} {{resource.n}}

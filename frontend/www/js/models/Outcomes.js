@@ -16,6 +16,12 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 		}
 		return null;
 	};
+	svc.retrieveSingle = function (outcomeId) {
+		if (!Utility.empty(outcomeId)) {
+			return $resource('/api2/outcome/' + outcomeId + '/m/1', {}, {query: {method: 'GET', isArray: false, cache: false}});
+		}
+		return null;
+	};
 	svc.retrieveForOrg = function (parentOrgId) {
 		var url = '/api2/outcome/' + parentOrgId + '/r/organizations';
 		return $resource(url, {}, {query: {method: 'GET', isArray: false, cache: false}});
@@ -49,18 +55,20 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 	};
 
 	svc.filterer = function (outcome, filterText) {
-		try {
-			if (filterText != null && !Utility.empty(outcome)) {
-				filterText = filterText.toLowerCase();
-				return filterText == null ||
-					outcome.nmb.toLowerCase().indexOf(filterText) >= 0 ||
-					outcome.n.toLowerCase().indexOf(filterText) >= 0 ||
-					outcome.sm.toLowerCase().indexOf(filterText) >= 0
-					;
+		if (outcome) {
+			try {
+				if (!Utility.empty(filterText) && !Utility.empty(outcome)) {
+					filterText = filterText.toLowerCase();
+					return filterText == null ||
+						outcome.nmb.toLowerCase().indexOf(filterText) >= 0 ||
+						outcome.n.toLowerCase().indexOf(filterText) >= 0 ||
+						outcome.sm.toLowerCase().indexOf(filterText) >= 0
+						;
+				}
 			}
-		}
-		catch (exception) {
-			console.log("outcome filter exception: ", exception);
+			catch (exception) {
+				console.log("outcome filter exception: ", exception);
+			}
 		}
 		return true;
 	};
