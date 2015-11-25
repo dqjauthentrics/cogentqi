@@ -1,5 +1,5 @@
 ALTER TABLE question
-  ADD importance double DEFAULT 0 NOT NULL,
+  ADD importance INT DEFAULT 1 NOT NULL,
   ADD outcome_threshold double DEFAULT 1 NOT NULL,
   ADD event_threshold double DEFAULT 1 NOT NULL;
 
