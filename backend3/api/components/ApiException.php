@@ -8,7 +8,7 @@ namespace Api\Components;
 /**
  * Define a custom exception class to respond with JSON output.
  */
-class AppException extends \Exception {
+class ApiException extends \Exception {
 	const ERROR_NOT_FOUND = ['code' => 404, 'message' => "Not found."];
 	const ERROR_NOT_ALLOWED = ['code' => 403, 'message' => "Not allowed."];
 	const ERROR_FATAL = ['code' => 500, 'message' => "Database error."];
@@ -20,7 +20,7 @@ class AppException extends \Exception {
 	 */
 	public function __construct($code, $message = NULL) {
 		if (is_object($code)) {
-			$result = new AppResult(AppResult::STATUS_ERROR, $code->getMessage(), 500);
+			$result = new ApiResult(ApiResult::STATUS_ERROR, $code->getMessage(), 500);
 		}
 		else {
 			if (empty($message)) {
@@ -30,7 +30,7 @@ class AppException extends \Exception {
 			parent::__construct($message, $codeNumber, NULL);
 			if ($codeNumber == 500) {
 			}
-			$result = new AppResult(AppResult::STATUS_ERROR, $message, $code['code']);
+			$result = new ApiResult(ApiResult::STATUS_ERROR, $message, $code['code']);
 		}
 		$result->send();
 	}

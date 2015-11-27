@@ -42,6 +42,7 @@ class RouterFactory {
 					IResourceRouter::DELETE => 'delete<Relation>'
 				],
 			]);
+		$router[] = new Route('appRole/a/b/c/', 'AppRole:read'); // temporary, just to get route to work!!!
 		return $router;
 	}
 

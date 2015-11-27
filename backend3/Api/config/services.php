@@ -11,19 +11,32 @@ use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
+use Phalcon\Events\Manager as EventsManager;
+use Api\Plugins;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
  */
 $di = new FactoryDefault();
 
-// dqj -->
-$di->set('dispatcher', function () {
+$di->set('dispatcher', function () use ($di) {
 	$dispatcher = new Dispatcher();
 	$dispatcher->setDefaultNamespace("Api\Controllers");
+
+	$eventsManager = new EventsManager;
+
+	/**
+	 * Check if the user is allowed to access certain action using the SecurityPlugin
+	 */
+	$eventsManager->attach('dispatch:beforeDispatch', new \Api\Plugins\SecurityPlugin);
+
+	/**
+	 * Handle exceptions and not-found exceptions using NotFoundPlugin
+	 */
+	//$eventsManager->attach('dispatch:beforeException', new \Api\Plugins\NotFoundPlugin);
+	$dispatcher->setEventsManager($eventsManager);
 	return $dispatcher;
 });
-//<-- dqj
 
 /**
  * The URL component is used to generate all kind of urls in the application

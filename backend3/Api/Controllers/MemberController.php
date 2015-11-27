@@ -1,8 +1,9 @@
 <?php
 namespace Api\Controllers;
 
-use Api\Components\AppResult;
+use Api\Components\ApiResult;
 use Api\Models\Member;
+use Phalcon\Mvc\Model\Resultset;
 
 class MemberController extends ApiControllerBase {
 
@@ -11,18 +12,17 @@ class MemberController extends ApiControllerBase {
 	 */
 	public function indexAction() {
 		$data = [];
-		$result = new AppResult();
+		$result = new ApiResult();
 		if ($this->isLoggedIn()) {
-			$members = Member::query()
-				->where("last_name LIKE :n:")
-				->bind(["n" => "%B%"])
-				->orderBy("last_name")
-				->execute();
+			/**
+			 * @var \Phalcon\Mvc\Model\Criteria
+			 */
+			$members = Member::query()->where("last_name LIKE :n:")->bind(["n" => "%B%"])->orderBy("last_name")->execute();
 			/** @var Member $member */
 			foreach ($members as $member) {
 				$data[] = $member->last_name . ":" . $member->email;
 			}
-			$result->status = AppResult::STATUS_OKAY;
+			$result->status = ApiResult::STATUS_OKAY;
 		}
 		else {
 			$data = "Not authenticated.";

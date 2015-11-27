@@ -54,13 +54,13 @@ class Assessment extends BaseModel {
 			$member = $assessment->ref('member');
 			$map['member'] = $database->map($member);
 			$map["member"]["lastAssessment"] = Member::mapLastAssessment($database, $member, $mode);
-			$role = $assessment->ref('member')->ref('role');
+			$role = $assessment->ref('member')->ref('app_role');
 			$map["member"]['role'] = $role["name"];
 			$map["member"]['rn'] = $role["name"];
 			$map["member"]['ari'] = $role["app_role_id"];
 			$assessor = $assessment->ref('member', 'assessor_id');
 			$map['assessor'] = $database->map($assessor);
-			$role = $assessor->ref('role');
+			$role = $assessor->ref('app_role');
 			$map["assessor"]['role'] = $role["name"];
 			$map["assessor"]['rn'] = $role["name"];
 			$map["assessor"]['ari'] = $role["app_role_id"];

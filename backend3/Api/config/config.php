@@ -1,5 +1,5 @@
 <?php
-//defined('APP_PATH') || define('APP_PATH', realpath('.'));
+defined('APP_PATH') || define('APP_PATH', realpath('.'));
 
 return new \Phalcon\Config([
 	'database'    => [
@@ -16,6 +16,7 @@ return new \Phalcon\Config([
 		'modelsDir'      => APP_PATH . '/models/',
 		'componentsDir'  => APP_PATH . '/components/',
 		'viewsDir'       => APP_PATH . '/views/',
+		'pluginsDir'     => APP_PATH . '/plugins/',
 		'cacheDir'       => APP_PATH . '/cache/',
 		'baseUri'        => '/api3/',
 	]

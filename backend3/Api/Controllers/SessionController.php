@@ -1,14 +1,18 @@
 <?php
 namespace Api\Controllers;
+
 use Api\Models\Member;
+use Phalcon\Mvc\Model\Resultset;
 
 class SessionController extends ApiControllerBase {
 
 	/**
-	 * @param $member
+	 * @param Member $member
 	 */
 	private function _setSession($member) {
-		$this->session->set('auth', ['id' => $member->id]);
+		$memberRec = $member->map();
+		var_dump($memberRec);
+		$this->session->set('auth', $memberRec);
 	}
 
 	/**
@@ -25,7 +29,8 @@ class SessionController extends ApiControllerBase {
 		}
 		$member = Member::findFirst([
 				"(email = :username: OR username = :username:) AND password = :password:",
-				'bind' => ['username' => $username, 'password' => md5($password)]
+				'bind'      => ['username' => $username, 'password' => md5($password)],
+				'hydration' => Resultset::HYDRATE_RECORDS
 			]
 		);
 		if ($member != FALSE) {
@@ -36,5 +41,16 @@ class SessionController extends ApiControllerBase {
 		else {
 			echo "Member not found ($username/$password).";
 		}
+	}
+
+	/**
+	 * Finishes the active session redirecting to the index
+	 *
+	 * @return mixed
+	 */
+	public function logoutAction() {
+		$this->session->remove('auth');
+		echo "OK";
+		exit();
 	}
 }

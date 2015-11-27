@@ -5,10 +5,10 @@
  */
 namespace App\Components;
 
-use Nette,
-	Nette\Security\AuthenticationException,
-	Nette\Security\Identity,
-	Nette\Security\Passwords;
+use Nette;
+use Nette\Security\AuthenticationException;
+use Nette\Security\Identity;
+use Nette\Security\Passwords;
 
 
 /**
@@ -46,19 +46,20 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator 
 		 * $row->update([self::COLUMN_PASSWORD_HASH => Passwords::hash($password)]);
 		 * }
 		 **/
+		$appRole = $row->ref('app_role');
 		$userData = [
 			'id'             => $row["id"],
 			'firstName'      => $row["first_name"],
 			'lastName'       => $row["last_name"],
-			'appRole'        => $row->role["app_role_id"],
-			'roleId'         => $row["role_id"],
+			'appRole'        => $appRole["app_role_id"],
+			'roleId'         => $row["id"],
 			'organizationId' => $row["organization_id"],
 			'orgName'        => $row->organization["name"],
 			'avatar'         => $row["avatar"],
 			'jobTitle'       => $row["job_title"],
-			'role'           => $row->role["name"],
+			'role'           => $appRole["name"],
 		];
-		return new Identity($row["id"], $row->role["app_role_id"], $userData);
+		return new Identity($row["id"], $appRole["app_role_id"], $userData);
 	}
 
 	/**

@@ -5,7 +5,7 @@
  */
 namespace Api\Components;
 
-class AppResult {
+class ApiResult {
 	const STATUS_OKAY = 1;
 	const STATUS_ERROR = 0;
 
