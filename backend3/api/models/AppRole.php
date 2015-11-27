@@ -41,24 +41,6 @@ class Role extends ApiModel {
 	public $description;
 
 	/**
-	 * Initialize method for model.
-	 */
-	public function initialize() {
-		//$this->hasMany('id', 'Instrument', 'role_id', ['alias' => 'Instrument']);
-		//$this->hasMany('id', 'InstrumentScheduleOperation', 'role_id', ['alias' => 'InstrumentScheduleOperation']);
-		$this->hasMany('id', 'Member', 'role_id', ['alias' => 'Member']);
-	}
-
-	/**
-	 * Returns table name mapped in the model.
-	 *
-	 * @return string
-	 */
-	public function getSource() {
-		return 'role';
-	}
-
-	/**
 	 * Allows to query a set of records that match the specified conditions
 	 *
 	 * @param mixed $parameters
@@ -78,6 +60,24 @@ class Role extends ApiModel {
 	 */
 	public static function findFirst($parameters = NULL) {
 		return parent::findFirst($parameters);
+	}
+
+	/**
+	 * Initialize method for model.
+	 */
+	public function initialize() {
+		//$this->hasMany('id', 'Instrument', 'role_id', ['alias' => 'Instrument']);
+		//$this->hasMany('id', 'InstrumentScheduleOperation', 'role_id', ['alias' => 'InstrumentScheduleOperation']);
+		$this->hasMany('id', 'Member', 'role_id', ['alias' => 'Member']);
+	}
+
+	/**
+	 * Returns table name mapped in the model.
+	 *
+	 * @return string
+	 */
+	public function getSource() {
+		return 'role';
 	}
 
 }

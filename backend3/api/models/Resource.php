@@ -69,25 +69,6 @@ class Resource extends ApiModel {
 	public $last_modified;
 
 	/**
-	 * Initialize method for model.
-	 */
-	public function initialize() {
-		$this->hasMany('id', 'Module', 'resource_id', ['alias' => 'Module']);
-		$this->hasMany('id', 'ResourceAlignment', 'resource_id', ['alias' => 'ResourceAlignment']);
-		$this->belongsTo('resource_type_id', 'ResourceType', 'id', ['alias' => 'ResourceType']);
-		$this->belongsTo('creator_id', 'Member', 'id', ['alias' => 'Member']);
-	}
-
-	/**
-	 * Returns table name mapped in the model.
-	 *
-	 * @return string
-	 */
-	public function getSource() {
-		return 'resource';
-	}
-
-	/**
 	 * Allows to query a set of records that match the specified conditions
 	 *
 	 * @param mixed $parameters
@@ -107,6 +88,25 @@ class Resource extends ApiModel {
 	 */
 	public static function findFirst($parameters = NULL) {
 		return parent::findFirst($parameters);
+	}
+
+	/**
+	 * Initialize method for model.
+	 */
+	public function initialize() {
+		$this->hasMany('id', 'Module', 'resource_id', ['alias' => 'Module']);
+		$this->hasMany('id', 'ResourceAlignment', 'resource_id', ['alias' => 'ResourceAlignment']);
+		$this->belongsTo('resource_type_id', 'ResourceType', 'id', ['alias' => 'ResourceType']);
+		$this->belongsTo('creator_id', 'Member', 'id', ['alias' => 'Member']);
+	}
+
+	/**
+	 * Returns table name mapped in the model.
+	 *
+	 * @return string
+	 */
+	public function getSource() {
+		return 'resource';
 	}
 
 }

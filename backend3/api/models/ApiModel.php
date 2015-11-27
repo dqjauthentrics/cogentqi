@@ -7,16 +7,6 @@ class ApiModel extends \Phalcon\Mvc\Model {
 	const TYPE_DATETIME = 2;
 	const TYPE_INT = 3;
 	const TYPE_REAL = 4;
-
-	/** @var string[] $mapExcludes Exclude columns for this model, with respect to JSON encoding. */
-	protected $mapExcludes = ['password'];
-
-	/** @var string[] $dateTimeCols Some columns might require special save/restore/format processing. */
-	protected $dateTimeCols = [];
-
-	/** @var \PDO $pdo */
-	protected $pdo = NULL;
-
 	/**
 	 * @var array $colName Map  Map column names to their abbreviations when transmitting via JSON.
 	 */
@@ -106,36 +96,12 @@ class ApiModel extends \Phalcon\Mvc\Model {
 		'wt'   => ['weight', self::TYPE_REAL],
 		'zc'   => ['postal', self::TYPE_STRING],
 	];
-
-	/**
-	 * @param object $record
-	 * @param array  $mappedColumns
-	 *
-	 * @return array
-	 */
-	public function mapColumns($record, $mappedColumns) {
-		$map = [];
-		foreach ($mappedColumns as $colName => $dataType) {
-			$value = $this->value(@$record[$colName], $dataType);
-			$jsonCol = $this->jsonCol($colName);
-			$map[$jsonCol[0]] = $value;
-		}
-		return $map;
-	}
-
-	/**
-	 * @param string|null $dateTimeStr
-	 *
-	 * @return bool|string
-	 */
-	public function dateTme($dateTimeStr = NULL) {
-		if (empty($dateTimeStr)) {
-			$dateTimeStr = date('m/d/Y h:i:s a', time());
-		}
-		$time = strtotime($dateTimeStr);
-		$mysqlDate = date('Y-m-d H:i:s', $time);
-		return $mysqlDate;
-	}
+	/** @var string[] $mapExcludes Exclude columns for this model, with respect to JSON encoding. */
+	protected $mapExcludes = ['password'];
+	/** @var string[] $dateTimeCols Some columns might require special save/restore/format processing. */
+	protected $dateTimeCols = [];
+	/** @var \PDO $pdo */
+	protected $pdo = NULL;
 
 	/**
 	 * @return string
@@ -153,63 +119,19 @@ class ApiModel extends \Phalcon\Mvc\Model {
 	}
 
 	/**
-	 * @param string $colName
+	 * @param object $record
+	 * @param array  $mappedColumns
 	 *
-	 * @return string
+	 * @return array
 	 */
-	protected function colNameToJsonName($colName) {
-		$jsonName = "";
-		for ($i = 0; $i < strlen($colName); $i++) {
-			$ch = substr($colName, $i, 1);
-			if ($ch == "_") {
-				$i++;
-				$ch = strtoupper(substr($colName, $i, 1));
-			}
-			$jsonName .= $ch;
+	public function mapColumns($record, $mappedColumns) {
+		$map = [];
+		foreach ($mappedColumns as $colName => $dataType) {
+			$value = $this->value(@$record[$colName], $dataType);
+			$jsonCol = $this->jsonCol($colName);
+			$map[$jsonCol[0]] = $value;
 		}
-		return $jsonName;
-	}
-
-	/**
-	 * @param string $colName
-	 *
-	 * @return array|bool
-	 */
-	public function searchColMap($colName) {
-		foreach (self::$colNameMap as $abbrev => $info) {
-			if (@$info[0] == $colName) {
-				return [$abbrev, $info[1]];
-			}
-		}
-		return FALSE;
-	}
-
-	/**
-	 * @param string $colName
-	 *
-	 * @return mixed|string
-	 */
-	public function jsonCol($colName) {
-		$pos = $this->searchColMap($colName);
-		if ($pos !== FALSE) {
-			$jsonCol = $pos;
-		}
-		else {
-			$jsonCol = [$this->colNameToJsonName($colName), self::TYPE_STRING];
-		}
-		return $jsonCol;
-	}
-
-	/**
-	 * @param string $mysqlDateTime
-	 *
-	 * @return bool|null|string
-	 */
-	public static function presentationDateTime($mysqlDateTime) {
-		if (!empty($mysqlDateTime)) {
-			return date("c", strtotime($mysqlDateTime));
-		}
-		return NULL;
+		return $map;
 	}
 
 	/**
@@ -235,35 +157,77 @@ class ApiModel extends \Phalcon\Mvc\Model {
 	}
 
 	/**
-	 * @return array
+	 * @param string $mysqlDateTime
+	 *
+	 * @return bool|null|string
 	 */
-	public function map() {
-		$jsonRecord = [];
-		// Get Phalcon\Mvc\Model\Metadata instance
-		$metaData   = $this->getModelsMetaData();
-
-		// Get robots fields names
-		$columnNames = $metaData->getAttributes($this);
-		for ($i = 0; $i < count($columnNames); $i++) {
-			$colName = strtolower(trim($columnNames[$i]));
-			if (empty($this->mapExcludes) || !in_array($colName, $this->mapExcludes)) {
-				$jsonCol = $this->jsonCol($colName);
-				$jsonRecord[$jsonCol[0]] = self::value($this->{$colName}, $jsonCol[1]);
-			}
+	public static function presentationDateTime($mysqlDateTime) {
+		if (!empty($mysqlDateTime)) {
+			return date("c", strtotime($mysqlDateTime));
 		}
-		return $jsonRecord;
+		return NULL;
 	}
 
 	/**
-	 * @param string $tableName
+	 * @param string $colName
 	 *
-	 * @return array
+	 * @return mixed|string
 	 */
-	public function getColNames($tableName) {
-		$q = $this->pdo->prepare("DESCRIBE $tableName");
-		$q->execute();
-		$colNames = $q->fetchAll(\PDO::FETCH_COLUMN);
-		return $colNames;
+	public function jsonCol($colName) {
+		$pos = $this->searchColMap($colName);
+		if ($pos !== FALSE) {
+			$jsonCol = $pos;
+		}
+		else {
+			$jsonCol = [$this->colNameToJsonName($colName), self::TYPE_STRING];
+		}
+		return $jsonCol;
+	}
+
+	/**
+	 * @param string $colName
+	 *
+	 * @return array|bool
+	 */
+	public function searchColMap($colName) {
+		foreach (self::$colNameMap as $abbrev => $info) {
+			if (@$info[0] == $colName) {
+				return [$abbrev, $info[1]];
+			}
+		}
+		return FALSE;
+	}
+
+	/**
+	 * @param string $colName
+	 *
+	 * @return string
+	 */
+	protected function colNameToJsonName($colName) {
+		$jsonName = "";
+		for ($i = 0; $i < strlen($colName); $i++) {
+			$ch = substr($colName, $i, 1);
+			if ($ch == "_") {
+				$i++;
+				$ch = strtoupper(substr($colName, $i, 1));
+			}
+			$jsonName .= $ch;
+		}
+		return $jsonName;
+	}
+
+	/**
+	 * @param string|null $dateTimeStr
+	 *
+	 * @return bool|string
+	 */
+	public function dateTme($dateTimeStr = NULL) {
+		if (empty($dateTimeStr)) {
+			$dateTimeStr = date('m/d/Y h:i:s a', time());
+		}
+		$time = strtotime($dateTimeStr);
+		$mysqlDate = date('Y-m-d H:i:s', $time);
+		return $mysqlDate;
 	}
 
 	/**
@@ -290,6 +254,18 @@ class ApiModel extends \Phalcon\Mvc\Model {
 	}
 
 	/**
+	 * @param string $tableName
+	 *
+	 * @return array
+	 */
+	public function getColNames($tableName) {
+		$q = $this->pdo->prepare("DESCRIBE $tableName");
+		$q->execute();
+		$colNames = $q->fetchAll(\PDO::FETCH_COLUMN);
+		return $colNames;
+	}
+
+	/**
 	 * @param \Phalcon\Mvc\Model\Criteria $records
 	 *
 	 * @return array
@@ -303,5 +279,25 @@ class ApiModel extends \Phalcon\Mvc\Model {
 			}
 		}
 		return $jsonRecords;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function map() {
+		$jsonRecord = [];
+		// Get Phalcon\Mvc\Model\Metadata instance
+		$metaData = $this->getModelsMetaData();
+
+		// Get robots fields names
+		$columnNames = $metaData->getAttributes($this);
+		for ($i = 0; $i < count($columnNames); $i++) {
+			$colName = strtolower(trim($columnNames[$i]));
+			if (empty($this->mapExcludes) || !in_array($colName, $this->mapExcludes)) {
+				$jsonCol = $this->jsonCol($colName);
+				$jsonRecord[$jsonCol[0]] = self::value($this->{$colName}, $jsonCol[1]);
+			}
+		}
+		return $jsonRecord;
 	}
 }
