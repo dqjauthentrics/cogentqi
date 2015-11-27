@@ -149,7 +149,9 @@ class Recommendation extends BaseModel {
 					throw new \Exception('Question importance must be greater than zero');
 				}
             }
-            $result->data = self::createRankedResourceList($database, $scoredQuestions, $member);
+            $rankedCoverages = self::createRankedResourceList($database, $scoredQuestions, $member);
+            self::saveRankedResources($database, $rankedCoverages, $member, $assessmentId);
+            $result->status = AjaxResult::STATUS_OKAY;
 		}
 		catch (\Exception $exception) {
 			$result->setException($exception);
@@ -160,21 +162,48 @@ class Recommendation extends BaseModel {
     /**
      * @param \App\Components\DbContext $database
      * @param array                     $scoredQuestions
+     * @param \Nette\Database\Table\IRow $member
      *
      * @return array
+     *
      */
     private static function createRankedResourceList($database, $scoredQuestions, $member) {
         // Filter out any competencies that don't require resource coverage
         $filteredQuestions = self::questionsToCover($scoredQuestions);
 
+        // Record the resources that will be offered in the future as a module.
+        // If multiple modules exist for a resource, select he earlies one.
+        $futureResources = [];
+        foreach($database->query("SELECT * FROM module WHERE starts > NOW()") as $module) {
+            $rId = $module->resource_id;
+            $starts = !empty($module->starts) ? $module->starts->getTimeStamp() : null;
+            if (!array_key_exists($rId, $futureResources)) {
+                $futureResources[$rId] = [
+                    'moduleId' => $module->id,
+                    'starts' => $starts,
+                ];
+            }
+            if (empty($futureResources[$rId]['starts'])) {
+                continue;
+            }
+            if (empty($starts) || $futureResources[$rId]['starts'] > $starts) {
+                $futureResources[$rId]['starts'] = $starts;
+                $futureResources[$rId]['moduleId'] = $module->id;
+            }
+        }
+        // We don't want to recommend any resources that are contained
+        // in the member's plan except for previously recommended ones.
         $pastResources = [];
         foreach ($member->related('plan_item.member_id') as $item) {
-            array_push($pastResources, $item->module->resource->id);
+            if ($item->plan_item_status_id != 'R') {
+                array_push($pastResources, $item->module->resource->id);
+            }
         }
         $rankedCoverages = [];
         $resourceAlignments = $database->table('resource_alignment')->
             where('question_id IN', array_keys($filteredQuestions))->
-            where('resource_id NOT IN', $pastResources);
+            where('resource_id NOT IN', $pastResources)->
+            where('resource_id IN', array_keys($futureResources));
 
         // Record the alignment strengths that constitute coverage for each question
         $maxCoveringStrengths = [];
@@ -194,9 +223,12 @@ class Recommendation extends BaseModel {
             if (!array_key_exists($rId, $resourceCoverages)) {
                 $resourceCoverages[$rId] = [
                         'resourceId' => $rId,
+                        'moduleId' => $futureResources[$rId]['moduleId'],
                         'totalWeight' => 0,
                         'questions' => [],
                         'totalResponseError' => 0,
+                        'order' => 0,
+                        'rating' => 0,
                     ];
             }
             if ($alignment['weight'] == $maxCoveringStrengths[$alignment['question_id']]) {
@@ -207,7 +239,7 @@ class Recommendation extends BaseModel {
             }
         }
         self::sortResourceCoverages($resourceCoverages);
-
+        unset($coverage);
         while (true) {
             for ($i = count($resourceCoverages) - 1; $i >= 0; $i--) {
                 $coverage = $resourceCoverages[$i];
@@ -223,44 +255,82 @@ class Recommendation extends BaseModel {
                 break;
             }
         }
-        self::setTotalResponseErrors($rankedCoverages, $filteredQuestions);
+        self::setOrderAndRatings($rankedCoverages, $filteredQuestions);
         // Sort final resource list in descending order of the total response error
         usort($rankedCoverages, function($c1, $c2) {
            return $c2['totalResponseError'] - $c1['totalResponseError'];
         });
-        // Return a list of resource ids
-        $resourceList = [];
-        for ($i = 0; $i < count($rankedCoverages); $i++) {
-            array_push($resourceList, $rankedCoverages[$i]['resourceId']);
-        }
-        return self::fillResourceData($database, $resourceList);
+        return $rankedCoverages;
     }
 
-    private static function fillResourceData($database, $resourceIds) {
-        $resources = [];
-        $resourceRows = $database->table('resource')->
-            where('id IN', $resourceIds);
-        $hashedRows = [];
-        foreach ($resourceRows as $resource) {
-            $hashedRows[$resource['id']] = $resource;
+    private static function saveRankedResources($database, $rankedCoverages, $member, $assessmentId) {
+        $date = gmdate('Y-m-d H:i:s');
+        $recommendationFields = [
+            'member_id' => $member->id,
+            'assessment_id' => $assessmentId,
+            'created_on' => $date,
+        ];
+        $recommendation = $database->table('recommendation')->
+            where("member_id = ? AND assessment_id = ?", $member->id, $assessmentId);
+        if (count($recommendation) == 0) {
+            $recommendation = $database->table('recommendation')->insert($recommendationFields);
         }
-        for ($i = 0; $i < count($resourceIds); $i++) {
-            $resource = $hashedRows[$resourceIds[$i]];
-            $resources[] = [
-                'id' => $resource['id'],
-                'name' => $resource['name'],
-                'summary' => $resource['summary'],
+        else {
+            $recommendation = $recommendation->fetch();
+            $recommendation->update($recommendationFields);
+        }
+        // Create objects for plan_item entries
+        $newRecommendations = [];
+        foreach ($rankedCoverages as $coverage) {
+            $newRecommendations[] = [
+                'module_id' => $coverage['moduleId'],
+                'plan_item_status_id' => 'R',
+                'status_stamp' => $date,
+                'member_id' => $member->id,
+                'rank' => $coverage['rating'],
+                'score' => $coverage['order'],
+                'recommendation_id' => $recommendation->id,
             ];
         }
-        return $resources;
+        $oldRecommendations = $member->related('plan_item.member_id')->
+            where("plan_item_status_id = 'R'");
+        $numberToDelete = max(0, count($oldRecommendations) - count($newRecommendations));
+        $numberDeleted = 0;
+        $updateIndex = 0;
+
+        // foreach old recommendation row we either delete it or update it
+        foreach ($oldRecommendations as $recommendation) {
+            if ($numberDeleted < $numberToDelete) {
+                $recommendation->delete();
+                $numberDeleted++;
+            }
+            else {
+                $recommendation->update($newRecommendations[$updateIndex]);
+                $updateIndex++;
+            }
+        }
+        // Now inserts
+        $database->table('plan_item')->insert(array_slice(
+            $newRecommendations, $updateIndex, count($newRecommendations)));
     }
 
-    private static function setTotalResponseErrors(&$rankedCoverages, $scoredQuestions) {
-        foreach($rankedCoverages as $coverage) {
+    private static function setOrderAndRatings(&$rankedCoverages, $scoredQuestions) {
+        $MAX_RATING = 4;
+        $order = 1;
+        $maxError = 0;
+        foreach($rankedCoverages as &$coverage) {
+            $coverage['order'] = $order++;
             foreach ($coverage['questions'] as $questionId => $dummy) {
                 $question = $scoredQuestions[$questionId];
-                $coverage['totalResponseError'] += 1 - ($question['response']/$question['maxResponse']);
+                $coverage['totalResponseError'] +=
+                    1 - ($question['response']/$question['maxResponse']);
             }
+            if ($coverage['totalResponseError'] > $maxError) {
+                $maxError = $coverage['totalResponseError'];
+            }
+        }
+        foreach($rankedCoverages as &$coverage) {
+            $coverage['rating'] = ceil($MAX_RATING*($coverage['totalResponseError']/$maxError));
         }
     }
 
