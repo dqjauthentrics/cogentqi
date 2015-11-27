@@ -1,9 +1,9 @@
 <?php
+namespace Api\Models;
 
 use Phalcon\Mvc\Model\Validator\Email as Email;
 
-class Member extends \Phalcon\Mvc\Model
-{
+class Member extends \Phalcon\Mvc\Model {
 
     /**
      *
@@ -136,42 +136,40 @@ class Member extends \Phalcon\Mvc\Model
      *
      * @return boolean
      */
-    public function validation()
-    {
+    public function validation() {
         $this->validate(
             new Email(
-                array(
+                [
                     'field'    => 'email',
-                    'required' => true,
-                )
+                    'required' => TRUE,
+                ]
             )
         );
 
-        if ($this->validationHasFailed() == true) {
-            return false;
+        if ($this->validationHasFailed() == TRUE) {
+            return FALSE;
         }
 
-        return true;
+        return TRUE;
     }
 
     /**
      * Initialize method for model.
      */
-    public function initialize()
-    {
-        $this->hasMany('id', 'Assessment', 'member_id', array('alias' => 'Assessment'));
-        $this->hasMany('id', 'Assessment', 'assessor_id', array('alias' => 'Assessment'));
-        $this->hasMany('id', 'MemberNote', 'member_id', array('alias' => 'MemberNote'));
-        $this->hasMany('id', 'MemberNote', 'creator_id', array('alias' => 'MemberNote'));
-        $this->hasMany('id', 'MemberNote', 'member_id', array('alias' => 'MemberNote'));
-        $this->hasMany('id', 'MemberNote', 'creator_id', array('alias' => 'MemberNote'));
-        $this->hasMany('id', 'OrganizationOutcome', 'evaluator_id', array('alias' => 'OrganizationOutcome'));
-        $this->hasMany('id', 'OutcomeEvent', 'member_id', array('alias' => 'OutcomeEvent'));
-        $this->hasMany('id', 'PlanItem', 'member_id', array('alias' => 'PlanItem'));
-        $this->hasMany('id', 'Recommendation', 'member_id', array('alias' => 'Recommendation'));
-        $this->hasMany('id', 'Resource', 'creator_id', array('alias' => 'Resource'));
-        $this->belongsTo('organization_id', 'Organization', 'id', array('alias' => 'Organization'));
-        $this->belongsTo('role_id', 'Role', 'id', array('alias' => 'Role'));
+    public function initialize() {
+        $this->hasMany('id', 'Assessment', 'member_id', ['alias' => 'Assessment']);
+        $this->hasMany('id', 'Assessment', 'assessor_id', ['alias' => 'Assessment']);
+        $this->hasMany('id', 'MemberNote', 'member_id', ['alias' => 'MemberNote']);
+        $this->hasMany('id', 'MemberNote', 'creator_id', ['alias' => 'MemberNote']);
+        $this->hasMany('id', 'MemberNote', 'member_id', ['alias' => 'MemberNote']);
+        $this->hasMany('id', 'MemberNote', 'creator_id', ['alias' => 'MemberNote']);
+        $this->hasMany('id', 'OrganizationOutcome', 'evaluator_id', ['alias' => 'OrganizationOutcome']);
+        $this->hasMany('id', 'OutcomeEvent', 'member_id', ['alias' => 'OutcomeEvent']);
+        $this->hasMany('id', 'PlanItem', 'member_id', ['alias' => 'PlanItem']);
+        $this->hasMany('id', 'Recommendation', 'member_id', ['alias' => 'Recommendation']);
+        $this->hasMany('id', 'Resource', 'creator_id', ['alias' => 'Resource']);
+        $this->belongsTo('organization_id', 'Organization', 'id', ['alias' => 'Organization']);
+        $this->belongsTo('role_id', 'Role', 'id', ['alias' => 'Role']);
     }
 
     /**
@@ -179,8 +177,7 @@ class Member extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getSource()
-    {
+    public function getSource() {
         return 'member';
     }
 
@@ -188,10 +185,10 @@ class Member extends \Phalcon\Mvc\Model
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
+     *
      * @return Member[]
      */
-    public static function find($parameters = null)
-    {
+    public static function find($parameters = NULL) {
         return parent::find($parameters);
     }
 
@@ -199,10 +196,10 @@ class Member extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
+     *
      * @return Member
      */
-    public static function findFirst($parameters = null)
-    {
+    public static function findFirst($parameters = NULL) {
         return parent::findFirst($parameters);
     }
 

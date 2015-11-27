@@ -5,13 +5,13 @@
  */
 namespace App\Presenters;
 
-use App\Components\AjaxResult,
-	ResourcesModule\BasePresenter,
-	App\Model,
-	App\Model\Recommendation,
-	App\Model\Assessment,
-	App\Model\Matrix,
-	App\Components\AjaxException;
+use App\Components\AjaxException;
+use App\Components\AjaxResult;
+use App\Model;
+use App\Model\Assessment;
+use App\Model\Matrix;
+use App\Model\Recommendation;
+use ResourcesModule\BasePresenter;
 
 class AssessmentPresenter extends BasePresenter {
 
