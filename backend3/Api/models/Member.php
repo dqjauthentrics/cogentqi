@@ -132,49 +132,6 @@ class Member extends ApiModel {
 	public $active_end;
 
 	/**
-	 * Validations and business logic
-	 *
-	 * @return boolean
-	 */
-	public function validation() {
-		$this->validate(new Email(['field' => 'email', 'required' => TRUE]));
-		if ($this->validationHasFailed() == TRUE) {
-			return FALSE;
-		}
-		return TRUE;
-	}
-
-	/**
-	 * Initialize method for model.
-	 */
-	public function initialize() {
-		/**
-		$this->hasMany('id', 'Assessment', 'member_id', ['alias' => 'Assessment']);
-		$this->hasMany('id', 'Assessment', 'assessor_id', ['alias' => 'Assessment']);
-		$this->hasMany('id', 'MemberNote', 'member_id', ['alias' => 'MemberNote']);
-		$this->hasMany('id', 'MemberNote', 'creator_id', ['alias' => 'MemberNote']);
-		$this->hasMany('id', 'MemberNote', 'member_id', ['alias' => 'MemberNote']);
-		$this->hasMany('id', 'MemberNote', 'creator_id', ['alias' => 'MemberNote']);
-		$this->hasMany('id', 'OrganizationOutcome', 'evaluator_id', ['alias' => 'OrganizationOutcome']);
-		$this->hasMany('id', 'OutcomeEvent', 'member_id', ['alias' => 'OutcomeEvent']);
-		$this->hasMany('id', 'PlanItem', 'member_id', ['alias' => 'PlanItem']);
-		$this->hasMany('id', 'Recommendation', 'member_id', ['alias' => 'Recommendation']);
-		$this->hasMany('id', 'Resource', 'creator_id', ['alias' => 'Resource']);
-		**/
-		$this->belongsTo('organization_id', 'Organization', 'id', ['alias' => 'Organization', 'foreignKey' => TRUE]);
-		$this->belongsTo('role_id', 'Role', 'id', ['alias' => 'Role', 'foreignKey' => TRUE]);
-	}
-
-	/**
-	 * Returns table name mapped in the model.
-	 *
-	 * @return string
-	 */
-	public function getSource() {
-		return 'member';
-	}
-
-	/**
 	 * Allows to query a set of records that match the specified conditions
 	 *
 	 * @param mixed $parameters
@@ -194,6 +151,49 @@ class Member extends ApiModel {
 	 */
 	public static function findFirst($parameters = NULL) {
 		return parent::findFirst($parameters);
+	}
+
+	/**
+	 * Validations and business logic
+	 *
+	 * @return boolean
+	 */
+	public function validation() {
+		$this->validate(new Email(['field' => 'email', 'required' => TRUE]));
+		if ($this->validationHasFailed() == TRUE) {
+			return FALSE;
+		}
+		return TRUE;
+	}
+
+	/**
+	 * Initialize method for model.
+	 */
+	public function initialize() {
+		/**
+		 * $this->hasMany('id', 'Assessment', 'member_id', ['alias' => 'Assessment']);
+		 * $this->hasMany('id', 'Assessment', 'assessor_id', ['alias' => 'Assessment']);
+		 * $this->hasMany('id', 'MemberNote', 'member_id', ['alias' => 'MemberNote']);
+		 * $this->hasMany('id', 'MemberNote', 'creator_id', ['alias' => 'MemberNote']);
+		 * $this->hasMany('id', 'MemberNote', 'member_id', ['alias' => 'MemberNote']);
+		 * $this->hasMany('id', 'MemberNote', 'creator_id', ['alias' => 'MemberNote']);
+		 * $this->hasMany('id', 'OrganizationOutcome', 'evaluator_id', ['alias' => 'OrganizationOutcome']);
+		 * $this->hasMany('id', 'OutcomeEvent', 'member_id', ['alias' => 'OutcomeEvent']);
+		 * $this->hasMany('id', 'PlanItem', 'member_id', ['alias' => 'PlanItem']);
+		 * $this->hasMany('id', 'Recommendation', 'member_id', ['alias' => 'Recommendation']);
+		 * $this->hasMany('id', 'Resource', 'creator_id', ['alias' => 'Resource']);
+		 **/
+		$this->belongsTo('organization_id', 'Organization', 'id', ['alias' => 'Organization', 'foreignKey' => TRUE]);
+		$this->belongsTo('role_id', 'Role', 'id', ['alias' => 'Role', 'foreignKey' => TRUE]);
+	}
+
+	/**
+	 * Returns table name mapped in the model.
+	 *
+	 * @return string
+	 */
+	public function getSource() {
+		return 'member';
 	}
 
 	/**
