@@ -63,8 +63,11 @@ class AssessmentPresenter extends BasePresenter {
 	 */
 	private function save($formAssessment) {
 		$result = new AjaxResult();
+		$transacted = false;
 		try {
 			if (!empty($formAssessment)) {
+				$this->database->beginTransaction();
+				$transacted = true;
 				$dbAssessment = $this->database->table('assessment')->where('id=?', $formAssessment["id"])->fetch();
 				if (!empty($assessmentRecord)) {
 					$simpleRec = [
@@ -101,6 +104,8 @@ class AssessmentPresenter extends BasePresenter {
 						}
 					}
 				}
+				Recommendation::createRecommendationsForAssessment($this->database, $dbAssessment->id);
+				$this->database->commit();
 				$result->data = "The assessment was saved.";
 				$result->status = AjaxResult::STATUS_OKAY;
 			}
@@ -109,6 +114,9 @@ class AssessmentPresenter extends BasePresenter {
 			}
 		}
 		catch (\Exception $exception) {
+			if ($transacted) {
+				$this->database->rollBack();
+			}
 			throw new AjaxException(AjaxException::ERROR_FATAL, $exception->getMessage());
 		}
 		return $result;
