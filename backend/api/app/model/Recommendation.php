@@ -130,7 +130,6 @@ class Recommendation extends BaseModel {
 	 * @return \App\Components\AjaxResult
 	 */
 	public static function createRecommendationsForAssessment($database, $assessmentId) {
-		$result = new AjaxResult();
 		try {
 			$assessment = $database->table('assessment')->get($assessmentId);
             $member = $database->table('member')->get($assessment["member_id"]);
@@ -151,12 +150,11 @@ class Recommendation extends BaseModel {
             }
             $rankedCoverages = self::createRankedResourceList($database, $scoredQuestions, $member);
             self::saveRankedResources($database, $rankedCoverages, $member, $assessmentId);
-            $result->status = AjaxResult::STATUS_OKAY;
 		}
 		catch (\Exception $exception) {
-			$result->setException($exception);
+			// For now...;
+            throw $exception;
 		}
-		return $result;
 	}
 
     /**
@@ -264,7 +262,7 @@ class Recommendation extends BaseModel {
     }
 
     private static function saveRankedResources($database, $rankedCoverages, $member, $assessmentId) {
-        $date = gmdate('Y-m-d H:i:s');
+        $date = $database->dbDateTme();
         $recommendationFields = [
             'member_id' => $member->id,
             'assessment_id' => $assessmentId,
