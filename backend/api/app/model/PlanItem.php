@@ -11,6 +11,11 @@ use App\Components\DbContext,
 
 class PlanItem extends BaseModel {
 
+	const STATUS_RECOMMENDED = 'R';
+	const STATUS_ENROLLED = 'E';
+	const STATUS_WITHDRAWN = 'W';
+	const STATUS_COMPLETED = 'C';
+
 	/**
 	 * @param \App\Components\DbContext  $database
 	 * @param \Nette\Database\Table\IRow $planRecord
