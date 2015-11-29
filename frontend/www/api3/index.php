@@ -3,10 +3,10 @@ use Phalcon\Loader;
 use Phalcon\Mvc\Application;
 
 error_reporting(E_ALL);
-define('APP_PATH', dirname(dirname(dirname(__DIR__))) . '/backend3/api');
+define('APP_PATH', dirname(dirname(dirname(__DIR__))) . '/backend3/');
 
 try {
-	$config = include APP_PATH . "/config/config.php";
+	$config = include APP_PATH . "Cogent/config/config.php";
 
 	/**
 	 * Set up autoloading of classes.
@@ -14,23 +14,28 @@ try {
 	 */
 	$loader = new Loader();
 	$loader->registerNamespaces([
-		'Api\Components'  => $config->application->componentsDir,
-		'Api\Models'      => $config->application->modelsDir,
-		'Api\Controllers' => $config->application->controllersDir,
-		'Api\Plugins'     => $config->application->pluginsDir,
+		'Cogent\Controllers' => APP_PATH . '/Cogent/Controllers/',
+		'Cogent\Models'      => APP_PATH . '/Cogent/Models/',
+		'Cogent\Components'  => APP_PATH . '/Cogent/Components/',
+		'Cogent'             => APP_PATH . '/',
 	]);
-	$loader->registerDirs([
-		$config->application->pluginsDir,
-		$config->application->componentsDir,
-		$config->application->modelsDir,
-		$config->application->controllersDir,
-	], TRUE);
+	$loader->registerDirs([APP_PATH . '/Cogent/Models/']); // needed for getting related objects, for some reason
+
+	$eventsManager = new \Phalcon\Events\Manager();
+	$eventsManager->attach('loader', function ($event, $loader) {
+		if ($event->getType() == 'beforeCheckPath') {
+			echo "PATH:" . $loader->getCheckedPath() . '<hr/>';
+		}
+	});
+
+	$loader->setEventsManager($eventsManager);
+
 	$loader->register();
 
 	/**
 	 * Define services.
 	 */
-	include APP_PATH . "/config/services.php";
+	include APP_PATH . "Cogent/config/services.php";
 
 	/**
 	 * Run the page.

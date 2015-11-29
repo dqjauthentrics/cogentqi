@@ -41,7 +41,7 @@ class Member extends BaseModel {
 	 */
 	public static function map($database, $member, $mode = BasePresenter::MODE_LISTING) {
 		$map = $database->map($member);
-		$role = $member->ref('app_role');
+		$role = $member->ref('role');
 		$map['role'] = $role["name"];
 		$map['rn'] = $role["name"];
 		$map['ari'] = $role["app_role_id"];
