@@ -46,7 +46,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator 
 		 * $row->update([self::COLUMN_PASSWORD_HASH => Passwords::hash($password)]);
 		 * }
 		 **/
-		$appRole = $row->ref('app_role');
+		$appRole = $row->ref('role');
 		$userData = [
 			'id'             => $row["id"],
 			'firstName'      => $row["first_name"],

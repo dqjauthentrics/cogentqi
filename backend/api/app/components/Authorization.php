@@ -44,7 +44,7 @@ class Authorization extends Permission {
 		$this->addResource('Recommendation');
 		$this->addResource('Recommendations');
 		$this->addResource('Resource');
-		$this->addResource('AppRole');
+		$this->addResource('Role');
 		$this->addResource('Setting');
 		$this->addResource('Sign');
 
@@ -70,7 +70,7 @@ class Authorization extends Permission {
 			'Recommendation',
 			'Recommendations',
 			'Resource',
-			'AppRole',
+			'Role',
 			'Setting',
 			'Sign',
 		], self::ALL);
