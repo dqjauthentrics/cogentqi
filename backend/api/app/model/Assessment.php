@@ -608,4 +608,13 @@ class Assessment extends BaseModel {
 		}
 		return $graphData;
 	}
+
+	public static function getLatestAssessmentIds($database, $memberId) {
+        $latest = $database->query("SELECT MAX(id) AS latest FROM assessment WHERE member_id=? GROUP BY instrument_id", $memberId);
+        $assessmentIds = [];
+        foreach ($latest as $assessment) {
+            $assessmentIds[] = $assessment->latest;
+        }
+        return $assessmentIds;
+    }
 }
