@@ -8,9 +8,11 @@ namespace App\Model;
 use App\Components\AjaxResult;
 use Nette\Database\Table\IRow,
 	ResourcesModule\BasePresenter;
+use Nette\Utils\DateTime;
 
 class Recommendation extends BaseModel {
 	const MAX_ORG_LEVEL = 3;
+    const MAX_RATING = 4;
 
 	/**
 	 * @param \App\Components\DbContext  $database
@@ -123,33 +125,108 @@ class Recommendation extends BaseModel {
 		return $result;
 	}
 
-	/**
-	 * @param \App\Components\DbContext $database
-	 * @param int                       $assessmentId
-	 *
-	 * @return \App\Components\AjaxResult
-	 */
+    public static function planItemCompleted($database, $planItem) {
+        $latestAssessmentIds = Assessment::getLatestAssessmentIds($database, $planItem->member_id);
+        $responses = $database->table('assessment_response')->
+            where("assessment_id IN ? AND recommended_resource IN ?",
+            $latestAssessmentIds, $planItem->module->resource_id);
+        foreach ($responses as $response) {
+            $response->update(['recommended_resource' => null]);
+        }
+    }
+
+    public static function createRecommendationsForEvent($database, $memberEvent) {
+        $eventAlignments = $database->table('event_alignment')->where('event_id', $memberEvent->event_id);
+        $questionToResponse = [];
+        foreach ($eventAlignments as $alignment) {
+            $questionToResponse[$alignment->question_id] = null;
+        }
+        $latestAssessmentIds= Assessment::getLatestAssessmentIds($database, $memberEvent->member_id);
+        $responsesToCover = $database->table('assessment_response')->
+            where("assessment_id IN ? AND question_id IN ?",
+            $latestAssessmentIds, array_keys($questionToResponse));
+        foreach ($responsesToCover as $response) {
+            $questionToResponse[$response->question_id] = $response;
+        }
+        // Increment event values on responses if not covered
+        foreach ($eventAlignments as $alignment) {
+            $response = $questionToResponse[$alignment->question_id];
+            if (empty($response->recommended_resource)) {
+                $newValue = $response->event_value + $alignment->increment;
+                $response->update(['event_value' => $newValue]);
+            }
+        }
+        // Filter responses to the ones we need recommendations for
+        $filteredResponses = [];
+        foreach ($questionToResponse as $questionId => $response) {
+            if (empty($response->recommended_resource) && $response->event_value >= $response->question->outcome_threshold) {
+                $filteredResponses[$questionId] = $response;
+            }
+        }
+        $scoredQuestions = self::createScoredQuestions($filteredResponses);
+        $rankedCoverages = self::createRankedResourceList($database, $scoredQuestions, $memberEvent->member);
+
+        $currentResourceRecommendations = [];
+        $order = 0;
+        $currentRecommendation = $database->table('plan_item')->
+            where('member_id', $memberEvent->member_id) ->
+            where('plan_item_status_id', PlanItem::STATUS_RECOMMENDED);
+        foreach ($currentRecommendation as $recommendation) {
+            if ($recommendation->score > $order) {
+                $order = $recommendation->score;
+            }
+            $currentResourceRecommendations[$recommendation->module_id] = 0;
+        }
+        $newRecommendations = [];
+        $date = new DateTime();
+        // If response was covered, then reset outcome_value and mark covered.  Also, add
+        // recommendations to plan
+        foreach ($rankedCoverages as $coverage) {
+            foreach ($coverage['questions'] as $questionId => $dummy) {
+                $response = $questionToResponse[$questionId];
+                $response->update(['recommended_resource' => $coverage['resourceId']]);
+                $response->update(['event_value' => 0]);
+            }
+            if (!array_key_exists($coverage['moduleId'], $currentResourceRecommendations)) {
+                $newRecommendations[] = self::createNewRecommendationArray(
+                    $coverage['moduleId'],
+                    $memberEvent->member_id,
+                    $date,
+                    self::MAX_RATING,
+                    ++$order,
+                    1
+                );
+            }
+        }
+    }
+
+    private static function createScoredQuestions($assessmentResponses) {
+        $scoredQuestions = [];
+        foreach ($assessmentResponses as $response) {
+            $scoredQuestions[$response->question_id] = [
+                'response' => $response->response,
+                'maxResponse' => $response->question->question_type->max_range,
+                'importance' => $response->question->importance,
+            ];
+        }
+        return $scoredQuestions;
+    }
+
+    /**
+     * @param \App\Components\DbContext $database
+     * @param int $assessmentId
+     * @throws \Exception
+     */
 	public static function createRecommendationsForAssessment($database, $assessmentId) {
 		try {
 			$assessment = $database->table('assessment')->get($assessmentId);
             $member = $database->table('member')->get($assessment["member_id"]);
-            $scoredQuestions = [];
-            foreach ($assessment->related('assessment_response') as $response) {
-                $scoredQuestions[$response->question->id] = [
-                    'response' => $response->response,
-                    'maxResponse' => $response->question->question_type->max_range,
-                    'importance' => $response->question->importance,
-                    'outcome_threshold' => $response->question->outcome_threshold,
-                    'outcome_value' => $response->outcome_value,
-                    'event_threshold' =>$response->question->event_threshold,
-                    'event_value' => $response->event_value,
-                ];
-				if ($response->question->importance <= 0) {
-					throw new \Exception('Question importance must be greater than zero');
-				}
-            }
-            $rankedCoverages = self::createRankedResourceList($database, $scoredQuestions, $member);
+            $scoredQuestions = self::createScoredQuestions($assessment->related('assessment_response'));
+            // Filter out any competencies that don't require resource coverage
+            $filteredQuestions = self::assessmentQuestionsToCover($scoredQuestions);
+            $rankedCoverages = self::createRankedResourceList($database, $filteredQuestions, $member);
             self::saveRankedResources($database, $rankedCoverages, $member, $assessmentId);
+            self::saveAssessmentCoverages($database, $rankedCoverages, $assessmentId);
 		}
 		catch (\Exception $exception) {
 			// For now...;
@@ -159,16 +236,13 @@ class Recommendation extends BaseModel {
 
     /**
      * @param \App\Components\DbContext $database
-     * @param array                     $scoredQuestions
+     * @param array                     $filteredQuestions
      * @param \Nette\Database\Table\IRow $member
      *
      * @return array
      *
      */
-    private static function createRankedResourceList($database, $scoredQuestions, $member) {
-        // Filter out any competencies that don't require resource coverage
-        $filteredQuestions = self::questionsToCover($scoredQuestions);
-
+    private static function createRankedResourceList($database, $filteredQuestions, $member) {
         // Record the resources that will be offered in the future as a module.
         // If multiple modules exist for a resource, select he earlies one.
         $futureResources = [];
@@ -190,10 +264,11 @@ class Recommendation extends BaseModel {
             }
         }
         // We don't want to recommend any resources that are contained
-        // in the member's plan except for previously recommended ones.
+        // in the member's plan except for previously recommended and withdrawn ones.
         $pastResources = [];
         foreach ($member->related('plan_item.member_id') as $item) {
-            if ($item->plan_item_status_id != 'R') {
+            if ($item->plan_item_status_id != PlanItem::STATUS_RECOMMENDED &&
+                $item->plan_item_status_id != PlanItem::STATUS_WITHDRAWN) {
                 array_push($pastResources, $item->module->resource->id);
             }
         }
@@ -260,9 +335,34 @@ class Recommendation extends BaseModel {
         });
         return $rankedCoverages;
     }
+    // Save, for each covered competency, the covering resource
+    private static function saveAssessmentCoverages($database, $rankedCoverages, $assessmentId) {
+        foreach ($rankedCoverages as $rankedCoverage) {
+            $responses = $database->table('assessment_response')->
+                where('assessment_id = ? AND question_id IN ?',
+                $assessmentId, array_keys($rankedCoverage['questions']));
+            foreach ($responses as $response) {
+                $response->update(['recommended_resource' => $rankedCoverage['resourceId']]);
+            }
+        }
+    }
 
+    private static function createNewRecommendationArray(
+        $moduleId, $memberId, $date, $rating, $order, $recommendationId) {
+        return [
+            'module_id' => $moduleId,
+            'plan_item_status_id' => PlanItem::STATUS_RECOMMENDED,
+            'status_stamp' => $date,
+            'member_id' => $memberId,
+            'rank' => $rating,
+            'score' => $order,
+            'recommendation_id' => $recommendationId,
+        ];
+    }
+
+    //  Save recommendations to plan item table
     private static function saveRankedResources($database, $rankedCoverages, $member, $assessmentId) {
-        $date = BasePresenter::dbDateTime();
+        $date = new DateTime();
         $recommendationFields = [
             'member_id' => $member->id,
             'assessment_id' => $assessmentId,
@@ -280,15 +380,14 @@ class Recommendation extends BaseModel {
         // Create objects for plan_item entries
         $newRecommendations = [];
         foreach ($rankedCoverages as $coverage) {
-            $newRecommendations[] = [
-                'module_id' => $coverage['moduleId'],
-                'plan_item_status_id' => 'R',
-                'status_stamp' => $date,
-                'member_id' => $member->id,
-                'rank' => $coverage['rating'],
-                'score' => $coverage['order'],
-                'recommendation_id' => $recommendation->id,
-            ];
+            $newRecommendations[] = self::createNewRecommendationArray(
+                $coverage['moduleId'],
+                $member->id,
+                $date,
+                $coverage['rating'],
+                $coverage['order'],
+                $recommendation->id
+            );
         }
         $oldRecommendations = $member->related('plan_item.member_id')->
             where("plan_item_status_id = 'R'");
@@ -307,13 +406,15 @@ class Recommendation extends BaseModel {
                 $updateIndex++;
             }
         }
-        // Now inserts
-        $database->table('plan_item')->insert(array_slice(
-            $newRecommendations, $updateIndex, count($newRecommendations)));
+        $inserts = array_slice(
+            $newRecommendations, $updateIndex, count($newRecommendations));
+        if (count($inserts) > 0) {
+            $database->table('plan_item')->insert(array_slice(
+                $newRecommendations, $updateIndex, count($newRecommendations)));
+        }
     }
 
     private static function setOrderAndRatings(&$rankedCoverages, $scoredQuestions) {
-        $MAX_RATING = 4;
         $order = 1;
         $maxError = 0;
         foreach($rankedCoverages as &$coverage) {
@@ -328,17 +429,14 @@ class Recommendation extends BaseModel {
             }
         }
         foreach($rankedCoverages as &$coverage) {
-            $coverage['rating'] = ceil($MAX_RATING*($coverage['totalResponseError']/$maxError));
+            $coverage['rating'] = $maxError !=0 ?
+                ceil(self::MAX_RATING*($coverage['totalResponseError']/$maxError)) : 0;
         }
     }
 
-    private static function questionsToCover($scoredQuestions) {
+    private static function assessmentQuestionsToCover($scoredQuestions) {
         $filteredQuestions = [];
         foreach ($scoredQuestions as $questionId => $scoredQuestion) {
-            if ($scoredQuestion['outcome_value'] >= $scoredQuestion['outcome_threshold'] ||
-                $scoredQuestion['event_value'] >= $scoredQuestion['event_threshold']) {
-                $filteredQuestions[$questionId] = $scoredQuestion;
-            }
             $score = $scoredQuestion['response'];
             $max = $scoredQuestion['maxResponse'];
             if ($score != 0 && $score != $max) {
