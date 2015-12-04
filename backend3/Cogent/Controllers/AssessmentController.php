@@ -9,7 +9,8 @@ class AssessmentController extends ControllerBase {
 
 	/**
 	 * @param string $parentType
-	 * @param int    $id
+	 * @param        int
+	 * $id
 	 */
 	public function indexAction($parentType, $id) {
 		$result = new Result();

@@ -262,7 +262,7 @@ class Recommendation extends BaseModel {
     }
 
     private static function saveRankedResources($database, $rankedCoverages, $member, $assessmentId) {
-        $date = $database->dbDateTme();
+        $date = BasePresenter::dbDateTime();
         $recommendationFields = [
             'member_id' => $member->id,
             'assessment_id' => $assessmentId,
