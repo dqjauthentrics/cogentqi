@@ -95,36 +95,36 @@ class AssessmentPresenter extends BasePresenter {
 				$this->database->beginTransaction();
 				$transacted = TRUE;
 				$dbAssessment = $this->database->table('assessment')->where('id=?', $formAssessment["id"])->fetch();
-				if (!empty($assessmentRecord)) {
+				if (!empty($dbAssessment)) {
+					$saveDateTime = $this->dbDateTime();
 					$simpleRec = [
 						"member_id"         => $formAssessment["member"]["id"],
 						"score"             => $formAssessment["sc"],
 						"rank"              => $formAssessment["rk"],
-						"last_saved"        => $this->dbDateTime(),
+						"last_saved"        => $saveDateTime,
+						"last_modified"     => $saveDateTime,
 						"assessor_comments" => $formAssessment["ac"],
 						"member_comments"   => $formAssessment["mc"],
 						"edit_status"       => $formAssessment["es"],
 						"view_status"       => $formAssessment["vs"]
 					];
 					$dbAssessment->update($simpleRec);
-					$formSections = $formAssessment['sections'];
+					$formSections = $formAssessment['instrument']['sections'];
 					if (!empty($formSections)) {
 						foreach ($formSections as $formSection) {
 							$formQuestions = $formSection['questions'];
 							if (!empty($formQuestions)) {
 								foreach ($formQuestions as $formQuestion) {
-									$dbResponse = $this->database->table('assessment_response');
+									$response = $formQuestion["rsp"];
+									$dbResponse = $this->database->table('assessment_response')->where('id=' . $response['id']);
 									if (!empty($dbResponse)) {
-										$response = $formQuestion["rsp"];
 										$responseUpdater = [
 											"response_index"    => (int)$response["rdx"],
 											"response"          => !empty($response["rp"]) ? $response["rp"] : NULL,
 											"assessor_comments" => $response["ac"],
 											"member_comments"   => $response["mc"]
 										];
-										if (!$dbResponse->update($responseUpdater)) {
-											throw new \Exception("Error saving response.");
-										}
+										$dbResponse->update($responseUpdater);
 									}
 								}
 							}
