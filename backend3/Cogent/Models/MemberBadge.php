@@ -27,13 +27,6 @@ class MemberBadge extends CogentModel {
 	public $earned;
 
 	/**
-	 * Initialize method for model.
-	 */
-	public function initialize() {
-		$this->belongsTo('member_id', 'Member', 'id', ['alias' => 'Member', 'foreignKey' => TRUE]);
-	}
-
-	/**
 	 * Allows to query a set of records that match the specified conditions
 	 *
 	 * @param mixed $parameters
@@ -53,6 +46,13 @@ class MemberBadge extends CogentModel {
 	 */
 	public static function findFirst($parameters = NULL) {
 		return parent::findFirst($parameters);
+	}
+
+	/**
+	 * Initialize method for model.
+	 */
+	public function initialize() {
+		$this->belongsTo('member_id', 'Member', 'id', ['alias' => 'Member', 'foreignKey' => TRUE]);
 	}
 
 	/**

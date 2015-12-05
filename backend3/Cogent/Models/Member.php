@@ -132,15 +132,6 @@ class Member extends CogentModel {
 	public $active_end;
 
 	/**
-	 * Returns table name mapped in the model.
-	 *
-	 * @return string
-	 */
-	public function getSource() {
-		return 'member';
-	}
-
-	/**
 	 * Allows to query a set of records that match the specified conditions
 	 *
 	 * @param mixed $parameters
@@ -160,6 +151,15 @@ class Member extends CogentModel {
 	 */
 	public static function findFirst($parameters = NULL) {
 		return parent::findFirst($parameters);
+	}
+
+	/**
+	 * Returns table name mapped in the model.
+	 *
+	 * @return string
+	 */
+	public function getSource() {
+		return 'member';
 	}
 
 	/**
@@ -184,27 +184,8 @@ class Member extends CogentModel {
 		$this->hasMany('id', 'Cogent\Models\MemberBadge', 'member_id', ['alias' => 'MemberBadges']);
 		$this->hasMany('id', 'Cogent\Models\Relationship', 'superior_id', ['alias' => 'Subordinates']);
 
-		$this->belongsTo('role_id', 'Role', 'id', ['alias' => 'Role', 'foreignKey' => TRUE]);
-		$this->belongsTo('organization_id', "Organization", 'id', ['alias' => 'Organization', 'foreignKey' => TRUE]);
-	}
-
-	/**
-	 * @return array
-	 */
-	public function mapLastAssessment() {
-		$mapped = NULL;
-		$lastAssessment = \Cogent\Models\Assessment::query()
-			->where('member_id = :memberId:')
-			->bind(['memberId' => $this->id])
-			->orderBy('last_modified DESC')
-			->execute()->getFirst();
-		/** @var Assessment $lastAssessment */
-		if (!empty($lastAssessment)) {
-			$mapped = $lastAssessment->map();
-			$mapped['instrument'] = $lastAssessment->instrument->map();
-			$mapped['schedule'] = $lastAssessment->schedule->map();
-		}
-		return $mapped;
+		$this->belongsTo('role_id', 'Cogent\Models\Role', 'id', ['alias' => 'Role', 'foreignKey' => TRUE]);
+		$this->belongsTo('organization_id', "Cogent\Models\Organization", 'id', ['alias' => 'Organization', 'foreignKey' => TRUE]);
 	}
 
 	/**
@@ -234,5 +215,24 @@ class Member extends CogentModel {
 			$map["lastAssessment"] = $this->mapLastAssessment();
 		}
 		return $map;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function mapLastAssessment() {
+		$mapped = NULL;
+		$lastAssessment = \Cogent\Models\Assessment::query()
+			->where('member_id = :memberId:')
+			->bind(['memberId' => $this->id])
+			->orderBy('last_modified DESC')
+			->execute()->getFirst();
+		/** @var Assessment $lastAssessment */
+		if (!empty($lastAssessment)) {
+			$mapped = $lastAssessment->map();
+			$mapped['instrument'] = $lastAssessment->instrument->map();
+			$mapped['schedule'] = $lastAssessment->schedule->map();
+		}
+		return $mapped;
 	}
 }

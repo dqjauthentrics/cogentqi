@@ -1,5 +1,5 @@
 <?php
-use Cogent\Models\CogentModel;
+namespace Cogent\Models;
 
 class Organization extends CogentModel {
 

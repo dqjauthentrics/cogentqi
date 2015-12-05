@@ -1,6 +1,7 @@
 <?php
+namespace Cogent\Models;
 
-class Message extends Cogent\Models\CogentModel {
+class Message extends CogentModel {
 
 	/**
 	 *

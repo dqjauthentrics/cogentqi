@@ -1,6 +1,7 @@
 <?php
+namespace Cogent\Models;
 
-class RelationshipType extends Cogent\Models\CogentModel {
+class RelationshipType extends CogentModel {
 
 	/**
 	 *

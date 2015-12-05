@@ -28,14 +28,6 @@ class Relationship extends CogentModel {
 	public $relationship_type_id;
 
 	/**
-	 * Initialize method for model.
-	 */
-	public function initialize() {
-		$this->belongsTo('superior_id', 'Member', 'id', ['alias' => 'Superior', 'foreignKey' => TRUE]);
-		$this->belongsTo('subordinate_id', "Member", 'id', ['alias' => 'Subordinate', 'foreignKey' => TRUE]);
-	}
-
-	/**
 	 * Allows to query a set of records that match the specified conditions
 	 *
 	 * @param mixed $parameters
@@ -55,6 +47,14 @@ class Relationship extends CogentModel {
 	 */
 	public static function findFirst($parameters = NULL) {
 		return parent::findFirst($parameters);
+	}
+
+	/**
+	 * Initialize method for model.
+	 */
+	public function initialize() {
+		$this->belongsTo('superior_id', 'Member', 'id', ['alias' => 'Superior', 'foreignKey' => TRUE]);
+		$this->belongsTo('subordinate_id', "Member", 'id', ['alias' => 'Subordinate', 'foreignKey' => TRUE]);
 	}
 
 	/**

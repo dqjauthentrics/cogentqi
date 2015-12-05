@@ -294,4 +294,33 @@ class CogentModel extends \Phalcon\Mvc\Model {
 		}
 		return $jsonRecord;
 	}
+
+	/**
+	 * @param null|int $id
+	 * @param bool     $mapIt
+	 * @param string   $orderBy
+	 * @param string   $where
+	 *
+	 * @return CogentModel[]|array|null
+	 */
+	public function get($id = NULL, $mapIt = TRUE, $orderBy = 'id DESC', $where = '1=1') {
+		$data = !empty($id) ? NULL : [];
+		/** @var CogentModel $record */
+		if (empty($id)) {
+			$records = $this->query()->where($where)->orderBy($orderBy)->execute();
+			if ($mapIt) {
+				foreach ($records as $record) {
+					$data[] = $record->map();
+				}
+			}
+			else {
+				$data = $records;
+			}
+		}
+		else {
+			$record = $this->findFirst($id);
+			$data = !$mapIt ? $record->map() : $record;
+		}
+		return $data;
+	}
 }

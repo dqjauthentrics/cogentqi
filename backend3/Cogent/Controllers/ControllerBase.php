@@ -2,9 +2,9 @@
 namespace Cogent\Controllers;
 
 use Phalcon\Mvc\Controller;
+use Cogent\Components\Result;
 
 class ControllerBase extends Controller {
-
 	public function getWriteConnection($model) {
 		return $this->modelsManager->getWriteConnection($model);
 	}
@@ -28,5 +28,4 @@ class ControllerBase extends Controller {
 	public function isLoggedIn() {
 		return !empty($this->session->get('auth'));
 	}
-
 }

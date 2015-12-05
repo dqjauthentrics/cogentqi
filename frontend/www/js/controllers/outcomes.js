@@ -30,7 +30,7 @@ angular.module('OutcomeControllers', [])
 				if (!Utility.empty($stateParams)) {
 					var outcomeId = $stateParams.outcomeId;
 					Utility.getResource(Outcomes.retrieveSingle(outcomeId), function (response) {
-						$scope.data.outcome = response;
+						$scope.data.outcome = response.data;
 					});
 				}
 				$scope.setOutcomeAlignments();
@@ -46,9 +46,10 @@ angular.module('OutcomeControllers', [])
 			$scope.user = $cookieStore.get('user');
 
 			Utility.getResource(Outcomes.retrieveForOrg($scope.user.organizationId), function (response) {
-				$scope.Outcomes.list = response.outcomes;
-				$scope.data.organizations = response.orgLevels;
-				$scope.setCurrentOrg(response.orgLevels[0]);
+				console.log(response);
+				$scope.Outcomes.list = response.data.outcomes;
+				$scope.data.organizations = response.data.orgLevels;
+				$scope.setCurrentOrg(response.data.orgLevels[0]);
 			});
 
 			$scope.setCurrentOrg = function (organization) {
@@ -148,7 +149,7 @@ angular.module('OutcomeControllers', [])
 
 			if (Outcomes.list == null) {
 				Utility.getResource(Outcomes.retrieveForOrg($scope.user.organizationId), function (response) {
-					$scope.Outcomes.list = response.outcomes;
+					$scope.Outcomes.list = response.data.outcomes;
 					$scope.data.isLoading = false;
 				});
 			}
@@ -171,12 +172,12 @@ angular.module('OutcomeControllers', [])
 			Utility.getResource(Instruments.retrieve(), function (response) {
 				$scope.data.instruments = response;
 				Instruments.collate($scope.data.instruments);
-				if (!Utility.empty(response)) {
-					$scope.setCurrentInstrument(response[0].id);
+				if (!Utility.empty($scope.data.instruments)) {
+					$scope.setCurrentInstrument($scope.data.instruments[0].id);
 				}
 			});
 			Utility.getResource(Outcomes.retrieve(), function (response) {
-				$scope.Outcomes.list = response;
+				$scope.Outcomes.list = response.data;
 				$scope.setOutcome();
 			});
 
@@ -210,6 +211,7 @@ angular.module('OutcomeControllers', [])
 					var outcomeId = $stateParams.outcomeId;
 					if (!Utility.empty(outcomeId)) {
 						$scope.Outcomes.current = Utility.findObjectById($scope.Outcomes.list, outcomeId);
+						console.log("OUTCURRENT:", $scope.Outcomes.current);
 						$scope.setOutcomeAlignments();
 					}
 				}

@@ -1,5 +1,5 @@
 <?php
-use Cogent\Models\CogentModel;
+namespace Cogent\Models;
 
 class Role extends CogentModel {
 	const GUEST = 'G';
