@@ -279,6 +279,7 @@ angular.module('AssessmentControllers', [])
 				Assessments.save($scope.Assessments.current, function () {
 					icon.attr("class", saveClass);
 					$scope.data.dirty = false;
+					Assessments.list = null;
 				});
 			};
 			$scope.canEdit = function () {

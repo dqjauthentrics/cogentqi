@@ -1,6 +1,7 @@
 <?php
+namespace Cogent\Models;
 
-class Relationship extends Cogent\Models\CogentModel {
+class Relationship extends CogentModel {
 
 	/**
 	 *
@@ -25,6 +26,14 @@ class Relationship extends Cogent\Models\CogentModel {
 	 * @var string
 	 */
 	public $relationship_type_id;
+
+	/**
+	 * Initialize method for model.
+	 */
+	public function initialize() {
+		$this->belongsTo('superior_id', 'Member', 'id', ['alias' => 'Superior', 'foreignKey' => TRUE]);
+		$this->belongsTo('subordinate_id', "Member", 'id', ['alias' => 'Subordinate', 'foreignKey' => TRUE]);
+	}
 
 	/**
 	 * Allows to query a set of records that match the specified conditions

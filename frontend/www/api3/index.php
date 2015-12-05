@@ -2,8 +2,22 @@
 use Phalcon\Loader;
 use Phalcon\Mvc\Application;
 
-error_reporting(E_ALL);
 define('APP_PATH', dirname(dirname(dirname(__DIR__))) . '/backend3/');
+
+/**
+set_error_handler(function ($errno, $errstr, $errfile, $errline) {
+	if ($errno == E_USER_ERROR) {
+		echo "ERR:" . $errstr;
+		$result = new Cogent\Components\Result();
+		$result->message = $errstr;
+		$result->send();
+		exit(1);
+	}
+	else {
+		return TRUE;
+	}
+});
+**/
 
 try {
 	$config = include APP_PATH . "Cogent/config/config.php";
@@ -24,7 +38,7 @@ try {
 	$eventsManager = new \Phalcon\Events\Manager();
 	$eventsManager->attach('loader', function ($event, $loader) {
 		if ($event->getType() == 'beforeCheckPath') {
-			echo "PATH:" . $loader->getCheckedPath() . '<hr/>';
+			//echo "PATH:" . $loader->getCheckedPath() . '<hr/>';
 		}
 	});
 

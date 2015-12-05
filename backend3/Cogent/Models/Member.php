@@ -182,6 +182,7 @@ class Member extends CogentModel {
 		$this->hasMany('id', 'Cogent\Models\Assessment', 'member_id', ['alias' => 'Assessments']);
 		$this->hasMany('id', 'Cogent\Models\Recommendation', 'member_id', ['alias' => 'Recommendations']);
 		$this->hasMany('id', 'Cogent\Models\MemberBadge', 'member_id', ['alias' => 'MemberBadges']);
+		$this->hasMany('id', 'Cogent\Models\Relationship', 'superior_id', ['alias' => 'Subordinates']);
 
 		$this->belongsTo('role_id', 'Role', 'id', ['alias' => 'Role', 'foreignKey' => TRUE]);
 		$this->belongsTo('organization_id', "Organization", 'id', ['alias' => 'Organization', 'foreignKey' => TRUE]);
@@ -210,32 +211,28 @@ class Member extends CogentModel {
 	 *
 	 * @return array
 	 */
-	public function map() {
+	public function map($options = ['lastAssessment']) {
 		$map = parent::map();
 		$map['ari'] = $this->role->app_role_id;
 		$map['role'] = $this->role->name;
 		$map['rn'] = $this->role->name;
-		$jsonBadges = [];
-		foreach ($this->memberBadges as $badge) {
-			$jsonBadges[] = $badge->map();
+		if (in_array('badges', $options)) {
+			$jsonBadges = [];
+			foreach ($this->memberBadges as $badge) {
+				$jsonBadges[] = $badge->map();
+			}
+			$map["badges"] = $jsonBadges;
 		}
-		$map["badges"] = $jsonBadges;
-		$jsonAssessments = [];
-		foreach ($this->assessments as $assessment) {
-			$jsonAssessments[] = $assessment->map();
+		if (in_array('assessments', $options)) {
+			$jsonAssessments = [];
+			foreach ($this->assessments as $assessment) {
+				$jsonAssessments[] = $assessment->map();
+			}
+			$map["assessments"] = $jsonAssessments;
 		}
-		$map["assessments"] = $jsonAssessments;
-		$map["lastAssessment"] = $this->mapLastAssessment();
-		/**
-		 * if ($mode != BasePresenter::MODE_LISTING) {
-		 * $jsonAssessments = [];
-		 * $assessments = $database->table('assessment')->where("member_id=?", $member["id"])->order("last_modified DESC")->fetchAll();
-		 * foreach ($assessments as $databaseRecord) {
-		 * $jsonAssessments[] = Assessment::map($database, $databaseRecord, BasePresenter::MODE_RELATED);
-		 * }
-		 * $map["assessments"] = $jsonAssessments;
-		 * }
-		 **/
+		if (in_array('lastAssessment', $options)) {
+			$map["lastAssessment"] = $this->mapLastAssessment();
+		}
 		return $map;
 	}
 }

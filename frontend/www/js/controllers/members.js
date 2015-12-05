@@ -12,7 +12,7 @@ angular.module('MemberControllers', [])
 
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 				Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
-					$scope.data.member = response;
+					$scope.data.member = response.data;
 					$scope.data.newNote.mi = response.id;
 					Utility.getResource(MemberNotes.retrieve($stateParams.memberId), function (response) {
 						$scope.data.notes = response;
@@ -87,7 +87,7 @@ angular.module('MemberControllers', [])
 
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 				Members.retrieveSingle($stateParams.memberId).query(function (response) {
-					$scope.data.member = response;
+					$scope.data.member = response.data;
 					$scope.setRptConfigHx();
 				});
 			}
@@ -116,7 +116,7 @@ angular.module('MemberControllers', [])
 
 	.controller(
 		'MemberViewCtrl',
-		function ($http, $rootScope, $scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments,
+		function ($http, $rootScope, $scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, APP_ROLES, Utility, Icons, Instruments,
 				  Organizations, Members, Messages, Assessments) {
 			$scope.Members = Members;
 			$scope.data = {isLoading: true, showMember: false, dirty: false, user: $cookieStore.get('user'), newMessage: ''};
@@ -125,7 +125,7 @@ angular.module('MemberControllers', [])
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 				if (Members.current == null || Members.current.id != $stateParams.memberId) {
 					Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
-						Members.current = response;
+						Members.current = response.data;
 						$scope.data.isLoading = false;
 					});
 				}
@@ -143,10 +143,11 @@ angular.module('MemberControllers', [])
 				$location.url("/member/notes/" + $stateParams.memberId);
 			};
 			$scope.canEdit = function () {
-				return $scope.data.user.roleId == 'M' || $scope.data.user.roleId == 'A';
+				return !$rootScope.roleIs([APP_ROLES.PROFESSIONAL]);
 			};
 			$scope.save = function () {
 				Members.saveProfile(Members.current, function (response, data) {
+					console.log('response', data);
 					Utility.statusAlert(response);
 					Members.list = null; // force reload of list
 				});
@@ -363,7 +364,8 @@ angular.module('MemberControllers', [])
 
 			$scope.getMembers = function () {
 				Utility.getResource(Members.retrieve($scope.data.includeInactive), function (response) {
-					$scope.Members.list = response;
+					$scope.Members.list = response.data;
+					console.log($scope.Members.list);
 					$scope.data.isLoading = false;
 				});
 			};

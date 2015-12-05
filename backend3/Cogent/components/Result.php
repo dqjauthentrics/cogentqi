@@ -75,7 +75,6 @@ class Result {
 	}
 
 	/**
-	 * @param mixed|null $data
 	 */
 	public function send() {
 		if ($this->code == self::CODE_NORMAL) {
@@ -92,9 +91,11 @@ class Result {
 	/**
 	 * @param mixed $data
 	 */
-	public function setNormal($data) {
+	public function setNormal($data = FALSE) {
 		$this->status = Result::STATUS_OKAY;
-		$this->data = $data;
+		if ($data !== FALSE) {
+			$this->data = $data;
+		}
 	}
 
 	/**
@@ -108,7 +109,7 @@ class Result {
 	/**
 	 * @param mixed $data
 	 */
-	public function sendNormal($data) {
+	public function sendNormal($data = FALSE) {
 		$this->setNormal($data);
 		$this->send();
 	}

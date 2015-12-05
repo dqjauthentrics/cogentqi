@@ -231,13 +231,12 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	}
 
 	/**
-	 * @param array  $jsonRecord
-	 * @param string $tableName
+	 * @param array $jsonRecord
 	 *
 	 * @return array
 	 */
-	public function unmap($jsonRecord, $tableName) {
-		$tblCols = $this->getColNames($tableName);
+	public function unmap($jsonRecord) {
+		$tblCols = $this->getColNames();
 		$newData = [];
 		if (!empty($jsonRecord)) {
 			foreach ($jsonRecord as $jsonColName => $value) {
@@ -254,15 +253,10 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	}
 
 	/**
-	 * @param string $tableName
-	 *
 	 * @return array
 	 */
-	public function getColNames($tableName) {
-		$q = $this->pdo->prepare("DESCRIBE $tableName");
-		$q->execute();
-		$colNames = $q->fetchAll(\PDO::FETCH_COLUMN);
-		return $colNames;
+	public function getColNames() {
+		return @$this->getModelsMetaData()->getAttributes($this);
 	}
 
 	/**

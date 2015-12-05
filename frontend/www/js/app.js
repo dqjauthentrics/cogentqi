@@ -193,9 +193,7 @@ angular.module('app',
 				return $rootScope.roleInfix() == APP_ROLES.PROFESSIONAL;
 			};
 			$rootScope.roleIs = function (roleNames) {
-				var isRole = $.inArray($rootScope.roleInfix(), roleNames) >= 0;
-				console.log("roleIs:", roleNames, $rootScope.roleInfix(), isRole);
-				return isRole;
+				return $.inArray($rootScope.roleInfix(), roleNames) >= 0;
 			};
 
 			$rootScope.roleView = function (urlPortion) {
