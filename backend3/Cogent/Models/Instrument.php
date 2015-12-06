@@ -1,6 +1,12 @@
 <?php
 namespace Cogent\Models;
-
+/**
+ * Class Instrument
+ * @package Cogent\Models
+ *
+ * @method QuestionType getQuestionType()
+ * @method Instrument|Instrument[] get()
+ */
 class Instrument extends CogentModel {
 
 	/**
@@ -89,12 +95,12 @@ class Instrument extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'Assessment', 'instrument_id', ['alias' => 'Assessment']);
-		$this->hasMany('id', 'InstrumentSchedule', 'instrument_id', ['alias' => 'InstrumentSchedule']);
-		$this->hasMany('id', 'InstrumentSchedule', 'instrument_id', ['alias' => 'InstrumentSchedule']);
-		$this->hasMany('id', 'QuestionGroup', 'instrument_id', ['alias' => 'QuestionGroup']);
-		$this->belongsTo('role_id', 'AppRole', 'id', ['alias' => 'AppRole']);
-		$this->belongsTo('usage_id', 'AlgorithmUsage', 'id', ['alias' => 'AlgorithmUsage']);
+		$this->hasMany('id', 'Cogent\Models\Assessment', 'instrument_id', ['alias' => 'Assessments']);
+		$this->hasMany('id', 'Cogent\Models\InstrumentSchedule', 'instrument_id', ['alias' => 'InstrumentSchedule']);
+		$this->hasMany('id', 'Cogent\Models\QuestionGroup', 'instrument_id', ['alias' => 'QuestionGroups']);
+		$this->belongsTo('role_id', 'Cogent\Models\AppRole', 'id', ['alias' => 'AppRole']);
+		$this->belongsTo('usage_id', 'Cogent\Models\AlgorithmUsage', 'id', ['alias' => 'AlgorithmUsage']);
+		$this->belongsTo('question_type_id', 'Cogent\Models\QuestionType', 'id', ['alias' => 'QuestionType']);
 	}
 
 	/**
@@ -104,6 +110,46 @@ class Instrument extends CogentModel {
 	 */
 	public function getSource() {
 		return 'instrument';
+	}
+
+	/**
+	 * @return array
+	 */
+	public function map($options = ['questions' => TRUE]) {
+		$mapped = parent::map();
+		if (!empty($options['questions'])) {
+			$choices = QuestionChoice::query()->where('question_type_id=:qtid:', ['qtid' => $this->question_type_id])->orderBy('sort_order')->execute();
+			$jsonQuestionChoices = [];
+			/** @var QuestionChoice $choice */
+			foreach ($choices as $choice) {
+				$jsonQuestionChoices[] = $choice->map();
+			}
+			$mapped["questionChoices"] = $jsonQuestionChoices;
+
+			$groups = QuestionGroup::query()->where('instrument_id=:id:', ['id' => $this->id])->orderBy('sort_order')->execute();
+			$jsonGroups = [];
+			$jsonQuestions = [];
+			$jsonAligns = [];
+			/** @var QuestionGroup $group */
+			foreach ($groups as $group) {
+				$jsonGroups[] = $group->map();
+				$questions = $group->getQuestions(); //@todo ->order('sort_order');
+				/** @var Question $question */
+				foreach ($questions as $question) {
+					$jsonQuestions[] = $question->map();
+					$resAlignments = $question->getResourceAlignments();
+					/** @var ResourceAlignment $resAlignment */
+					foreach ($resAlignments as $resAlignment) {
+						$jsonAligns[] = $resAlignment->map();
+					}
+				}
+			}
+			$mapped["questionGroups"] = $jsonGroups;
+			$mapped["questions"] = $jsonQuestions;
+			$mapped["alignments"] = $jsonAligns;
+		}
+		$mapped["typeName"] = $this->getQuestionType()->name;
+		return $mapped;
 	}
 
 }

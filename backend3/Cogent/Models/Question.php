@@ -1,6 +1,11 @@
 <?php
 namespace Cogent\Models;
 
+/**
+ * Class Question
+ * @package Cogent\Models
+ * @method ResourceAlignment[] getResourceAlignments()
+ */
 class Question extends CogentModel {
 
 	/**

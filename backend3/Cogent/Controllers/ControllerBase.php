@@ -2,11 +2,24 @@
 namespace Cogent\Controllers;
 
 use Phalcon\Mvc\Controller;
-use Cogent\Components\Result;
 
 class ControllerBase extends Controller {
+	public $transactionModel = NULL;
+
 	public function getWriteConnection($model) {
 		return $this->modelsManager->getWriteConnection($model);
+	}
+
+	public function beginTransaction($model) {
+		$this->transactionModel = $model;
+		return $this->getWriteConnection($model)->begin();
+	}
+	public function commitTransaction() {
+		$this->getWriteConnection($this->transactionModel)->commit();
+	}
+
+	public function rollbackTransaction() {
+		$this->getWriteConnection($this->transactionModel)->rollback();
 	}
 
 	public function getInput() {

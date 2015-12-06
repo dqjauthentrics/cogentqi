@@ -1,6 +1,12 @@
 <?php
 namespace Cogent\Models;
 
+/**
+ * Class QuestionGroup
+ * @package Cogent\Models
+ *
+ * @method Question[] getQuestions()
+ */
 class QuestionGroup extends CogentModel {
 
 	/**

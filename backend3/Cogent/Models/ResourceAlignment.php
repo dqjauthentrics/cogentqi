@@ -53,8 +53,8 @@ class ResourceAlignment extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('resource_id', 'Resource', 'id', ['alias' => 'Resource']);
-		$this->belongsTo('question_id', 'Question', 'id', ['alias' => 'Question']);
+		$this->belongsTo('resource_id', 'Cogent\Models\Resource', 'id', ['alias' => 'Resource']);
+		$this->belongsTo('question_id', 'Cogent\Models\Question', 'id', ['alias' => 'Question']);
 	}
 
 	/**
