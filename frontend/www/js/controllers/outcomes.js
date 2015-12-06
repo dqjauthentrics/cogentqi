@@ -33,7 +33,7 @@ angular.module('OutcomeControllers', [])
 						$scope.data.outcome = response.data;
 					});
 				}
-				$scope.setOutcomeAlignments();
+				//$scope.setAlignments();
 			};
 
 		})
@@ -190,7 +190,7 @@ angular.module('OutcomeControllers', [])
 											Utility.statusAlert(status, data);
 										});
 			};
-			$scope.setOutcomeAlignments = function () {
+			$scope.setAlignments = function () {
 				if (!Utility.empty($scope.Outcomes.current) && !Utility.empty($scope.data.currentInstrument)) {
 					$scope.data.alignments = {};
 					for (var z = 0; z < $scope.data.currentInstrument.questions.length; z++) {
@@ -212,16 +212,16 @@ angular.module('OutcomeControllers', [])
 					if (!Utility.empty(outcomeId)) {
 						$scope.Outcomes.current = Utility.findObjectById($scope.Outcomes.list, outcomeId);
 						console.log("OUTCURRENT:", $scope.Outcomes.current);
-						$scope.setOutcomeAlignments();
+						$scope.setAlignments();
 					}
 				}
-				$scope.setOutcomeAlignments();
+				$scope.setAlignments();
 			};
 			$scope.setCurrentInstrument = function (instrumentId) {
 				if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
 					$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
 					$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
-					$scope.setOutcomeAlignments();
+					$scope.setAlignments();
 				}
 			};
 			$scope.alignmentLevelPhrase = function (level) {

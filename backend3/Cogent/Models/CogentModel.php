@@ -319,7 +319,7 @@ class CogentModel extends \Phalcon\Mvc\Model {
 		}
 		else {
 			$record = $this->findFirst($id);
-			$data = !$mapIt ? $record->map() : $record;
+			$data = $mapIt ? $record->map() : $record;
 		}
 		return $data;
 	}

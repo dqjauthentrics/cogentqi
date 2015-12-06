@@ -116,4 +116,16 @@ class Organization extends CogentModel {
 		return 'organization';
 	}
 
+	/**
+	 * Retrieve and return a set of organization IDs, comma-delimited.
+	 *
+	 * @param int $id
+	 *
+	 * @return mixed
+	 */
+	public function getDescendantIds($id) {
+		$row = parent::getReadConnection()->query("SELECT retrieveOrgDescendantIds($id) AS orgIds")->fetch();
+		$orgIds = $row["orgIds"];
+		return $orgIds;
+	}
 }
