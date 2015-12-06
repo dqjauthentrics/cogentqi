@@ -125,12 +125,7 @@ class OutcomeController extends ControllerBase {
 				$formAlignments = $data["alignments"];
 				if (!empty($formAlignments)) {
 					/** @var OutcomeAlignment[] $alignments */
-					$alignments = OutcomeAlignment::query()
-						->where(
-							'outcome_id=:outId: AND (question_id IN (SELECT id FROM Cogent\Models\Question WHERE question_group_id IN (SELECT id FROM Cogent\Models\QuestionGroup WHERE instrument_id=:insId:)))',
-							['outId' => $outcomeId, 'insId' => $instrumentId]
-						)
-						->execute();
+					$alignments = OutcomeAlignment::query()->where('outcome_id=:id:',['id' => $outcomeId])->execute();
 					foreach ($formAlignments as $questionId => $weight) {
 						$dbRecord = $this->findAlignment($outcomeId, $questionId, $alignments);
 						if (!empty($dbRecord)) {

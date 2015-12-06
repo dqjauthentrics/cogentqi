@@ -189,6 +189,7 @@ class Member extends CogentModel {
 	}
 
 	/**
+	 * @param array $options
 	 *
 	 * @return array
 	 */

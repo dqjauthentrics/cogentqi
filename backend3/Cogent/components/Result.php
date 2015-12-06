@@ -117,8 +117,11 @@ class Result {
 	/**
 	 * @param int $code
 	 */
-	public function sendError($code) {
+	public function sendError($code, $message = FALSE) {
 		$this->setError($code);
+		if ($message !== FALSE) {
+			$this->message = $message;
+		}
 		$this->send();
 	}
 }

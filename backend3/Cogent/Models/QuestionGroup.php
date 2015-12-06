@@ -71,8 +71,8 @@ class QuestionGroup extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'Question', 'question_group_id', ['alias' => 'Question']);
-		$this->belongsTo('instrument_id', 'Instrument', 'id', ['alias' => 'Instrument']);
+		$this->hasMany('id', 'Cogent\Models\Question', 'question_group_id', ['alias' => 'Questions']);
+		$this->belongsTo('instrument_id', 'Cogent\Models\Instrument', 'id', ['alias' => 'Instrument']);
 	}
 
 	/**

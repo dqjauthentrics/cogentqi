@@ -95,10 +95,10 @@ class Question extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'AssessmentResponse', 'question_id', ['alias' => 'AssessmentResponse']);
-		$this->hasMany('id', 'OutcomeAlignment', 'question_id', ['alias' => 'OutcomeAlignment']);
-		$this->hasMany('id', 'ResourceAlignment', 'question_id', ['alias' => 'ResourceAlignment']);
-		$this->belongsTo('question_group_id', 'QuestionGroup', 'id', ['alias' => 'QuestionGroup']);
+		$this->hasMany('id', 'Cogent\Models\AssessmentResponse', 'question_id', ['alias' => 'Responses']);
+		$this->hasMany('id', 'Cogent\Models\OutcomeAlignment', 'question_id', ['alias' => 'OutcomeAlignments']);
+		$this->hasMany('id', 'Cogent\Models\ResourceAlignment', 'question_id', ['alias' => 'ResourceAlignments']);
+		$this->belongsTo('question_group_id', 'Cogent\Models\QuestionGroup', 'id', ['alias' => 'QuestionGroup']);
 	}
 
 	/**

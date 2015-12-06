@@ -59,8 +59,8 @@ class OutcomeAlignment extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('outcome_id', 'Outcome', 'id', ['alias' => 'Outcome']);
-		$this->belongsTo('question_id', 'Question', 'id', ['alias' => 'Question']);
+		$this->belongsTo('outcome_id', 'Cogent\Models\Outcome', 'id', ['alias' => 'Outcome']);
+		$this->belongsTo('question_id', 'Cogent\Models\Question', 'id', ['alias' => 'Questions']);
 	}
 
 	/**
