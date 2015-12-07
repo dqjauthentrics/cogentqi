@@ -1,5 +1,5 @@
 <div class="row responsive-md">
-    <div class="col col-50">
+    <div class="col col-25">
         <avatar site="siteDir()" member-id="member.id" sz="small" level="member.lv" alt="avatarAlt(member)"></avatar>
         <div style="float:left;">
             <div class="name">{{member.fn}} {{member.ln}}</div>
@@ -11,7 +11,7 @@
     <div class="col col-25">
         <micro-badge data-ng-if="member.badges.length" text="member.badges.length + ''" size="'count'"></micro-badge>
     </div>
-    <div class="col col-25">
+    <div class="col col-50">
         <div data-ng-if="member.lastAssessment.lm">
             <assessment-item site="siteDir()" prefix="'Last Assessment'|translate" assessment="member.lastAssessment" i="i"></assessment-item>
         </div>

@@ -10,16 +10,16 @@ angular.module('ControllerManager', [])
 					$scope.data = {user: $cookieStore.get('user'), role: 'manager'};
 				})
 
-	.controller('PlanningCtrl', function ($scope, $stateParams, Utility, Organizations, LearningModules, Resources) {
+	.controller('PlanningCtrl', function ($scope, $stateParams, Utility, Organizations, Modules, Resources) {
 					var collated = false;
 					$scope.data = {learningModules: [], resources: [], resource: {}};
 
 					Resources.retrieve().query(function (response) {
-						$scope.data.resources = response;
+						$scope.data.resources = response.data;
 						$scope.collate();
 					});
-					LearningModules.retrieve().query(function (response) {
-						$scope.data.learningModules = response;
+					Modules.retrieve().query(function (response) {
+						$scope.data.learningModules = response.data;
 						$scope.collate();
 					});
 					$scope.collate = function () {

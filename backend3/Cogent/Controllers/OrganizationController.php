@@ -12,11 +12,43 @@ class OrganizationController extends ControllerBase {
 
 	/**
 	 * @param int $id
+	 * @param int $drilldown
+	 */
+	public function indexAction($id = NULL, $drilldown = self::DRILL_NONE) {
+		$result = new Result($this);
+		$data = [];
+		try {
+			if (!empty($id)) {
+				$organization = Organization::findFirst($id);
+				if ($drilldown == self::DRILL_ALL) {
+					$treeIds = $organization->getDescendantIds($id);
+					$children = Organization::query()->where("id IN (:treeIds:)", ['treeIds' => $treeIds])->execute();
+				}
+				else {
+					$children = Organization::query()->where("parent_id=:id:", ['id' => $id])->execute();
+				}
+				$data = $this->mapRecords($children);
+				array_unshift($data, $organization->map());
+			}
+			else {
+				$organizations = Organization::query()->where('1=1')->orderBy('name')->execute();
+				$data = $this->mapRecords($organizations);
+			}
+			$result->setNormal();
+		}
+		catch (\Exception $exception) {
+			$result->setError(Result::CODE_EXCEPTION, $exception->getMessage());
+		}
+		$result->sendNormal($data);
+	}
+
+	/**
+	 * @param int $id
 	 * @param int $includeInactive
 	 * @param int $drilldown
 	 */
 	public function membersAction($id, $includeInactive = 0, $drilldown = self::DRILL_NONE) {
-		$result = new Result();
+		$result = new Result($this);
 		$activeStatus = (empty($includeInactive) ? 'active_end IS NULL AND ' : '');
 		if ($drilldown == self::DRILL_ALL) {
 			$organizationModel = new Organization();
@@ -40,37 +72,6 @@ class OrganizationController extends ControllerBase {
 			/** @var Member $member */
 			$memberMap = $member->map();
 			$data[] = $memberMap;
-		}
-		$result->sendNormal($data);
-	}
-
-	/**
-	 * @param int $id
-	 * @param int $drilldown
-	 */
-	public function childrenAction($id, $drilldown = self::DRILL_NONE) {
-		$result = new Result();
-		$data = [];
-		try {
-			$organization = Organization::findFirst($id);
-			if ($drilldown == self::DRILL_ALL) {
-				$treeIds = $organization->getDescendantIds($id);
-				$children = Organization::query()->where("id IN (:treeIds:)", ['treeIds' => $treeIds])->execute();
-			}
-			else {
-				$children = Organization::query()->where("parent_id=:id:", ['id' => $id])->execute();
-			}
-			if (!empty($children)) {
-				/** @var Organization $child */
-				foreach ($children as $child) {
-					$data[] = $child->map();
-				}
-				array_unshift($data, $organization->map());
-			}
-			$result->setNormal();
-		}
-		catch (\Exception $exception) {
-			$result->setError(Result::CODE_EXCEPTION, $exception->getMessage());
 		}
 		$result->sendNormal($data);
 	}

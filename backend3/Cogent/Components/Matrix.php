@@ -9,14 +9,14 @@ use Cogent\Models\QuestionGroup;
  * @package Cogent\Components
  */
 class Matrix {
-	/** @var \PDO */
-	private $pdo = NULL;
+	/** @var \Phalcon\Db\AdapterInterface $dbif */
+	private $dbif = NULL;
 
 	/**
-	 * @param $database
+	 * @param \Phalcon\Db\AdapterInterface $dbif
 	 */
-	function __construct($pdo) {
-		$this->pdo = $pdo;
+	function __construct($dbif) {
+		$this->dbif = $dbif;
 	}
 
 	/**
@@ -154,7 +154,7 @@ class Matrix {
 				a.member_id,max(a.last_modified) AS maxMod, m.first_name, m.last_name, m.role_id, m.job_title, m.email, m.level
 			FROM assessment a, member m
 			WHERE a.member_id=m.id AND instrument_id=? AND member_id IN (SELECT id FROM member WHERE organization_id=?) GROUP BY member_id";
-		$statement = $this->pdo->prepare($sql);
+		$statement = $this->dbif->prepare($sql);
 		$statement->execute([$instrumentId, $organizationId]);
 		$dbRecords = $statement->fetchAll();
 		$members = [];
@@ -249,7 +249,7 @@ class Matrix {
 			list($memberIds, $members) = $this->getMembersForAssessments($organizationId, $instrumentId);
 			if (!empty($members)) {
 				$sql = "SELECT id, member_id, last_modified FROM assessment WHERE instrument_id=:instrumentId AND member_id IN ($memberIds)";
-				$statement = $this->pdo->prepare($sql);
+				$statement = $this->dbif->prepare($sql);
 				$statement->execute([':instrumentId' => $instrumentId]);
 				$assessmentRecords = $statement->fetchAll();
 				$columns = [];
@@ -266,7 +266,7 @@ class Matrix {
 							"FROM assessment_response ar, question q, question_type t " .
 							"WHERE ar.question_id=q.id AND t.id=q.question_type_id AND ar.assessment_id=$assessmentId " .
 							"ORDER BY q.sort_order";
-						$responseRecords = $this->pdo->query($sql);
+						$responseRecords = $this->dbif->query($sql)->fetchAll();
 						$sections = [];
 						$lastGroupId = NULL;
 						$colIdx = 0;
@@ -360,7 +360,7 @@ class Matrix {
 		$instrumentId = (int)$instrumentId;
 		$organizationId = (int)$organizationId;
 
-		$row = $this->pdo->query("SELECT retrieveOrgDescendantIds($organizationId) AS orgIds")->fetch();
+		$row = $this->dbif->query("SELECT retrieveOrgDescendantIds($organizationId) AS orgIds")->fetch();
 		$orgIds = $row["orgIds"];
 		$orgIds = $organizationId . (strlen($orgIds) > 0 ? "," : "") . $orgIds;
 		$sql = "SELECT m.organization_id, o.name, q.question_group_id, ar.question_id, t.entry_type, AVG(ar.response_index) AS response
@@ -369,7 +369,7 @@ class Matrix {
 						m.organization_id IN (SELECT id FROM organization WHERE id IN($orgIds)) AND ar.assessment_id=a.id AND m.organization_id=o.id
 						AND q.id=ar.question_id
 					GROUP BY m.organization_id, o.name, ar.question_id ORDER BY o.name,o.id,q.sort_order";
-		$dbRecords = $this->pdo->query($sql)->fetchAll();
+		$dbRecords = $this->dbif->query($sql)->fetchAll();
 
 		$matrix = ['total' => 0, 'count' => 0, 'typeName' => NULL];
 		$responses = [];
@@ -473,7 +473,7 @@ class Matrix {
 	 * @return array
 	 */
 	public function myMatrix($organizationId, $instrumentId) {
-		$orgs = Organization::find(['parent_id' => $organizationId]);
+		$orgs = Organization::find(['conditions' => 'parent_id = :id:', 'bind' => ['id' => $organizationId]]);
 		$childCount = count($orgs);
 		if ($childCount > 0) {
 			return $this->buildOrgMatrix($organizationId, $instrumentId);

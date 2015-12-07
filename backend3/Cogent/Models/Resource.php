@@ -5,7 +5,7 @@ namespace Cogent\Models;
  * Class Resource
  * @package Cogent\Models
  *
- * @method \Cogent\Models\OutcomeAlignment[] getAlignments()
+ * @method \Phalcon\Mvc\Model\Resultset\Simple getAlignments()
  * @method \Cogent\Models\OutcomeAlignment[]|\Cogent\Models\OutcomeAlignment get($id = NULL, $mapIt = TRUE)
  */
 class Resource extends CogentModel {
@@ -131,6 +131,7 @@ class Resource extends CogentModel {
 		if (!empty($options['alignments'])) {
 			$alignments = $this->getAlignments();
 			$jsonAlignments = [];
+			/** @var OutcomeAlignment $alignment */
 			foreach ($alignments as $alignment) {
 				$jsonAlignments[] = $alignment->map();
 			}

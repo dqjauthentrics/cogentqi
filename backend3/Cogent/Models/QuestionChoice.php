@@ -1,6 +1,11 @@
 <?php
 namespace Cogent\Models;
 
+/**
+ * Class QuestionChoice
+ * @package Cogent\Models
+ * @method QuestionType getType()
+ */
 class QuestionChoice extends CogentModel {
 
 	/**
@@ -71,7 +76,7 @@ class QuestionChoice extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('question_type_id', 'QuestionType', 'id', ['alias' => 'QuestionType']);
+		$this->belongsTo('question_type_id', 'Cogent\Models\QuestionType', 'id', ['alias' => 'Type']);
 	}
 
 	/**
@@ -81,6 +86,16 @@ class QuestionChoice extends CogentModel {
 	 */
 	public function getSource() {
 		return 'question_choice';
+	}
+
+	/**
+	 * @param array $options
+	 *
+	 * @return array
+	 */
+	public function map($options = []) {
+		$map = parent::map();
+		return $map;
 	}
 
 }

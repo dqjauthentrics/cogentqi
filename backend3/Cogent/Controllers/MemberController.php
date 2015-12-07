@@ -11,28 +11,39 @@ class MemberController extends ControllerBase {
 	 * List all members.
 	 *
 	 * @param int $organizationId
+	 * @param int $drilldown
 	 * @param int $includeInactive
 	 */
-	public function indexAction($organizationId, $drilldown = 0, $includeInactive = 0) {
-		$result = new Result();
+	public function indexAction($organizationId = NULL, $drilldown = 0, $includeInactive = 0) {
+		$result = new Result($this);
 		$data = [];
-		$where = "(organization_id = :id:";
-		if (!empty($drilldown)) {
-			$member = new Member();
-			$row = $member->getReadConnection()->query("SELECT retrieveOrgDescendantIds($organizationId) AS orgIds")->fetch();
-			$orgIds = $row["orgIds"];
-			if (!empty($orgIds)) {
-				$where .= ' OR organization_id IN (' . $orgIds . ')';
+		try {
+			$where = "(organization_id = :id:";
+			if (!empty($organizationId) && !empty($drilldown)) {
+				$member = new Member();
+				$row = $member->getReadConnection()->query("SELECT retrieveOrgDescendantIds($organizationId) AS orgIds")->fetch();
+				$orgIds = $row["orgIds"];
+				if (!empty($orgIds)) {
+					$where .= ' OR organization_id IN (' . $orgIds . ')';
+				}
+			}
+			$where .= ')';
+			if (!$includeInactive) {
+				$where .= ' AND active_end IS NULL';
+			}
+			if (!empty($organizationId)) {
+				$members = Member::query()->where($where)->bind(["id" => $organizationId])->orderBy("last_name,first_name")->execute();
+			}
+			else {
+				$members = Member::query()->orderBy("last_name,first_name")->execute();
+			}
+			/** @var Member $member */
+			foreach ($members as $member) {
+				$data[] = $member->map();
 			}
 		}
-		$where .= ')';
-		if (!$includeInactive) {
-			$where .= ' AND active_end IS NULL';
-		}
-		$members = Member::query()->where($where)->bind(["id" => $organizationId])->orderBy("last_name")->execute();
-		/** @var Member $member */
-		foreach ($members as $member) {
-			$data[] = $member->map();
+		catch (\Exception $exception) {
+			$result->message = $exception->getMessage();
 		}
 		$result->sendNormal($data);
 	}
@@ -41,7 +52,7 @@ class MemberController extends ControllerBase {
 	 * @param null $id
 	 */
 	public function getAction($id = NULL) {
-		$result = new Result();
+		$result = new Result($this);
 		$data = [];
 		$member = Member::findFirst($id);
 		$data[] = $member->map();
@@ -52,9 +63,9 @@ class MemberController extends ControllerBase {
 	 * @param null $id
 	 */
 	public function getProfileAction($id = NULL) {
-		$result = new Result();
+		$result = new Result($this);
 		$member = Member::findFirst($id);
-		$data = $member->map(['assessments', 'lastAssessment', 'badges']);
+		$data = $member->map(['assessments' => TRUE, 'lastAssessment' => TRUE, 'badges' => TRUE]);
 		$result->sendNormal($data);
 	}
 
@@ -62,7 +73,7 @@ class MemberController extends ControllerBase {
 	 * Save a member profile record.
 	 */
 	public function updateAction() {
-		$result = new Result();
+		$result = new Result($this);
 		$data = [];
 		$connection = $this->getWriteConnection(new Member());
 		$connection->begin();
@@ -89,7 +100,7 @@ class MemberController extends ControllerBase {
 	 * @param int $parentMemberId
 	 */
 	public function getSubordinatesAction($parentMemberId) {
-		$result = new Result();
+		$result = new Result($this);
 		$members = Member::query()
 			->leftJoin('Cogent\Models\Relationship', 'Cogent\Models\Member.id=subordinate_id')
 			->where('Cogent\Models\Relationship.superior_id = :id:', ['id' => $parentMemberId])
@@ -107,10 +118,10 @@ class MemberController extends ControllerBase {
 	 * @param int $activate
 	 */
 	public function dereactivateAction($memberId, $activate) {
-		$result = new Result();
+		$result = new Result($this);
 		$member = Member::findFirst(['id' => $memberId]);
 		if (!empty($member)) {
-			$member->active_end = !empty($activate)? NULL : $member->dateTme();
+			$member->active_end = !empty($activate) ? NULL : $member->dateTme();
 			if ($member->update()) {
 				$result->status = Result::STATUS_OKAY;
 				$result->data = $member->map();

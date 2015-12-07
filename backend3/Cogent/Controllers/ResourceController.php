@@ -31,7 +31,7 @@ class ResourceController extends ControllerBase {
 	public function indexAction() {
 		$resource = new Resource();
 		$data = $resource->get();
-		$result = new Result();
+		$result = new Result($this);
 		$result->sendNormal($data);
 	}
 
@@ -41,7 +41,7 @@ class ResourceController extends ControllerBase {
 	 * @param int $id
 	 */
 	public function getAction($id) {
-		$result = new Result();
+		$result = new Result($this);
 		$resource = new Resource();
 		$resource = $resource->get($id, FALSE);
 		$resource = $resource->map();
@@ -52,7 +52,7 @@ class ResourceController extends ControllerBase {
 	 * Create a new record, storing the given form information.
 	 */
 	public function createAction() {
-		$result = new Result();
+		$result = new Result($this);
 		try {
 			$params = json_decode(file_get_contents('php://input'), TRUE);
 			$resourceForm = $params["resource"];
@@ -89,7 +89,7 @@ class ResourceController extends ControllerBase {
 	 * Save the given alignments for this resource.
 	 */
 	public function saveAlignmentsAction() {
-		$result = new Result();
+		$result = new Result($this);
 		try {
 			$data = @$this->getInputData();
 			if (!empty($data["resourceId"]) && !empty($data["instrumentId"]) && !empty($data["alignments"])) {
@@ -131,7 +131,7 @@ class ResourceController extends ControllerBase {
 	 * Save an existing record from the given form.
 	 */
 	public function saveAction() {
-		$result = new Result();
+		$result = new Result($this);
 		try {
 			$formResource = @$this->getInputData('resource');
 			if (!empty($formResource)) {

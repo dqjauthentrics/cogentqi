@@ -1,6 +1,7 @@
 <?php
 namespace Cogent\Models;
 
+use Cogent\Components\Utility;
 use Phalcon\Mvc\Model\Validator\Email as Email;
 
 class Member extends CogentModel {
@@ -193,27 +194,34 @@ class Member extends CogentModel {
 	 *
 	 * @return array
 	 */
-	public function map($options = ['lastAssessment']) {
+	public function map($options = ['lastAssessment' => TRUE, 'badges' => TRUE, 'assessments' => FALSE, 'minimal' => FALSE]) {
 		$map = parent::map();
 		$map['ari'] = $this->role->app_role_id;
 		$map['role'] = $this->role->name;
 		$map['rn'] = $this->role->name;
-		if (in_array('badges', $options)) {
-			$jsonBadges = [];
-			foreach ($this->memberBadges as $badge) {
-				$jsonBadges[] = $badge->map();
+		if (empty($options['minimal'])) {
+			if (!empty($options['badges'])) {
+				$jsonBadges = [];
+				foreach ($this->memberBadges as $badge) {
+					$jsonBadges[] = $badge->map();
+				}
+				$map["badges"] = $jsonBadges;
 			}
-			$map["badges"] = $jsonBadges;
-		}
-		if (in_array('assessments', $options)) {
-			$jsonAssessments = [];
-			foreach ($this->assessments as $assessment) {
-				$jsonAssessments[] = $assessment->map();
+			if (!empty($options['assessments'])) {
+				$jsonAssessments = [];
+				foreach ($this->assessments as $assessment) {
+					$jsonAssessments[] = $assessment->map([]);
+				}
+				$map["assessments"] = $jsonAssessments;
 			}
-			$map["assessments"] = $jsonAssessments;
+			if (!empty($options['lastAssessment'])) {
+				$map["lastAssessment"] = $this->mapLastAssessment();
+			}
 		}
-		if (in_array('lastAssessment', $options)) {
-			$map["lastAssessment"] = $this->mapLastAssessment();
+		else {
+			$map = Utility::arrayRemoveByKey('ad', $map);
+			$map = Utility::arrayRemoveByKey('cy', $map);
+			$map = Utility::arrayRemoveByKey('sp', $map);
 		}
 		return $map;
 	}
@@ -223,16 +231,16 @@ class Member extends CogentModel {
 	 */
 	public function mapLastAssessment() {
 		$mapped = NULL;
-		$lastAssessment = \Cogent\Models\Assessment::query()
+		$lastAssessment = Assessment::query()
 			->where('member_id = :memberId:')
 			->bind(['memberId' => $this->id])
 			->orderBy('last_modified DESC')
 			->execute()->getFirst();
 		/** @var Assessment $lastAssessment */
 		if (!empty($lastAssessment)) {
-			$mapped = $lastAssessment->map();
-			$mapped['instrument'] = $lastAssessment->instrument->map();
-			$mapped['schedule'] = $lastAssessment->schedule->map();
+			$mapped = $lastAssessment->map([]);
+			$mapped['instrument'] = $lastAssessment->getInstrument()->map([]);
+			$mapped['schedule'] = $lastAssessment->getSchedule()->map([]);
 		}
 		return $mapped;
 	}

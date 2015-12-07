@@ -32,7 +32,7 @@ class OutcomeController extends ControllerBase {
 	public function indexAction() {
 		$outcome = new Outcome();
 		$data = $outcome->get();
-		$result = new Result();
+		$result = new Result($this);
 		$result->sendNormal($data);
 	}
 
@@ -47,7 +47,7 @@ class OutcomeController extends ControllerBase {
 		$outcome = $outcome->get($id, FALSE);
 		/** @var Outcome $outcome */
 		$outcome = $outcome->map(['singleOrgId' => $organizationId]);
-		$result = new Result();
+		$result = new Result($this);
 		$result->sendNormal($outcome);
 	}
 
@@ -55,7 +55,7 @@ class OutcomeController extends ControllerBase {
 	 * @param int $organizationId
 	 */
 	public function byOrganizationAction($organizationId) {
-		$result = new Result();
+		$result = new Result($this);
 		$outcomeModel = new Outcome();
 		$outcomeRecs = $outcomeModel->get(NULL, FALSE, 'sort_order');
 		$organizationId = (int)$organizationId;
@@ -116,7 +116,7 @@ class OutcomeController extends ControllerBase {
 	 * Save given alignments for given outcome record.
 	 */
 	public function saveAlignmentsAction() {
-		$result = new Result();
+		$result = new Result($this);
 		try {
 			$data = $this->getInputData();
 			if (!empty($data["outcomeId"]) && !empty($data["instrumentId"]) && !empty($data["alignments"])) {

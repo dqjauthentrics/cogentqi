@@ -1,8 +1,9 @@
 <?php
 namespace Cogent\Controllers;
 
-use Cogent\Models\Instrument;
 use Cogent\Components\Result;
+use Cogent\Models\Instrument;
+use Cogent\Models\InstrumentSchedule;
 
 class InstrumentController extends ControllerBase {
 	/**
@@ -11,7 +12,7 @@ class InstrumentController extends ControllerBase {
 	public function indexAction() {
 		$instrument = new Instrument();
 		$data = $instrument->get();
-		$result = new Result();
+		$result = new Result($this);
 		$result->sendNormal($data);
 	}
 
@@ -21,33 +22,34 @@ class InstrumentController extends ControllerBase {
 	 * @param int $id
 	 */
 	public function getAction($id) {
-		$result = new Result();
+		$result = new Result($this);
 		$instrument = new Instrument();
 		$instrument = $instrument->get($id, FALSE);
-		$instrument = $instrument->map();
+		if (!empty($instrument)) {
+			$instrument = $instrument->map();
+		}
+		else {
+			$result->setError(Result::CODE_NOT_FOUND);
+		}
 		$result->sendNormal($instrument);
 	}
 
 	/**
-	 * @param \App\Components\DbContext $database
-	 * @param int                       $instrumentId
-	 * @param int                       $assessmentId
+	 * Retrieves a full schedule for the givent instrumentId
 	 *
-	 * @return array
+	 * @param int $instrumentId
 	 */
-	public static function createResponseTemplate($database, $instrumentId, $assessmentId) {
-		$questions = $database->table('question')->where('question_group_id IN (SELECT id FROM question_group WHERE instrument_id=?)', $instrumentId)
-			->order('sort_order');
-		$responses = [];
-		foreach ($questions as $question) {
-			$data = [
-				'assessment_id'  => $assessmentId,
-				'question_id'    => $question["id"],
-				'response'       => NULL,
-				'response_index' => NULL,
-			];
-			$responses[] = $database->table('assessment_response')->insert($data);
+	public function scheduleAction($instrumentId) {
+		$result = new Result($this);
+		$data = [];
+		try {
+			$sched = new InstrumentSchedule();
+			$data = $sched->get(NULL, TRUE, '', 'instrument_id=:id:', ['id' => 'ends DESC,starts DESC']);
 		}
-		return $responses;
+		catch (\Exception $exception) {
+			$result->setError(Result::CODE_EXCEPTION, $exception->getMessage());
+		}
+		$result->sendNormal($data);
 	}
+
 }

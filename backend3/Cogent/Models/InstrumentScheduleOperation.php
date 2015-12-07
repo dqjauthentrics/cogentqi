@@ -1,7 +1,20 @@
 <?php
 namespace Cogent\Models;
 
+/**
+ * Class InstrumentScheduleOperation
+ * @package Cogent\Models
+ *
+ * @method InstrumentSchedule getSchedule()
+ * @method Operation getOperation()
+ * @method Role getAppRole()
+ */
 class InstrumentScheduleOperation extends CogentModel {
+	const OP_CREATE = 'C';
+	const OP_READ = 'R';
+	const OP_UPDATE = 'X';
+	const OP_DELETE = 'D';
+	const OP_EXEXUTE = 'X';
 
 	/**
 	 *
@@ -53,8 +66,8 @@ class InstrumentScheduleOperation extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('instrument_schedule_id', 'InstrumentSchedule', 'id', ['alias' => 'InstrumentSchedule']);
-		$this->belongsTo('role_id', 'AppRole', 'id', ['alias' => 'AppRole']);
+		$this->belongsTo('instrument_schedule_id', 'InstrumentSchedule', 'id', ['alias' => 'Schedule']);
+		$this->belongsTo('role_id', 'Role', 'id', ['alias' => 'Role']);
 		$this->belongsTo('operation_id', 'Operation', 'id', ['alias' => 'Operation']);
 	}
 

@@ -1,6 +1,6 @@
 <div data-ng-switch="Assessments.current.es" class="response">
     <div data-ng-switch-when="A">
-        <div data-ng-switch="question.typ">
+        <div data-ng-switch="question.type.n">
             <div data-ng-switch-when="YESNO">
                 <div class="button-bar" style="max-width:12em; min-width:12em;">
                     <a class="button" data-ng-class="{'yesNoBg0': question.rsp.rdx == 0}"
@@ -14,15 +14,15 @@
             <div data-ng-switch-default="">
                 <div class="rubric">
                     <slider id="question_item_{{question.id}}" class="slider{{question.rsp.rdx}}"
-                            ng-model="question.rsp.rdx" floor="{{question.min}}" ceiling="{{question.max}}" step-width="0.1"
+                            ng-model="question.rsp.rdx" floor="{{question.type.min}}" ceiling="{{question.type.max}}" step-width="0.1"
                             ng-change="updateSliderResponse(question, this, true)"
                             precision="0"
-                            style="{{'width:' + (rubricWidth(question.max) * question.max)+ '%; margin-bottom:-1em; margin-left:' + (rubricWidth(question.max)/2)+ '%;'}}"
+                            style="{{'width:' + (rubricWidth(question.type.max) * question.type.max)+ '%; margin-bottom:-1em; margin-left:' + (rubricWidth(question.type.max)/2)+ '%;'}}"
                     >
                     </slider>
                     <div class="{{$index == question.rsp.rdx? 'active':'inactive'}}" id="{{'rubric_'+question.id+'_'+$index}}"
-                         data-ng-repeat="choice in question.rsp.ch" data-ng-click="rubricSet(question,$index)"
-                         style="{{'width:' + rubricWidth(question.max) + '%;'}}"
+                         data-ng-repeat="choice in question.type.choices" data-ng-click="rubricSet(question,$index)"
+                         style="{{'width:' + rubricWidth(question.type.max) + '%;'}}"
                     >
                         <div class="rubric{{$index}}">{{choice.n}}</div>
                         <p data-ng-if="choice.ru.length > 0">{{choice.ru}}</p>
@@ -32,6 +32,6 @@
         </div>
     </div>
     <div data-ng-switch-default="">
-        <div data-ng-class=" getResponseClass(question.typ, question.rsp.rdx)">{{question.rsp.rp}}</div>
+        <div data-ng-class=" getResponseClass(question.type.entryType, question.rsp.rdx)">{{question.rsp.rp}}</div>
     </div>
 </div>

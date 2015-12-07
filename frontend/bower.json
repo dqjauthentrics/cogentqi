@@ -8,6 +8,7 @@
     "angular-load": "~0.2.0",
     "angular-youtube-mb": "~1.0.0",
     "font-awesome": "fontawesome#~4.4.0",
-    "fontawesome": "~4.4.0"
+    "fontawesome": "~4.4.0",
+    "angular-ui-calendar": "~1.0.1"
   }
 }

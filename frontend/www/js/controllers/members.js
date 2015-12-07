@@ -81,7 +81,7 @@ angular.module('MemberControllers', [])
 			$scope.data = {instruments: [], member: {}, instrument: null};
 
 			Instruments.retrieve().query(function (response) {
-				$scope.data.instruments = response;
+				$scope.data.instruments = response.data;
 				$scope.setRptConfigHx();
 			});
 
@@ -305,10 +305,10 @@ angular.module('MemberControllers', [])
 			};
 
 			Utility.getResource(Instruments.retrieve(), function (response) {
-				$scope.data.instruments = response;
+				$scope.data.instruments = response.data;
 				Instruments.collate($scope.data.instruments);
 				if (!Utility.empty(response)) {
-					$scope.setCurrentInstrument(response[0].id);
+					$scope.setCurrentInstrument(response.data[0].id);
 				}
 			});
 			Utility.getResource(Organizations.retrieve(), function (response) {
@@ -323,20 +323,21 @@ angular.module('MemberControllers', [])
 				if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments) && !Utility.empty($stateParams.memberId)) {
 					$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
 					$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
-					Utility.getResource(Assessments.retrieveIndividualProgressByMonth($stateParams.memberId), function (response) {
-						for (var i = 0; i < response.series.length; i++) {
-							if (response.series[i].grouping == 0 || response.series[i].grouping == 2) {
-								$scope.data.rptConfig0.series.push(response.series[i]);
-								$scope.data.rptConfig.series.push(response.series[i]);
+					Utility.getResource(Assessments.retrieveIndividuaProgressByMonth($stateParams.memberId), function (response) {
+						for (var i = 0; i < response.data.series.length; i++) {
+							var rData = response.data;
+							if (rData.series[i].grouping == 0 || rData.series[i].grouping == 2) {
+								$scope.data.rptConfig0.series.push(rData.series[i]);
+								$scope.data.rptConfig.series.push(rData.series[i]);
 							}
-							if (response.series[i].grouping == 1 || response.series[i].grouping == 2) {
-								response.series[i].visible = true;
-								$scope.data.rptConfig1.series.push(response.series[i]);
+							if (rData.series[i].grouping == 1 || rData.series[i].grouping == 2) {
+								rData.series[i].visible = true;
+								$scope.data.rptConfig1.series.push(rData.series[i]);
 							}
 						}
-						$scope.data.rptConfig.xAxis.categories = response.labels;
-						$scope.data.rptConfig0.xAxis.categories = response.labels;
-						$scope.data.rptConfig1.xAxis.categories = response.labels;
+						$scope.data.rptConfig.xAxis.categories = rData.labels;
+						$scope.data.rptConfig0.xAxis.categories = rData.labels;
+						$scope.data.rptConfig1.xAxis.categories = rData.labels;
 					});
 				}
 			};

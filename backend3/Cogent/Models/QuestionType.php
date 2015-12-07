@@ -1,6 +1,11 @@
 <?php
 namespace Cogent\Models;
 
+/**
+ * Class QuestionType
+ * @package Cogent\Models
+ * @method \Phalcon\Mvc\Model\Resultset\Simple getChoices()
+ */
 class QuestionType extends CogentModel {
 
 	/**
@@ -65,7 +70,7 @@ class QuestionType extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'QuestionChoice', 'question_type_id', ['alias' => 'QuestionChoice']);
+		$this->hasMany('id', 'Cogent\Models\QuestionChoice', 'question_type_id', ['alias' => 'Choices']);
 	}
 
 	/**
@@ -77,4 +82,21 @@ class QuestionType extends CogentModel {
 		return 'question_type';
 	}
 
+	/**
+	 * @param array $options
+	 *
+	 * @return array
+	 */
+	public function map($options = []) {
+		$map = parent::map();
+		$map['choices'] = [];
+		$choices = $this->getChoices();
+		if (!empty($choices)) {
+			/** @var QuestionChoice $choice */
+			foreach ($choices as $choice) {
+				$map['choices'][] = $choice->map();
+			}
+		}
+		return $map;
+	}
 }

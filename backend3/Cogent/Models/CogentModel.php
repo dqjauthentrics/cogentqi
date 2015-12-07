@@ -7,6 +7,10 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	const TYPE_DATETIME = 2;
 	const TYPE_INT = 3;
 	const TYPE_REAL = 4;
+
+	/** @var \Phalcon\Db\AdapterInterface $dbif */
+	private $dbif = NULL;
+
 	/**
 	 * @var array $colName Map  Map column names to their abbreviations when transmitting via JSON.
 	 */
@@ -100,8 +104,13 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	protected $mapExcludes = ['password'];
 	/** @var string[] $dateTimeCols Some columns might require special save/restore/format processing. */
 	protected $dateTimeCols = [];
-	/** @var \PDO $pdo */
-	protected $pdo = NULL;
+
+	/**
+	 * @return \Phalcon\Db\AdapterInterface
+	 */
+	public function getDBIF() {
+		return $this->getReadConnection();
+	}
 
 	/**
 	 * @return string
@@ -276,9 +285,11 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	}
 
 	/**
+	 * @param array $options
+	 *
 	 * @return array
 	 */
-	public function map() {
+	public function map($options = []) {
 		$jsonRecord = [];
 		// Get Phalcon\Mvc\Model\Metadata instance
 		$metaData = $this->getModelsMetaData();
@@ -300,14 +311,15 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	 * @param bool     $mapIt
 	 * @param string   $orderBy
 	 * @param string   $where
+	 * @param array    $whereParams
 	 *
-	 * @return CogentModel[]|array|null
+	 * @return CogentModel[]|CogentModel|array|null
 	 */
-	public function get($id = NULL, $mapIt = TRUE, $orderBy = 'id DESC', $where = '1=1') {
+	public function get($id = NULL, $mapIt = TRUE, $orderBy = 'id DESC', $where = '1=1', $whereParams = []) {
 		$data = !empty($id) ? NULL : [];
 		/** @var CogentModel $record */
 		if (empty($id)) {
-			$records = $this->query()->where($where)->orderBy($orderBy)->execute();
+			$records = $this->query()->where($where, $whereParams)->orderBy($orderBy)->execute();
 			if ($mapIt) {
 				foreach ($records as $record) {
 					$data[] = $record->map();
@@ -322,5 +334,21 @@ class CogentModel extends \Phalcon\Mvc\Model {
 			$data = $mapIt ? $record->map() : $record;
 		}
 		return $data;
+	}
+
+	/**
+	 * @param \Phalcon\Mvc\Model\Resultset $records
+	 * @param string                       $colName
+	 *
+	 * @return array
+	 */
+	public function getColumn($records, $colName) {
+		$colValues = [];
+		if (!empty($records)) {
+			foreach ($records as $record) {
+				$colValues[] = $record->$colName;
+			}
+		}
+		return $colValues;
 	}
 }

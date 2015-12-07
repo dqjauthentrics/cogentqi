@@ -5,6 +5,9 @@ namespace Cogent\Models;
  * Class Question
  * @package Cogent\Models
  * @method ResourceAlignment[] getResourceAlignments()
+ * @method QuestionType getType()
+ * @method QuestionGroup getGroup()
+ * @method \Phalcon\Mvc\Model\Resultset\Simple getResponses()
  */
 class Question extends CogentModel {
 
@@ -103,7 +106,8 @@ class Question extends CogentModel {
 		$this->hasMany('id', 'Cogent\Models\AssessmentResponse', 'question_id', ['alias' => 'Responses']);
 		$this->hasMany('id', 'Cogent\Models\OutcomeAlignment', 'question_id', ['alias' => 'OutcomeAlignments']);
 		$this->hasMany('id', 'Cogent\Models\ResourceAlignment', 'question_id', ['alias' => 'ResourceAlignments']);
-		$this->belongsTo('question_group_id', 'Cogent\Models\QuestionGroup', 'id', ['alias' => 'QuestionGroup']);
+		$this->belongsTo('question_group_id', 'Cogent\Models\QuestionGroup', 'id', ['alias' => 'Group']);
+		$this->belongsTo('question_type_id', 'Cogent\Models\QuestionType', 'id', ['alias' => 'Type']);
 	}
 
 	/**
@@ -115,4 +119,14 @@ class Question extends CogentModel {
 		return 'question';
 	}
 
+	/**
+	 * @param array $options
+	 *
+	 * @return array
+	 */
+	public function map($options = ['lastAssessment' => TRUE, 'badges' => TRUE, 'assessments' => FALSE, 'minimal' => FALSE]) {
+		$map = parent::map();
+		$map['type'] = $this->getType()->map();
+		return $map;
+	}
 }

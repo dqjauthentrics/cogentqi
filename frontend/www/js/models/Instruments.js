@@ -12,7 +12,7 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 	svc.currentSectionIdx = 0;
 
 	svc.retrieve = function () {
-		return $resource('/api2/instrument/:id/m/1', {}, {});
+		return $resource('/api3/instrument', {}, {query: {method: 'GET', isArray: false, cache: false}});
 	};
 	svc.groupName = function (group) {
 		if (group && group != undefined) {
@@ -29,10 +29,8 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 				instrument.sections = [];
 				for (var j = 0; j < gLen; j++) {
 					var questionGroup = groups[j];
-					//var previous = (j > 0 ? j + '. ' + groups[(j - 1)].tag : gLen + '. ' + groups[(groups.length - 1)].tag);
 					var previous = (j > 0 ? svc.groupName(groups[(j - 1)]) : svc.groupName(groups[(groups.length - 1)]));
 					var next = (j < gLen - 1 ? svc.groupName(groups[(j + 1)]) : svc.groupName(groups[0]));
-					//var next = j < gLen - 1 ? (j + 2) + '. ' + groups[(j + 1)].tag : '1. ' + groups[0].tag;
 					instrument.sections[j] = {
 						id: questionGroup.id,
 						nmb: questionGroup.nmb,
@@ -50,6 +48,22 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 					}
 				}
 			}
+		}
+	};
+
+	svc.getCollated = function (callbackFn) {
+		if (svc.list == null) {
+			Utility.getResource(svc.retrieve(), function (response) {
+				if (!Utility.empty(response)) {
+					svc.list = response.data;
+					svc.collate(svc.list);
+					svc.current = svc.list[0];
+					callbackFn(svc.list);
+				}
+			});
+		}
+		else {
+			callbackFn(svc.list);
 		}
 	};
 
@@ -176,8 +190,7 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 				svc.currentSectionIdx = 0;
 			}
 			try {
-				isCurrent = svc.currentSectionIdx >= 0 &&
-					!Utility.empty(instrument) && Array.isArray(instrument.sections) &&
+				isCurrent = svc.currentSectionIdx >= 0 && !Utility.empty(instrument) && Array.isArray(instrument.sections) &&
 					parseInt(instrument.sections[svc.currentSectionIdx].id) == parseInt(sectionId);
 			}
 			catch (exception) {

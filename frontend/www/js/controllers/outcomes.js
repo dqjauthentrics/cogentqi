@@ -13,7 +13,7 @@ angular.module('OutcomeControllers', [])
 			$scope.Instruments = Instruments;
 
 			Utility.getResource(Instruments.retrieve(), function (response) {
-				$scope.data.instruments = response;
+				$scope.data.instruments = response.data;
 				Instruments.collate($scope.data.instruments);
 				if (!Utility.empty(response)) {
 					$scope.setCurrentInstrument(response);
@@ -170,7 +170,7 @@ angular.module('OutcomeControllers', [])
 			$scope.data = {dirty: false, saving: false, alignments: [], instruments: [], currentInstrument: null, currentInstrumentId: 1};
 
 			Utility.getResource(Instruments.retrieve(), function (response) {
-				$scope.data.instruments = response;
+				$scope.data.instruments = response.data;
 				Instruments.collate($scope.data.instruments);
 				if (!Utility.empty($scope.data.instruments)) {
 					$scope.setCurrentInstrument($scope.data.instruments[0].id);

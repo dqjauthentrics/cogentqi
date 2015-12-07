@@ -25,7 +25,7 @@ angular.module('ControllerAdministrator', [])
 			};
 
 			Utility.getResource(InstrumentSchedule.retrieve(), function (response) {
-				$scope.data.scheduleItems = response;
+				$scope.data.scheduleItems = response.data;
 				if (!Utility.empty($scope.data.scheduleItems)) {
 					for (var i = 0; i < $scope.data.scheduleItems.length; i++) {
 						$scope.data.scheduleItems[i].sr = new Date($scope.data.scheduleItems[i].sr);
@@ -182,7 +182,7 @@ angular.module('ControllerAdministrator', [])
 			};
 
 			Utility.getResource(Instruments.retrieve(), function (response) {
-				$scope.data.instruments = response;
+				$scope.data.instruments = response.data;
 				Instruments.collate($scope.data.instruments);
 				if (!Utility.empty(response)) {
 					$scope.setCurrentInstrument(response[0].id);

@@ -1,6 +1,12 @@
 <?php
 namespace Cogent\Models;
 
+/**
+ * Class Module
+ * @package Cogent\Models
+ * @method @method \Phalcon\Mvc\Model\Resultset\Simple getPlanItems()
+ * @method Resource getResource()
+ */
 class Module extends CogentModel {
 
 	/**
@@ -59,8 +65,8 @@ class Module extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'PlanItem', 'module_id', ['alias' => 'PlanItem']);
-		$this->belongsTo('resource_id', 'Resource', 'id', ['alias' => 'Resource']);
+		$this->hasMany('id', 'Cogent\Models\PlanItem', 'module_id', ['alias' => 'PlanItems']);
+		$this->belongsTo('resource_id', 'Cogent\Models\Resource', 'id', ['alias' => 'Resource']);
 	}
 
 	/**
@@ -72,4 +78,9 @@ class Module extends CogentModel {
 		return 'module';
 	}
 
+	public function map($options = []) {
+		$map = parent::map();
+		$map['resource'] = $this->getResource()->map();
+		return $map;
+	}
 }

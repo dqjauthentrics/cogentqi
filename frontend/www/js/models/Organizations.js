@@ -19,7 +19,7 @@ angular.module('Organizations', []).service('Organizations', function ($resource
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
 			var orgId = !Utility.empty(organizationId)? organizationId : user.organizationId;
-			return $resource('/api3/organization/children/' + orgId + '/1', {}, {query: {method: 'GET', isArray: false}});
+			return $resource('/api3/organization/index/' + orgId + '/1', {}, {query: {method: 'GET', isArray: false}});
 		}
 		return null;
 	};

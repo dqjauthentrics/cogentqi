@@ -113,10 +113,10 @@ angular.module('ResourceControllers', [])
 			};
 
 			Utility.getResource(Instruments.retrieve(), function (response) {
-				$scope.data.instruments = response;
+				$scope.data.instruments = response.data;
 				Instruments.collate($scope.data.instruments);
 				if (!Utility.empty(response)) {
-					$scope.setCurrentInstrument(response[0].id);
+					$scope.setCurrentInstrument(response.data[0].id);
 				}
 			});
 			Utility.getResource(Resources.retrieve(), function (response) {

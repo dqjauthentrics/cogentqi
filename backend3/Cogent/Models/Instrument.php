@@ -1,11 +1,13 @@
 <?php
 namespace Cogent\Models;
+
 /**
  * Class Instrument
  * @package Cogent\Models
  *
  * @method QuestionType getQuestionType()
- * @method Instrument|Instrument[] get()
+ * @method Instrument|Instrument[] get($id = NULL, $mapIt = TRUE, $orderBy = 'id DESC', $where = '1=1', $whereParams = [])
+ * @method \Phalcon\Mvc\Model\Resultset\Simple getSchedule()
  */
 class Instrument extends CogentModel {
 
@@ -96,7 +98,7 @@ class Instrument extends CogentModel {
 	 */
 	public function initialize() {
 		$this->hasMany('id', 'Cogent\Models\Assessment', 'instrument_id', ['alias' => 'Assessments']);
-		$this->hasMany('id', 'Cogent\Models\InstrumentSchedule', 'instrument_id', ['alias' => 'InstrumentSchedule']);
+		$this->hasMany('id', 'Cogent\Models\InstrumentSchedule', 'instrument_id', ['alias' => 'Schedule']);
 		$this->hasMany('id', 'Cogent\Models\QuestionGroup', 'instrument_id', ['alias' => 'QuestionGroups']);
 		$this->belongsTo('role_id', 'Cogent\Models\AppRole', 'id', ['alias' => 'AppRole']);
 		$this->belongsTo('usage_id', 'Cogent\Models\AlgorithmUsage', 'id', ['alias' => 'AlgorithmUsage']);
@@ -150,6 +152,31 @@ class Instrument extends CogentModel {
 		}
 		$mapped["typeName"] = $this->getQuestionType()->name;
 		return $mapped;
+	}
+
+	/**
+	 * @param int $instrumentId
+	 * @param int $assessmentId
+	 *
+	 * @return array
+	 */
+	public static function createResponseTemplate($instrumentId, $assessmentId) {
+		$questions = Question::query()
+			->where('question_group_id IN (SELECT id FROM Cogent\Models\QuestionGroup WHERE instrument_id=:id:)', ['id' => $instrumentId])
+			->orderBy('sort_order')
+			->execute();
+		$responses = [];
+		foreach ($questions as $question) {
+			$responseInfo = [
+				'assessment_id'  => $assessmentId,
+				'question_id'    => $question->id,
+				'response'       => NULL,
+				'response_index' => NULL,
+			];
+			$response = new AssessmentResponse();
+			$responses[] = $response->update($responseInfo);
+		}
+		return $responses;
 	}
 
 }
