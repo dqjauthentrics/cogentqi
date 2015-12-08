@@ -31,10 +31,10 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 		var memberRec = {id: member.id, fn: member.fn, ln: member.ln, r: member.r, ph: member.ph, ad: member.ad, mb: member.mb};
 		$http.post("/api3/member/update", {member: memberRec})
 			.then(function (data, status, headers, config) {
-					  callbackFn(data.status, data.message);
+					  callbackFn(data);
 				  },
 				  function (data, status, headers, config) {
-					  callbackFn(0, data);
+					  callbackFn(data);
 				  });
 	};
 

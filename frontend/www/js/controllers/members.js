@@ -15,7 +15,7 @@ angular.module('MemberControllers', [])
 					$scope.data.member = response.data;
 					$scope.data.newNote.mi = response.id;
 					Utility.getResource(MemberNotes.retrieve($stateParams.memberId), function (response) {
-						$scope.data.notes = response;
+						$scope.data.notes = response.data;
 					});
 				});
 			}
@@ -30,8 +30,8 @@ angular.module('MemberControllers', [])
 					for (var i = 0; i < $scope.data.notes.length; i++) {
 						if ($scope.data.notes[i].id == note.id) {
 							note.workingTrash = true;
-							MemberNotes.remove(note.id, function (status, data) {
-								if (status == 200) {
+							MemberNotes.remove(note.id, function (response) {
+								if (response.status) {
 									$scope.data.notes.splice(i, 1);
 									note.workingTrash = null;
 								}
@@ -45,8 +45,8 @@ angular.module('MemberControllers', [])
 				if (Utility.empty($scope.data.newNote.ct)) {
 					Utility.popup('Nothing to Save!', 'You must enter some note text before saving it.');
 				}
-				MemberNotes.save($scope.data.newNote, function (status, data) {
-					if (status == 200) {
+				MemberNotes.save($scope.data.newNote, function (response) {
+					if (response.status) {
 						$scope.data.notes.unshift(data);
 						$scope.data.newNote.ct = '';
 					}
@@ -55,20 +55,20 @@ angular.module('MemberControllers', [])
 			$scope.flag = function (note) {
 				note.flag = note.flag == 0 ? 1 : 0;
 				note.workingFlag = true;
-				MemberNotes.save(note, function (status, data) {
+				MemberNotes.save(note, function (response) {
 					note.workingFlag = null;
 				});
 			};
 			$scope.thumbsUp = function (note) {
 				note.flag = note.flag == 2 ? 0 : 2;
 				note.workingThumb = true;
-				MemberNotes.save(note, function (status, data) {
+				MemberNotes.save(note, function (response) {
 					note.workingThumb = null;
 				});
 			};
 			$scope.save = function (note) {
 				note.workingSave = true;
-				MemberNotes.save(note, function (status, data) {
+				MemberNotes.save(note, function (response) {
 					note.dirty = null;
 					note.workingSave = null;
 				});
@@ -146,9 +146,8 @@ angular.module('MemberControllers', [])
 				return !$rootScope.roleIs([APP_ROLES.PROFESSIONAL]);
 			};
 			$scope.save = function () {
-				Members.saveProfile(Members.current, function (response, data) {
-					console.log('response', data);
-					Utility.statusAlert(response);
+				Members.saveProfile(Members.current, function (response) {
+					Utility.statusAlert(response.message);
 					Members.list = null; // force reload of list
 				});
 				$scope.data.dirty = false;

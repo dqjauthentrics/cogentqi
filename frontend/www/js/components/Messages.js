@@ -11,15 +11,14 @@ angular.module('Messages', []).service('Messages', [
 
 		svc.sendText = function (member, message) {
 			if (!Utility.empty(message)) {
-				$http({
-					method: 'POST',
-					url: "/api2/message",
-					data: $.param({memberId: member.id, message: message}),
-					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-				}).success(function (data, status, headers, config) {
-					Utility.popup('Done', 'Message sent.');
-				}).error(function (data, status, headers, config) {
-				});
+				var user = $cookieStore.get('user');
+				$http.post("/api3/message/send", {senderId: user.id, memberId: member.id, message: message})
+					.then(function (data, status, headers, config) {
+							  Utility.popup('Done', 'Message sent.');
+						  },
+						  function (data, status, headers, config) {
+							  Utility.popup('Sorry!', 'There was a problem sending the message.');
+						  });
 			}
 		};
 	}
