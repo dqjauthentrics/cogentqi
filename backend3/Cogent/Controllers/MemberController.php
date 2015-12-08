@@ -65,7 +65,7 @@ class MemberController extends ControllerBase {
 	public function getProfileAction($id = NULL) {
 		$result = new Result($this);
 		$member = Member::findFirst($id);
-		$data = $member->map(['assessments' => TRUE, 'lastAssessment' => TRUE, 'badges' => TRUE]);
+		$data = $member->map(['assessments' => TRUE, 'lastAssessment' => TRUE, 'badges' => TRUE, 'notes' => TRUE]);
 		$result->sendNormal($data);
 	}
 

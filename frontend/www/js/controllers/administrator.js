@@ -189,7 +189,7 @@ angular.module('ControllerAdministrator', [])
 				}
 			});
 			Utility.getResource(Organizations.retrieve(), function (response) {
-				$scope.data.organizations = response;
+				$scope.data.organizations = response.data;
 			});
 
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.instrumentId)) {

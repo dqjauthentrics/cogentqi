@@ -66,9 +66,9 @@ class Role extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		//$this->hasMany('id', 'Instrument', 'role_id', ['alias' => 'Instrument']);
-		//$this->hasMany('id', 'InstrumentScheduleOperation', 'role_id', ['alias' => 'InstrumentScheduleOperation']);
-		$this->hasMany('id', 'Member', 'role_id', ['alias' => 'Member']);
+		$this->hasMany('id', 'Cogent\Models\Instrument', 'role_id', ['alias' => 'Instruments']);
+		$this->hasMany('id', 'Cogent\Models\InstrumentScheduleOperation', 'role_id', ['alias' => 'InstrumentScheduleOperations']);
+		$this->hasMany('id', 'Cogent\Models\Member', 'role_id', ['alias' => 'Members']);
 	}
 
 	/**

@@ -4,6 +4,14 @@ namespace Cogent\Models;
 use Cogent\Components\Utility;
 use Phalcon\Mvc\Model\Validator\Email as Email;
 
+/**
+ * Class Member
+ * @package Cogent\Models
+ *
+ * @property \Phalcon\Mvc\Model\Resultset\Simple|MemberBadge[] $badges
+ * @property \Phalcon\Mvc\Model\Resultset\Simple|MemberNote[]  $notes
+ * @property \Phalcon\Mvc\Model\Resultset\Simple|Assessment[]  $assessments
+ */
 class Member extends CogentModel {
 
 	/**
@@ -184,6 +192,7 @@ class Member extends CogentModel {
 		$this->hasMany('id', 'Cogent\Models\Recommendation', 'member_id', ['alias' => 'Recommendations']);
 		$this->hasMany('id', 'Cogent\Models\MemberBadge', 'member_id', ['alias' => 'MemberBadges']);
 		$this->hasMany('id', 'Cogent\Models\Relationship', 'superior_id', ['alias' => 'Subordinates']);
+		$this->hasMany('id', 'Cogent\Models\MemberNote', 'member_id', ['alias' => 'Notes']);
 
 		$this->belongsTo('role_id', 'Cogent\Models\Role', 'id', ['alias' => 'Role', 'foreignKey' => TRUE]);
 		$this->belongsTo('organization_id', "Cogent\Models\Organization", 'id', ['alias' => 'Organization', 'foreignKey' => TRUE]);
@@ -194,7 +203,7 @@ class Member extends CogentModel {
 	 *
 	 * @return array
 	 */
-	public function map($options = ['lastAssessment' => TRUE, 'badges' => TRUE, 'assessments' => FALSE, 'minimal' => FALSE]) {
+	public function map($options = ['lastAssessment' => TRUE, 'badges' => TRUE, 'assessments' => FALSE, 'notes' => FALSE, 'minimal' => FALSE]) {
 		$map = parent::map();
 		$map['ari'] = $this->role->app_role_id;
 		$map['role'] = $this->role->name;
@@ -206,6 +215,13 @@ class Member extends CogentModel {
 					$jsonBadges[] = $badge->map();
 				}
 				$map["badges"] = $jsonBadges;
+			}
+			if (!empty($options['notes'])) {
+				$jsonNotes = [];
+				foreach ($this->notes as $note) {
+					$jsonNotes[] = $note->map();
+				}
+				$map["notes"] = $jsonNotes;
 			}
 			if (!empty($options['assessments'])) {
 				$jsonAssessments = [];

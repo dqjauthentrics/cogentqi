@@ -307,11 +307,11 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	}
 
 	/**
-	 * @param null|int $id
-	 * @param bool     $mapIt
-	 * @param string   $orderBy
-	 * @param string   $where
-	 * @param array    $whereParams
+	 * @param null|int|string $id
+	 * @param bool            $mapIt
+	 * @param string          $orderBy
+	 * @param string          $where
+	 * @param array           $whereParams
 	 *
 	 * @return CogentModel[]|CogentModel|array|null
 	 */
@@ -330,7 +330,7 @@ class CogentModel extends \Phalcon\Mvc\Model {
 			}
 		}
 		else {
-			$record = $this->findFirst($id);
+			$record = $this->findFirst(['id' => $id]);
 			$data = $mapIt ? $record->map() : $record;
 		}
 		return $data;

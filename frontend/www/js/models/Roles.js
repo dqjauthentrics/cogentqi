@@ -8,6 +8,6 @@ angular.module('Roles', []).service('Roles', function ($cookieStore, $resource, 
 	var svc = this;
 
 	svc.retrieve = function () {
-		return $resource('/api2/role', {}, {});
+		return $resource('/api3/role', {}, {query: {method: 'GET', isArray: false, cache: false}});
 	};
 });

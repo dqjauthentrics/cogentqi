@@ -16,6 +16,7 @@ angular.module('app',
 				   'ngCookies',
 				   'ngAnimate',
 				   'ngResource',
+				   'ui.calendar',
 				   'ui.bootstrap',
 				   'xeditable',
 				   'vr.directives.slider',
@@ -110,7 +111,7 @@ angular.module('app',
 				StatusBar.styleDefault();
 			}
 			Utility.getResource(Roles.retrieve(), function (response) {
-				$rootScope.roles = response;
+				$rootScope.roles = response.data;
 			});
 
 			angularLoad.loadCSS('/site/' + subdomain + '/theme.css').then(function () {
