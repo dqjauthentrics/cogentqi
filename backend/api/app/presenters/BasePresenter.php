@@ -200,4 +200,14 @@ class BasePresenter extends ResourcePresenter {
 		}
 		return NULL;
 	}
+
+	/**
+	 * Returns the current date/time in a format suitable for storing in the DB, in GMT.
+	 *
+	 * @return string
+	 */
+	public static function dbDateTime() {
+		return gmdate("Y-m-d H:i:s");
+	}
+
 }

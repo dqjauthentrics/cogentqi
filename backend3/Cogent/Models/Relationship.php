@@ -1,6 +1,7 @@
 <?php
+namespace Cogent\Models;
 
-class Relationship extends Cogent\Models\CogentModel {
+class Relationship extends CogentModel {
 
 	/**
 	 *
@@ -46,6 +47,14 @@ class Relationship extends Cogent\Models\CogentModel {
 	 */
 	public static function findFirst($parameters = NULL) {
 		return parent::findFirst($parameters);
+	}
+
+	/**
+	 * Initialize method for model.
+	 */
+	public function initialize() {
+		$this->belongsTo('superior_id', 'Member', 'id', ['alias' => 'Superior', 'foreignKey' => TRUE]);
+		$this->belongsTo('subordinate_id', "Member", 'id', ['alias' => 'Subordinate', 'foreignKey' => TRUE]);
 	}
 
 	/**

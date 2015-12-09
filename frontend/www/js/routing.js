@@ -49,12 +49,6 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 				settings: {templateUrl: 'templates/administrator/schedule.html', controller: 'AdminScheduleCtrl'}
 			}
 		})
-		.state('administrator.planning', {
-			url: '/planning',
-			views: {
-				settings: {templateUrl: 'templates/manager/planning.html', controller: 'PlanningCtrl'}
-			}
-		})
 		.state('administrator.progress', {
 			url: '/progress',
 			views: {
@@ -95,6 +89,15 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 			url: '/list',
 			views: {
 				assessments: {templateUrl: 'templates/assessment/list.html', controller: 'AssessmentListCtrl'}
+			}
+		})
+
+		// Modules
+		.state('module', {url: "/module", abstract: true, templateUrl: "templates/common/tabs.html", controller: "CommonTabsCtrl"})
+		.state('module.list', {
+			url: '/list',
+			views: {
+				resources: {templateUrl: 'templates/module/list.html', controller: 'ModuleListCtrl'}
 			}
 		})
 

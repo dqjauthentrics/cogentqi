@@ -15,6 +15,14 @@ class Result {
 	const CODE_NOT_ALLOWED = 403;
 	const CODE_EXCEPTION = 500;
 
+	const MESSAGES = [
+		self::CODE_NORMAL          => 'Okay',
+		self::CODE_INVALID_REQUEST => 'Invalid request.',
+		self::CODE_NOT_FOUND       => 'Not found.',
+		self::CODE_NOT_ALLOWED     => 'Permission denied.',
+		self::CODE_EXCEPTION       => 'Error.',
+	];
+
 	/**
 	 * @var int $status
 	 */
@@ -36,28 +44,40 @@ class Result {
 	public $data = NULL;
 
 	/**
+	 * @var int $duration
+	 */
+	public $duration = 0;
+
+	/**
+	 * @var \Cogent\Controllers\ControllerBase $controller
+	 */
+	public $controller = NULL;
+
+	/**
 	 * AjaxResult constructor.
 	 *
-	 * @param int         $status
-	 * @param string|null $message
-	 * @param int         $code
+	 * @param \Cogent\Controllers\ControllerBase $controller
+	 * @param int                                $status
+	 * @param string|null                        $message
+	 * @param int                                $code
 	 */
-	function __construct($status = self::STATUS_ERROR, $message = NULL, $code = self::CODE_NORMAL, $data = NULL) {
+	function __construct($controller = NULL, $status = self::STATUS_ERROR, $message = NULL, $code = self::CODE_NORMAL, $data = NULL) {
 		$this->status = $status;
 		$this->message = $message;
 		$this->code = $code;
 		$this->data = $data;
+		$this->controller = $controller;
 	}
 
 	/**
 	 * @param \Exception $exception
 	 * @param mixed      $data
 	 */
-	public function setException($exception, $data = NULL) {
+	public function setException($exception, $data = FALSE) {
 		$this->status = self::STATUS_ERROR;
 		$this->code = 500;
 		$this->message = $exception->getMessage();
-		if (!empty($data)) {
+		if ($data !== FALSE) {
 			$this->data = $data;
 		}
 	}
@@ -71,53 +91,63 @@ class Result {
 		if ($data !== NULL) {
 			$this->data = $data;
 		}
-		return ['status' => $this->status, 'code' => $this->code, 'message' => $this->message, 'data' => $this->data];
+		if (!empty($this->controller)) {
+			$this->duration = (double)number_format($this->controller->executionTime(), 5);
+		}
+		return [
+			'status'   => $this->status,
+			'code'     => $this->code,
+			'duration' => $this->duration,
+			'message'  => $this->message,
+			'data'     => $this->data
+		];
 	}
 
 	/**
-	 * @param mixed|null $data
 	 */
 	public function send() {
-		if ($this->code == self::CODE_NORMAL) {
-			echo json_encode($this->package($this->data));
-		}
-		else {
-			$response = new \Phalcon\Http\Response();
-			$response->setStatusCode($this->code);
-			$response->send();
-		}
-		exit(0);
+		echo json_encode($this->package($this->data));
+		//exit(0);
 	}
 
 	/**
 	 * @param mixed $data
 	 */
-	public function setNormal($data) {
+	public function setNormal($data = FALSE) {
 		$this->status = Result::STATUS_OKAY;
-		$this->data = $data;
+		if ($data !== FALSE) {
+			$this->data = $data;
+		}
 	}
 
 	/**
 	 * @param int $code
 	 */
-	public function setError($code) {
+	public function setError($code = self::CODE_INVALID_REQUEST, $message = FALSE) {
 		$this->status = Result::STATUS_ERROR;
 		$this->code = $code;
+		if ($message !== FALSE) {
+			$this->message = $message;
+		}
+		else {
+			$this->message = self::MESSAGES[$code];
+		}
 	}
 
 	/**
 	 * @param mixed $data
 	 */
-	public function sendNormal($data) {
+	public function sendNormal($data = FALSE) {
 		$this->setNormal($data);
 		$this->send();
+		exit();
 	}
 
 	/**
 	 * @param int $code
 	 */
-	public function sendError($code) {
-		$this->setError($code);
+	public function sendError($code = self::CODE_INVALID_REQUEST, $message = FALSE) {
+		$this->setError($code, $message);
 		$this->send();
 	}
 }

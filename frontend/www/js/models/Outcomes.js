@@ -12,18 +12,20 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 	svc.retrieve = function () {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			return $resource('/api2/outcome', {}, {});
+			return $resource('/api3/outcome', {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;
 	};
 	svc.retrieveSingle = function (outcomeId) {
-		if (!Utility.empty(outcomeId)) {
-			return $resource('/api2/outcome/' + outcomeId + '/m/1', {}, {query: {method: 'GET', isArray: false, cache: false}});
+		var user = $cookieStore.get('user');
+		if (!Utility.empty(user) && !Utility.empty(outcomeId)) {
+			var orgId = user.oi;
+			return $resource('/api3/outcome/get/' + outcomeId + '/' + orgId, {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;
 	};
 	svc.retrieveForOrg = function (parentOrgId) {
-		var url = '/api2/outcome/' + parentOrgId + '/r/organizations';
+		var url = '/api3/outcome/byOrganization/' + parentOrgId;
 		return $resource(url, {}, {query: {method: 'GET', isArray: false, cache: false}});
 	};
 
@@ -38,16 +40,13 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 
 	svc.saveAlignments = function (instrumentId, outcomeId, alignments, callbackFn) {
 		try {
-			$http({
-					  method: 'PUT',
-					  url: "/api2/outcome-alignment",
-					  data: $.param({instrumentId: instrumentId, outcomeId: outcomeId, alignments: alignments}),
-					  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-				  }).success(function (data, status, headers, config) {
-				callbackFn(data, data);
-			}).error(function (data, status, headers, config) {
-				callbackFn(0, data);
-			});
+			$http.post("/api3/outcome/saveAlignments", {instrumentId: instrumentId, outcomeId: outcomeId, alignments: alignments})
+				.then(function (data, status, headers, config) {
+						  callbackFn(data.status, data.message);
+					  },
+					  function (data, status, headers, config) {
+						  callbackFn(0, data);
+					  });
 		}
 		catch (exception) {
 			callbackFn(0, exception);

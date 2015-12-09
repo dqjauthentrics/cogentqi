@@ -16,6 +16,7 @@ angular.module('app',
 				   'ngCookies',
 				   'ngAnimate',
 				   'ngResource',
+				   'ui.calendar',
 				   'ui.bootstrap',
 				   'xeditable',
 				   'vr.directives.slider',
@@ -42,6 +43,7 @@ angular.module('app',
 				   'LearningModules',
                    'QuestionGroups',
 				   'Events',
+				   'Modules',
 				   'Outcomes',
 				   'ControllerCommon',
 				   'MemberControllers',
@@ -52,6 +54,7 @@ angular.module('app',
 				   'EventControllers',
 				   'AssessmentControllers',
 				   'HelpControllers',
+				   'ModuleControllers',
 				   'ResourceControllers',
 				   'ControllerManager',
 				   'ControllerAdministrator',
@@ -113,7 +116,7 @@ angular.module('app',
 				StatusBar.styleDefault();
 			}
 			Utility.getResource(Roles.retrieve(), function (response) {
-				$rootScope.roles = response;
+				$rootScope.roles = response.data;
 			});
 
 			angularLoad.loadCSS('/site/' + subdomain + '/theme.css').then(function () {
@@ -197,9 +200,7 @@ angular.module('app',
 				return $rootScope.roleInfix() == APP_ROLES.PROFESSIONAL;
 			};
 			$rootScope.roleIs = function (roleNames) {
-				var isRole = $.inArray($rootScope.roleInfix(), roleNames) >= 0;
-				console.log("roleIs:", roleNames, $rootScope.roleInfix(), isRole);
-				return isRole;
+				return $.inArray($rootScope.roleInfix(), roleNames) >= 0;
 			};
 
 			$rootScope.roleView = function (urlPortion) {

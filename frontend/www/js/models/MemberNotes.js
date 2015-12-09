@@ -8,32 +8,26 @@ angular.module('MemberNotes', []).service('MemberNotes', function ($http, $resou
 	var svc = this;
 
 	svc.retrieve = function (memberId) {
-		return $resource('/api2/member/' + memberId + '/r/notes');
+		return $resource('/api3/memberNotes/' + memberId, {}, {query: {method: 'GET', isArray: false, cache: false}});
 	};
 
 	svc.save = function (note, callbackFn) {
-		$http({
-			method: 'PUT',
-			url: "/api2/member-note",
-			data: $.param({note: note}),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).success(function (data, status, headers, config) {
-			callbackFn(status, data);
-		}).error(function (data, status, headers, config) {
-			callbackFn(0, data);
-		});
+		$http.post("/api3/memberNote/update", {note: note})
+			.then(function (data, status, headers, config) {
+					  callbackFn(data);
+				  },
+				  function (data, status, headers, config) {
+					  callbackFn(data);
+				  });
 	};
 
 	svc.remove = function (id, callbackFn) {
-		$http({
-			method: 'DELETE',
-			url: "/api2/member-note",
-			data: $.param({id: id}),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).success(function (data, status, headers, config) {
-			callbackFn(status, data);
-		}).error(function (data, status, headers, config) {
-			callbackFn(0, data);
-		});
+		$http.post("/api3/memberNote/delete/" + id)
+			.then(function (data, status, headers, config) {
+					  callbackFn(data);
+				  },
+				  function (data, status, headers, config) {
+					  callbackFn(data);
+				  });
 	};
 });

@@ -11,13 +11,13 @@ angular.module('Authentication', []).service('Authentication', function ($rootSc
 	svc.login2 = function (username, password) {
 		$http({
 			method: 'POST',
-			url: "/api2/sign/in",
+			url: "/api3/session/login",
 			data: $.param({username: username, password: password}),
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		}).success(function (data, status, headers, config) {
-			//console.log("api2 login succeeded", data);
+			console.log("api3 login succeeded", data);
 		}).error(function (data, status, headers, config) {
-			//console.log("api2 login failed");
+			console.log("api3 login failed");
 		});
 	};
 
@@ -71,6 +71,7 @@ angular.module('Authentication', []).service('Authentication', function ($rootSc
 					if (!Utility.empty(result) && result.status) {
 						result.data.home = svc.getUserDashUrl(result.data);
 						$cookieStore.put('user', result.data);
+						svc.login2(email, password);
 						$rootScope.user = $cookieStore.get('user');
 						if (!Utility.empty(result.data)) {
 							successFn($rootScope.user);

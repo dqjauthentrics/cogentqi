@@ -13,7 +13,7 @@ angular.module('ControllerProfessional', [])
 
 		try {
 			Utility.getResource(Instruments.retrieve(), function (response) {
-				$scope.data.instruments = response;
+				$scope.data.instruments = response.data;
 			});
 			Utility.getResource(Members.retrieve(), function (response) {
 				$scope.data.members = response;
@@ -23,7 +23,7 @@ angular.module('ControllerProfessional', [])
 				$scope.data.planItems = response;
 			});
 			Utility.getResource(Assessments.retrieveForMember($scope.data.user.id), function (response) {
-				$scope.data.assessments = response;
+				$scope.data.assessments = response.data;
 				$scope.associate("evals");
 			});
 			$scope.recommendationFilter = function(planItem) {

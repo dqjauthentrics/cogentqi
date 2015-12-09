@@ -13,16 +13,16 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 	svc.retrieve = function () {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			return $resource('/api2/organization/' + user.organizationId + '/r/assessments', {}, {cache: false});
+			return $resource('/api3/assessment/byOrganization/' + user.organizationId, {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;
 	};
-	svc.save = function (assessment, callbackFn) {
+	svc.save = function (assessment, memberId, callbackFn) {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			$http.post("/api2/assessment", {assessment: assessment})
+			$http.post('/api3/assessment/update/' + memberId + '/' + user.id, {assessment: assessment})
 				.then(function (data, status, headers, config) {
-						  callbackFn(data.status, data.message);
+						  callbackFn(data);
 					  },
 					  function (data, status, headers, config) {
 						  callbackFn(0, data);
@@ -30,9 +30,17 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 		}
 		return null;
 	};
+	svc.lock = function (assessmentId, newState) {
+		var user = $cookieStore.get('user');
+		if (!Utility.empty(user)) {
+			return $resource('/api3/assessment/lock/' + user.id + '/' + assessmentId + '/' + newState, {},
+							 {query: {method: 'GET', isArray: false, cache: false}});
+		}
+		return null;
+	};
 	svc.retrieveSingle = function (assessmentId) {
 		if (!Utility.empty(assessmentId)) {
-			return $resource('/api2/assessment/' + assessmentId + '/m/1', {}, {query: {method: 'GET', isArray: false, cache: false}});
+			return $resource('/api3/assessment/get/' + assessmentId, {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;
 	};
@@ -79,7 +87,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 	};
 	svc.retrieveForMember = function (memberId) {
 		if (!Utility.empty(memberId)) {
-			return $resource('/api2/member/' + memberId + '/r/assessments', {}, {cache: false});
+			return $resource('/api3/assessment/byMember/' + memberId, {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;
 	};
@@ -93,7 +101,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 			}
 		}
 		if (!Utility.empty(instrumentId) && !Utility.empty(orgId)) {
-			return $resource('/api2/assessment/matrix/o/' + orgId + '/i/' + instrumentId, {}, {cache: false});
+			return $resource('/api3/assessment/matrix/' + orgId + '/' + instrumentId, {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;
 	};
@@ -108,7 +116,7 @@ angular.module('Assessments', []).service('Assessments', function ($resource, $f
 	};
 	svc.retrieveIndividualProgressByMonth = function (memberId) {
 		if (!Utility.empty(memberId)) {
-			return $resource('/api2/assessment/report/pbmi/m/' + memberId, {}, {query: {method: 'GET', isArray: false, cache: false}});
+			return $resource('/api3/assessment/memberProgressByMonth/' + memberId, {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;
 	};

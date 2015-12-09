@@ -1,112 +1,132 @@
 <?php
+namespace Cogent\Models;
 
-class Question extends Cogent\Models\CogentModel {
+/**
+ * Class Question
+ * @package Cogent\Models
+ * @method ResourceAlignment[] getResourceAlignments()
+ * @method QuestionType getType()
+ * @method QuestionGroup getGroup()
+ * @method \Phalcon\Mvc\Model\Resultset\Simple getResponses()
+ */
+class Question extends CogentModel {
 
-    /**
-     *
-     * @var integer
-     */
-    public $id;
+	/**
+	 *
+	 * @var integer
+	 */
+	public $id;
 
-    /**
-     *
-     * @var integer
-     */
-    public $question_group_id;
+	/**
+	 *
+	 * @var integer
+	 */
+	public $question_group_id;
 
-    /**
-     *
-     * @var integer
-     */
-    public $question_type_id;
+	/**
+	 *
+	 * @var integer
+	 */
+	public $question_type_id;
 
-    /**
-     *
-     * @var integer
-     */
-    public $sort_order;
+	/**
+	 *
+	 * @var integer
+	 */
+	public $sort_order;
 
-    /**
-     *
-     * @var string
-     */
-    public $number;
+	/**
+	 *
+	 * @var string
+	 */
+	public $number;
 
-    /**
-     *
-     * @var string
-     */
-    public $name;
+	/**
+	 *
+	 * @var string
+	 */
+	public $name;
 
-    /**
-     *
-     * @var string
-     */
-    public $summary;
+	/**
+	 *
+	 * @var string
+	 */
+	public $summary;
 
-    /**
-     *
-     * @var string
-     */
-    public $description;
+	/**
+	 *
+	 * @var string
+	 */
+	public $description;
 
-    /**
-     *
-     * @var integer
-     */
-    public $importance;
+	/**
+	 *
+	 * @var integer
+	 */
+	public $importance;
 
-    /**
-     *
-     * @var string
-     */
-    public $outcome_threshold;
+	/**
+	 *
+	 * @var string
+	 */
+	public $outcome_threshold;
 
-    /**
-     *
-     * @var string
-     */
-    public $event_threshold;
+	/**
+	 *
+	 * @var string
+	 */
+	public $event_threshold;
 
-    /**
-     * Allows to query a set of records that match the specified conditions
-     *
-     * @param mixed $parameters
-     *
-     * @return Question[]
-     */
-    public static function find($parameters = NULL) {
-        return parent::find($parameters);
-    }
+	/**
+	 * Allows to query a set of records that match the specified conditions
+	 *
+	 * @param mixed $parameters
+	 *
+	 * @return Question[]
+	 */
+	public static function find($parameters = NULL) {
+		return parent::find($parameters);
+	}
 
-    /**
-     * Allows to query the first record that match the specified conditions
-     *
-     * @param mixed $parameters
-     *
-     * @return Question
-     */
-    public static function findFirst($parameters = NULL) {
-        return parent::findFirst($parameters);
-    }
+	/**
+	 * Allows to query the first record that match the specified conditions
+	 *
+	 * @param mixed $parameters
+	 *
+	 * @return Question
+	 */
+	public static function findFirst($parameters = NULL) {
+		return parent::findFirst($parameters);
+	}
 
-    /**
-     * Initialize method for model.
-     */
-    public function initialize() {
-        $this->hasMany('id', 'AssessmentResponse', 'question_id', ['alias' => 'AssessmentResponse']);
-        $this->hasMany('id', 'OutcomeAlignment', 'question_id', ['alias' => 'OutcomeAlignment']);
-        $this->hasMany('id', 'ResourceAlignment', 'question_id', ['alias' => 'ResourceAlignment']);
-        $this->belongsTo('question_group_id', 'QuestionGroup', 'id', ['alias' => 'QuestionGroup']);
-    }
+	/**
+	 * Initialize method for model.
+	 */
+	public function initialize() {
+		$this->hasMany('id', 'Cogent\Models\AssessmentResponse', 'question_id', ['alias' => 'Responses']);
+		$this->hasMany('id', 'Cogent\Models\OutcomeAlignment', 'question_id', ['alias' => 'OutcomeAlignments']);
+		$this->hasMany('id', 'Cogent\Models\ResourceAlignment', 'question_id', ['alias' => 'ResourceAlignments']);
+		$this->belongsTo('question_group_id', 'Cogent\Models\QuestionGroup', 'id', ['alias' => 'Group']);
+		$this->belongsTo('question_type_id', 'Cogent\Models\QuestionType', 'id', ['alias' => 'Type']);
+	}
 
-    /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource() {
-        return 'question';
-    }
+	/**
+	 * Returns table name mapped in the model.
+	 *
+	 * @return string
+	 */
+	public function getSource() {
+		return 'question';
+	}
 
+	/**
+	 * @param array $options
+	 *
+	 * @return array
+	 */
+	public function map($options = ['lastAssessment' => TRUE, 'badges' => TRUE, 'assessments' => FALSE, 'minimal' => FALSE]) {
+		$map = parent::map();
+		$map['type'] = $this->getType()->map();
+		return $map;
+	}
 }

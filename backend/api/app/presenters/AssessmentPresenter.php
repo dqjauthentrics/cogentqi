@@ -17,6 +17,32 @@ class AssessmentPresenter extends BasePresenter {
 
 	/**
 	 * @param int $id
+	 *
+	 * @return \Nette\Database\Table\IRow|array
+	 */
+	public function retrieve($id, $doMapping = FALSE) {
+		$tableName = $this->tableName();
+		if (!empty($id)) {
+			$result = $this->database->table($tableName)->get($id);
+			if ($doMapping && !empty($result)) {
+				$result = $this->database->map($result);
+			}
+		}
+		else {
+			$result = $this->database->table($tableName)->order('last_modified DESC')->fetchAll();
+			if ($doMapping && !empty($result)) {
+				$jsonRecords = [];
+				foreach ($result as $record) {
+					$jsonRecords[] = $this->database->map($record);
+				}
+				$result = $jsonRecords;
+			}
+		}
+		return $result;
+	}
+
+	/**
+	 * @param int $id
 	 * @param int $mode
 	 *
 	 * @throws \App\Components\AjaxException
@@ -63,41 +89,42 @@ class AssessmentPresenter extends BasePresenter {
 	 */
 	private function save($formAssessment) {
 		$result = new AjaxResult();
-		$transacted = false;
+		$transacted = FALSE;
 		try {
 			if (!empty($formAssessment)) {
 				$this->database->beginTransaction();
-				$transacted = true;
+				$transacted = TRUE;
 				$dbAssessment = $this->database->table('assessment')->where('id=?', $formAssessment["id"])->fetch();
-				if (!empty($assessmentRecord)) {
+				if (!empty($dbAssessment)) {
+					$saveDateTime = $this->dbDateTime();
 					$simpleRec = [
+						"member_id"         => $formAssessment["member"]["id"],
 						"score"             => $formAssessment["sc"],
 						"rank"              => $formAssessment["rk"],
-						"last_saved"        => $this->database->dbDateTme(),
+						"last_saved"        => $saveDateTime,
+						"last_modified"     => $saveDateTime,
 						"assessor_comments" => $formAssessment["ac"],
 						"member_comments"   => $formAssessment["mc"],
 						"edit_status"       => $formAssessment["es"],
 						"view_status"       => $formAssessment["vs"]
 					];
 					$dbAssessment->update($simpleRec);
-					$formSections = $formAssessment['sections'];
+					$formSections = $formAssessment['instrument']['sections'];
 					if (!empty($formSections)) {
 						foreach ($formSections as $formSection) {
 							$formQuestions = $formSection['questions'];
 							if (!empty($formQuestions)) {
 								foreach ($formQuestions as $formQuestion) {
-									$dbResponse = $this->database->table('assessment_response');
+									$response = $formQuestion["rsp"];
+									$dbResponse = $this->database->table('assessment_response')->where('id=' . $response['id']);
 									if (!empty($dbResponse)) {
-										$response = $formQuestion["rsp"];
 										$responseUpdater = [
 											"response_index"    => (int)$response["rdx"],
 											"response"          => !empty($response["rp"]) ? $response["rp"] : NULL,
 											"assessor_comments" => $response["ac"],
 											"member_comments"   => $response["mc"]
 										];
-										if (!$dbResponse->update($responseUpdater)) {
-											throw new \Exception("Error saving response.");
-										}
+										$dbResponse->update($responseUpdater);
 									}
 								}
 							}
@@ -117,7 +144,8 @@ class AssessmentPresenter extends BasePresenter {
 			if ($transacted) {
 				$this->database->rollBack();
 			}
-			throw new AjaxException(AjaxException::ERROR_FATAL, $exception->getMessage());
+			//throw new AjaxException(AjaxException::ERROR_FATAL, $exception->getMessage());
+			$result->data = $exception;
 		}
 		return $result;
 	}
@@ -127,7 +155,8 @@ class AssessmentPresenter extends BasePresenter {
 	 * @param int $assessorId
 	 */
 	public function actionCreate($memberId, $assessorId) {
-		$formAssessment = $this->request->getPost("assessment");
+		$data = json_decode(file_get_contents('php://input'), TRUE);
+		$formAssessment = $data['assessment'];
 		if (!empty($formAssessment)) {
 			$result = $this->save($formAssessment);
 		}

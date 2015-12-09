@@ -19,7 +19,7 @@ class SessionController extends \Cogent\Controllers\ControllerBase {
 	 * Authenticate and log a user into the application.
 	 */
 	public function loginAction() {
-		$result = new Result();
+		$result = new Result($this);
 		$data = '';
 		if ($this->request->isPost()) {
 			$username = $this->request->getPost('username');
@@ -51,7 +51,7 @@ class SessionController extends \Cogent\Controllers\ControllerBase {
 	 * @return mixed
 	 */
 	public function logoutAction() {
-		$result = new Result();
+		$result = new Result($this);
 		$this->session->remove('auth');
 		$result->sendNormal("OK");
 	}

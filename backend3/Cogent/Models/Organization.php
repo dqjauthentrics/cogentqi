@@ -1,5 +1,5 @@
 <?php
-use Cogent\Models\CogentModel;
+namespace Cogent\Models;
 
 class Organization extends CogentModel {
 
@@ -116,4 +116,27 @@ class Organization extends CogentModel {
 		return 'organization';
 	}
 
+	/**
+	 * Retrieve and return a set of organization IDs, comma-delimited.
+	 *
+	 * @param int $id
+	 *
+	 * @return mixed
+	 */
+	public function getDescendantIds($id) {
+		$row = parent::getReadConnection()->query("SELECT retrieveOrgDescendantIds($id) AS orgIds")->fetch();
+		$orgIds = $row["orgIds"];
+		return $orgIds;
+	}
+
+	/**
+	 * @param int $id
+	 *
+	 * @return string
+	 */
+	public function getMemberIds($id) {
+		$row = parent::getReadConnection()
+			->query('SELECT GROUP_CONCAT(id) AS memberIds FROM Member WHERE organization_id = :id',['id' => $id])->fetch();
+		return $row["memberIds"];
+	}
 }

@@ -45,8 +45,8 @@
                               type="item-text-wrap" href="#/resource/view/{{item.r}}">
                         <div class="name">
                             <i class="{{i.resource}} pad-right"></i>
-                            {{item.n}}
-                            <assessment-recommendation-ranking weight="item.sc" range="[1,1,1,1,1]" n="item.rk"></assessment-recommendation-ranking>
+                            {{item.n}}<br/>
+                            <assessment-recommendation-ranking range="[1,1,1,1,1]" n="item.r"></assessment-recommendation-ranking>
                         </div>
                         <p>
                             {{statusWord(item.s)}} on {{item.dt | date:'longDate'}} ({{item.dt|timeAgo}})

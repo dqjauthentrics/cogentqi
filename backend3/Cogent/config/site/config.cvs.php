@@ -5,6 +5,6 @@ return [
 	'name'          => 'CVS Pharmacy',
 	'logo'          => '<img src="/site/cvs/images/logoHeader.png" width="38" height="38" alt=""/>',
 	'database'      => [
-		'dbName' => 'cogentqi_v1_pharmacy'
+		'dbname' => 'cogentqi_v1_pharmacy'
 	],
 ];

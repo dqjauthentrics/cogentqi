@@ -14,7 +14,7 @@ angular.module('ResourceControllers', [])
 
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.resourceId)) {
 				Utility.getResource(Resources.retrieve($stateParams.resourceId), function (response) {
-					$scope.Resources.current = response;
+					$scope.Resources.current = response.data;
 					$scope.data.isLoading = false;
 				});
 			}
@@ -34,7 +34,7 @@ angular.module('ResourceControllers', [])
 			};
 			$scope.getResources = function () {
 				Utility.getResource(Resources.retrieve(), function (response) {
-					$scope.Resources.list = response;
+					$scope.Resources.list = response.data;
 				});
 			};
 			$scope.htmlEncode = function (value) {
@@ -67,7 +67,7 @@ angular.module('ResourceControllers', [])
 				var resourceId = $stateParams.resourceId;
 				if ($scope.Resources.current == null || $scope.Resources.current.id != resourceId) {
 					Utility.getResource(Resources.retrieve(resourceId), function (response) {
-						$scope.Resources.current = response;
+						$scope.Resources.current = response.data;
 						var urlBase = $rootScope.siteDir();
 						$scope.Resources.current.loc = urlBase + '/modules/' + $scope.Resources.current.nmb.toLowerCase() + '.html';
 						$scope.data.isLoading = false;
@@ -84,7 +84,7 @@ angular.module('ResourceControllers', [])
 
 			if ($scope.Resources.list == null) {
 				Utility.getResource(Resources.retrieve(), function (response) {
-					$scope.Resources.list = response;
+					$scope.Resources.list = response.data;
 					$scope.data.isLoading = false;
 				});
 			}
@@ -113,14 +113,14 @@ angular.module('ResourceControllers', [])
 			};
 
 			Utility.getResource(Instruments.retrieve(), function (response) {
-				$scope.data.instruments = response;
+				$scope.data.instruments = response.data;
 				Instruments.collate($scope.data.instruments);
 				if (!Utility.empty(response)) {
-					$scope.setCurrentInstrument(response[0].id);
+					$scope.setCurrentInstrument(response.data[0].id);
 				}
 			});
 			Utility.getResource(Resources.retrieve(), function (response) {
-				$scope.data.resources = response;
+				$scope.data.resources = response.data;
 				$scope.setResource();
 			});
 
@@ -160,7 +160,7 @@ angular.module('ResourceControllers', [])
 				}
 				$scope.initialize();
 			};
-			$scope.setOutcomeAlignments = function () {
+			$scope.setAlignments = function () {
 				if (!Utility.empty($scope.data.outcome) && !Utility.empty($scope.data.currentInstrument)) {
 					$scope.data.alignments = {};
 					for (var z = 0; z < $scope.data.currentInstrument.questions.length; z++) {
@@ -180,7 +180,7 @@ angular.module('ResourceControllers', [])
 					$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
 					$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
 					$scope.initialize();
-					$scope.setOutcomeAlignments();
+					$scope.setAlignments();
 				}
 			};
 			$scope.alignmentLevelPhrase = function (level) {

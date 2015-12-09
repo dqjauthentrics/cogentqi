@@ -10,39 +10,43 @@ angular.module('Resources', []).service('Resources', function ($resource, $http,
 	svc.current = null;
 
 	svc.retrieve = function (resourceId) {
-		var url = '/api2/resource';
+		var url = '/api3/resource';
 		if (!Utility.empty(resourceId)) {
-			return $resource(url + '/' + resourceId + '/m/1', {}, {query: {isArray: false, cache: true}});
+			return $resource(url + '/get/' + resourceId, {}, {query: {isArray: false, cache: true}});
 		}
 		else {
-			return $resource(url + '/m/1', {}, {query: {isArray: true, cache: true}});
+			return $resource(url, {}, {query: {isArray: false, cache: true}});
 		}
 	};
 
 	svc.save = function (resource, callbackFn) {
-		$http({
-				  method: 'POST',
-				  url: "/api2/resource",
-				  data: {resource: resource},
-				  type: 'json'
-			  }).success(function (data, status, headers, config) {
-			callbackFn(status, data);
-		}).error(function (data, status, headers, config) {
-			callbackFn(0, data);
-		});
+		try {
+			$http.post("/api3/resource/save", {resource: resource})
+				.then(function (data, status, headers, config) {
+						  callbackFn(data.status, data.message);
+					  },
+					  function (data, status, headers, config) {
+						  callbackFn(0, data);
+					  });
+		}
+		catch (exception) {
+			callbackFn(0, exception);
+		}
 	};
 
 	svc.remove = function (id, callbackFn) {
-		$http({
-				  method: 'DELETE',
-				  url: "/api2/resource",
-				  data: $.param({id: id}),
-				  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			  }).success(function (data, status, headers, config) {
-			callbackFn(status, data);
-		}).error(function (data, status, headers, config) {
-			callbackFn(0, data);
-		});
+		try {
+			$http.post("/api3/resource/remove", {id: id})
+				.then(function (data, status, headers, config) {
+						  callbackFn(data.status, data.message);
+					  },
+					  function (data, status, headers, config) {
+						  callbackFn(0, data);
+					  });
+		}
+		catch (exception) {
+			callbackFn(0, exception);
+		}
 	};
 
 	svc.findAlignments = function (instrument, resourceId) {
@@ -66,16 +70,13 @@ angular.module('Resources', []).service('Resources', function ($resource, $http,
 
 	svc.saveAlignments = function (instrumentId, resourceId, alignments, callbackFn) {
 		try {
-			$http({
-					  method: 'PUT',
-					  url: "/api2/resource-alignment",
-					  data: $.param({instrumentId: instrumentId, resourceId: resourceId, alignments: alignments}),
-					  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-				  }).success(function (data, status, headers, config) {
-				callbackFn(data, data);
-			}).error(function (data, status, headers, config) {
-				callbackFn(0, data);
-			});
+			$http.post("/api3/resource/saveAlignments", {resourceId: resourceId, alignments: alignments})
+				.then(function (data, status, headers, config) {
+						  callbackFn(data.status, data.message);
+					  },
+					  function (data, status, headers, config) {
+						  callbackFn(0, data);
+					  });
 		}
 		catch (exception) {
 			callbackFn(0, exception);

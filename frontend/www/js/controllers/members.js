@@ -12,10 +12,10 @@ angular.module('MemberControllers', [])
 
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 				Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
-					$scope.data.member = response;
+					$scope.data.member = response.data;
 					$scope.data.newNote.mi = response.id;
 					Utility.getResource(MemberNotes.retrieve($stateParams.memberId), function (response) {
-						$scope.data.notes = response;
+						$scope.data.notes = response.data;
 					});
 				});
 			}
@@ -30,8 +30,8 @@ angular.module('MemberControllers', [])
 					for (var i = 0; i < $scope.data.notes.length; i++) {
 						if ($scope.data.notes[i].id == note.id) {
 							note.workingTrash = true;
-							MemberNotes.remove(note.id, function (status, data) {
-								if (status == 200) {
+							MemberNotes.remove(note.id, function (response) {
+								if (response.status) {
 									$scope.data.notes.splice(i, 1);
 									note.workingTrash = null;
 								}
@@ -45,8 +45,8 @@ angular.module('MemberControllers', [])
 				if (Utility.empty($scope.data.newNote.ct)) {
 					Utility.popup('Nothing to Save!', 'You must enter some note text before saving it.');
 				}
-				MemberNotes.save($scope.data.newNote, function (status, data) {
-					if (status == 200) {
+				MemberNotes.save($scope.data.newNote, function (response) {
+					if (response.status) {
 						$scope.data.notes.unshift(data);
 						$scope.data.newNote.ct = '';
 					}
@@ -55,20 +55,20 @@ angular.module('MemberControllers', [])
 			$scope.flag = function (note) {
 				note.flag = note.flag == 0 ? 1 : 0;
 				note.workingFlag = true;
-				MemberNotes.save(note, function (status, data) {
+				MemberNotes.save(note, function (response) {
 					note.workingFlag = null;
 				});
 			};
 			$scope.thumbsUp = function (note) {
 				note.flag = note.flag == 2 ? 0 : 2;
 				note.workingThumb = true;
-				MemberNotes.save(note, function (status, data) {
+				MemberNotes.save(note, function (response) {
 					note.workingThumb = null;
 				});
 			};
 			$scope.save = function (note) {
 				note.workingSave = true;
-				MemberNotes.save(note, function (status, data) {
+				MemberNotes.save(note, function (response) {
 					note.dirty = null;
 					note.workingSave = null;
 				});
@@ -81,13 +81,13 @@ angular.module('MemberControllers', [])
 			$scope.data = {instruments: [], member: {}, instrument: null};
 
 			Instruments.retrieve().query(function (response) {
-				$scope.data.instruments = response;
+				$scope.data.instruments = response.data;
 				$scope.setRptConfigHx();
 			});
 
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 				Members.retrieveSingle($stateParams.memberId).query(function (response) {
-					$scope.data.member = response;
+					$scope.data.member = response.data;
 					$scope.setRptConfigHx();
 				});
 			}
@@ -116,7 +116,7 @@ angular.module('MemberControllers', [])
 
 	.controller(
 		'MemberViewCtrl',
-		function ($http, $rootScope, $scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments,
+		function ($http, $rootScope, $scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, APP_ROLES, Utility, Icons, Instruments,
 				  Organizations, Members, Messages, Assessments) {
 			$scope.Members = Members;
 			$scope.data = {isLoading: true, showMember: false, dirty: false, user: $cookieStore.get('user'), newMessage: ''};
@@ -125,7 +125,7 @@ angular.module('MemberControllers', [])
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 				if (Members.current == null || Members.current.id != $stateParams.memberId) {
 					Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
-						Members.current = response;
+						Members.current = response.data;
 						$scope.data.isLoading = false;
 					});
 				}
@@ -143,11 +143,11 @@ angular.module('MemberControllers', [])
 				$location.url("/member/notes/" + $stateParams.memberId);
 			};
 			$scope.canEdit = function () {
-				return $scope.data.user.roleId == 'M' || $scope.data.user.roleId == 'A';
+				return !$rootScope.roleIs([APP_ROLES.PROFESSIONAL]);
 			};
 			$scope.save = function () {
-				Members.saveProfile(Members.current, function (response, data) {
-					Utility.statusAlert(response);
+				Members.saveProfile(Members.current, function (response) {
+					Utility.statusAlert(response.message);
 					Members.list = null; // force reload of list
 				});
 				$scope.data.dirty = false;
@@ -304,10 +304,10 @@ angular.module('MemberControllers', [])
 			};
 
 			Utility.getResource(Instruments.retrieve(), function (response) {
-				$scope.data.instruments = response;
+				$scope.data.instruments = response.data;
 				Instruments.collate($scope.data.instruments);
 				if (!Utility.empty(response)) {
-					$scope.setCurrentInstrument(response[0].id);
+					$scope.setCurrentInstrument(response.data[0].id);
 				}
 			});
 			Utility.getResource(Organizations.retrieve(), function (response) {
@@ -322,20 +322,21 @@ angular.module('MemberControllers', [])
 				if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments) && !Utility.empty($stateParams.memberId)) {
 					$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
 					$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
-					Utility.getResource(Assessments.retrieveIndividualProgressByMonth($stateParams.memberId), function (response) {
-						for (var i = 0; i < response.series.length; i++) {
-							if (response.series[i].grouping == 0 || response.series[i].grouping == 2) {
-								$scope.data.rptConfig0.series.push(response.series[i]);
-								$scope.data.rptConfig.series.push(response.series[i]);
+					Utility.getResource(Assessments.retrieveIndividuaProgressByMonth($stateParams.memberId), function (response) {
+						for (var i = 0; i < response.data.series.length; i++) {
+							var rData = response.data;
+							if (rData.series[i].grouping == 0 || rData.series[i].grouping == 2) {
+								$scope.data.rptConfig0.series.push(rData.series[i]);
+								$scope.data.rptConfig.series.push(rData.series[i]);
 							}
-							if (response.series[i].grouping == 1 || response.series[i].grouping == 2) {
-								response.series[i].visible = true;
-								$scope.data.rptConfig1.series.push(response.series[i]);
+							if (rData.series[i].grouping == 1 || rData.series[i].grouping == 2) {
+								rData.series[i].visible = true;
+								$scope.data.rptConfig1.series.push(rData.series[i]);
 							}
 						}
-						$scope.data.rptConfig.xAxis.categories = response.labels;
-						$scope.data.rptConfig0.xAxis.categories = response.labels;
-						$scope.data.rptConfig1.xAxis.categories = response.labels;
+						$scope.data.rptConfig.xAxis.categories = rData.labels;
+						$scope.data.rptConfig0.xAxis.categories = rData.labels;
+						$scope.data.rptConfig1.xAxis.categories = rData.labels;
 					});
 				}
 			};
@@ -363,7 +364,8 @@ angular.module('MemberControllers', [])
 
 			$scope.getMembers = function () {
 				Utility.getResource(Members.retrieve($scope.data.includeInactive), function (response) {
-					$scope.Members.list = response;
+					$scope.Members.list = response.data;
+					console.log($scope.Members.list);
 					$scope.data.isLoading = false;
 				});
 			};

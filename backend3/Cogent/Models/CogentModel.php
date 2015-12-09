@@ -7,6 +7,10 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	const TYPE_DATETIME = 2;
 	const TYPE_INT = 3;
 	const TYPE_REAL = 4;
+
+	/** @var \Phalcon\Db\AdapterInterface $dbif */
+	private $dbif = NULL;
+
 	/**
 	 * @var array $colName Map  Map column names to their abbreviations when transmitting via JSON.
 	 */
@@ -100,8 +104,13 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	protected $mapExcludes = ['password'];
 	/** @var string[] $dateTimeCols Some columns might require special save/restore/format processing. */
 	protected $dateTimeCols = [];
-	/** @var \PDO $pdo */
-	protected $pdo = NULL;
+
+	/**
+	 * @return \Phalcon\Db\AdapterInterface
+	 */
+	public function getDBIF() {
+		return $this->getReadConnection();
+	}
 
 	/**
 	 * @return string
@@ -231,13 +240,12 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	}
 
 	/**
-	 * @param array  $jsonRecord
-	 * @param string $tableName
+	 * @param array $jsonRecord
 	 *
 	 * @return array
 	 */
-	public function unmap($jsonRecord, $tableName) {
-		$tblCols = $this->getColNames($tableName);
+	public function unmap($jsonRecord) {
+		$tblCols = $this->getColNames();
 		$newData = [];
 		if (!empty($jsonRecord)) {
 			foreach ($jsonRecord as $jsonColName => $value) {
@@ -254,15 +262,10 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	}
 
 	/**
-	 * @param string $tableName
-	 *
 	 * @return array
 	 */
-	public function getColNames($tableName) {
-		$q = $this->pdo->prepare("DESCRIBE $tableName");
-		$q->execute();
-		$colNames = $q->fetchAll(\PDO::FETCH_COLUMN);
-		return $colNames;
+	public function getColNames() {
+		return @$this->getModelsMetaData()->getAttributes($this);
 	}
 
 	/**
@@ -282,9 +285,11 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	}
 
 	/**
+	 * @param array $options
+	 *
 	 * @return array
 	 */
-	public function map() {
+	public function map($options = []) {
 		$jsonRecord = [];
 		// Get Phalcon\Mvc\Model\Metadata instance
 		$metaData = $this->getModelsMetaData();
@@ -299,5 +304,51 @@ class CogentModel extends \Phalcon\Mvc\Model {
 			}
 		}
 		return $jsonRecord;
+	}
+
+	/**
+	 * @param null|int|string $id
+	 * @param bool            $mapIt
+	 * @param string          $orderBy
+	 * @param string          $where
+	 * @param array           $whereParams
+	 *
+	 * @return CogentModel[]|CogentModel|array|null
+	 */
+	public function get($id = NULL, $mapIt = TRUE, $orderBy = 'id DESC', $where = '1=1', $whereParams = []) {
+		$data = !empty($id) ? NULL : [];
+		/** @var CogentModel $record */
+		if (empty($id)) {
+			$records = $this->query()->where($where, $whereParams)->orderBy($orderBy)->execute();
+			if ($mapIt) {
+				foreach ($records as $record) {
+					$data[] = $record->map();
+				}
+			}
+			else {
+				$data = $records;
+			}
+		}
+		else {
+			$record = $this->findFirst(['id' => $id]);
+			$data = $mapIt ? $record->map() : $record;
+		}
+		return $data;
+	}
+
+	/**
+	 * @param \Phalcon\Mvc\Model\Resultset $records
+	 * @param string                       $colName
+	 *
+	 * @return array
+	 */
+	public function getColumn($records, $colName) {
+		$colValues = [];
+		if (!empty($records)) {
+			foreach ($records as $record) {
+				$colValues[] = $record->$colName;
+			}
+		}
+		return $colValues;
 	}
 }

@@ -16,12 +16,11 @@ angular.module('OrganizationControllers', [])
 		$scope.loadOrganizations = function (organizationId) {
 			if (!Utility.empty(organizationId)) {
 				Utility.getResource(Organizations.retrieve(organizationId), function (response) {
-					$scope.data.organizations = response;
-					if (!Utility.empty(response)) {
-						$scope.data.parentOrg = response[0];
-						response.shift();
-						var firstChild = !Utility.empty(response) && !Utility.empty(response[0]) ? response[0] : null;
-						$scope.setCurrentOrg(firstChild);
+					if (!Utility.empty(response) && !Utility.empty(response.data)) {
+						$scope.data.organizations = response.data;
+						$scope.data.parentOrg = response.data[0];
+						response.data.shift();
+						$scope.setCurrentOrg($scope.data.parentOrg);
 					}
 				});
 			}
@@ -31,7 +30,7 @@ angular.module('OrganizationControllers', [])
 			$scope.data.currentMembers = [];
 			if (!Utility.empty(organization)) {
 				Organizations.members(organization.id).query(function (response) {
-					$scope.data.currentMembers = response;
+					$scope.data.currentMembers = response.data;
 				});
 			}
 		};

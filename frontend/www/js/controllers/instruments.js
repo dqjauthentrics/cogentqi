@@ -12,7 +12,7 @@ angular.module('InstrumentControllers', [])
 		$scope.data = {instruments: []};
 
 		Instruments.retrieve().query(function (response) {
-			$scope.data.instruments = response;
+			$scope.data.instruments = response.data;
 			$scope.setCurrentInstrument();
 		});
 

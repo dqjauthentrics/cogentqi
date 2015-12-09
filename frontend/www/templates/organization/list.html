@@ -6,9 +6,9 @@
             <div class="col col-25">
                 <ion-list>
                     <ion-item class="top"><i class="{{i.tree}}"></i> {{data.parentOrg.n}}</ion-item>
-                    <ion-item data-ng-class="isCurrent(organization)? 'active':''" class="item-icon-right"
-                              data-ng-repeat="organization in data.organizations"
-                              type="item-text-wrap" data-ng-click="setCurrentOrg(organization)">
+                    <ion-item ng-class="isCurrent(organization)? 'active':''" class="item-icon-right"
+                              ng-repeat="organization in data.organizations"
+                              type="item-text-wrap" ng-click="setCurrentOrg(organization)">
                         <i data-ng-class="listIcon(organization)"></i> {{organization.n}}
                         <i style="color:black;" class="icon ion-chevron-right icon-accessory" data-ng-show="isCurrent(organization)"></i>
                     </ion-item>

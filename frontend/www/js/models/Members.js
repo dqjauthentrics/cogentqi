@@ -12,11 +12,9 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 	svc.retrieve = function (includeInactive) {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			var url = '/api2/organization/' + user.organizationId + '/r/members';
-			if (includeInactive) {
-				url += '/i/1';
-			}
-			return $resource(url, {}, {});
+			var drilldown = 0;
+			var url = '/api3/member/index/' + user.organizationId + '/' + drilldown + '/' + (includeInactive ? 1 : 0);
+			return $resource(url, {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;
 	};
@@ -24,29 +22,26 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 	svc.retrieveSingle = function (memberId) {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user) && !Utility.empty(memberId)) {
-			return $resource('/api2/member/' + memberId + '/m/1', {}, {query: {method: 'GET', isArray: false, cache: false}});
+			return $resource('/api3/member/getProfile/' + memberId, {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;
 	};
 
 	svc.saveProfile = function (member, callbackFn) {
 		var memberRec = {id: member.id, fn: member.fn, ln: member.ln, r: member.r, ph: member.ph, ad: member.ad, mb: member.mb};
-		$http({
-				  method: 'PUT',
-				  url: "/api2/member",
-				  data: $.param({member: memberRec}),
-				  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			  }).success(function (data, status, headers, config) {
-			callbackFn(status, data);
-		}).error(function (data, status, headers, config) {
-			callbackFn(0, data);
-		});
+		$http.post("/api3/member/update", {member: memberRec})
+			.then(function (data, status, headers, config) {
+					  callbackFn(data);
+				  },
+				  function (data, status, headers, config) {
+					  callbackFn(data);
+				  });
 	};
 
 	svc.deOrReactivate = function (member, callbackFn) {
 		$http({
 				  method: 'GET',
-				  url: "/api2/member/" + member.id + '/r/dereactivate',
+				  url: "/api3/member/dereactivate/" + member.id + '/' + (member.active_end ? 0 : 1),
 				  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			  }).success(function (data, status, headers, config) {
 			callbackFn(data);

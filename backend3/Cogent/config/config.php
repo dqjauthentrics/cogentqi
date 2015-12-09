@@ -7,7 +7,7 @@ $settings = new Cogent\Components\ConfigSettings();
 $infix = $settings->getInfixFromServer(); // may be null from command line calls (e.g., phalcon tools)
 if (!empty($infix)) {
 	$settings->loadSite(__DIR__ . "/site/config.$infix.php");
-	$frontendSiteDir = dirname(dirname(APP_PATH)) . "/frontend/www/site/$infix";
+	$frontendSiteDir = dirname(APP_PATH) . "/frontend/www/site/$infix";
 	$settings->writeJson("$frontendSiteDir/config.js");
 }
 

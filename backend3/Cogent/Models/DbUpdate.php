@@ -1,6 +1,7 @@
 <?php
+namespace Cogent\Models;
 
-class DbUpdate extends Cogent\Models\CogentModel {
+class DbUpdate extends CogentModel {
 
 	/**
 	 *
