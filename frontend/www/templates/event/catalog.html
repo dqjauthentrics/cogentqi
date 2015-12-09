@@ -1,0 +1,30 @@
+<ion-view view-title="{{'Event Management'|translate}}">
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-content has-bouncing="false">
+        <div class="row responsive-sm">
+            <div class="col">
+                <ion-list>
+                    <ion-item class="top">
+                        <list-searcher></list-searcher>
+                    </ion-item>
+                    <ion-item class="item-icon-right" ng-repeat="event in filtered = (Events.list)" type="item-text-wrap"
+                              href="#/event/alignment/{{event.id}}">
+                        <div style="float:left; margin-right:1em;">
+                            <a class="button button-small button-positive"
+                               href="#/event/edit/{{event.id}}"><i class="{{i.edit}} fa-lg bold"></i> {{'Edit'|translate}}</a>
+                            <a class="button button-small button-positive"
+                               href="#/event/alignment/{{event.id}}"><i class="{{i.slider}} fa-lg bold"></i> {{'Align'|translate}}</a>
+                        </div>
+                        <i class="{{i.event}} fa-lg"></i> {{event.n}}
+                    </ion-item>
+                    <ion-item>
+                        <button data-ng-click="createEvent()" class="button button-balanced">
+                            <i class="{{i.add}} fa-lg"></i> {{'Add Event'|translate}}
+                        </button>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

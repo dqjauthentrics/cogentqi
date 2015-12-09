@@ -206,6 +206,27 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 			}
 		})
 
+		// Events
+		.state('event', {url: "/event", abstract: true, templateUrl: "templates/common/tabs.html", controller: "CommonTabsCtrl"})
+		.state('event.edit', {
+			url: '/edit/:eventId',
+			views: {
+				outcomes: {templateUrl: 'templates/event/edit.html', controller: 'EventEditCtrl'}
+			}
+		})
+		.state('event.catalog', {
+			url: '/catalog',
+			views: {
+				settings: {templateUrl: 'templates/event/catalog.html', controller: 'EventCatalogCtrl'}
+			}
+		})
+		.state('event.alignment', {
+			url: '/alignment/:eventId',
+			views: {
+				settings: {templateUrl: 'templates/event/alignment.html', controller: 'EventAlignmentCtrl'}
+			}
+		})
+
 		// Instruments
 		.state('instrument', {url: "/instrument", abstract: true, templateUrl: "templates/common/tabs.html", controller: "CommonTabsCtrl"})
 		.state('instrument.view', {

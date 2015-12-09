@@ -1,0 +1,26 @@
+<ion-view view-title="Events">
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-content has-bouncing="false" overflow-scroll="true">
+        <div class="detail">
+            <h1>{{'Event'|translate}}</h1>
+            <div style="float:right; margin:0.5em;">
+                <button data-ng-click="save()" class="button button-action button-save">
+                    <i class="{{i.save}}"></i>
+                </button>
+            </div>
+            <div class="name">
+                <label for="name">Name:</label>
+                <input id="name" type="text" data-ng-model="event.n">
+            </div>
+            <div class="description">
+                <label for="description">Description:</label>
+                <textarea id="description" data-ng-model="event.dsc">
+            </div>
+           <div class="catagory">
+               <label for="catagory">Catagory:</label>
+               <input id="catagory" type="text" data-ng-model="event.cat">
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

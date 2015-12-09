@@ -29,6 +29,7 @@ class Authorization extends Permission {
 		 */
 		$this->addResource('Homepage');
 		$this->addResource('Assessment');
+		$this->addResource('Event');
 		$this->addResource('Instrument');
 		$this->addResource('InstrumentSchedule');
 		$this->addResource('Member');
@@ -40,6 +41,7 @@ class Authorization extends Permission {
 		$this->addResource('OutcomeAlignment');
 		$this->addResource('Question');
 		$this->addResource('QuestionChoice');
+		$this->addResource('Questiongroup');
 		$this->addResource('QuestionType');
 		$this->addResource('Recommendation');
 		$this->addResource('Recommendations');
@@ -66,6 +68,7 @@ class Authorization extends Permission {
 			'OutcomeAlignment', //@TBD
 			'Question',
 			'QuestionChoice',
+			'Questiongroup',
 			'QuestionType',
 			'Recommendation',
 			'Recommendations',
@@ -76,6 +79,7 @@ class Authorization extends Permission {
 		], self::ALL);
 
 		$this->allow(self::ROLE_ADMINISTRATOR, [
+			'Event',
 			'OutcomeAlignment',
 		], self::ALL);
 
