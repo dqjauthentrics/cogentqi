@@ -23,6 +23,7 @@
                     <ion-item class="item-icon-right" ng-repeat="questionGroup in questionGroups.items" type="item-text-wrap">
                         <div class="name">{{questionGroup.tag}}</div>
                         <ion-item class="item-icon-right" ng-repeat="question in questionGroup.questions" type="item-text-wrap">
+                            <div class="name">{{question.n}}</div>
                             <div style="float:right; width: 10em; margin: 1em 0.5em;">
                                 <div class="item checkbox">
                                     <input type="checkbox" name="isAligned" data-ng-model="question.isAligned"/>

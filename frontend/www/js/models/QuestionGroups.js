@@ -10,13 +10,17 @@ angular.module('QuestionGroups', []).service('QuestionGroups', function ($cookie
 
 	svc.execute = function(callback) {
 		if (svc.items == null) {
-			Utility.getResource($resource('/api2/questiongroups', {}, {}), function(response){
-				svc.items = response;
-				callback(svc);
-			});
+			return $http.get('/api2/questiongroup').then(function(response) {
+						svc.items = response.data;
+						callback(svc);
+					},
+					function(error) {
+						failure(error);
+					});
 		}
 		else {
 			callback(svc);
+			return $q.when();
 		}
 	};
 	svc.find = function (groupId) {
@@ -27,4 +31,11 @@ angular.module('QuestionGroups', []).service('QuestionGroups', function ($cookie
 		}
 		return null;
 	};
+	svc.mark = function(questions, property) {
+		svc.items.forEach(function(group) {
+			group.questions.forEach(function(question) {
+				question[property] = questions[question.id]=== true;
+			});
+		});
+	}
 });

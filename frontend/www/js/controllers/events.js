@@ -27,15 +27,13 @@ angular.module('EventControllers', [])
             Events.execute(function (events) {
                 $scope.Events = events;
                 $scope.data.isLoading = false;
+                $scope.eventFilter = function (event) {
+                    return Events.filterer(event, $scope.data.searchFilter);
+                };
+                $scope.createEvent = function() {
+                    Events.createEvent();
+                };
             });
-			$scope.eventFilter = function (event) {
-				return Events.filterer(event, $scope.data.searchFilter);
-			}
-			$scope.createEvent = function() {
-				Events.execute(function(events) {
-					var newId = events.createEvent();
-				});
-			}
 		})
 
 	.controller(
@@ -43,27 +41,32 @@ angular.module('EventControllers', [])
 		function ($scope, $stateParams, Utility, Events, QuestionGroups) {
 			Events.execute(function (events) {
 				$scope.event = events.find($stateParams.eventId);
-			});
-			QuestionGroups.execute(function(questionGroups) {
-				$scope.questionGroups = questionGroups;
-			});
-			var alignment = $scope.event.getAlignment();
-			$scope.questionGroups.forEach(function(group) {
-				group.questions.forEach(function(question) {
-					question.isAligned = alignment[question.id]=== true;
-				});
-			});
-			$scope.save = function() {
-				var questions = [];
-				$scope.questionGroups.forEach(function(group) {
-					group.questions.forEach(function(question) {
-						if (question.isAligned) {
-							questions.push(question.id);
-						}
-					});
-				});
-				Events.saveEvent($scope.event, questions, function(success, data) {
-                    alert('not implemented');
-                });
-			}
+			},
+            function(error) {
+                alert('error loading Events not implemented');
+            }) // execute returns a promise w/null response
+            .then(function(response) {
+                QuestionGroups.execute(function(questionGroups) {
+                    $scope.questionGroups = questionGroups;
+                },
+                function(error) {
+                    alert('error loading QuestionGroups not implemented');
+                })  // execute returns a promise w/null response
+            .then(function(response) {
+                var alignmentQuestions = $scope.event.getAlignmentQuestions();
+                $scope.questionGroups.mark(alignmentQuestions, 'isAligned');
+                $scope.save = function() {
+                    var questions = [];
+                    $scope.questionGroups.forEach(function(group) {
+                        group.questions.forEach(function(question) {
+                            if (question.isAligned) {
+                                questions.push(question.id);
+                            }
+                        });
+                    });
+                    Events.saveAlignments($scope.event, questions, function(success, data) {
+                        alert('not implemented');
+                    });
+                }
+            });});
 		});

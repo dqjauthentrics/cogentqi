@@ -4,30 +4,34 @@
  */
 'use strict';
 
-angular.module('Events', []).service('Events', function ($cookieStore, $resource, $http, Utility) {
+angular.module('Events', []).service('Events', function ($cookieStore, $q, $http, Utility) {
 	var svc = this;
 	var tempId = -1;
 	svc.list = null;
     // To be attached to events
-	svc.getAlignment = function() {
-        var alignment = {};
-        this.questions.forEach(function(question) {
-            alignment[question.id] = true;
+	svc.getAlignmentQuestions = function() {
+        var questions = {};
+        this.alignments.forEach(function(alignment) {
+            questions[alignment.qi] = true;
         });
-        return alignment;
+        return questions;
     };
-	svc.execute = function(callback) {
-		if (svc.list == null) {
-			Utility.getResource($resource('/api2/event', {}, {}), function(response){
-				svc.list = response;
+	svc.execute = function(callback, failure) {
+        if (svc.list == null) {
+            return $http.get('/api2/event').then(function(response) {
+                svc.list = response.data;
                 svc.list.forEach(function(event){
-                    event.getAlignment = svc.getAlignment;
+                    event.getAlignmentQuestions = svc.getAlignmentQuestions;
                 });
-				callback(svc);
-			});
-		}
+                callback(svc);
+            },
+            function(error) {
+                failure(error);
+            });
+        }
 		else {
-			callback(svc);
+            callback(svc);
+			return $q.when();
 		}
 	};
 	svc.createEvent = function() {
