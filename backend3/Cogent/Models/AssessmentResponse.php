@@ -47,15 +47,15 @@ class AssessmentResponse extends CogentModel {
 
 	/**
 	 *
-	 * @var string
+	 * @var double
 	 */
-	public $outcome_value;
+	public $outcome_value  = 0.0;
 
 	/**
 	 *
-	 * @var string
+	 * @var double
 	 */
-	public $event_value;
+	public $event_value = 0.0;
 
 	/**
 	 * Allows to query a set of records that match the specified conditions

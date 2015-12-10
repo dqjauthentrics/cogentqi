@@ -1,5 +1,5 @@
 <?php
-defined('APP_PATH') || define('APP_PATH', dirname(__DIR__));
+defined('APP_PATH') || define('APP_PATH', dirname(dirname(__DIR__)));
 require_once APP_PATH . '/Cogent/Components/ConfigSettings.php';
 
 $settings = new Cogent\Components\ConfigSettings();

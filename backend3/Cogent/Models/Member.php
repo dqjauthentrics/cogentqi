@@ -8,6 +8,7 @@ use Phalcon\Mvc\Model\Validator\Email as Email;
  * Class Member
  * @package Cogent\Models
  *
+ * @property \Phalcon\Mvc\Model\Resultset\Simple|PlanItem[]    $planItems
  * @property \Phalcon\Mvc\Model\Resultset\Simple|MemberBadge[] $badges
  * @property \Phalcon\Mvc\Model\Resultset\Simple|MemberNote[]  $notes
  * @property \Phalcon\Mvc\Model\Resultset\Simple|Assessment[]  $assessments
@@ -188,6 +189,7 @@ class Member extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
+		$this->hasMany('id', 'Cogent\Models\PlanItem', 'member_id', ['alias' => 'PlanItems']);
 		$this->hasMany('id', 'Cogent\Models\Assessment', 'member_id', ['alias' => 'Assessments']);
 		$this->hasMany('id', 'Cogent\Models\Recommendation', 'member_id', ['alias' => 'Recommendations']);
 		$this->hasMany('id', 'Cogent\Models\MemberBadge', 'member_id', ['alias' => 'MemberBadges']);
