@@ -8,64 +8,64 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 	var svc = this;
 	var tempId = -1;
 	svc.list = null;
-    // To be attached to events
-	svc.getAlignmentQuestions = function() {
-        var questions = {};
-        this.alignments.forEach(function(alignment) {
-            questions[alignment.qi] = true;
-        });
-        return questions;
-    };
-	svc.execute = function(callback, failure) {
-        if (svc.list == null) {
-            return $http.get('/api2/event').then(function(response) {
-                svc.list = response.data;
-                svc.list.forEach(function(event){
-                    event.getAlignmentQuestions = svc.getAlignmentQuestions;
-                });
-                callback(svc);
-            },
-            function(error) {
-                failure(error);
-            });
-        }
+	// To be attached to events
+	svc.getAlignmentQuestions = function () {
+		var questions = {};
+		this.alignments.forEach(function (alignment) {
+			questions[alignment.qi] = true;
+		});
+		return questions;
+	};
+	svc.execute = function (callback, failure) {
+		if (svc.list == null) {
+			return $http.get('/api2/event').then(function (response) {
+													 svc.list = response.data;
+													 svc.list.forEach(function (event) {
+														 event.getAlignmentQuestions = svc.getAlignmentQuestions;
+													 });
+													 callback(svc);
+												 },
+												 function (error) {
+													 failure(error);
+												 });
+		}
 		else {
-            callback(svc);
+			callback(svc);
 			return $q.when();
 		}
 	};
-	svc.createEvent = function() {
+	svc.createEvent = function () {
 		var tempId = -1;
 		svc.list.push({
-			id: -1,
-			n: "New Event",
-			dsc: "",
-			cat: ""
-		});
+						  id: -1,
+						  n: "New Event",
+						  dsc: "",
+						  cat: ""
+					  });
 		return tempId;
 	};
-	svc.deleteEvent = function(event) {
+	svc.deleteEvent = function (event) {
 		$http({
-			method: 'DELETE',
-			url: "/api2/event/" + event.id,
-			data: event,
-			headers: {'Content-Type': 'application/json'}
-		}).success(function (data, status, headers, config) {
+				  method: 'DELETE',
+				  url: "/api2/event/" + event.id,
+				  data: event,
+				  headers: {'Content-Type': 'application/json'}
+			  }).success(function (data, status, headers, config) {
 			event.id = data.id;
 			callbackFn(1, data);
 		}).error(function (data, status, headers, config) {
 			callbackFn(0, data);
 		});
 	};
-	svc.saveEvent = function(event, questions, callbackFn) {
+	svc.saveEvent = function (event, questions, callbackFn) {
 		alert('Not implemented');
 		try {
 			$http({
-				method: 'POST',
-				url: "/api2/event",
-				data: event,
-				headers: {'Content-Type': 'application/json'}
-			}).success(function (data, status, headers, config) {
+					  method: 'POST',
+					  url: "/api2/event",
+					  data: event,
+					  headers: {'Content-Type': 'application/json'}
+				  }).success(function (data, status, headers, config) {
 				event.id = data.id;
 				callbackFn(true, data);
 			}).error(function (data, status, headers, config) {
@@ -85,19 +85,14 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 		return null;
 	};
 	svc.saveAlignments = function (event) {
-        alert('not implemented');
-        return;
 		try {
-			$http({
-					  method: 'PUT',
-					  url: "/api2/event-alignment",
-					  data: $.param({eventId: eventId, alignments: alignments}),
-					  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-				  }).success(function (data, status, headers, config) {
-				callbackFn(data, data);
-			}).error(function (data, status, headers, config) {
-				callbackFn(0, data);
-			});
+			$http.post("/api3/event/saveAlignments", {eventId: eventId, alignments: alignments})
+				.then(function (data, status, headers, config) {
+						  callbackFn(data);
+					  },
+					  function (data, status, headers, config) {
+						  callbackFn(data);
+					  });
 		}
 		catch (exception) {
 			callbackFn(0, exception);
@@ -109,8 +104,8 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 				if (!Utility.empty(filterText) && !Utility.empty(event)) {
 					filterText = filterText.toLowerCase();
 					return filterText == null ||
-							event.name.toLowerCase().indexOf(filterText) >= 0 ||
-							event.description.toLowerCase().indexOf(filterText) >= 0
+						event.name.toLowerCase().indexOf(filterText) >= 0 ||
+						event.description.toLowerCase().indexOf(filterText) >= 0
 						;
 				}
 			}
