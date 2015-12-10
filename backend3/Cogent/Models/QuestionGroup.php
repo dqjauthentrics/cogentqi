@@ -90,4 +90,17 @@ class QuestionGroup extends CogentModel {
 		return 'question_group';
 	}
 
+	/**
+	 * @param array $options
+	 *
+	 * @return array
+	 */
+	public function map($options = []) {
+		$map = parent::map();
+		$map['questions'] = [];
+		foreach ($this->questions as $question) {
+			$map['questions'][] = $question->map();
+		}
+		return $map;
+	}
 }

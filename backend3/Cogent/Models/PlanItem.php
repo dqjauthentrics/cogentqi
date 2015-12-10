@@ -5,13 +5,17 @@ namespace Cogent\Models;
  * Class PlanItem
  * @package Cogent\Models
  *
- * @member @method \Phalcon\Mvc\Model\Resultset\Simple getMembers()
- * @member @method \Phalcon\Mvc\Model\Resultset\Simple getModules()
- * @member  Recommendation getRecommendation()
- * @member  PlanItemStatus getStatus()
+ * @method \Phalcon\Mvc\Model\Resultset\Simple getMembers()
+ * @method \Phalcon\Mvc\Model\Resultset\Simple getModules()
+ * @method  Recommendation getRecommendation()
+ * @method  PlanItemStatus getStatus()
  *
  */
 class PlanItem extends CogentModel {
+	const STATUS_RECOMMENDED = 'R';
+	const STATUS_ENROLLED = 'E';
+	const STATUS_WITHDRAWN = 'W';
+	const STATUS_COMPLETED = 'C';
 
 	/**
 	 *
@@ -100,6 +104,30 @@ class PlanItem extends CogentModel {
 	 */
 	public function getSource() {
 		return 'plan_item';
+	}
+
+
+	/**
+	 * @param array $options
+	 *
+	 * @return array|null
+	 */
+	public function map($options = []) {
+		$map = NULL;
+		/** @var Module $module */
+		$module = $this->module;
+		$resourceId = !empty($module) ? $module->resource_id : NULL;
+		$resource = !empty($module) ? $module->resource : NULL;
+		/** @var \Cogent\Models\Resource $resource */
+		$resourceName = !empty($resource) ? $resource->name : NULL;
+		$map = [
+			'm'  => $this->module_id,
+			's'  => $this->plan_item_status_id,
+			'dt' => $this->presentationDateTime($this->status_stamp),
+			'n'  => $resourceName,
+			'r'  => $resourceId
+		];
+		return $map;
 	}
 
 }

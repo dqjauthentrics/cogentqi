@@ -4,8 +4,11 @@ namespace Cogent\Models;
 /**
  * Class Module
  * @package Cogent\Models
- * @method @method \Phalcon\Mvc\Model\Resultset\Simple getPlanItems()
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|PlanItem[] getPlanItems()
  * @method Resource getResource()
+
+ * @property \Phalcon\Mvc\Model\Resultset\Simple|PlanItem[] $planItems
+ * @property Resource $resource
  */
 class Module extends CogentModel {
 

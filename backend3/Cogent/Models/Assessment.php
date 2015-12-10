@@ -1,6 +1,7 @@
 <?php
 namespace Cogent\Models;
 
+use Cogent\Models\InstrumentSchedule;
 use Cogent\Components\Result;
 use Cogent\Components\Utility;
 use Cogent\Controllers\ControllerBase;
@@ -12,8 +13,14 @@ use Cogent\Controllers\ControllerBase;
  * @method Instrument getInstrument()
  * @method Member getAssessee()
  * @method Member getAssessor()
- * @method AssessmentResponse[] getResponses()
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|AssessmentResponse[] getResponses()
  * @method InstrumentSchedule getSchedule()
+ *
+ * @property \Phalcon\Mvc\Model\Resultset\Simple|AssessmentResponse[] $responses
+ * @property Member                                                   $assessor
+ * @property Member                                                   $assessee
+ * @property Instrument                                               $instrument
+ * @property InstrumentSchedule                                       $schedule
  */
 class Assessment extends CogentModel {
 	const STATUS_ACTIVE = 'A';
@@ -224,7 +231,7 @@ class Assessment extends CogentModel {
 						}
 					}
 				}
-				//Recommendation::createRecommendationsForAssessment($this->database, $dbAssessment->id);
+				Recommendation::createRecommendationsForAssessment($assessment->id);
 				$controller->commitTransaction();
 				$result->setNormal();
 			}

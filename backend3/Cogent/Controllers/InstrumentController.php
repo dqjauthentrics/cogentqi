@@ -4,6 +4,7 @@ namespace Cogent\Controllers;
 use Cogent\Components\Result;
 use Cogent\Models\Instrument;
 use Cogent\Models\InstrumentSchedule;
+use Cogent\Models\QuestionGroup;
 
 class InstrumentController extends ControllerBase {
 	/**
@@ -32,6 +33,22 @@ class InstrumentController extends ControllerBase {
 			$result->setError(Result::CODE_NOT_FOUND);
 		}
 		$result->sendNormal($instrument);
+	}
+
+	/**
+	 * @param int $groupId
+	 */
+	public function questionGroupsAction($groupId = NULL) {
+		$result = new Result($this);
+		if (empty($groupId)) {
+			$groups = QuestionGroup::query()->orderBy("instrument_id,sort_order")->execute();
+		}
+		else {
+			$groups = QuestionGroup::query()->where('instrument_id = :id:', ["id" => $groupId])->orderBy("sort_order")->execute();
+		}
+		$groupsArray = $this->mapRecords($groups);
+		$result->setNormal($groupsArray);
+		$result->sendNormal();
 	}
 
 	/**
