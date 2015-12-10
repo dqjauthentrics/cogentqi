@@ -46,17 +46,7 @@ class InstrumentController extends ControllerBase {
 		else {
 			$groups = QuestionGroup::query()->where('instrument_id = :id:', ["id" => $groupId])->orderBy("sort_order")->execute();
 		}
-		$groupsArray = [];
-		foreach ($groups as $group) {
-			$questionsArray = [];
-			foreach ($group->questions as $question) {
-				$questionsArray[] =
-					$this->database->map($question);
-			}
-			$group = $this->database->map($group);
-			$group['questions'] = $questionsArray;
-			$groupsArray[] = $group;
-		}
+		$groupsArray = $this->mapRecords($groups);
 		$result->setNormal($groupsArray);
 		$result->sendNormal();
 	}
