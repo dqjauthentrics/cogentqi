@@ -29,17 +29,38 @@ class EventController extends ControllerBase {
 		$result->sendNormal($event);
 	}
 
-	private function getQuestions($events) {
-		$questions = [];
-		foreach ($events as $event) {
-
-		}
-	}
-
+	/**
+	 * Update a single event record.
+	 */
 	public function actionUpdate() {
 		$result = new Result();
 		try {
 			$data = $this->getInputData();
+			$result->setNormal();
+			$result->message = "TBD: Not yet implemented.";
+		}
+		catch (\Exception $exception) {
+			$result->setError(Result::CODE_EXCEPTION, "Unable to send text message: " . $exception->getMessage());
+		}
+		$result->sendNormal();
+	}
+
+	/**
+	 * Update a single event record.
+	 */
+	public function actionDelete() {
+		$result = new Result();
+		try {
+			$data = $this->getInputData();
+			$eventId = $data['eventId'];
+			$event = Event::findFirst($eventId);
+			if (!empty($event)) {
+				$event->delete();
+				$result->setNormal();
+			}
+			else {
+				$result->setError(Result::CODE_NOT_FOUND);
+			}
 		}
 		catch (\Exception $exception) {
 			$result->setError(Result::CODE_EXCEPTION, "Unable to send text message: " . $exception->getMessage());

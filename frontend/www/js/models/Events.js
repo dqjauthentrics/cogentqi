@@ -45,36 +45,22 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 		return tempId;
 	};
 	svc.deleteEvent = function (event) {
-		$http({
-				  method: 'DELETE',
-				  url: "/api2/event/" + event.id,
-				  data: event,
-				  headers: {'Content-Type': 'application/json'}
-			  }).success(function (data, status, headers, config) {
-			event.id = data.id;
-			callbackFn(1, data);
-		}).error(function (data, status, headers, config) {
-			callbackFn(0, data);
-		});
+		$http.post("/api3/event/delete", {eventId: event.id})
+			.then(function (data, status, headers, config) {
+					  callbackFn(data);
+				  },
+				  function (data, status, headers, config) {
+					  callbackFn(data);
+				  });
 	};
 	svc.saveEvent = function (event, questions, callbackFn) {
-		alert('Not implemented');
-		try {
-			$http({
-					  method: 'POST',
-					  url: "/api2/event",
-					  data: event,
-					  headers: {'Content-Type': 'application/json'}
-				  }).success(function (data, status, headers, config) {
-				event.id = data.id;
-				callbackFn(true, data);
-			}).error(function (data, status, headers, config) {
-				callbackFn(false, data);
-			});
-		}
-		catch (exception) {
-			callbackFn(0, exception);
-		}
+		$http.post("/api3/event/update", {event: event})
+			.then(function (data, status, headers, config) {
+					  callbackFn(data);
+				  },
+				  function (data, status, headers, config) {
+					  callbackFn(data);
+				  });
 	};
 	svc.find = function (eventId) {
 		for (var i = 0; i < svc.list.length; i++) {
