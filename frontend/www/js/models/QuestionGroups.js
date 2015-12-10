@@ -10,7 +10,7 @@ angular.module('QuestionGroups', []).service('QuestionGroups', function ($cookie
 
 	svc.execute = function(callback) {
 		if (svc.items == null) {
-			return $http.get('/api2/questiongroup').then(function(response) {
+			return $http.get('/api3/instrument/questionGroups').then(function(response) {
 						svc.items = response.data;
 						callback(svc);
 					},
