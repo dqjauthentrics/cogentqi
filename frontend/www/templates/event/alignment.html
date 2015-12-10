@@ -21,16 +21,24 @@
                 <div class="clearfix"></div>
                 <ion-list>
                     <ion-item class="item-icon-right" ng-repeat="questionGroup in questionGroups.items" type="item-text-wrap">
-                        <div class="name">{{questionGroup.tag}}</div>
-                        <ion-item class="item-icon-right" ng-repeat="question in questionGroup.questions" type="item-text-wrap">
-                            <div class="name">{{question.n}}</div>
-                            <div style="float:right; width: 10em; margin: 1em 0.5em;">
-                                <div class="item checkbox">
-                                    <input type="checkbox" name="isAligned" data-ng-model="question.isAligned"/>
-                                    <div class="clearfix"></div>
+                        <div class="name">
+                            <button class="button button-balanced" ng-click="toggleOpen(questionGroup)">
+                                <i class="{{questionGroup.isOpen ? i.minus : i.add}} fa-sm"></i>
+                            </button>
+                            {{questionGroup.tag}}
+                        </div>
+                        <div data-ng-show="questionGroup.isOpen">
+                            <ion-item class="item-icon-right" ng-repeat="question in questionGroup.questions" type="item-text-wrap">
+                                <div class="name">{{question.n}}</div>
+                                <div style="float:right; width: 10em; margin: 1em 0.5em;">
+                                    <div class="item checkbox">
+                                        <label for="{{'checkbox-' + question.id}}">{{question.isAligned ? 'Aligned' : 'Not Aligned'}}</label>
+                                        <input id="{{'checkbox-' + question.id}}" type="checkbox" name="isAligned" data-ng-model="question.isAligned"/>
+                                        <div class="clearfix"></div>
+                                    </div>
                                 </div>
-                            </div>
-                        </ion-item>
+                            </ion-item>
+                        </div>
                         <div class="description" data-ng-bind-html="question.n"></div>
                     </ion-item>
                 </ion-list>

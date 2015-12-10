@@ -6,7 +6,7 @@
 
 angular.module('Events', []).service('Events', function ($cookieStore, $q, $http, Utility) {
 	var svc = this;
-	var tempId = -1;
+	svc.tempId = -1;
 	svc.list = null;
     // To be attached to events
 	svc.getAlignmentQuestions = function() {
@@ -37,7 +37,7 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 	svc.createEvent = function() {
 		var tempId = -1;
 		svc.list.push({
-			id: -1,
+			id: svc.tempId--,
 			n: "New Event",
 			dsc: "",
 			cat: ""
