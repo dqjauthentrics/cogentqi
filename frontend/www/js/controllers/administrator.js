@@ -8,8 +8,8 @@ angular.module('ControllerAdministrator', [])
 
 	.controller(
 		'AdminDashboardCtrl',
-		function ($scope, $cookieStore, Utility) {
-			$scope.data = {user: $cookieStore.get('user'), role: 'administrator'};
+		function ($scope, $cookieStore, APP_ROLES, Utility) {
+			$scope.data = {user: $cookieStore.get('user'), ari: APP_ROLES.ADMINISTRATOR};
 		})
 
 	.controller(
@@ -201,19 +201,20 @@ angular.module('ControllerAdministrator', [])
 					$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
 					$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
 					Utility.getResource(Assessments.retrieveProgressByMonth($scope.data.currentInstrument.id, true), function (response) {
-						for (var i = 0; i < response.series.length; i++) {
-							if (response.series[i].grouping == 0 || response.series[i].grouping == 2) {
-								$scope.data.rptConfig0.series.push(response.series[i]);
-								$scope.data.rptConfig.series.push(response.series[i]);
+						var data = response.data;
+						for (var i = 0; i < data.series.length; i++) {
+							if (data.series[i].grouping == 0 || data.series[i].grouping == 2) {
+								$scope.data.rptConfig0.series.push(data.series[i]);
+								$scope.data.rptConfig.series.push(data.series[i]);
 							}
-							if (response.series[i].grouping == 1 || response.series[i].grouping == 2) {
-								response.series[i].visible = true;
-								$scope.data.rptConfig1.series.push(response.series[i]);
+							if (data.series[i].grouping == 1 || data.series[i].grouping == 2) {
+								data.series[i].visible = true;
+								$scope.data.rptConfig1.series.push(data.series[i]);
 							}
 						}
-						$scope.data.rptConfig.xAxis.categories = response.labels;
-						$scope.data.rptConfig0.xAxis.categories = response.labels;
-						$scope.data.rptConfig1.xAxis.categories = response.labels;
+						$scope.data.rptConfig.xAxis.categories = data.labels;
+						$scope.data.rptConfig0.xAxis.categories = data.labels;
+						$scope.data.rptConfig1.xAxis.categories = data.labels;
 					});
 				}
 			};

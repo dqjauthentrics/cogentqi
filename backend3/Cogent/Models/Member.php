@@ -207,8 +207,8 @@ class Member extends CogentModel {
 	 */
 	public function map($options = ['lastAssessment' => TRUE, 'badges' => TRUE, 'assessments' => FALSE, 'notes' => FALSE, 'minimal' => FALSE]) {
 		$map = parent::map();
+		Utility::arrayRemoveByKey('r', $map);
 		$map['ari'] = $this->role->app_role_id;
-		$map['role'] = $this->role->name;
 		$map['rn'] = $this->role->name;
 		if (empty($options['minimal'])) {
 			if (!empty($options['badges'])) {

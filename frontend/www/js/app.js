@@ -39,12 +39,13 @@ angular.module('app',
 				   'MemberNotes',
 				   'Assessments',
 				   'Resources',
-                   'QuestionGroups',
+				   'QuestionGroups',
 				   'Events',
 				   'Modules',
 				   'Outcomes',
 				   'ControllerCommon',
 				   'MemberControllers',
+				   'ReportsControllers',
 				   'OrganizationControllers',
 				   'InstrumentControllers',
 				   'SettingsControllers',
@@ -81,7 +82,10 @@ angular.module('app',
 	.constant("APP_ROLES", {
 		"PROFESSIONAL": "professional",
 		"MANAGER": "manager",
-		"ADMINISTRATOR": "administrator"
+		"ADMINISTRATOR": "administrator",
+		"CH_PROFESSIONAL": "P",
+		"CH_MANAGER": "M",
+		"CH_ADMINISTRATOR": "A"
 	})
 
 	.run(function ($ionicPlatform, $ionicPopup, $rootScope, $location, $window, $cookieStore,
@@ -175,7 +179,7 @@ angular.module('app',
 				var infix = APP_ROLES.PROFESSIONAL;
 				var user = $cookieStore.get('user');
 				if (user !== undefined && user !== null) {
-					switch (user.appRole) {
+					switch (user.ari) {
 						case 'A':
 							infix = APP_ROLES.ADMINISTRATOR;
 							break;
@@ -184,18 +188,23 @@ angular.module('app',
 							break;
 					}
 				}
-				//console.log("roleInfix:", user, infix);
 				return infix;
 			};
-
+			$rootScope.userRoleChar = function() {
+				var user = $cookieStore.get('user');
+				if (user !== undefined && user !== null) {
+					return user.ari;
+				}
+				return null;
+			};
 			$rootScope.isAdministrator = function () {
-				return $rootScope.roleInfix() == APP_ROLES.ADMINISTRATOR;
+				return $rootScope.userRoleChar() == APP_ROLES.CH_ADMINISTRATOR;
 			};
 			$rootScope.isManager = function () {
-				return $rootScope.roleInfix() == APP_ROLES.MANAGER;
+				return $rootScope.userRoleChar() == APP_ROLES.CH_MANAGER;
 			};
 			$rootScope.isProfessional = function () {
-				return $rootScope.roleInfix() == APP_ROLES.PROFESSIONAL;
+				return $rootScope.userRoleChar() == APP_ROLES.CH_PROFESSIONAL;
 			};
 			$rootScope.roleIs = function (roleNames) {
 				return $.inArray($rootScope.roleInfix(), roleNames) >= 0;

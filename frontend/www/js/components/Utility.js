@@ -133,7 +133,7 @@ angular.module('Utility', []).factory('Utility', [
 				try {
 					$.ajax({
 						type: 'GET',
-						url: '/api2/exists.php?f=' + url,
+						url: '/api3/index/exists/' + encodeURI(url),
 						success: function (data) {
 							if (data == 1) {
 								yesFn();

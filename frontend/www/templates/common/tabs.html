@@ -31,9 +31,14 @@
         <ion-nav-view name="settings"></ion-nav-view>
     </ion-tab>
 
-    <ion-tab data-ng-show="!isProfessional()" title="{{'Outcomes'|translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear"
+    <ion-tab ng-show="!isProfessional()" title="{{'Outcomes'|translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear"
              ng-click="go('#/outcome/list')" hidden="true">
         <ion-nav-view name="outcomes"></ion-nav-view>
+    </ion-tab>
+
+    <ion-tab ng-show="!isProfessional()" title="{{'Reports'|translate}}" icon-off="{{i.reports}}" icon-on="{{i.reports}}"
+             ng-click="go('#/reports/menu')">
+        <ion-nav-view name="reports"></ion-nav-view>
     </ion-tab>
 
     <ion-tab title="Help" icon-off="{{i.helpOff}}" icon-on="{{i.helpOn}}"

@@ -13,7 +13,7 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
 			var drilldown = 0;
-			var url = '/api3/member/index/' + user.organizationId + '/' + drilldown + '/' + (includeInactive ? 1 : 0);
+			var url = '/api3/member/index/' + user.oi + '/' + drilldown + '/' + (includeInactive ? 1 : 0);
 			return $resource(url, {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;

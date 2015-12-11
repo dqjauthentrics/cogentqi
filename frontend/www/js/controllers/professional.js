@@ -16,11 +16,11 @@ angular.module('ControllerProfessional', [])
 				$scope.data.instruments = response.data;
 			});
 			Utility.getResource(Members.retrieve(), function (response) {
-				$scope.data.members = response;
+				$scope.data.members = response.data;
 				$scope.associate("members");
 			});
 			Utility.getResource(Plans.retrieve($cookieStore.get('user').id), function (response) {
-				$scope.data.planItems = response;
+				$scope.data.planItems = response.data;
 			});
 			Utility.getResource(Assessments.retrieveForMember($scope.data.user.id), function (response) {
 				$scope.data.assessments = response.data;

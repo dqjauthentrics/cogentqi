@@ -1,7 +1,6 @@
 <?php
 namespace Cogent\Models;
 
-use Cogent\Models\InstrumentSchedule;
 use Cogent\Components\Result;
 use Cogent\Components\Utility;
 use Cogent\Controllers\ControllerBase;
@@ -159,7 +158,7 @@ class Assessment extends CogentModel {
 			$map = Utility::arrayRemoveByKey("mc", $map);
 		}
 		if (!empty($options['instrument'])) {
-			$map['instrument'] = $this->getInstrument()->map(['questions' => FALSE]);
+			$map['instrument'] = $this->instrument->map(['questions' => FALSE]);
 		}
 		if (!empty($options['schedule'])) {
 			$schedule = $this->getInstrument()->getSchedule();
@@ -171,8 +170,11 @@ class Assessment extends CogentModel {
 				}
 			}
 		}
+		$map['responses'] = [];
 		if (!empty($options['responses'])) {
-
+			foreach ($this->responses as $response) {
+				$map['responses'][$response->question_id] = $response->map();
+			}
 		}
 		$map['typ'] = $this->getInstrument()->getQuestionType()->name;
 		$map['member'] = $this->getAssessee()->map(['minimal' => TRUE]);

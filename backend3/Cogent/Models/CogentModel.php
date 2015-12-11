@@ -18,6 +18,7 @@ class CogentModel extends \Phalcon\Mvc\Model {
 		'ac'   => ['assessor_comments', self::TYPE_STRING],
 		'ad'   => ['address', self::TYPE_STRING],
 		'ae'   => ['active_end', self::TYPE_DATE],
+		'aid'  => ['assessment_id', self::TYPE_INT],
 		'ari'  => ['app_role_id', self::TYPE_STRING],
 		'as'   => ['active_start', self::TYPE_DATE],
 		'asb'  => ['is_assessable', self::TYPE_INT],

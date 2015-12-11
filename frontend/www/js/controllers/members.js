@@ -311,7 +311,7 @@ angular.module('MemberControllers', [])
 				}
 			});
 			Utility.getResource(Organizations.retrieve(), function (response) {
-				$scope.data.organizations = response;
+				$scope.data.organizations = response.data;
 			});
 
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.instrumentId)) {
@@ -365,7 +365,6 @@ angular.module('MemberControllers', [])
 			$scope.getMembers = function () {
 				Utility.getResource(Members.retrieve($scope.data.includeInactive), function (response) {
 					$scope.Members.list = response.data;
-					console.log($scope.Members.list);
 					$scope.data.isLoading = false;
 				});
 			};

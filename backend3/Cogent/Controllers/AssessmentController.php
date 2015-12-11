@@ -155,14 +155,15 @@ class AssessmentController extends ControllerBase {
 	}
 
 	/**
-	 * @param int $id
 	 */
-	public function deleteAction($id) {
+	public function deleteAction() {
 		$result = new Result();
 		$assessment = new Assessment();
 		$this->beginTransaction($assessment);
 		try {
-			$assessment = Assessment::findFirst($id);
+			$data = $this->getInputData();
+			$assessmentId = $data['assessmentId'];
+			$assessment = Assessment::findFirst($assessmentId);
 			if (!empty($assessment)) {
 				$responses = $assessment->getResponses();
 				if (!empty($responses)) {

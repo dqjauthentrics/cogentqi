@@ -17,7 +17,6 @@ angular.module('SettingsControllers', [])
 			$scope.data = {settings: []};
 			var _video = null, patData = null;
 
-			console.log("HERE DAVE");
 			$scope.webcamReady = false;
 			$scope.shotReady = false;
 			$scope.patOpts = {x: 0, y: 0, w: 25, h: 25};
@@ -25,7 +24,7 @@ angular.module('SettingsControllers', [])
 			$scope.webcamError = false;
 
 			Settings.retrieve().query(function (response) {
-				$scope.data.settings = response;
+				$scope.data.settings = response.data;
 			});
 			$scope.webcamChannel = {
 				videoHeight: 180,

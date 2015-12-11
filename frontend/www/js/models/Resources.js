@@ -12,10 +12,10 @@ angular.module('Resources', []).service('Resources', function ($resource, $http,
 	svc.retrieve = function (resourceId) {
 		var url = '/api3/resource';
 		if (!Utility.empty(resourceId)) {
-			return $resource(url + '/get/' + resourceId, {}, {query: {isArray: false, cache: true}});
+			return $resource(url + '/get/' + resourceId, {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		else {
-			return $resource(url, {}, {query: {isArray: false, cache: true}});
+			return $resource(url, {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 	};
 

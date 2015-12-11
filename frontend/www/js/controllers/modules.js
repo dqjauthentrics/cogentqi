@@ -48,7 +48,6 @@ angular.module('ModuleControllers', [])
 			};
 			$scope.eventRender = function (event, element, view) {
 				element.attr({'tooltip': event.title, 'tooltip-append-to-body': true});
-				console.log('render:', event);
 				$compile(element)($scope);
 			};
 
@@ -104,7 +103,6 @@ angular.module('ModuleControllers', [])
 												   stick: true
 											   });
 						}
-						console.log($scope.events);
 					}
 				});
 			}

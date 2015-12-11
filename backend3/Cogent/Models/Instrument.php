@@ -8,6 +8,8 @@ namespace Cogent\Models;
  * @method QuestionType getQuestionType()
  * @method Instrument|Instrument[] get($id = NULL, $mapIt = TRUE, $orderBy = 'id DESC', $where = '1=1', $whereParams = [])
  * @method \Phalcon\Mvc\Model\Resultset\Simple getSchedule()
+ *
+ * @method Instrument $instrument
  */
 class Instrument extends CogentModel {
 

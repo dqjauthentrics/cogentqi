@@ -66,7 +66,7 @@ angular.module('OrganizationControllers', [])
 		}
 		else {
 			if (!Utility.empty(user)) {
-				organizationId = user.organizationId;
+				organizationId = user.oi;
 			}
 		}
 		$scope.loadOrganizations(organizationId);

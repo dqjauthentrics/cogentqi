@@ -2,9 +2,9 @@
     <tr>
         <td style="text-align:left; vertical-align: middle !important; padding-top:2em;">
             <div style="float:left; margin-top:-7.6em; font-size: 0.5em; line-height:1em; text-align: left;">
-                <div class="dashName">{{data.user.firstName}} {{data.user.lastName}}</div>
-                <div class="dashJob">{{data.user.jobTitle}}</div>
-                <div class="dashRole" data-ng-if="data.user.role != data.user.jobTitle">({{data.user.role}})</div>
+                <div class="dashName">{{data.user.fn}} {{data.user.ln}}</div>
+                <div class="dashJob">{{data.user.jt}}</div>
+                <div class="dashRole" data-ng-if="data.user.rn != data.user.jt">({{data.user.rn}})</div>
             </div>
             <a style="margin-left:1.5em;" href="#/assessment/matrix/">{{'Assessment'|translate}}</a>
         </td>
@@ -22,7 +22,7 @@
     <tr>
         <td style="text-align:left; vertical-align: top !important;">
             <div style="margin-left:1.0em;">
-                <a href="{{'#/' + (data.role=='administrator'? data.role+'/progress':'resource/list')}}"
+                <a href="{{'#/' + (data.ari=='administrator'? data.ari+'/progress':'resource/list')}}"
                    ng-bind-html="'Professional Development'|translate|replace:' ':'<br/>'"></a>
             </div>
         </td>

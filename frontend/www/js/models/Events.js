@@ -18,16 +18,17 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 	};
 	svc.execute = function (callback, failure) {
 		if (svc.list == null) {
-			return $http.get('/api2/event').then(function (response) {
-													 svc.list = response.data;
-													 svc.list.forEach(function (event) {
-														 event.getAlignmentQuestions = svc.getAlignmentQuestions;
-													 });
-													 callback(svc);
-												 },
-												 function (error) {
-													 failure(error);
-												 });
+			return $http.get('/api3/event').
+			then(function (response) {
+					 svc.list = response.data;
+					 svc.list.forEach(function (event) {
+						 event.getAlignmentQuestions = svc.getAlignmentQuestions;
+					 });
+					 callback(svc);
+				 },
+				 function (error) {
+					 failure(error);
+				 });
 		}
 		else {
 			callback(svc);

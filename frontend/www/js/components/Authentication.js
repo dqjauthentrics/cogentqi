@@ -4,22 +4,9 @@
  */
 'use strict';
 
-angular.module('Authentication', []).service('Authentication', function ($rootScope, $state, $http, $cookieStore, Utility) {
+angular.module('Authentication', []).service('Authentication', function ($rootScope, $state, $http, $cookieStore, APP_ROLES, Utility) {
 	var svc = this;
 	svc.resultMsg = "";
-
-	svc.login2 = function (username, password) {
-		$http({
-			method: 'POST',
-			url: "/api3/session/login",
-			data: $.param({username: username, password: password}),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).success(function (data, status, headers, config) {
-			console.log("api3 login succeeded", data);
-		}).error(function (data, status, headers, config) {
-			console.log("api3 login failed");
-		});
-	};
 
 	svc.check = function () {
 		/**
@@ -44,10 +31,10 @@ angular.module('Authentication', []).service('Authentication', function ($rootSc
 	svc.getUserDashUrl = function (user) {
 		if (user !== undefined && user !== null) {
 			var roleLoc = 'professional';
-			if (user.appRole == 'A') {
+			if (user.ari == APP_ROLES.CH_ADMINISTRATOR) {
 				roleLoc = 'administrator';
 			}
-			else if (user.appRole == 'M') {
+			else if (user.ari == APP_ROLES.CH_MANAGER) {
 				roleLoc = 'manager';
 			}
 			return '/#/' + roleLoc + '/dashboard';
@@ -63,15 +50,14 @@ angular.module('Authentication', []).service('Authentication', function ($rootSc
 				break;
 			case 'password':
 				$http({
-					method: 'POST',
-					url: "/api2/sign/in",
-					data: $.param({username: email, password: password}),
-					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-				}).success(function (result, status, headers, config) {
+						  method: 'POST',
+						  url: "/api3/session/login",
+						  data: $.param({username: email, password: password}),
+						  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+					  }).success(function (result, status, headers, config) {
 					if (!Utility.empty(result) && result.status) {
 						result.data.home = svc.getUserDashUrl(result.data);
 						$cookieStore.put('user', result.data);
-						svc.login2(email, password);
 						$rootScope.user = $cookieStore.get('user');
 						if (!Utility.empty(result.data)) {
 							successFn($rootScope.user);

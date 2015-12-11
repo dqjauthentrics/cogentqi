@@ -269,6 +269,21 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 			}
 		})
 
+		// Reports
+		.state('reports', {url: "/reports", abstract: true, templateUrl: "templates/common/tabs.html", controller: "CommonTabsCtrl"})
+		.state('reports.menu', {
+			url: '/menu',
+			views: {
+				settings: {templateUrl: 'templates/reports/index.html', controller: 'ReportsIndexCtrl'}
+			}
+		})
+		.state('reports.resourceAnalysis', {
+			url: '/resourceAnalysis',
+			views: {
+				help: {templateUrl: 'templates/reports/resourceAnalysis.html', controller: 'ReportsResourceAnalysisCtrl'}
+			}
+		})
+
 	;
 
 	//$urlRouterProvider.otherwise('/manager/dashboard');

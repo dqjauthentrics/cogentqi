@@ -43,6 +43,7 @@ class SessionController extends \Cogent\Controllers\ControllerBase {
 			$result->setError(404);
 		}
 		$result->send();
+		exit();
 	}
 
 	/**

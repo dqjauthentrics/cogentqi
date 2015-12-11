@@ -10,7 +10,7 @@ angular.module('Organizations', []).service('Organizations', function ($resource
 	svc.retrieveMine = function () {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			return $resource('/api3/organization/get/' + user.organizationId, {}, {query: {method: 'GET', isArray: false}});
+			return $resource('/api3/organization/get/' + user.oi, {}, {query: {method: 'GET', isArray: false}});
 		}
 		return null;
 	};
@@ -18,7 +18,7 @@ angular.module('Organizations', []).service('Organizations', function ($resource
 	svc.retrieve = function (organizationId) {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			var orgId = !Utility.empty(organizationId)? organizationId : user.organizationId;
+			var orgId = !Utility.empty(organizationId)? organizationId : user.oi;
 			return $resource('/api3/organization/index/' + orgId + '/1', {}, {query: {method: 'GET', isArray: false}});
 		}
 		return null;

@@ -71,7 +71,7 @@
                                     <div class="pull-left" style="margin-left:1em;">
                                         <div data-ng-switch="showComment(question)">
                                             <div data-ng-switch-when="true">
-                                                <textarea cols="60" rows="3" data-ng-model="question.rsp.ac" data-ng-bind="question.rsp.ac"></textarea>
+                                                <textarea cols="60" rows="3" data-ng-model="response(question.id).ac" data-ng-bind="response(question.id).ac"></textarea>
                                             </div>
                                             <div data-ng-switch-when="false">
                                                 <p class="comments" data-ng-bind-html="getComment(question)"></p>

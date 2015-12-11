@@ -6,8 +6,8 @@
 
 angular.module('ControllerManager', [])
 
-	.controller('DashboardCtrl', function ($scope, $cookieStore, Organizations) {
-					$scope.data = {user: $cookieStore.get('user'), role: 'manager'};
+	.controller('DashboardCtrl', function ($scope, $cookieStore, APP_ROLES, Organizations) {
+					$scope.data = {user: $cookieStore.get('user'), ari: APP_ROLES.MANAGER};
 				})
 
 	.controller('PlanningCtrl', function ($scope, $stateParams, Utility, Organizations, Modules, Resources) {
@@ -44,7 +44,7 @@ angular.module('ControllerManager', [])
 					$scope.webcamError = false;
 
 					Settings.retrieve().query(function (response) {
-						$scope.data.settings = response;
+						$scope.data.settings = response.data;
 					});
 					$scope.webcamChannel = {
 						// the fields below are all optional

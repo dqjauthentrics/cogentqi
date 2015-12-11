@@ -45,8 +45,7 @@ angular.module('OutcomeControllers', [])
 			$scope.data = {organizations: [], currentOrg: {}, levels: []};
 			$scope.user = $cookieStore.get('user');
 
-			Utility.getResource(Outcomes.retrieveForOrg($scope.user.organizationId), function (response) {
-				console.log(response);
+			Utility.getResource(Outcomes.retrieveForOrg($scope.user.oi), function (response) {
 				$scope.Outcomes.list = response.data.outcomes;
 				$scope.data.organizations = response.data.orgLevels;
 				$scope.setCurrentOrg(response.data.orgLevels[0]);
@@ -148,7 +147,7 @@ angular.module('OutcomeControllers', [])
 			$scope.user = $cookieStore.get('user');
 
 			if (Outcomes.list == null) {
-				Utility.getResource(Outcomes.retrieveForOrg($scope.user.organizationId), function (response) {
+				Utility.getResource(Outcomes.retrieveForOrg($scope.user.oi), function (response) {
 					$scope.Outcomes.list = response.data.outcomes;
 					$scope.data.isLoading = false;
 				});
@@ -211,7 +210,6 @@ angular.module('OutcomeControllers', [])
 					var outcomeId = $stateParams.outcomeId;
 					if (!Utility.empty(outcomeId)) {
 						$scope.Outcomes.current = Utility.findObjectById($scope.Outcomes.list, outcomeId);
-						console.log("OUTCURRENT:", $scope.Outcomes.current);
 						$scope.setAlignments();
 					}
 				}
