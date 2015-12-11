@@ -31,7 +31,7 @@ angular.module('QuestionGroups', []).service('QuestionGroups', function ($cookie
 		}
 		return null;
 	};
-	svc.mark = function(questions, property) {
+	svc.markQuestions = function(questions, property) {
 		svc.items.forEach(function(group) {
 			group.questions.forEach(function(question) {
 				question[property] = questions[question.id]=== true;

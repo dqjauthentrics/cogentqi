@@ -53,11 +53,17 @@ angular.module('EventControllers', [])
                     alert('error loading QuestionGroups not implemented');
                 })  // execute returns a promise w/null response
             .then(function(response) {
+                $scope.questionGroups.items.forEach(function(group) {
+                    group.isOpen = false;
+                });
+                $scope.toggleOpen = function(group) {
+                    group.isOpen = !group.isOpen;
+                }
                 var alignmentQuestions = $scope.event.getAlignmentQuestions();
-                $scope.questionGroups.mark(alignmentQuestions, 'isAligned');
+                $scope.questionGroups.markQuestions(alignmentQuestions, 'isAligned');
                 $scope.save = function() {
                     var questions = [];
-                    $scope.questionGroups.forEach(function(group) {
+                    $scope.questionGroups.items.forEach(function(group) {
                         group.questions.forEach(function(question) {
                             if (question.isAligned) {
                                 questions.push(question.id);
