@@ -11,10 +11,12 @@ angular.module('Assessments', []).service(
 		svc.nRankings = 5;
 		svc.list = null;
 		svc.current = null;
+		svc.matrix = null;
 
 		svc.retrieve = function () {
 			var user = $cookieStore.get('user');
-			if (!Utility.empty(user)) {
+			if (!svc.loading && !Utility.empty(user)) {
+				console.log("retrieving assessments");
 				return $resource('/api3/assessment/byOrganization/' + user.oi, {}, {query: {method: 'GET', isArray: false, cache: false}});
 			}
 			return null;
@@ -93,7 +95,13 @@ angular.module('Assessments', []).service(
 				}
 			}
 			if (!Utility.empty(instrumentId) && !Utility.empty(orgId)) {
-				return $resource('/api3/assessment/matrix/' + orgId + '/' + instrumentId, {}, {query: {method: 'GET', isArray: false, cache: false}});
+				var res = $resource('/api3/assessment/matrix/' + orgId + '/' + instrumentId, {}, {query: {method: 'GET', isArray: false, cache: false}});
+				if (res) {
+					res.query(function(response) {
+						svc.matrix = response.data;
+						console.log("ass:", svc.matrix);
+					});
+				}
 			}
 			return null;
 		};

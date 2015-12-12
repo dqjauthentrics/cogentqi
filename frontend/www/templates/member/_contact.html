@@ -8,7 +8,7 @@
                         {{Members.current.em || '-'}}
                     </span>
                     <span>
-                        <a data-ng-click="sendEmail(Members.current)"><i class="fa fa-envelope fa-lg"></i></a>
+                        <a ng-click="sendEmail(Members.current)"><i class="fa fa-envelope fa-lg"></i></a>
                     </span>
     </div>
 
@@ -39,7 +39,7 @@
                         {{ (Members.current.mb || '-')|tel }}
                     </span>
                     <span>
-                        <a data-ng-click="sendText(Members.current)"><i class="fa fa-mobile fa-2x"></i></a>
+                        <a ng-click="sendText(Members.current)"><i class="fa fa-mobile fa-2x"></i></a>
                     </span>
     </div>
 

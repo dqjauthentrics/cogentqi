@@ -1,6 +1,6 @@
-<ion-view view-title="Assessment">
+<ion-view view-title="{{'Assessment'|translate}}">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
-    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
         <page-loader i="i" loading="data.isLoading"></page-loader>
         <div style="float:left; margin:0.2vw 1vw 0 0;" ng-show="!data.isLoading">
@@ -14,17 +14,17 @@
             </div>
         </div>
         <div class="iconBar" ng-show="!data.isLoading">
-            <button id="assessmentSave" data-ng-if="canEdit() && Assessments.current.es!='L'"
-                    class="button button-action button-save {{data.dirty? 'button-dirty':'button-clean'}}" data-ng-click="save($event)">
+            <button id="assessmentSave" data-ng-show="canEdit() && Assessments.current.es!='L'"
+                    class="button button-action button-save {{data.dirty? 'button-dirty':'button-clean'}}" ng-click="save($event)">
                 <i class="{{i.save}}"></i>
             </button>
-            <button data-ng-if="canLock()" class="button button-action button-{{Assessments.current.es=='L'?'unlock':'lock'}}" data-ng-click="toggleLock()">
+            <button data-ng-show="canLock()" class="button button-action button-{{Assessments.current.es=='L'?'unlock':'lock'}}" ng-click="toggleLock()">
                 <i class="{{Assessments.current.es=='L'? i.unlocked : i.locked}}"></i>
             </button>
-            <button data-ng-if="canRemove() && Assessments.current.es!='L'" class="button button-action button-remove" data-ng-click="remove()">
+            <button data-ng-show="canRemove() && Assessments.current.es!='L'" class="button button-action button-remove" ng-click="remove()">
                 <i class="{{i.remove}}"></i>
             </button>
-            <button class="button button-action button-pdf" data-ng-click="printIt()"><i class="{{i.pdf}}"></i></button>
+            <button class="button button-action button-pdf" ng-click="printIt()"><i class="{{i.pdf}}"></i></button>
             <div class="clearfix"></div>
         </div>
         <div class="row responsive-md" ng-show="!data.isLoading">
@@ -64,7 +64,7 @@
                                 <div class="clearfix"></div>
                                 <div>
                                     <div class="pull-left">
-                                        <a data-ng-click="question.showComments = (question.showComments == undefined? true : !question.showComments)">
+                                        <a ng-click="question.showComments = (question.showComments == undefined? true : !question.showComments)">
                                             <i data-ng-class="hasComment(question)? i.noteFilled : i.noteEmpty"></i>
                                         </a>
                                     </div>
@@ -87,4 +87,5 @@
             </div>
         </div>
     </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
 </ion-view>

@@ -1,5 +1,5 @@
 <div class="row responsive-md assessmentItem items" style="white-space: normal;">
-    <div class="col padding" data-ng-if="showMember">
+    <div class="col padding" data-ng-show="showMember">
         <img class="avatar border border{{assessment.member.lv}} avatar-small" data-ng-src="{{site}}/avatars/{{assessment.member.id}}.png" alt=""
              err-src="{{site}}/avatars/genericUser.png"/>
         {{assessment.member.fn}}
@@ -9,11 +9,11 @@
     </div>
     <div class="col" style="margin:0; padding:0; white-space: normal;">
         <a href="#/assessment/view/{{assessment.id}}">
-            <span data-ng-if="prefix">{{prefix}}, </span>
+            <span data-ng-show="prefix">{{prefix}}, </span>
             <span class="name">{{assessment.instrument.n}} {{assessment.schedule.n}}</span>
             {{assessment.lm|date:'EEE'}}, {{assessment.lm|date:'short'}}</a>
     </div>
-    <div class="col" style="margin:0; padding:0;" data-ng-if="assessment.assessor">
+    <div class="col" style="margin:0; padding:0;" data-ng-show="assessment.assessor">
         by {{assessment.assessor.fn}} {{assessment.assessor.ln}}
         <img style="text-align:right;" class="avatar border border{{assessment.assessor.lv}} avatar-tiny"
              data-ng-src="{{site}}/avatars/{{assessment.assessor.id}}.png"

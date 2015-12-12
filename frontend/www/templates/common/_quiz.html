@@ -9,9 +9,9 @@
                 </label>
             </li>
         </ul>
-        <button class="button button-calm" data-ng-click="checkAnswer()" data-ng-show="answerMode">Check Answer</button>
+        <button class="button button-calm" ng-click="checkAnswer()" data-ng-show="answerMode">Check Answer</button>
         <div data-ng-show="!answerMode && !quizOver">
-            <button class="button button-positive next-question" data-ng-click="nextQuestion()">Next</button>
+            <button class="button button-positive next-question" ng-click="nextQuestion()">Next</button>
         </div>
     </div>
     <div class="col col-50 padding">
@@ -41,11 +41,11 @@
             Sorry, you didn't score well enough to complete this module. Please revisit the module content and ask for help on anything you don't
             understand.
         </div>
-        <button class="button button-assertive" data-ng-click="reset()">Check Yourself Again!</button>
+        <button class="button button-assertive" ng-click="reset()">Check Yourself Again!</button>
     </div>
 </div>
 <div class="intro" data-ng-show="!inProgress && !showingResults" style="margin:4em;">
-    <button id="startQuiz" data-ng-click="start()" class="button button-assertive">Knowledge Check</button>
+    <button id="startQuiz" ng-click="start()" class="button button-assertive">Knowledge Check</button>
 </div>
 <style>
     .quiz-area li {

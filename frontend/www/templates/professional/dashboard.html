@@ -1,6 +1,6 @@
 <ion-view view-title="{{installation.name}}">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
-    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
         <div class="row responsive-sm">
             <div class="col padding card">
@@ -17,15 +17,15 @@
             <div class="col padding card">
                 <ion-list>
                     <ion-item class="top fat"><i class="{{i.assessment}}"></i> {{'Assessments'|translate}}</ion-item>
-                    <ion-item data-ng-if="!data.assessments">{{'None'|translate}}</ion-item>
-                    <ion-item class="item-icon-right" data-ng-repeat="assessment in data.assessments" type="item-text-wrap"
+                    <ion-item ng-show="!data.assessments">{{'None'|translate}}</ion-item>
+                    <ion-item class="item-icon-right" ng-repeat="assessment in data.assessments" type="item-text-wrap"
                               href="#/assessment/view/{{assessment.id}}">
                         <div style="white-space: normal !important;">
                             <i class="{{i.assessment}} pad-right"></i>
                             <span class="name">{{assessmentName(assessment.ii)}}</span>
                             {{'on'|translate}} {{assessment.lm | date:'medium'}} ({{assessment.lm|timeAgo}})
 
-                            <div data-ng-if="assessment.assessor">
+                            <div ng-show="assessment.assessor">
                                 by {{assessment.assessor.fn}} {{assessment.assessor.ln}}
                                 <avatar site="siteDir()" member-id="assessment.assessor.id" sz="'tiny'" level="assessment.assessor.lv"
                                         alt="avatarAlt(dassessment.assessor)"></avatar>
@@ -40,8 +40,8 @@
                     <ion-item class="top fat" style="background:goldenrod !important; color:#FFF !important;"><i class="{{i.recommendation}}"></i>
                         {{'Recommendations'|translate}}
                     </ion-item>
-                    <ion-item data-ng-if="!data.planItems.length">None.</ion-item>
-                    <ion-item class="item-icon-right" data-ng-repeat="item in recommendations = (data.planItems|filter:recommendationFilter)"
+                    <ion-item ng-show="!data.planItems.length">None.</ion-item>
+                    <ion-item class="item-icon-right" ng-repeat="item in recommendations = (data.planItems|filter:recommendationFilter)"
                               type="item-text-wrap" href="#/resource/view/{{item.r}}">
                         <div class="name">
                             <i class="{{i.resource}} pad-right"></i>
@@ -50,8 +50,8 @@
                         </div>
                         <p>
                             {{statusWord(item.s)}} on {{item.dt | date:'longDate'}} ({{item.dt|timeAgo}})
-                            <micro-badge style="margin-right:3em !important;" data-ng-if="item.s=='C'" text="''" size="'icon'"></micro-badge>
-                            <i class="icon ion-chevron-right icon-accessory" data-ng-if="item.s!=='C'"></i>
+                            <micro-badge style="margin-right:3em !important;" ng-show="item.s=='C'" text="''" size="'icon'"></micro-badge>
+                            <i class="icon ion-chevron-right icon-accessory" ng-show="item.s!=='C'"></i>
                         </p>
                     </ion-item>
                 </ion-list>
@@ -60,8 +60,8 @@
                 <ion-list>
                     <ion-item class="top fat" style="background:darkgreen !important; color:#FFF;"><i class="{{i.plan}}"></i> {{'Learning Plan'|translate}}
                     </ion-item>
-                    <ion-item data-ng-if="!data.planItems.length">None.</ion-item>
-                    <ion-item class="item-icon-right" data-ng-repeat="item in items = (data.planItems|filter:nonRecommendationFilter)" type="item-text-wrap"
+                    <ion-item ng-show="!data.planItems.length">None.</ion-item>
+                    <ion-item class="item-icon-right" ng-repeat="item in items = (data.planItems|filter:nonRecommendationFilter)" type="item-text-wrap"
                               href="#/resource/view/{{item.r}}">
                         <div class="name">
                             <i class="{{i.resource}} pad-right"></i>
@@ -69,8 +69,8 @@
                         </div>
                         <p>
                             {{statusWord(item.s)}} on {{item.dt | date:'longDate'}} ({{item.dt|timeAgo}})
-                            <micro-badge style="margin-right:3em !important;" data-ng-if="item.s=='C'" text="''" size="'icon'"></micro-badge>
-                            <i class="icon ion-chevron-right icon-accessory" data-ng-if="item.s!=='C'"></i>
+                            <micro-badge style="margin-right:3em !important;" ng-show="item.s=='C'" text="''" size="'icon'"></micro-badge>
+                            <i class="icon ion-chevron-right icon-accessory" ng-show="item.s!=='C'"></i>
                         </p>
                     </ion-item>
                 </ion-list>
@@ -79,8 +79,8 @@
                 <ion-list>
                     <ion-item class="top fat" style="background:navy !important; color:#FFF;"><i class="{{i.completed}}"></i> {{'Completed Courses'|translate}}
                     </ion-item>
-                    <ion-item data-ng-if="!data.planItems.length">None.</ion-item>
-                    <ion-item class="item-icon-right" data-ng-repeat="item in items = (data.planItems|filter:completedFilter)" type="item-text-wrap"
+                    <ion-item ng-show="!data.planItems.length">None.</ion-item>
+                    <ion-item class="item-icon-right" ng-repeat="item in items = (data.planItems|filter:completedFilter)" type="item-text-wrap"
                               href="#/resource/view/{{item.r}}">
                         <div class="name">
                             <i class="{{i.resource}} pad-right"></i>
@@ -88,12 +88,13 @@
                         </div>
                         <p>
                             {{statusWord(item.s)}} on {{item.dt | date:'longDate'}} ({{item.dt|timeAgo}})
-                            <micro-badge style="margin-right:3em !important;" data-ng-if="item.s=='C'" text="''" size="'icon'"></micro-badge>
-                            <i class="icon ion-chevron-right icon-accessory" data-ng-if="item.s!=='C'"></i>
+                            <micro-badge style="margin-right:3em !important;" ng-show="item.s=='C'" text="''" size="'icon'"></micro-badge>
+                            <i class="icon ion-chevron-right icon-accessory" ng-show="item.s!=='C'"></i>
                         </p>
                     </ion-item>
                 </ion-list>
             </div>
         </div>
     </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
 </ion-view>

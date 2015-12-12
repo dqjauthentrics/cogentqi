@@ -1,12 +1,12 @@
 <ion-view view-title="Assessment Instruments">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
-    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
         <div class="row row-responsive-sm">
             <div class="col">
                 <ion-list>
                     <ion-item class="top"><h2>{{'Assessment Instruments'|translate}}</h2></ion-item>
-                    <ion-item class="gray" data-ng-if="!data.instruments.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
+                    <ion-item class="gray" data-ng-show="!data.instruments.length"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
                     <ion-item class="item item-icon-right item-text-wrap" data-ng-repeat="instrument in data.instruments"
                               href="#/instrument/view/{{instrument.id}}">
                         <div class="name">{{instrument.n}}</div>
@@ -20,4 +20,5 @@
             </div>
         </div>
     </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
 </ion-view>

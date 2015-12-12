@@ -1,6 +1,6 @@
 <ion-view view-title="{{data.member.fn}} {{data.member.ln}}" cache-view="false" on-swipe-right="goToMember()" on-swipe-left="goToProgress()">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
-    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content class="padding detail" has-bouncing="false">
         <div class="row responsive-sm">
             <div class="col col-50 padding panel">
@@ -15,13 +15,13 @@
                             <avatar site="siteDir()" sz="'tiny'" member-id="note.creator.id" level="0" alt="avatarAlt(note.creator)"></avatar>
                         </div>
                         <div class="noteTools" style="vertical-align: middle;">
-                            <a class="noteTool" data-ng-show="note.dirty" data-ng-click="save(note)"
+                            <a class="noteTool" data-ng-show="note.dirty" ng-click="save(note)"
                                     ><i data-ng-class="(note.workingSave? i.loadingSpinner : i.save) + ' fa-lg green'"></i></a>
-                            <a class="noteTool" data-ng-click="flag(note)"
+                            <a class="noteTool" ng-click="flag(note)"
                                     ><i data-ng-class="(note.workingFlag? i.loadingSpinner : (note.flag == 1? i.flag + ' red' : i.flagOff)) +' fa-lg'"></i></a>
-                            <a class="noteTool" data-ng-click="thumbsUp(note)"
+                            <a class="noteTool" ng-click="thumbsUp(note)"
                                     ><i data-ng-class="(note.workingThumb? i.loadingSpinner : (note.flag == 2? i.okay + ' green' : i.okayOff)) + ' fa-lg'"></i></a>
-                            <a class="noteTool" data-ng-click="remove(note)"
+                            <a class="noteTool" ng-click="remove(note)"
                                     ><i data-ng-class="(note.workingTrash? i.loadingSpinner : i.remove) + ' fa-lg'"></i></a>
                         </div>
                     </ion-item>
@@ -36,11 +36,12 @@
                                   data-ng-bind-html="data.newNote.ct" placeholder="{{'Enter note text here.'|translate}}"
                                 ></textarea>
                     </div>
-                    <a class="button button-action button-new button-small" title="{{'Add this note to the list.'|translate}}" data-ng-click="addNote()">
+                    <a class="button button-action button-new button-small" title="{{'Add this note to the list.'|translate}}" ng-click="addNote()">
                         <i class="{{i.add}}"></i> {{'Add Note'|translate}}
                     </a>
                 </div>
             </div>
         </div>
     </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
 </ion-view>

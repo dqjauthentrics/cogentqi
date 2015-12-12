@@ -37,7 +37,8 @@ angular.module('Authentication', []).service('Authentication', function ($rootSc
 			else if (user.ari == APP_ROLES.CH_MANAGER) {
 				roleLoc = 'manager';
 			}
-			return '/#/' + roleLoc + '/dashboard';
+			var url = '#/' + roleLoc + '/dashboard';
+			return url;
 		}
 		return null;
 	};

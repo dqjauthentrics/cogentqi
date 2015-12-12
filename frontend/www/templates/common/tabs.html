@@ -2,48 +2,39 @@
 <ion-tabs class="tabs-icon-top tabs-assertive customerBg">
 
     <ion-tab title="{{'Dashboard'|translate}}" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong"
-             ng-click="go(dashboardUrl())">
-        <ion-nav-view name="dashboard"></ion-nav-view>
+             href="{{dashboardUrl()}}">
     </ion-tab>
 
     <ion-tab title="{{'Organization'|translate}}" icon-off="{{i.organization}}" icon-on="{{i.organization}}"
-             ng-click="go('#/organization/list')" class="{{isAdministrator()?'ng-show':'ng-hide'}}">
-        <ion-nav-view name="organization"></ion-nav-view>
+             href="#/organization/list" class="{{isAdministrator()?'ng-if':'ng-hide'}}">
     </ion-tab>
 
-    <ion-tab title="{{'People'|translate}}" icon-off="{{i.members}}" icon-on="{{i.members}}" onclick=""
-             ng-click="go('#/member/list')" class="{{!isAdministrator() && !isProfessional()?'ng-show':'ng-hide'}}">
-        <ion-nav-view name="members"></ion-nav-view>
+    <ion-tab title="{{'People'|translate}}" icon-off="{{i.members}}" icon-on="{{i.members}}"
+             href="#/member/list" class="{{!isAdministrator() && !isProfessional()?'ng-if':'ng-hide'}}">
     </ion-tab>
 
     <ion-tab title="{{'Assessments'|translate}}" icon-off="ion-clipboard" icon-on="ion-clipboard"
-             ng-click="go('#/assessment/list')" class="{{!isAdministrator() && !isProfessional()?'ng-show':'ng-hide'}}">
-        <ion-nav-view name="assessments"></ion-nav-view>
+             href="#/assessment/list" class="{{!isAdministrator() && !isProfessional()?'ng-if':'ng-hide'}}">
     </ion-tab>
 
     <ion-tab title="{{'Resources'|translate}}" icon-off="ion-university" icon-on="ion-university"
-             ng-click="go('#/resource/list')" class="{{!isAdministrator()?'ng-show':'ng-hide'}}">
-        <ion-nav-view name="resources"></ion-nav-view>
+             href="#/resource/list" class="{{!isAdministrator()?'ng-if':'ng-hide'}}">
     </ion-tab>
 
     <ion-tab title="{{(isAdministrator()?'Configuration':'Settings')|translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear"
-             ng-click="go('#' + (isAdministrator()?'/administrator/configuration':'/settings/personal'))">
-        <ion-nav-view name="settings"></ion-nav-view>
+             href="{{'#' + (isAdministrator()?'/administrator/configuration':'/settings/personal')}}">
     </ion-tab>
 
     <ion-tab ng-show="!isProfessional()" title="{{'Outcomes'|translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear"
-             ng-click="go('#/outcome/list')" hidden="true">
-        <ion-nav-view name="outcomes"></ion-nav-view>
+             href="#/outcome/list" hidden="true">
     </ion-tab>
 
     <ion-tab ng-show="!isProfessional()" title="{{'Reports'|translate}}" icon-off="{{i.reports}}" icon-on="{{i.reports}}"
-             ng-click="go('#/reports/menu')">
-        <ion-nav-view name="reports"></ion-nav-view>
+             href="#/reports">
     </ion-tab>
 
     <ion-tab title="Help" icon-off="{{i.helpOff}}" icon-on="{{i.helpOn}}"
-             ng-click="go('#/help/index')">
-        <ion-nav-view name="help"></ion-nav-view>
+             href="#/help/index">
     </ion-tab>
 
 </ion-tabs>

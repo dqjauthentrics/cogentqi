@@ -10,9 +10,18 @@ angular.module('AssessmentControllers', [])
 		'AssessmentListCtrl',
 		function ($rootScope, $scope, $stateParams, Utility, Assessments, Members) {
 			$scope.Assessments = Assessments;
-			$scope.data = {isLoading: true, searchFilter: null};
+			$scope.data = {isLoading: true, searchFilter: null, dCnt: 0};
 
-			console.log("enter AssessmentListCtrl");
+			$scope.assessmentFilter = function (assessment) {
+				return Members.filterer(assessment.member, $scope.data.searchFilter) ||
+					Members.filterer(assessment.assessor, $scope.data.searchFilter)
+					;
+			};
+
+			// Main
+			//
+			console.log("enter AssessmentListCtrl", $scope);
+			$scope.data.dCnt++;
 			if ($scope.Assessments.list == null) {
 				Utility.getResource(Assessments.retrieve(), function (response) {
 					$scope.Assessments.list = response.data;
@@ -22,46 +31,35 @@ angular.module('AssessmentControllers', [])
 			else {
 				$scope.data.isLoading = false;
 			}
-
-			$scope.assessmentFilter = function (assessment) {
-				return Members.filterer(assessment.member, $scope.data.searchFilter) ||
-					Members.filterer(assessment.assessor, $scope.data.searchFilter)
-					;
-			};
 		})
 
 	.controller(
 		'AssessmentMatrixCtrl',
-		function ($scope, $stateParams, Utility, Instruments, Assessments) {
-			$scope.data = {
-				matrix: null, instruments: [], currentInstrument: {}, currentInstrumentId: null, currentSectionIdx: Instruments.SECTION_SUMMARY
-			};
+		function ($rootScope, $cookieStore, $scope, $stateParams, Utility, Instruments, Assessments) {
+			$scope.Instruments = Instruments;
+			$scope.Assessments = Assessments;
 
-			Instruments.retrieve().query(function (response) {
-				$scope.data.instruments = response.data;
-				Instruments.collate($scope.data.instruments);
-				if (!Utility.empty(response)) {
-					$scope.setCurrentInstrument(response.data[0].id);
-				}
-			});
-			$scope.setCurrentInstrument = function (instId) {
-				var orgId = null;
-				if (!Utility.empty($stateParams)) {
+			$scope.setMatrix = function (instrumentId, organizationId) {
+				if (Utility.empty(instrumentId) && !Utility.empty($stateParams)) {
 					if (!Utility.empty($stateParams.instrumentId)) {
-						instId = $stateParams.instrumentId;
-					}
-					if (!Utility.empty($stateParams.organizationId)) {
-						orgId = $stateParams.organizationId;
+						instrumentId = $stateParams.instrumentId;
 					}
 				}
-				if (!Utility.empty(instId) && !Utility.empty($scope.data.instruments)) {
-					$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instId);
-					$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
-					Utility.getResource(Assessments.retrieveMatrix($scope.data.currentInstrument.id, orgId, false), function (response) {
-						$scope.data.matrix = response.data[0];
-						Instruments.currentSectionIdx = Instruments.SECTION_SUMMARY;
-						$scope.data.currentSectionIdx = Instruments.SECTION_SUMMARY;
-					});
+				if (Utility.empty(organizationId) && !Utility.empty($stateParams)) {
+					if (!Utility.empty($stateParams.organizationId)) {
+						organizationId = $stateParams.organizationId;
+					}
+				}
+				if (Utility.empty(organizationId)) {
+					var user = $cookieStore.get('user');
+					organizationId = user.oi;
+				}
+				if (Utility.empty(instrumentId) && !Utility.empty($scope.Instruments.list)) {
+					instrumentId = $scope.Instruments.current.id;
+				}
+				if (!Utility.empty(instrumentId) && !Utility.empty(organizationId) && !Utility.empty($scope.Instruments.list)) {
+					$scope.Instruments.current = Utility.findObjectById($scope.Instruments.list, instrumentId);
+					$scope.Assessments.retrieveMatrix($scope.Instruments.current.id, organizationId, false);
 				}
 			};
 			$scope.getScoreClass = function (response) {
@@ -87,40 +85,27 @@ angular.module('AssessmentControllers', [])
 			};
 			$scope.show = function (response) {
 				if (response && response !== undefined) {
-					if ($scope.data.currentSectionIdx == Instruments.SECTION_SUMMARY) {
+					if ($scope.Instruments.currentSectionIdx == Instruments.SECTION_SUMMARY) {
 						return response[0] == 'S' || response[0] == 'CS';
 					}
 					else {
-						return $scope.data.currentSectionIdx < 0 || $scope.data.currentSectionIdx == response[3];
+						return $scope.Instruments.currentSectionIdx < 0 || $scope.Instruments.currentSectionIdx == response[3];
 					}
 				}
 				return false;
 			};
-			$scope.next = function () {
-				$scope.data.currentSectionIdx = Instruments.sectionNext($scope.data.currentInstrument);
-			};
-			$scope.previous = function () {
-				$scope.data.currentSectionIdx = Instruments.sectionPrevious($scope.data.currentInstrument);
-			};
-			$scope.previousName = function () {
-				return Instruments.sectionPreviousName($scope.data.currentInstrument);
-			};
-			$scope.nextName = function () {
-				return Instruments.sectionNextName($scope.data.currentInstrument);
-			};
-			$scope.viewAll = function () {
-				$scope.data.currentSectionIdx = Instruments.sectionViewAll();
-			};
-			$scope.viewSummary = function () {
-				$scope.data.currentSectionIdx = Instruments.sectionViewSummary();
-			};
-			$scope.isAll = function () {
-				return Instruments.sectionIsAll();
-			};
-			$scope.isSummary = function () {
-				return Instruments.sectionIsSummary();
-			};
-		})
+
+			// Main
+			//
+			$scope.$on('$ionicView.enter', function (event) {
+				console.log("enter AssessmentMatrixCtrl", Instruments.list);
+				Instruments.getCollated(function () {
+					console.log("setting matrix", $scope.Instruments.loading, $scope.Instruments.list);
+					$scope.setMatrix(null, null);
+				});
+			});
+		}
+	)
 
 	.controller(
 		'AssessmentViewCtrl',
@@ -177,7 +162,8 @@ angular.module('AssessmentControllers', [])
 
 			$scope.getRecommendations = function () {
 				if ($scope.Assessments.current !== null && $scope.Resources.list !== null) {
-					$scope.data.recommendations = Assessments.recommend($scope.Assessments.current.instrument, $scope.Resources.list, $scope.Assessments.current.responses);
+					$scope.data.recommendations =
+						Assessments.recommend($scope.Assessments.current.instrument, $scope.Resources.list, $scope.Assessments.current.responses);
 				}
 			};
 
@@ -220,11 +206,13 @@ angular.module('AssessmentControllers', [])
 										$scope.Assessments.current = response.data;
 										var instrumentId = $scope.Assessments.current.instrument.id;
 										$scope.Assessments.current.instrument = Utility.findObjectById($scope.Instruments.list, instrumentId);
-										var scoreInfo = Assessments.scorify($scope.Assessments.current.instrument, $scope.Assessments.current.responses);
+										var scoreInfo = Assessments.scorify($scope.Assessments.current.instrument,
+																			$scope.Assessments.current.responses);
 										var question = $scope.Assessments.current.instrument.sections[0].questions[0];
 										$scope.Assessments.current.sc = scoreInfo.avg;
 										$scope.Assessments.current.rk = scoreInfo.avgRound;
-										$scope.Assessments.current.scoreWord = Assessments.scoreWord(question, scoreInfo.avgRound, $scope.Assessments.current.responses);
+										$scope.Assessments.current.scoreWord =
+											Assessments.scoreWord(question, scoreInfo.avgRound, $scope.Assessments.current.responses);
 										$scope.data.assessor = $cookieStore.get('user');
 										$scope.getRecommendations();
 										$scope.data.isLoading = false;
@@ -306,16 +294,13 @@ angular.module('AssessmentControllers', [])
 
 
 			// Main
-			$scope.Instruments.getCollated(function (instruments) {
-				if ($scope.Resources.list === null) {
-					Utility.getResource(Resources.retrieve(), function (response) {
-						$scope.Resources.list = response.data;
+			//
+			$scope.$on('$ionicView.enter', function (event) {
+				$scope.Instruments.getCollated(function (instruments) {
+					$scope.Resources.loadAll(function (resources) {
 						$scope.getAssessment();
 					});
-				}
-				else {
-					$scope.getAssessment();
-				}
+				});
 			});
 		})
 ;

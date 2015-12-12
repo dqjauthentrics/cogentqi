@@ -4,15 +4,15 @@
         <div style="float:left;">
             <div class="name">{{member.fn}} {{member.ln}}</div>
             <div class="title">{{member.jt}}</div>
-            <div class="role" data-ng-if="member.rn.length && member.rn != member.jt">({{member.rn}})</div>
-            <div class="itemInactiveText" ng-if="member.ae">{{'Inactive as of:'|translate}} {{member.ae|date}}</div>
+            <div class="role" data-ng-show="member.rn.length && member.rn != member.jt">({{member.rn}})</div>
+            <div class="itemInactiveText" ng-show="member.ae">{{'Inactive as of:'|translate}} {{member.ae|date}}</div>
         </div>
     </div>
     <div class="col col-25">
-        <micro-badge ng-if="member.badges.length" text="member.badges.length + ''" size="'count'"></micro-badge>
+        <micro-badge ng-show="member.badges.length" text="member.badges.length + ''" size="'count'"></micro-badge>
     </div>
     <div class="col col-50">
-        <div data-ng-if="member.lastAssessment.lm">
+        <div data-ng-show="member.lastAssessment.lm">
             <assessment-item site="siteDir()" prefix="'Last Assessment'|translate" assessment="member.lastAssessment" i="i"></assessment-item>
         </div>
     </div>

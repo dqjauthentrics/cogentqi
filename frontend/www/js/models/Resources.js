@@ -19,6 +19,19 @@ angular.module('Resources', []).service('Resources', function ($resource, $http,
 		}
 	};
 
+	svc.loadAll = function (callbackFn) {
+		if (svc.list === null) {
+			Utility.getResource(svc.retrieve(), function (response) {
+				svc.list = response.data;
+				svc.current = svc.list[0];
+				callbackFn(svc.list);
+			});
+		}
+		else {
+			callbackFn(svc.list);
+		}
+	};
+
 	svc.save = function (resource, callbackFn) {
 		try {
 			$http.post("/api3/resource/save", {resource: resource})
@@ -85,12 +98,12 @@ angular.module('Resources', []).service('Resources', function ($resource, $http,
 
 	svc.filterer = function (resource, filterText) {
 		try {
-			if (filterText != null && !Utility.empty(resource)) {
+			if (!Utility.empty(filterText) && !Utility.empty(resource)) {
 				filterText = filterText.toLowerCase();
 				return filterText == null ||
-					resource.nmb.toLowerCase().indexOf(filterText) >= 0 ||
-					resource.n.toLowerCase().indexOf(filterText) >= 0 ||
-					resource.sm.toLowerCase().indexOf(filterText) >= 0
+					(resource.nmb && resource.nmb.toLowerCase().indexOf(filterText) >= 0) ||
+					(resource.n && resource.n.toLowerCase().indexOf(filterText) >= 0) ||
+					(resource.sm && resource.sm.toLowerCase().indexOf(filterText) >= 0)
 					;
 			}
 		}

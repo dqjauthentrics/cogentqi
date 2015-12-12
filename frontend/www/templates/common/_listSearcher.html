@@ -1,11 +1,13 @@
-<label class="item-input-wrapper" style="float:left;">
-    <i class="icon ion-ios-search placeholder-icon"></i>
-    <input type="search" placeholder="{{'search...'|translate}}" ng-model="data.searchFilter">
-
-    <div class="itemCount">{{filtered.length}} {{'records'|translate}}</div>
-    <div style="margin-left:1em;" class="gray" data-ng-show="data.isLoading"><i class="{{i.loadingSpinner}}"></i> Loading...</div>
-</label>
-<div ng-if="data.showIncludeInactive" class="pull-right" style="margin: 0 2em;">
+<div style="vertical-align: middle;">
+    <div style="float:left;">
+        <div style="float:left; margin-top:0.4em; color: #FFF;">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+        </div>
+        <input style="border-radius: 0.2em;" type="search" placeholder="{{'filter...'|translate}}" ng-model="data.searchFilter" clearable-input/>
+    </div>
+</div>
+<div class="itemCount">{{filtered.length}} {{'records'|translate}}</div>
+<div style="margin-left:1em;" class="gray" data-ng-show="data.isLoading"><i class="{{i.loadingSpinner}}"></i> Loading...</div>
+<div ng-show="data.showIncludeInactive" class="pull-right" style="margin: 0 2em;">
     <input type="checkbox" ng-click="changeActive()" ng-model="data.includeInactive"/> {{'Include Inactive'|translate}}
 </div>
-

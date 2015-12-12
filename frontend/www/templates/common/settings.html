@@ -1,8 +1,8 @@
 <ion-view view-title="Settings">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
-    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
-        <div class="row responsive-sm" data-ng-if="!isIOS">
+        <div class="row responsive-sm" data-ng-show="!isIOS">
             <div class="col col-50" style="text-align: center;">
                 <canvas id="snapshot" width="320" height="240"></canvas>
                 <div class="clearfix"></div>
@@ -12,10 +12,10 @@
                 <webcam channel="webcamChannel" on-stream="webcamStream(stream)" on-streaming="webcamSuccess()" on-error="webcamError(err)"></webcam>
                 <div class="clearfix"></div>
                 <div data-ng-show="!webcamReady">Allow your browser to use your video camera (probably a message waiting for you above).</div>
-                <button data-ng-show="webcamReady" class="button button-balanced" data-ng-click="makeSnapshot()">Say "Cheese" and Press Me!</button>
+                <button data-ng-show="webcamReady" class="button button-balanced" ng-click="makeSnapshot()">Say "Cheese" and Press Me!</button>
             </div>
         </div>
-        <div data-ng-if="isIOS">
+        <div data-ng-show="isIOS">
             <style>
                 #yourimage {
                     width: 100%;
@@ -89,4 +89,5 @@
             </div>
         </div>
     </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
 </ion-view>

@@ -1,36 +1,36 @@
-<ion-view view-title='Assessment Matrix'>
+<ion-view view-title="{{'Assessment Matrix'|translate}}">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
-    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
-        <div style="text-align:center; margin-top: 1em;">
+         <div style="text-align:center; margin-top: 1em;">
             <h3>{{a.sectionCurrentName()}}</h3>
-            <select data-ng-if="data.instruments.length > 1" style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId"
-                    data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
-                    data-ng-options="instrument.id as instrument.n for instrument in data.instruments">
+            <select data-ng-show="Instruments.list.length > 1" style="margin-top:1em;" class="large" data-ng-model="Instruments.current.id"
+                    data-ng-change="setMatrix(Instruments.current.id, null)"
+                    data-ng-options="instrument.id as instrument.n for instrument in Instruments.list">
             </select>
-            <h1 data-ng-if="data.instruments.length == 1">{{data.currentInstrument.n}}</h1>
-            <h2>{{data.matrix.org.n}}</h2>
+            <h1 data-ng-show="Instruments.list.length == 1">{{Instruments.current.n}}</h1>
+            <h2>{{Assessments.matrix.org.n}}</h2>
         </div>
         <div style="overflow: auto !important;">
             <table id="matrix" class="matrix">
                 <thead>
                 <tr>
                     <th style="font-style: italic;">{{'Most Recent'|translate}}<br/>{{'Member Assessments'|translate}}</th>
-                    <th class="rotate" data-ng-repeat="hdr in data.matrix.hdrs track by $index" data-ng-class="getCellClass(hdr)"
+                    <th class="rotate" data-ng-repeat="hdr in Assessments.matrix.hdrs track by $index" data-ng-class="getCellClass(hdr)"
                         data-ng-show="show(hdr)">
                         <div><span>{{hdr[1]|ellipsify:24}}</span></div>
                     </th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr data-ng-repeat="row in data.matrix.rows">
+                <tr data-ng-repeat="row in Assessments.matrix.rows">
                     <td class="leftHeader" data-ng-class="row.mid == -1 || row.oid == -1? 'average':''">
-                        <div data-ng-switch="data.matrix.mType == 'M' ? row.mid : row.oid">
+                        <div data-ng-switch="Assessments.matrix.mType == 'M' ? row.mid : row.oid">
                             <div data-ng-switch-when="-1" style="text-align: right;">
                                 {{row.n}}
                             </div>
                             <div data-ng-switch-default>
-                                <div data-ng-switch="data.matrix.mType">
+                                <div data-ng-switch="Assessments.matrix.mType">
                                     <div data-ng-switch-when="M">
                                         <a href="/#/member/view/{{row.mid}}">
                                             <avatar site="siteDir()" sz="'tiny'" member-id="row.mid" level="row.lv" alt=""></avatar>
@@ -55,11 +55,12 @@
         </div>
         <div id="matrixButtons" class="row row-responsive-sm">
             <div class="col" style="text-align:center;">
-                <a class="button" data-ng-click="previous()"><< {{previousName()|ellipsify:25}}</a>
-                <a class="button" data-ng-show="!isAll()" data-ng-click="viewAll()">Complete</a>
-                <a class="button" data-ng-show="!isSummary()" data-ng-click="viewSummary()">Sections</a>
-                <a class="button" data-ng-click="next()">{{nextName()|ellipsify:25}} >></a>
+                <a class="button" ng-click="Instruments.sectionPrevious()"><< {{Instruments.sectionPreviousName()|ellipsify:20}}</a>
+                <a class="button" data-ng-show="!Instruments.sectionIsAll()" ng-click="Instruments.sectionViewAll()">Complete</a>
+                <a class="button" data-ng-show="!Instruments.sectionIsSummary()" ng-click="Instruments.sectionViewSummary()">Sections</a>
+                <a class="button" ng-click="Instruments.sectionNext()">{{Instruments.sectionNextName()|ellipsify:20}} >></a>
             </div>
         </div>
     </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
 </ion-view>
