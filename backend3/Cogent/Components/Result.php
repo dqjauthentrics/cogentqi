@@ -130,7 +130,9 @@ class Result {
 			$this->message = $message;
 		}
 		else {
-			$this->message = self::MESSAGES[$code];
+			// This silliness is so that a phpStorm bug show an error
+			$tmp = self::MESSAGES;
+			$this->message = $tmp[$code];
 		}
 	}
 
