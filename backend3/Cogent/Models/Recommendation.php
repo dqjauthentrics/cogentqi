@@ -467,11 +467,11 @@ class Recommendation extends CogentModel {
 	 * @throws \Exception
 	 */
 	private function saveRankedResources($rankedCoverages, $member, $assessmentId) {
-		$date = new \DateTime();
+		$date = $this->dbDateTime();
 		$recommendationFields = [
 			'member_id'     => $member->id,
 			'assessment_id' => $assessmentId,
-			'created_on'    => $this->dbDateTime(),
+			'created_on'    => $date,
 		];
 		$recommendation = self::findFirst([
 			'conditions' => "member_id=:mid: AND assessment_id=:aid:",

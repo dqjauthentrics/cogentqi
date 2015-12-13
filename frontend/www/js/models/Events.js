@@ -19,7 +19,8 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 	svc.execute = function (callback, failure) {
 		if (svc.list == null) {
 			return $http.get('/api3/event').
-			then(function (response) {
+			then(function (result) {
+					 var response = result.data; // Cogent standard
 					 svc.list = response.data;
 					 svc.list.forEach(function (event) {
 						 event.getAlignmentQuestions = svc.getAlignmentQuestions;
@@ -38,11 +39,11 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 	svc.createEvent = function () {
 		var tempId = -1;
 		svc.list.push({
-			id: svc.tempId--,
-			n: "New Event",
-			dsc: "",
-			cat: ""
-		});
+						  id: svc.tempId--,
+						  n: "New Event",
+						  dsc: "",
+						  cat: ""
+					  });
 		return tempId;
 	};
 	svc.deleteEvent = function (event) {
