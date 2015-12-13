@@ -15,7 +15,6 @@ class Recommendation extends CogentModel {
 	const MAX_ORG_LEVEL = 3;
 	const MAX_RATING = 4;
 
-
 	/**
 	 *
 	 * @var integer
@@ -86,7 +85,7 @@ class Recommendation extends CogentModel {
 	 *
 	 * @return int
 	 */
-	public static function countMatchingEvents($outcomeId, $outcomeEvents) {
+	public function countMatchingEvents($outcomeId, $outcomeEvents) {
 		$nMatches = 0;
 		foreach ($outcomeEvents as $outcomeEvent) {
 			if ($outcomeEvent['outcome_id'] == $outcomeId) {
@@ -102,7 +101,7 @@ class Recommendation extends CogentModel {
 	 *
 	 * @return int
 	 */
-	public static function getOrgOutcome($outcomeId, $organizationOutcomes) {
+	public function getOrgOutcome($outcomeId, $organizationOutcomes) {
 		foreach ($organizationOutcomes as $organizationOutcome) {
 			if ($organizationOutcome['outcome_id'] == $outcomeId) {
 				return $organizationOutcome["level"];
@@ -116,7 +115,7 @@ class Recommendation extends CogentModel {
 	 *
 	 * @return Result
 	 */
-	public static function recommend($assessmentId) {
+	public function recommend($assessmentId) {
 		$result = new Result();
 		try {
 			$assessment = Assessment::findFirst($assessmentId);
@@ -183,7 +182,7 @@ class Recommendation extends CogentModel {
 	/**
 	 * @param $planItem
 	 */
-	public static function planItemCompleted($planItem) {
+	public function planItemCompleted($planItem) {
 		$assessmentModel = new Assessment();
 		$latestAssessmentIds = $assessmentModel->getLatestAssessmentIds($planItem->member_id);
 		$responses = AssessmentResponse::query()
@@ -198,7 +197,7 @@ class Recommendation extends CogentModel {
 	/**
 	 * @param $memberEvent
 	 */
-	public static function createRecommendationsForEvent($memberEvent) {
+	public function createRecommendationsForEvent($memberEvent) {
 		$assessmentModel = new Assessment();
 		$eventAlignments = EventAlignment::findFirst($memberEvent->event_id);
 		$questionToResponse = [];
@@ -269,7 +268,7 @@ class Recommendation extends CogentModel {
 	 *
 	 * @return array
 	 */
-	private static function createScoredQuestions($assessmentResponses) {
+	private function createScoredQuestions($assessmentResponses) {
 		$scoredQuestions = [];
 		foreach ($assessmentResponses as $response) {
 			$scoredQuestions[$response->question_id] = [
@@ -286,7 +285,7 @@ class Recommendation extends CogentModel {
 	 *
 	 * @return array
 	 */
-	public static function createRecommendationsForAssessment($assessmentId) {
+	public function createRecommendationsForAssessment($assessmentId) {
 		$assessment = Assessment::findFirst($assessmentId);
 		$rankedCoverages = [];
 		if (!empty($assessment)) {
@@ -295,10 +294,10 @@ class Recommendation extends CogentModel {
 
 			// Filter out any competencies that don't require resource coverage
 			//
-			$filteredQuestions = self::assessmentQuestionsToCover($scoredQuestions);
-			$rankedCoverages = self::createRankedResourceList($filteredQuestions, $member);
-			self::saveRankedResources($rankedCoverages, $member, $assessmentId);
-			self::saveAssessmentCoverages($rankedCoverages, $assessmentId);
+			$filteredQuestions = $this->assessmentQuestionsToCover($scoredQuestions);
+			$rankedCoverages = $this->createRankedResourceList($filteredQuestions, $member);
+			$this->saveRankedResources($rankedCoverages, $member, $assessmentId);
+			$this->saveAssessmentCoverages($rankedCoverages, $assessmentId);
 		}
 		return $rankedCoverages;
 	}
@@ -310,7 +309,7 @@ class Recommendation extends CogentModel {
 	 * @return array
 	 *
 	 */
-	private static function createRankedResourceList($filteredQuestions, $member) {
+	private function createRankedResourceList($filteredQuestions, $member) {
 		// Record the resources that will be offered in the future as a module.
 		// If multiple modules exist for a resource, select the earliest one.
 		//
@@ -390,7 +389,7 @@ class Recommendation extends CogentModel {
 					$coverage['questions'][$alignment->question_id] = 0;
 				}
 			}
-			self::sortResourceCoverages($resourceCoverages);
+			$this->sortResourceCoverages($resourceCoverages);
 			unset($coverage);
 			while (TRUE) {
 				for ($i = count($resourceCoverages) - 1; $i >= 0; $i--) {
@@ -398,7 +397,7 @@ class Recommendation extends CogentModel {
 					unset($resourceCoverages[$i]);
 					if ($coverage['totalWeight'] != 0) {
 						array_push($rankedCoverages, $coverage);
-						self::reduceResourceCoverages($coverage, $resourceCoverages, $filteredQuestions);
+						$this->reduceResourceCoverages($coverage, $resourceCoverages, $filteredQuestions);
 						break;
 					}
 				}
@@ -406,7 +405,7 @@ class Recommendation extends CogentModel {
 					break;
 				}
 			}
-			self::setOrderAndRatings($rankedCoverages, $filteredQuestions);
+			$this->setOrderAndRatings($rankedCoverages, $filteredQuestions);
 
 			// Sort final resource list in descending order of the total response error
 			//
@@ -423,7 +422,7 @@ class Recommendation extends CogentModel {
 	 * @param $rankedCoverages
 	 * @param $assessmentId
 	 */
-	private static function saveAssessmentCoverages($rankedCoverages, $assessmentId) {
+	private function saveAssessmentCoverages($rankedCoverages, $assessmentId) {
 		foreach ($rankedCoverages as $rankedCoverage) {
 			$responses = AssessmentResponse::query()
 				->where('assessment_id=:aid:', ['aid' => $assessmentId])
@@ -446,7 +445,7 @@ class Recommendation extends CogentModel {
 	 *
 	 * @return array
 	 */
-	private static function createNewRecommendationArray($moduleId, $memberId, $date, $rating, $order, $recommendationId) {
+	private function createNewRecommendationArray($moduleId, $memberId, $date, $rating, $order, $recommendationId) {
 		return [
 			'module_id'           => $moduleId,
 			'plan_item_status_id' => PlanItem::STATUS_RECOMMENDED,
@@ -464,27 +463,31 @@ class Recommendation extends CogentModel {
 	 * @param array  $rankedCoverages
 	 * @param Member $member
 	 * @param int    $assessmentId
+	 *
+	 * @throws \Exception
 	 */
-	private static function saveRankedResources($rankedCoverages, $member, $assessmentId) {
+	private function saveRankedResources($rankedCoverages, $member, $assessmentId) {
 		$date = new \DateTime();
 		$recommendationFields = [
 			'member_id'     => $member->id,
 			'assessment_id' => $assessmentId,
-			'created_on'    => $date,
+			'created_on'    => $this->dbDateTime(),
 		];
-		$recommendation = Recommendation::findFirst([
+		$recommendation = self::findFirst([
 			'conditions' => "member_id=:mid: AND assessment_id=:aid:",
 			'bind'       => ['mid' => $member->id, 'aid' => $assessmentId]
 		]);
 		if (empty($recommendation)) {
 			$recommendation = new Recommendation();
 		}
-		$recommendation->update($recommendationFields);
+		if (!$recommendation->save($recommendationFields)) {
+			throw new \Exception($recommendation->errorMessagesAsString());
+		}
 
 		// Create objects for plan_item entries
 		$newRecommendations = [];
 		foreach ($rankedCoverages as $coverage) {
-			$newRecommendations[] = self::createNewRecommendationArray(
+			$newRecommendations[] = $this->createNewRecommendationArray(
 				$coverage['moduleId'],
 				$member->id,
 				$date,
@@ -518,7 +521,11 @@ class Recommendation extends CogentModel {
 		$inserts = array_slice($newRecommendations, $updateIndex, count($newRecommendations));
 		if (count($inserts) > 0) {
 			$newItem = new PlanItem();
-			$newItem->update(array_slice($newRecommendations, $updateIndex, count($newRecommendations)));
+			if (!$newItem->update(array_slice($newRecommendations, $updateIndex, count($newRecommendations)))) {
+				if (!$recommendation->update($recommendationFields)) {
+					throw new \Exception($recommendation->errorMessagesAsString());
+				}
+			}
 		}
 	}
 
@@ -526,7 +533,7 @@ class Recommendation extends CogentModel {
 	 * @param array $rankedCoverages
 	 * @param array $scoredQuestions
 	 */
-	private static function setOrderAndRatings(&$rankedCoverages, $scoredQuestions) {
+	private function setOrderAndRatings(&$rankedCoverages, $scoredQuestions) {
 		$order = 1;
 		$maxError = 0;
 		foreach ($rankedCoverages as &$coverage) {
@@ -541,8 +548,7 @@ class Recommendation extends CogentModel {
 			}
 		}
 		foreach ($rankedCoverages as &$coverage) {
-			$coverage['rating'] = $maxError != 0 ?
-				ceil(self::MAX_RATING * ($coverage['totalResponseError'] / $maxError)) : 0;
+			$coverage['rating'] = $maxError != 0 ? ceil(self::MAX_RATING * ($coverage['totalResponseError'] / $maxError)) : 0;
 		}
 	}
 
@@ -551,7 +557,7 @@ class Recommendation extends CogentModel {
 	 *
 	 * @return array
 	 */
-	private static function assessmentQuestionsToCover($scoredQuestions) {
+	private function assessmentQuestionsToCover($scoredQuestions) {
 		$filteredQuestions = [];
 		foreach ($scoredQuestions as $questionId => $scoredQuestion) {
 			$score = $scoredQuestion['response'];
@@ -568,7 +574,7 @@ class Recommendation extends CogentModel {
 	 * @param array $coverages
 	 * @param array $scoredQuestions
 	 */
-	private static function reduceResourceCoverages($selectedCoverage, &$coverages, $scoredQuestions) {
+	private function reduceResourceCoverages($selectedCoverage, &$coverages, $scoredQuestions) {
 		foreach ($coverages as &$coverage) {
 			foreach ($selectedCoverage['questions'] as $question => $dummy) {
 				if (array_key_exists($question, $coverage['questions'])) {
@@ -578,13 +584,13 @@ class Recommendation extends CogentModel {
 			}
 		}
 		unset($coverage);
-		self::sortResourceCoverages($coverages);
+		$this->sortResourceCoverages($coverages);
 	}
 
 	/**
 	 * @param array $coverages
 	 */
-	private static function sortResourceCoverages(&$coverages) {
+	private function sortResourceCoverages(&$coverages) {
 		usort($coverages, function ($r1, $r2) {
 			$w1 = $r1['totalWeight'];
 			$w2 = $r2['totalWeight'];

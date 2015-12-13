@@ -12,7 +12,8 @@ class RecommendationController extends ControllerBase {
 	public function getAction($id = NULL) {
 		$result = new Result($this);
 		try {
-			$recommendations = Recommendation::createRecommendationsForAssessment($id);
+			$recommendation = new Recommendation();
+			$recommendations = $recommendation->createRecommendationsForAssessment($id);
 			$result->setNormal($recommendations);
 		}
 		catch (\Exception $exception) {

@@ -233,7 +233,8 @@ class Assessment extends CogentModel {
 						}
 					}
 				}
-				Recommendation::createRecommendationsForAssessment($assessment->id);
+				$recommendationModel = new Recommendation();
+				$recommendationModel->createRecommendationsForAssessment($assessment->id);
 				$controller->commitTransaction();
 				$result->setNormal();
 			}

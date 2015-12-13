@@ -231,7 +231,7 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	 *
 	 * @return bool|string
 	 */
-	public function dateTme($dateTimeStr = NULL) {
+	public function dbDateTime($dateTimeStr = NULL) {
 		if (empty($dateTimeStr)) {
 			$dateTimeStr = date('m/d/Y h:i:s a', time());
 		}
@@ -351,5 +351,24 @@ class CogentModel extends \Phalcon\Mvc\Model {
 			}
 		}
 		return $colValues;
+	}
+
+	/**
+	 * @param string $separator
+	 *
+	 * @return string
+	 */
+	public function errorMessagesAsString($separator='<br/>') {
+		$msgString = '';
+		$messages = $this->getMessages();
+		if (!empty($messages)) {
+			foreach ($messages as $message) {
+				if (strlen($msgString) > 0) {
+					$msgString .= $separator;
+				}
+				$msgString .= $message;
+			}
+		}
+		return $msgString;
 	}
 }
