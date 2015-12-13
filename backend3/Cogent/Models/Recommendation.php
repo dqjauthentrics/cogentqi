@@ -274,7 +274,7 @@ class Recommendation extends CogentModel {
 		foreach ($assessmentResponses as $response) {
 			$scoredQuestions[$response->question_id] = [
 				'response'    => $response->response,
-				'maxResponse' => $response->question->question_type->max_range,
+				'maxResponse' => $response->question->type->max_range,
 				'importance'  => $response->question->importance,
 			];
 		}
@@ -288,13 +288,15 @@ class Recommendation extends CogentModel {
 	 */
 	public static function createRecommendationsForAssessment($assessmentId) {
 		$assessment = Assessment::findFirst($assessmentId);
-		$member = $assessment->getAssessee();
-		$scoredQuestions = self::createScoredQuestions($assessment->getResponses());
-		// Filter out any competencies that don't require resource coverage
-		$filteredQuestions = self::assessmentQuestionsToCover($scoredQuestions);
-		$rankedCoverages = self::createRankedResourceList($filteredQuestions, $member);
-		self::saveRankedResources($rankedCoverages, $member, $assessmentId);
-		self::saveAssessmentCoverages($rankedCoverages, $assessmentId);
+		if (!empty($assessment)) {
+			$member = $assessment->assessee;
+			$scoredQuestions = self::createScoredQuestions($assessment->getResponses());
+			// Filter out any competencies that don't require resource coverage
+			$filteredQuestions = self::assessmentQuestionsToCover($scoredQuestions);
+			$rankedCoverages = self::createRankedResourceList($filteredQuestions, $member);
+			self::saveRankedResources($rankedCoverages, $member, $assessmentId);
+			self::saveAssessmentCoverages($rankedCoverages, $assessmentId);
+		}
 	}
 
 	/**
@@ -306,8 +308,10 @@ class Recommendation extends CogentModel {
 	 */
 	private static function createRankedResourceList($filteredQuestions, $member) {
 		// Record the resources that will be offered in the future as a module.
-		// If multiple modules exist for a resource, select he earlies one.
+		// If multiple modules exist for a resource, select the earliest one.
+		//
 		$futureResources = [];
+		$rankedCoverages = [];
 		foreach (Module::query()->where('starts > NOW()')->execute() as $module) {
 			$rId = $module->resource_id;
 			$starts = !empty($module->starts) ? $module->starts->getTimeStamp() : NULL;
@@ -325,78 +329,79 @@ class Recommendation extends CogentModel {
 				$futureResources[$rId]['moduleId'] = $module->id;
 			}
 		}
-		// We don't want to recommend any resources that are contained
-		// in the member's plan except for previously recommended and withdrawn ones.
-		$pastResources = [];
-		foreach ($member->planItems as $item) {
-			if ($item->plan_item_status_id != PlanItem::STATUS_RECOMMENDED &&
-				$item->plan_item_status_id != PlanItem::STATUS_WITHDRAWN
-			) {
-				array_push($pastResources, $item->module->resource->id);
-			}
-		}
-		$rankedCoverages = [];
-		$resourceAlignments = ResourceAlignment::query()
-			->where('question_id IN', array_keys($filteredQuestions))
-			->andWhere('resource_id NOT IN', $pastResources)
-			->andWhere('resource_id IN', array_keys($futureResources))
-			->execute();
 
-		// Record the alignment strengths that constitute coverage for each question
-		$maxCoveringStrengths = [];
-		foreach ($filteredQuestions as $key => $value) {
-			$maxCoveringStrengths[$key] = 0;
-		}
-		foreach ($resourceAlignments as $alignment) {
-			if ($alignment->weight > $maxCoveringStrengths[$alignment->question_id]) {
-				$maxCoveringStrengths[$alignment->question_id] = $alignment->weight;
+		if (!empty($futureResources)) {
+			// We don't want to recommend any resources that are contained in the member's plan except for previously recommended and
+			// withdrawn ones.
+			//
+			$pastResources = [];
+			foreach ($member->planItems as $item) {
+				if ($item->plan_item_status_id != PlanItem::STATUS_RECOMMENDED && $item->plan_item_status_id != PlanItem::STATUS_WITHDRAWN) {
+					array_push($pastResources, $item->module->resource->id);
+				}
 			}
-		}
+			$resourceAlignments = ResourceAlignment::query()
+				->where('question_id IN', array_keys($filteredQuestions))
+				->andWhere('resource_id NOT IN', $pastResources)
+				->andWhere('resource_id IN', array_keys($futureResources))
+				->execute();
 
-		// Record how well each resource covers a subset of questions
-		$resourceCoverages = [];
-		foreach ($resourceAlignments as $alignment) {
-			$rId = $alignment->resource_id;
-			if (!array_key_exists($rId, $resourceCoverages)) {
-				$resourceCoverages[$rId] = [
-					'resourceId'         => $rId,
-					'moduleId'           => $futureResources[$rId]['moduleId'],
-					'totalWeight'        => 0,
-					'questions'          => [],
-					'totalResponseError' => 0,
-					'order'              => 0,
-					'rating'             => 0,
-				];
+			// Record the alignment strengths that constitute coverage for each question
+			$maxCoveringStrengths = [];
+			foreach ($filteredQuestions as $key => $value) {
+				$maxCoveringStrengths[$key] = 0;
 			}
-			if ($alignment->weight == $maxCoveringStrengths[$alignment['question_id']]) {
-				$coverage = &$resourceCoverages[$rId];
-				$coverage['totalWeight'] +=
-					$filteredQuestions[$alignment->question_id]['importance'];
-				$coverage['questions'][$alignment->question_id] = 0;
+			foreach ($resourceAlignments as $alignment) {
+				if ($alignment->weight > $maxCoveringStrengths[$alignment->question_id]) {
+					$maxCoveringStrengths[$alignment->question_id] = $alignment->weight;
+				}
 			}
-		}
-		self::sortResourceCoverages($resourceCoverages);
-		unset($coverage);
-		while (TRUE) {
-			for ($i = count($resourceCoverages) - 1; $i >= 0; $i--) {
-				$coverage = $resourceCoverages[$i];
-				unset($resourceCoverages[$i]);
-				if ($coverage['totalWeight'] != 0) {
-					array_push($rankedCoverages, $coverage);
-					self::reduceResourceCoverages($coverage,
-						$resourceCoverages, $filteredQuestions);
+
+			// Record how well each resource covers a subset of questions
+			$resourceCoverages = [];
+			foreach ($resourceAlignments as $alignment) {
+				$rId = $alignment->resource_id;
+				if (!array_key_exists($rId, $resourceCoverages)) {
+					$resourceCoverages[$rId] = [
+						'resourceId'         => $rId,
+						'moduleId'           => $futureResources[$rId]['moduleId'],
+						'totalWeight'        => 0,
+						'questions'          => [],
+						'totalResponseError' => 0,
+						'order'              => 0,
+						'rating'             => 0,
+					];
+				}
+				if ($alignment->weight == $maxCoveringStrengths[$alignment['question_id']]) {
+					$coverage = &$resourceCoverages[$rId];
+					$coverage['totalWeight'] += $filteredQuestions[$alignment->question_id]['importance'];
+					$coverage['questions'][$alignment->question_id] = 0;
+				}
+			}
+			self::sortResourceCoverages($resourceCoverages);
+			unset($coverage);
+			while (TRUE) {
+				for ($i = count($resourceCoverages) - 1; $i >= 0; $i--) {
+					$coverage = $resourceCoverages[$i];
+					unset($resourceCoverages[$i]);
+					if ($coverage['totalWeight'] != 0) {
+						array_push($rankedCoverages, $coverage);
+						self::reduceResourceCoverages($coverage, $resourceCoverages, $filteredQuestions);
+						break;
+					}
+				}
+				if (count($resourceCoverages) == 0) {
 					break;
 				}
 			}
-			if (count($resourceCoverages) == 0) {
-				break;
-			}
+			self::setOrderAndRatings($rankedCoverages, $filteredQuestions);
+
+			// Sort final resource list in descending order of the total response error
+			//
+			usort($rankedCoverages, function ($c1, $c2) {
+				return $c2['totalResponseError'] - $c1['totalResponseError'];
+			});
 		}
-		self::setOrderAndRatings($rankedCoverages, $filteredQuestions);
-		// Sort final resource list in descending order of the total response error
-		usort($rankedCoverages, function ($c1, $c2) {
-			return $c2['totalResponseError'] - $c1['totalResponseError'];
-		});
 		return $rankedCoverages;
 	}
 

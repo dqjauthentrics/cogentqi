@@ -5,10 +5,15 @@ namespace Cogent\Models;
  * Class PlanItem
  * @package Cogent\Models
  *
- * @method \Phalcon\Mvc\Model\Resultset\Simple getMembers()
- * @method \Phalcon\Mvc\Model\Resultset\Simple getModules()
- * @method  Recommendation getRecommendation()
- * @method  PlanItemStatus getStatus()
+ * @method Member getMember()
+ * @method Module getModule()
+ * @method Recommendation getRecommendation()
+ * @method PlanItemStatus getStatus()
+ *
+ * @method Member $member
+ * @method Module $module
+ * @method Recommendation $recommendation
+ * @method PlanItemStatus $status
  *
  */
 class PlanItem extends CogentModel {
@@ -91,10 +96,10 @@ class PlanItem extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('module_id', 'Cogent\Models\Module', 'id', ['alias' => 'Modules']);
-		$this->belongsTo('member_id', 'Cogent\Models\Member', 'id', ['alias' => 'Members']);
+		$this->belongsTo('module_id', 'Cogent\Models\Module', 'id', ['alias' => 'Module']);
+		$this->belongsTo('member_id', 'Cogent\Models\Member', 'id', ['alias' => 'Member']);
 		$this->belongsTo('plan_item_status_id', 'Cogent\Models\PlanItemStatus', 'id', ['alias' => 'Status']);
-		$this->belongsTo('recommendation_id', 'Cogent\Models\Recommendation', 'id', ['alias' => 'Recommendations']);
+		$this->belongsTo('recommendation_id', 'Cogent\Models\Recommendation', 'id', ['alias' => 'Recommendation']);
 	}
 
 	/**

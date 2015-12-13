@@ -83,8 +83,8 @@ class AssessmentResponse extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('assessment_id', 'Assessment', 'id', ['alias' => 'Assessment']);
-		$this->belongsTo('question_id', 'Question', 'id', ['alias' => 'Question']);
+		$this->belongsTo('assessment_id', '\Cogent\Models\Assessment', 'id', ['alias' => 'Assessment']);
+		$this->belongsTo('question_id', '\Cogent\Models\Question', 'id', ['alias' => 'Question']);
 	}
 
 	/**
