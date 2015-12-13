@@ -140,7 +140,7 @@ angular.module('Assessments', []).service(
 				for (var i = 0; i < sections.length; i++) {
 					var section = sections[i];
 					for (var j = 0; j < section.questions.length; j++) {
-						var question = section.questions[i];
+						var question = section.questions[j];
 						var responseValue = !Utility.empty(responses[question.id]) ? responses[question.id].rdx : 0;
 						if (responseValue > 0) {
 							total += responseValue;
