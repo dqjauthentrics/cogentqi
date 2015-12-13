@@ -11,20 +11,20 @@
     </thead>
     <tr style="background:transparent;">
         <td style="width:20%;">
-            <a data-ng-click="setDetail(item)"><i data-ng-class="'fa fa-lg fa-caret-' + (showDetail(item)? 'down':'right')"></i></a>
+            <a ng-click="setDetail(item)"><i data-ng-class="'fa fa-lg fa-caret-' + (showDetail(item)? 'down':'right')"></i></a>
             <span class="name" onaftersave="setDirty()" editable-text="item.name">{{item.n}}</span>
         </td>
         <td>{{item.iName}}</td>
         <td style="width:10%;">
             <span e-init-date="false" class="editable editable-date-dqj" editable-bsdate="item.sr"
-                  data-ng-click="togglePicker()" e-ng-click="togglePicker()"
+                  ng-click="togglePicker()" e-ng-click="togglePicker()"
                   e-class="form-control" e-is-open="picker.opened"
                   e-datepicker-popup="MM-dd-yyyy" e-date-format="MM-dd-yyyy"
                   e-name="date" e-ng-change="setDirty()">{{item.sr| date:"MM-dd-yyyy" || 'empty'}}</span>
         </td>
         <td style="width:10%;">
             <span e-init-date="false" class="editable editable-date-dqj" editable-bsdate="item.en"
-                  data-ng-click="togglePicker()" e-class="form-control" e-is-open="picker.opened"
+                  ng-click="togglePicker()" e-class="form-control" e-is-open="picker.opened"
                   e-datepicker-popup="MM-dd-yyyy" e-date-format="MM-dd-yyyy"
                   e-name="date" e-ng-change="setDirty()">{{item.en| date:"MM-dd-yyyy" || 'empty'}}</span>
         </td>
@@ -35,7 +35,7 @@
             </select>
         </td>
         <td style="text-align: center; width:10%;">
-            <i data-ng-click="lockToggle(item)" class="fa fa-lg"
+            <i ng-click="lockToggle(item)" class="fa fa-lg"
                data-ng-class="item.lk? 'fa-lock red' : 'fa-unlock green'"></i>
         </td>
     </tr>
@@ -53,7 +53,7 @@
                 <tr data-ng-repeat="(role,perms) in item.ops">
                     <td>{{roleName(role)}}</td>
                     <td data-ng-repeat="p in ['X','C','R','U','D']">
-                        <i data-ng-click="permToggle(item,role,p)"
+                        <i ng-click="permToggle(item,role,p)"
                            data-ng-class="perms.indexOf(p) >= 0? 'fa fa-check green' : 'fa fa-times red'"></i>
                     </td>
                 </tr>

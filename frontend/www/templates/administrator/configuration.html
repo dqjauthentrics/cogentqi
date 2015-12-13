@@ -1,76 +1,77 @@
 <ion-view view-title="{{installation.name}}">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
-    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
         <h1>{{'System Configuration'|translate}}</h1>
 
         <div class="row responsive-lg">
-            <div class="col panel card padding clickable" data-ng-click="goTo('/#/administrator/schedule')">
+            <div class="col panel card padding clickable" ng-click="goTo('/#/administrator/schedule')">
                 <div class="fat-btn-wrap">
                     <div class="fat-btn-header">
                         <div class="fat-btn-icon"><i class="{{i.schedule}}"></i></div>
                         <div class="fat-btn-title"><a href="/#/administrator/schedule">{{'Assessment Schedule'|translate}}</a></div>
                     </div>
-                    <div class="fat-btn-desc" colspan="2">
+                    <div class="fat-btn-desc">
                         {{'Review the schedule of assessments to be used within your organization.'|translate}}
                     </div>
                 </div>
             </div>
-            <div class="col panel card padding clickable" data-ng-click="goTo('/#/resource/configure')">
+            <div class="col panel card padding clickable" ng-click="goTo('/#/resource/configure')">
                 <div class="fat-btn-wrap">
                     <div class="fat-btn-header">
                         <div class="fat-btn-icon"><i class="{{i.resource}}"></i></div>
                         <div class="fat-btn-title"><a href="/#/resource/configure">{{'Learning Resources'|translate}}</a></div>
                     </div>
-                    <div class="fat-btn-desc" colspan="2">
+                    <div class="fat-btn-desc">
                         {{'Set up the educational resources available for your organization, along with their alignments to competencies.'|translate}}
                     </div>
                 </div>
             </div>
-            <div class="col panel card padding clickable" data-ng-click="goTo('/#/outcome/alignments')">
+            <div class="col panel card padding clickable" ng-click="goTo('/#/outcome/alignments')">
                 <div class="fat-btn-wrap">
                     <div class="fat-btn-header">
                         <div class="fat-btn-icon"><i class="{{i.slider}}"></i></div>
                         <div class="fat-btn-title"><a href="/#/outcome/alignments">{{'Outcomes'|translate}}</a></div>
                     </div>
-                    <div class="fat-btn-desc" colspan="2">
+                    <div class="fat-btn-desc">
                         {{'Review the set of general outcomes tracked by your organization, along with their alignments to competencies.'|translate}}
                     </div>
                 </div>
             </div>
-            <div class="col panel card padding clickable" data-ng-click="goTo('/#/event/catalog')">
+            <div class="col panel card padding clickable" ng-click="goTo('/#/event/catalog')">
                 <div class="fat-btn-wrap">
                     <div class="fat-btn-header">
-                        <div class="fat-btn-icon"><i class="{{i.bolt}}"></i></div>
+                        <div class="fat-btn-icon"><i class="{{i.event}}"></i></div>
                         <div class="fat-btn-title"><a href="/#/event/catalog">{{'Events'|translate}}</a></div>
                     </div>
-                    <div class="fat-btn-desc" colspan="2">
+                    <div class="fat-btn-desc">
                         {{'Review all events that can occur in your organization, along with their alignments to competencies.'|translate}}
                     </div>
                 </div>
             </div>
-            <div class="col panel card padding clickable" data-ng-click="goTo('/#/instrument/list')">
+            <div class="col panel card padding clickable" ng-click="goTo('/#/instrument/list')">
                 <div class="fat-btn-wrap">
                     <div class="fat-btn-header">
                         <div class="fat-btn-icon"><i class="{{i.grid}}"></i></div>
                         <div class="fat-btn-title"><a href="/#/instrument/list">{{'Competency Frameworks'|translate}}</a></div>
                     </div>
-                    <div class="fat-btn-desc" colspan="2">
+                    <div class="fat-btn-desc">
                         {{'Define the set(s) of competencies recognized by your organization for use in assessments.'|translate}}
                     </div>
                 </div>
             </div>
-            <div class="col panel card padding clickable" data-ng-click="goTo('/#/settings/personal')">
+            <div class="col panel card padding clickable" ng-click="goTo('/#/settings/personal')">
                 <div class="fat-btn-wrap">
                     <div class="fat-btn-header">
                         <div class="fat-btn-icon"><i class="{{i.member}}"></i></div>
                         <div class="fat-btn-title"><a href="/#/settings/personal">{{'Personal Preferences'|translate}}</a></div>
                     </div>
-                    <div class="fat-btn-desc" colspan="2">
+                    <div class="fat-btn-desc">
                         {{'Review your personal profile settings.'|translate}}
                     </div>
                 </div>
             </div>
         </div>
     </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
 </ion-view>

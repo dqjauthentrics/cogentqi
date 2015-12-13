@@ -1,14 +1,14 @@
 <div data-ng-switch="Assessments.current.es" class="response">
     <div data-ng-switch-when="A">
-        <div data-ng-switch="question.type.n">
+        <div data-ng-switch="question.type.entryType">
             <div data-ng-switch-when="YESNO">
                 <div class="button-bar" style="max-width:12em; min-width:12em;">
                     <a class="button" data-ng-class="{'yesNoBg0': response(question.id).rdx == 0}"
-                       data-ng-click="updateResponse(question, 0)">N/A</a>
+                       ng-click="updateResponse(question, 0)">N/A</a>
                     <a class="button" data-ng-class="{'yesNoBg1': response(question.id).rdx == 1}"
-                       data-ng-click="updateResponse(question, 1)">No</a>
+                       ng-click="updateResponse(question, 1)">No</a>
                     <a class="button" data-ng-class="{'yesNoBg2': response(question.id).rdx == 2}"
-                       data-ng-click="updateResponse(question, 2)">Yes</a>
+                       ng-click="updateResponse(question, 2)">Yes</a>
                 </div>
             </div>
             <div data-ng-switch-default="">
@@ -21,11 +21,11 @@
                     >
                     </slider>
                     <div class="{{$index == response(question.id).rdx? 'active':'inactive'}}" id="{{'rubric_'+question.id+'_'+$index}}"
-                         data-ng-repeat="choice in question.type.choices" data-ng-click="rubricSet(question,$index)"
+                         data-ng-repeat="choice in question.type.choices" ng-click="rubricSet(question,$index)"
                          style="{{'width:' + rubricWidth(question.type.max) + '%;'}}"
                     >
                         <div class="rubric{{$index}}">{{choice.n}}</div>
-                        <p data-ng-if="choice.ru.length > 0">{{choice.ru}}</p>
+                        <p data-ng-show="choice.ru.length > 0">{{choice.ru}}</p>
                     </div>
                 </div>
             </div>

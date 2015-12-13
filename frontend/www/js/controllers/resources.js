@@ -82,15 +82,9 @@ angular.module('ResourceControllers', [])
 			$scope.Resources = Resources;
 			$scope.data = {isLoading: true, searchFilter: ''};
 
-			if ($scope.Resources.list == null) {
-				Utility.getResource(Resources.retrieve(), function (response) {
-					$scope.Resources.list = response.data;
-					$scope.data.isLoading = false;
-				});
-			}
-			else {
+			$scope.Resources.loadAll(function (resources) {
 				$scope.data.isLoading = false;
-			}
+			});
 
 			$scope.resourceFilter = function (resource) {
 				return Resources.filterer(resource, $scope.data.searchFilter);

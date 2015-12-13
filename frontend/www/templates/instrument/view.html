@@ -1,6 +1,6 @@
 <ion-view view-title="Alignments">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
-    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
 
         <div style="float:right; margin:0.5em;">
@@ -23,6 +23,7 @@
             </ion-item>
         </ion-list>
     </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
 </ion-view>
 <style>
     .editable-controls, .editable-wrap {

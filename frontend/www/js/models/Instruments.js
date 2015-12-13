@@ -8,7 +8,8 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 	var svc = this;
 	svc.SECTION_ALL = -100;
 	svc.SECTION_SUMMARY = -101;
-
+	svc.list = null;
+	svc.current = null;
 	svc.currentSectionIdx = 0;
 
 	svc.retrieve = function () {
@@ -50,12 +51,13 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 			}
 		}
 	};
-
 	svc.getCollated = function (callbackFn) {
 		if (svc.list == null) {
+			console.log("retrieving instrument list");
 			Utility.getResource(svc.retrieve(), function (response) {
 				if (!Utility.empty(response)) {
 					svc.list = response.data;
+					console.log("retrieved", svc.list);
 					svc.collate(svc.list);
 					svc.current = svc.list[0];
 					callbackFn(svc.list);
@@ -105,6 +107,9 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 	};
 
 	svc.findMatrixResponseRowHeader = function (instrument, maxLength) {
+		if (instrument == undefined) {
+			instrument = svc.current;
+		}
 		var names = [];
 		if (!Utility.empty(instrument) && !Utility.empty(svc.currentSectionIdx) && Array.isArray(instrument.sections)) {
 			var sections = instrument.sections;
@@ -125,6 +130,9 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 	};
 
 	svc.sectionRange = function (instrument, sectionIdx) {
+		if (instrument == undefined) {
+			instrument = svc.current;
+		}
 		var range = {start: -1, end: -1};
 		if (!Utility.empty(instrument) && !Utility.empty(instrument.sections)) {
 			if (sectionIdx == svc.SECTION_ALL) {
@@ -149,10 +157,16 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 		return range;
 	};
 	svc.inSection = function (instrument, idx) {
+		if (instrument == undefined) {
+			instrument = svc.current;
+		}
 		var range = svc.sectionRange(instrument, svc.currentSectionIdx);
 		return idx >= range.start && idx <= range.end;
 	};
 	svc.getSectionNames = function (instrument) {
+		if (instrument == undefined) {
+			instrument = svc.current;
+		}
 		var names = [];
 		if (!Utility.empty(instrument) && !Utility.empty(instrument.sections)) {
 			for (var z = 0; z < instrument.sections.length; z++) {
@@ -163,6 +177,9 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 	};
 
 	svc.sectionNumber = function (instrument) {
+		if (instrument == undefined) {
+			instrument = svc.current;
+		}
 		var number = '';
 		if (!Utility.empty(instrument) && !Utility.empty(instrument.sections) && svc.currentSectionIdx >= 0) {
 			number = (svc.currentSectionIdx + 1) + '. ';
@@ -184,6 +201,9 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 		return svc.currentSectionIdx == svc.SECTION_SUMMARY;
 	};
 	svc.sectionIsCurrent = function (instrument, sectionId) {
+		if (instrument == undefined) {
+			instrument = svc.current;
+		}
 		var isCurrent = false;
 		if (!Utility.empty(instrument)) {
 			if (svc.currentSectionIdx == undefined) {
@@ -200,6 +220,9 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 		return isCurrent;
 	};
 	svc.sectionCurrentName = function (instrument) {
+		if (instrument == undefined) {
+			instrument = svc.current;
+		}
 		var name = '';
 		if (!Utility.empty(instrument) && !Utility.empty(instrument.sections)) {
 			if (svc.currentSectionIdx == svc.SECTION_ALL) {
@@ -212,6 +235,9 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 		return name;
 	};
 	svc.sectionPreviousName = function (instrument) {
+		if (instrument == undefined) {
+			instrument = svc.current;
+		}
 		if (!Utility.empty(instrument) && Array.isArray(instrument.sections)) {
 			if (svc.currentSectionIdx >= 0) {
 				return instrument.sections[svc.currentSectionIdx].prv;
@@ -223,6 +249,9 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 		return null;
 	};
 	svc.sectionNextName = function (instrument) {
+		if (instrument == undefined) {
+			instrument = svc.current;
+		}
 		if (!Utility.empty(instrument) && Array.isArray(instrument.sections)) {
 			if (svc.currentSectionIdx >= 0) {
 				return instrument.sections[svc.currentSectionIdx].nxt;
@@ -234,6 +263,9 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 		return null;
 	};
 	svc.sectionNext = function (instrument) {
+		if (instrument == undefined) {
+			instrument = svc.current;
+		}
 		if (!Utility.empty(instrument) && svc.currentSectionIdx < instrument.sections.length - 1) {
 			svc.currentSectionIdx++;
 		}
@@ -246,6 +278,9 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 		return svc.currentSectionIdx;
 	};
 	svc.sectionPrevious = function (instrument) {
+		if (instrument == undefined) {
+			instrument = svc.current;
+		}
 		if (svc.currentSectionIdx > 0) {
 			svc.currentSectionIdx--;
 		}
@@ -260,6 +295,9 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 		return svc.currentSectionIdx <= 0;
 	};
 	svc.sectionIsLast = function (instrument) {
+		if (instrument == undefined) {
+			instrument = svc.current;
+		}
 		if (!Utility.empty(instrument) && Array.isArray(instrument.sections)) {
 			return svc.currentSectionIdx >= instrument.sections.length - 1;
 		}

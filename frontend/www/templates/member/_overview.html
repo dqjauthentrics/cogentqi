@@ -13,9 +13,9 @@
         <div class="role" onaftersave="setDirty()" editable-select="Members.current.r" e-ng-options="r.id as r.n for r in roles">
             {{ showRole() }}
         </div>
-        <div class="inactiveText" ng-if="Members.current.ae">{{'Inactive as of:'|translate}} {{Members.current.ae|date}}</div>
+        <div class="inactiveText" ng-show="Members.current.ae">{{'Inactive as of:'|translate}} {{Members.current.ae|date}}</div>
     </div>
-    <h3 data-ng-if="Members.current.badges.length > 0">Badges</h3>
+    <h3 data-ng-show="Members.current.badges.length > 0">Badges</h3>
 
     <div>
         <div style="float:left; margin: 0.5em; text-align: center;" data-ng-repeat="badge in Members.current.badges">

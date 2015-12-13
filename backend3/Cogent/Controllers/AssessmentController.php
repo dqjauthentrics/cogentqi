@@ -99,7 +99,7 @@ class AssessmentController extends ControllerBase {
 				exit();
 			}
 			else {
-				$data = [['org' => $organization, 'mType' => $mType, 'hdrs' => $headers, 'rows' => $rowRecords, 'nSections' => $nSections]];
+				$data = ['org' => $organization, 'mType' => $mType, 'hdrs' => $headers, 'rows' => $rowRecords, 'nSections' => $nSections];
 			}
 		}
 		catch (\Exception $exception) {

@@ -863,6 +863,7 @@ outcome-level-tag {
 
 #matrixButtons .button {
     margin-bottom: 0.2em;
+    width: 14em;
 }
 
 th.rotate {
@@ -1523,11 +1524,13 @@ input[type="search"] {
     padding: 0.1em 1em;
     width: 16em;
 }
-
+list-searcher {
+    color: #FFF;
+}
 .itemCount {
     margin: 0 1em;
     float: right;
-    color: #000;
+    color: #FFF;
 }
 
 .remover {

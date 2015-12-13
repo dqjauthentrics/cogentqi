@@ -3,17 +3,17 @@
         <ion-item ng-repeat="assessment in assessments">
             <table style="width:100%;">
                 <tr>
-                    <td data-ng-if="showMember">
+                    <td data-ng-show="showMember">
                         <img class="avatar border border{{assessment.member.lv}} avatar-small" data-ng-src="{{site}}/avatars/{{assessment.member.id}}.png"
                              alt=""
                              err-src="{{site}}/avatars/genericUser.png"/>
                         {{assessment.member.fn}} {{assessment.member.ln}}
                     </td>
                     <td>
-                        <a class="remover" data-ng-click="remover(assessment.id)"><i class="{{i.remove}}"></i></a>
+                        <a class="remover" ng-click="remover(assessment.id)"><i class="{{i.remove}}"></i></a>
                         <a href="#/assessment/view/{{assessment.id}}">{{assessment.lm|date:'EEE'}}, {{assessment.lm|date:'short'}}</a>
                     </td>
-                    <td style="text-align:left;" data-ng-if="assessment.assessor">
+                    <td style="text-align:left;" data-ng-show="assessment.assessor">
                         by {{assessment.assessor.fn}} {{assessment.assessor.ln}}
                         <img style="text-align:right;" class="avatar border border{{assessment.assessor.lv}} avatar-tiny"
                              data-ng-src="{{site}}/avatars/{{assessment.assessor.id}}.png"

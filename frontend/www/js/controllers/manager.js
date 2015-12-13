@@ -6,8 +6,10 @@
 
 angular.module('ControllerManager', [])
 
-	.controller('DashboardCtrl', function ($scope, $cookieStore, APP_ROLES, Organizations) {
+	.controller('DashboardCtrl', function ($rootScope, $scope, $cookieStore, APP_ROLES, Organizations) {
 					$scope.data = {user: $cookieStore.get('user'), ari: APP_ROLES.MANAGER};
+
+					console.log("enter DashboardCtrl");
 				})
 
 	.controller('PlanningCtrl', function ($scope, $stateParams, Utility, Organizations, Modules, Resources) {

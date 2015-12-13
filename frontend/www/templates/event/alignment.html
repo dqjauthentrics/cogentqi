@@ -1,6 +1,6 @@
 <ion-view view-title="Alignments">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
-    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
         <div class="row responsive-lg">
             <div class="col  panel">
@@ -8,7 +8,7 @@
                     <h1>{{'Event Alignment'|translate}}</h1>
 
                     <div style="float:right; margin:0.5em;">
-                        <button data-ng-click="save(this);" data-ng-if="data.dirty" class="button button-action button-save button-dirty">
+                        <button ng-click="save(this);" data-ng-show="data.dirty" class="button button-action button-save button-dirty">
                             <i data-ng-class="data.saving? i.loadingSpinner : i.save"></i>
                         </button>
                     </div>
@@ -45,5 +45,6 @@
             </div>
         </div>
     </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
 </ion-view>
 

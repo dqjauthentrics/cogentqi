@@ -1,6 +1,6 @@
 <ion-view view-title="{{installation.name}}">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
-    <ion-nav-buttons side="right"><a data-ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true" style="margin-top:2em;">
         <div class="row responsive-sm">
             <div class="col col-25">
@@ -17,13 +17,13 @@
             <div class="col col-75">
                 <div class="detail" style="background:#DDD;">
                     <div style="float:right;">
-                        <button class="button button-action button-save" data-ng-click="save()" ng-show="isDirty()">
+                        <button class="button button-action button-save" ng-click="save()" ng-show="isDirty()">
                             <i class="{{i.save}}"></i>
                         </button>
-                        <button class="button button-action button-general" data-ng-if="data.currentMembers !== undefined > 0"
-                                data-ng-click="orgMatrix(data.currentOrg.id)"><i class="{{i.grid}}"></i></button>
-                        <button class="button button-action button-general" data-ng-if="data.currentOrg.nc"
-                                data-ng-click="drilldown(data.currentOrg.id)">
+                        <button class="button button-action button-general" data-ng-show="data.currentMembers !== undefined > 0"
+                                ng-click="orgMatrix(data.currentOrg.id)"><i class="{{i.grid}}"></i></button>
+                        <button class="button button-action button-general" data-ng-show="data.currentOrg.nc"
+                                ng-click="drilldown(data.currentOrg.id)">
                             <i class="{{i.tree}}"></i>
                         </button>
                     </div>
@@ -65,20 +65,21 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <ion-list data-ng-if="data.currentMembers.length > 0">
+                <ion-list data-ng-show="data.currentMembers.length > 0">
                     <ion-item class="top">Members</ion-item>
-                    <ion-item class="gray" data-ng-if="data.currentMembers == undefined"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
+                    <ion-item class="gray" data-ng-show="data.currentMembers == undefined"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
                     <ion-item ng-repeat="member in data.currentMembers" class="item-icon-right item-text-wrap" href="#/member/view/{{member.id}}">
                         <member-item member="member" m="Members"></member-item>
                         <i class="icon ion-chevron-right icon-accessory"></i>
                     </ion-item>
                 </ion-list>
-                <div data-ng-if="data.currentMembers.length == 0">
+                <div data-ng-show="data.currentMembers.length == 0">
                     {{'This organization has no direct members.'|translate}}
                 </div>
             </div>
         </div>
     </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
 </ion-view>
 <style>
     td.label {
