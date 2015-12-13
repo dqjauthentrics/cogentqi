@@ -514,7 +514,9 @@ class Recommendation extends CogentModel {
 				$numberDeleted++;
 			}
 			else {
-				$recommendation->update($newRecommendations[$updateIndex]);
+				if (!$recommendation->update($newRecommendations[$updateIndex])) {
+					throw new \Exception($recommendation->errorMessagesAsString());
+				}
 				$updateIndex++;
 			}
 		}
