@@ -50,11 +50,11 @@
                     <th>{{'Update'|translate}}</th>
                     <th>{{'Delete'|translate}}</th>
                 </tr>
-                <tr data-ng-repeat="(role,perms) in item.ops">
-                    <td>{{roleName(role)}}</td>
+                <tr data-ng-repeat="(role,record) in item.ops">
+                    <td>{{record.name}}</td>
                     <td data-ng-repeat="p in ['X','C','R','U','D']">
                         <i ng-click="permToggle(item,role,p)"
-                           data-ng-class="perms.indexOf(p) >= 0? 'fa fa-check green' : 'fa fa-times red'"></i>
+                           data-ng-class="record.ops.indexOf(p) >= 0? 'fa fa-check green' : 'fa fa-times red'"></i>
                     </td>
                 </tr>
             </table>

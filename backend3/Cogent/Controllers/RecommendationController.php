@@ -1,8 +1,8 @@
 <?php
 namespace Cogent\Controllers;
 
-use Cogent\Models\Recommendation;
 use Cogent\Components\Result;
+use Cogent\Models\Recommendation;
 
 class RecommendationController extends ControllerBase {
 
@@ -11,13 +11,13 @@ class RecommendationController extends ControllerBase {
 	 */
 	public function getAction($id = NULL) {
 		$result = new Result($this);
-		//try {
+		try {
 			$recommendations = Recommendation::createRecommendationsForAssessment($id);
 			$result->setNormal($recommendations);
-		//}
-		//catch (\Exception $exception) {
-		//	$result->message = $exception->getMessage();
-		//}
+		}
+		catch (\Exception $exception) {
+			$result->message = $exception->getMessage();
+		}
 		$result->sendNormal();
 	}
 }

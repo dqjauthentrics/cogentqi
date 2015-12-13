@@ -56,12 +56,17 @@ class InstrumentController extends ControllerBase {
 	 *
 	 * @param int $instrumentId
 	 */
-	public function scheduleAction($instrumentId) {
+	public function scheduleAction($instrumentId = NULL) {
 		$result = new Result($this);
 		$data = [];
 		try {
 			$sched = new InstrumentSchedule();
-			$data = $sched->get(NULL, TRUE, '', 'instrument_id=:id:', ['id' => 'ends DESC,starts DESC']);
+			if (empty($instrumentId)) {
+				$data = $sched->get();
+			}
+			else {
+				$data = $sched->get(NULL, TRUE, '', 'instrument_id=:id:', ['id' => 'ends DESC,starts DESC']);
+			}
 		}
 		catch (\Exception $exception) {
 			$result->setError(Result::CODE_EXCEPTION, $exception->getMessage());

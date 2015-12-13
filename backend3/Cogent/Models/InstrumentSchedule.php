@@ -4,9 +4,15 @@ namespace Cogent\Models;
 /**
  * Class InstrumentSchedule
  * @package Cogent\Models
+ *
  * @method Instrument getInstrument()
  * @method Assessment[] getAssessments()
  * @method InstrumentScheduleOperation[] getOperations()
+ *
+ * @method Instrument $instrument
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|Assessment[] $assessments
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|InstrumentScheduleOperation[] $operations
+ *
  */
 class InstrumentSchedule extends CogentModel {
 	const STATUS_ACTIVE = 'A';
@@ -138,15 +144,15 @@ class InstrumentSchedule extends CogentModel {
 		$map["iName"] = $this->getInstrument()->name;
 		$map["status"] = $this->status_id == self::STATUS_ACTIVE ? 'Active' : 'Inactive';
 		if (!empty($options['operations'])) {
-			$ops = InstrumentScheduleOperation::query()->where('instrument_schedule_id=:id:', ['id' => $this->id]);
 			$map["ops"] = [];
-			if (!empty($ops)) {
-				foreach ($ops as $op) {
-					$role = $op->role_id;
-					if (empty($map["ops"][$role])) {
-						$map["ops"][$role] = '';
+			if (!empty($this->operations)) {
+				foreach ($this->operations as $op) {
+					$role = $op->role->name;
+					$roleId = $op->role_id;
+					if (empty($map["ops"][$roleId])) {
+						$map["ops"][$roleId] = ['name' => $op->role->name, 'ops' => ''];
 					}
-					$map["ops"][$role] .= $op->operation_id;
+					$map["ops"][$roleId]['ops'] .= $op->operation_id;
 				}
 			}
 		}

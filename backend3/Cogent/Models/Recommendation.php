@@ -284,19 +284,23 @@ class Recommendation extends CogentModel {
 	/**
 	 * @param int $assessmentId
 	 *
-	 * @throws \Exception
+	 * @return array
 	 */
 	public static function createRecommendationsForAssessment($assessmentId) {
 		$assessment = Assessment::findFirst($assessmentId);
+		$rankedCoverages = [];
 		if (!empty($assessment)) {
 			$member = $assessment->assessee;
 			$scoredQuestions = self::createScoredQuestions($assessment->getResponses());
+
 			// Filter out any competencies that don't require resource coverage
+			//
 			$filteredQuestions = self::assessmentQuestionsToCover($scoredQuestions);
 			$rankedCoverages = self::createRankedResourceList($filteredQuestions, $member);
 			self::saveRankedResources($rankedCoverages, $member, $assessmentId);
 			self::saveAssessmentCoverages($rankedCoverages, $assessmentId);
 		}
+		return $rankedCoverages;
 	}
 
 	/**
@@ -314,7 +318,7 @@ class Recommendation extends CogentModel {
 		$rankedCoverages = [];
 		foreach (Module::query()->where('starts > NOW()')->execute() as $module) {
 			$rId = $module->resource_id;
-			$starts = !empty($module->starts) ? $module->starts->getTimeStamp() : NULL;
+			$starts = !empty($module->starts) ? strtotime($module->starts) : NULL;
 			if (!array_key_exists($rId, $futureResources)) {
 				$futureResources[$rId] = [
 					'moduleId' => $module->id,
@@ -340,11 +344,19 @@ class Recommendation extends CogentModel {
 					array_push($pastResources, $item->module->resource->id);
 				}
 			}
-			$resourceAlignments = ResourceAlignment::query()
-				->where('question_id IN', array_keys($filteredQuestions))
-				->andWhere('resource_id NOT IN', $pastResources)
-				->andWhere('resource_id IN', array_keys($futureResources))
-				->execute();
+			if (!empty($pastResources)) {
+				$resourceAlignments = ResourceAlignment::query()
+					->inWhere('question_id', array_keys($filteredQuestions))
+					->notInWhere('resource_id', $pastResources)
+					->inWhere('resource_id', array_keys($futureResources))
+					->execute();
+			}
+			else {
+				$resourceAlignments = ResourceAlignment::query()
+					->inWhere('question_id', array_keys($filteredQuestions))
+					->inWhere('resource_id', array_keys($futureResources))
+					->execute();
+			}
 
 			// Record the alignment strengths that constitute coverage for each question
 			$maxCoveringStrengths = [];
@@ -372,7 +384,7 @@ class Recommendation extends CogentModel {
 						'rating'             => 0,
 					];
 				}
-				if ($alignment->weight == $maxCoveringStrengths[$alignment['question_id']]) {
+				if ($alignment->weight == $maxCoveringStrengths[$alignment->question_id]) {
 					$coverage = &$resourceCoverages[$rId];
 					$coverage['totalWeight'] += $filteredQuestions[$alignment->question_id]['importance'];
 					$coverage['questions'][$alignment->question_id] = 0;
@@ -414,7 +426,8 @@ class Recommendation extends CogentModel {
 	private static function saveAssessmentCoverages($rankedCoverages, $assessmentId) {
 		foreach ($rankedCoverages as $rankedCoverage) {
 			$responses = AssessmentResponse::query()
-				->where('assessment_id=:aid: AND question_id IN (' . array_keys($rankedCoverage['questions']) . ')', ['aid' => $assessmentId])
+				->where('assessment_id=:aid:', ['aid' => $assessmentId])
+				->inWhere('question_id', array_keys($rankedCoverage['questions']))
 				->execute();
 			/** @var AssessmentResponse $response */
 			foreach ($responses as $response) {

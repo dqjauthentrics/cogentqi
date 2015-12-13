@@ -16,16 +16,12 @@ angular.module('ControllerAdministrator', [])
 		'AdminScheduleCtrl',
 		function ($timeout, $scope, $stateParams, Utility, InstrumentSchedule) {
 			$scope.data = {dirty: false, scheduleItems: [], currentScheduleItem: {}, dob: new Date(1984, 4, 15)};
-
 			$scope.picker = {opened: false};
-			$scope.togglePicker = function () {
-				$timeout(function () {
-					$scope.picker.opened = !$scope.picker.opened;
-				}, 10)
-			};
+
 
 			Utility.getResource(InstrumentSchedule.retrieve(), function (response) {
 				$scope.data.scheduleItems = response.data;
+				console.log("scheduleItems", $scope.data.scheduleItems);
 				if (!Utility.empty($scope.data.scheduleItems)) {
 					for (var i = 0; i < $scope.data.scheduleItems.length; i++) {
 						$scope.data.scheduleItems[i].sr = new Date($scope.data.scheduleItems[i].sr);
@@ -33,6 +29,13 @@ angular.module('ControllerAdministrator', [])
 				}
 				$scope.setCurrentItem(response[0]);
 			});
+
+
+			$scope.togglePicker = function () {
+				$timeout(function () {
+					$scope.picker.opened = !$scope.picker.opened;
+				}, 10)
+			};
 			$scope.setCurrentItem = function (scheduleItem) {
 				$scope.data.currentScheduleItem = scheduleItem;
 			};
@@ -56,40 +59,19 @@ angular.module('ControllerAdministrator', [])
 							+ currentdate.getSeconds();
 						scheduleItem.lk = dateTime;
 					}
-					$scope.dirty = true;
+					$scope.data.dirty = true;
 				});
-			};
-			$scope.roleName = function (roleId) {
-				var name = 'Professional';
-				switch (roleId) {
-					case 'A':
-						name = 'Administrator';
-						break;
-					case 'M':
-						name = 'Manager';
-						break;
-					case 'P':
-						name = 'Pharmacist';
-						break;
-					case 'T':
-						name = 'Pharmacy Technician';
-						break;
-					case 'N':
-						name = 'Nurse';
-						break;
-				}
-				return name;
 			};
 			$scope.permToggle = function (item, role, p) {
 				var prompt = 'Are you sure you want to change this access parameter?';
 				Utility.confirm('Schedule Access Change', prompt, function () {
-					if (item.ops[role].indexOf(p) >= 0) {
-						item.ops[role] = item.ops[role].replace(p, '');
+					if (item.ops[role].ops.indexOf(p) >= 0) {
+						item.ops[role].ops = item.ops[role].ops.replace(p, '');
 					}
 					else {
-						item.ops[role] += p;
+						item.ops[role].ops += p;
 					}
-					$scope.dirty = true;
+					$scope.data.dirty = true;
 				});
 			};
 			$scope.setDirty = function () {
