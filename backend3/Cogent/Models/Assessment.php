@@ -305,7 +305,7 @@ class Assessment extends CogentModel {
 	public function organizationProgressByMonth($organizationId, $instrumentId) {
 		$result = new Result();
 		$orgModel = new Organization();
-		$graphData = ['labels' => [], 'series' => [[], [], [], [], [], [], [], [], [], [], [], [], []]];
+		$graphData = ['labels' => [], 'series' => []];
 		$orgIds = $orgModel->getDescendantIds($organizationId);
 
 		$time = time();
@@ -327,6 +327,7 @@ class Assessment extends CogentModel {
 				ORDER BY qg.sort_order, YEAR(a.last_saved) ASC, DATE_FORMAT(a.last_saved, '%m');";
 		$dbRecords = $this->getDBIF()->query($aSql)->fetchAll();
 		if (!empty($dbRecords)) {
+			$i = 0;
 			foreach ($dbRecords as $rec) {
 				if ((int)$rec["yr"] < $startYr) {
 					$startYr = (int)$rec["yr"];
@@ -337,8 +338,11 @@ class Assessment extends CogentModel {
 				}
 				if (!in_array($rec["name"], $seriesNames)) {
 					$seriesNames[] = $rec["name"];
+					$graphData['series'][$i] = [];
+					$i++;
 				}
 			}
+			$graphData['series'][$i] = [];
 		}
 		$oSql = "SELECT ot.name, YEAR(oo.evaluated) AS yr, DATE_FORMAT(oo.evaluated, '%m') AS mo, AVG(oo.level) AS average
 					FROM outcome AS ot, organization_outcome as oo
@@ -396,7 +400,6 @@ class Assessment extends CogentModel {
 				$dataPos = array_search($yrMo, $graphData["labels"]);
 				if ($dataPos !== FALSE) {
 					if (empty($graphData['series'][$seriesPos])) {
-						$graphData['series'] = [];
 						$graphData['series'][$seriesPos] = [
 							'type'     => 'column',
 							'name'     => 'Modules',
@@ -408,9 +411,7 @@ class Assessment extends CogentModel {
 							'color'    => '#CCC',
 							'visible'  => TRUE,
 							'opacity'  => 0.5,
-							'tooltip'  => [
-								'formatter' => "function () {return 'HELLO';}"
-							]
+							'tooltip'  => ['formatter' => "function () {return 'HELLO';}"]
 						];
 					}
 					$graphData['series'][$seriesPos]['data'][$dataPos] = ['y' => (double)$rec["cnt"], 'text' => (number_format($rec["cnt"], 0) . ' Modules Completed')];
@@ -429,6 +430,7 @@ class Assessment extends CogentModel {
 				$dataPos = array_search($yrMo, $graphData["labels"]);
 				if ($seriesPos !== FALSE && $dataPos !== FALSE) {
 					$seriesPos = (int)$seriesPos;
+					$dataPos = (int)$dataPos;
 					if (empty($graphData['series'][$seriesPos])) {
 						$graphData['series'][$seriesPos] = [
 							'yAxis'    => 0,
@@ -455,6 +457,7 @@ class Assessment extends CogentModel {
 				$dataPos = array_search($yrMo, $graphData["labels"]);
 				if ($seriesPos !== FALSE && $dataPos !== FALSE) {
 					$seriesPos = (int)$seriesPos;
+					$dataPos = (int)$dataPos;
 					if (empty($graphData['series'][$seriesPos])) {
 						$graphData['series'][$seriesPos] = [
 							'name'     => $rec["name"],
@@ -486,6 +489,7 @@ class Assessment extends CogentModel {
 				$yrMo = $rec["yr"] . '-' . $rec["mo"];
 				$dataPos = array_search($yrMo, $graphData["labels"]);
 				if ($dataPos !== FALSE) {
+					$dataPos = (int)$dataPos;
 					if (empty($graphData['series'][$seriesPos])) {
 						$graphData['series'][$seriesPos] = [
 							'yAxis'     => 0,
@@ -601,7 +605,7 @@ class Assessment extends CogentModel {
 				$dataPos = array_search($yrMo, $graphData["labels"]);
 				if ($dataPos !== FALSE) {
 					if (empty($graphData['series'][$seriesPos])) {
-						$graphData['series'][$seriesPos] = [
+						$graphData['series'][(int)$seriesPos] = [
 							'type'     => 'column',
 							'name'     => 'Modules',
 							'class'    => 'modules',
@@ -617,7 +621,7 @@ class Assessment extends CogentModel {
 							]
 						];
 					}
-					$graphData['series'][$seriesPos]['data'][$dataPos] = ['y' => (double)$rec["cnt"], 'text' => $rec["name"]];
+					$graphData['series'][(int)$seriesPos]['data'][$dataPos] = ['y' => (double)$rec["cnt"], 'text' => $rec["name"]];
 				}
 			}
 		}

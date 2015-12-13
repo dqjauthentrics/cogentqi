@@ -96,66 +96,60 @@ angular.module('ControllerAdministrator', [])
 				currentSeries: 0,
 				instruments: [], organizations: [], currentInstrumentId: 1, currentInstrument: null,
 				rptConfig: {
-					chart: {type: 'line'},
 					title: {text: 'Competency Progress Analysis', x: -20},
 					subtitle: {text: 'Pharmacy Technician Evaluation', x: -20},
-					tooltip: {
-						formatter: function () {
-							return 'HERE';
-						}
+					options: {
+						chart: {type: 'line'},
+						credits: {enabled: false},
+						xAxis: {categories: []},
+						yAxis: [
+							{min: 0, title: {text: 'Average Rank'}, plotLines: [{value: 0, width: 1, color: '#808080'}]},
+							{min: 0, title: {text: 'Learning Modules Completed'}, opposite: true}
+						],
+						legend: {layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth: 0},
+						plotOptions: {line: {dataLabels: {enabled: true}}},
+						exporting: {enabled: true}
 					},
-					xAxis: {categories: []},
-					yAxis: [
-						{min: 0, title: {text: 'Average Rank'}, plotLines: [{value: 0, width: 1, color: '#808080'}]},
-						{min: 0, title: {text: 'Learning Modules Completed'}, opposite: true}
-					],
-					legend: {layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth: 0},
-					plotOptions: {line: {dataLabels: {enabled: true}}},
-					exporting: {enabled: true},
 					series: [],
 					func: function (chart) {
 						$scope.data.chart = chart;
 					}
 				},
 				rptConfig0: {
-					chart: {type: 'line'},
 					title: {text: 'Competency Progress Analysis', x: -20},
 					subtitle: {text: 'Pharmacy Technician Evaluation', x: -20},
-					tooltip: {
-						formatter: function () {
-							return 'HERE';
-						}
+					options: {
+						chart: {type: 'line'},
+						credits: {enabled: false},
+						xAxis: {categories: []},
+						yAxis: [
+							{min: 0, title: {text: 'Average Rank'}, plotLines: [{value: 0, width: 1, color: '#808080'}]},
+							{min: 0, title: {text: 'Learning Modules Completed'}, opposite: true}
+						],
+						legend: {layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth: 0},
+						plotOptions: {line: {dataLabels: {enabled: true}}},
+						exporting: {enabled: true}
 					},
-					xAxis: {categories: []},
-					yAxis: [
-						{min: 0, title: {text: 'Average Rank'}, plotLines: [{value: 0, width: 1, color: '#808080'}]},
-						{min: 0, title: {text: 'Learning Modules Completed'}, opposite: true}
-					],
-					legend: {layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth: 0},
-					plotOptions: {line: {dataLabels: {enabled: true}}},
-					exporting: {enabled: true},
 					series: [],
 					func: function (chart) {
 						$scope.data.chart = chart;
 					}
 				},
 				rptConfig1: {
-					chart: {type: 'line'},
 					title: {text: 'Competency Progress Analysis', x: -20},
 					subtitle: {text: 'Pharmacy Technician Evaluation', x: -20},
-					tooltip: {
-						formatter: function () {
-							return 'HERE';
-						}
+					options: {
+						chart: {type: 'line'},
+						credits: {enabled: false},
+						xAxis: {categories: []},
+						yAxis: [
+							{min: 0, title: {text: 'Average Rank'}, plotLines: [{value: 0, width: 1, color: '#808080'}]},
+							{min: 0, title: {text: 'Learning Modules Completed'}, opposite: true}
+						],
+						legend: {layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth: 0},
+						plotOptions: {line: {dataLabels: {enabled: true}}},
+						exporting: {enabled: true}
 					},
-					xAxis: {categories: []},
-					yAxis: [
-						{min: 0, title: {text: 'Average Rank'}, plotLines: [{value: 0, width: 1, color: '#808080'}]},
-						{min: 0, title: {text: 'Learning Modules Completed'}, opposite: true}
-					],
-					legend: {layout: 'vertical', align: 'right', verticalAlign: 'middle', borderWidth: 0},
-					plotOptions: {line: {dataLabels: {enabled: true}}},
-					exporting: {enabled: true},
 					series: [],
 					func: function (chart) {
 						$scope.data.chart = chart;
@@ -165,9 +159,9 @@ angular.module('ControllerAdministrator', [])
 
 			Utility.getResource(Instruments.retrieve(), function (response) {
 				$scope.data.instruments = response.data;
-				Instruments.collate($scope.data.instruments);
-				if (!Utility.empty(response)) {
-					$scope.setCurrentInstrument(response[0].id);
+				if (!Utility.empty($scope.data.instruments)) {
+					Instruments.collate($scope.data.instruments);
+					$scope.setCurrentInstrument($scope.data.instruments[0].id);
 				}
 			});
 			Utility.getResource(Organizations.retrieve(), function (response) {
@@ -184,19 +178,22 @@ angular.module('ControllerAdministrator', [])
 					$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
 					Utility.getResource(Assessments.retrieveProgressByMonth($scope.data.currentInstrument.id, true), function (response) {
 						var data = response.data;
-						for (var i = 0; i < data.series.length; i++) {
-							if (data.series[i].grouping == 0 || data.series[i].grouping == 2) {
-								$scope.data.rptConfig0.series.push(data.series[i]);
-								$scope.data.rptConfig.series.push(data.series[i]);
+						console.log("PLOT DATA:", data);
+						if (!Utility.empty(data)) {
+							for (var i = 0; i < data.series.length; i++) {
+								if (data.series[i].grouping == 0 || data.series[i].grouping == 2) {
+									$scope.data.rptConfig0.series.push(data.series[i]);
+									$scope.data.rptConfig.series.push(data.series[i]);
+								}
+								if (data.series[i].grouping == 1 || data.series[i].grouping == 2) {
+									data.series[i].visible = true;
+									$scope.data.rptConfig1.series.push(data.series[i]);
+								}
 							}
-							if (data.series[i].grouping == 1 || data.series[i].grouping == 2) {
-								data.series[i].visible = true;
-								$scope.data.rptConfig1.series.push(data.series[i]);
-							}
+							$scope.data.rptConfig.options.xAxis.categories = data.labels;
+							$scope.data.rptConfig0.options.xAxis.categories = data.labels;
+							$scope.data.rptConfig1.options.xAxis.categories = data.labels;
 						}
-						$scope.data.rptConfig.xAxis.categories = data.labels;
-						$scope.data.rptConfig0.xAxis.categories = data.labels;
-						$scope.data.rptConfig1.xAxis.categories = data.labels;
 					});
 				}
 			};

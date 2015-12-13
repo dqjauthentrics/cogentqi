@@ -109,7 +109,7 @@ angular.module('Assessments', []).service(
 		svc.retrieveProgressByMonth = function (instrumentId, isRollUp) {
 			var user = $cookieStore.get('user');
 			if (!Utility.empty(instrumentId) && !Utility.empty(user) && !Utility.empty(user.oi)) {
-				return $resource('/api3/assessment/organizationProgressByMonth' + user.oi + '/' + instrumentId,
+				return $resource('/api3/assessment/organizationProgressByMonth/' + user.oi + '/' + instrumentId,
 								 {}, {query: {method: 'GET', isArray: false, cache: false}});
 			}
 			return null;

@@ -36,24 +36,12 @@ angular.module('ReportsControllers', [])
 					subtitle: {
 						text: 'NOTE: This is not real data!'
 					},
-					xAxis: {
-						categories: ['Assessment', 'Prescription Management', 'Communication', 'Collaboration', 'Medical Knowledge']
-					},
-					yAxis: {
-						min: 0,
-						title: {
-							text: 'Alignment Level'
-						},
-						stackLabels: {
-							enabled: false
-						}
-					},
 					options: {
 						chart: {
 							type: 'column'
 						},
-						legend: {
-						},
+						credits: {enabled: false},
+						legend: {},
 						tooltip: {
 							formatter: function () {
 								return '<b>' + this.x + '</b><br/>' +
@@ -67,6 +55,18 @@ angular.module('ReportsControllers', [])
 								dataLabels: {
 									enabled: false
 								}
+							}
+						},
+						xAxis: {
+							categories: ['Assessment', 'Prescription Management', 'Communication', 'Collaboration', 'Medical Knowledge']
+						},
+						yAxis: {
+							min: 0,
+							title: {
+								text: 'Alignment Level'
+							},
+							stackLabels: {
+								enabled: false
 							}
 						}
 					},
