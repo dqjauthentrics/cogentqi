@@ -121,7 +121,7 @@ class MemberController extends ControllerBase {
 		$result = new Result($this);
 		$member = Member::findFirst(['id' => $memberId]);
 		if (!empty($member)) {
-			$member->active_end = !empty($activate) ? NULL : $member->dateTme();
+			$member->active_end = !empty($activate) ? NULL : $member->dbDateTime();
 			if ($member->update()) {
 				$result->status = Result::STATUS_OKAY;
 				$result->data = $member->map();

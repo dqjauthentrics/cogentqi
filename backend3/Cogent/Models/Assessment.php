@@ -197,7 +197,7 @@ class Assessment extends CogentModel {
 				if (!empty($dbAssessment)) {
 					$controller->beginTransaction($assessment);
 					$transacted = TRUE;
-					$saveDateTime = $assessment->dateTme();
+					$saveDateTime = $assessment->dbDateTime();
 					$simpleRec = [
 						"member_id"         => $formAssessment["member"]["id"],
 						"score"             => $formAssessment["sc"],

@@ -46,7 +46,7 @@
                         <div class="name">
                             <i class="{{i.resource}} pad-right"></i>
                             {{item.n}}<br/>
-                            <assessment-recommendation-ranking range="[1,1,1,1,1]" n="item.r"></assessment-recommendation-ranking>
+                            <div><assessment-recommendation-ranking range="[1,1,1,1,1]" n="item.r"></assessment-recommendation-ranking></div>
                         </div>
                         <p>
                             {{statusWord(item.s)}} on {{item.dt | date:'longDate'}} ({{item.dt|timeAgo}})
