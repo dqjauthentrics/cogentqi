@@ -30,9 +30,11 @@ angular.module('ReportsControllers', [])
 		function ($rootScope, $scope, $stateParams, Utility) {
 			$scope.data = {
 				resourceAnalysisCfg: {
-
 					title: {
 						text: 'Resource Competency Coverage Analysis'
+					},
+					subtitle: {
+						text: 'NOTE: This is not real data!'
 					},
 					xAxis: {
 						categories: ['Assessment', 'Prescription Management', 'Communication', 'Collaboration', 'Medical Knowledge']
