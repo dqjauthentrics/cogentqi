@@ -22,9 +22,11 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 			then(function (result) {
 					 var response = result.data; // Cogent standard
 					 svc.list = response.data;
-					 svc.list.forEach(function (event) {
-						 event.getAlignmentQuestions = svc.getAlignmentQuestions;
-					 });
+					 if (!Utility.empty(svc.list)) {
+						 svc.list.forEach(function (event) {
+							 event.getAlignmentQuestions = svc.getAlignmentQuestions;
+						 });
+					 }
 					 callback(svc);
 				 },
 				 function (error) {

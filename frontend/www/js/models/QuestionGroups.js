@@ -8,15 +8,17 @@ angular.module('QuestionGroups', []).service('QuestionGroups', function ($cookie
 	var svc = this;
 	svc.items = null;
 
-	svc.execute = function(callback) {
+	svc.execute = function (callback) {
 		if (svc.items == null) {
-			return $http.get('/api3/instrument/questionGroups').then(function(response) {
-						svc.items = response.data;
-						callback(svc);
-					},
-					function(error) {
-						failure(error);
-					});
+			return $http.get('/api3/instrument/questionGroups').
+			then(function (result) {
+					 var response = result.data; // Cogent standard
+					 svc.items = response.data;
+					 callback(svc);
+				 },
+				 function (error) {
+					 failure(error);
+				 });
 		}
 		else {
 			callback(svc);
@@ -31,10 +33,10 @@ angular.module('QuestionGroups', []).service('QuestionGroups', function ($cookie
 		}
 		return null;
 	};
-	svc.markQuestions = function(questions, property) {
-		svc.items.forEach(function(group) {
-			group.questions.forEach(function(question) {
-				question[property] = questions[question.id]=== true;
+	svc.markQuestions = function (questions, property) {
+		svc.items.forEach(function (group) {
+			group.questions.forEach(function (question) {
+				question[property] = questions[question.id] === true;
 			});
 		});
 	}
