@@ -523,10 +523,8 @@ class Recommendation extends CogentModel {
 		$inserts = array_slice($newRecommendations, $updateIndex, count($newRecommendations));
 		if (count($inserts) > 0) {
 			$newItem = new PlanItem();
-			if (!$newItem->update(array_slice($newRecommendations, $updateIndex, count($newRecommendations)))) {
-				if (!$recommendation->update($recommendationFields)) {
-					throw new \Exception($recommendation->errorMessagesAsString());
-				}
+			if (!$newItem->save(array_slice($newRecommendations, $updateIndex, count($newRecommendations)))) {
+				throw new \Exception($recommendation->errorMessagesAsString());
 			}
 		}
 	}
