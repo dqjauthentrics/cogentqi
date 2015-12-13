@@ -290,7 +290,7 @@ class Recommendation extends CogentModel {
 		$rankedCoverages = [];
 		if (!empty($assessment)) {
 			$member = $assessment->assessee;
-			$scoredQuestions = self::createScoredQuestions($assessment->getResponses());
+			$scoredQuestions = self::createScoredQuestions($assessment->responses);
 
 			// Filter out any competencies that don't require resource coverage
 			//
@@ -521,10 +521,12 @@ class Recommendation extends CogentModel {
 			}
 		}
 		$inserts = array_slice($newRecommendations, $updateIndex, count($newRecommendations));
-		if (count($inserts) > 0) {
-			$newItem = new PlanItem();
-			if (!$newItem->save(array_slice($newRecommendations, $updateIndex, count($newRecommendations)))) {
-				throw new \Exception($recommendation->errorMessagesAsString());
+		if (!empty($inserts)) {
+			foreach ($inserts as $insert) {
+				$newItem = new PlanItem();
+				if (!$newItem->save($insert)) {
+					throw new \Exception($recommendation->errorMessagesAsString());
+				}
 			}
 		}
 	}
