@@ -263,6 +263,11 @@ ion-item.item-complex {
     vertical-align: middle;
 }
 
+.assessmentItem > div > div {
+    font-size: 90% !important;
+    margin: 0.5em !important;
+}
+
 .assessment .number {
     font-weight: bold;
     padding: 0.4em !important;

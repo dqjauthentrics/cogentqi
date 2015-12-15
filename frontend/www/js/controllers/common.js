@@ -5,7 +5,6 @@
 'use strict';
 
 angular.module('ControllerCommon', [])
-
 	.controller('LoginController', [
 		'$scope', '$location', 'Authentication', function ($scope, $location, Authentication) {
 			$scope.data = {email: '', password: '', msg: '', error: ''};

@@ -50,6 +50,7 @@
     <script src="lib/html2canvas/build/html2canvas.min.js"></script>
     <script src="lib/angular-xeditable/dist/js/xeditable.min.js"></script>
     <script src="lib/angular-ui-calendar/src/calendar.js"></script>
+    <script src="js/clear-input.js"></script>
 
     <script type="text/javascript" src="lib/moment/min/moment.min.js"></script>
     <script src="lib/fullcalendar/dist/fullcalendar.min.js"></script>
@@ -107,7 +108,7 @@
   The nav bar that will be updated as we navigate between views.
 -->
 <ion-nav-bar class="bar-assertive customerBg">
-    <ion-nav-back-button></ion-nav-back-button>
+    <ion-nav-back-button ng-hide="$root.hideBack"></ion-nav-back-button>
 </ion-nav-bar>
 <!--
   The views will be rendered in the <ion-nav-view> directive below

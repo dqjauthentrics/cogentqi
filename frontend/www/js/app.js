@@ -14,6 +14,7 @@ angular.module(
 		'pascalprecht.translate',
 		/*'ngTouch', */
 		'textAngular',
+		'clear-input',
 		'ngCookies',
 		'ngAnimate',
 		'ngResource',
@@ -60,8 +61,8 @@ angular.module(
 		'ControllerManager',
 		'ControllerAdministrator',
 		'ControllerProfessional'
-	]
-	)
+	])
+
 	.config([
 				'$httpProvider', function ($httpProvider) {
 			$httpProvider.defaults.useXDomain = true;

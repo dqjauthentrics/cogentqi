@@ -98,7 +98,6 @@ angular.module('Assessments', []).service(
 				if (res) {
 					res.query(function(response) {
 						svc.matrix = response.data;
-						console.log("ass:", svc.matrix);
 					});
 				}
 			}

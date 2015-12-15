@@ -4,7 +4,7 @@
  */
 'use strict';
 
-angular.module('Authentication', []).service('Authentication', function ($rootScope, $state, $http, $cookieStore, APP_ROLES, Utility) {
+angular.module('Authentication', []).service('Authentication', function ($ionicHistory, $rootScope, $state, $http, $cookieStore, APP_ROLES, Utility) {
 	var svc = this;
 	svc.resultMsg = "";
 
@@ -61,6 +61,7 @@ angular.module('Authentication', []).service('Authentication', function ($rootSc
 						$cookieStore.put('user', result.data);
 						$rootScope.user = $cookieStore.get('user');
 						if (!Utility.empty(result.data)) {
+							$ionicHistory.clearHistory();
 							successFn($rootScope.user);
 						}
 					}
