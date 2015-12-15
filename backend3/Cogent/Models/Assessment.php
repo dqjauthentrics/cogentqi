@@ -160,6 +160,9 @@ class Assessment extends CogentModel {
 		if (!empty($options['instrument'])) {
 			$map['instrument'] = $this->instrument->map(['questions' => FALSE]);
 		}
+		else {
+			$map['instrument'] = ['n' => $this->instrument->name];
+		}
 		if (!empty($options['schedule'])) {
 			$schedule = $this->getInstrument()->getSchedule();
 			if (!empty($schedule)) {
@@ -170,6 +173,10 @@ class Assessment extends CogentModel {
 				}
 			}
 		}
+		else {
+			$map['schedule'] = ['n' => $this->schedule->name];
+		}
+
 		$map['responses'] = [];
 		if (!empty($options['responses'])) {
 			foreach ($this->responses as $response) {
