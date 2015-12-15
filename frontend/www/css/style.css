@@ -546,8 +546,16 @@ table.cycle {
     text-align: center;
 }
 
+.button {
+    background: #DDD;
+}
+
+.button.toggle.off {
+    color: #999;
+}
+
 .yesNoBg0, .yesNoBg0:hover {
-    background: #AAA;
+    background: #666;
     color: #FFF;
 }
 

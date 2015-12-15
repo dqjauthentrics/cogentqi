@@ -2,12 +2,12 @@
     <div data-ng-switch-when="A">
         <div data-ng-switch="question.type.entryType">
             <div data-ng-switch-when="YESNO">
-                <div class="button-bar" style="max-width:12em; min-width:12em;">
-                    <a class="button" data-ng-class="{'yesNoBg0': Assessments.current.responses[question.id].rdx == 0}"
+                <div class="button-bar" style="max-width:16em; min-width:12em;">
+                    <a class="button toggle" data-ng-class="Assessments.current.responses[question.id].rdx == 0? 'yesNoBg0' : 'off'"
                        data-ng-click="updateResponse(question, 0)">N/A</a>
-                    <a class="button" data-ng-class="{'yesNoBg1': Assessments.current.responses[question.id].rdx == 1}"
+                    <a class="button toggle" data-ng-class="Assessments.current.responses[question.id].rdx == 1? 'yesNoBg1' : 'off'"
                        data-ng-click="updateResponse(question, 1)">No</a>
-                    <a class="button" data-ng-class="{'yesNoBg2': Assessments.current.responses[question.id].rdx == 2}"
+                    <a class="button toggle" data-ng-class="Assessments.current.responses[question.id].rdx == 2? 'yesNoBg2' : 'off'"
                        data-ng-click="updateResponse(question, 2)">Yes</a>
                 </div>
             </div>
