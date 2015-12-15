@@ -193,7 +193,7 @@ angular.module('AssessmentControllers', [])
 			$scope.refreshSliders = function () {
 				$timeout(function () {
 					$scope.$broadcast('rzSliderForceRender');
-				});
+				}, 100);
 			};
 			$scope.rubricSet = function (question, value) {
 				$scope.responses[question.id].rdx = value;
@@ -302,6 +302,14 @@ angular.module('AssessmentControllers', [])
 				return !Utility.empty($scope.Assessments.current) && !$rootScope.isProfessional();
 			};
 
+			$scope.next = function () {
+				Instruments.sectionNext(Assessments.current.instrument);
+				$scope.refreshSliders();
+			};
+			$scope.previous = function () {
+				Instruments.sectionPrevious(Assessments.current.instrument);
+				$scope.refreshSliders();
+			};
 
 			// Main
 			//
