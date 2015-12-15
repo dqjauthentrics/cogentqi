@@ -7,7 +7,9 @@
     </div>
 </div>
 <div class="itemCount">{{filtered.length}} {{'records'|translate}}</div>
-<div style="margin-left:1em;" class="gray" data-ng-show="data.isLoading"><i class="{{i.loadingSpinner}}"></i> Loading...</div>
+<div style="float:left; vertical-align: middle; line-height: 2.2em; padding-left:1em;" class="white" data-ng-show="data.isLoading">
+    <i class="{{i.loadingSpinner}}"></i> Loading...
+</div>
 <div ng-show="data.showIncludeInactive" class="pull-right" style="margin: 0 2em;">
     <input type="checkbox" ng-click="changeActive()" ng-model="data.includeInactive"/> {{'Include Inactive'|translate}}
 </div>
