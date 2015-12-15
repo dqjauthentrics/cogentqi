@@ -118,15 +118,21 @@ angular.module('MemberControllers', [])
 		'MemberViewCtrl',
 		function ($http, $rootScope, $scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, APP_ROLES, Utility, Icons, Instruments,
 				  Organizations, Members, Messages, Assessments) {
+
 			$scope.Members = Members;
-			$scope.data = {isLoading: true, showMember: false, dirty: false, user: $cookieStore.get('user'), newMessage: ''};
+			$scope.data = {isLoading: true, showMember: false, dirty: false, user: $cookieStore.get('user'), name: 'Member', newMessage: ''};
 			$scope.roles = $rootScope.roles;
 
+			if (!Utility.empty(Members.current)) {
+				$scope.data.name = Members.current.fn + ' ' + Members.current.ln;
+			}
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 				if (Members.current == null || Members.current.id != $stateParams.memberId) {
+					$scope.data.isLoading = true;
 					Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
 						Members.current = response.data;
 						$scope.data.isLoading = false;
+						$scope.data.name = Members.current.fn + ' ' + Members.current.ln;
 					});
 				}
 				else {
