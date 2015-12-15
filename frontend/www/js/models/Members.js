@@ -70,7 +70,7 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 				var series = [];
 				var xLabels = [];
 				var section = instrument.sections[z];
-				var start = assessments.length >= 3 ? 2 : assessments.length;
+				var start = Math.min(assessments.length-1,2);
 				for (var i = start; i >= 0; i--) {
 					var assessment = assessments[i];
 					var dataSet = [];
@@ -79,8 +79,10 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 						if (i == 0) {
 							xLabels.push(question.n);
 						}
-						var response = svc.findResponse(assessment.responses, question.id);
-						dataSet.push({label: response.rp, y: parseInt(response.rdx)});
+						var response = assessment.responses[question.id];
+						if (!Utility.empty(response)) {
+							dataSet.push({label: response.rp, y: parseInt(response.rdx)});
+						}
 					}
 					series.push({id: i, type: 'column', name: $filter('date')(assessment.lm, 'shortDate'), data: dataSet});
 				}

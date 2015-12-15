@@ -238,7 +238,11 @@ class Member extends CogentModel {
 				$map['events'] = $this->mapRecords($this->getEvents(['order' => 'occurred DESC']));
 			}
 			if (!empty($options['assessments'])) {
-				$map["assessments"] = $this->mapRecords($this->getAssessments(['order' => 'last_modified DESC']));
+				//$map["assessments"] = $this->mapRecords($this->getAssessments(['order' => 'last_modified DESC']));
+				$map["assessments"] = [];
+				foreach ($this->getAssessments(['order' => 'last_modified DESC']) as $assessment) {
+					$map["assessments"][] = $assessment->map(['responses' => true]);
+				}
 			}
 			if (!empty($options['lastAssessment'])) {
 				$map["lastAssessment"] = $this->mapLastAssessment();

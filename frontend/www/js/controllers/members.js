@@ -97,7 +97,6 @@ angular.module('MemberControllers', [])
 					Instruments.collate($scope.data.instruments);
 					$scope.data.instrument = Utility.findObjectById($scope.data.instruments, $scope.data.member.assessments[0].ii);
 					$scope.data.member.rptConfigHx = Members.rptConfigHx($scope.data.instruments, $scope.data.member, $scope.data.member.assessments);
-					//$ionicLoading.hide();
 				}
 			};
 			$scope.getRptConfigHx = function () {
@@ -328,7 +327,7 @@ angular.module('MemberControllers', [])
 				if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments) && !Utility.empty($stateParams.memberId)) {
 					$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
 					$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
-					Utility.getResource(Assessments.retrieveIndividuaProgressByMonth($stateParams.memberId), function (response) {
+					Utility.getResource(Assessments.retrieveIndividualProgressByMonth($stateParams.memberId), function (response) {
 						for (var i = 0; i < response.data.series.length; i++) {
 							var rData = response.data;
 							if (rData.series[i].grouping == 0 || rData.series[i].grouping == 2) {

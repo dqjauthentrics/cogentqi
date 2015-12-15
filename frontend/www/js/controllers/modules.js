@@ -11,14 +11,18 @@ angular.module('ModuleControllers', [])
 			$scope.Modules = Modules;
 			$scope.alertMessage = '';
 
+			$scope.$on('$ionicView.loaded', function(){
+				resizeCal('view');
+			});
+
 			$scope.alertOnEventClick = function (date, jsEvent, view) {
-				$scope.alertMessage = (date.title + ' was clicked ');
+				console.log(date.title + ' was clicked ');
 			};
 			$scope.alertOnDrop = function (event, delta, revertFunc, jsEvent, ui, view) {
-				$scope.alertMessage = ('Event Droped to make dayDelta ' + delta);
+				console.log('Event Droped to make dayDelta ' + delta);
 			};
 			$scope.alertOnResize = function (event, delta, revertFunc, jsEvent, ui, view) {
-				$scope.alertMessage = ('Event Resized to make dayDelta ' + delta);
+				console.log('Event Resized to make dayDelta ' + delta);
 			};
 			$scope.addRemoveEventSource = function (sources, source) {
 				var canAdd = 0;
@@ -62,18 +66,10 @@ angular.module('ModuleControllers', [])
 			var m = date.getMonth();
 			var y = date.getFullYear();
 			$scope.events = [];
-			var foo = [
-				{title: 'All Day Event', start: new Date(y, m, 1)},
-				{title: 'Long Event', start: new Date(y, m, d - 5), end: new Date(y, m, d - 2)},
-				{id: 999, title: 'Repeating Event', start: new Date(y, m, d - 3, 16, 0), allDay: false},
-				{id: 999, title: 'Repeating Event', start: new Date(y, m, d + 4, 16, 0), allDay: false},
-				{title: 'Birthday Party', start: new Date(y, m, d + 1, 19, 0), end: new Date(y, m, d + 1, 22, 30), allDay: false},
-				{title: 'Click for Google', start: new Date(y, m, 28), end: new Date(y, m, 29), url: 'http://google.com/'}
-			];
 			$scope.eventSources = [];
 			$scope.uiConfig = {
 				calendar: {
-					height: 450,
+					//aspectRatio: 1.35,
 					editable: true,
 					header: {
 						left: 'title',

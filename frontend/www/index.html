@@ -116,5 +116,24 @@
   have templates inline in this html file if you'd like).
 -->
 <ion-nav-view></ion-nav-view>
+<script>
+    function resizeCal(lbl) {
+        var cal = $('#calendar');
+        if (cal && cal != undefined) {
+            var parent = cal.parent();
+            var wd = parent.width();
+            var ht = parent.height();
+            var ratio = wd / ht;
+            if (wd && ht) {
+                cal.fullCalendar('option', 'aspectRatio', ratio);
+            }
+        }
+    }
+    $(document).ready(function () {
+        $(window).resize(function () {
+            resizeCal('win');
+        });
+    });
+</script>
 </body>
 </html>
