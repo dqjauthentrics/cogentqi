@@ -10,7 +10,7 @@
     <div class="col">
         <a href="#/assessment/view/{{assessment.id}}">
             <span data-ng-show="prefix">{{prefix}}, </span>
-            <span class="name">{{assessment.instrument.n}} {{assessment.schedule.n}}</span>
+            <span class="name">{{assessment.instrument.n}}, {{assessment.schedule.n}}</span>
             {{assessment.lm|date:'EEE'}}, {{assessment.lm|date:'short'}}</a>
     </div>
     <div class="col col-40" data-ng-show="assessment.assessor">
