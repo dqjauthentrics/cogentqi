@@ -6,9 +6,7 @@
 
 angular.module('ControllerManager', [])
 
-	.controller('DashboardCtrl', function ($ionicConfig, $rootScope, $scope, $cookieStore, APP_ROLES, Organizations) {
-		//$ionicConfig.backButton.previousTitleText(false);
-		$rootScope.hideBack = true;
+	.controller('DashboardCtrl', function ($rootScope, $scope, $cookieStore, APP_ROLES, Organizations) {
 		$scope.data = {user: $cookieStore.get('user'), ari: APP_ROLES.MANAGER};
 	})
 
