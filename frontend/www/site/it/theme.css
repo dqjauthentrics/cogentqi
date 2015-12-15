@@ -2,10 +2,6 @@ body {
     color: #606060;
 }
 
-a, a:visited {
-    color: purple;
-}
-
 .customerBg {
     background: #FFF url(/site/it/images/bg-top-nav.png) !important;
     background-size: 100% 100% !important;

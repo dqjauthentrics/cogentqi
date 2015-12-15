@@ -122,8 +122,6 @@ angular.module('MemberControllers', [])
 			$scope.data = {isLoading: true, showMember: false, dirty: false, user: $cookieStore.get('user'), newMessage: ''};
 			$scope.roles = $rootScope.roles;
 
-			console.log("enter MemberViewCtrl");
-
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 				if (Members.current == null || Members.current.id != $stateParams.memberId) {
 					Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
@@ -363,8 +361,6 @@ angular.module('MemberControllers', [])
 		function ($scope, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Members) {
 			$scope.Members = Members;
 			$scope.data = {isLoading: true, searchFilter: null, showIncludeInactive: true, includeInactive: false};
-
-			console.log("enter MemberListCtrl");
 
 			$scope.getMembers = function () {
 				Utility.getResource(Members.retrieve($scope.data.includeInactive), function (response) {

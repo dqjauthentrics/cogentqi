@@ -21,7 +21,6 @@ angular.module('ControllerAdministrator', [])
 
 			Utility.getResource(InstrumentSchedule.retrieve(), function (response) {
 				$scope.data.scheduleItems = response.data;
-				console.log("scheduleItems", $scope.data.scheduleItems);
 				if (!Utility.empty($scope.data.scheduleItems)) {
 					for (var i = 0; i < $scope.data.scheduleItems.length; i++) {
 						$scope.data.scheduleItems[i].sr = new Date($scope.data.scheduleItems[i].sr);
@@ -178,7 +177,6 @@ angular.module('ControllerAdministrator', [])
 					$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
 					Utility.getResource(Assessments.retrieveProgressByMonth($scope.data.currentInstrument.id, true), function (response) {
 						var data = response.data;
-						console.log("PLOT DATA:", data);
 						if (!Utility.empty(data)) {
 							for (var i = 0; i < data.series.length; i++) {
 								if (data.series[i].grouping == 0 || data.series[i].grouping == 2) {

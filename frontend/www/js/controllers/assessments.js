@@ -20,7 +20,6 @@ angular.module('AssessmentControllers', [])
 
 			// Main
 			//
-			console.log("enter AssessmentListCtrl", $scope);
 			$scope.data.dCnt++;
 			if ($scope.Assessments.list == null) {
 				Utility.getResource(Assessments.retrieve(), function (response) {
@@ -97,12 +96,8 @@ angular.module('AssessmentControllers', [])
 
 			// Main
 			//
-			$scope.$on('$ionicView.enter', function (event) {
-				console.log("enter AssessmentMatrixCtrl", Instruments.list);
-				Instruments.getCollated(function () {
-					console.log("setting matrix", $scope.Instruments.loading, $scope.Instruments.list);
-					$scope.setMatrix(null, null);
-				});
+			Instruments.getCollated(function () {
+				$scope.setMatrix(null, null);
 			});
 		}
 	)
@@ -111,8 +106,6 @@ angular.module('AssessmentControllers', [])
 		'AssessmentViewCtrl',
 		function ($rootScope, $resource, $ionicPopup, $filter, $cookieStore, $scope, $timeout, $stateParams, PDF, Utility,
 				  Instruments, Assessments, Members, Organizations, Resources) {
-
-			console.log("entering AssessmentViewCtrl");
 
 			$scope.Assessments = Assessments;
 			$scope.Instruments = Instruments;
@@ -126,11 +119,11 @@ angular.module('AssessmentControllers', [])
 				currentChoices: null,
 				recommendationsTitle: 'Recommended Modules'
 			};
-
+			$scope.responses = [];
 
 			$scope.response = function (questionId) {
-				if (!Utility.empty(Assessments.current)) {
-					return Assessments.current.responses[questionId];
+				if (!Utility.empty($scope.responses)) {
+					return $scope.responses[questionId];
 				}
 				return null;
 			};
@@ -163,7 +156,7 @@ angular.module('AssessmentControllers', [])
 			$scope.getRecommendations = function () {
 				if ($scope.Assessments.current !== null && $scope.Resources.list !== null) {
 					$scope.data.recommendations =
-						Assessments.recommend($scope.Assessments.current.instrument, $scope.Resources.list, $scope.Assessments.current.responses);
+						Assessments.recommend($scope.Assessments.current.instrument, $scope.Resources.list, $scope.responses);
 				}
 			};
 
@@ -174,20 +167,37 @@ angular.module('AssessmentControllers', [])
 					$scope.getRecommendations();
 				}
 			};
-
-			$scope.updateSliderResponse = function (question) {
-				$scope.data.dirty = true;
-				var scoreInfo = Assessments.sliderChange(question, $scope.Assessments.current.instrument, $scope.Assessments.current.responses);
-				$scope.response(question.id).rp = scoreInfo.scoreWord;
-				$scope.currentChoices = $scope.response(question.id).ch;
+			$scope.sliderChange = function (questionId) {
+				var scoreInfo = Assessments.sliderChange(questionId, $scope.Assessments.current.instrument, $scope.responses);
+				$scope.responses[questionId].rp = scoreInfo.scoreWord;
+				$scope.currentChoices = $scope.responses[questionId].ch;
 				$scope.Assessments.current.sc = scoreInfo.avg;
 				$scope.Assessments.current.rk = scoreInfo.avgRound;
-				$scope.Assessments.current.scoreWord = Assessments.scoreWord(question, scoreInfo.avgRound, $scope.Assessments.current.responses);
+				$scope.Assessments.current.scoreWord = Assessments.scoreWord(questionId, scoreInfo.avgRound, $scope.responses);
 				$scope.getRecommendations();
 			};
 
+			$scope.updateSliderResponse = function (question) {
+				$scope.data.dirty = true;
+				if (!Utility.empty(question)) {
+					var scoreInfo = Assessments.sliderChange(questionId, $scope.Assessments.current.instrument, $scope.responses);
+					$scope.responses[question.id].rp = scoreInfo.scoreWord;
+					$scope.currentChoices = $scope.response(question.id).ch;
+					$scope.Assessments.current.sc = scoreInfo.avg;
+					$scope.Assessments.current.rk = scoreInfo.avgRound;
+					$scope.Assessments.current.scoreWord = Assessments.scoreWord(question.id, scoreInfo.avgRound, $scope.responses);
+					$scope.getRecommendations();
+				}
+			};
+
+			$scope.refreshSliders = function () {
+				$timeout(function () {
+					$scope.$broadcast('rzSliderForceRender');
+				});
+			};
 			$scope.rubricSet = function (question, value) {
-				$scope.response(question.id).rdx = value;
+				$scope.responses[question.id].rdx = value;
+				$scope.refreshSliders();
 			};
 
 			$scope.sliderTranslate = function (value) {
@@ -204,18 +214,18 @@ angular.module('AssessmentControllers', [])
 									Utility.getResource(Assessments.retrieveSingle(assessmentId), function (response) {
 										Instruments.currentSectionIdx = 0;
 										$scope.Assessments.current = response.data;
+										$scope.responses = $scope.Assessments.current.responses;
 										var instrumentId = $scope.Assessments.current.instrument.id;
 										$scope.Assessments.current.instrument = Utility.findObjectById($scope.Instruments.list, instrumentId);
-										var scoreInfo = Assessments.scorify($scope.Assessments.current.instrument,
-																			$scope.Assessments.current.responses);
+										var scoreInfo = Assessments.scorify($scope.Assessments.current.instrument, $scope.responses);
 										var question = $scope.Assessments.current.instrument.sections[0].questions[0];
 										$scope.Assessments.current.sc = scoreInfo.avg;
 										$scope.Assessments.current.rk = scoreInfo.avgRound;
-										$scope.Assessments.current.scoreWord =
-											Assessments.scoreWord(question, scoreInfo.avgRound, $scope.Assessments.current.responses);
+										$scope.Assessments.current.scoreWord = Assessments.scoreWord(question.id, scoreInfo.avgRound, $scope.responses);
 										$scope.data.assessor = $cookieStore.get('user');
 										$scope.getRecommendations();
 										$scope.data.isLoading = false;
+										$scope.refreshSliders();
 									});
 								}
 							}
@@ -295,11 +305,10 @@ angular.module('AssessmentControllers', [])
 
 			// Main
 			//
-			$scope.$on('$ionicView.enter', function (event) {
-				$scope.Instruments.getCollated(function (instruments) {
-					$scope.Resources.loadAll(function (resources) {
-						$scope.getAssessment();
-					});
+			$scope.Instruments.getCollated(function (instruments) {
+				$scope.Resources.loadAll(function (resources) {
+					$scope.getAssessment();
+					$scope.refreshSliders();
 				});
 			});
 		})

@@ -82,4 +82,12 @@ class MemberEvent extends CogentModel {
 		return parent::findFirst($parameters);
 	}
 
+	public function map($options = []) {
+		$map = parent::map($options);
+		$map['n'] = $this->event->name;
+		$map['dsc'] = $this->event->description;
+		$map['cat'] = $this->event->category;
+		return $map;
+	}
+
 }

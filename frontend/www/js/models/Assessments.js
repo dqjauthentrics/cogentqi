@@ -16,7 +16,6 @@ angular.module('Assessments', []).service(
 		svc.retrieve = function () {
 			var user = $cookieStore.get('user');
 			if (!svc.loading && !Utility.empty(user)) {
-				console.log("retrieving assessments");
 				return $resource('/api3/assessment/byOrganization/' + user.oi, {}, {query: {method: 'GET', isArray: false, cache: false}});
 			}
 			return null;
@@ -135,7 +134,7 @@ angular.module('Assessments', []).service(
 			var avgRound = 0;
 			var total = 0;
 			var compCount = 0;
-			if (!Utility.empty(instrument) && !Utility.empty(instrument.sections)) {
+			if (!Utility.empty(responses) && !Utility.empty(instrument) && !Utility.empty(instrument.sections)) {
 				var sections = instrument.sections;
 				for (var i = 0; i < sections.length; i++) {
 					var section = sections[i];
@@ -159,12 +158,12 @@ angular.module('Assessments', []).service(
 			return {avg: avg, avgRound: avgRound};
 		};
 
-		svc.scoreWord = function (question, score, responses) {
+		svc.scoreWord = function (questionId, score, responses) {
 			var scoreWord = null;
 			try {
 				score = parseInt(Math.round(score));
 				if (!Utility.empty(score)) {
-					scoreWord = responses[question.id].ch[score].n;
+					scoreWord = responses[questionId].ch[score].n;
 				}
 				if (Utility.empty(scoreWord)) {
 					scoreWord = "N/A";
@@ -306,23 +305,24 @@ angular.module('Assessments', []).service(
 			return recSubset;
 		};
 
-		svc.sliderChange = function (question, instrument, responses) {
+		svc.sliderChange = function (questionId, instrument, responses) {
 			var scoreWord = null;
 			var avg = 0;
 			var avgRound = 0;
-			if (!Utility.empty(question) && !Utility.empty(responses[question.id])) {
-				var slider = $("#question_item_" + question.id);
+			if (!Utility.empty(responses[questionId])) {
+				var slider = $("#question_item_" + questionId);
 				slider.removeClass(function (index, css) {
 					return (css.match(/(^|\s)slider\S+/g) || []).join(' ');
-				}).addClass("slider" + responses[question.id].rdx);
-				var score = svc.scorify(instrument);
+				}).addClass("slider" + responses[questionId].rdx);
+				var score = svc.scorify(instrument, responses);
 				avg = score.avg;
 				avgRound = score.avgRound;
-				var rubricBox = $("#rubric_" + question.id + "_" + avgRound);
+				var rubricBox = $("#rubric_" + questionId + "_" + avgRound);
 				var pos = rubricBox.position();
 				var pointer = slider.find(".pointer");
 				pointer.css({left: 100});
 			}
+			console.log("sliderChange:", avg);
 			return {avg: avg, avgRound: avgRound};
 		};
 

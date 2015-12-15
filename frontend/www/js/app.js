@@ -21,6 +21,7 @@ angular.module(
 		'ui.bootstrap',
 		'xeditable',
 		'vr.directives.slider',
+		'rzModule',
 		'youtube-embed',
 		'webcam',
 		'Roles',

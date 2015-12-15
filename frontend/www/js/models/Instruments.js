@@ -53,11 +53,9 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 	};
 	svc.getCollated = function (callbackFn) {
 		if (svc.list == null) {
-			console.log("retrieving instrument list");
 			Utility.getResource(svc.retrieve(), function (response) {
 				if (!Utility.empty(response)) {
 					svc.list = response.data;
-					console.log("retrieved", svc.list);
 					svc.collate(svc.list);
 					svc.current = svc.list[0];
 					callbackFn(svc.list);

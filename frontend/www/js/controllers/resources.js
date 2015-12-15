@@ -25,7 +25,7 @@ angular.module('ResourceControllers', [])
 					$templateRequest(url).then(function (template) {
 						$scope.data.content = template;
 					}, function () {
-						console.log("error occurred");
+						console.log("error loading content");
 					});
 				}
 				catch (exception) {

@@ -8,10 +8,18 @@ use Phalcon\Mvc\Model\Validator\Email as Email;
  * Class Member
  * @package Cogent\Models
  *
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|PlanItem[]    getPlanItems($parameters=[])
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|MemberBadge[] getBadges($parameters=[])
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|MemberNote[]  getNotes($parameters=[])
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|Assessment[]  getAssessments($parameters=[])
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|MemberEvent[] getEvents($parameters=[])
+ *
  * @property \Phalcon\Mvc\Model\Resultset\Simple|PlanItem[]    $planItems
  * @property \Phalcon\Mvc\Model\Resultset\Simple|MemberBadge[] $badges
  * @property \Phalcon\Mvc\Model\Resultset\Simple|MemberNote[]  $notes
  * @property \Phalcon\Mvc\Model\Resultset\Simple|Assessment[]  $assessments
+ * @property \Phalcon\Mvc\Model\Resultset\Simple|MemberEvent[] $events
+ *
  */
 class Member extends CogentModel {
 
@@ -192,9 +200,10 @@ class Member extends CogentModel {
 		$this->hasMany('id', 'Cogent\Models\PlanItem', 'member_id', ['alias' => 'PlanItems']);
 		$this->hasMany('id', 'Cogent\Models\Assessment', 'member_id', ['alias' => 'Assessments']);
 		$this->hasMany('id', 'Cogent\Models\Recommendation', 'member_id', ['alias' => 'Recommendations']);
-		$this->hasMany('id', 'Cogent\Models\MemberBadge', 'member_id', ['alias' => 'MemberBadges']);
+		$this->hasMany('id', 'Cogent\Models\MemberBadge', 'member_id', ['alias' => 'Badges']);
 		$this->hasMany('id', 'Cogent\Models\Relationship', 'superior_id', ['alias' => 'Subordinates']);
 		$this->hasMany('id', 'Cogent\Models\MemberNote', 'member_id', ['alias' => 'Notes']);
+		$this->hasMany('id', 'Cogent\Models\MemberEvent', 'member_id', ['alias' => 'Events']);
 
 		$this->belongsTo('role_id', 'Cogent\Models\Role', 'id', ['alias' => 'Role', 'foreignKey' => TRUE]);
 		$this->belongsTo('organization_id', "Cogent\Models\Organization", 'id', ['alias' => 'Organization', 'foreignKey' => TRUE]);
@@ -205,32 +214,31 @@ class Member extends CogentModel {
 	 *
 	 * @return array
 	 */
-	public function map($options = ['lastAssessment' => TRUE, 'badges' => TRUE, 'assessments' => FALSE, 'notes' => FALSE, 'minimal' => FALSE]) {
+	public function map($options = [
+		'lastAssessment' => TRUE,
+		'badges'         => TRUE,
+		'assessments'    => FALSE,
+		'notes'          => FALSE,
+		'events'         => FALSE,
+		'minimal'        => FALSE,
+	]
+	) {
 		$map = parent::map();
 		Utility::arrayRemoveByKey('r', $map);
 		$map['ari'] = $this->role->app_role_id;
 		$map['rn'] = $this->role->name;
 		if (empty($options['minimal'])) {
 			if (!empty($options['badges'])) {
-				$jsonBadges = [];
-				foreach ($this->memberBadges as $badge) {
-					$jsonBadges[] = $badge->map();
-				}
-				$map["badges"] = $jsonBadges;
+				$map["badges"] = $this->mapRecords($this->getBadges(['order' => 'earned DESC']));
 			}
 			if (!empty($options['notes'])) {
-				$jsonNotes = [];
-				foreach ($this->notes as $note) {
-					$jsonNotes[] = $note->map();
-				}
-				$map["notes"] = $jsonNotes;
+				$map["notes"] = $this->mapRecords($this->getNotes(['order' => 'last_modified DESC']));
+			}
+			if (!empty($options['events'])) {
+				$map['events'] = $this->mapRecords($this->getEvents(['order' => 'occurred DESC']));
 			}
 			if (!empty($options['assessments'])) {
-				$jsonAssessments = [];
-				foreach ($this->assessments as $assessment) {
-					$jsonAssessments[] = $assessment->map([]);
-				}
-				$map["assessments"] = $jsonAssessments;
+				$map["assessments"] = $this->mapRecords($this->getAssessments(['order' => 'last_modified DESC']));
 			}
 			if (!empty($options['lastAssessment'])) {
 				$map["lastAssessment"] = $this->mapLastAssessment();

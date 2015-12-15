@@ -5,24 +5,6 @@
 'use strict';
 
 angular.module('ControllerCommon', [])
-	.controller(
-		'CommonTabsCtrl',
-		function ($scope, Utility) {
-			//$ionicNavBarDelegate.showBackButton(false);
-
-			//$scope.$on('$ionicView.beforeEnter', function () {
-			//$ionicNavBarDelegate.showBackButton(false);
-			//});
-
-			//$scope.$on('$ionicView.leave', function () {
-			//$ionicNavBarDelegate.showBackButton(true);
-			//});
-
-			$scope.go = function (url) {
-				location.href = url;
-			};
-			console.log("enter ControllerCommon");
-		})
 
 	.controller('LoginController', [
 		'$scope', '$location', 'Authentication', function ($scope, $location, Authentication) {
