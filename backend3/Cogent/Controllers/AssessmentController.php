@@ -116,11 +116,12 @@ class AssessmentController extends ControllerBase {
 		$result = new Result();
 		try {
 			$formAssessment = $this->getInputData('assessment');
+			$assessmentModel = new Assessment();
 			if (!empty($formAssessment)) {
-				$result = Assessment::saveExisting($this, $formAssessment);
+				$result = $assessmentModel->saveExisting($this, $formAssessment);
 			}
 			else {
-				$result = Assessment::createNew($this, $assessorId, $memberId);
+				$result = $assessmentModel->createNew($this, $assessorId, $memberId);
 			}
 		}
 		catch (\Exception $exception) {

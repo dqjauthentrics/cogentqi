@@ -188,13 +188,13 @@ class Assessment extends CogentModel {
 	 *
 	 * @return \Cogent\Components\Result
 	 */
-	public static function saveExisting($controller, $formAssessment) {
+	public function saveExisting($controller, $formAssessment) {
 		$result = new Result($controller);
 		$transacted = FALSE;
 		try {
 			if (!empty($formAssessment)) {
 				$assessment = Assessment::findFirst($formAssessment["id"]);
-				if (!empty($dbAssessment)) {
+				if (!empty($assessment)) {
 					$controller->beginTransaction($assessment);
 					$transacted = TRUE;
 					$saveDateTime = $assessment->dbDateTime();
@@ -209,15 +209,17 @@ class Assessment extends CogentModel {
 						"edit_status"       => $formAssessment["es"],
 						"view_status"       => $formAssessment["vs"]
 					];
-					$assessment->update($simpleRec);
+					if (!$assessment->update($simpleRec)) {
+						throw new \Exception($this->errorMessagesAsString());
+					}
 					$formSections = $formAssessment['instrument']['sections'];
 					if (!empty($formSections)) {
 						foreach ($formSections as $formSection) {
 							$formQuestions = $formSection['questions'];
 							if (!empty($formQuestions)) {
 								foreach ($formQuestions as $formQuestion) {
-									$formResponse = $formQuestion["rsp"];
-									$response = AssessmentResponse::query()->where('id=' . $formResponse['id']);
+									$formResponse = $formAssessment["rsp"][$formQuestion["id"]];
+									$response = AssessmentResponse::query()->where('id=' . $formResponse['id'])->execute();
 									/** @var AssessmentResponse $response */
 									if (!empty($response)) {
 										$responseUpdater = [
@@ -226,7 +228,9 @@ class Assessment extends CogentModel {
 											"assessor_comments" => $formResponse["ac"],
 											"member_comments"   => $formResponse["mc"]
 										];
-										$response->update($responseUpdater);
+										if (!$response->update($responseUpdater)) {
+											throw new \Exception($this->errorMessagesAsString());
+										}
 									}
 								}
 							}
@@ -260,7 +264,7 @@ class Assessment extends CogentModel {
 	 *
 	 * @return Result
 	 */
-	public static function createNew($controller, $assessorId, $memberId) {
+	public function createNew($controller, $assessorId, $memberId) {
 		$result = new Result();
 		$assessment = new Assessment();
 		$controller->beginTransaction($assessment);
@@ -279,7 +283,9 @@ class Assessment extends CogentModel {
 				'edit_status'            => self::STATUS_ACTIVE,
 				'view_status'            => self::STATUS_ACTIVE,
 			];
-			$assessment->update($assessmentInfo);
+			if (!$assessment->update($assessmentInfo)) {
+				throw new \Exception($this->errorMessagesAsString());
+			}
 			$responses = Instrument::createResponseTemplate($scheduleItem->instrument_id, $assessment->id);
 			if (!empty($responses)) {
 				//@todo GREG Recommendation::recommend($assessment["id"]);

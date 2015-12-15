@@ -286,7 +286,7 @@ angular.module('AssessmentControllers', [])
 				var icon = $(event.target).find("i");
 				var saveClass = icon.attr("class");
 				icon.attr("class", "").addClass("fa fa-spinner fa-spin");
-				Assessments.save($scope.Assessments.current, $scope.Assessments.current.mi, function (response) {
+				Assessments.save($scope.Assessments.current, $scope.responses, $scope.Assessments.current.mi, function (response) {
 					icon.attr("class", saveClass);
 					$scope.data.dirty = false;
 					$scope.Assessments.list = null;

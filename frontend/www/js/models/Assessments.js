@@ -20,9 +20,10 @@ angular.module('Assessments', []).service(
 			}
 			return null;
 		};
-		svc.save = function (assessment, memberId, callbackFn) {
+		svc.save = function (assessment, responses, memberId, callbackFn) {
 			var user = $cookieStore.get('user');
 			if (!Utility.empty(user)) {
+				assessment.rsp = responses;
 				$http.post('/api3/assessment/update/' + memberId + '/' + user.id, {assessment: assessment})
 					.then(function (data, status, headers, config) {
 							  callbackFn(data);
