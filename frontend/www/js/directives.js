@@ -161,7 +161,7 @@ angular.module('app')
 		return {
 			restrict: 'E',
 			templateUrl: '../templates/common/_microBadge.html',
-			scope: {text: '=', size: '='}
+			scope: {text: '=', size: '=', src: '='}
 		};
 	})
 

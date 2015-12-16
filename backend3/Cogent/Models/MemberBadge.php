@@ -1,6 +1,17 @@
 <?php
 namespace Cogent\Models;
 
+/**
+ * Class MemberBadge
+ * @package Cogent\Models
+ *
+ * @method Member getMember()
+ * @method Badge getBadge()
+ *
+ * @property Member $member
+ * @property Badge  $badge
+ *
+ */
 class MemberBadge extends CogentModel {
 	/**
 	 *
@@ -52,7 +63,8 @@ class MemberBadge extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('member_id', 'Member', 'id', ['alias' => 'Member', 'foreignKey' => TRUE]);
+		$this->belongsTo('member_id', 'Cogent\Models\Member', 'id', ['alias' => 'Member', 'foreignKey' => TRUE]);
+		$this->belongsTo('badge_id', 'Cogent\Models\Badge', 'id', ['alias' => 'Badge', 'foreignKey' => TRUE]);
 	}
 
 	/**
@@ -62,6 +74,19 @@ class MemberBadge extends CogentModel {
 	 */
 	public function getSource() {
 		return 'member_badge';
+	}
+
+	/**
+	 * @param array $options
+	 *
+	 * @return array
+	 */
+	public function map($options = []) {
+		$map = parent::map($options);
+		if (!empty($this->badge)) {
+			$map['image'] = $this->badge->image;
+		}
+		return $map;
 	}
 
 }

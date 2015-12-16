@@ -9,9 +9,9 @@ namespace Cogent\Models;
  * @method Assessment[] getAssessments()
  * @method InstrumentScheduleOperation[] getOperations()
  *
- * @method Instrument $instrument
- * @method \Phalcon\Mvc\Model\Resultset\Simple|Assessment[] $assessments
- * @method \Phalcon\Mvc\Model\Resultset\Simple|InstrumentScheduleOperation[] $operations
+ * @property Instrument                                                        $instrument
+ * @property \Phalcon\Mvc\Model\Resultset\Simple|Assessment[]                  $assessments
+ * @property \Phalcon\Mvc\Model\Resultset\Simple|InstrumentScheduleOperation[] $operations
  *
  */
 class InstrumentSchedule extends CogentModel {
@@ -125,7 +125,7 @@ class InstrumentSchedule extends CogentModel {
 	 * @return InstrumentSchedule
 	 */
 	public static function latest($roleId, $operation) {
-		$ops = InstrumentScheduleOperation::find(['conditions' => 'role_id=:rid: AND operation_id=:oid:','bind' =>['rid' => $roleId, 'oid' => $operation]]);
+		$ops = InstrumentScheduleOperation::find(['conditions' => 'role_id=:rid: AND operation_id=:oid:', 'bind' => ['rid' => $roleId, 'oid' => $operation]]);
 		$ids = [];
 		if (!empty($ops)) {
 			foreach ($ops as $op) {
@@ -135,7 +135,7 @@ class InstrumentSchedule extends CogentModel {
 				}
 			}
 		}
-		$scheduleItem = InstrumentSchedule::findFirst(['conditions' => 'id IN ('.implode(",", $ids).')','order'=>'starts DESC']);
+		$scheduleItem = InstrumentSchedule::findFirst(['conditions' => 'id IN (' . implode(",", $ids) . ')', 'order' => 'starts DESC']);
 		return $scheduleItem;
 	}
 

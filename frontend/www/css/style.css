@@ -467,6 +467,13 @@ table.cycle {
     height: 2em;
 }
 
+table.microBadgeHolder {
+    float: left;
+    margin: 0.3em;
+    max-width: 100px;
+    min-width: 100px;
+}
+
 .microBadge {
     background: transparent url(../img/badge.png) center center no-repeat;
     background-size: contain;
