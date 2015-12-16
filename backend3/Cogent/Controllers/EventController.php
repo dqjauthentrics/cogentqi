@@ -2,8 +2,10 @@
 namespace Cogent\Controllers;
 
 use Cogent\Components\Result;
+use Cogent\Models\CogentModel;
 use Cogent\Models\Event;
 use Cogent\Models\EventAlignment;
+use Phalcon\Exception;
 
 class EventController extends ControllerBase {
 	/**
@@ -32,15 +34,34 @@ class EventController extends ControllerBase {
 	/**
 	 * Update a single event record.
 	 */
-	public function actionUpdate() {
+	public function updateAction() {
 		$result = new Result();
 		try {
-			$data = $this->getInputData();
-			$result->setNormal();
-			$result->message = "TBD: Not yet implemented.";
+            $event = new Event();
+			$data = $event->unmap($this->getInputData());
+            if (array_key_exists('id', $data)) {
+                $event = Event::findFirst(['id' => $data['id']]);
+            }
+            else {
+                $event->id = null;
+                $event->name = 'New Event';
+                $event->description = 'description';
+            }
+            foreach ($data as $key => $value) {
+                $event->$key = $value;
+            }
+            $success = $event->save();
+            if ($success) {
+                $result->setNormal();
+                $result->data = ['id' => $event->id];
+                $result->message = "Event updated.";
+            }
+            else {
+                throw new Exception($event->errorMessagesAsString());
+            }
 		}
 		catch (\Exception $exception) {
-			$result->setError(Result::CODE_EXCEPTION, "Unable to send text message: " . $exception->getMessage());
+			$result->setError(Result::CODE_EXCEPTION, "Event create/update error: " . $exception->getMessage());
 		}
 		$result->sendNormal();
 	}

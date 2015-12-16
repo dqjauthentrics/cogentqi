@@ -13,7 +13,7 @@ angular.module('EventControllers', [])
                 $scope.event = events.find($stateParams.eventId);
             });
             $scope.save = function() {
-                Events.saveEvent($scope.event, function(success, data) {
+                Events.saveEvent($scope.event, function(error) {
                     alert('not implemented');
                 });
             }
@@ -30,9 +30,11 @@ angular.module('EventControllers', [])
                 $scope.eventFilter = function (event) {
                     return Events.filterer(event, $scope.data.searchFilter);
                 };
-                $scope.createEvent = function() {
-                    Events.createEvent();
-                };
+                $scope.saveEvent = function(event) {
+                    Events.saveEvent(event, function(error) {
+                        alert("not implemented");
+                    });
+                }
             });
 		})
 

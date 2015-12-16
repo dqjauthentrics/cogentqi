@@ -4,8 +4,7 @@
     <ion-content has-bouncing="false">
         <div class="row responsive-sm">
             <div class="col">
-                <ion-list>ove guests
-                    
+                <ion-list>
                     <ion-item class="top">
                         <list-searcher></list-searcher>
                     </ion-item>
@@ -19,7 +18,7 @@
                         <i class="{{i.bolt}} fa-lg"></i> {{event.n}}
                     </ion-item>
                     <ion-item>
-                        <button ng-click="createEvent()" class="button button-balanced">
+                        <button ng-click="saveEvent(null)" class="button button-balanced">
                             <i class="{{i.add}} fa-lg"></i> {{'Add Event'|translate}}
                         </button>
                     </ion-item>

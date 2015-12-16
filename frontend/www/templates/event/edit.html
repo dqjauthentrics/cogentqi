@@ -2,24 +2,30 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <div class="detail">
+        <div class="list">
             <h1>{{'Event'|translate}}</h1>
             <div style="float:right; margin:0.5em;">
                 <button ng-click="save()" class="button button-action button-save">
                     <i class="{{i.save}}"></i>
                 </button>
             </div>
-            <div class="name">
-                <label for="name">Name:</label>
-                <input id="name" type="text" data-ng-model="event.n">
+            <div class="item item-input">
+                <label for="name">
+                    <span class="input-label">Name</span>
+                    <input id="name" type="text" data-ng-model="event.n" placeholder="enter name here">
+                </label>
             </div>
-            <div class="description">
-                <label for="description">Description:</label>
-                <textarea id="description" data-ng-model="event.dsc">
+            <div class="item item-input">
+                <label for="description">
+                    <span class="input-label">Description</span>
+                    <textarea id="description" data-ng-model="event.dsc" placeholder="enter description here"></textarea>
+                </label>
             </div>
-           <div class="catagory">
-               <label for="catagory">Catagory:</label>
-               <input id="catagory" type="text" data-ng-model="event.cat">
+           <div class="item item-input">
+               <label for="category">
+                   <span class="input-label">Category</span>
+                   <input id="category" type="text" data-ng-model="event.cat" placeholder="enter category here">
+               </label>
             </div>
         </div>
     </ion-content>
