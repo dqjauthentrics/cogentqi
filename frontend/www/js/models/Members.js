@@ -38,8 +38,8 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 				  });
 	};
 
-	svc.deOrReactivate = function (member, callbackFn) {
-		$http.get("/api3/member/dereactivate/" + member.id + '/' + (member.active_end ? 0 : 1))
+	svc.deOrReactivate = function (member, activate, callbackFn) {
+		$http.get("/api3/member/dereactivate/" + member.id + '/' + activate)
 			.then(function (data, status, headers, config) {
 					  callbackFn(data.data);
 				  },

@@ -156,7 +156,7 @@ class MemberController extends ControllerBase {
 			if (!empty($member)) {
 				$member->active_end = !empty($activate) ? NULL : $member->dbDateTime();
 				if ($member->update()) {
-					$result->setNormal($member->map(['minimal' => TRUE]));
+					$result->setNormal($member->active_end);
 				}
 				else {
 					throw new \Exception($member->errorMessagesAsString());

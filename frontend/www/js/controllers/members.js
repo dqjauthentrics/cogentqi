@@ -22,7 +22,7 @@ angular.module('MemberControllers', [])
 					$scope.getNotes();
 				}
 			}
-			$scope.getNotes = function() {
+			$scope.getNotes = function () {
 				$scope.data.newNote.mi = $scope.Members.current.id;
 				Utility.getResource(MemberNotes.retrieve($stateParams.memberId), function (response) {
 					if (response.status == 1) {
@@ -253,10 +253,16 @@ angular.module('MemberControllers', [])
 			$scope.deOrReactivate = function () {
 				var word1 = Members.current.ae ? 'Reactivation' : 'Deactivation';
 				var word2 = Members.current.ae ? 'RE-ACTIVATE' : 'DEACTIVATE';
+				var activate = Members.current.ae ? 1 : 0;
 				Utility.confirm('Member ' + word1, 'Are you sure you want to ' + word2 + ' this member?', function () {
-					Members.deOrReactivate(Members.current, function (response) {
-						Members.current = response.data;
-						Members.list = null; // force reload of members
+					Members.deOrReactivate(Members.current, activate, function (response) {
+						if (response.status == 1 && response.code == 200) {
+							Members.current.ae = response.data;
+							Members.list = null; // force reload of members
+						}
+						else {
+							Utility.statusAlert(response);
+						}
 					});
 				});
 			};
