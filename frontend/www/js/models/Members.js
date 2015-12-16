@@ -63,6 +63,9 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 		var memberHx = [];
 		if (!Utility.empty(instruments) && !Utility.empty(member) && !Utility.empty(assessments)) {
 			var instrument = Utility.findObjectById(instruments, assessments[0].ii); //@todo Assumes all same instrument
+			if (Utility.empty(instrument)) {
+				return null; // NB: abrupt return
+			}
 			var maxY = instrument.max;
 			for (var z = 0; z < instrument.sections.length; z++) {
 				var series = [];

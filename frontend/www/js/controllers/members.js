@@ -99,30 +99,24 @@ angular.module('MemberControllers', [])
 
 	.controller(
 		'MemberBarProgressCtrl',
-		function ($scope, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments, Organizations, Members) {
-			$scope.data = {instruments: [], member: {}, instrument: null};
+		function ($scope, $ionicScrollDelegate, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Instruments, Organizations, Members) {
+			$scope.Members = Members;
+			$scope.Instruments = Instruments;
+			$scope.data = {rptConfigHx: [], isLoading: true};
 
-			Instruments.retrieve().query(function (response) {
-				$scope.data.instruments = response.data;
-				$scope.setRptConfigHx();
-			});
-
-			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
-				Members.retrieveSingle($stateParams.memberId).query(function (response) {
-					$scope.data.member = response.data;
-					$scope.setRptConfigHx();
-				});
-			}
 			$scope.setRptConfigHx = function () {
-				if (!Utility.empty($scope.data.member) && Utility.empty($scope.data.member.rptConfigHx) && !Utility.empty(
-						$scope.data.instruments) && !Utility.empty($scope.data.member.assessments)) {
-					Instruments.collate($scope.data.instruments);
-					$scope.data.instrument = Utility.findObjectById($scope.data.instruments, $scope.data.member.assessments[0].ii);
-					$scope.data.member.rptConfigHx = Members.rptConfigHx($scope.data.instruments, $scope.data.member, $scope.data.member.assessments);
+				if (!Utility.empty($scope.Instruments.list) && !Utility.empty($scope.Members.current) && !Utility.empty(
+						$scope.Members.current.assessments)) {
+					var instrumentId = $scope.Members.current.assessments[0].ii;
+					$scope.Instruments.current = Utility.findObjectById($scope.Instruments.list, instrumentId);
+					$scope.data.rptConfigHx = Members.rptConfigHx($scope.Instruments.list, $scope.Members.current, $scope.Members.current.assessments);
+					$scope.data.isLoading = false;
+					$scope.data.name = $scope.Members.current.fn + ' ' + $scope.Members.current.ln;
 				}
 			};
-			$scope.getRptConfigHx = function () {
-				return $scope.data.member.rptConfigHx;
+			$scope.scrollTo = function (sectionId) {
+				var elName = '#memberHx_' + sectionId;
+				$ionicScrollDelegate.$getByHandle(elName).scrollTo(100, 100, true);
 			};
 			$scope.goToProgress = function () {
 				$location.url("/member/progress/" + $stateParams.memberId);
@@ -133,6 +127,27 @@ angular.module('MemberControllers', [])
 			$scope.goToMember = function () {
 				$location.url("/member/" + $stateParams.memberId);
 			};
+			$scope.getMember = function () {
+				if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
+					if (Utility.empty($scope.Members.current) || $stateParams.memberId !== $scope.Members.current.id) {
+						Utility.getResource($scope.Members.retrieveSingle($stateParams.memberId), function (response) {
+							if (response.state !== 1) {
+								$scope.Members.current = response.data;
+								$scope.setRptConfigHx();
+							}
+							else {
+								Utility.statusAlert(response);
+							}
+						});
+					}
+				}
+			};
+
+			// Main
+			//
+			Instruments.getCollated(function (response) {
+				$scope.getMember();
+			});
 		})
 
 	.controller(
