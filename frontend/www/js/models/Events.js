@@ -38,27 +38,28 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 			return $q.when();
 		}
 	};
-	svc.createEvent = function () {
-		var tempId = -1;
-		svc.list.push({
-						  id: svc.tempId--,
-						  n: "New Event",
-						  dsc: "",
-						  cat: ""
-					  });
-		return tempId;
+	// To create a new event call with event == null
+	svc.saveEvent = function (event, failure) {
+		var isNew = event === null;
+		event = !isNew ? event : {
+			n: "New Event",
+			dsc: "no description",
+			cat: "Generic"
+		};
+		return $http.post('/api3/event/update', event).
+		then(function (result) {
+					if (isNew) {
+						event.id = result.data.data.id;
+						svc.list.push(event);
+					}
+				},
+				function (error) {
+					failure(error);
+				}
+		);
 	};
 	svc.deleteEvent = function (event) {
 		$http.post("/api3/event/delete", {eventId: event.id})
-			.then(function (data, status, headers, config) {
-					  callbackFn(data);
-				  },
-				  function (data, status, headers, config) {
-					  callbackFn(data);
-				  });
-	};
-	svc.saveEvent = function (event, questions, callbackFn) {
-		$http.post("/api3/event/update", {event: event})
 			.then(function (data, status, headers, config) {
 					  callbackFn(data);
 				  },
