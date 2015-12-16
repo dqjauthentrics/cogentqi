@@ -86,7 +86,7 @@ angular.module('Assessments', []).service(
 			return null;
 		};
 
-		svc.retrieveMatrix = function (instrumentId, organizationId, isRollUp) {
+		svc.retrieveMatrix = function (instrumentId, organizationId, isRollUp, callbackFn) {
 			var orgId = organizationId;
 			if (Utility.empty(orgId)) {
 				var user = $cookieStore.get('user');
@@ -99,6 +99,7 @@ angular.module('Assessments', []).service(
 				if (res) {
 					res.query(function (response) {
 						svc.matrix = response.data;
+						callbackFn(response);
 					});
 				}
 			}

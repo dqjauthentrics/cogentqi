@@ -4,10 +4,17 @@ namespace Cogent\Models;
 /**
  * Class Question
  * @package Cogent\Models
- * @method ResourceAlignment[] getResourceAlignments()
+ *
  * @method QuestionType getType()
  * @method QuestionGroup getGroup()
- * @method \Phalcon\Mvc\Model\Resultset\Simple getResponses()
+ * @method ResourceAlignment[] getResourceAlignments()
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|AssessmentResponse[] getResponses()
+ *
+ * @property QuestionType                                             $type
+ * @property QuestionGroup                                            $group
+ * @property \Phalcon\Mvc\Model\Resultset\Simple|ResourceAlignment[]  $resourceAlignments
+ * @property \Phalcon\Mvc\Model\Resultset\Simple|AssessmentResponse[] $responses
+ *
  */
 class Question extends CogentModel {
 

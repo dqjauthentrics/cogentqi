@@ -90,6 +90,7 @@ class AssessmentController extends ControllerBase {
 		$result = new Result($this);
 		$data = [];
 		try {
+			//$this->debug = TRUE;
 			$organization = Organization::findFirst($organizationId);
 			$matrix = new Matrix($this->modelsManager->getReadConnection($organization));
 			list($mType, $headers, $rowRecords, $nSections) = $matrix->myMatrix($organizationId, $instrumentId);

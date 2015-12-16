@@ -4,7 +4,10 @@ namespace Cogent\Models;
 /**
  * Class QuestionType
  * @package Cogent\Models
+ *
  * @method \Phalcon\Mvc\Model\Resultset\Simple getChoices()
+ *
+ * @property \Phalcon\Mvc\Model\Resultset\Simple $choices
  */
 class QuestionType extends CogentModel {
 

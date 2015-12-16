@@ -1,7 +1,11 @@
 <?php
 namespace Cogent\Components;
 
+use Cogent\Models\Member;
+use Cogent\Models\Assessment;
+use Cogent\Models\AssessmentResponse;
 use Cogent\Models\Organization;
+use Cogent\Models\Question;
 use Cogent\Models\QuestionGroup;
 
 /**
@@ -150,13 +154,16 @@ class Matrix {
 	 * @return array
 	 */
 	private function getMembersForAssessments($organizationId, $instrumentId) {
+		/** @var \PDO $pdo */
+		$pdo = $this->dbif;
 		$sql = "SELECT
 				a.member_id,max(a.last_modified) AS maxMod, m.first_name, m.last_name, m.role_id, m.job_title, m.email, m.level
 			FROM assessment a, member m
 			WHERE a.member_id=m.id AND instrument_id=? AND member_id IN (SELECT id FROM member WHERE organization_id=?) GROUP BY member_id";
-		$statement = $this->dbif->prepare($sql);
+		$statement = $pdo->prepare($sql);
 		$statement->execute([$instrumentId, $organizationId]);
 		$dbRecords = $statement->fetchAll();
+
 		$members = [];
 		$memberIds = [];
 		foreach ($dbRecords as $dbRecord) {
@@ -185,7 +192,7 @@ class Matrix {
 		$groupIdx = 0;
 		$lastGroupId = NULL;
 		$groups = [];
-		$groupRecords = QuestionGroup::query()->where('instrument_id=:id:', ['id' => $instrumentId])->orderBy('sort_order')->execute();
+		$groupRecords = QuestionGroup::find(['conditions' => 'instrument_id=:id:', 'bind' => ['id' => $instrumentId], 'order' => 'sort_order']);
 		$groupNumbers = [];
 		/** @var QuestionGroup $groupRecord */
 		foreach ($groupRecords as $groupRecord) {
@@ -248,35 +255,42 @@ class Matrix {
 			$headers = $this->getMatrixHeaders($instrumentId);
 			list($memberIds, $members) = $this->getMembersForAssessments($organizationId, $instrumentId);
 			if (!empty($members)) {
-				$sql = "SELECT id, member_id, last_modified FROM assessment WHERE instrument_id=:instrumentId AND member_id IN ($memberIds)";
-				$statement = $this->dbif->prepare($sql);
-				$statement->execute([':instrumentId' => $instrumentId]);
-				$assessmentRecords = $statement->fetchAll();
+				$assessmentRecords = Assessment::find([
+					'conditions' => 'instrument_id=:iid: AND member_id IN (' . $memberIds . ')',
+					'bind'       => ['iid' => $instrumentId]
+				]);
 				$columns = [];
 				$matrix = ['total' => 0, 'count' => 0, 'typeName' => NULL];
 				$groupIdx = 0;
 				$typeId = '';
+				$groupIds = [];
+				$groups = QuestionGroup::find(['conditions' => 'instrument_id=:id:', 'order' => 'sort_order', 'bind' => ['id' => $instrumentId]]);
+				foreach ($groups as $group) {
+					$groupIds[] = $group->id;
+				}
+				$groupIds = implode(',', $groupIds);
 				foreach ($assessmentRecords as $assessment) {
-					$member = $members[$assessment["member_id"]];
-					if ($assessment["last_modified"] == $member["max"]) {
+					$member = $members[$assessment->member_id];
+					if ($assessment->last_modified == $member["max"]) {
 						$responses = [];
-						$memberId = $assessment["member_id"];
-						$assessmentId = $assessment["id"];
-						$sql = "SELECT q.name, ar.response, ar.response_index, q.question_group_id, t.entry_type " .
-							"FROM assessment_response ar, question q, question_type t " .
-							"WHERE ar.question_id=q.id AND t.id=q.question_type_id AND ar.assessment_id=$assessmentId " .
-							"ORDER BY q.sort_order";
-						$responseRecords = $this->dbif->query($sql)->fetchAll();
+						$memberId = $assessment->member_id;
+						$assessmentId = $assessment->id;
 						$sections = [];
 						$lastGroupId = NULL;
 						$colIdx = 0;
-						$row = ['total' => 0, 'count' => 0];
+						$row = ['total' => 0, 'count' => 0, 'typeName' => $assessment->instrument->questionType->entry_type];
 						$groupIdx = 0;
 						$recordIdx = 0;
-						foreach ($responseRecords as $responseRecord) {
-							$groupId = $responseRecord["question_group_id"];
-							$typeId = substr($responseRecord["entry_type"], 0, 1);
-							$response = (int)$responseRecord["response_index"];
+						$questions = Question::find(['conditions' => 'question_group_id IN (' . $groupIds . ')', 'order' => 'sort_order']);
+						$memberResponses = AssessmentResponse::find(['conditions' => 'assessment_id=:aid:', 'bind' => ['aid' => $assessmentId]]);
+						$memberResponsesKeyed = [];
+						foreach ($memberResponses as $memberResponse) {
+							$memberResponsesKeyed[$memberResponse->question_id] = $memberResponse;
+						}
+						foreach ($questions as $question) {
+							$groupId = $question->question_group_id;
+							$typeId = substr($question->type->entry_type, 0, 1);
+							$response = !empty($memberResponsesKeyed[$question->id]) ? $memberResponsesKeyed[$question->id]->response_index : 0;
 							if (empty($sections[$groupId])) {
 								if (!empty($lastGroupId)) {
 									$this->addMatrixSection($sections, $columns, $responses, $typeId, $lastGroupId, $colIdx, $groupIdx);

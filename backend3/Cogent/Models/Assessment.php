@@ -12,7 +12,7 @@ use Cogent\Controllers\ControllerBase;
  * @method Instrument getInstrument()
  * @method Member getAssessee()
  * @method Member getAssessor()
- * @method \Phalcon\Mvc\Model\Resultset\Simple|AssessmentResponse[] getResponses()
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|AssessmentResponse[] getResponses($options = [])
  * @method InstrumentSchedule getSchedule()
  *
  * @property \Phalcon\Mvc\Model\Resultset\Simple|AssessmentResponse[] $responses
@@ -147,6 +147,27 @@ class Assessment extends CogentModel {
 	}
 
 	/**
+	 * @param AssessmentResponse[] $keyedResponses
+	 */
+	public function checkFullResponseSet($keyedResponses) {
+		$nFixed = 0;
+		foreach ($this->instrument->questionGroups as $group) {
+			foreach ($group->questions as $question) {
+				if (empty($keyedResponses[$question->id])) {
+					$response = new AssessmentResponse();
+					$response->assessment_id = $this->id;
+					$response->question_id = $question->id;
+					$response->response_index = 0;
+					$response->response = '';
+					$response->save();
+					$nFixed++;
+				}
+			}
+		}
+		return $nFixed;
+	}
+
+	/**
 	 * @param array $options
 	 *
 	 * @return array
@@ -179,7 +200,13 @@ class Assessment extends CogentModel {
 
 		$map['responses'] = [];
 		if (!empty($options['responses'])) {
-			foreach ($this->getResponses(['order' => 'question_id']) as $response) { // order needed on question order
+			$responses = $this->getResponses(['order' => 'question_id']);
+			$keyedResponses = $this->recordsKeyed($responses, 'question_id');
+			$fixCnt = $this->checkFullResponseSet($keyedResponses);
+			if ($fixCnt > 0) {
+				$responses = $this->getResponses(['order' => 'question_id']);
+			}
+			foreach ($responses as $response) { // order needed on question order
 				$map['responses'][$response->question_id] = $response->map();
 			}
 		}
