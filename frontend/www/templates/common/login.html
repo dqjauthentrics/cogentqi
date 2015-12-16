@@ -1,22 +1,25 @@
-<ion-view title="{{installation.name}} Login">
-    <ion-content class="padding" scroll="false" has-bouncing="false">
-        <div class="row responsive-sm">
-            <div class="col padding" data-ng-class="installation.social? 'card':''">
-                <div class="item item-text-wrap" data-ng-show="installation.social">
-                    <div class="item item-divider">
-                        Sign in with one of the following social media sites:
-                    </div>
-                    <div class="item item-text-wrap">
-                        <div class="clearfix" style="height:0.5em;"></div>
-                        <a class="colorFacebook button button-facebook icon-center ion-social-facebook" ng-click="login('facebook')"> Facebook</a>
-                        <a class="colorGoogle button button-google icon-center ion-social-google" ng-click="login('google')"> Google+</a>
-                        <a class="colorTwitter button button-twitter icon-center ion-social-twitter" ng-click="login('twitter')"> Twitter</a>
+<ion-view title="Login">
+    <ion-content class="padding detail" has-bouncing="false" style="height:auto;">
+        <h1 style="text-align: center;">{{installation.name}}</h1>
+        <div class="row responsive-md">
+            <div class="col col-25 padding">
+                <div class="panel" ng-if="installation.social">
+                    <div class="item item-text-wrap" data-ng-show="installation.social">
+                        <div class="item item-divider">
+                            Sign in with one of the following social media sites:
+                        </div>
+                        <div class="item item-text-wrap">
+                            <div class="clearfix" style="height:0.5em;"></div>
+                            <a class="colorFacebook button button-facebook icon-center ion-social-facebook" ng-click="login('facebook')"> Facebook</a>
+                            <a class="colorGoogle button button-google icon-center ion-social-google" ng-click="login('google')"> Google+</a>
+                            <a class="colorTwitter button button-twitter icon-center ion-social-twitter" ng-click="login('twitter')"> Twitter</a>
 
-                        <div class="clearfix"></div>
+                            <div class="clearfix"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col col-80 padding card" id="loginPanel">
+            <div class="col col-50 padding" id="loginPanel">
                 <div class="item item-text-wrap" style="background-color: #DDD !important;">
                     <div class="item item-divider">
                         Sign in with your {{installation.name}} credentials:
@@ -42,25 +45,26 @@
                     </div>
                 </div>
             </div>
-            <div class="col padding" data-ng-class="installation.register? 'card':''">
-                <div class="item item-text-wrap" data-ng-show="installation.register">
-                    <div class="item item-divider">
-                        Don't have an account yet?
-                    </div>
-                    <div class="item item-text-wrap">
-                        <form>
-                            <label class="item item-input">
-                                <input type="text" placeholder="Email" data-ng-model="data.email">
-                            </label>
-                            <label class="item item-input">
-                                <input type="password" placeholder="Password" data-ng-model="data.password">
-                            </label>
-                            <button class="button button-small" ng-click="createAccount()">Create an Account</button>
-                        </form>
+            <div class="col col-25 padding">
+                <div ng-if="installation.register">
+                    <div class="item item-text-wrap" data-ng-show="installation.register">
+                        <div class="item item-divider">
+                            Don't have an account yet?
+                        </div>
+                        <div class="item item-text-wrap">
+                            <form>
+                                <label class="item item-input">
+                                    <input type="text" placeholder="Email" data-ng-model="data.email">
+                                </label>
+                                <label class="item item-input">
+                                    <input type="password" placeholder="Password" data-ng-model="data.password">
+                                </label>
+                                <button class="button button-small" ng-click="createAccount()">Create an Account</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </ion-content>
-    <ng-include src="'/templates/common/tabs.html'"></ng-include>
 </ion-view>

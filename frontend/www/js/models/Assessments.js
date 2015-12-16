@@ -16,20 +16,20 @@ angular.module('Assessments', []).service(
 		svc.retrieve = function () {
 			var user = $cookieStore.get('user');
 			if (!svc.loading && !Utility.empty(user)) {
-				console.log("retrieving assessments");
 				return $resource('/api3/assessment/byOrganization/' + user.oi, {}, {query: {method: 'GET', isArray: false, cache: false}});
 			}
 			return null;
 		};
-		svc.save = function (assessment, memberId, callbackFn) {
+		svc.save = function (assessment, responses, memberId, callbackFn) {
 			var user = $cookieStore.get('user');
 			if (!Utility.empty(user)) {
+				assessment.rsp = responses;
 				$http.post('/api3/assessment/update/' + memberId + '/' + user.id, {assessment: assessment})
 					.then(function (data, status, headers, config) {
-							  callbackFn(data);
+							  callbackFn(data.data);
 						  },
 						  function (data, status, headers, config) {
-							  callbackFn(0, data);
+							  callbackFn(0, data.data);
 						  });
 			}
 			return null;
@@ -51,23 +51,23 @@ angular.module('Assessments', []).service(
 		svc.create = function (memberId, callbackFn) {
 			var user = $cookieStore.get('user');
 			if (!Utility.empty(user)) {
-				$http.post("/api3/assessment/create", {memberId: memberId, assessorId: user.id})
+				$http.post("/api3/assessment/update/" + memberId + "/" + user.id, {})
 					.then(function (data, status, headers, config) {
-							  callbackFn(data);
+							  callbackFn(data.data);
 						  },
 						  function (data, status, headers, config) {
-							  callbackFn(data);
+							  callbackFn(data.data);
 						  });
 			}
 			return null;
 		};
 		svc.remove = function (assessmentId, callbackFn) {
-			$http.post("/api3/assessment/delete", {id: assessmentId})
+			$http.post("/api3/assessment/delete", {assessmentId: assessmentId})
 				.then(function (data, status, headers, config) {
-						  callbackFn(data);
+						  callbackFn(data.data);
 					  },
 					  function (data, status, headers, config) {
-						  callbackFn(data);
+						  callbackFn(data.data);
 					  });
 		};
 
@@ -97,9 +97,8 @@ angular.module('Assessments', []).service(
 			if (!Utility.empty(instrumentId) && !Utility.empty(orgId)) {
 				var res = $resource('/api3/assessment/matrix/' + orgId + '/' + instrumentId, {}, {query: {method: 'GET', isArray: false, cache: false}});
 				if (res) {
-					res.query(function(response) {
+					res.query(function (response) {
 						svc.matrix = response.data;
-						console.log("ass:", svc.matrix);
 					});
 				}
 			}
@@ -109,7 +108,7 @@ angular.module('Assessments', []).service(
 		svc.retrieveProgressByMonth = function (instrumentId, isRollUp) {
 			var user = $cookieStore.get('user');
 			if (!Utility.empty(instrumentId) && !Utility.empty(user) && !Utility.empty(user.oi)) {
-				return $resource('/api3/assessment/organizationProgressByMonth' + user.oi + '/' + instrumentId,
+				return $resource('/api3/assessment/organizationProgressByMonth/' + user.oi + '/' + instrumentId,
 								 {}, {query: {method: 'GET', isArray: false, cache: false}});
 			}
 			return null;
@@ -135,16 +134,18 @@ angular.module('Assessments', []).service(
 			var avgRound = 0;
 			var total = 0;
 			var compCount = 0;
-			if (!Utility.empty(instrument) && !Utility.empty(instrument.sections)) {
+			if (!Utility.empty(responses) && !Utility.empty(instrument) && !Utility.empty(instrument.sections)) {
 				var sections = instrument.sections;
 				for (var i = 0; i < sections.length; i++) {
 					var section = sections[i];
 					for (var j = 0; j < section.questions.length; j++) {
-						var question = section.questions[i];
-						var responseValue = !Utility.empty(responses[question.id]) ? responses[question.id].rdx : 0;
-						if (responseValue > 0) {
-							total += responseValue;
-							compCount++;
+						var question = section.questions[j];
+						if (!Utility.empty(question)) {
+							var responseValue = !Utility.empty(responses[question.id]) ? responses[question.id].rdx : 0;
+							if (responseValue > 0) {
+								total += responseValue;
+								compCount++;
+							}
 						}
 					}
 				}
@@ -157,12 +158,12 @@ angular.module('Assessments', []).service(
 			return {avg: avg, avgRound: avgRound};
 		};
 
-		svc.scoreWord = function (question, score, responses) {
+		svc.scoreWord = function (questionId, score, responses) {
 			var scoreWord = null;
 			try {
 				score = parseInt(Math.round(score));
 				if (!Utility.empty(score)) {
-					scoreWord = responses[question.id].ch[score].n;
+					scoreWord = responses[questionId].ch[score].n;
 				}
 				if (Utility.empty(scoreWord)) {
 					scoreWord = "N/A";
@@ -304,23 +305,24 @@ angular.module('Assessments', []).service(
 			return recSubset;
 		};
 
-		svc.sliderChange = function (question, instrument, responses) {
+		svc.sliderChange = function (questionId, instrument, responses) {
 			var scoreWord = null;
 			var avg = 0;
 			var avgRound = 0;
-			if (!Utility.empty(question) && !Utility.empty(responses[question.id])) {
-				var slider = $("#question_item_" + question.id);
+			if (!Utility.empty(responses[questionId])) {
+				var slider = $("#question_item_" + questionId);
 				slider.removeClass(function (index, css) {
 					return (css.match(/(^|\s)slider\S+/g) || []).join(' ');
-				}).addClass("slider" + responses[question.id].rdx);
-				var score = svc.scorify(instrument);
+				}).addClass("slider" + responses[questionId].rdx);
+				var score = svc.scorify(instrument, responses);
 				avg = score.avg;
 				avgRound = score.avgRound;
-				var rubricBox = $("#rubric_" + question.id + "_" + avgRound);
+				var rubricBox = $("#rubric_" + questionId + "_" + avgRound);
 				var pos = rubricBox.position();
 				var pointer = slider.find(".pointer");
 				pointer.css({left: 100});
 			}
+			console.log("sliderChange:", avg);
 			return {avg: avg, avgRound: avgRound};
 		};
 

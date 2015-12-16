@@ -163,20 +163,22 @@ class Instrument extends CogentModel {
 	 * @return array
 	 */
 	public static function createResponseTemplate($instrumentId, $assessmentId) {
-		$questions = Question::query()
-			->where('question_group_id IN (SELECT id FROM Cogent\Models\QuestionGroup WHERE instrument_id=:id:)', ['id' => $instrumentId])
-			->orderBy('sort_order')
-			->execute();
+		$questionGroups = QuestionGroup::find(['conditions' => 'instrument_id=:id:', 'bind' => ['id' => $instrumentId], 'order' => 'sort_order']);
 		$responses = [];
-		foreach ($questions as $question) {
-			$responseInfo = [
-				'assessment_id'  => $assessmentId,
-				'question_id'    => $question->id,
-				'response'       => NULL,
-				'response_index' => NULL,
-			];
-			$response = new AssessmentResponse();
-			$responses[] = $response->update($responseInfo);
+		foreach ($questionGroups as $questionGroup) {
+			$questions = $questionGroup->getQuestions(['order' => 'sort_order']);
+			if (!empty($questions)) {
+				foreach ($questions as $question) {
+					$responseInfo = [
+						'assessment_id'  => $assessmentId,
+						'question_id'    => $question->id,
+						'response'       => NULL,
+						'response_index' => NULL,
+					];
+					$response = new AssessmentResponse();
+					$responses[] = $response->save($responseInfo);
+				}
+			}
 		}
 		return $responses;
 	}

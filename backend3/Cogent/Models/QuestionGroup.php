@@ -5,7 +5,9 @@ namespace Cogent\Models;
  * Class QuestionGroup
  * @package Cogent\Models
  *
- * @method Question[] getQuestions()
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|Question[] getQuestions($parameters = [])
+ *
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|Question[] $questions
  */
 class QuestionGroup extends CogentModel {
 

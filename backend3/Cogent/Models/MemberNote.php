@@ -1,6 +1,17 @@
 <?php
 namespace Cogent\Models;
 
+/**
+ * Class MemberNote
+ * @package Cogent\Models
+ *
+ * @method Member getMember()
+ * @method Member getCreator()
+ *
+ * @property Member $member
+ * @property Member $creator
+ *
+ */
 class MemberNote extends CogentModel {
 
 	/**
@@ -71,10 +82,8 @@ class MemberNote extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('member_id', 'Member', 'id', ['alias' => 'Member']);
-		$this->belongsTo('creator_id', 'Member', 'id', ['alias' => 'Member']);
-		$this->belongsTo('member_id', 'Member', 'id', ['alias' => 'Member']);
-		$this->belongsTo('creator_id', 'Member', 'id', ['alias' => 'Member']);
+		$this->belongsTo('member_id', 'Cogent\Models\Member', 'id', ['alias' => 'Member']);
+		$this->belongsTo('creator_id', 'Cogent\Models\Member', 'id', ['alias' => 'Creator']);
 	}
 
 	/**
@@ -84,6 +93,17 @@ class MemberNote extends CogentModel {
 	 */
 	public function getSource() {
 		return 'member_note';
+	}
+
+	/**
+	 * @param array $options
+	 *
+	 * @return array
+	 */
+	public function map($options = []) {
+		$map = parent::map($options);
+		$map['creator'] = $this->creator->map(['minimal' => TRUE]);
+		return $map;
 	}
 
 }

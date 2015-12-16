@@ -1,4 +1,4 @@
-<div class="row responsive-md assessmentItem items" style="white-space: normal;">
+<div class="row responsive-lg assessmentItem items" style="white-space: normal;">
     <div class="col padding" data-ng-show="showMember">
         <img class="avatar border border{{assessment.member.lv}} avatar-small" data-ng-src="{{site}}/avatars/{{assessment.member.id}}.png" alt=""
              err-src="{{site}}/avatars/genericUser.png"/>
@@ -7,13 +7,13 @@
         {{assessment.member.ln}}
         <div class="role">{{assessment.member.rn}}</div>
     </div>
-    <div class="col" style="margin:0; padding:0; white-space: normal;">
+    <div class="col">
         <a href="#/assessment/view/{{assessment.id}}">
             <span data-ng-show="prefix">{{prefix}}, </span>
-            <span class="name">{{assessment.instrument.n}} {{assessment.schedule.n}}</span>
+            <span class="name">{{assessment.instrument.n}}, {{assessment.schedule.n}}</span>
             {{assessment.lm|date:'EEE'}}, {{assessment.lm|date:'short'}}</a>
     </div>
-    <div class="col" style="margin:0; padding:0;" data-ng-show="assessment.assessor">
+    <div class="col col-40" data-ng-show="assessment.assessor">
         by {{assessment.assessor.fn}} {{assessment.assessor.ln}}
         <img style="text-align:right;" class="avatar border border{{assessment.assessor.lv}} avatar-tiny"
              data-ng-src="{{site}}/avatars/{{assessment.assessor.id}}.png"
@@ -23,7 +23,7 @@
     </div>
     <div class="col padding col-10" style="text-align: center;">
          <div style="width:2em;">
-            <div style="font-size:1.0em; padding: 0.3em 0.4em; text-align:center;"
+            <div style="text-align:center;"
                  data-ng-class="'matrixFg ' + (assessment.typ == 'NAYesNo'?'yesNoFg':'levelFg') + assessment.rk"
             >
                 <div data-ng-switch="assessment.es">

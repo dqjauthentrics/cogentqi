@@ -2,7 +2,8 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
-         <div style="text-align:center; margin-top: 1em;">
+        <page-loader i="i" loading="Assessments.matrix == null"></page-loader>
+        <div style="text-align:center; margin-top: 1em;">
             <h3>{{a.sectionCurrentName()}}</h3>
             <select data-ng-show="Instruments.list.length > 1" style="margin-top:1em;" class="large" data-ng-model="Instruments.current.id"
                     data-ng-change="setMatrix(Instruments.current.id, null)"
@@ -12,7 +13,7 @@
             <h2>{{Assessments.matrix.org.n}}</h2>
         </div>
         <div style="overflow: auto !important;">
-            <table id="matrix" class="matrix">
+            <table id="matrix" class="matrix" ng-if="Assessments.matrix">
                 <thead>
                 <tr>
                     <th style="font-style: italic;">{{'Most Recent'|translate}}<br/>{{'Member Assessments'|translate}}</th>

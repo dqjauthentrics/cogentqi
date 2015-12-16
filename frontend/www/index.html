@@ -15,13 +15,14 @@
     <link rel="icon" href="img/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu"/>
     <link href="lib/ionic/css/ionic.css" rel="stylesheet"/>
-    <link href="css/slider.css" rel="stylesheet"/>
     <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="lib/angular-xeditable/dist/css/xeditable.css" rel="stylesheet" type="text/css"/>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="lib/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet"/>
     <link href="css/style.css" rel="stylesheet"/>
     <link rel="stylesheet" href="lib/fullcalendar/dist/fullcalendar.css"/>
+    <link rel="stylesheet" href="lib/angularjs-slider/dist/rzslider.min.css"/>
+    <link rel="stylesheet" href="/css/animate.css"/>
 
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/angular-cookies/angular-cookies.min.js"></script>
@@ -35,6 +36,7 @@
 
     <script src="lib/angular-touch/angular-touch.min.js"></script>
     <script src="lib/venturocket-angular-slider/build/angular-slider.min.js"></script>
+    <script src="lib/angularjs-slider/dist/rzslider.min.js"></script>
     <script src="lib/angular-translate/angular-translate.min.js"></script>
     <script src="lib/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
 
@@ -49,6 +51,7 @@
     <script src="lib/html2canvas/build/html2canvas.min.js"></script>
     <script src="lib/angular-xeditable/dist/js/xeditable.min.js"></script>
     <script src="lib/angular-ui-calendar/src/calendar.js"></script>
+    <script src="js/clear-input.js"></script>
 
     <script type="text/javascript" src="lib/moment/min/moment.min.js"></script>
     <script src="lib/fullcalendar/dist/fullcalendar.min.js"></script>
@@ -106,7 +109,7 @@
   The nav bar that will be updated as we navigate between views.
 -->
 <ion-nav-bar class="bar-assertive customerBg">
-    <ion-nav-back-button></ion-nav-back-button>
+    <ion-nav-back-button ng-hide="$root.hideBack"></ion-nav-back-button>
 </ion-nav-bar>
 <!--
   The views will be rendered in the <ion-nav-view> directive below
@@ -114,5 +117,24 @@
   have templates inline in this html file if you'd like).
 -->
 <ion-nav-view></ion-nav-view>
+<script>
+    function resizeCal(lbl) {
+        var cal = $('#calendar');
+        if (cal && cal != undefined) {
+            var parent = cal.parent();
+            var wd = parent.width();
+            var ht = parent.height();
+            var ratio = wd / ht;
+            if (wd && ht) {
+                cal.fullCalendar('option', 'aspectRatio', ratio);
+            }
+        }
+    }
+    $(document).ready(function () {
+        $(window).resize(function () {
+            resizeCal('win');
+        });
+    });
+</script>
 </body>
 </html>

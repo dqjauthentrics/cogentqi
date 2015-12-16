@@ -1,10 +1,10 @@
-<ion-view view-title="{{data.member.fn}} {{data.member.ln}}" cache-view="false" on-swipe-right="goToMember()" on-swipe-left="goToProgress()">
+<ion-view view-title="{{Members.current.fn}} {{Members.current.ln}}" cache-view="false" on-swipe-right="goToMember()" on-swipe-left="goToProgress()">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content class="padding detail" has-bouncing="false">
         <div class="row responsive-sm">
             <div class="col col-50 padding panel">
-                <h3>{{'Notes for'|translate}} {{data.member.fn}}</h3>
+                <h3>{{'Notes for'|translate}} {{Members.current.fn}}</h3>
                 <ion-list id="notes">
                     <ion-item class="note" data-ng-class="note.flag == 1? 'important': (note.flag == 2? 'okay':'')" data-ng-repeat="note in data.notes">
                         <div class="dsc" editable-textarea="note.ct" onaftersave="note.dirty=true">
@@ -29,7 +29,7 @@
             </div>
             <div class="col panel padding">
                 <div>
-                    <h3>{{'Make a Note about'|translate}} {{data.member.fn}}</h3>
+                    <h3>{{'Make a Note about'|translate}} {{Members.current.fn}}</h3>
 
                     <div class="note" style="width:100%; height:auto; float:left; padding:1em;">
                         <textarea style="width:100%; min-height:200px;" data-ng-model="data.newNote.ct"

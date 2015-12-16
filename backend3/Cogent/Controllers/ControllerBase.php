@@ -2,11 +2,19 @@
 namespace Cogent\Controllers;
 
 use Cogent\Models\CogentModel;
+use Cogent\Models\Member;
 use Phalcon\Mvc\Controller;
 
 class ControllerBase extends Controller {
 	public $transactionModel = NULL;
 	public $startAction = NULL;
+
+	/**
+	 * @return Member
+	 */
+	public function user() {
+		return (object)$this->session->get('auth');
+	}
 
 	public function beforeExecuteRoute($dispatcher) {
 		$this->startAction = microtime(TRUE);

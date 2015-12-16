@@ -2,26 +2,28 @@
     <div data-ng-switch-when="A">
         <div data-ng-switch="question.type.entryType">
             <div data-ng-switch-when="YESNO">
-                <div class="button-bar" style="max-width:12em; min-width:12em;">
-                    <a class="button" data-ng-class="{'yesNoBg0': response(question.id).rdx == 0}"
-                       ng-click="updateResponse(question, 0)">N/A</a>
-                    <a class="button" data-ng-class="{'yesNoBg1': response(question.id).rdx == 1}"
-                       ng-click="updateResponse(question, 1)">No</a>
-                    <a class="button" data-ng-class="{'yesNoBg2': response(question.id).rdx == 2}"
-                       ng-click="updateResponse(question, 2)">Yes</a>
+                <div class="button-bar" style="max-width:16em; min-width:12em;">
+                    <a class="button toggle" data-ng-class="Assessments.current.responses[question.id].rdx == 0? 'yesNoBg0' : 'off'"
+                       data-ng-click="updateResponse(question, 0)">N/A</a>
+                    <a class="button toggle" data-ng-class="Assessments.current.responses[question.id].rdx == 1? 'yesNoBg1' : 'off'"
+                       data-ng-click="updateResponse(question, 1)">No</a>
+                    <a class="button toggle" data-ng-class="Assessments.current.responses[question.id].rdx == 2? 'yesNoBg2' : 'off'"
+                       data-ng-click="updateResponse(question, 2)">Yes</a>
                 </div>
             </div>
             <div data-ng-switch-default="">
-                <div class="rubric">
-                    <slider id="question_item_{{question.id}}" class="slider{{response(question.id).rdx}}"
-                            ng-model="response(question.id).rdx" floor="{{question.type.min}}" ceiling="{{question.type.max}}" step-width="0.1"
-                            ng-change="updateSliderResponse(question, this, true)"
-                            precision="0"
+                <div class="clearfix"></div>
+                <div style="width:100%; margin: 0 0 1em 0; float:none !important; clear:both;">
+                    <rzslider
+                            rz-slider-model="responses[question.id].rdx"
+                            rz-slider-options="{step:1, precision:1, hideLimitLabels:true, floor: question.type.min, ceil: question.type.max, onChange:sliderChange, id:question.id}"
                             style="{{'width:' + (rubricWidth(question.type.max) * question.type.max)+ '%; margin-bottom:-1em; margin-left:' + (rubricWidth(question.type.max)/2)+ '%;'}}"
                     >
-                    </slider>
-                    <div class="{{$index == response(question.id).rdx? 'active':'inactive'}}" id="{{'rubric_'+question.id+'_'+$index}}"
-                         data-ng-repeat="choice in question.type.choices" ng-click="rubricSet(question,$index)"
+                    </rzslider>
+                </div>
+                <div class="rubric">
+                    <div class="{{$index == Assessments.current.responses[question.id].rdx? 'active':'inactive'}}" id="{{'rubric_'+question.id+'_'+$index}}"
+                         ng-repeat="choice in question.type.choices" ng-click="rubricSet(question,$index)"
                          style="{{'width:' + rubricWidth(question.type.max) + '%;'}}"
                     >
                         <div class="rubric{{$index}}">{{choice.n}}</div>
@@ -32,6 +34,8 @@
         </div>
     </div>
     <div data-ng-switch-default="">
-        <div data-ng-class=" getResponseClass(question.type.entryType, response(question.id).rdx)">{{response(question.id).rp}}</div>
+        <div data-ng-class=" getResponseClass(question.type.entryType, Assessments.current.responses[question.id].rdx)">
+            {{Assessments.current.responses[question.id].rp}}
+        </div>
     </div>
 </div>

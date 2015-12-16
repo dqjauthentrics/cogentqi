@@ -1,5 +1,7 @@
 DELETE FROM assessment_response;
 DELETE FROM assessment;
+DELETE FROM plan_item WHERE plan_item_status_id='R';
+DELETE FROM recommendation;
 SET @ii = 2;
 SET @isi = 2;
 INSERT INTO assessment (instrument_id, instrument_schedule_id, member_id, assessor_id, last_saved, last_modified,

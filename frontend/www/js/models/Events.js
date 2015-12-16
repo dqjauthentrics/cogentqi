@@ -20,17 +20,18 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 		if (svc.list == null) {
 			return $http.get('/api3/event').
 			then(function (result) {
-						var response = result.data; // Cogent standard
-						svc.list = response.data;
-						svc.list.forEach(function (event) {
-							event.getAlignmentQuestions =
-									svc.getAlignmentQuestions;
-						});
-						callback(svc);
-					},
-					function (error) {
-						failure(error);
-					});
+					 var response = result.data; // Cogent standard
+					 svc.list = response.data;
+					 if (!Utility.empty(svc.list)) {
+						 svc.list.forEach(function (event) {
+							 event.getAlignmentQuestions = svc.getAlignmentQuestions;
+						 });
+					 }
+					 callback(svc);
+				 },
+				 function (error) {
+					 failure(error);
+				 });
 		}
 		else {
 			callback(svc);

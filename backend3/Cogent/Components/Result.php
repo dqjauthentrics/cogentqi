@@ -106,17 +106,20 @@ class Result {
 	/**
 	 */
 	public function send() {
-		echo json_encode($this->package($this->data));
+		echo json_encode($this->package($this->data), JSON_NUMERIC_CHECK);
 		//exit(0);
 	}
 
 	/**
 	 * @param mixed $data
 	 */
-	public function setNormal($data = FALSE) {
+	public function setNormal($data = FALSE, $msg = false) {
 		$this->status = Result::STATUS_OKAY;
 		if ($data !== FALSE) {
 			$this->data = $data;
+		}
+		if ($msg !== FALSE) {
+			$this->message = $msg;
 		}
 	}
 

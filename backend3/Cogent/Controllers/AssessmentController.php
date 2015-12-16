@@ -4,7 +4,6 @@ namespace Cogent\Controllers;
 use Cogent\Components\Matrix;
 use Cogent\Components\Result;
 use Cogent\Models\Assessment;
-use Cogent\Models\AssessmentResponse;
 use Cogent\Models\Organization;
 use Phalcon\Mvc\Model\Resultset;
 
@@ -116,11 +115,12 @@ class AssessmentController extends ControllerBase {
 		$result = new Result();
 		try {
 			$formAssessment = $this->getInputData('assessment');
+			$assessmentModel = new Assessment();
 			if (!empty($formAssessment)) {
-				$result = Assessment::saveExisting($this, $formAssessment);
+				$result = $assessmentModel->saveExisting($this, $formAssessment);
 			}
 			else {
-				$result = Assessment::createNew($this, $assessorId, $memberId);
+				$result = $assessmentModel->createNew($this, $assessorId, $memberId);
 			}
 		}
 		catch (\Exception $exception) {
@@ -171,12 +171,20 @@ class AssessmentController extends ControllerBase {
 						$response->delete();
 					}
 				}
-				$assessment->delete();
-				$result->setNormal($assessment);
+				if ($assessment->delete()) {
+					$result->setNormal($assessment, 'Record deleted.');
+					$this->commitTransaction();
+				}
+				else {
+					$result->setError(Result::CODE_EXCEPTION, $assessment->errorMessagesAsString());
+				}
+			}
+			else {
+				$result->setError(Result::CODE_NOT_FOUND);
 			}
 		}
 		catch (\Exception $exception) {
-			$this->commitTransaction();
+			$this->rollbackTransaction();
 			$result->setException($exception);
 		}
 		$result->sendNormal();

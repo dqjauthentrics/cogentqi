@@ -1,4 +1,5 @@
-<ion-view view-title="{{Members.current.firstName + ' ' + Members.current.lastName}}" cache-view="false" on-swipe-left="goToNotes()">
+<ion-view view-title="{{'Member'|translate}}" cache-view="false" on-swipe-left="goToNotes()">
+    <ion-nav-title>{{data.name}}</ion-nav-title>
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content class="padding detail" has-bouncing="false" id="profile" style="height:auto;">
@@ -16,7 +17,8 @@
             <button class="button button-action" data-ng-show="!roleIs([APP_ROLES.PROFESSIONAL])" ng-click="goToNotes()">
                 <i class="{{i.stickyNote}}"></i>
             </button>
-            <button class="button button-action" data-ng-show="!roleIs([APP_ROLES.PROFESSIONAL])" ng-click="deOrReactivate()" title="{{(Members.current.ae?'Reactivate':'Deactivate')|translate}}">
+            <button class="button button-action" data-ng-show="!roleIs([APP_ROLES.PROFESSIONAL])" ng-click="deOrReactivate()"
+                    title="{{(Members.current.ae?'Reactivate':'Deactivate')|translate}}">
                 <i ng-class="Members.current.ae? i.reactivate : i.deactivate"></i>
             </button>
         </div>

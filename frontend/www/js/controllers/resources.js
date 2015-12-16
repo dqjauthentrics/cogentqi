@@ -25,7 +25,7 @@ angular.module('ResourceControllers', [])
 					$templateRequest(url).then(function (template) {
 						$scope.data.content = template;
 					}, function () {
-						console.log("error occurred");
+						console.log("error loading content");
 					});
 				}
 				catch (exception) {
@@ -43,13 +43,13 @@ angular.module('ResourceControllers', [])
 			$scope.save = function () {
 				$scope.data.saving = true;
 				Resources.save($scope.Resources.current,
-							   function (status, data) {
+							   function (response) {
 								   $scope.data.saving = false;
 								   $scope.data.dirty = false;
 								   $scope.Resources.list = null;
 								   $scope.getResources();
 								   if (!status) {
-									   Utility.statusAlert(status, data);
+									   Utility.statusAlert(response);
 								   }
 							   }
 				);
@@ -121,10 +121,10 @@ angular.module('ResourceControllers', [])
 			$scope.save = function () {
 				$scope.data.saving = true;
 				Resources.saveAlignments($scope.data.currentInstrumentId, $scope.data.resource.id, $scope.data.alignments,
-										 function (status, data) {
+										 function (response) {
 											 $scope.data.saving = false;
 											 $scope.data.dirty = false;
-											 Utility.statusAlert(status, data);
+											 Utility.statusAlert(response);
 										 }
 				);
 			};

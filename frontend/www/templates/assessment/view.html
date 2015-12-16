@@ -1,4 +1,4 @@
-<ion-view view-title="{{'Assessment'|translate}}">
+<ion-view view-title="{{'Assessment'|translate}}" cache-view="false">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
@@ -38,13 +38,13 @@
         <div class="row responsive-lg detail" ng-show="!data.isLoading">
             <div class="col col-100 assessment">
                 <div style="display:none;">{{Assessments.current.lm}}</div>
-                <div id="section{{$index}}" data-ng-repeat="section in Assessments.current.instrument.sections" class="fadein fadeout">
+                <div id="section{{$index}}" ng-repeat="section in Assessments.current.instrument.sections" class="fadein fadeout">
                     <div data-ng-show="Instruments.sectionIsCurrent(Assessments.current.instrument, section.id)">
                         <div class="instrumentNavBtn pull-left">
-                            <a ng-click="Instruments.sectionPrevious(Assessments.current.instrument)"><< {{section.prv|ellipsify:22}}</a>
+                            <a ng-click="previous()"><< {{section.prv|ellipsify:22}}</a>
                         </div>
                         <div class="instrumentNavBtn pull-right">
-                            <a ng-click="Instruments.sectionNext(Assessments.current.instrument)">{{section.nxt|ellipsify:22}} >></a>
+                            <a ng-click="next()">{{section.nxt|ellipsify:22}} >></a>
                         </div>
                         <div class="clearfix"></div>
                         <div style="height:1em;"></div>
@@ -52,7 +52,7 @@
                             <ion-item class="top">
                                 <h2 style="float:left;">{{section.nmb}} {{section.n}}</h2>
                             </ion-item>
-                            <ion-item class="item-remove-animate" ng-repeat="question in section.questions" type="item-text-wrap">
+                            <ion-item class="item-remove-animate question" ng-repeat="question in section.questions" type="item-text-wrap">
                                 <div>
                                     <div style="display:table-row;">
                                         <div style="display:table-cell;" class="number" data-ng-bind="section.nmb + '.' + question.nmb"></div>

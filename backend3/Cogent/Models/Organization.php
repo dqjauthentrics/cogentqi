@@ -136,7 +136,7 @@ class Organization extends CogentModel {
 	 */
 	public function getMemberIds($id) {
 		$row = parent::getReadConnection()
-			->query('SELECT GROUP_CONCAT(id) AS memberIds FROM Member WHERE organization_id = :id',['id' => $id])->fetch();
+			->query('SELECT GROUP_CONCAT(id) AS memberIds FROM member WHERE organization_id = :id',['id' => $id])->fetch();
 		return $row["memberIds"];
 	}
 }

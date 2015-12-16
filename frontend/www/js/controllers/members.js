@@ -8,17 +8,28 @@ angular.module('MemberControllers', [])
 	.controller(
 		'MemberNotesCtrl',
 		function ($scope, $location, $ionicPopup, $stateParams, Utility, MemberNotes, Members) {
-			$scope.data = {member: {}, notes: [], newNote: {ct: '', mi: null}};
+			$scope.data = {notes: [], newNote: {ct: '', mi: null}};
+			$scope.Members = Members;
 
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
-				Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
-					$scope.data.member = response.data;
-					$scope.data.newNote.mi = response.id;
-					Utility.getResource(MemberNotes.retrieve($stateParams.memberId), function (response) {
-						$scope.data.notes = response.data;
+				if (Utility.empty($scope.Members.current) || $scope.Members.current.id !== $stateParams.memberId) {
+					Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
+						$scope.Members.current = response.data;
+						$scope.getNotes();
 					});
-				});
+				}
+				else {
+					$scope.getNotes();
+				}
 			}
+			$scope.getNotes = function () {
+				$scope.data.newNote.mi = $scope.Members.current.id;
+				Utility.getResource(MemberNotes.retrieve($stateParams.memberId), function (response) {
+					if (response.status == 1) {
+						$scope.data.notes = response.data;
+					}
+				});
+			};
 			$scope.goToProgress = function () {
 				$location.url("/member/progress/" + $stateParams.memberId);
 			};
@@ -31,9 +42,12 @@ angular.module('MemberControllers', [])
 						if ($scope.data.notes[i].id == note.id) {
 							note.workingTrash = true;
 							MemberNotes.remove(note.id, function (response) {
-								if (response.status) {
+								if (response.status == 1 && $scope.data.notes.length > 0) {
 									$scope.data.notes.splice(i, 1);
 									note.workingTrash = null;
+								}
+								else {
+									Utility.statusAlert(response);
 								}
 							});
 							return;
@@ -45,12 +59,20 @@ angular.module('MemberControllers', [])
 				if (Utility.empty($scope.data.newNote.ct)) {
 					Utility.popup('Nothing to Save!', 'You must enter some note text before saving it.');
 				}
-				MemberNotes.save($scope.data.newNote, function (response) {
-					if (response.status) {
-						$scope.data.notes.unshift(data);
-						$scope.data.newNote.ct = '';
-					}
-				});
+				else {
+					MemberNotes.save($scope.data.newNote, function (response) {
+						if (response.status == 1 && response.code == 200) {
+							if (Utility.empty($scope.data.notes)) {
+								$scope.data.notes = [];
+							}
+							$scope.data.notes.unshift(response.data);
+							$scope.data.newNote.ct = '';
+						}
+						else {
+							Utility.statusAlert(response);
+						}
+					});
+				}
 			};
 			$scope.flag = function (note) {
 				note.flag = note.flag == 0 ? 1 : 0;
@@ -97,7 +119,6 @@ angular.module('MemberControllers', [])
 					Instruments.collate($scope.data.instruments);
 					$scope.data.instrument = Utility.findObjectById($scope.data.instruments, $scope.data.member.assessments[0].ii);
 					$scope.data.member.rptConfigHx = Members.rptConfigHx($scope.data.instruments, $scope.data.member, $scope.data.member.assessments);
-					//$ionicLoading.hide();
 				}
 			};
 			$scope.getRptConfigHx = function () {
@@ -118,17 +139,26 @@ angular.module('MemberControllers', [])
 		'MemberViewCtrl',
 		function ($http, $rootScope, $scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, APP_ROLES, Utility, Icons, Instruments,
 				  Organizations, Members, Messages, Assessments) {
+
 			$scope.Members = Members;
-			$scope.data = {isLoading: true, showMember: false, dirty: false, user: $cookieStore.get('user'), newMessage: ''};
+			$scope.data = {isLoading: true, showMember: false, dirty: false, user: $cookieStore.get('user'), name: 'Member', newMessage: ''};
 			$scope.roles = $rootScope.roles;
 
-			console.log("enter MemberViewCtrl");
-
+			if (!Utility.empty(Members.current)) {
+				$scope.data.name = Members.current.fn + ' ' + Members.current.ln;
+			}
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
 				if (Members.current == null || Members.current.id != $stateParams.memberId) {
+					$scope.data.isLoading = true;
 					Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
-						Members.current = response.data;
-						$scope.data.isLoading = false;
+						if (response.status == 1) {
+							$scope.Members.current = response.data;
+							$scope.data.isLoading = false;
+							$scope.data.name = $scope.Members.current.fn + ' ' + $scope.Members.current.ln;
+						}
+						else {
+							Utility.statusAlert(response);
+						}
 					});
 				}
 				else {
@@ -149,7 +179,7 @@ angular.module('MemberControllers', [])
 			};
 			$scope.save = function () {
 				Members.saveProfile(Members.current, function (response) {
-					Utility.statusAlert(response.message);
+					Utility.statusAlert(response);
 					Members.list = null; // force reload of list
 				});
 				$scope.data.dirty = false;
@@ -204,8 +234,8 @@ angular.module('MemberControllers', [])
 								function () {
 									if (!Utility.empty(assessmentId)) {
 										Members.list = null; // force reload of member list
-										Assessments.remove(assessmentId, function (status, message) {
-											if (status == 1) {
+										Assessments.remove(assessmentId, function (response) {
+											if (response.status == 1 && response.code == 200) {
 												for (var i = 0; i < $scope.Members.current.assessments.length; i++) {
 													if ($scope.Members.current.assessments[i].id == assessmentId) {
 														$scope.Members.current.assessments.splice(i, 1);
@@ -214,7 +244,7 @@ angular.module('MemberControllers', [])
 												}
 											}
 											else {
-												Utility.statusAlert(status, message);
+												Utility.statusAlert(response);
 											}
 										});
 									}
@@ -223,10 +253,16 @@ angular.module('MemberControllers', [])
 			$scope.deOrReactivate = function () {
 				var word1 = Members.current.ae ? 'Reactivation' : 'Deactivation';
 				var word2 = Members.current.ae ? 'RE-ACTIVATE' : 'DEACTIVATE';
+				var activate = Members.current.ae ? 1 : 0;
 				Utility.confirm('Member ' + word1, 'Are you sure you want to ' + word2 + ' this member?', function () {
-					Members.deOrReactivate(Members.current, function (response) {
-						Members.current = response.data;
-						Members.list = null; // force reload of members
+					Members.deOrReactivate(Members.current, activate, function (response) {
+						if (response.status == 1 && response.code == 200) {
+							Members.current.ae = response.data;
+							Members.list = null; // force reload of members
+						}
+						else {
+							Utility.statusAlert(response);
+						}
 					});
 				});
 			};
@@ -324,7 +360,7 @@ angular.module('MemberControllers', [])
 				if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments) && !Utility.empty($stateParams.memberId)) {
 					$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
 					$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
-					Utility.getResource(Assessments.retrieveIndividuaProgressByMonth($stateParams.memberId), function (response) {
+					Utility.getResource(Assessments.retrieveIndividualProgressByMonth($stateParams.memberId), function (response) {
 						for (var i = 0; i < response.data.series.length; i++) {
 							var rData = response.data;
 							if (rData.series[i].grouping == 0 || rData.series[i].grouping == 2) {
@@ -363,8 +399,6 @@ angular.module('MemberControllers', [])
 		function ($scope, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Members) {
 			$scope.Members = Members;
 			$scope.data = {isLoading: true, searchFilter: null, showIncludeInactive: true, includeInactive: false};
-
-			console.log("enter MemberListCtrl");
 
 			$scope.getMembers = function () {
 				Utility.getResource(Members.retrieve($scope.data.includeInactive), function (response) {

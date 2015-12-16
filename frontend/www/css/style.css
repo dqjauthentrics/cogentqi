@@ -106,6 +106,10 @@ h3 {
     color: darkslategray;
 }
 
+.white {
+    color: white;
+}
+
 .gray {
     color: gray;
 }
@@ -263,16 +267,17 @@ ion-item.item-complex {
     vertical-align: middle;
 }
 
+.assessmentItem > div > div {
+    font-size: 90% !important;
+    margin: 0.5em !important;
+}
+
 .assessment .number {
     font-weight: bold;
-    font-size: 1.4vw;
-    line-height: 1.5vw;
     padding: 0.4em !important;
 }
 
 .assessment .description {
-    font-size: 1.4vw;
-    line-height: 1.5vw;
     margin: 0.5em;
 }
 
@@ -541,8 +546,16 @@ table.cycle {
     text-align: center;
 }
 
+.button {
+    background: #DDD;
+}
+
+.button.toggle.off {
+    color: #999;
+}
+
 .yesNoBg0, .yesNoBg0:hover {
-    background: #AAA;
+    background: #666;
     color: #FFF;
 }
 
@@ -714,6 +727,10 @@ outcome-level-tag {
     color: #C00080;
 }
 
+.assessment .question {
+    font-size: 1.0em;
+}
+
 .assessment .response .viewOnly {
     font-weight: bold;
     padding: 1em;
@@ -726,8 +743,6 @@ outcome-level-tag {
     font-weight: normal;
     font-style: italic;
     color: #000;
-    line-height: 1.0em;
-    font-size: 0.8em;
 }
 
 .assessment .rubric > div {
@@ -748,6 +763,10 @@ outcome-level-tag {
     padding: 0.5em 1em;
 }
 
+.assessment .rubric .active {
+    font-weight: bold;
+}
+
 .assessment .rubric .active p {
     opacity: 1;
     color: #000;
@@ -755,7 +774,7 @@ outcome-level-tag {
 }
 
 .assessment .rubric .inactive p {
-    opacity: 0.85;
+    opacity: 0.90;
     color: #666;
 }
 
@@ -775,8 +794,12 @@ outcome-level-tag {
 }
 
 .assessment .rubric .inactive {
-    opacity: 0.75;
+    opacity: 0.85;
     color: #666;
+}
+
+.assessment .item p {
+    font-size: 100%;
 }
 
 .LIKERT_0 {
@@ -948,28 +971,26 @@ ion-item.top h2 {
     color: #FFF;
     font-weight: bold;
 }
+
 ion-item.top.fat {
     padding: 2em;
     font-size: 1.4em;
     border-radius: 0.5em 0.5em 0 0 !important;
 }
 
-.fadein,
-.fadeout {
+.fadein, .fadeout {
     -webkit-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
     -moz-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
     -o-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
     transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
 }
 
-.fadein.ng-hide-remove,
-.fadeout.ng-hide-add.ng-hide-add-active {
+.fadein.ng-hide-remove, .fadeout.ng-hide-add.ng-hide-add-active {
     opacity: 0;
     display: block !important;
 }
 
-.fadeout.ng-hide-add,
-.fadein.ng-hide-remove.ng-hide-remove-active {
+.fadeout.ng-hide-add, .fadein.ng-hide-remove.ng-hide-remove-active {
     opacity: 1;
     display: block !important;
 }
@@ -1285,6 +1306,7 @@ table.items tr:nth-child(odd) {
     color: #444;
     text-decoration: none;
     width: 100%;
+    font-size: 1.2em;
 }
 
 .instrumentNavBtn a:hover {
@@ -1524,9 +1546,11 @@ input[type="search"] {
     padding: 0.1em 1em;
     width: 16em;
 }
+
 list-searcher {
     color: #FFF;
 }
+
 .itemCount {
     margin: 0 1em;
     float: right;
@@ -1708,4 +1732,109 @@ list-searcher {
 .events th {
     background: #CCC;
     color: #000;
+}
+
+.outcomeLevel {
+    border: 1px solid #999;
+    border-radius: 0.3em;
+    font-size: 0.9em;
+    font-weight: normal;
+    padding: 0.4em;
+    margin: 0.4em;
+}
+
+.outcomeLevel0 {
+    color: gray !important;
+}
+
+.outcomeLevel1 {
+    color: orange !important;
+}
+
+.outcomeLevel2 {
+    color: #68A !important;
+}
+
+.outcomeLevel3 {
+    color: darkgreen !important;
+}
+
+.outcomeLevelBg0 {
+    background: gray;
+    color: #FFF;
+}
+
+.outcomeLevelBg1 {
+    background: orange;
+    color: #FFF;
+}
+
+.outcomeLevelBg2 {
+    background: #68A;
+    color: #FFF;
+}
+
+.outcomeLevelBg3 {
+    background: darkgreen;
+    color: #FFF;
+}
+
+.rubric0 {
+    background: gray;
+    color: #FFF;
+}
+
+.rubric1 {
+    background: #BB4444;
+    color: #FFF;
+}
+
+.rubric2 {
+    background: #EE7A00;
+    color: #FFF;
+}
+
+.rubric3 {
+    background: #68A;
+    color: #FFF;
+}
+
+.rubric4 {
+    background: #6A8;
+    color: #FFF;
+}
+
+.rubric5 {
+    background: #C000C0;
+    color: #DDD;
+}
+
+::-ms-tooltip {
+    display: none;
+}
+
+rzslider .rz-pointer {
+    width: 2em !important;
+    height: 2em !important;
+    background-color: transparent !important;
+    border-left: 1em solid transparent;
+    border-right: 1em solid transparent;
+    border-top: 1em solid #777;
+    border-radius: 0 !important;
+}
+
+rzslider .rz-bar {
+    background: transparent !important;
+}
+
+.infoBadge {
+    font-size: 90%;
+    padding: 0.1em 0.5em;
+    color: white;
+    background: navy;
+    border-radius: 1em;
+}
+
+rzslider .rz-pointer:after {
+    display: none !important;
 }

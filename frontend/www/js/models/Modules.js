@@ -25,7 +25,7 @@ angular.module('Modules', []).service('Modules', function ($resource, Utility, R
 			}
 		}
 		catch (exception) {
-			console.log("resource filter exception: ", exception);
+			console.log("module filter exception: ", exception);
 		}
 		return true;
 	}
