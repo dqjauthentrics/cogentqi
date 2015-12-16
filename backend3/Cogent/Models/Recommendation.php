@@ -270,12 +270,14 @@ class Recommendation extends CogentModel {
 	 */
 	private function createScoredQuestions($assessmentResponses) {
 		$scoredQuestions = [];
-		foreach ($assessmentResponses as $response) {
-			$scoredQuestions[$response->question_id] = [
-				'response'    => $response->response,
-				'maxResponse' => $response->question->type->max_range,
-				'importance'  => $response->question->importance,
-			];
+		if (!empty($assessmentResponses)) {
+			foreach ($assessmentResponses as $response) {
+				$scoredQuestions[$response->question_id] = [
+					'response'    => $response->response,
+					'maxResponse' => $response->question->type->max_range,
+					'importance'  => $response->question->importance,
+				];
+			}
 		}
 		return $scoredQuestions;
 	}
@@ -290,8 +292,7 @@ class Recommendation extends CogentModel {
 		$rankedCoverages = [];
 		if (!empty($assessment)) {
 			$member = $assessment->assessee;
-			$scoredQuestions = self::createScoredQuestions($assessment->responses);
-
+			$scoredQuestions = $this->createScoredQuestions($assessment->responses);
 			// Filter out any competencies that don't require resource coverage
 			//
 			$filteredQuestions = $this->assessmentQuestionsToCover($scoredQuestions);
@@ -333,7 +334,7 @@ class Recommendation extends CogentModel {
 			}
 		}
 
-		if (!empty($futureResources)) {
+		if (!empty($filteredQuestions) && !empty($futureResources)) {
 			// We don't want to recommend any resources that are contained in the member's plan except for previously recommended and
 			// withdrawn ones.
 			//

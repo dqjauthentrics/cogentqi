@@ -122,15 +122,20 @@ class InstrumentSchedule extends CogentModel {
 	 * @param string $roleId
 	 * @param string $operation
 	 *
-	 * @return mixed
+	 * @return InstrumentSchedule
 	 */
 	public static function latest($roleId, $operation) {
-		$where = "id IN (SELECT instrument_schedule_id FROM instrument_schedule_operation WHERE role_id=:rid: AND operation_id=:oid:)";
-		$scheduleItem = InstrumentSchedule::query()
-			->where($where, ['rid' => $roleId, 'oid' => $operation])
-			->orderBy('starts DESC')
-			->limit(1)
-			->execute();
+		$ops = InstrumentScheduleOperation::find(['conditions' => 'role_id=:rid: AND operation_id=:oid:','bind' =>['rid' => $roleId, 'oid' => $operation]]);
+		$ids = [];
+		if (!empty($ops)) {
+			foreach ($ops as $op) {
+				$id = $op->instrument_schedule_id;
+				if (!in_array($id, $ids)) {
+					$ids[] = $id;
+				}
+			}
+		}
+		$scheduleItem = InstrumentSchedule::findFirst(['conditions' => 'id IN ('.implode(",", $ids).')','order'=>'starts DESC']);
 		return $scheduleItem;
 	}
 
@@ -147,7 +152,6 @@ class InstrumentSchedule extends CogentModel {
 			$map["ops"] = [];
 			if (!empty($this->operations)) {
 				foreach ($this->operations as $op) {
-					$role = $op->role->name;
 					$roleId = $op->role_id;
 					if (empty($map["ops"][$roleId])) {
 						$map["ops"][$roleId] = ['name' => $op->role->name, 'ops' => ''];

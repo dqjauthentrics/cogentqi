@@ -1,5 +1,5 @@
 <div class="panel" ng-class="Members.current.ae? 'inactive':''">
-    <h3>{{'Assessments to Date'|translate}}</h3>
+    <h3>{{'Assessments to Date'|translate}} ({{Members.current.assessments.length}})</h3>
     <assessment-list i="i" site="siteDir()" remover="remover" show-member="false" assessments="Members.current.assessments"></assessment-list>
     <div>
         <a class="button button-action button-new button-small" href="#/assessment/new/{{Members.current.id}}/-1"

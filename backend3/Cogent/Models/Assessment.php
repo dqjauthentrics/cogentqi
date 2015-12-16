@@ -226,7 +226,7 @@ class Assessment extends CogentModel {
 							if (!empty($formQuestions)) {
 								foreach ($formQuestions as $formQuestion) {
 									$formResponse = $formAssessment["rsp"][$formQuestion["id"]];
-									$response = AssessmentResponse::query()->where('id=' . $formResponse['id'])->execute();
+									$response = AssessmentResponse::findFirst($formResponse['id']);
 									/** @var AssessmentResponse $response */
 									if (!empty($response)) {
 										$responseUpdater = [
@@ -283,28 +283,26 @@ class Assessment extends CogentModel {
 			}
 			$assessmentInfo = [
 				'id'                     => NULL,
-				'member_id'              => $memberId,
-				'assessor_id'            => $assessorId,
-				'instrument_id'          => $scheduleItem["instrument_id"],
-				'instrument_schedule_id' => $scheduleItem["id"],
+				'member_id'              => (int)$memberId,
+				'assessor_id'            => (int)$assessorId,
+				'instrument_id'          => (int)$scheduleItem->instrument_id,
+				'instrument_schedule_id' => (int)$scheduleItem->id,
 				'edit_status'            => self::STATUS_ACTIVE,
 				'view_status'            => self::STATUS_ACTIVE,
 			];
-			if (!$assessment->update($assessmentInfo)) {
+			if (!$assessment->save($assessmentInfo)) {
 				throw new \Exception($this->errorMessagesAsString());
 			}
 			$responses = Instrument::createResponseTemplate($scheduleItem->instrument_id, $assessment->id);
-			if (!empty($responses)) {
-				//@todo GREG Recommendation::recommend($assessment["id"]);
-			}
-			else {
+			if (empty($responses)) {
 				throw new \Exception("Unable to create assessment responses.");
 			}
-			$result->setNormal($assessment);
+			$result->setNormal($assessment->map(['instrument' => TRUE, 'schedule' => TRUE, 'responses' => TRUE, 'verbose' => TRUE]));
 			$controller->commitTransaction();
 		}
 		catch (\Exception $exception) {
 			$controller->rollbackTransaction();
+			$result->setException($exception);
 		}
 		return $result;
 	}

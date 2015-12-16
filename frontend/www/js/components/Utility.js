@@ -14,34 +14,30 @@ angular.module('Utility', []).factory('Utility', [
 			popup: function (title, message) {
 				$ionicPopup.alert({title: '<i class="fa fa-info-circle fa-lg 2x"></i> ' + title, template: message});
 			},
-			statusAlert: function (status, data) {
-				if (status) {
-					$ionicPopup.alert({
-						title: '<i class="fa fa-thumbs-up fa-lg 2x"></i> Updated',
-						template: 'Your changes were saved.',
-						cssClass: 'popSuccess'
-					});
+			statusAlert: function (response) {
+				if (response.status == 1 && response.code == 200) {
+					$ionicPopup.alert(
+						{
+							title: '<i class="fa fa-thumbs-up fa-lg 2x"></i> Updated',
+							template: response.message ? response.message : 'Action completed.',
+							cssClass: 'popSuccess'
+						});
 				}
 				else {
-					var msgAppend = '';
-					try {
-						msgAppend = data.toString();
-						msgAppend = ' <br/><br/><div style="color:#777;">(' + msgAppend + ')</div>';
-					}
-					catch (exception) {
-					}
-					$ionicPopup.alert({
-						title: '<i class="fa fa-warning fa-lg 2x"></i> Problem',
-						template: 'Sorry, but there was a problem saving your changes.' + msgAppend,
-						cssClass: 'popError'
-					});
+					var msgAppend = response.message ? '<br/><br/><div style="color:#777;">(' + response.message + ')</div>' : '';
+					$ionicPopup.alert(
+						{
+							title: '<i class="fa fa-warning fa-lg 2x"></i> Problem',
+							template: 'Sorry, but there was a problem completing your request. ' + msgAppend,
+							cssClass: 'popError'
+						});
 				}
 			},
 			confirm: function (title, prompt, callback) {
 				var confirmPopup = $ionicPopup.confirm({
-					title: '<i class="fa fa-exclamation-triangle fa-lg 2x"></i> ' + title,
-					template: prompt, cssClass: 'popWarning'
-				});
+														   title: '<i class="fa fa-exclamation-triangle fa-lg 2x"></i> ' + title,
+														   template: prompt, cssClass: 'popWarning'
+													   });
 				confirmPopup.then(function (res) {
 					if (res) {
 						callback();
@@ -132,20 +128,20 @@ angular.module('Utility', []).factory('Utility', [
 			exists: function (url, yesFn, noFn) {
 				try {
 					$.ajax({
-						type: 'GET',
-						url: '/api3/index/exists/' + encodeURI(url),
-						success: function (data) {
-							if (data == 1) {
-								yesFn();
-							}
-							else {
-								noFn();
-							}
-						},
-						error: function () {
-							noFn();
-						}
-					});
+							   type: 'GET',
+							   url: '/api3/index/exists/' + encodeURI(url),
+							   success: function (data) {
+								   if (data == 1) {
+									   yesFn();
+								   }
+								   else {
+									   noFn();
+								   }
+							   },
+							   error: function () {
+								   noFn();
+							   }
+						   });
 				}
 				catch (exception) {
 					noFn();

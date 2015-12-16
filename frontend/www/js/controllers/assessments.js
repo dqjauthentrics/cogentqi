@@ -110,6 +110,7 @@ angular.module('AssessmentControllers', [])
 			$scope.Assessments = Assessments;
 			$scope.Instruments = Instruments;
 			$scope.Resources = Resources;
+			$scope.Members = Members;
 			$scope.res = null;
 			$scope.data = {
 				dirty: false,
@@ -204,6 +205,22 @@ angular.module('AssessmentControllers', [])
 				return value;
 			};
 
+			$scope.setUpAssessment = function(assessment) {
+				$scope.Assessments.current = assessment;
+				$scope.responses = $scope.Assessments.current.responses;
+				var instrumentId = $scope.Assessments.current.instrument.id;
+				var instrument = Utility.findObjectById($scope.Instruments.list, instrumentId);
+				var scoreInfo = Assessments.scorify(instrument, $scope.responses);
+				var question = instrument.sections[0].questions[0];
+				$scope.Assessments.current.instrument = instrument;
+				$scope.Assessments.current.sc = scoreInfo.avg;
+				$scope.Assessments.current.rk = scoreInfo.avgRound;
+				$scope.Assessments.current.scoreWord = Assessments.scoreWord(question.id, scoreInfo.avgRound, $scope.responses);
+				$scope.data.assessor = $cookieStore.get('user');
+				$scope.getRecommendations();
+				$scope.data.isLoading = false;
+				$scope.refreshSliders();
+			};
 			$scope.getAssessment = function () {
 				try {
 					if (!Utility.empty($stateParams)) {
@@ -213,33 +230,15 @@ angular.module('AssessmentControllers', [])
 								if (!$scope.Assessments.current || $scope.Assessments.current.id != assessmentId) {
 									Utility.getResource(Assessments.retrieveSingle(assessmentId), function (response) {
 										Instruments.currentSectionIdx = 0;
-										$scope.Assessments.current = response.data;
-										$scope.responses = $scope.Assessments.current.responses;
-										var instrumentId = $scope.Assessments.current.instrument.id;
-										$scope.Assessments.current.instrument = Utility.findObjectById($scope.Instruments.list, instrumentId);
-										var scoreInfo = Assessments.scorify($scope.Assessments.current.instrument, $scope.responses);
-										var question = $scope.Assessments.current.instrument.sections[0].questions[0];
-										$scope.Assessments.current.sc = scoreInfo.avg;
-										$scope.Assessments.current.rk = scoreInfo.avgRound;
-										$scope.Assessments.current.scoreWord = Assessments.scoreWord(question.id, scoreInfo.avgRound, $scope.responses);
-										$scope.data.assessor = $cookieStore.get('user');
-										$scope.getRecommendations();
-										$scope.data.isLoading = false;
-										$scope.refreshSliders();
+										$scope.setUpAssessment(response.data);
 									});
 								}
 							}
 							else if (assessmentId == -1) {
 								if (!Utility.empty($stateParams.memberId)) {
-									Utility.getResource(Assessments.create($stateParams.memberId), function (response) {
-										$scope.Instruments.currentSectionIdx = 0;
-										$scope.Members.list = null; // force reload of members list
-										Members.current = null; // force reload of current member
-										$scope.Assessments.current = response.data;
-										$scope.data.assessor = $scope.Assessments.current.assessor.id;
-										$scope.getRecommendations();
-										$scope.data.isLoading = false;
-									});
+									Utility.getResource(Assessments.create($stateParams.memberId, function (response) {
+										$scope.setUpAssessment(response.data);
+									}));
 								}
 							}
 						}
@@ -287,9 +286,14 @@ angular.module('AssessmentControllers', [])
 				var saveClass = icon.attr("class");
 				icon.attr("class", "").addClass("fa fa-spinner fa-spin");
 				Assessments.save($scope.Assessments.current, $scope.responses, $scope.Assessments.current.mi, function (response) {
-					icon.attr("class", saveClass);
-					$scope.data.dirty = false;
-					$scope.Assessments.list = null;
+					if (response.status == 1 && response.code == 200) {
+						icon.attr("class", saveClass);
+						$scope.data.dirty = false;
+						$scope.Assessments.list = null;
+					}
+					else {
+						Utility.statusAlert(response);
+					}
 				});
 			};
 			$scope.canEdit = function () {

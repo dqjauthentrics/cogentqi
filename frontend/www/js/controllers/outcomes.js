@@ -183,10 +183,10 @@ angular.module('OutcomeControllers', [])
 			$scope.save = function () {
 				$scope.data.saving = true;
 				Outcomes.saveAlignments($scope.data.currentInstrumentId, $scope.Outcomes.current.id, $scope.data.alignments,
-										function (status, data) {
+										function (response) {
 											$scope.data.saving = false;
 											$scope.data.dirty = false;
-											Utility.statusAlert(status, data);
+											Utility.statusAlert(response);
 										});
 			};
 			$scope.setAlignments = function () {

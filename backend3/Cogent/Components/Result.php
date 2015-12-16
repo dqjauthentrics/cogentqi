@@ -113,10 +113,13 @@ class Result {
 	/**
 	 * @param mixed $data
 	 */
-	public function setNormal($data = FALSE) {
+	public function setNormal($data = FALSE, $msg = false) {
 		$this->status = Result::STATUS_OKAY;
 		if ($data !== FALSE) {
 			$this->data = $data;
+		}
+		if ($msg !== FALSE) {
+			$this->message = $msg;
 		}
 	}
 

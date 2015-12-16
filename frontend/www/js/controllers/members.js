@@ -152,7 +152,7 @@ angular.module('MemberControllers', [])
 			};
 			$scope.save = function () {
 				Members.saveProfile(Members.current, function (response) {
-					Utility.statusAlert(response.message);
+					Utility.statusAlert(response);
 					Members.list = null; // force reload of list
 				});
 				$scope.data.dirty = false;
@@ -207,8 +207,8 @@ angular.module('MemberControllers', [])
 								function () {
 									if (!Utility.empty(assessmentId)) {
 										Members.list = null; // force reload of member list
-										Assessments.remove(assessmentId, function (status, message) {
-											if (status == 1) {
+										Assessments.remove(assessmentId, function (response) {
+											if (response.status == 1 && response.code == 200) {
 												for (var i = 0; i < $scope.Members.current.assessments.length; i++) {
 													if ($scope.Members.current.assessments[i].id == assessmentId) {
 														$scope.Members.current.assessments.splice(i, 1);
@@ -217,7 +217,7 @@ angular.module('MemberControllers', [])
 												}
 											}
 											else {
-												Utility.statusAlert(status, message);
+												Utility.statusAlert(response);
 											}
 										});
 									}

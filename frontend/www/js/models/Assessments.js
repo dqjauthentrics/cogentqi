@@ -26,10 +26,10 @@ angular.module('Assessments', []).service(
 				assessment.rsp = responses;
 				$http.post('/api3/assessment/update/' + memberId + '/' + user.id, {assessment: assessment})
 					.then(function (data, status, headers, config) {
-							  callbackFn(data);
+							  callbackFn(data.data);
 						  },
 						  function (data, status, headers, config) {
-							  callbackFn(0, data);
+							  callbackFn(0, data.data);
 						  });
 			}
 			return null;
@@ -51,23 +51,23 @@ angular.module('Assessments', []).service(
 		svc.create = function (memberId, callbackFn) {
 			var user = $cookieStore.get('user');
 			if (!Utility.empty(user)) {
-				$http.post("/api3/assessment/create", {memberId: memberId, assessorId: user.id})
+				$http.post("/api3/assessment/update/" + memberId + "/" + user.id, {})
 					.then(function (data, status, headers, config) {
-							  callbackFn(data);
+							  callbackFn(data.data);
 						  },
 						  function (data, status, headers, config) {
-							  callbackFn(data);
+							  callbackFn(data.data);
 						  });
 			}
 			return null;
 		};
 		svc.remove = function (assessmentId, callbackFn) {
-			$http.post("/api3/assessment/delete", {id: assessmentId})
+			$http.post("/api3/assessment/delete", {assessmentId: assessmentId})
 				.then(function (data, status, headers, config) {
-						  callbackFn(data);
+						  callbackFn(data.data);
 					  },
 					  function (data, status, headers, config) {
-						  callbackFn(data);
+						  callbackFn(data.data);
 					  });
 		};
 
@@ -97,7 +97,7 @@ angular.module('Assessments', []).service(
 			if (!Utility.empty(instrumentId) && !Utility.empty(orgId)) {
 				var res = $resource('/api3/assessment/matrix/' + orgId + '/' + instrumentId, {}, {query: {method: 'GET', isArray: false, cache: false}});
 				if (res) {
-					res.query(function(response) {
+					res.query(function (response) {
 						svc.matrix = response.data;
 					});
 				}
