@@ -24,6 +24,14 @@ angular.module('app')
 		};
 	})
 
+	.directive('infoBadge', function () {
+		return {
+			restrict: 'E',
+			templateUrl: '../templates/common/_infoBadge.html',
+			scope: {n: '='}
+		};
+	})
+
 	.directive('avatar', function () {
 		return {
 			restrict: 'E', templateUrl: '../templates/common/_avatar.html',

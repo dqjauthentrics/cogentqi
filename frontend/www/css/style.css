@@ -1827,6 +1827,14 @@ rzslider .rz-bar {
     background: transparent !important;
 }
 
+.infoBadge {
+    font-size: 90%;
+    padding: 0.1em 0.5em;
+    color: white;
+    background: navy;
+    border-radius: 1em;
+}
+
 rzslider .rz-pointer:after {
     display: none !important;
 }

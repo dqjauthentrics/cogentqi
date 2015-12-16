@@ -8,17 +8,28 @@ angular.module('MemberControllers', [])
 	.controller(
 		'MemberNotesCtrl',
 		function ($scope, $location, $ionicPopup, $stateParams, Utility, MemberNotes, Members) {
-			$scope.data = {member: {}, notes: [], newNote: {ct: '', mi: null}};
+			$scope.data = {notes: [], newNote: {ct: '', mi: null}};
+			$scope.Members = Members;
 
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
-				Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
-					$scope.data.member = response.data;
-					$scope.data.newNote.mi = response.id;
-					Utility.getResource(MemberNotes.retrieve($stateParams.memberId), function (response) {
-						$scope.data.notes = response.data;
+				if (Utility.empty($scope.Members.current) || $scope.Members.current.id !== $stateParams.memberId) {
+					Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
+						$scope.Members.current = response.data;
+						$scope.getNotes();
 					});
-				});
+				}
+				else {
+					$scope.getNotes();
+				}
 			}
+			$scope.getNotes = function() {
+				$scope.data.newNote.mi = $scope.Members.current.id;
+				Utility.getResource(MemberNotes.retrieve($stateParams.memberId), function (response) {
+					if (response.status == 1) {
+						$scope.data.notes = response.data;
+					}
+				});
+			};
 			$scope.goToProgress = function () {
 				$location.url("/member/progress/" + $stateParams.memberId);
 			};
@@ -31,9 +42,12 @@ angular.module('MemberControllers', [])
 						if ($scope.data.notes[i].id == note.id) {
 							note.workingTrash = true;
 							MemberNotes.remove(note.id, function (response) {
-								if (response.status) {
+								if (response.status == 1 && $scope.data.notes.length > 0) {
 									$scope.data.notes.splice(i, 1);
 									note.workingTrash = null;
+								}
+								else {
+									Utility.statusAlert(response);
 								}
 							});
 							return;
@@ -45,12 +59,20 @@ angular.module('MemberControllers', [])
 				if (Utility.empty($scope.data.newNote.ct)) {
 					Utility.popup('Nothing to Save!', 'You must enter some note text before saving it.');
 				}
-				MemberNotes.save($scope.data.newNote, function (response) {
-					if (response.status) {
-						$scope.data.notes.unshift(data);
-						$scope.data.newNote.ct = '';
-					}
-				});
+				else {
+					MemberNotes.save($scope.data.newNote, function (response) {
+						if (response.status == 1 && response.code == 200) {
+							if (Utility.empty($scope.data.notes)) {
+								$scope.data.notes = [];
+							}
+							$scope.data.notes.unshift(response.data);
+							$scope.data.newNote.ct = '';
+						}
+						else {
+							Utility.statusAlert(response);
+						}
+					});
+				}
 			};
 			$scope.flag = function (note) {
 				note.flag = note.flag == 0 ? 1 : 0;
@@ -129,9 +151,14 @@ angular.module('MemberControllers', [])
 				if (Members.current == null || Members.current.id != $stateParams.memberId) {
 					$scope.data.isLoading = true;
 					Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
-						Members.current = response.data;
-						$scope.data.isLoading = false;
-						$scope.data.name = Members.current.fn + ' ' + Members.current.ln;
+						if (response.status == 1) {
+							$scope.Members.current = response.data;
+							$scope.data.isLoading = false;
+							$scope.data.name = $scope.Members.current.fn + ' ' + $scope.Members.current.ln;
+						}
+						else {
+							Utility.statusAlert(response);
+						}
 					});
 				}
 				else {

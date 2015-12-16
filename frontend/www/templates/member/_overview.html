@@ -15,7 +15,7 @@
         </div>
         <div class="inactiveText" ng-show="Members.current.ae">{{'Inactive as of:'|translate}} {{Members.current.ae|date}}</div>
     </div>
-    <h3 data-ng-show="Members.current.badges.length > 0">Badges</h3>
+    <h3 data-ng-show="Members.current.badges.length > 0">Badges <info-badge n="Members.current.badges.length"></info-badge></h3>
 
     <div>
         <div style="float:left; margin: 0.5em; text-align: center;" data-ng-repeat="badge in Members.current.badges">
