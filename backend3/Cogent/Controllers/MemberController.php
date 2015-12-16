@@ -3,6 +3,7 @@ namespace Cogent\Controllers;
 
 use Cogent\Components\Result;
 use Cogent\Models\Member;
+use Nette\Neon\Exception;
 use Phalcon\Mvc\Model\Resultset;
 
 class MemberController extends ControllerBase {
@@ -43,7 +44,7 @@ class MemberController extends ControllerBase {
 			}
 		}
 		catch (\Exception $exception) {
-			$result->message = $exception->getMessage();
+			$result->setException($exception);
 		}
 		$result->sendNormal($data);
 	}
@@ -53,10 +54,26 @@ class MemberController extends ControllerBase {
 	 */
 	public function getAction($id = NULL) {
 		$result = new Result($this);
-		$data = [];
-		$member = Member::findFirst($id);
-		$data[] = $member->map();
-		$result->sendNormal($data);
+		try {
+			$data = [];
+			$member = Member::findFirst($id);
+			if (!empty($member)) {
+				$data = $member->map();
+				if (!empty($data)) {
+					$result->setNormal($data);
+				}
+				else {
+					$result->setError(Result::CODE_EXCEPTION, 'Unable to map data properly.');
+				}
+			}
+			else {
+				$result->setError(Result::CODE_NOT_FOUND);
+			}
+		}
+		catch (\Exception $exception) {
+			$result->setException($exception);
+		}
+		$result->sendNormal();
 	}
 
 	/**
@@ -64,9 +81,25 @@ class MemberController extends ControllerBase {
 	 */
 	public function getProfileAction($id = NULL) {
 		$result = new Result($this);
-		$member = Member::findFirst($id);
-		$data = $member->map(['assessments' => TRUE, 'lastAssessment' => TRUE, 'badges' => TRUE, 'notes' => TRUE, 'events' => TRUE]);
-		$result->sendNormal($data);
+		try {
+			$member = Member::findFirst($id);
+			if (!empty($member)) {
+				$data = $member->map(['assessments' => TRUE, 'lastAssessment' => TRUE, 'badges' => TRUE, 'notes' => TRUE, 'events' => TRUE]);
+				if (!empty($data)) {
+					$result->setNormal($data);
+				}
+				else {
+					$result->setError(Result::CODE_EXCEPTION, 'Unable to map data properly.');
+				}
+			}
+			else {
+				$result->setError(Result::CODE_NOT_FOUND);
+			}
+		}
+		catch (\Exception $exception) {
+			$result->setException($exception);
+		}
+		$result->sendNormal();
 	}
 
 	/**
@@ -74,26 +107,25 @@ class MemberController extends ControllerBase {
 	 */
 	public function updateAction() {
 		$result = new Result($this);
-		$data = [];
-		$connection = $this->getWriteConnection(new Member());
-		$connection->begin();
+		$memberModel = new Member();
+		$this->beginTransaction($memberModel);
 		try {
 			$memberForm = @$this->getInputData('member');
 			$member = Member::findFirst($memberForm["id"]);
 			if (!empty($member)) {
 				$data = $member->unmap($memberForm);
 				if (!$member->update($data)) {
-					throw new \Exception("Unable to save member record.");
+					throw new \Exception($member->errorMessagesAsString());
 				}
-				$connection->commit();
-				$result->setNormal($memberForm);
+				$this->commitTransaction();
+				$result->setNormal($member->map(['minimal' => TRUE]));
 			}
 		}
 		catch (\Exception $exception) {
-			$connection->rollback();
-			$result->message = $exception->getMessage();
+			$this->rollbackTransaction();
+			$result->setException($exception);
 		}
-		$result->sendNormal($data);
+		$result->sendNormal();
 	}
 
 	/**
@@ -119,13 +151,23 @@ class MemberController extends ControllerBase {
 	 */
 	public function dereactivateAction($memberId, $activate) {
 		$result = new Result($this);
-		$member = Member::findFirst(['id' => $memberId]);
-		if (!empty($member)) {
-			$member->active_end = !empty($activate) ? NULL : $member->dbDateTime();
-			if ($member->update()) {
-				$result->status = Result::STATUS_OKAY;
-				$result->data = $member->map();
+		try {
+			$member = Member::findFirst($memberId);
+			if (!empty($member)) {
+				$member->active_end = !empty($activate) ? NULL : $member->dbDateTime();
+				if ($member->update()) {
+					$result->setNormal($member->map(['minimal' => TRUE]));
+				}
+				else {
+					throw new \Exception($member->errorMessagesAsString());
+				}
 			}
+			else {
+				$result->setError(Result::CODE_NOT_FOUND);
+			}
+		}
+		catch (\Exception $exception) {
+			$result->setException($exception);
 		}
 		$result->sendNormal();
 	}

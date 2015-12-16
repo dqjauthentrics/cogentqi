@@ -31,23 +31,21 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 		var memberRec = {id: member.id, fn: member.fn, ln: member.ln, r: member.r, ph: member.ph, ad: member.ad, mb: member.mb};
 		$http.post("/api3/member/update", {member: memberRec})
 			.then(function (data, status, headers, config) {
-					  callbackFn(data);
+					  callbackFn(data.data);
 				  },
 				  function (data, status, headers, config) {
-					  callbackFn(data);
+					  callbackFn(data.data);
 				  });
 	};
 
 	svc.deOrReactivate = function (member, callbackFn) {
-		$http({
-				  method: 'GET',
-				  url: "/api3/member/dereactivate/" + member.id + '/' + (member.active_end ? 0 : 1),
-				  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			  }).success(function (data, status, headers, config) {
-			callbackFn(data);
-		}).error(function (data, status, headers, config) {
-			callbackFn(0, data);
-		});
+		$http.get("/api3/member/dereactivate/" + member.id + '/' + (member.active_end ? 0 : 1))
+			.then(function (data, status, headers, config) {
+					  callbackFn(data.data);
+				  },
+				  function (data, status, headers, config) {
+					  callbackFn(data.data);
+				  });
 	};
 
 	svc.findResponse = function (responses, questionId) {
@@ -70,7 +68,7 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 				var series = [];
 				var xLabels = [];
 				var section = instrument.sections[z];
-				var start = Math.min(assessments.length-1,2);
+				var start = Math.min(assessments.length - 1, 2);
 				for (var i = start; i >= 0; i--) {
 					var assessment = assessments[i];
 					var dataSet = [];

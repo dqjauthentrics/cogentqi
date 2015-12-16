@@ -1,9 +1,9 @@
 <?php
 namespace Cogent\Controllers;
 
-use Phalcon\Mvc\Model\Resultset;
 use Cogent\Components\Result;
 use Cogent\Models\Member;
+use Phalcon\Mvc\Model\Resultset;
 
 class SessionController extends \Cogent\Controllers\ControllerBase {
 
@@ -30,9 +30,8 @@ class SessionController extends \Cogent\Controllers\ControllerBase {
 			$password = @$_GET["password"];
 		}
 		$member = Member::findFirst([
-				"(email = :username: OR username = :username:) AND password = :password:",
-				'bind'      => ['username' => $username, 'password' => md5($password)],
-				'hydration' => Resultset::HYDRATE_RECORDS
+				'conditions' => "(email = :username: OR username = :username:) AND password = :password:",
+				'bind'       => ['username' => $username, 'password' => md5($password)]
 			]
 		);
 		if ($member != FALSE) {
