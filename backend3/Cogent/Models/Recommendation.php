@@ -186,7 +186,7 @@ class Recommendation extends CogentModel {
 		$assessmentModel = new Assessment();
 		$latestAssessmentIds = $assessmentModel->getLatestAssessmentIds($planItem->member_id);
 		$responses = AssessmentResponse::query()
-			->where("assessment_id IN ($latestAssessmentIds) AND recommended_resource IN ($planItem->module->resource_id)")
+			->where("assessment_id IN ($latestAssessmentIds) AND recommended_resource_id IN ($planItem->module->resource_id)")
 			->execute();
 		/** @var AssessmentResponse $response */
 		foreach ($responses as $response) {
@@ -213,7 +213,7 @@ class Recommendation extends CogentModel {
 		foreach ($eventAlignments as $alignment) {
 			/** @var AssessmentResponse $response */
 			$response = $questionToResponse[$alignment->question_id];
-			if (empty($response->recommended_resource)) {
+			if (empty($response->recommended_resource_id)) {
 				$newValue = $response->event_value + $alignment->increment;
 				$response->update(['event_value' => $newValue]);
 			}
@@ -221,7 +221,7 @@ class Recommendation extends CogentModel {
 		// Filter responses to the ones we need recommendations for
 		$filteredResponses = [];
 		foreach ($questionToResponse as $questionId => $response) {
-			if (empty($response->recommended_resource) && $response->event_value >= $response->question->outcome_threshold) {
+			if (empty($response->recommended_resource_id) && $response->event_value >= $response->question->outcome_threshold) {
 				$filteredResponses[$questionId] = $response;
 			}
 		}
@@ -247,7 +247,7 @@ class Recommendation extends CogentModel {
 		foreach ($rankedCoverages as $coverage) {
 			foreach ($coverage['questions'] as $questionId => $dummy) {
 				$response = $questionToResponse[$questionId];
-				$response->update(['recommended_resource' => $coverage['resourceId']]);
+				$response->update(['recommended_resource_id' => $coverage['resourceId']]);
 				$response->update(['event_value' => 0]);
 			}
 			if (!array_key_exists($coverage['moduleId'], $currentResourceRecommendations)) {
@@ -431,7 +431,7 @@ class Recommendation extends CogentModel {
 				->execute();
 			/** @var AssessmentResponse $response */
 			foreach ($responses as $response) {
-				$response->update(['recommended_resource' => $rankedCoverage['resourceId']]);
+				$response->update(['recommended_resource_id' => $rankedCoverage['resourceId']]);
 			}
 		}
 	}

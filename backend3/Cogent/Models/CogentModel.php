@@ -130,6 +130,22 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	}
 
 	/**
+	 * @param \Phalcon\Mvc\Model\Resultset\Simple|CogentModel[] $records
+	 * @param                                                   $keyColName
+	 *
+	 * @return array
+	 */
+	public function recordsKeyed($records, $keyColName) {
+		$keyed = [];
+		if (!empty($records)) {
+			foreach ($records as $record) {
+				$keyed[$record->$keyColName] = $record;
+			}
+		}
+		return $keyed;
+	}
+
+	/**
 	 * @param object $record
 	 * @param array  $mappedColumns
 	 *
@@ -359,7 +375,7 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	 *
 	 * @return string
 	 */
-	public function errorMessagesAsString($separator='<br/>') {
+	public function errorMessagesAsString($separator = '<br/>') {
 		$msgString = '';
 		$messages = $this->getMessages();
 		if (!empty($messages)) {
