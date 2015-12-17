@@ -53,7 +53,7 @@ class MemberNoteController extends ControllerBase {
 		try {
 			$noteForm = $this->getInputData('note');
 			if (!empty($noteForm) && is_array($noteForm)) {
-				$noteForm['creator_id'] = $this->user()->id;
+				$noteForm['creator_id'] = $this->currentUser()->id;
 				if (empty($noteForm["id"])) {
 					$note = new MemberNote();
 				}

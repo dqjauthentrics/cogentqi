@@ -59,7 +59,7 @@ class ResourceController extends ControllerBase {
 			if (!empty($resourceForm) && is_array($resourceForm)) {
 				$resource = new \Cogent\Models\Resource();
 				$resourceForm = $resource->unmap($resourceForm);
-				$resourceForm['creator_id'] = $this->user()->id;
+				$resourceForm['creator_id'] = $this->currentUser()->id;
 				if (empty($resourceForm['resource_type_id'])) {
 					$resourceForm['resource_type_id'] = 'T'; //@todo Hard-coded default type
 				}

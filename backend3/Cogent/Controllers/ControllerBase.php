@@ -9,13 +9,6 @@ class ControllerBase extends Controller {
 	public $transactionModel = NULL;
 	public $startAction = NULL;
 
-	/**
-	 * @return Member
-	 */
-	public function user() {
-		return (object)$this->session->get('auth');
-	}
-
 	public function beforeExecuteRoute($dispatcher) {
 		$this->startAction = microtime(TRUE);
 	}
@@ -86,7 +79,9 @@ class ControllerBase extends Controller {
 	 * @return mixed
 	 */
 	public function currentUser() {
-		return $this->session->get('auth');
+		$auth = $this->session->get('auth');
+		$user = CogentModel::genericUnmap($auth);
+		return (object)$user;
 	}
 
 	/**

@@ -161,7 +161,15 @@ angular.module('app')
 		return {
 			restrict: 'E',
 			templateUrl: '../templates/common/_microBadge.html',
-			scope: {text: '=', size: '=', src: '='}
+			scope: {text: '=', size: '=', src: '=', completed: '='}
+		};
+	})
+
+	.directive('planItem', function () {
+		return {
+			restrict: 'E',
+			templateUrl: '../templates/common/_planItem.html',
+			scope: {item: '=', i: '=', verb: '='}
 		};
 	})
 

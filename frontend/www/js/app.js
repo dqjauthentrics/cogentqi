@@ -91,8 +91,8 @@ angular.module(
 		"CH_MANAGER": "M",
 		"CH_ADMINISTRATOR": "A"
 	})
-	.config(function(IdleProvider) {
-		IdleProvider.idle(1*60); // 10 minutes idle
+	.config(function (IdleProvider) {
+		IdleProvider.idle(1 * 60); // 10 minutes idle
 		IdleProvider.timeout(30); // 30 second warning
 	})
 
@@ -116,7 +116,7 @@ angular.module(
 				operationalMode = "Production";
 			}
 
-			$rootScope.$on('$idleTimeout', function() {
+			$rootScope.$on('$idleTimeout', function () {
 				// end their session and redirect to login
 				//alert('timeout');
 			});
@@ -217,7 +217,8 @@ angular.module(
 				return $rootScope.userRoleChar() == APP_ROLES.CH_MANAGER;
 			};
 			$rootScope.isProfessional = function () {
-				return $rootScope.userRoleChar() == APP_ROLES.CH_PROFESSIONAL;
+				var isP = $rootScope.userRoleChar() == APP_ROLES.CH_PROFESSIONAL;
+				console.log('isProfessional()', isP);
 			};
 			$rootScope.roleIs = function (roleNames) {
 				return $.inArray($rootScope.roleInfix(), roleNames) >= 0;

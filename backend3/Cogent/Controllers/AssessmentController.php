@@ -5,6 +5,7 @@ use Cogent\Components\Matrix;
 use Cogent\Components\Result;
 use Cogent\Models\Assessment;
 use Cogent\Models\Organization;
+use Cogent\Models\Role;
 use Phalcon\Mvc\Model\Resultset;
 
 class AssessmentController extends ControllerBase {
@@ -62,19 +63,24 @@ class AssessmentController extends ControllerBase {
 	 * @param int $organizationId
 	 */
 	public function byOrganizationAction($organizationId) {
+		$user = $this->currentUser();
 		$result = new Result($this);
 		$orgModel = new Organization();
 
-		// This took 0.140 seconds. Two queries is slightly faster than one, and many times faster than a Phalcon join().
-		$memberIds = $orgModel->getMemberIds($organizationId);
-		$assessments = Assessment::query()->where('member_id IN (' . $memberIds . ')')->orderBy('last_saved DESC')->execute();
+		if ($user->app_role_id == Role::PROFESSIONAL) {
+			$assessments = Assessment::query()->where('member_id='.$user->id)->orderBy('last_saved DESC')->execute();
+		}
+		else {
+			// This took 0.140 seconds. Two queries is slightly faster than one, and many times faster than a Phalcon join().
+			$memberIds = $orgModel->getMemberIds($organizationId);
+			$assessments = Assessment::query()->where('member_id IN (' . $memberIds . ')')->orderBy('last_saved DESC')->execute();
 
-		// This took 4.6 seconds, vs 0.14 seconds for two queries above!
-		//$assessments = Assessment::query()->join('Cogent\Models\Member','organization_id=4')->orderBy('last_saved DESC')->execute();
+			// This took 4.6 seconds, vs 0.14 seconds for two queries above!
+			//$assessments = Assessment::query()->join('Cogent\Models\Member','organization_id=4')->orderBy('last_saved DESC')->execute();
 
-		// This took 0.145 seconds.
-		//$assessments = Assessment::query()->where('member_id IN (SELECT m.id FROM Cogent\Models\Member AS m WHERE organization_id=4)')->orderBy('last_saved DESC')->execute();
-
+			// This took 0.145 seconds.
+			//$assessments = Assessment::query()->where('member_id IN (SELECT m.id FROM Cogent\Models\Member AS m WHERE organization_id=4)')->orderBy('last_saved DESC')->execute();
+		}
 		if ($assessments === FALSE) {
 			$result->setError(Result::CODE_EXCEPTION);
 		}

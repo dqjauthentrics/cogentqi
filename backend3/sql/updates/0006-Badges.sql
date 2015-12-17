@@ -25,6 +25,7 @@ INSERT INTO badge (name, description, image, issuer) VALUES ('Communication', 'B
 INSERT INTO badge (name, description, image, issuer) VALUES ('Planning', 'Wise planning and time management.', '/site/default/badges/wisdom.png', 'CogentQI.com');
 UPDATE member_badge SET badge_id=(SELECT id FROM badge ORDER BY RAND() LIMIT 1);
 UPDATE member_badge mb SET title=(SELECT name FROM badge WHERE badge.id=mb.badge_id);
+UPDATE badge SET module_id = (SELECT module_id FROM member_badge WHERE title=badge.name);
 
 DELETE FROM _db_update WHERE script_name LIKE '0006%';
 INSERT INTO _db_update (script_name) VALUES ('0006-Badges.sql');

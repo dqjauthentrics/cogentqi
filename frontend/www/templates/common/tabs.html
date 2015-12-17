@@ -6,31 +6,31 @@
     </ion-tab>
 
     <ion-tab title="{{'Organization'|translate}}" icon-off="{{i.organization}}" icon-on="{{i.organization}}"
-             href="#/organization/list" class="{{isAdministrator()?'ng-if':'ng-hide'}}">
+             href="#/organization/list" ng-if="isAdministrator() == true" >
     </ion-tab>
 
     <ion-tab title="{{'People'|translate}}" icon-off="{{i.members}}" icon-on="{{i.members}}"
-             href="#/member/list" class="{{!isAdministrator() && !isProfessional()?'ng-if':'ng-hide'}}">
+             href="#/member/list" ng-if="isProfessional() == false">
     </ion-tab>
 
     <ion-tab title="{{'Assessments'|translate}}" icon-off="ion-clipboard" icon-on="ion-clipboard"
-             href="#/assessment/list" class="{{!isAdministrator() && !isProfessional()?'ng-if':'ng-hide'}}">
+             href="#/assessment/list">
     </ion-tab>
 
     <ion-tab title="{{'Resources'|translate}}" icon-off="ion-university" icon-on="ion-university"
-             href="#/resource/list" class="{{!isAdministrator()?'ng-if':'ng-hide'}}">
+             href="#/resource/list">
     </ion-tab>
 
     <ion-tab title="{{(isAdministrator()?'Configuration':'Settings')|translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear"
              href="{{'#' + (isAdministrator()?'/administrator/configuration':'/settings/personal')}}">
     </ion-tab>
 
-    <ion-tab ng-show="!isProfessional()" title="{{'Outcomes'|translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear"
-             href="#/outcome/list" hidden="true">
+    <ion-tab title="{{'Outcomes'|translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear"
+             href="#/outcome/list" hidden="true" ng-if="isProfessional() == true" >
     </ion-tab>
 
-    <ion-tab ng-show="!isProfessional()" title="{{'Reports'|translate}}" icon-off="{{i.reports}}" icon-on="{{i.reports}}"
-             href="#/reports">
+    <ion-tab title="{{'Reports'|translate}}" icon-off="{{i.reports}}" icon-on="{{i.reports}}"
+             href="#/reports" ng-if="isProfessional() == true">
     </ion-tab>
 
     <ion-tab title="Help" icon-off="{{i.helpOff}}" icon-on="{{i.helpOn}}"

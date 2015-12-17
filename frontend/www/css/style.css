@@ -259,6 +259,10 @@ ion-item.item-complex {
     padding-bottom: 1em;
 }
 
+.item p {
+    white-space: normal;
+}
+
 .list div.text {
     font-size: 1.4vw;
     font-style: italic;

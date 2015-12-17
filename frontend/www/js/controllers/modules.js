@@ -8,6 +8,7 @@ angular.module('ModuleControllers', [])
 	.controller(
 		'ModuleListCtrl',
 		function ($http, $rootScope, $scope, $stateParams, $compile, Utility, Modules) {
+			$scope.data = {height: document.getElementsByTagName('ion-content')[0].clientHeight};
 			$scope.Modules = Modules;
 			$scope.alertMessage = '';
 
@@ -70,6 +71,7 @@ angular.module('ModuleControllers', [])
 			$scope.uiConfig = {
 				calendar: {
 					//aspectRatio: 1.35,
+					height: $scope.data.height,
 					editable: true,
 					header: {
 						left: 'title',

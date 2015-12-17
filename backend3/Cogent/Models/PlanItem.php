@@ -130,7 +130,8 @@ class PlanItem extends CogentModel {
 			's'  => $this->plan_item_status_id,
 			'dt' => $this->presentationDateTime($this->status_stamp),
 			'n'  => $resourceName,
-			'r'  => $resourceId
+			'r'  => $resourceId,
+			'module' => $this->module->map(['minimal' => TRUE])
 		];
 		return $map;
 	}

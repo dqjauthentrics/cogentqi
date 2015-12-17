@@ -1,8 +1,5 @@
-<table class="{{src?'microBadgeHolder':'microBadge'}} {{size}}">
-    <tr>
-        <td style="vertical-align: middle; height:100%;">
-            <div><img ng-if="src" src="{{src}}" alt="{{text}}" style="height:auto; width: 72px;"/></div>
-            <div>{{text}}</div>
-        </td>
-    </tr>
-</table>
+<div>
+    <img ng-if="src" src="{{src}}" alt="{{text}}"
+         style="{{'height:auto; width:'+(size=='icon'? '40':'72') + 'px;' + (completed? '':'opacity:0.4;')}}"/>
+</div>
+<div ng-if="(size !== 'icon')">{{text}}</div>

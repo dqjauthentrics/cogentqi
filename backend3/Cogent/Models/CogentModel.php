@@ -25,7 +25,7 @@ class CogentModel extends \Phalcon\Mvc\Model {
 		'asi'  => ['assessor_id', self::TYPE_INT],
 		'av'   => ['avatar', self::TYPE_STRING],
 		'by'   => ['by_member_id', self::TYPE_STRING],
-        'cat'  => ['category', self::TYPE_STRING],
+		'cat'  => ['category', self::TYPE_STRING],
 		'cid'  => ['creator_id', self::TYPE_INT],
 		'cmi'  => ['calc_method_id', self::TYPE_STRING],
 		'ct'   => ['content', self::TYPE_STRING],
@@ -277,6 +277,25 @@ class CogentModel extends \Phalcon\Mvc\Model {
 			}
 		}
 		return $newData;
+	}
+
+	/**
+	 * @param array $jsonRecord
+	 *
+	 * @return array
+	 */
+	public static function genericUnmap($jsonRecord) {
+		$unmapped = [];
+		if (!empty($jsonRecord)) {
+			foreach ($jsonRecord as $jsonColName => $value) {
+				$fullName = @self::$colNameMap[$jsonColName][0];
+				if (empty($fullName)) {
+					$fullName = $jsonColName;
+				}
+				$unmapped[$fullName] = $value;
+			}
+		}
+		return $unmapped;
 	}
 
 	/**
