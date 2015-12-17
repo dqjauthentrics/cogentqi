@@ -8,11 +8,11 @@ angular.module('MemberNotes', []).service('MemberNotes', function ($http, $resou
 	var svc = this;
 
 	svc.retrieve = function (memberId) {
-		return $resource('/api3/memberNote/forMember/' + memberId, {}, {query: {method: 'GET', isArray: false, cache: false}});
+		return $resource('/api3/member-note/forMember/' + memberId, {}, {query: {method: 'GET', isArray: false, cache: false}});
 	};
 
 	svc.save = function (note, callbackFn) {
-		$http.post("/api3/memberNote/update", {note: note})
+		$http.post("/api3/member-note/update", {note: note})
 			.then(function (data, status, headers, config) {
 					  callbackFn(data.data);
 				  },
@@ -22,7 +22,7 @@ angular.module('MemberNotes', []).service('MemberNotes', function ($http, $resou
 	};
 
 	svc.remove = function (id, callbackFn) {
-		$http.post("/api3/memberNote/delete", {memberNoteId: id})
+		$http.post("/api3/member-note/delete", {memberNoteId: id})
 			.then(function (data, status, headers, config) {
 					  callbackFn(data.data);
 				  },
