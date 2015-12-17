@@ -11,6 +11,7 @@ angular.module(
 		'angularLoad',
 		'highcharts-ng',
 		'ngSanitize',
+		'ngIdle',
 		'pascalprecht.translate',
 		/*'ngTouch', */
 		'textAngular',
@@ -90,6 +91,10 @@ angular.module(
 		"CH_MANAGER": "M",
 		"CH_ADMINISTRATOR": "A"
 	})
+	.config(function(IdleProvider) {
+		IdleProvider.idle(1*60); // 10 minutes idle
+		IdleProvider.timeout(30); // 30 second warning
+	})
 
 	.run(function ($ionicPlatform, $ionicPopup, $rootScope, $location, $window, $cookieStore,
 				   editableOptions, angularLoad, Icons, Utility, Roles, APP_ROLES,
@@ -110,6 +115,11 @@ angular.module(
 			if (parts.length > 1 && parts[(parts.length - 1)] == "com") {
 				operationalMode = "Production";
 			}
+
+			$rootScope.$on('$idleTimeout', function() {
+				// end their session and redirect to login
+				alert('timeout');
+			});
 
 			/** Hide the accessory bar by default (remove this to show the accessory bar above the keyboard for form inputs)
 			 */
