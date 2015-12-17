@@ -12,11 +12,11 @@ angular.module('Utility', []).factory('Utility', [
 				return v == null || v == undefined || v.length == 0;
 			},
 			popup: function (title, message) {
-				$ionicPopup.alert({title: '<i class="fa fa-info-circle fa-lg 2x"></i> ' + title, template: message});
+				return $ionicPopup.alert({title: '<i class="fa fa-info-circle fa-lg 2x"></i> ' + title, template: message});
 			},
 			statusAlert: function (response) {
 				if (response.status == 1 && response.code == 200) {
-					$ionicPopup.alert(
+					return $ionicPopup.alert(
 						{
 							title: '<i class="fa fa-thumbs-up fa-lg 2x"></i> Updated',
 							template: response.message ? response.message : 'Action completed.',
@@ -25,7 +25,7 @@ angular.module('Utility', []).factory('Utility', [
 				}
 				else {
 					var msgAppend = response.message ? '<br/><br/><div style="color:#777;">(' + response.message + ')</div>' : '';
-					$ionicPopup.alert(
+					return $ionicPopup.alert(
 						{
 							title: '<i class="fa fa-warning fa-lg 2x"></i> Problem',
 							template: 'Sorry, but there was a problem completing your request. ' + msgAppend,
@@ -124,6 +124,9 @@ angular.module('Utility', []).factory('Utility', [
 				// Shift back
 				value = value.toString().split('e');
 				return +(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp));
+			},
+			arrayRandom: function (items) {
+				return items[Math.floor(Math.random() * items.length)];
 			},
 			exists: function (url, yesFn, noFn) {
 				try {

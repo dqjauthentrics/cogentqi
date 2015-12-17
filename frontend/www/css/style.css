@@ -43,6 +43,11 @@ a:hover {
     margin: 0.4em;
 }
 
+.popup {
+    width: auto !important;
+    max-width: 300px !important;
+}
+
 .popup-head {
     background: #555;
     color: #FFF;
@@ -54,6 +59,11 @@ a:hover {
 
 .popup-body {
     color: #444;
+}
+
+.popup-body li {
+    list-style-type: square;
+    margin-left: 3em;
 }
 
 .popError .popup-head {
@@ -1848,4 +1858,8 @@ rzslider .rz-bar {
 
 rzslider .rz-pointer:after {
     display: none !important;
+}
+
+.fc-content {
+    padding: 0.4em;
 }

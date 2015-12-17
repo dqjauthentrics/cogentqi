@@ -67,9 +67,14 @@ angular.module('ResourceControllers', [])
 				var resourceId = $stateParams.resourceId;
 				if ($scope.Resources.current == null || $scope.Resources.current.id != resourceId) {
 					Utility.getResource(Resources.retrieve(resourceId), function (response) {
-						$scope.Resources.current = response.data;
-						var urlBase = $rootScope.siteDir();
-						$scope.Resources.current.loc = urlBase + '/modules/' + $scope.Resources.current.nmb.toLowerCase() + '.html';
+						if (response.status == 1) {
+							$scope.Resources.current = response.data;
+							var urlBase = $rootScope.siteDir();
+							$scope.Resources.current.loc = urlBase + '/modules/' + $scope.Resources.current.nmb.toLowerCase() + '.html';
+						}
+						else {
+							Utility.statusAlert(response);
+						}
 						$scope.data.isLoading = false;
 					});
 				}

@@ -5,13 +5,13 @@ namespace Cogent\Models;
  * Class Module
  * @package Cogent\Models
  *
- * @method \Phalcon\Mvc\Model\Resultset\Simple|Badge[] getBadges()
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|ModuleBadge[] getModuleBadges()
  * @method \Phalcon\Mvc\Model\Resultset\Simple|PlanItem[] getPlanItems()
  * @method Resource getResource()
  *
- * @property \Phalcon\Mvc\Model\Resultset\Simple|Badge[]    $badges
- * @property \Phalcon\Mvc\Model\Resultset\Simple|PlanItem[] $planItems
- * @property Resource                                       $resource
+ * @property \Phalcon\Mvc\Model\Resultset\Simple|ModuleBadge[] $moduleBadges
+ * @property \Phalcon\Mvc\Model\Resultset\Simple|PlanItem[]    $planItems
+ * @property Resource                                          $resource
  */
 class Module extends CogentModel {
 
@@ -72,7 +72,7 @@ class Module extends CogentModel {
 	 */
 	public function initialize() {
 		$this->hasMany('id', 'Cogent\Models\PlanItem', 'module_id', ['alias' => 'PlanItems']);
-		$this->hasMany('id', 'Cogent\Models\Badge', 'module_id', ['alias' => 'Badges']);
+		$this->hasMany('id', 'Cogent\Models\ModuleBadge', 'module_id', ['alias' => 'ModuleBadges']);
 		$this->belongsTo('resource_id', 'Cogent\Models\Resource', 'id', ['alias' => 'Resource']);
 	}
 
@@ -85,9 +85,21 @@ class Module extends CogentModel {
 		return 'module';
 	}
 
+	/**
+	 * @param array $options
+	 *
+	 * @return array
+	 */
 	public function map($options = ['minimal' => FALSE]) {
 		$map = parent::map();
-		$map['badges'] = $this->mapRecords($this->badges);
+		$map['badges'] = [];
+		if (!empty($this->moduleBadges)) {
+			$badgeIdx = 0;
+			foreach ($this->moduleBadges as $moduleBadge) {
+				$map['badges'][$badgeIdx] = $moduleBadge->badge->map();
+				$badgeIdx++;
+			}
+		}
 		if (empty($options['minimal'])) {
 			$map['resource'] = $this->resource->map();
 		}

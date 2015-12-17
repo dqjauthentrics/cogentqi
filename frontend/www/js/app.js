@@ -64,24 +64,35 @@ angular.module(
 		'ControllerProfessional'
 	])
 
-	.config([
-				'$httpProvider', function ($httpProvider) {
-			$httpProvider.defaults.useXDomain = true;
-			delete $httpProvider.defaults.headers.common['X-Requested-With'];
-		}
-			])
+	.config(
+		[
+			'$httpProvider',
+			function ($httpProvider) {
+				$httpProvider.defaults.useXDomain = true;
+				delete $httpProvider.defaults.headers.common['X-Requested-With'];
+			}
+		])
 
-	.config([
-				'$translateProvider', function ($translateProvider) {
-			var subdomain = 'healthcare';
-			$translateProvider.useStaticFilesLoader({
-														prefix: '/site/' + subdomain + '/translations/locale-',
-														suffix: '.json'
-													});
-			$translateProvider.useSanitizeValueStrategy('sanitize');
-			$translateProvider.preferredLanguage('en_US');
-		}
-			])
+	.config(
+		[
+			'$translateProvider',
+			function ($translateProvider) {
+				var subdomain = 'default';
+				try {
+					var parts = window.location.host.split('.');
+					if (parts.length >= 2 && parts[0]) {
+						subdomain = parts[0];
+					}
+				}
+				catch (exception) {
+					console.log(exception);
+				}
+				console.log("loading translations for " + subdomain);
+				$translateProvider.useStaticFilesLoader({prefix: '/site/' + subdomain + '/translations/locale-', suffix: '.json'});
+				$translateProvider.useSanitizeValueStrategy('sanitize');
+				$translateProvider.preferredLanguage('en_US');
+			}
+		])
 
 	.constant("APP_ROLES", {
 		"PROFESSIONAL": "professional",
@@ -92,7 +103,7 @@ angular.module(
 		"CH_ADMINISTRATOR": "A"
 	})
 	.config(function (IdleProvider) {
-		IdleProvider.idle(1 * 60); // 10 minutes idle
+		IdleProvider.idle(10 * 60); // 10 minutes idle
 		IdleProvider.timeout(30); // 30 second warning
 	})
 
@@ -112,6 +123,7 @@ angular.module(
 			if (parts.length >= 2 && parts[0] != "www" && parts[0] != "app") {
 				subdomain = parts[0];
 			}
+
 			if (parts.length > 1 && parts[(parts.length - 1)] == "com") {
 				operationalMode = "Production";
 			}
@@ -218,7 +230,6 @@ angular.module(
 			};
 			$rootScope.isProfessional = function () {
 				var isP = $rootScope.userRoleChar() == APP_ROLES.CH_PROFESSIONAL;
-				console.log('isProfessional()', isP);
 			};
 			$rootScope.roleIs = function (roleNames) {
 				return $.inArray($rootScope.roleInfix(), roleNames) >= 0;

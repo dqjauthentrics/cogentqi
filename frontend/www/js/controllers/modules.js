@@ -7,24 +7,29 @@
 angular.module('ModuleControllers', [])
 	.controller(
 		'ModuleListCtrl',
-		function ($http, $rootScope, $scope, $stateParams, $compile, Utility, Modules) {
-			$scope.data = {height: document.getElementsByTagName('ion-content')[0].clientHeight};
+		function ($http, $rootScope, $scope, $stateParams, $compile, $translate, Utility, Modules) {
+			$scope.data = {popup: null, height: document.getElementsByTagName('ion-content')[0].clientHeight};
 			$scope.Modules = Modules;
 			$scope.alertMessage = '';
+			$scope.sorryText = 'Sorry, no more information is available.';
+			$scope.goText = 'Go to Resource';
 
-			$scope.$on('$ionicView.loaded', function(){
-				resizeCal('view');
+			$translate($scope.goText).then(function (txt) {
+				if (!Utility.empty(txt)) {
+					$scope.goText = txt;
+				}
+			});
+			$translate($scope.sorryText).then(function (txt) {
+				if (!Utility.empty(txt)) {
+					$scope.sorryText = txt;
+				}
 			});
 
-			$scope.alertOnEventClick = function (date, jsEvent, view) {
-				console.log(date.title + ' was clicked ');
-			};
-			$scope.alertOnDrop = function (event, delta, revertFunc, jsEvent, ui, view) {
-				console.log('Event Droped to make dayDelta ' + delta);
-			};
-			$scope.alertOnResize = function (event, delta, revertFunc, jsEvent, ui, view) {
-				console.log('Event Resized to make dayDelta ' + delta);
-			};
+			$scope.$on('$ionicView.leave', function () {
+				if (!Utility.empty($scope.data.popup)) {
+					$scope.data.popup.close();
+				}
+			});
 			$scope.addRemoveEventSource = function (sources, source) {
 				var canAdd = 0;
 				angular.forEach(sources, function (value, key) {
@@ -51,9 +56,24 @@ angular.module('ModuleControllers', [])
 					uiCalendarConfig.calendars[calendar].fullCalendar('render');
 				}
 			};
-			$scope.eventRender = function (event, element, view) {
-				element.attr({'tooltip': event.title, 'tooltip-append-to-body': true});
-				$compile(element)($scope);
+			$scope.eventClicked = function (calEvent, jsEvent, view) {
+				var mod = calEvent.module;
+				var body = $scope.sorryText;
+				if (!Utility.empty(mod)) {
+					if (!Utility.empty(mod.resource)) {
+						body =
+							'<div style="float:right; margin: 0.3em 1em;"><a href="#/resource/view/' + mod.resource.id + '">' + $scope.goText + '</a></div>' +
+							'<div style="float:left;">';
+						if (!Utility.empty(mod.badges)) {
+							for (var i = 0; i < mod.badges.length; i++) {
+								body += '<img style="width:40px; height:auto; margin:0.2em;" src="' + mod.badges[i].image + '" alt=""/>';
+							}
+						}
+						body += '</div><div class="clearfix"></div>';
+						body += mod.resource.sm.replace("\n", ' ');
+					}
+				}
+				$scope.data.popup = Utility.popup(calEvent.title, body);
 			};
 
 			// Main
@@ -70,36 +90,40 @@ angular.module('ModuleControllers', [])
 			$scope.eventSources = [];
 			$scope.uiConfig = {
 				calendar: {
-					//aspectRatio: 1.35,
-					height: $scope.data.height,
+					//height: $scope.data.height,
 					editable: true,
-					header: {
-						left: 'title',
-						center: '',
-						right: 'today prev,next agendaWeek month'
-					},
-					eventClick: $scope.alertOnEventClick,
-					eventDrop: $scope.alertOnDrop,
-					eventResize: $scope.alertOnResize,
-					eventRender: $scope.eventRender
+					header: {left: 'title', center: '', right: 'today prev,next agendaWeek month'},
+					eventClick: $scope.eventClicked
 				}
 			};
-
+			$scope.eventObject = function (mod, color) {
+				color = $c.pastel(color);
+				var contrast = $c.contrastYIQ(color);
+				var title = !Utility.empty(mod.resource) ? mod.resource.n : 'Unknown Resource';
+				return {
+					id: mod.id,
+					title: title,
+					allDay: true,
+					start: new Date(mod.sr),
+					end: new Date(mod.en),
+					stick: true,
+					color: color,
+					textColor: contrast,
+					module: mod
+				};
+			};
 			if ($scope.Modules.list == null) {
 				Utility.getResource(Modules.retrieve(), function (response) {
 					$scope.Modules.list = response.data;
 					if (!Utility.empty($scope.Modules.list)) {
 						$scope.events.splice(0, $scope.events.length);
-						for (var i = 0; i < $scope.Modules.list.length; i++) {
-							var mod = $scope.Modules.list[i];
-							$scope.events.push({
-												   id: mod.id,
-												   title: mod.resource.n,
-												   allDay: true,
-												   start: new Date(mod.sr),
-												   end: new Date(mod.en),
-												   stick: true
-											   });
+						var colors = $c.getHexSet();
+						for (var i = 0, colorIdx = 0; i < $scope.Modules.list.length; i++, colorIdx++) {
+							if (colorIdx > colors.length - 1) {
+								colorIdx = 0;
+							}
+							var color = colors[colorIdx];
+							$scope.events.push($scope.eventObject($scope.Modules.list[i], color));
 						}
 					}
 				});
