@@ -1854,6 +1854,7 @@ rzslider .rz-bar {
     color: white;
     background: #777;
     border-radius: 1em;
+    margin: 0 1em;
 }
 
 rzslider .rz-pointer:after {

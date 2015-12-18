@@ -152,12 +152,63 @@ angular.module('MemberControllers', [])
 
 	.controller(
 		'MemberViewCtrl',
-		function ($http, $rootScope, $scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $stateParams, APP_ROLES, Utility, Icons, Instruments,
+		function ($http, $rootScope, $scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $translate, $stateParams, APP_ROLES, Utility, Icons,
+				  Instruments,
 				  Organizations, Members, Messages, Assessments) {
 
 			$scope.Members = Members;
 			$scope.data = {isLoading: true, showMember: false, dirty: false, user: $cookieStore.get('user'), name: 'Member', newMessage: ''};
 			$scope.roles = $rootScope.roles;
+
+			$scope.msgPromptText = 'Enter a brief text message to send:';
+			$scope.subjectText = 'Regarding Your CQI Improvement Plan';
+			$scope.reactivationText = 'Reactivation';
+			$scope.deactivationText = 'Deactivation';
+			$scope.reactivationUCText = 'RE-ACTIVATE';
+			$scope.deactivationUCText = 'DE-ACTIVATE';
+			$scope.rmConfirmTitle = 'Assessment Deletion Confirmation';
+			$scope.rmConfirmBody = 'Are you sure you wish to PERMANENTLY remove this assessment?';
+
+			$translate($scope.msgPromptText).then(function (txt) {
+				if (!Utility.empty(txt)) {
+					$scope.msgPromptText = txt;
+				}
+			});
+			$translate($scope.subjectText).then(function (txt) {
+				if (!Utility.empty(txt)) {
+					$scope.subjectText = txt;
+				}
+			});
+			$translate($scope.reactivationText).then(function (txt) {
+				if (!Utility.empty(txt)) {
+					$scope.reactivationText = txt;
+				}
+			});
+			$translate($scope.deactivationText).then(function (txt) {
+				if (!Utility.empty(txt)) {
+					$scope.deactivationText = txt;
+				}
+			});
+			$translate($scope.deactivationUCText).then(function (txt) {
+				if (!Utility.empty(txt)) {
+					$scope.deactivationUCText = txt;
+				}
+			});
+			$translate($scope.reactivationUCText).then(function (txt) {
+				if (!Utility.empty(txt)) {
+					$scope.reactivationUCText = txt;
+				}
+			});
+			$translate($scope.rmConfirmTitle).then(function (txt) {
+				if (!Utility.empty(txt)) {
+					$scope.rmConfirmTitle = txt;
+				}
+			});
+			$translate($scope.rmConfirmBody).then(function (txt) {
+				if (!Utility.empty(txt)) {
+					$scope.rmConfirmBody = txt;
+				}
+			});
 
 			if (!Utility.empty(Members.current)) {
 				$scope.data.name = Members.current.fn + ' ' + Members.current.ln;
@@ -215,12 +266,12 @@ angular.module('MemberControllers', [])
 				}
 			};
 			$scope.sendEmail = function (member) {
-				window.location.href = 'mailto:' + member.em + '?subject=Regarding Your CQI Improvement Plan';
+				window.location.href = 'mailto:' + member.em + '?subject=' + $scope.subjectText;
 			};
 			$scope.sendText = function (member) {
 				var myPopup = $ionicPopup.show({
 												   template: '<input type="text" ng-model="data.newMessage"/>',
-												   title: 'Enter a brief text message to send:',
+												   title: $scope.msgPromptText,
 												   scope: $scope,
 												   buttons: [
 													   {text: 'Cancel'},
@@ -245,7 +296,7 @@ angular.module('MemberControllers', [])
 				});
 			};
 			$scope.remover = function (assessmentId) {
-				Utility.confirm('Assessment Deletion Confirmation', "Are you sure you wish to PERMANENTLY remove this assessment?",
+				Utility.confirm($scope.rmConfirmTitle, $scope.rmConfirmBody,
 								function () {
 									if (!Utility.empty(assessmentId)) {
 										Members.list = null; // force reload of member list
@@ -266,8 +317,8 @@ angular.module('MemberControllers', [])
 								});
 			};
 			$scope.deOrReactivate = function () {
-				var word1 = Members.current.ae ? 'Reactivation' : 'Deactivation';
-				var word2 = Members.current.ae ? 'RE-ACTIVATE' : 'DEACTIVATE';
+				var word1 = Members.current.ae ? $scope.reactivationText : $scope.deactivationText;
+				var word2 = Members.current.ae ? $scope.reactivationUCText : $scope.deactivationUCText;
 				var activate = Members.current.ae ? 1 : 0;
 				Utility.confirm('Member ' + word1, 'Are you sure you want to ' + word2 + ' this member?', function () {
 					Members.deOrReactivate(Members.current, activate, function (response) {

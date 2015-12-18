@@ -10,7 +10,7 @@
     </ion-tab>
 
     <ion-tab title="{{'People'|translate}}" icon-off="{{i.members}}" icon-on="{{i.members}}"
-             href="#/member/list" ng-if="isProfessional() == false">
+             href="#/member/list" >
     </ion-tab>
 
     <ion-tab title="{{'Assessments'|translate}}" icon-off="ion-clipboard" icon-on="ion-clipboard"
@@ -23,10 +23,6 @@
 
     <ion-tab title="{{(isAdministrator()?'Configuration':'Settings')|translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear"
              href="{{'#' + (isAdministrator()?'/administrator/configuration':'/settings/personal')}}">
-    </ion-tab>
-
-    <ion-tab title="{{'Outcomes'|translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear"
-             href="#/outcome/list" hidden="true" ng-if="isProfessional() == true" >
     </ion-tab>
 
     <ion-tab title="{{'Reports'|translate}}" icon-off="{{i.reports}}" icon-on="{{i.reports}}"

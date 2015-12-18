@@ -28,7 +28,7 @@
                     <div class="col col-33 padding">
                         <member-overview></member-overview>
                     </div>
-                    <div class="col col-67 padding" data-ng-show="!data.isLoading && Members.current.asb == 1">
+                    <div class="col col-67 padding" ng-if="!Members.current.minimal && Members.current.asb" ng-show="!data.isLoading">
                         <member-assessments></member-assessments>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                     <div class="col col-33 padding" ng-show="!data.isLoading">
                         <member-contact></member-contact>
                     </div>
-                    <div class="col col-67 padding" data-ng-show="!data.isLoading && Members.current.asb == 1">
+                    <div ng-if="!Members.current.minimal" class="col col-67 padding" data-ng-show="!data.isLoading && Members.current.asb == 1">
                         <member-events></member-events>
                     </div>
                 </div>

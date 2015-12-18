@@ -1,5 +1,12 @@
-<div>
-    <img ng-if="src" src="{{src}}" alt="{{text}}"
+<div ng-if="src.length > 0">
+    <img ng-src="{{src}}" alt="{{text}}"
          style="{{'height:auto; width:'+(size=='icon'? '40':'72') + 'px;' + (completed? '':'opacity:0.4;')}}"/>
+    <div ng-if="(size !== 'icon')">{{text}}</div>
 </div>
-<div ng-if="(size !== 'icon')">{{text}}</div>
+<table ng-if="!src" class="microBadge {{size}}">
+    <tr>
+        <td style="vertical-align: middle; height:100%;">
+            <div ng-if="size !== 'icon'"><info-badge n="text"></info-badge></div>
+        </td>
+    </tr>
+</table>

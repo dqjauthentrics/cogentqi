@@ -1,13 +1,13 @@
 <?php
 namespace Cogent\Controllers;
 
+use App\Components\Access;
 use Cogent\Components\Result;
 use Cogent\Models\Member;
-use Nette\Neon\Exception;
+use Cogent\Models\Role;
 use Phalcon\Mvc\Model\Resultset;
 
 class MemberController extends ControllerBase {
-
 	/**
 	 * List all members.
 	 *
@@ -19,6 +19,7 @@ class MemberController extends ControllerBase {
 		$result = new Result($this);
 		$data = [];
 		try {
+			$user = $this->currentUser();
 			$where = "(organization_id = :id:";
 			if (!empty($organizationId) && !empty($drilldown)) {
 				$member = new Member();
@@ -40,7 +41,12 @@ class MemberController extends ControllerBase {
 			}
 			/** @var Member $member */
 			foreach ($members as $member) {
-				$data[] = $member->map();
+				if ($user->app_role_id == Role::PROFESSIONAL) {
+					$data[] = $member->map(['minimal']);
+				}
+				else {
+					$data[] = $member->map();
+				}
 			}
 		}
 		catch (\Exception $exception) {
@@ -55,10 +61,15 @@ class MemberController extends ControllerBase {
 	public function getAction($id = NULL) {
 		$result = new Result($this);
 		try {
-			$data = [];
+			$user = $this->currentUser();
 			$member = Member::findFirst($id);
 			if (!empty($member)) {
-				$data = $member->map();
+				if ($user->app_role_id == Role::PROFESSIONAL && $id != $user->id) {
+					$data = $member->map(['minimal']);
+				}
+				else {
+					$data = $member->map();
+				}
 				if (!empty($data)) {
 					$result->setNormal($data);
 				}
@@ -82,9 +93,15 @@ class MemberController extends ControllerBase {
 	public function getProfileAction($id = NULL) {
 		$result = new Result($this);
 		try {
+			$user = $this->currentUser();
 			$member = Member::findFirst($id);
 			if (!empty($member)) {
-				$data = $member->map(['assessments' => TRUE, 'lastAssessment' => TRUE, 'badges' => TRUE, 'notes' => TRUE, 'events' => TRUE]);
+				if ($user->app_role_id == Role::PROFESSIONAL && $id != $user->id) {
+					$data = $member->map(['minimal' => TRUE]);
+				}
+				else {
+					$data = $member->map(['assessments' => TRUE, 'lastAssessment' => TRUE, 'badges' => TRUE, 'notes' => TRUE, 'events' => TRUE]);
+				}
 				if (!empty($data)) {
 					$result->setNormal($data);
 				}

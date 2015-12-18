@@ -249,6 +249,7 @@ class Member extends CogentModel {
 			}
 		}
 		else {
+			$map['minimal'] = 1; // flag to indicate we're returning minimal info, in case of permission checking
 			$map = Utility::arrayRemoveByKey('ad', $map);
 			$map = Utility::arrayRemoveByKey('cy', $map);
 			$map = Utility::arrayRemoveByKey('sp', $map);

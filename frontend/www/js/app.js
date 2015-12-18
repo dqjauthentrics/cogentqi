@@ -87,7 +87,6 @@ angular.module(
 				catch (exception) {
 					console.log(exception);
 				}
-				console.log("loading translations for " + subdomain);
 				$translateProvider.useStaticFilesLoader({prefix: '/site/' + subdomain + '/translations/locale-', suffix: '.json'});
 				$translateProvider.useSanitizeValueStrategy('sanitize');
 				$translateProvider.preferredLanguage('en_US');
