@@ -7,8 +7,7 @@ use Phalcon\Acl\Resource;
 use Phalcon\Events\Event;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\User\Plugin;
-use Cogent\Models\AppRole;
-require_once dirname(__DIR__).'/models/AppRole.php';
+use Cogent\Models\Role;
 
 /**
  * SecurityPlugin
@@ -43,14 +42,14 @@ class SecurityPlugin extends Plugin {
 		if (1 || !isset($this->persistent->acl)) {
 			$acl = new AclList();
 			$acl->setDefaultAction(Acl::DENY);
-			foreach (AppRole::$ROLES as $role) {
+			foreach (Role::$ROLES as $role) {
 				$acl->addRole($role);
 			}
 			foreach ($this->resourcePermissions as $resource => $actions) {
 				$acl->addResource(new Resource($resource), array_keys($actions));
 				foreach ($actions as $action => $roles) {
 					if ($roles === NULL) {
-						$roles = AppRole::$ROLES;
+						$roles = Role::$ROLES;
 					}
 					if (!empty($roles)) {
 						foreach ($roles as $role) {
@@ -75,7 +74,7 @@ class SecurityPlugin extends Plugin {
 	public function beforeDispatch(Event $event, Dispatcher $dispatcher) {
 		$auth = $this->session->get('auth');
 		if (!$auth) {
-			$role = AppRole::GUEST;
+			$role = Role::GUEST;
 		}
 		else {
 			$role = $auth['ari'];
