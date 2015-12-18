@@ -1,7 +1,18 @@
-<ion-view view-title="{{Members.current.fn}} {{Members.current.ln}}" cache-view="false" on-swipe-right="goToMember()" on-swipe-left="goToProgress()">
+<ion-view view-title="{{Members.current.fn}} {{Members.current.ln}}" cache-view="false" on-swipe-right="goToProfile()" on-swipe-left="goToProgress()">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content class="padding detail" has-bouncing="false">
+        <div class="iconBar">
+            <button class="button button-action" ng-click="goToProfile()">
+                <i class="{{i.member}}"></i>
+            </button>
+            <button class="button button-action" data-ng-show="Members.current.assessments.length > 0" ng-click="goToBarProgress()">
+                <i class="{{i.barChart}}"></i>
+            </button>
+            <button class="button button-action" data-ng-show="Members.current.assessments.length > 0" ng-click="goToProgress()">
+                <i class="{{i.reports}}"></i>
+            </button>
+        </div>
         <div class="row responsive-sm">
             <div class="col col-50 padding panel">
                 <h3>{{'Notes for'|translate}} {{Members.current.fn}}</h3>

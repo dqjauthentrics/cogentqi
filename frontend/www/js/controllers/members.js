@@ -33,8 +33,8 @@ angular.module('MemberControllers', [])
 			$scope.goToProgress = function () {
 				$location.url("/member/progress/" + $stateParams.memberId);
 			};
-			$scope.goToMember = function () {
-				$location.url("/member/" + $stateParams.memberId);
+			$scope.goToProfile = function () {
+				$location.url("/member/view/" + $stateParams.memberId);
 			};
 			$scope.remove = function (note) {
 				Utility.confirm('Note Removal', 'Are you sure you want to delete this note?', function () {
@@ -118,14 +118,17 @@ angular.module('MemberControllers', [])
 				var elName = '#memberHx_' + sectionId;
 				$ionicScrollDelegate.$getByHandle(elName).scrollTo(100, 100, true);
 			};
+			$scope.goToBarProgress = function () {
+				$location.url("/member/barProgress/" + $stateParams.memberId);
+			};
 			$scope.goToProgress = function () {
 				$location.url("/member/progress/" + $stateParams.memberId);
 			};
 			$scope.goToNotes = function () {
 				$location.url("/member/notes/" + $stateParams.memberId);
 			};
-			$scope.goToMember = function () {
-				$location.url("/member/" + $stateParams.memberId);
+			$scope.goToProfile = function () {
+				$location.url("/member/view/" + $stateParams.memberId);
 			};
 			$scope.getMember = function () {
 				if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
@@ -152,9 +155,8 @@ angular.module('MemberControllers', [])
 
 	.controller(
 		'MemberViewCtrl',
-		function ($http, $rootScope, $scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $translate, $stateParams, APP_ROLES, Utility, Icons,
-				  Instruments,
-				  Organizations, Members, Messages, Assessments) {
+		function ($http, $rootScope, $scope, $filter, $cookieStore, $ionicPopup, $location, $ionicLoading, $translate, $stateParams, APP_ROLES,
+				  Utility, Icons, Instruments, Organizations, Members, Messages, Assessments) {
 
 			$scope.Members = Members;
 			$scope.data = {isLoading: true, showMember: false, dirty: false, user: $cookieStore.get('user'), name: 'Member', newMessage: ''};
@@ -214,7 +216,7 @@ angular.module('MemberControllers', [])
 				$scope.data.name = Members.current.fn + ' ' + Members.current.ln;
 			}
 			if (!Utility.empty($stateParams) && !Utility.empty($stateParams.memberId)) {
-				if (Members.current == null || Members.current.id != $stateParams.memberId) {
+				if ($scope.Members.current == null || $scope.Members.current.id != $stateParams.memberId) {
 					$scope.data.isLoading = true;
 					Utility.getResource(Members.retrieveSingle($stateParams.memberId), function (response) {
 						if (response.status == 1) {
@@ -246,7 +248,7 @@ angular.module('MemberControllers', [])
 			$scope.save = function () {
 				Members.saveProfile(Members.current, function (response) {
 					Utility.statusAlert(response);
-					Members.list = null; // force reload of list
+					$scope.Members.list = null; // force reload of list
 				});
 				$scope.data.dirty = false;
 			};
@@ -336,7 +338,8 @@ angular.module('MemberControllers', [])
 
 	.controller(
 		'MemberProgressCtrl',
-		function ($scope, $stateParams, Utility, Instruments, Organizations, Assessments) {
+		function ($scope, $location, $stateParams, Utility, Instruments, Organizations, Members, Assessments) {
+			$scope.Members = Members;
 			$scope.data = {
 				chart: null,
 				currentSeries: 0,
@@ -345,10 +348,6 @@ angular.module('MemberControllers', [])
 					chart: {type: 'line'},
 					title: {text: 'Competency Progress Analysis', x: -20},
 					subtitle: {text: 'Evaluation', x: -20},
-					tooltip: {
-						formatter: function () {
-						}
-					},
 					xAxis: {categories: []},
 					yAxis: [
 						{min: 0, title: {text: 'Average Rank'}, plotLines: [{value: 0, width: 1, color: '#808080'}]},
@@ -366,10 +365,6 @@ angular.module('MemberControllers', [])
 					chart: {type: 'line'},
 					title: {text: 'Competency Progress Analysis', x: -20},
 					subtitle: {text: 'Evaluation', x: -20},
-					tooltip: {
-						formatter: function () {
-						}
-					},
 					xAxis: {categories: []},
 					yAxis: [
 						{min: 0, title: {text: 'Average Rank'}, plotLines: [{value: 0, width: 1, color: '#808080'}]},
@@ -387,11 +382,6 @@ angular.module('MemberControllers', [])
 					chart: {type: 'line'},
 					title: {text: 'Competency Progress Analysis', x: -20},
 					subtitle: {text: 'Evaluation', x: -20},
-					tooltip: {
-						formatter: function () {
-							return 'HERE';
-						}
-					},
 					xAxis: {categories: []},
 					yAxis: [
 						{min: 0, title: {text: 'Average Rank'}, plotLines: [{value: 0, width: 1, color: '#808080'}]},
@@ -447,6 +437,15 @@ angular.module('MemberControllers', [])
 			$scope.goToBarProgress = function () {
 				$location.url("/member/barProgress/" + $stateParams.memberId);
 			};
+			$scope.goToProgress = function () {
+				$location.url("/member/progress/" + $stateParams.memberId);
+			};
+			$scope.goToNotes = function () {
+				$location.url("/member/notes/" + $stateParams.memberId);
+			};
+			$scope.goToProfile = function () {
+				$location.url("/member/view/" + $stateParams.memberId);
+			};
 			$scope.toggleProgress = function () {
 				if ($scope.data.currentSeries == 0) {
 					$scope.data.rptConfig = $scope.data.rptConfig1;
@@ -462,12 +461,13 @@ angular.module('MemberControllers', [])
 
 	.controller(
 		'MemberListCtrl',
-		function ($scope, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Members) {
+		function ($rootScope, $scope, $ionicPopup, $location, $ionicLoading, $stateParams, Utility, Icons, Members) {
 			$scope.Members = Members;
 			$scope.data = {isLoading: true, searchFilter: null, showIncludeInactive: true, includeInactive: false};
 
 			$scope.getMembers = function () {
-				Utility.getResource(Members.retrieve($scope.data.includeInactive), function (response) {
+				var drilldown = $rootScope.isAdministrator();
+				Utility.getResource(Members.retrieve($scope.data.includeInactive, drilldown), function (response) {
 					$scope.Members.list = response.data;
 					$scope.data.isLoading = false;
 				});

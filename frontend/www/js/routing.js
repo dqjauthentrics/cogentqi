@@ -110,6 +110,9 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('outcomeOrganization', {
 			url: '/outcome/organization', templateUrl: 'templates/outcome/organizationOutcomes.html', controller: 'OutcomeOrganizationCtrl'
 		})
+		.state('outcomeList', {
+			url: '/outcome/list', templateUrl: 'templates/outcome/list.html', controller: 'OutcomeListCtrl'
+		})
 		.state('outcomeAlignments', {
 			url: '/outcome/alignments', templateUrl: 'templates/outcome/alignments.html', controller: 'OutcomeAlignmentsCtrl'
 		})

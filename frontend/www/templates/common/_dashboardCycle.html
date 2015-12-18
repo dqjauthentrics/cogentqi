@@ -1,7 +1,7 @@
 <table class="cycle">
     <tr>
         <td style="text-align:left; vertical-align: middle !important; padding-top:2em;">
-            <div style="float:left; margin-top:-7.6em; font-size: 0.5em; line-height:1em; text-align: left;">
+            <div style="float:left; margin-top:-5.6em; font-size: 0.5em; line-height:1em; text-align: left;">
                 <div class="dashName">{{data.user.fn}} {{data.user.ln}}</div>
                 <div class="dashJob">{{data.user.jt}}</div>
                 <div class="dashRole" data-ng-show="data.user.rn != data.user.jt">({{data.user.rn}})</div>
@@ -9,7 +9,7 @@
             <a style="margin-left:1.5em;" href="#/assessment/matrix">{{'Assessment'|translate}}</a>
         </td>
         <td style="text-align:center; vertical-align: bottom !important;">
-            <a style="margin-left:-1em;" href="#/outcome/organization">{{'Outcomes'|translate}}</a>
+            <a style="margin-left:-1em;" href="{{'#/outcome/' + (isAdministrator()? 'organization':'list')}}">{{'Outcomes'|translate}}</a>
         </td>
     </tr>
     <tr>
@@ -22,7 +22,7 @@
     <tr>
         <td style="text-align:left; vertical-align: top !important;">
             <div style="margin-left:1.0em;">
-                <a href="{{'#/' + (data.ari=='administrator'? data.ari+'/progress':'resource/list')}}"
+                <a href="{{'#/' + (isAdministrator()? data.ari+'/progress':'resource/list')}}"
                    ng-bind-html="'Professional Development'|translate|replace:' ':'<br/>'"></a>
             </div>
         </td>

@@ -419,10 +419,6 @@ ion-item .stamp {
     padding: 0.8em;
 }
 
-ion-content {
-    padding: 1em;
-}
-
 div.poweredBy a, .cycle a {
     color: #066eb7 !important;
 }
@@ -457,6 +453,15 @@ table.cycle {
     text-align: center;
     vertical-align: middle;
     color: #336699;
+}
+
+.paddedView {
+    padding: 1em 0 0 2.5em;
+}
+
+.paddedView h1 {
+    float: left;
+    margin-right: 0.5em;
 }
 
 .recommendationRanking {

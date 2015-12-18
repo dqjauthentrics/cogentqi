@@ -1,26 +1,34 @@
 <ion-view view-title="{{installation.name}}" cache-view="false">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
-    <ion-content has-bouncing="false" overflow-scroll="true" style="margin-top:2em;">
-        <div class="row responsive-lg">
-            <div class="col col-25" ng-show="data.organizations.length > 1">
-                <ion-list>
-                    <ion-item class="top">{{user.organization.name}}</ion-item>
-                    <ion-item ng-class="isCurrent(organization)? 'active':''" class="item-icon-right" ng-repeat="organization in data.organizations"
-                              type="item-text-wrap"
-                              ng-click="setCurrentOrg(organization)">
-                        <i class="{{i.organization}}"></i> {{organization.n}}
-                        <i style="color:black;" class="icon ion-chevron-right icon-accessory" data-ng-show="isCurrent(organization)"></i>
-                    </ion-item>
-                </ion-list>
+    <ion-content has-bouncing="false" overflow-scroll="true">
+        <page-loader i="i" loading="data.isLoading"></page-loader>
+        <div class="paddedView">
+            <h1>{{'Organization Outcome Levels'|translate}}</h1>
+            <div class="iconBar">
+                <button class="button button-action button-save {{data.dirty?'button-dirty':''}}" ng-click="save()"><i class="{{i.save}}"></i></button>
             </div>
-            <div class="col" ng-class="(data.organizations.length > 1? 'col-75':'')">
-                <ion-list>
-                    <ion-item class="top">{{data.currentOrg.n}}</ion-item>
-                    <ion-item ng-repeat="outcome in Outcomes.list track by $index" style="white-space: normal;">
-                        <outcome-item-table></outcome-item-table>
-                    </ion-item>
-                </ion-list>
+            <div class="clearfix"></div>
+            <div class="row responsive-md">
+                <div class="col col-25">
+                    <ion-list>
+                        <ion-item class="top">{{data.parentOrg.n}}</ion-item>
+                        <ion-item ng-class="isCurrent(organization)? 'active':''" class="item-icon-right" ng-repeat="organization in data.organizations"
+                                  type="item-text-wrap"
+                                  ng-click="setCurrentOrg(organization)">
+                            <i class="{{i.organization}}"></i> {{organization.n}}
+                            <i style="color:black;" class="icon ion-chevron-right icon-accessory" data-ng-show="isCurrent(organization)"></i>
+                        </ion-item>
+                    </ion-list>
+                </div>
+                <div class="col">
+                    <ion-list>
+                        <ion-item class="top">{{data.currentOrg.n}}</ion-item>
+                        <ion-item ng-repeat="outcome in Outcomes.list track by $index" ng-if="($index > 0)" style="white-space: normal;">
+                            <outcome-item-table></outcome-item-table>
+                        </ion-item>
+                    </ion-list>
+                </div>
             </div>
         </div>
     </ion-content>

@@ -3,22 +3,16 @@
     <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
         <page-loader i="i" loading="data.isLoading"></page-loader>
-        <div class="row responsive-lg">
-            <div class="col col-10"></div>
-            <div class="col card">
-                <ion-list id="assessments">
-                    <ion-item class="top">
-                        <list-searcher></list-searcher>
-                    </ion-item>
-                    <ion-item class="item-remove-animate item-icon-right" ng-repeat="assessment in filtered=(Assessments.list|filter:assessmentFilter)"
-                              type="item-text-wrap" href="#/assessment/view/{{assessment.id}}">
-                        <assessment-item i="i" assessment="assessment" site="siteDir()" show-member="true"></assessment-item>
-                        <i class="icon ion-chevron-right icon-accessory"></i>
-                    </ion-item>
-                </ion-list>
-            </div>
-            <div class="col col-10"></div>
-        </div>
+        <ion-list id="assessments">
+            <ion-item class="top">
+                <list-searcher></list-searcher>
+            </ion-item>
+            <ion-item class="item-remove-animate item-icon-right" ng-repeat="assessment in filtered=(Assessments.list|filter:assessmentFilter)"
+                      type="item-text-wrap" href="#/assessment/view/{{assessment.id}}">
+                <assessment-item i="i" assessment="assessment" site="siteDir()" show-member="true"></assessment-item>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+        </ion-list>
     </ion-content>
     <ng-include src="'/templates/common/tabs.html'"></ng-include>
 </ion-view>

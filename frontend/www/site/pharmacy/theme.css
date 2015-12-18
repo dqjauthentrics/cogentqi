@@ -2,6 +2,10 @@
     background-color: #1b5123 !important;
 }
 
+.bar.bar-assertive, .assertive {
+    border: none;
+}
+
 .cycle a {
     color: #444 !important;
 }

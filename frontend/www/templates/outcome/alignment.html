@@ -28,7 +28,7 @@
                     <ion-item class="item-icon-right" ng-repeat="question in data.currentInstrument.questions" type="item-text-wrap">
                         <div class="name">{{question.n}}</div>
                         <div style="float:right; width: 10em; margin: 1em 0.5em;">
-                            <div class="phrase">{{alignmentLevelPhrase(data.alignments[question.id])|translate}}</div>
+                            <div class="phrase">{{Outcomes.alignmentLevelPhrase(data.alignments[question.id])|translate}}</div>
                             <div class="item range range-positive" style="background:{{(data.alignments[question.id]>0? '#F0F8FF':'#FFF')}};">
                                 <input type="range" name="volume" min="0" max="3" data-ng-bind="data.alignments[question.id]"
                                        data-ng-model="data.alignments[question.id]" data-ng-change="data.dirty = true"/>

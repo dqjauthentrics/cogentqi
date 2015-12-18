@@ -8,10 +8,27 @@
         <div class="role">{{assessment.member.rn}}</div>
     </div>
     <div class="col">
-        <a href="#/assessment/view/{{assessment.id}}">
-            <span data-ng-show="prefix">{{prefix}}, </span>
-            <span class="name">{{assessment.instrument.n}}, {{assessment.schedule.n}}</span>
-            {{assessment.lm|date:'EEE'}}, {{assessment.lm|date:'short'}}</a>
+        <table>
+            <tr>
+                <td style="vertical-align: top; padding-right:0.5em;">
+                    <div style="text-align:center;" data-ng-class="'matrixFg ' + (assessment.typ == 'NAYesNo'?'yesNoFg':'levelFg') + assessment.rk">
+                        <div data-ng-switch="assessment.es">
+                            <div data-ng-switch-when="L"><i class="{{i.locked}}"></i></div>
+                            <div data-ng-switch-when="A"><i class="{{i.active}}"></i></div>
+                            <div data-ng-switch-when="C"><i class="{{i.completed}}"></i></div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div style="float:left;">
+                        <a href="#/assessment/view/{{assessment.id}}">
+                            <span data-ng-show="prefix">{{prefix}}, </span>
+                            <span class="name">{{assessment.instrument.n}}, {{assessment.schedule.n}}</span>
+                            {{assessment.lm|date:'EEE'}}, {{assessment.lm|date:'short'}}</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
     <div class="col col-40" data-ng-show="assessment.assessor">
         by {{assessment.assessor.fn}} {{assessment.assessor.ln}}
@@ -20,18 +37,5 @@
              alt="{{assessment.assessor.fn}} {{assessment.assessor.ln}}" err-src="{{site}}/avatars/genericUser.png"/>
 
         <div class="role">{{assessment.assessor.rn}}</div>
-    </div>
-    <div class="col padding col-10" style="text-align: center;">
-         <div style="width:2em;">
-            <div style="text-align:center;"
-                 data-ng-class="'matrixFg ' + (assessment.typ == 'NAYesNo'?'yesNoFg':'levelFg') + assessment.rk"
-            >
-                <div data-ng-switch="assessment.es">
-                    <div data-ng-switch-when="L"><i class="{{i.locked}}"></i></div>
-                    <div data-ng-switch-when="A"><i class="{{i.active}}"></i></div>
-                    <div data-ng-switch-when="C"><i class="{{i.completed}}"></i></div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>

@@ -1,29 +1,29 @@
 <div class="outcomeItemTable">
     <div>
         <div>
-            <span class="outcomeLevel{{data.currentOrg.lv[$index]}}"><i class="{{i.outcome}} fa-lg fa-2x"></i></span>
+            <span class="outcomeLevel{{data.currentOrg.lv[$index][1]}}"><i class="{{i.outcome}} fa-lg fa-2x"></i></span>
         </div>
         <div class="name">
             {{outcome.nmb}} {{outcome.n}}
             <div class="summary">{{outcome.sm}}</div>
             <div class="rubricWrap">
-                <div class="outcomeLevel outcomeLevelBg{{data.currentOrg.lv[$index]}}">
-                    {{getRubric(data.currentOrg.lv[$index])|translate}}
+                <div class="outcomeLevel outcomeLevelBg{{data.currentOrg.lv[$index][1]}}">
+                    {{Outcomes.getRubric(data.currentOrg.lv[$index][1])|translate}}
                 </div>
             </div>
-            <div class="outcomeMethod" data-ng-bind="methodMessage(outcome.mth)|translate"></div>
+            <div class="outcomeMethod" data-ng-bind="Outcomes.methodMessage(outcome.mth)|translate"></div>
         </div>
         <div style="width:25%;">
-            <div class="outcomeLevel{{data.currentOrg.lv[$index]}} phrase">{{outcomeLevelPhrase(data.currentOrg.lv[$index])|translate}}</div>
+             <div class="outcomeLevel{{data.currentOrg.lv[$index][1]}} phrase">{{Outcomes.outcomeLevelPhrase(data.currentOrg.lv[$index][1])|translate}}</div>
             <div id="range{{outcome.id}}"
-                 class="item range {{getBarColor(outcome, data.currentOrg)}} {{outcome.mth == 'D'? 'disabled':''}}">
-                <input type="range" name="outcomeLevel" min="0" max="3" data-ng-bind="data.currentOrg.lv[$index]"
-                       data-ng-model="data.currentOrg.lv[$index]" data-ng-change="getBarColor(outcome, data.currentOrg)"
+                 class="item range {{Outcomes.getBarColor(outcome, data.currentOrg)}} {{outcome.mth == 'D'? 'disabled':''}}">
+                <input type="range" name="outcomeLevel" min="0" max="3" data-ng-bind="data.currentOrg.lv[$index][1]"
+                       data-ng-model="data.currentOrg.lv[$index][1]" ng-change="changed(outcome)"
                        data-ng-disabled="outcome.mth =='D'"
                         />
 
                 <div class="clearfix"></div>
-                <div><span class="phrase outcomeLevel{{data.currentOrg.lv[$index]}}">{{data.currentOrg.lv[$index]|translate}}</span></div>
+                <div><span class="phrase outcomeLevel{{data.currentOrg.lv[$index][1]}}">{{data.currentOrg.lv[$index][1]|translate}}</span></div>
             </div>
         </div>
     </div>
