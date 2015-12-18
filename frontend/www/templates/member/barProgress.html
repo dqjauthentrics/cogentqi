@@ -21,7 +21,7 @@
             <a class="button" style="float:left !important; margin: 1em;" ng-click="scrollTo(section.id)">{{section.n}}</a>
         </div-->
         <div class="clearfix"></div>
-        <div ng-if="!data.isLoading" style="border: 1px solid gray; margin:0 2em 2em 2em;" data-ng-repeat="section in Instruments.current.sections track by $index">
+        <div ng-hide="data.isLoading" style="border: 1px solid gray; margin:0 2em 2em 2em;" data-ng-repeat="section in Instruments.current.sections track by $index">
             <highchart id="memberHx_{{section.id}}" config="data.rptConfigHx[$index].config"></highchart>
         </div>
     </ion-content>

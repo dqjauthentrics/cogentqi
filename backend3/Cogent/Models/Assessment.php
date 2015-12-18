@@ -208,6 +208,9 @@ class Assessment extends CogentModel {
 			}
 			foreach ($responses as $response) { // order needed on question order
 				$map['responses'][$response->question_id] = $response->map();
+				if (empty($map['responses'][$response->question_id]['rdx'])) {
+					$map['responses'][$response->question_id]['rdx'] = 0;
+				}
 			}
 		}
 		$map['typ'] = $this->getInstrument()->getQuestionType()->name;

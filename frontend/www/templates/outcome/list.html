@@ -7,7 +7,7 @@
             <button class="button button-action button-save {{data.dirty?'button-dirty':''}}" ng-click="save()"><i class="{{i.save}}"></i></button>
         </div>
         <div class="clearfix"></div>
-        <ion-list>
+        <ion-list type="card">
             <ion-item class="top">{{data.currentOrg.n}}</ion-item>
             <ion-item ng-repeat="outcome in Outcomes.list track by $index" style="white-space: normal;">
                 <outcome-item-table></outcome-item-table>

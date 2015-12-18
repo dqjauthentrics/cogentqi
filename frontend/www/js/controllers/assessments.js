@@ -126,7 +126,7 @@ angular.module('AssessmentControllers', [])
 				currentChoices: null,
 				recommendationsTitle: 'Recommended Modules'
 			};
-			$scope.responses = [];
+			$scope.responses = !Utility.empty($scope.Assessments.current)? $scope.Assessments.current.responses : [];
 
 			$scope.response = function (questionId) {
 				if (!Utility.empty($scope.responses)) {

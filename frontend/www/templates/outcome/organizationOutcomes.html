@@ -24,7 +24,7 @@
                 <div class="col">
                     <ion-list>
                         <ion-item class="top">{{data.currentOrg.n}}</ion-item>
-                        <ion-item ng-repeat="outcome in Outcomes.list track by $index" ng-if="($index > 0)" style="white-space: normal;">
+                        <ion-item ng-repeat="outcome in Outcomes.list track by $index" ng-show="($index > 0)" style="white-space: normal;">
                             <outcome-item-table></outcome-item-table>
                         </ion-item>
                     </ion-list>

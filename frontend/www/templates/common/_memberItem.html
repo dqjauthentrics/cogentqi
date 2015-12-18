@@ -8,11 +8,11 @@
             <div class="itemInactiveText" ng-show="member.ae">{{'Inactive as of:'|translate}} {{member.ae|date}}</div>
         </div>
     </div>
-    <div class="col col-25" ng-if="member.badges.length > 0">
+    <div class="col col-25" ng-show="member.badges.length > 0">
         <micro-badge text="member.badges.length + ''" size="'count'"></micro-badge>
     </div>
     <div class="col col-50">
-        <div data-ng-show="member.lastAssessment.lm">
+        <div ng-show="member.lastAssessment.lm">
             <assessment-item site="siteDir()" prefix="'Last Assessment'|translate" assessment="member.lastAssessment" i="i"></assessment-item>
         </div>
     </div>

@@ -1,0 +1,27 @@
+<ion-tabs class="tabs-icon-top tabs-assertive customerBg">
+
+    <ion-tab title="{{'Dashboard'|translate}}" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong"
+             href="{{dashboardUrl()}}">
+    </ion-tab>
+
+    <ion-tab title="{{'People'|translate}}" icon-off="{{i.members}}" icon-on="{{i.members}}"
+             href="#/member/list">
+    </ion-tab>
+
+    <ion-tab title="{{'Assessments'|translate}}" icon-off="ion-clipboard" icon-on="ion-clipboard"
+             href="#/assessment/list">
+    </ion-tab>
+
+    <ion-tab title="{{'Resources'|translate}}" icon-off="ion-university" icon-on="ion-university"
+             href="#/resource/list">
+    </ion-tab>
+
+    <ion-tab title="{{'Settings'|translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear"
+             href="'/settings/personal'">
+    </ion-tab>
+
+    <ion-tab title="Help" icon-off="{{i.helpOff}}" icon-on="{{i.helpOn}}"
+             href="#/help/index">
+    </ion-tab>
+
+</ion-tabs>

@@ -6,9 +6,7 @@
             <ion-item class="top">
                 <list-searcher></list-searcher>
             </ion-item>
-            <ion-item class="item-icon-right" data-ng-repeat="item in filtered = (data.items|filter:data.searchFilter)"
-                      href="#/help/view/{{item.id}}"
-            >
+            <ion-item class="item-icon-right" data-ng-repeat="item in filtered = (data.items|filter:data.searchFilter)" href="#/help/view/{{item.id}}">
                 <div class="name">{{item.title}}</div>
                 <div class="teaser">{{item.teaser}}</div>
                 <i class="icon ion-chevron-right icon-accessory"></i>
