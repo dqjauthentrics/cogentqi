@@ -112,7 +112,9 @@ angular.module('ModuleControllers', [])
 					module: mod
 				};
 			};
-			if ($scope.Modules.list == null) {
+
+
+			//if ($scope.Modules.list == null) {
 				Utility.getResource(Modules.retrieve(), function (response) {
 					$scope.Modules.list = response.data;
 					if (!Utility.empty($scope.Modules.list)) {
@@ -127,7 +129,7 @@ angular.module('ModuleControllers', [])
 						}
 					}
 				});
-			}
+			//}
 			$scope.eventSources = [$scope.events];
 		})
 ;
