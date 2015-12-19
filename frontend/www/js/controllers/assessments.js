@@ -89,6 +89,7 @@ angular.module('AssessmentControllers', [])
 				}
 				return cClass;
 			};
+
 			$scope.getCellClass = function (response) {
 				var cClass = ' type' + response[0];
 				cClass += ' section' + response[3];
@@ -171,6 +172,17 @@ angular.module('AssessmentControllers', [])
 					$scope.data.recommendations =
 						Assessments.recommend($scope.Assessments.current.instrument, $scope.Resources.list, $scope.responses);
 				}
+			};
+			$scope.getRubricClass = function (response) {
+				var cClass = '';
+				try {
+					var stylePrefix = Assessments.current.instrument.questionChoices[response].iconPrefix;
+					cClass = 'rubric' + stylePrefix + response;
+				}
+				catch (exception) {
+					console.log(exception);
+				}
+				return cClass;
 			};
 
 			$scope.updateResponse = function (question, value) {

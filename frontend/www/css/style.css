@@ -637,22 +637,22 @@ table.microBadgeHolder {
     color: #FFF;
 }
 
-.level3Bg0 {
+.level3Bg0, .rubriclevel3Bg0 {
     background: #AAA;
     color: #FFF;
 }
 
-.level3Bg1 {
+.level3Bg1, .rubriclevel3Bg1 {
     background: #BB4444;
     color: #FFF;
 }
 
-.level3Bg2 {
+.level3Bg2, .rubriclevel3Bg2 {
     background: #7799EE;
     color: #FFF;
 }
 
-.level3Bg3 {
+.level3Bg3, .rubriclevel3Bg3 {
     background: #6A8;
     color: #FFF;
 }
@@ -1825,32 +1825,32 @@ list-searcher {
     color: #FFF;
 }
 
-.rubric0 {
+.rubriclevelBg0 {
     background: gray;
     color: #FFF;
 }
 
-.rubric1 {
+.rubriclevelBg1 {
     background: #BB4444;
     color: #FFF;
 }
 
-.rubric2 {
+.rubriclevelBg2 {
     background: #EE7A00;
     color: #FFF;
 }
 
-.rubric3 {
+.rubriclevelBg3 {
     background: #68A;
     color: #FFF;
 }
 
-.rubric4 {
+.rubriclevelBg4 {
     background: #6A8;
     color: #FFF;
 }
 
-.rubric5 {
+.rubriclevelBg5 {
     background: #C000C0;
     color: #DDD;
 }
