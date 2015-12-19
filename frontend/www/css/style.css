@@ -637,6 +637,26 @@ table.microBadgeHolder {
     color: #FFF;
 }
 
+.level3Bg0 {
+    background: #AAA;
+    color: #FFF;
+}
+
+.level3Bg1 {
+    background: #BB4444;
+    color: #FFF;
+}
+
+.level3Bg2 {
+    background: #7799EE;
+    color: #FFF;
+}
+
+.level3Bg3 {
+    background: #6A8;
+    color: #FFF;
+}
+
 .levelColor0 {
     color: #AAA;
 }

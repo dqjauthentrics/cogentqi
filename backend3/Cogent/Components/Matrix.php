@@ -1,11 +1,12 @@
 <?php
 namespace Cogent\Components;
 
-use Cogent\Models\Member;
 use Cogent\Models\Assessment;
 use Cogent\Models\AssessmentResponse;
+use Cogent\Models\Instrument;
 use Cogent\Models\Organization;
 use Cogent\Models\Question;
+use Cogent\Models\QuestionChoice;
 use Cogent\Models\QuestionGroup;
 
 /**
@@ -225,12 +226,13 @@ class Matrix {
 	 * @param int    $colIdx
 	 * @param int    $groupIdx
 	 */
-	private function addMatrixSection($sections, &$columns, &$responses, $typeId, $lastGroupId, $colIdx, $groupIdx) {
+	private function addMatrixSection($sections, $choices, &$columns, &$responses, $typeId, $lastGroupId, $colIdx, $groupIdx) {
 		if (empty($sections[$lastGroupId])) {
 			$sections[$lastGroupId] = ['typeName' => $typeId, 'total' => 0, 'count' => 0, 'groupIdx' => $groupIdx - 1];
 		}
 		$sectAvg = $this->avg($sections[$lastGroupId]["total"], $sections[$lastGroupId]["count"]);
-		$responses[] = ['S', $sectAvg, $sections[$lastGroupId]["typeName"], $groupIdx - 1];
+		$choiceStyle = $this->getChoiceStylePrefix($sectAvg, $choices);
+		$responses[] = ['S', $sectAvg, $sections[$lastGroupId]["typeName"], $groupIdx - 1, $choiceStyle];
 		if (empty($columns[$colIdx])) {
 			$columns[$colIdx] = ['typeName' => $typeId, 'total' => 0, 'count' => 0];
 		}
@@ -238,6 +240,40 @@ class Matrix {
 		$columns[$colIdx]["count"]++;
 		$columns[$colIdx]["groupIdx"] = $groupIdx;
 		$columns[$colIdx]["t"] = 'S';
+	}
+
+	/**
+	 * @param int|double $val
+	 * @param string[]   $choices
+	 *
+	 * @return string
+	 */
+	private function getChoiceStylePrefix($val, $choices) {
+		$val = (int)round($val);
+		return !empty($choices[$val]) ? $choices[$val] : '';
+	}
+
+	/**
+	 * @param $instrumentId
+	 *
+	 * @return array
+	 */
+	private function getInstrumentChoices($instrumentId) {
+		$choices = [];
+		$instrument = Instrument::findFirst($instrumentId);
+		if (!empty($instrument)) {
+			$choiceRecords = QuestionChoice::find([
+				'conditions' => 'question_type_id=:qtid:',
+				'bind'       => ['qtid' => $instrument->question_type_id],
+				'order'      => 'sort_order'
+			]);
+			if (!empty($choiceRecords)) {
+				foreach ($choiceRecords as $choiceRecord) {
+					$choices[] = $choiceRecord->icon_prefix; //@todo Rename column to 'style'
+				}
+			}
+		}
+		return $choices;
 	}
 
 	/**
@@ -263,6 +299,7 @@ class Matrix {
 				$matrix = ['total' => 0, 'count' => 0, 'typeName' => NULL];
 				$groupIdx = 0;
 				$typeId = '';
+				$choices = $this->getInstrumentChoices($instrumentId);
 				$groupIds = [];
 				$groups = QuestionGroup::find(['conditions' => 'instrument_id=:id:', 'order' => 'sort_order', 'bind' => ['id' => $instrumentId]]);
 				foreach ($groups as $group) {
@@ -293,7 +330,7 @@ class Matrix {
 							$response = !empty($memberResponsesKeyed[$question->id]) ? $memberResponsesKeyed[$question->id]->response_index : 0;
 							if (empty($sections[$groupId])) {
 								if (!empty($lastGroupId)) {
-									$this->addMatrixSection($sections, $columns, $responses, $typeId, $lastGroupId, $colIdx, $groupIdx);
+									$this->addMatrixSection($sections, $choices, $columns, $responses, $typeId, $lastGroupId, $colIdx, $groupIdx);
 									$colIdx++;
 								}
 								$sections[$groupId] = ['typeName' => $typeId, 'total' => 0, 'count' => 0, 'groupIdx' => $groupIdx - 1];
@@ -306,7 +343,8 @@ class Matrix {
 							if (empty($row['typeName'])) {
 								$row['typeName'] = $typeId;
 							}
-							$responses[] = ['V', $response, $typeId, $groupIdx - 1];
+							$choiceStyle = $this->getChoiceStylePrefix($response, $choices);
+							$responses[] = ['V', $response, $typeId, $groupIdx - 1, $choiceStyle];
 
 							$matrix['total'] += $response;
 							$matrix['count']++;
@@ -328,8 +366,10 @@ class Matrix {
 							$colIdx++;
 							$recordIdx++;
 						}
-						$this->addMatrixSection($sections, $columns, $responses, $typeId, $lastGroupId, $colIdx, $groupIdx);
-						$responses[] = ['R', $this->avg($row['total'], $row['count']), $row['typeName'], $groupIdx];
+						$this->addMatrixSection($sections, $choices, $columns, $responses, $typeId, $lastGroupId, $colIdx, $groupIdx);
+						$rowAvg = $this->avg($row['total'], $row['count']);
+						$choiceStyle = $this->getChoiceStylePrefix($rowAvg, $choices);
+						$responses[] = ['R', $rowAvg, $row['typeName'], $groupIdx, $choiceStyle];
 						$tableRowValues[] = [
 							'aid' => $assessmentId,
 							'mid' => $memberId,
@@ -344,19 +384,14 @@ class Matrix {
 				}
 				$columnSummaries = [];
 				foreach ($columns as $colIdx => $info) {
-					$columnSummaries[] = [
-						'C' . @$columns[$colIdx]['t'],
-						$this->avg($columns[$colIdx]["total"], $columns[$colIdx]["count"]),
-						$columns[$colIdx]["typeName"],
-						$columns[$colIdx]["groupIdx"] - 1
-					];
+					$cAvg = $this->avg($columns[$colIdx]["total"], $columns[$colIdx]["count"]);
+					$choiceStyle = $this->getChoiceStylePrefix($cAvg, $choices);
+					$columnSummaries[] = ['C' . @$columns[$colIdx]['t'], $cAvg, $columns[$colIdx]["typeName"], $columns[$colIdx]["groupIdx"] - 1, $choiceStyle];
 				}
-				$columnSummaries[] = ['RC', $this->avg($matrix["total"], $matrix["count"]), $matrix["typeName"], $groupIdx];
-				$tableRowValues[] = [
-					'mid' => -1,
-					'n'   => 'Averages',
-					'rsp' => $columnSummaries,
-				];
+				$rcAvg = $this->avg($matrix["total"], $matrix["count"]);
+				$choiceStyle = $this->getChoiceStylePrefix($rcAvg, $choices);
+				$columnSummaries[] = ['RC', $rcAvg, $matrix["typeName"], $groupIdx, $choiceStyle];
+				$tableRowValues[] = ['mid' => -1, 'n' => 'Averages', 'rsp' => $columnSummaries];
 			}
 		}
 		catch (\Exception $exception) {
@@ -373,6 +408,7 @@ class Matrix {
 		$tableRowValues = [];
 		$instrumentId = (int)$instrumentId;
 		$organizationId = (int)$organizationId;
+		$choices = $this->getInstrumentChoices($instrumentId);
 
 		$row = $this->dbif->query("SELECT retrieveOrgDescendantIds($organizationId) AS orgIds")->fetch();
 		$orgIds = $row["orgIds"];
@@ -406,7 +442,7 @@ class Matrix {
 				$response = $dbRecord["response"];
 				if (empty($responses[$orgId])) {
 					if (!empty($lastOrgId)) {
-						$this->addMatrixSection($sections[$lastOrgId], $columns, $responses[$lastOrgId], $typeId, $lastGroupId, $colIdx, $groupIdx);
+						$this->addMatrixSection($sections[$lastOrgId], $choices, $columns, $responses[$lastOrgId], $typeId, $lastGroupId, $colIdx, $groupIdx);
 						$responses[$lastOrgId][] = ['R', $this->avg($row['total'], $row['count']), $row['typeName'], $groupIdx];
 					}
 					$responses[$orgId] = [];
@@ -422,7 +458,7 @@ class Matrix {
 					if (!empty($lastGroupId)) {
 						$nSections++;
 						if (!empty($lastGroupId)) {
-							$this->addMatrixSection($sections[$orgId], $columns, $responses[$orgId], $typeId, $lastGroupId, $colIdx, $groupIdx);
+							$this->addMatrixSection($sections[$orgId], $choices, $columns, $responses[$orgId], $typeId, $lastGroupId, $colIdx, $groupIdx);
 							$colIdx++;
 						}
 					}
@@ -455,7 +491,7 @@ class Matrix {
 
 				$lastOrgId = $orgId;
 			}
-			$this->addMatrixSection($sections[$lastOrgId], $columns[$lastOrgId], $responses[$lastOrgId], $typeId, $lastGroupId, $colIdx, $groupIdx);
+			$this->addMatrixSection($sections[$lastOrgId], $choices, $columns[$lastOrgId], $responses[$lastOrgId], $typeId, $lastGroupId, $colIdx, $groupIdx);
 			$responses[$lastOrgId][] = ['R', $this->avg($row['total'], $row['count']), $row['typeName'], $groupIdx];
 			foreach ($responses as $orgId => $responseSet) {
 				$tableRowValues[] = ['oid' => $orgId, 'n' => $orgNames[$orgId], 'rsp' => $responseSet];

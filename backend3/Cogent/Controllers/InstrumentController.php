@@ -12,7 +12,7 @@ class InstrumentController extends ControllerBase {
 	 */
 	public function indexAction() {
 		$instrument = new Instrument();
-		$data = $instrument->get();
+		$data = $instrument->get(NULL, TRUE, 'sort_order');
 		$result = new Result($this);
 		$result->sendNormal($data);
 	}

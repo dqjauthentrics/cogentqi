@@ -60,7 +60,7 @@ angular.module('AssessmentControllers', [])
 				if (!Utility.empty(instrumentId) && !Utility.empty(organizationId) && !Utility.empty($scope.Instruments.list)) {
 					$scope.Instruments.current = Utility.findObjectById($scope.Instruments.list, instrumentId);
 					$scope.data.currentInstrumentId = $scope.Instruments.current.id;
-					$scope.Assessments.retrieveMatrix($scope.Instruments.current.id, organizationId, false, function(response) {
+					$scope.Assessments.retrieveMatrix($scope.Instruments.current.id, organizationId, false, function (response) {
 						if (response.status !== 1) {
 							Utility.statusAlert(response);
 						}
@@ -68,18 +68,24 @@ angular.module('AssessmentControllers', [])
 				}
 			};
 			$scope.getScoreClass = function (response) {
-				var cellType = response[0];
-				var value = Math.round(response[1]);
-				var responseType = response[2];
-				var section = response[3];
 				var cClass = '';
-				switch (responseType) {
-					case 'L': // LIKERT
-						cClass = 'matrixCircle levelBg' + value;
-						break;
-					case 'Y': // YESNO
-						cClass = 'matrixCircle yesNoBg' + value;
-						break;
+				try {
+					var cellType = response[0];
+					var value = Math.round(response[1]);
+					var responseType = response[2];
+					var section = response[3];
+					var stylePrefix = response[4];
+					switch (responseType) {
+						case 'L': // LIKERT
+							cClass = 'matrixCircle ' + stylePrefix + value;
+							break;
+						case 'Y': // YESNO
+							cClass = 'matrixCircle yesNoBg' + stylePrefix + value;
+							break;
+					}
+				}
+				catch (exception) {
+					console.log(exception);
 				}
 				return cClass;
 			};
@@ -126,7 +132,7 @@ angular.module('AssessmentControllers', [])
 				currentChoices: null,
 				recommendationsTitle: 'Recommended Modules'
 			};
-			$scope.responses = !Utility.empty($scope.Assessments.current)? $scope.Assessments.current.responses : [];
+			$scope.responses = !Utility.empty($scope.Assessments.current) ? $scope.Assessments.current.responses : [];
 
 			$scope.response = function (questionId) {
 				if (!Utility.empty($scope.responses)) {
@@ -211,7 +217,7 @@ angular.module('AssessmentControllers', [])
 				return value;
 			};
 
-			$scope.setUpAssessment = function(assessment) {
+			$scope.setUpAssessment = function (assessment) {
 				$scope.Assessments.current = assessment;
 				$scope.responses = $scope.Assessments.current.responses;
 				var instrumentId = $scope.Assessments.current.instrument.id;

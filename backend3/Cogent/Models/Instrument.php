@@ -6,7 +6,7 @@ namespace Cogent\Models;
  * @package Cogent\Models
  *
  * @method QuestionType getQuestionType()
- * @method Instrument|Instrument[] get($id = NULL, $mapIt = TRUE, $orderBy = 'id DESC', $where = '1=1', $whereParams = [])
+ * @method Instrument|Instrument[] get($id = NULL, $mapIt = TRUE, $orderBy = 'id', $where = '1=1', $whereParams = [])
  * @method \Phalcon\Mvc\Model\Resultset\Simple getSchedule()
  *
  * @method Instrument $instrument
@@ -72,6 +72,12 @@ class Instrument extends CogentModel {
 	 * @var integer
 	 */
 	public $min_range;
+
+	/**
+	 *
+	 * @var integer
+	 */
+	public $sort_order;
 
 	/**
 	 * Allows to query a set of records that match the specified conditions

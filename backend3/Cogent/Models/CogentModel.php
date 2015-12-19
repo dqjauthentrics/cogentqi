@@ -352,7 +352,7 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	 *
 	 * @return CogentModel[]|CogentModel|array|null
 	 */
-	public function get($id = NULL, $mapIt = TRUE, $orderBy = 'id DESC', $where = '1=1', $whereParams = []) {
+	public function get($id = NULL, $mapIt = TRUE, $orderBy = 'id', $where = '1=1', $whereParams = []) {
 		$data = !empty($id) ? NULL : [];
 		/** @var CogentModel $record */
 		if (empty($id)) {
