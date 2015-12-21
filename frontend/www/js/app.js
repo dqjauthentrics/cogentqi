@@ -45,6 +45,7 @@ angular.module(
 		'Resources',
 		'QuestionGroups',
 		'Events',
+        'EventAlignments',
 		'Modules',
 		'Outcomes',
 		'ControllerCommon',
