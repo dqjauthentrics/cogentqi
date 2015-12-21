@@ -80,7 +80,7 @@ angular.module('AssessmentControllers', [])
 							cClass = 'matrixCircle ' + stylePrefix + value;
 							break;
 						case 'Y': // YESNO
-							cClass = 'matrixCircle yesNoBg' + stylePrefix + value;
+							cClass = 'matrixCircle ' + stylePrefix + value;
 							break;
 					}
 				}
