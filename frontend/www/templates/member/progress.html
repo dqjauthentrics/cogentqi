@@ -16,9 +16,17 @@
         </div>
         <div class="clearfix"></div>
         <div style="height:2em;"></div>
-        <highchart id="progress" config="data.rptConfig"></highchart>
-        <div style="text-align: center; margin:1em;">
-            <button class="button button-calm" ng-click="toggleProgress()">{{data.currentSeries==0?'Outcomes View >>':'<< Assessments View'}}</button>
+        <div class="row responsive-lg">
+            <div class="col">
+                <div class="card panel padding">
+                    <highchart id="progress0" config="data.rptConfig0"></highchart>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card panel padding">
+                    <highchart id="progress1" config="data.rptConfig1"></highchart>
+                </div>
+            </div>
         </div>
     </ion-content>
     <ng-include src="'/templates/common/tabs.html'"></ng-include>

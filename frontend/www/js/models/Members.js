@@ -87,6 +87,7 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 					series.push({id: i, type: 'column', name: $filter('date')(assessment.lm, 'shortDate'), data: dataSet});
 				}
 				var rptCfg = Graphs.columnGraphConfig(section.n, null, 'Competency', 'Ranking', maxY, xLabels, series);
+				console.log(rptCfg);
 				memberHx.push({title: section.n, config: rptCfg});
 			}
 		}
