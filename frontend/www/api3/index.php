@@ -20,7 +20,7 @@ set_error_handler(function ($errno, $errstr, $errfile, $errline) {
 **/
 
 try {
-	$config = include APP_PATH . "Cogent/config/config.php";
+	$config = include APP_PATH . "Cogent/Config/config.php";
 
 	/**
 	 * Set up autoloading of classes.
