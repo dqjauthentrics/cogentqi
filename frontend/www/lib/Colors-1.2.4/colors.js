@@ -219,6 +219,14 @@
 		return keys;
 	};
 
+	Colors.pastels = function() {
+		var pastels = [];
+		for (var key in this.colorSet) {
+			pastels.push(this.pastel(this.colorSet[key]));
+		}
+		return pastels;
+	};
+
 	// ## The Colors methods
 	// ### rgb2hex method
 	//

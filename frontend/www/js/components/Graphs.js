@@ -6,7 +6,14 @@
 
 angular.module('Graphs', []).service('Graphs', function () {
 	this.levelColors = ['gray', '#BB4444', '#EE7A00', '#68A', '#6A8'];
-	this.regularColors = ['#577', '#799', '#9BB', '#BDD', '#DFF'];
+	this.regularColors = [
+		Colors.pastel("#0072B2"),
+		Colors.pastel("#009E73"),
+		Colors.pastel("#D55E00"),
+		Colors.pastel("#CC79A7"),
+		Colors.pastel("#F0E442"),
+		Colors.pastel("#56B4E9")
+	];
 
 	this.setColor = function (idx, colorSet) {
 		var len = colorSet.length;
@@ -22,9 +29,7 @@ angular.module('Graphs', []).service('Graphs', function () {
 	this.pieGraphConfig = function (title, subTitle, data, useLevelColors) {
 		return {
 			options: {
-				chart: {
-					backgroundColor: '#FFFFFF'
-				},
+				chart: {backgroundColor: '#FFFFFF'},
 				title: {text: title, style: {textTransform: 'none'}},
 				subtitle: {text: subTitle, style: {textTransform: 'none'}},
 				credits: {enabled: false},
@@ -77,6 +82,7 @@ angular.module('Graphs', []).service('Graphs', function () {
 		return {
 			options: {
 				chart: {type: 'column'},
+				credits: {enabled: false},
 				title: {text: title},
 				subtitle: {text: subTitle},
 				xAxis: {
@@ -91,6 +97,7 @@ angular.module('Graphs', []).service('Graphs', function () {
 						text: yTitle
 					}
 				},
+				colors: this.regularColors,
 				tooltip: {
 					headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
 					pointFormat: '<tr><td style="color:{series.color};padding:0">S{series.name}: </td>' +
