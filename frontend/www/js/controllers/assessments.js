@@ -75,12 +75,15 @@ angular.module('AssessmentControllers', [])
 					var responseType = response[2];
 					var section = response[3];
 					var stylePrefix = response[4];
+					if (Utility.empty(stylePrefix)) {
+						stylePrefix = 'levelBg';
+					}
 					switch (responseType) {
 						case 'L': // LIKERT
 							cClass = 'matrixCircle ' + stylePrefix + value;
 							break;
 						case 'Y': // YESNO
-							cClass = 'matrixCircle yesNoBg' + stylePrefix + value;
+							cClass = 'matrixCircle ' + stylePrefix + value;
 							break;
 					}
 				}

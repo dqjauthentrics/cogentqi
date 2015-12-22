@@ -6,7 +6,14 @@
 
 angular.module('Graphs', []).service('Graphs', function () {
 	this.levelColors = ['gray', '#BB4444', '#EE7A00', '#68A', '#6A8'];
-	this.regularColors = ['#577', '#799', '#9BB', '#BDD', '#DFF'];
+	this.regularColors = [
+		Colors.pastel("#0072B2"),
+		Colors.pastel("#009E73"),
+		Colors.pastel("#D55E00"),
+		Colors.pastel("#CC79A7"),
+		Colors.pastel("#F0E442"),
+		Colors.pastel("#56B4E9")
+	];
 
 	this.setColor = function (idx, colorSet) {
 		var len = colorSet.length;
@@ -21,18 +28,18 @@ angular.module('Graphs', []).service('Graphs', function () {
 
 	this.pieGraphConfig = function (title, subTitle, data, useLevelColors) {
 		return {
-			chart: {
-				backgroundColor: '#FFFFFF'
-			},
-			title: {text: title, style: {textTransform: 'none'}},
-			subtitle: {text: subTitle, style: {textTransform: 'none'}},
-			credits: {enabled: false},
 			options: {
-				tooltip: {
-					formatter: function () {
-						return '<div style="float:left; font-weight:bold;">' +
-							this.point.name + '</div>: ' + this.percentage.toFixed(2) +
-							'% (' + this.point.y + ')';
+				chart: {backgroundColor: '#FFFFFF'},
+				title: {text: title, style: {textTransform: 'none'}},
+				subtitle: {text: subTitle, style: {textTransform: 'none'}},
+				credits: {enabled: false},
+				options: {
+					tooltip: {
+						formatter: function () {
+							return '<div style="float:left; font-weight:bold;">' +
+								this.point.name + '</div>: ' + this.percentage.toFixed(2) +
+								'% (' + this.point.y + ')';
+						}
 					}
 				}
 			},
@@ -73,39 +80,31 @@ angular.module('Graphs', []).service('Graphs', function () {
 	};
 	this.columnGraphConfig = function (title, subTitle, xTitle, yTitle, maxY, xLabels, series) {
 		return {
-			chart: {
-				type: 'column'
-			},
-			title: {
-				text: title
-			},
-			subtitle: {
-				text: subTitle
-			},
-			xAxis: {
-				categories: xLabels,
-				crosshair: true
-			},
-			yAxis: {
-				min: 0,
-				allowDecimals: false,
-				max: maxY,
-				title: {
-					text: yTitle
-				}
-			},
-			tooltip: {
-				headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-				pointFormat: '<tr><td style="color:{series.color};padding:0">S{series.name}: </td>' +
-				'<td style="padding:0"><b>{point.label}</b></td></tr>',
-				footerFormat: '</table>',
-				shared: true,
-				useHTML: true
-			},
-			plotOptions: {
-				line: {
-					pointPadding: 0.2,
-					borderWidth: 0
+			options: {
+				chart: {type: 'column'},
+				credits: {enabled: false},
+				title: {text: title},
+				subtitle: {text: subTitle},
+				xAxis: {
+					categories: xLabels,
+					crosshair: true
+				},
+				yAxis: {
+					min: 0,
+					allowDecimals: false,
+					max: maxY,
+					title: {
+						text: yTitle
+					}
+				},
+				colors: this.regularColors,
+				tooltip: {
+					headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+					pointFormat: '<tr><td style="color:{series.color};padding:0">S{series.name}: </td>' +
+					'<td style="padding:0"><b>{point.label}</b></td></tr>',
+					footerFormat: '</table>',
+					shared: true,
+					useHTML: true
 				}
 			},
 			series: series
@@ -125,19 +124,21 @@ angular.module('Graphs', []).service('Graphs', function () {
 			}
 		}
 		return {
-			chart: {type: 'line', backgroundColor: '#FFFFFF'},
-			title: {text: title, style: {textTransform: 'none'}},
-			subtitle: {text: subTitle, style: {textTransform: 'none'}},
-			credits: {enabled: false},
-			yAxis: {title: {text: yTitle, style: {textTransform: 'none'}}, tickInterval: 1, minorTickInterval: false},
-			xAxis: {
-				type: 'category',
-				title: {text: xTitle, style: {textTransform: 'none'}},
-				tickInterval: 1,
-				minorTickInterval: false,
-				gridLineWidth: 0
+			options: {
+				chart: {type: 'line', backgroundColor: '#FFFFFF'},
+				title: {text: title, style: {textTransform: 'none'}},
+				subtitle: {text: subTitle, style: {textTransform: 'none'}},
+				credits: {enabled: false},
+				yAxis: {title: {text: yTitle, style: {textTransform: 'none'}}, tickInterval: 1, minorTickInterval: false},
+				xAxis: {
+					type: 'category',
+					title: {text: xTitle, style: {textTransform: 'none'}},
+					tickInterval: 1,
+					minorTickInterval: false,
+					gridLineWidth: 0
+				},
+				legend: {enabled: false}
 			},
-			legend: {enabled: false},
 			series: [
 				{
 					name: yTitle,
