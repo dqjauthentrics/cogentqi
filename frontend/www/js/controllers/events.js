@@ -9,72 +9,86 @@ angular.module('EventControllers', [])
 	.controller(
 		'EventEditCtrl',
 		function ($scope, $stateParams, Utility, Events) {
-            Events.execute(function (events) {
+            $scope.data = {isLoading: true};
+            Events.get().then(function (events) {
                 $scope.event = events.find($stateParams.eventId);
+                $scope.data.isLoading = false;
+                $scope.save = function() {
+                    Events.saveEvent($scope.event, function(error) {
+                        alert('not implemented ' + error);
+                    });
+                }
+            }, function(error) {
+                alert('not implemented ' + error);
             });
-            $scope.save = function() {
-                Events.saveEvent($scope.event, function(error) {
-                    alert('not implemented');
-                });
-            }
 		})
 
 	.controller(
 		'EventCatalogCtrl',
-		function ($cookieStore, $scope, $stateParams, Utility, Events) {
+		function ($scope, $stateParams, Utility, Events) {
 			$scope.data = {isLoading: true, searchFilter: ''};
-			$scope.user = $cookieStore.get('user');
-            Events.execute(function (events) {
+            Events.get().then(function (events) {
                 $scope.Events = events;
                 $scope.data.isLoading = false;
-                $scope.eventFilter = function (event) {
-                    return Events.filterer(event, $scope.data.searchFilter);
-                };
-                $scope.saveEvent = function(event) {
-                    Events.saveEvent(event, function(error) {
-                        alert("not implemented");
-                    });
-                }
+            },function(error) {
+                alert('not implemented ' + error);
             });
 		})
 
 	.controller(
 		'EventAlignmentCtrl',
-		function ($scope, $stateParams, Utility, Events, QuestionGroups) {
-			Events.execute(function (events) {
-				$scope.event = events.find($stateParams.eventId);
-			},
-            function(error) {
-                alert('error loading Events not implemented');
-            }) // execute returns a promise w/null response
-            .then(function(response) {
-                QuestionGroups.execute(function(questionGroups) {
+		function ($scope, $stateParams, Utility, EventAlignments, QuestionGroups) {
+            $scope.data = {isLoading: true, searchFilter: ''};
+            Events.get().then(function (events) {
+                $scope.event = events.find($stateParams.eventId);
+                $scope.data.isLoading = false;
+            }, function(error) {
+                return $q.reject(error);
+            }).then(function(response) {
+                return EventAlignments.load($stateParams.eventId)
+            }, function(error) {
+                return $q.reject(error);
+            }).then(function(response) {
+                return QuestionGroups.get().then(function(questionGroups) {
                     $scope.questionGroups = questionGroups;
-                },
-                function(error) {
-                    alert('error loading QuestionGroups not implemented');
-                })  // execute returns a promise w/null response
-            .then(function(response) {
-                $scope.questionGroups.items.forEach(function(group) {
-                    group.isOpen = false;
-                });
-                $scope.toggleOpen = function(group) {
-                    group.isOpen = !group.isOpen;
-                }
-                var alignmentQuestions = $scope.event.getAlignmentQuestions();
-                $scope.questionGroups.markQuestions(alignmentQuestions, 'isAligned');
-                $scope.save = function() {
-                    var questions = [];
                     $scope.questionGroups.items.forEach(function(group) {
+                        group.isOpen = false;
                         group.questions.forEach(function(question) {
-                            if (question.isAligned) {
-                                questions.push(question.id);
+                            var alignment = null;
+                            if (EventAlignments.quetions[question.id] === true) {
+                                alignment = EventAlignments.find(question.id);
+                                alignment.isAligned = true;
                             }
+                            else {
+                                alignment = EventAlignments.create(question.id);
+                                alignment.isAligned = false;
+                            }
+                            question.alignment = alignment;
                         });
                     });
-                    Events.saveAlignments($scope.event, questions, function(success, data) {
-                        alert('not implemented');
-                    });
-                }
-            });});
+                    $scope.toggleOpen = function(group) {
+                        group.isOpen = !group.isOpen;
+                    };
+                    $scope.save = function() {
+                        var alignments = [];
+                        $scope.questionGroups.items.forEach(function(group) {
+                            group.questions.forEach(function(question) {
+                                if (question.alignment.isAligned) {
+                                    delete question.alignment;
+                                    alignments.push(question.alignment);
+                                }
+                            });
+                        });
+                        EventAlignments.save($stateParams.eventId, alignments, function(error) {
+                            alert('could not save event alignments not implemented');
+                        });
+                    };
+                    $scope.date.isLoading = false;
+                },
+                function(error) {
+                    return $q.reject(error);
+                });
+           }, function(error) {
+                alert('not implemented' + error);
+            });
 		});

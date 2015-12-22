@@ -8,21 +8,23 @@ angular.module('QuestionGroups', []).service('QuestionGroups', function ($cookie
 	var svc = this;
 	svc.items = null;
 
-	svc.execute = function (callback) {
+	svc.get = function () {
 		if (svc.items == null) {
 			return $http.get('/api3/instrument/questionGroups').
 			then(function (result) {
-					 var response = result.data; // Cogent standard
-					 svc.items = response.data;
-					 callback(svc);
+					if (result.data.status !== 1) {
+						return $q.reject(result.data);
+					}
+					var response = result.data; // Cogent standard
+					svc.items = response.data;
+					return svc;
 				 },
 				 function (error) {
-					 failure(error);
+					 $q.reject(error);
 				 });
 		}
 		else {
-			callback(svc);
-			return $q.when();
+			return $q.when(svc);
 		}
 	};
 	svc.find = function (groupId) {

@@ -8,39 +8,30 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 	var svc = this;
 	svc.tempId = -1;
 	svc.list = null;
-	// To be attached to events
-	svc.getAlignmentQuestions = function () {
-		var questions = {};
-		this.alignments.forEach(function (alignment) {
-			questions[alignment.qi] = true;
-		});
-		return questions;
-	};
-	svc.execute = function (callback, failure) {
+
+	svc.get = function () {
 		if (svc.list == null) {
 			return $http.get('/api3/event').
-			then(function (result) {
-					 var response = result.data; // Cogent standard
-					 svc.list = response.data;
-					 if (!Utility.empty(svc.list)) {
-						 svc.list.forEach(function (event) {
-							 event.getAlignmentQuestions = svc.getAlignmentQuestions;
-						 });
-					 }
-					 callback(svc);
+			    then(function (result) {
+                    if (result.data.status !== 1) {
+                        return $q.reject(result.data);
+                    }
+                    var response = result.data;
+                    svc.list = response.data;
+                    return svc;
 				 },
 				 function (error) {
-					 failure(error);
+					 return $q.reject(error);
 				 });
 		}
 		else {
-			callback(svc);
-			return $q.when();
+			return $q.when(svc);
 		}
 	};
 	// To create a new event call with event == null
 	svc.saveEvent = function (event, failure) {
-		var isNew = event === null;
+		var isNew = event === nu
+		ll;
 		event = !isNew ? event : {
 			n: "New Event",
 			dsc: "no description",
@@ -74,36 +65,5 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 			}
 		}
 		return null;
-	};
-	svc.saveAlignments = function (event) {
-		try {
-			$http.post("/api3/event/saveAlignments", {eventId: eventId, alignments: alignments})
-				.then(function (data, status, headers, config) {
-						  callbackFn(data);
-					  },
-					  function (data, status, headers, config) {
-						  callbackFn(data);
-					  });
-		}
-		catch (exception) {
-			callbackFn(0, exception);
-		}
-	};
-	svc.filterer = function (event, filterText) {
-		if (event) {
-			try {
-				if (!Utility.empty(filterText) && !Utility.empty(event)) {
-					filterText = filterText.toLowerCase();
-					return filterText == null ||
-						event.name.toLowerCase().indexOf(filterText) >= 0 ||
-						event.description.toLowerCase().indexOf(filterText) >= 0
-						;
-				}
-			}
-			catch (exception) {
-				console.log("event filter exception: ", exception);
-			}
-		}
-		return true;
 	};
 });
