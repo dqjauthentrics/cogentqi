@@ -49,7 +49,7 @@ try {
 	/**
 	 * Define services.
 	 */
-	include APP_PATH . "Cogent/config/services.php";
+	include APP_PATH . "Cogent/Config/services.php";
 
 	/**
 	 * Run the page.
