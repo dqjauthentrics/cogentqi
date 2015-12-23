@@ -37,8 +37,11 @@ angular.module('EventControllers', [])
 
 	.controller(
 		'EventAlignmentCtrl',
-		function ($scope, $stateParams, Utility, EventAlignments, QuestionGroups) {
-            $scope.data = {isLoading: true, searchFilter: ''};
+		function ($scope, $stateParams, Utility, Events, EventAlignments, QuestionGroups) {
+            $scope.data = {isLoading: true, searchFilter: '', isDirty: false};
+            $scope.isDirty = function(dirty) {
+                $scope.data.isDirty = dirty;
+            };
             Events.get().then(function (events) {
                 $scope.event = events.find($stateParams.eventId);
                 $scope.data.isLoading = false;
@@ -48,19 +51,19 @@ angular.module('EventControllers', [])
                 return EventAlignments.load($stateParams.eventId)
             }, function(error) {
                 return $q.reject(error);
-            }).then(function(response) {
+            }).then(function(eventAlignments) {
                 return QuestionGroups.get().then(function(questionGroups) {
                     $scope.questionGroups = questionGroups;
                     $scope.questionGroups.items.forEach(function(group) {
                         group.isOpen = false;
                         group.questions.forEach(function(question) {
                             var alignment = null;
-                            if (EventAlignments.quetions[question.id] === true) {
-                                alignment = EventAlignments.find(question.id);
+                            if (eventAlignments.questions[question.id] === true) {
+                                alignment = eventAlignments.find(question.id);
                                 alignment.isAligned = true;
                             }
                             else {
-                                alignment = EventAlignments.create(question.id);
+                                alignment = eventAlignments.create(question.id);
                                 alignment.isAligned = false;
                             }
                             question.alignment = alignment;
@@ -74,16 +77,23 @@ angular.module('EventControllers', [])
                         $scope.questionGroups.items.forEach(function(group) {
                             group.questions.forEach(function(question) {
                                 if (question.alignment.isAligned) {
-                                    delete question.alignment;
                                     alignments.push(question.alignment);
                                 }
                             });
                         });
-                        EventAlignments.save($stateParams.eventId, alignments, function(error) {
+                        eventAlignments.save($stateParams.eventId, alignments).then(
+                            function(response) {
+                                if (response.data.status != 1) {
+                                    alert('could not save event alignments not implemented');
+                                    return;
+                                }
+                                $scope.isDirty(false);
+                            },
+                            function(error) {
                             alert('could not save event alignments not implemented');
                         });
                     };
-                    $scope.date.isLoading = false;
+                    $scope.data.isLoading = false;
                 },
                 function(error) {
                     return $q.reject(error);

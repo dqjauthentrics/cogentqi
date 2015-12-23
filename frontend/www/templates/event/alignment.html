@@ -8,7 +8,7 @@
                     <h1>{{'Event Alignment'|translate}}</h1>
 
                     <div style="float:right; margin:0.5em;">
-                        <button ng-click="save(this);" data-ng-show="data.dirty" class="button button-action button-save button-dirty">
+                        <button ng-click="save();" data-ng-show="data.isDirty" class="button button-action button-save button-dirty">
                             <i data-ng-class="data.saving? i.loadingSpinner : i.save"></i>
                         </button>
                     </div>
@@ -32,8 +32,8 @@
                                 <div class="name">{{question.n}}</div>
                                 <div style="float:right; width: 10em; margin: 1em 0.5em;">
                                     <div class="item checkbox">
-                                        <label for="{{'checkbox-' + question.id}}">{{question.isAligned ? 'Aligned' : 'Not Aligned'}}</label>
-                                        <input id="{{'checkbox-' + question.id}}" type="checkbox" name="isAligned" data-ng-model="question.isAligned"/>
+                                        <label for="{{'checkbox-' + question.id}}">{{question.alignment.isAligned ? 'Aligned' : 'Not Aligned'}}</label>
+                                        <input id="{{'checkbox-' + question.id}}" type="checkbox" name="isAligned" data-ng-change="isDirty(true)" data-ng-model="question.alignment.isAligned"/>
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>

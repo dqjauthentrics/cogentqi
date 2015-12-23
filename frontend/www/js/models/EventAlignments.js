@@ -22,6 +22,7 @@ angular.module('EventAlignments', []).service('EventAlignments', function ($cook
                 svc.alignments.forEach(function(alignment) {
                    svc.questions[alignment.qi] = true;
                 });
+                return svc;
             },
             function (error) {
                 $q.reject(error);
@@ -41,13 +42,8 @@ angular.module('EventAlignments', []).service('EventAlignments', function ($cook
         }
         return null;
     };
-    svc.save = function (eventId, alignments, failure) {
-        $http.post("/api3/event/saveAlignments", {eventId: eventId, alignments: alignments})
-            .then(function (result) {
-                },
-                function (error) {
-                    failure(error);
-                }
-            );
+    svc.save = function (eventId, alignments) {
+        return $http.post("/api3/event/saveAlignments",
+            {eventId: eventId, alignments: alignments});
     };
 });

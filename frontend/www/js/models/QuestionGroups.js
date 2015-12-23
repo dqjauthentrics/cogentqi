@@ -4,7 +4,7 @@
  */
 'use strict';
 
-angular.module('QuestionGroups', []).service('QuestionGroups', function ($cookieStore, $resource, $http, Utility) {
+angular.module('QuestionGroups', []).service('QuestionGroups', function ($q, $resource, $http, Utility) {
 	var svc = this;
 	svc.items = null;
 

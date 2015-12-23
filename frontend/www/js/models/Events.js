@@ -30,8 +30,7 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 	};
 	// To create a new event call with event == null
 	svc.saveEvent = function (event, failure) {
-		var isNew = event === nu
-		ll;
+		var isNew = event === null;
 		event = !isNew ? event : {
 			n: "New Event",
 			dsc: "no description",
@@ -39,6 +38,9 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 		};
 		return $http.post('/api3/event/update', event).
 		then(function (result) {
+                    if (result.data.status != 1) {
+                        failure(result.data);
+                    }
 					if (isNew) {
 						event.id = result.data.data.id;
 						svc.list.push(event);

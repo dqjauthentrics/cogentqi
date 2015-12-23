@@ -45,6 +45,7 @@ class CogentModel extends \Phalcon\Mvc\Model {
 		'fn'   => ['first_name', self::TYPE_STRING],
 		'fx'   => ['fax', self::TYPE_STRING],
 		'ii'   => ['instrument_id', self::TYPE_INT],
+        'inc'  => ['increment', self::TYPE_INT],
 		'isi'  => ['instrument_schedule_id', self::TYPE_INT],
 		'jt'   => ['job_title', self::TYPE_STRING],
 		'lk'   => ['locked_on', self::TYPE_DATETIME],
