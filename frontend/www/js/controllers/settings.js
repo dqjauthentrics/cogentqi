@@ -8,7 +8,45 @@ angular.module('SettingsControllers', [])
 
 	.controller(
 		'SettingsAdminCtrl',
-		function ($scope, Utility) {
+		function ($scope, Icons, Utility) {
+			$scope.menuItems = [
+				{
+					url: "#/administrator/schedule",
+					icon: Icons.schedule,
+					name: 'Assessment Schedule',
+					description: 'Review the schedule of assessments to be used within your organization.'
+				},
+				{
+					url: "#/resource/configure",
+					icon: Icons.resource,
+					name: 'Learning Resources',
+					description: 'Set up the educational resources available for your organization, along with their alignments to competencies.'
+				},
+				{
+					url: "#/instrument/list",
+					icon: Icons.instrument,
+					name: 'Competency Assessment Frameworks',
+					description: 'Define the set(s) of competencies recognized by your organization for use in assessments.'
+				},
+				{
+					url: "#/outcome/alignments",
+					icon: Icons.outcome,
+					name: 'Outcomes',
+					description: 'Review the set of general outcomes tracked by your organization, along with their alignments to competencies.'
+				},
+				{
+					url: "#/event/catalog",
+					icon: Icons.event,
+					name: 'Events',
+					description: 'Review all events that can occur in your organization, along with their alignments to competencies.'
+				},
+				{
+					url: "#/settings/personal",
+					icon: Icons.schedule,
+					name: 'Personal Settings',
+					description: 'Review your personal profile settings.'
+				}
+			];
 		})
 
 	.controller(
