@@ -8,7 +8,7 @@
                     <h1>{{'Event Alignment'|translate}}</h1>
 
                     <div style="float:right; margin:0.5em;">
-                        <button ng-click="save();" data-ng-show="data.isDirty" class="button button-action button-save button-dirty">
+                        <button ng-click="save();" class="button button-action button-save {{data.isDirty? 'button-dirty':'button-clean'}}">
                             <i data-ng-class="data.saving? i.loadingSpinner : i.save"></i>
                         </button>
                     </div>
@@ -17,30 +17,61 @@
                     <div class="description">{{event.dsc}}</div>
                     <div class="clearfix"></div>
                 </div>
-                <div style="float:right; margin-right:6em; font-weight:bold;">{{'Is Aligned'|translate}}</div>
                 <div class="clearfix"></div>
                 <ion-list>
-                    <ion-item class="item-icon-right" ng-repeat="questionGroup in questionGroups.items" type="item-text-wrap">
-                        <div class="name">
-                            <button class="button button-balanced" ng-click="toggleOpen(questionGroup)">
-                                <i class="{{questionGroup.isOpen ? i.minus : i.add}} fa-sm"></i>
-                            </button>
+                    <div ng-repeat="questionGroup in questionGroups.items" type="item-text-wrap">
+
+                        <ion-item class="item-stable"
+                                  ng-click="toggleOpen(questionGroup)"
+                                  ng-class="{active: questionGroup.isOpen}">
+                            <i class="icon" ng-class="questionGroup.isOpen ? 'ion-minus' : 'ion-plus'"></i>
+                            &nbsp;
                             {{questionGroup.tag}}
-                        </div>
-                        <div data-ng-show="questionGroup.isOpen">
-                            <ion-item class="item-icon-right" ng-repeat="question in questionGroup.questions" type="item-text-wrap">
-                                <div class="name">{{question.n}}</div>
-                                <div style="float:right; width: 10em; margin: 1em 0.5em;">
-                                    <div class="item checkbox">
-                                        <label for="{{'checkbox-' + question.id}}">{{question.alignment.isAligned ? 'Aligned' : 'Not Aligned'}}</label>
+                        </ion-item>
+                        <ion-item class="item-accordion"
+                                  ng-repeat="question in questionGroup.questions"
+                                  ng-show="questionGroup.isOpen">
+                            {{question.n}}
+                            <div style="float:right; margin: 1em 0.5em;">
+                                <div class="list-item">
+                                    <label class="toggle toggle-balanced">
                                         <input id="{{'checkbox-' + question.id}}" type="checkbox" name="isAligned" data-ng-change="isDirty(true)" data-ng-model="question.alignment.isAligned"/>
+                                        <div class="track">
+                                            <div class="handle"></div>
+                                        </div>
+                                    </label>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+
+                        </ion-item>
+
+                        <!--<div class="name">
+                            <label>
+                            <button class="button button-balanced" ng-click="toggleOpen(questionGroup)">
+                                <i class="{{questionGroup.isOpen ? ion.minus : ion.add}} fa-sm"></i>
+                            </button>
+                                {{questionGroup.tag}}
+                            </label>
+                        </div>-->
+                        <!--<div data-ng-show="questionGroup.isOpen">
+                            <ion-item class="list-item list" ng-repeat="question in questionGroup.questions" type="item-text-wrap">
+                                <div class="" style="float:left; margin-right:1em;">{{question.n}}</div>
+                                <div style="float:right; margin: 1em 0.5em;">
+                                    <div class="list-item">
+                                        <label class="toggle toggle-balanced">
+                                            <input id="{{'checkbox-' + question.id}}" type="checkbox" name="isAligned" data-ng-change="isDirty(true)" data-ng-model="question.alignment.isAligned"/>
+                                            <div class="track">
+                                                <div class="handle"></div>
+                                            </div>
+                                        </label>
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
                             </ion-item>
                         </div>
-                        <div class="description" data-ng-bind-html="question.n"></div>
-                    </ion-item>
+                        <div class="description" data-ng-bind-html="question.n"></div>-->
+                    </div>
                 </ion-list>
             </div>
         </div>

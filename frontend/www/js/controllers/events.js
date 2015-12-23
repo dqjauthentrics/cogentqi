@@ -38,7 +38,7 @@ angular.module('EventControllers', [])
 	.controller(
 		'EventAlignmentCtrl',
 		function ($scope, $stateParams, Utility, Events, EventAlignments, QuestionGroups) {
-            $scope.data = {isLoading: true, searchFilter: '', isDirty: false};
+            $scope.data = {isLoading: true, searchFilter: '', isDirty: false, saving: false};
             $scope.isDirty = function(dirty) {
                 $scope.data.isDirty = dirty;
             };
@@ -73,6 +73,7 @@ angular.module('EventControllers', [])
                         group.isOpen = !group.isOpen;
                     };
                     $scope.save = function() {
+                        $scope.saving = true;
                         var alignments = [];
                         $scope.questionGroups.items.forEach(function(group) {
                             group.questions.forEach(function(question) {
@@ -91,6 +92,8 @@ angular.module('EventControllers', [])
                             },
                             function(error) {
                             alert('could not save event alignments not implemented');
+                        }).finally(function(callback) {
+                            $scope.saving = false;
                         });
                     };
                     $scope.data.isLoading = false;
