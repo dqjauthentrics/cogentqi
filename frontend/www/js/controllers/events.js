@@ -9,14 +9,23 @@ angular.module('EventControllers', [])
 	.controller(
 		'EventEditCtrl',
 		function ($scope, $stateParams, Utility, Events) {
-            $scope.data = {isLoading: true};
+            $scope.data = {isLoading: true, isDirty: false, saving: false};
             Events.get().then(function (events) {
+                $scope.isDirty = function(dirty) {
+                    $scope.data.isDirty = dirty;
+                };
                 $scope.event = events.find($stateParams.eventId);
                 $scope.data.isLoading = false;
                 $scope.save = function() {
-                    Events.saveEvent($scope.event, function(error) {
-                        alert('not implemented ' + error);
-                    });
+                    $scope.data.saving = true;
+                    Events.saveEvent($scope.event).then(
+                        function(response) {
+                            $scope.data.saving = false;
+                            $scope.isDirty(false);
+                    },  function(error) {
+                            alert('not implemented ' + error);
+                        }
+                    );
                 }
             }, function(error) {
                 alert('not implemented ' + error);
@@ -93,7 +102,7 @@ angular.module('EventControllers', [])
                             function(error) {
                             alert('could not save event alignments not implemented');
                         }).finally(function(callback) {
-                            $scope.saving = false;
+                            $scope.data.saving = false;
                         });
                     };
                     $scope.data.isLoading = false;
