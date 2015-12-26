@@ -11,18 +11,19 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 
 	svc.get = function () {
 		if (svc.list == null) {
-			return $http.get('/api3/event').
-			    then(function (result) {
-                    if (result.data.status !== 1) {
-                        return $q.reject(result.data);
+			return $http.get('/api3/event')
+                .then(
+                    function (result) {
+                        if (result.data.status !== 1) {
+                            return $q.reject(result.data);
+                        }
+                        svc.list = response.data.data;
+                        return svc;
+				    },
+                    function (error) {
+                        return $q.reject(error);
                     }
-                    var response = result.data;
-                    svc.list = response.data;
-                    return svc;
-				 },
-				 function (error) {
-					 return $q.reject(error);
-				 });
+                );
 		}
 		else {
 			return $q.when(svc);
@@ -36,8 +37,9 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 			dsc: "no description",
 			cat: "Generic"
 		};
-		return $http.post('/api3/event/update', event).
-		then(function (result) {
+		return $http.post('/api3/event/update', event)
+            .then(
+                function (result) {
                     if (result.data.status != 1) {
                         return $q.reject(result.data);
                     }

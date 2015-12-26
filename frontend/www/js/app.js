@@ -46,6 +46,7 @@ angular.module(
 		'QuestionGroups',
 		'Events',
         'EventAlignments',
+        'ResourceAnalysis',
 		'Modules',
 		'Outcomes',
 		'ControllerCommon',

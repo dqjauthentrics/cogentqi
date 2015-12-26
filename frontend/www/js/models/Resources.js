@@ -21,14 +21,16 @@ angular.module('Resources', []).service('Resources', function ($resource, $http,
 
 	svc.loadAll = function (callbackFn) {
 		if (svc.list === null) {
-			Utility.getResource(svc.retrieve(), function (response) {
+			return  Utility.getResource(svc.retrieve(), function (response) {
 				svc.list = response.data;
 				svc.current = svc.list[0];
 				callbackFn(svc.list);
+				return svc;
 			});
 		}
 		else {
 			callbackFn(svc.list);
+			return $q.when(svc);
 		}
 	};
 

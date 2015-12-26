@@ -80,11 +80,12 @@ angular.module('Utility', []).factory('Utility', [
 			getResource: function (result, successFn) {
 				try {
 					if (result) {
-						result.query(successFn);
+						return result.query(successFn).$promise;
 					}
 				}
 				catch (exception) {
 					console.log("EXCEPTION(getResource):", exception);
+                    return $q.reject(exception);
 				}
 			},
 			hexToRgb: function (hex) {
