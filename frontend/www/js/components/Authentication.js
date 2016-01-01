@@ -6,7 +6,7 @@
 
 angular.module('Authentication', []).service(
 	'Authentication',
-	function ($ionicHistory, $rootScope, $state, $http, $cookieStore, APP_ROLES, Utility, Members) {
+	function ($cacheFactory, $ionicHistory, $rootScope, $state, $http, $cookieStore, APP_ROLES, Utility, Members) {
 		var svc = this;
 		svc.resultMsg = "";
 
@@ -30,6 +30,7 @@ angular.module('Authentication', []).service(
 			Members.list = [];
 			Members.current = null;
 			$cookieStore.remove('user');
+			$ionicHistory.clearCache();
 		};
 
 		svc.getUserDashUrl = function (user) {
@@ -54,6 +55,7 @@ angular.module('Authentication', []).service(
 				case 'facebook':
 					break;
 				case 'password':
+					$ionicHistory.clearCache();
 					$http({
 							  method: 'POST',
 							  url: "/api3/session/login",

@@ -2,7 +2,7 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content class="padding" has-bouncing="false">
-        <h1 style="text-align: center; margin: 0 auto 1em auto;">{{installation.name}}</h1>
+        <a href="#/"><h1 style="text-align: center; margin: 0 auto 1em auto;" ng-bind-html="installation.name"></h1></a>
         <dashboard-cycle></dashboard-cycle>
     </ion-content>
     <ng-include src="'/templates/common/tabs.html'"></ng-include>
