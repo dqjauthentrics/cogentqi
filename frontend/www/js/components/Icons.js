@@ -23,6 +23,7 @@ angular.module('Icons', []).service('Icons', function () {
 	this.edit = "ion-compose";
 	this.email = "fa fa-mail";
 	this.event = "fa fa-warning";
+	this.externalLink = "fa fa-external-link-square";
 	this.flag = "fa fa-flag";
 	this.flagOff = "fa fa-flag-o";
 	this.grid = "ion-ios-keypad-outline";
