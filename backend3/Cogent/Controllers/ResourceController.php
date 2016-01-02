@@ -153,8 +153,7 @@ class ResourceController extends ControllerBase {
 	public function efficacyAction() {
         $result = new Result($this);
         try {
-            //$resources = Resource::find();
-            $resources = Resource::find("id=13");
+            $resources = Resource::find();
             $result = new Result($this);
             $data = [];
             foreach ($resources as $r) {
