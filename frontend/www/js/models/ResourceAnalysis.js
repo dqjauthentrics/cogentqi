@@ -7,8 +7,8 @@
 angular.module('ResourceAnalysis', []).service('ResourceAnalysis',
 		function ($q, $http, QuestionGroups, Resources) {
 	var svc = this;
-	svc.resources = [];
-    svc.questionNames = [];
+	svc.resources = null;
+    svc.questionNames = null;
 
 	svc.get = function () {
 		var promises = [];
@@ -17,8 +17,10 @@ angular.module('ResourceAnalysis', []).service('ResourceAnalysis',
 		return $q.all(promises)
 				.then(
 						function(response) {
+                            svc.resources = [];
+                            svc.questionNames = [];
 							var questionGroups = response[0].items;
-                            var resources = response[1].data;
+                            var resources = response[1].list;
                             var questionCount = 0;
                             var questionIdToIndex = {};
                             questionGroups.forEach(function(group) {
