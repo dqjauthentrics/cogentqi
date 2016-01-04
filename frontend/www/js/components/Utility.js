@@ -85,7 +85,7 @@ angular.module('Utility', []).factory('Utility', [
 				}
 				catch (exception) {
 					console.log("EXCEPTION(getResource):", exception);
-                    return $q.reject(exception);
+					return $q.reject(exception);
 				}
 			},
 			hexToRgb: function (hex) {

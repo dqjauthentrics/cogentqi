@@ -25,7 +25,7 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 		return null;
 	};
 	svc.retrieveForOrg = function (parentOrgId, includeAlignments) {
-		var url = '/api3/outcome/byOrganization/' + parentOrgId + '/' + (includeAlignments? 1 : 0);
+		var url = '/api3/outcome/byOrganization/' + parentOrgId + '/' + (includeAlignments ? 1 : 0);
 		return $resource(url, {}, {query: {method: 'GET', isArray: false, cache: false}});
 	};
 

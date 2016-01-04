@@ -12,18 +12,18 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 	svc.get = function () {
 		if (svc.list == null) {
 			return $http.get('/api3/event')
-                .then(
-                    function (result) {
-                        if (result.data.status !== 1) {
-                            return $q.reject(result.data);
-                        }
-                        svc.list = response.data.data;
-                        return svc;
-				    },
-                    function (error) {
-                        return $q.reject(error);
-                    }
-                );
+				.then(
+					function (result) {
+						if (result.data.status !== 1) {
+							return $q.reject(result.data);
+						}
+						svc.list = response.data.data;
+						return svc;
+					},
+					function (error) {
+						return $q.reject(error);
+					}
+				);
 		}
 		else {
 			return $q.when(svc);
@@ -38,20 +38,20 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 			cat: "Generic"
 		};
 		return $http.post('/api3/event/update', event)
-            .then(
-                function (result) {
-                    if (result.data.status != 1) {
-                        return $q.reject(result.data);
-                    }
+			.then(
+				function (result) {
+					if (result.data.status != 1) {
+						return $q.reject(result.data);
+					}
 					if (isNew) {
 						event.id = result.data.data.id;
 						svc.list.push(event);
 					}
 				},
 				function (error) {
-                    return $q.reject(error);
+					return $q.reject(error);
 				}
-		);
+			);
 	};
 	svc.deleteEvent = function (event) {
 		$http.post("/api3/event/delete", {eventId: event.id})

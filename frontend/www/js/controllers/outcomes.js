@@ -42,7 +42,7 @@ angular.module('OutcomeControllers', [])
 		'OutcomeOrganizationCtrl',
 		function ($cookieStore, $scope, $stateParams, Utility, Organizations, Resources, Outcomes) {
 			$scope.Outcomes = Outcomes;
-			$scope.data = {organizations: [], currentOrg: {}, parentOrg:null, levels: [], dirty: false, isLoading: true};
+			$scope.data = {organizations: [], currentOrg: {}, parentOrg: null, levels: [], dirty: false, isLoading: true};
 			$scope.user = $cookieStore.get('user');
 
 			Utility.getResource(Outcomes.retrieveForOrg($scope.user.oi, false), function (response) {
@@ -84,7 +84,7 @@ angular.module('OutcomeControllers', [])
 				$scope.data.dirty = true;
 			};
 			$scope.save = function () {
-				$scope.Outcomes.saveLevels($scope.data.currentOrg, function(response) {
+				$scope.Outcomes.saveLevels($scope.data.currentOrg, function (response) {
 					if (response.status == 1) {
 						$scope.data.dirty = false;
 					}
@@ -118,7 +118,7 @@ angular.module('OutcomeControllers', [])
 				$scope.data.dirty = true;
 			};
 			$scope.save = function () {
-				$scope.Outcomes.saveLevels($scope.data.currentOrg, function(response) {
+				$scope.Outcomes.saveLevels($scope.data.currentOrg, function (response) {
 					if (response.status == 1) {
 						$scope.data.dirty = false;
 					}

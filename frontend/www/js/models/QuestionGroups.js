@@ -10,18 +10,17 @@ angular.module('QuestionGroups', []).service('QuestionGroups', function ($q, $re
 
 	svc.get = function () {
 		if (svc.items == null) {
-			return $http.get('/api3/instrument/questionGroups').
-			then(function (result) {
-					if (result.data.status !== 1) {
-						return $q.reject(result.data);
-					}
-					var response = result.data; // Cogent standard
-					svc.items = response.data;
-					return svc;
-				 },
-				 function (error) {
-					 $q.reject(error);
-				 });
+			return $http.get('/api3/instrument/questionGroups').then(function (result) {
+																		 if (result.data.status !== 1) {
+																			 return $q.reject(result.data);
+																		 }
+																		 var response = result.data; // Cogent standard
+																		 svc.items = response.data;
+																		 return svc;
+																	 },
+																	 function (error) {
+																		 $q.reject(error);
+																	 });
 		}
 		else {
 			return $q.when(svc);

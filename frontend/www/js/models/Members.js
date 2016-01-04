@@ -12,7 +12,7 @@ angular.module('Members', ['Graphs']).service('Members', function ($filter, $res
 	svc.retrieve = function (includeInactive, drilldown) {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user)) {
-			var url = '/api3/member/index/' + user.oi + '/' + (drilldown? 1 : 0) + '/' + (includeInactive ? 1 : 0);
+			var url = '/api3/member/index/' + user.oi + '/' + (drilldown ? 1 : 0) + '/' + (includeInactive ? 1 : 0);
 			return $resource(url, {}, {query: {method: 'GET', isArray: false, cache: false}});
 		}
 		return null;

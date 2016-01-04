@@ -115,20 +115,20 @@ angular.module('ModuleControllers', [])
 
 
 			//if ($scope.Modules.list == null) {
-				Utility.getResource(Modules.retrieve(), function (response) {
-					$scope.Modules.list = response.data;
-					if (!Utility.empty($scope.Modules.list)) {
-						$scope.events.splice(0, $scope.events.length);
-						var colors = $c.getHexSet();
-						for (var i = 0, colorIdx = 0; i < $scope.Modules.list.length; i++, colorIdx++) {
-							if (colorIdx > colors.length - 1) {
-								colorIdx = 0;
-							}
-							var color = colors[colorIdx];
-							$scope.events.push($scope.eventObject($scope.Modules.list[i], color));
+			Utility.getResource(Modules.retrieve(), function (response) {
+				$scope.Modules.list = response.data;
+				if (!Utility.empty($scope.Modules.list)) {
+					$scope.events.splice(0, $scope.events.length);
+					var colors = $c.getHexSet();
+					for (var i = 0, colorIdx = 0; i < $scope.Modules.list.length; i++, colorIdx++) {
+						if (colorIdx > colors.length - 1) {
+							colorIdx = 0;
 						}
+						var color = colors[colorIdx];
+						$scope.events.push($scope.eventObject($scope.Modules.list[i], color));
 					}
-				});
+				}
+			});
 			//}
 			$scope.eventSources = [$scope.events];
 		})

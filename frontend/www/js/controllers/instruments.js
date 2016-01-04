@@ -7,20 +7,20 @@
 angular.module('InstrumentControllers', [])
 
 	.controller(
-	'InstrumentCtrl',
-	function ($scope, $stateParams, Utility, Instruments) {
-		$scope.data = {instruments: []};
+		'InstrumentCtrl',
+		function ($scope, $stateParams, Utility, Instruments) {
+			$scope.data = {instruments: []};
 
-		Instruments.retrieve().query(function (response) {
-			$scope.data.instruments = response.data;
-			$scope.setCurrentInstrument();
-		});
+			Instruments.retrieve().query(function (response) {
+				$scope.data.instruments = response.data;
+				$scope.setCurrentInstrument();
+			});
 
-		$scope.setCurrentInstrument = function () {
-			if (!Utility.empty($stateParams)) {
-				$scope.data.instrument = Utility.findObjectById($scope.data.instruments, $stateParams.instrumentId);
-			}
-		};
+			$scope.setCurrentInstrument = function () {
+				if (!Utility.empty($stateParams)) {
+					$scope.data.instrument = Utility.findObjectById($scope.data.instruments, $stateParams.instrumentId);
+				}
+			};
 
-	})
+		})
 ;

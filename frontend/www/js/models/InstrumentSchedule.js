@@ -8,6 +8,6 @@ angular.module('InstrumentSchedule', []).service('InstrumentSchedule', function 
 	var svc = this;
 
 	svc.retrieve = function () {
-		return $resource('/api3/instrument/schedule', {},  {query: {method: 'GET', isArray: false, cache: false}});
+		return $resource('/api3/instrument/schedule', {}, {query: {method: 'GET', isArray: false, cache: false}});
 	};
 });
