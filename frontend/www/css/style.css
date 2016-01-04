@@ -435,8 +435,8 @@ div.poweredBy {
 
 table.cycle {
     margin: 1em auto;
-    width: 600px;
-    height: 600px;
+    width: 80vmin;
+    height: 80vmin;
     max-width: 80vmin;
     max-height: 80vmin;
     background: url(../img/cycle2.png) top center no-repeat;
