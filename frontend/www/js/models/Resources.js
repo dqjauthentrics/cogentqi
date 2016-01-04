@@ -4,7 +4,7 @@
  */
 'use strict';
 
-angular.module('Resources', []).service('Resources', function ($resource, $http, Utility) {
+angular.module('Resources', []).service('Resources', function ($q, $resource, $http, Utility) {
 	var svc = this;
 	svc.list = null;
 	svc.current = null;
