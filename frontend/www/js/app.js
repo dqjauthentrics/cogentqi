@@ -47,6 +47,7 @@ angular.module(
 		'Events',
         'EventAlignments',
         'ResourceAnalysis',
+        'ResourceEfficacy',
 		'Modules',
 		'Outcomes',
 		'ControllerCommon',

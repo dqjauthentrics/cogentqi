@@ -20,13 +20,36 @@ angular.module('Resources', []).service('Resources', function ($q, $resource, $h
 	};
 
 	svc.loadAll = function (callbackFn) {
+		if (svc.list == null) {
+			return $http.get('/api3/resource')
+					.then(
+							function (result) {
+								if (result.data.status !== 1) {
+									return $q.reject(result.data);
+								}
+								svc.list = result.data.data;
+								callbackFn(svc.list);
+								return svc;
+							},
+							function (error) {
+								return $q.reject(error);
+							}
+					);
+		}
+		else {
+			callbackFn(svc.list);
+			return $q.when(svc);
+		}
+	};
+
+	svc.loadAll2 = function (callbackFn) {
 		if (svc.list === null) {
 			return  Utility.getResource(svc.retrieve(), function (response) {
 				svc.list = response.data;
 				svc.current = svc.list[0];
 				callbackFn(svc.list);
 				return svc;
-			});
+			}).$q;
 		}
 		else {
 			callbackFn(svc.list);

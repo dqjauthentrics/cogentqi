@@ -159,6 +159,9 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('reportsResourceAnalysis', {
 			url: '/reports/resourceAnalysis', templateUrl: 'templates/reports/resourceAnalysis.html', controller: 'ReportsResourceAnalysisCtrl'
 		})
+		.state('reportsResourceEfficacy', {
+			url: '/reports/resourceEfficacy', templateUrl: 'templates/reports/resourceEfficacy.html', controller: 'ReportsResourceEfficacyCtrl'
+		})
 
 	;
 

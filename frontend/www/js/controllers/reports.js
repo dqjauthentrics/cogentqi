@@ -20,7 +20,14 @@ angular.module('ReportsControllers', [])
 						template: 'resourceAnalysis',
 						teaser: 'An intelligent analysis of your resource base.',
 						url: '#/reports/resourceAnalysis'
-					}
+					},
+                    {
+                        id: 1,
+                        title: 'Resource Efficacy',
+                        template: 'resourceEfficacy',
+                        teaser: 'Determine if a resource is failing to provide value.',
+                        url: '#/reports/resourceEfficacy'
+                    }
 				]
 			};
 		})
@@ -67,7 +74,7 @@ angular.module('ReportsControllers', [])
 									yAxis: {
 										min: 0,
 										title: {
-											text: 'Alignment Level'
+											text: 'Average Score'
 										},
 										stackLabels: {
 											enabled: false
@@ -84,4 +91,70 @@ angular.module('ReportsControllers', [])
                     });
 
 		})
+		.controller(
+				'ReportsResourceEfficacyCtrl',
+				function ($scope, ResourceEfficacy) {
+                    ResourceEfficacy.get()
+                        .then(function(resourceEfficacy) {
+                            $scope.graphs = [];
+                            resourceEfficacy.items.forEach(function(resource) {
+                                $scope.graphs.push(
+                                    {
+                                        title: {
+                                            text: resource.name
+                                        },
+                                        subtitle: {
+                                            text: resource.summary
+                                        },
+                                        options: {
+                                            chart: {
+                                                type: 'column'
+                                            },
+                                            credits: {enabled: false},
+                                            legend: {},
+                                            tooltip: {
+                                                formatter: function () {
+                                                    return '<b>' + this.x + '</b><br/>' +
+                                                        this.series.name + ': ' + this.y + '<br/>';
+                                                }
+                                            },
+                                            plotOptions: {
+                                                column: {
+                                                    dataLabels: {
+                                                        enabled: false
+                                                    }
+                                                }
+                                            },
+                                            xAxis: {
+                                                // these are questions
+                                                categories:resource.questionLabels
+                                            },
+                                            yAxis: {
+                                                min: 0,
+                                                title: {
+                                                    text: 'Alignment Level'
+                                                },
+                                                stackLabels: {
+                                                    enabled: false
+                                                }
+                                            }
+                                        },
+                                        series: [
+                                            {
+                                                name: 'Before',
+                                                data: resource.priorResponseAverages
+                                            },
+                                            {
+                                                name: 'After',
+                                                data: resource.subsequentResponseAverages
+                                            }
+                                        ]
+                                    }
+                                );
+                            })
+                        },
+                        function(error) {
+                            alert('not implemented ' + error);
+                        });
+				})
 ;
