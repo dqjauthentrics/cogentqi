@@ -56,9 +56,11 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 			Utility.getResource(svc.retrieve(), function (response) {
 				if (!Utility.empty(response)) {
 					svc.list = response.data;
-					svc.collate(svc.list);
-					svc.current = svc.list[0];
-					callbackFn(svc.list);
+					if (!Utility.empty(svc.list)) {
+						svc.collate(svc.list);
+						svc.current = svc.list[0];
+						callbackFn(svc.list);
+					}
 				}
 			});
 		}
