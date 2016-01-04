@@ -35,55 +35,55 @@ angular.module('ReportsControllers', [])
 	.controller(
 		'ReportsResourceAnalysisCtrl',
 		function ($rootScope, $scope, $stateParams, Utility, ResourceAnalysis) {
+			$scope.data = {config: null};
+
 			ResourceAnalysis.get()
 				.then(
 					function (resourceAnalysis) {
-						$scope.data = {
-							resourceAnalysisCfg: {
-								title: {
-									text: 'Resource Competency Coverage Analysis'
+						$scope.data.config = {
+							title: {
+								text: 'Resource Competency Coverage Analysis'
+							},
+							subtitle: {
+								text: 'resources available for each competency.'
+							},
+							options: {
+								chart: {
+									type: 'column'
 								},
-								subtitle: {
-									text: 'resources available for each competency.'
+								credits: {enabled: false},
+								legend: {},
+								tooltip: {
+									formatter: function () {
+										return '<b>' + this.x + '</b><br/>' +
+											this.series.name + ': ' + this.y + '<br/>' +
+											'Total: ' + this.point.stackTotal;
+									}
 								},
-								options: {
-									chart: {
-										type: 'column'
-									},
-									credits: {enabled: false},
-									legend: {},
-									tooltip: {
-										formatter: function () {
-											return '<b>' + this.x + '</b><br/>' +
-												this.series.name + ': ' + this.y + '<br/>' +
-												'Total: ' + this.point.stackTotal;
-										}
-									},
-									plotOptions: {
-										column: {
-											stacking: 'normal',
-											dataLabels: {
-												enabled: false
-											}
-										}
-									},
-									xAxis: {
-										// these are questions
-										categories: resourceAnalysis.questionNames
-									},
-									yAxis: {
-										min: 0,
-										title: {
-											text: 'Average Score'
-										},
-										stackLabels: {
+								plotOptions: {
+									column: {
+										stacking: 'normal',
+										dataLabels: {
 											enabled: false
 										}
 									}
 								},
-								// these are resources...
-								series: resourceAnalysis.resources
-							}
+								xAxis: {
+									// these are questions
+									categories: resourceAnalysis.questionNames
+								},
+								yAxis: {
+									min: 0,
+									title: {
+										text: 'Average Score'
+									},
+									stackLabels: {
+										enabled: false
+									}
+								}
+							},
+							// these are resources...
+							series: resourceAnalysis.resources
 						};
 					},
 					function (error) {
