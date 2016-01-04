@@ -36,7 +36,6 @@ angular.module('ReportsControllers', [])
 		'ReportsResourceAnalysisCtrl',
 		function ($rootScope, $scope, $stateParams, Utility, ResourceAnalysis) {
 			$scope.data = {config: null};
-
 			ResourceAnalysis.get()
 				.then(
 					function (resourceAnalysis) {
@@ -152,6 +151,40 @@ angular.module('ReportsControllers', [])
 								  }
 							  );
 						  })
+                        $scope.numberOfGraphs = $scope.graphs.length;
+                        $scope.showGraphs = function() {
+                            return $scope.numberOfGraphs > 0;
+                        };
+                        if (!$scope.showGraphs()) {
+                            return;
+                        }
+                        $scope.currentGraphIndex = 0;
+                        $scope.setGraphs = function() {
+                            var nextIndex = ($scope.currentGraphIndex + 1)%$scope.numberOfGraphs;
+                            var previousIndex = ($scope.currentGraphIndex +
+                                $scope.numberOfGraphs - 1)%$scope.numberOfGraphs;
+                            $scope.currentGraph =  $scope.graphs[$scope.currentGraphIndex];
+                            $scope.nextGraph =  $scope.graphs[nextIndex];
+                            $scope.previousGraph =  $scope.graphs[previousIndex];
+                        };
+                        $scope.currentGraph =  null;
+                        $scope.nextGraph =  null;
+                        $scope.previousGraph =  null;
+                        $scope.canNavigate = function() {
+                            return $scope.graphs.length > 1;
+                        };
+                        $scope.gotoNextGraph = function() {
+                            $scope.currentGraphIndex =
+                                ($scope.currentGraphIndex + 1)%$scope.numberOfGraphs;
+                            $scope.setGraphs();
+                        };
+                        $scope.gotoPreviousGraph = function() {
+                            $scope.currentGraphIndex =
+                                ($scope.currentGraphIndex +
+                                    $scope.numberOfGraphs - 1)%$scope.numberOfGraphs;
+                            $scope.setGraphs();
+                        };
+                        $scope.setGraphs();
 					  },
 					  function (error) {
 						  console.log('not implemented ' + error);

@@ -933,6 +933,11 @@ outcome-level-tag {
     width: 14em;
 }
 
+#resourceEfficacyButtons .button {
+    margin-bottom: 0.2em;
+    width: 14em;
+}
+
 th.rotate {
     height: 5.4em;
     text-overflow-ellipsis: ellipsis;

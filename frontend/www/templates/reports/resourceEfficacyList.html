@@ -1,0 +1,10 @@
+<ion-view view-title="{{'Assessments'|translate}}" cache-view="false">
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-content has-bouncing="false">
+        <page-loader i="i" loading="data.isLoading"></page-loader>
+        <highchart id="progress" config="graph"></highchart>
+
+    </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
+</ion-view>
