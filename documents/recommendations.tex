@@ -1,0 +1,82 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\newtheorem{definition}{Definition}
+
+\begin{document}
+
+\section{Creating Small Learning Plans}
+Denote by $Q$ the complete set of questions used to assess members.  Let $Q^m \subset Q$ be a set of questions for which member $m$ obtained less than a perfect score. Let $R$ be a set of educational resources.  
+
+\begin{definition}{Resource Alignment}
+A resource alignment is a pair $(r,w_r)$ where $r \in R$ and $w_r:Q\rightarrow\mathbb{N}$. $w_r(q)$ denotes how relevant resource $r$ is to question $q$. If $w_r(q) = 0$ then $r$ has no relevance to $q$.
+\end{definition}
+
+\begin{definition}{Question Coverage}
+If $R'\subseteq R$, let 
+$Cov(R')= \lbrace q\mid\exists r \in R', q \in supp(w_r) \rbrace$ where $supp(w_r)=\lbrace q\in Q\mid w_r(q) > 0 \rbrace$. Write $Cov(r)$ for $Cov(\lbrace r \rbrace)$.
+\end{definition}
+
+\noindent An educational plan for $Q^m$ is the return value of $CreatePlan(R,Q^m)$. Note that $Q^m  \subseteq Cov(plan)$ if and only if $Q^m \subseteq Cov(R)$. Finally, for every $q \in Q^m \cap Cov(R)$, there is a resource $r$ in the plan such that $w_r(q)$ is maximal among $\lbrace w_r'(q) \mid r' \in R$. 
+
+\begin{algorithm}
+ \begin{algorithmic}[1]
+ \Function{CreatePlan}{$R,Q$}
+ \State $plan\gets \emptyset$
+ \State $set\gets\emptyset$
+ \State $Q'\gets Q$
+ \State $R'\gets R$
+ \While{$Q'\neq \emptyset$}
+ 	\If{$R' = \emptyset$}
+ 		\State \textbf{return} $plan$ \Comment{No more resources to select.}
+ 	\EndIf
+ 	\State $r\gets \text{arbitrary element of } \lbrace r' \mid \forall r'' \in R'\text{, } 		CW(r') \geq CW(r'')$
+ 	\State $set = CS(r)$
+ 	\If{$set = \emptyset$}
+ 		\State \textbf{return} $plan$ \Comment{$\forall r \in R'\text{, } Cov(r) \cap Q' = \emptyset$}
+ 	\EndIf
+ 	\State $Q'\gets Q'\setminus set$
+ 	\State $R'\gets R'\setminus \lbrace r \rbrace$
+ \EndWhile
+ \State \textbf{return} $plan$
+ \EndFunction
+ \end{algorithmic}
+ \caption{Create a small learning plan}
+\end{algorithm}
+
+\begin{algorithm}
+ \begin{algorithmic}[1]
+ \Function{CW}{$r,R,Q$} \Comment{$r \in R$}
+ \State $weight \gets 0$
+ \ForAll {$q \in supp(r) \cap Q$}
+ 	\If{$w_r(q)=Sup\lbrace w_r'(q)\mid r'\in R\rbrace$}
+ 		\State $weight\gets weight + 1$
+ 	\EndIf
+ \EndFor
+ \State \textbf{return} $weight$
+ \EndFunction
+ \end{algorithmic}
+ \caption{Get resource relative covering weight.}
+\end{algorithm}
+
+\begin{algorithm}
+ \begin{algorithmic}[1]
+ \Function{CS}{$r,R,Q$} \Comment{$r \in R$}
+ \State $set \gets \emptyset$
+ \ForAll {$q \in supp(r) \cap Q$}
+ 	\If{$w_r(q)=Sup\lbrace w_r'(q)\mid r'\in R\rbrace$}
+ 		\State $set\gets set \cup \lbrace q \rbrace$
+ 	\EndIf
+ \EndFor
+ \State \textbf{return} $set$
+ \EndFunction
+ \end{algorithmic}
+ \caption{Get resource relative covering set.}
+\end{algorithm}
+
+\end{document}
