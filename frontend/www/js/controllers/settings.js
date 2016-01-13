@@ -25,7 +25,7 @@ angular.module('SettingsControllers', [])
 				{
 					url: "#/instrument/list",
 					icon: Icons.instrument,
-					name: 'Competency Assessment Frameworks',
+					name: 'Instruments (Competency Frameworks)',
 					description: 'Define the set(s) of competencies recognized by your organization for use in assessments.'
 				},
 				{

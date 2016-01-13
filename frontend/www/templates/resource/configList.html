@@ -2,33 +2,29 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
-        <div class="row responsive-sm">
-            <div class="col">
-                <ion-list>
-                    <ion-item class="top">
-                        <list-searcher></list-searcher>
-                    </ion-item>
-                    <ion-item class="item-icon-right" ng-repeat="resource in Resources.list" type="item-text-wrap">
-                        <div style="float:left; margin-right:1em;">
-                            <a class="button button-small button-positive"
-                               href="#/resource/edit/{{resource.id}}"><i class="{{i.edit}} fa-lg bold"></i> {{'Edit'|translate}}</a>
-                            <a class="button button-small button-positive"
-                               href="#/resource/alignment/{{resource.id}}"><i class="{{i.slider}} fa-lg bold"></i> {{'Align'|translate}}</a>
-                        </div>
-                        <div class="name">
-                            <i class="{{i.resource}} fa-lg"></i> {{resource.nmb}} {{resource.n}}
-                        </div>
-                        <div class="summary" ng-bind-html="resource.sm"></div>
-                        <i class="icon ion-chevron-right icon-accessory"></i>
-                    </ion-item>
-                    <ion-item>
-                        <button onclick="alert('TBD');" class="button button-balanced">
-                            <i class="{{i.add}} fa-lg"></i> {{'Add Resource'|translate}}
-                        </button>
-                    </ion-item>
-                </ion-list>
-            </div>
-        </div>
+        <ion-list type="card">
+            <ion-item class="top">
+                <list-searcher></list-searcher>
+            </ion-item>
+            <ion-item class="item-icon-right" ng-repeat="resource in Resources.list" type="item-text-wrap">
+                <div style="float:left; margin-right:1em;">
+                    <a class="button button-small button-positive"
+                       href="#/resource/edit/{{resource.id}}"><i class="{{i.edit}} fa-lg bold"></i> {{'Edit'|translate}}</a>
+                    <a class="button button-small button-positive"
+                       href="#/resource/alignment/{{resource.id}}"><i class="{{i.slider}} fa-lg bold"></i> {{'Align'|translate}}</a>
+                </div>
+                <div class="name">
+                    <i class="{{i.resource}} fa-lg"></i> {{resource.nmb}} {{resource.n}}
+                </div>
+                <div class="summary" ng-bind-html="resource.sm"></div>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+            <ion-item>
+                <button onclick="alert('TBD');" class="button button-balanced">
+                    <i class="{{i.add}} fa-lg"></i> {{'Add Resource'|translate}}
+                </button>
+            </ion-item>
+        </ion-list>
     </ion-content>
     <ng-include src="'/templates/common/tabs.html'"></ng-include>
 </ion-view>
