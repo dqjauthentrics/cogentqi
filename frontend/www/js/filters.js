@@ -19,6 +19,13 @@ angular.module('app')
 			};
 		}
 	])
+	.filter('space2Break', [
+		'$filter', function ($filter) {
+			return function (src) {
+				return src.replace(' ', '<br/>');
+			};
+		}
+	])
 	.filter('ellipsify', [
 		'$filter', function ($filter) {
 			return function (src, maxLen) {

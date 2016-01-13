@@ -9,7 +9,7 @@
             </ion-item>
             <ion-item class="item-icon-right" data-ng-repeat="resource in filtered = (Resources.list|filter:resourceFilter)" type="item-text-wrap"
                       href="#/resource/view/{{resource.id}}">
-                <div class="number"><i class="{{i.resource}} fa-lg"></i> {{resource.nmb}}</div>
+                <div><i class="{{i.resource}} fa-lg fa-2x"></i> <span style="font-size:1.5em;">{{resource.nmb}}</span></div>
                 <div class="title">
                     <a ng-show="!resource.loc" href="#/resource/view/{{resource.id}}" title="">{{resource.n}}</a>
                     <a ng-show="resource.loc" href="{{resource.loc}}" target="_blank" title="">{{resource.n}} <i class="{{i.externalLink}}"></i></a>

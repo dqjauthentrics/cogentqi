@@ -1,0 +1,19 @@
+.customerBg, .tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
+    background-color: #243842 !important;
+}
+
+.bar.bar-assertive, .assertive {
+    border: none;
+}
+
+.cycle a {
+    color: #243842 !important;
+}
+
+.tab-item:hover {
+    color: #c1da94 !important;
+}
+
+.tab-item-active {
+    color: #8ae281;
+}

@@ -1,18 +1,11 @@
 <div class="row responsive-lg assessmentItem items" style="white-space: normal;">
-    <div class="col padding" data-ng-show="showMember">
-        <img class="avatar border border{{assessment.member.lv}} avatar-small" data-ng-src="{{site}}/avatars/{{assessment.member.id}}.png" alt=""
-             err-src="{{site}}/avatars/genericUser.png"/>
-        {{assessment.member.fn}}
-        <br/>
-        {{assessment.member.ln}}
-        <div class="role">{{assessment.member.rn}}</div>
-    </div>
     <div class="col">
         <table>
             <tr>
+                <td style="vertical-align: top; padding-right:0.5em;"><i class="{{i.assessment}} fa-lg fa-2x"></i></td>
                 <td style="vertical-align: top; padding-right:0.5em;">
                     <div style="text-align:center;" data-ng-class="'matrixFg ' + (assessment.typ == 'NAYesNo'?'yesNoFg':'levelFg') + assessment.rk">
-                        <div data-ng-switch="assessment.es">
+                        <div data-ng-switch="assessment.esZZZZZZZ">
                             <div data-ng-switch-when="L"><i class="{{i.locked}}"></i></div>
                             <div data-ng-switch-when="A"><i class="{{i.active}}"></i></div>
                             <div data-ng-switch-when="C"><i class="{{i.completed}}"></i></div>
@@ -29,6 +22,14 @@
                 </td>
             </tr>
         </table>
+    </div>
+    <div class="col padding" data-ng-show="showMember">
+        <img class="avatar border border{{assessment.member.lv}} avatar-small" data-ng-src="{{site}}/avatars/{{assessment.member.id}}.png" alt=""
+             err-src="{{site}}/avatars/genericUser.png"/>
+        {{assessment.member.fn}}
+        <br/>
+        {{assessment.member.ln}}
+        <div class="role">{{assessment.member.rn}}</div>
     </div>
     <div class="col col-40" data-ng-show="assessment.assessor">
         by {{assessment.assessor.fn}} {{assessment.assessor.ln}}
