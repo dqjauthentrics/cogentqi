@@ -28,6 +28,13 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 		var url = '/api3/outcome/byOrganization/' + parentOrgId + '/' + (includeAlignments ? 1 : 0);
 		return $resource(url, {}, {query: {method: 'GET', isArray: false, cache: false}});
 	};
+	svc.retrieveTrends = function (organizationId) {
+		var user = $cookieStore.get('user');
+		if (!Utility.empty(user)) {
+			return $resource('/api3/outcome/trends/' + organizationId, {}, {query: {method: 'GET', isArray: false, cache: false}});
+		}
+		return null;
+	};
 
 	svc.find = function (outcomeId) {
 		for (var i = 0; i < svc.list.length; i++) {

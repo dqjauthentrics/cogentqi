@@ -230,4 +230,14 @@ class OutcomeController extends ControllerBase {
 		}
 		$result->sendNormal();
 	}
+
+	/**
+	 * @param int $organizationId
+	 */
+	public function trendsAction($organizationId) {
+		$outcomeModel = new Outcome();
+		$result = $outcomeModel->getTrends($organizationId);
+		$result->sendNormal();
+	}
+
 }

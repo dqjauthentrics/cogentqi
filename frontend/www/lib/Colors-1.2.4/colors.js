@@ -219,12 +219,16 @@
 		return keys;
 	};
 
-	Colors.pastels = function() {
+	Colors.pastels = function () {
 		var pastels = [];
 		for (var key in this.colorSet) {
 			pastels.push(this.pastel(this.colorSet[key]));
 		}
 		return pastels;
+	};
+	Colors.pastel = function (idx) {
+		var pastels = Colors.pastels();
+		return pastels[idx];
 	};
 
 	// ## The Colors methods
