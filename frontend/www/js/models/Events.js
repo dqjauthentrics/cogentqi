@@ -17,7 +17,7 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 						if (result.data.status !== 1) {
 							return $q.reject(result.data);
 						}
-						svc.list = response.data.data;
+						svc.list = result.data.data;
 						return svc;
 					},
 					function (error) {
