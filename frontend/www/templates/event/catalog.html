@@ -16,6 +16,7 @@
                                href="#/event/alignment/{{event.id}}"><i class="{{i.slider}} fa-lg bold"></i> {{'Align'|translate}}</a>
                         </div>
                         <i class="{{i.bolt}} fa-lg"></i> {{event.n}}
+                        <div class="description" ng-bind-html="event.dsc"></div>
                     </ion-item>
                     <ion-item>
                         <button ng-click="saveEvent(null)" class="button button-balanced">
