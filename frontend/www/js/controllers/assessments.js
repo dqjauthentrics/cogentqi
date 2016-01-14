@@ -197,7 +197,7 @@ angular.module('AssessmentControllers', [])
 			};
 			$scope.sliderChange = function (questionId) {
 				var scoreInfo = Assessments.sliderChange(questionId, $scope.Assessments.current.instrument, $scope.responses);
-				$scope.responses[questionId].rp = scoreInfo.scoreWord;
+				$scope.responses[questionId].rp = scoreInfo.score;
 				$scope.currentChoices = $scope.responses[questionId].ch;
 				$scope.Assessments.current.sc = scoreInfo.avg;
 				$scope.Assessments.current.rk = scoreInfo.avgRound;

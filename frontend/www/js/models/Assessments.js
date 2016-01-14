@@ -307,7 +307,6 @@ angular.module('Assessments', []).service(
 		};
 
 		svc.sliderChange = function (questionId, instrument, responses) {
-			var scoreWord = null;
 			var avg = 0;
 			var avgRound = 0;
 			if (!Utility.empty(responses[questionId])) {
@@ -323,8 +322,7 @@ angular.module('Assessments', []).service(
 				var pointer = slider.find(".pointer");
 				pointer.css({left: 100});
 			}
-			console.log("sliderChange:", avg);
-			return {avg: avg, avgRound: avgRound};
+			return {avg: avg, avgRound: avgRound, score: score};
 		};
 
 		svc.findMatrixResponseRowValues = function (instrument, currentSectionIdx, allResponses) {
