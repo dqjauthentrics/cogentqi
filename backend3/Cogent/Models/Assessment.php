@@ -265,6 +265,9 @@ class Assessment extends CogentModel {
 											"assessor_comments" => $formResponse["ac"],
 											"member_comments"   => $formResponse["mc"]
 										];
+										if (!empty($responseUpdater['response']) && $responseUpdater['response'] != $response->response) {
+											$responseUpdater['time_stamp'] = CogentModel::dbDateTime();
+										}
 										if (!$response->update($responseUpdater)) {
 											throw new \Exception($this->errorMessagesAsString());
 										}

@@ -96,6 +96,7 @@ class CogentModel extends \Phalcon\Mvc\Model {
 		'sr'   => ['starts', self::TYPE_DATETIME],
 		'ss'   => ['status_stamp', self::TYPE_DATETIME],
 		'st'   => ['status_id', self::TYPE_STRING],
+        'ts'   => ['time_stamp', self::TYPE_DATETIME],
 		'ttl'  => ['title', self::TYPE_STRING],
 		'un'   => ['username', self::TYPE_STRING],
 		'v'    => ['value', self::TYPE_STRING],
@@ -249,7 +250,7 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	 *
 	 * @return bool|string
 	 */
-	public function dbDateTime($dateTimeStr = NULL) {
+	public static function dbDateTime($dateTimeStr = NULL) {
 		if (empty($dateTimeStr)) {
 			$dateTimeStr = date('m/d/Y h:i:s a', time());
 		}
