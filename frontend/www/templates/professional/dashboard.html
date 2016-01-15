@@ -4,7 +4,7 @@
     <ion-content has-bouncing="false" overflow-scroll="true">
         <div class="row responsive-sm">
             <div class="col padding panel">
-                <h1 class="pull-left">{{installation.name}}</h1>
+                <h1 class="pull-left" ng-bind-html="installation.name"></h1>
                 <div class="pull-right" style="white-space: normal; line-height:1em;">
                     <a href="#/member/view/{{data.user.id}}">{{data.user.fn}} {{data.user.ln}}</a>
                     <a href="#/member/view/{{data.user.id}}">
