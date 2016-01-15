@@ -1,6 +1,6 @@
 <ion-view title="Login" cache-view="false">
     <ion-content class="padding detail" has-bouncing="false" style="height:auto;">
-        <h1 style="text-align: center;">{{installation.name}}</h1>
+        <h1 style="text-align: center;" ng-bind-html="installation.name"></h1>
         <div class="row responsive-md">
             <div class="col col-25 padding">
                 <div class="panel" ng-if="installation.social">
@@ -21,9 +21,7 @@
             </div>
             <div class="col col-50 padding" id="loginPanel">
                 <div class="item item-text-wrap" style="background-color: #DDD !important;">
-                    <div class="item item-divider">
-                        Sign in with your {{installation.name}} credentials:
-                    </div>
+                    <div class="item item-divider" ng-bind-html="'Sign in with your ' + installation.textName + ' credentials:'"></div>
                     <div class="row responsive-sm" style="background-color: #DDD !important;">
                         <div class="col" style="text-align: center;">
                             <img data-ng-src="/img/cycle2.png" alt="" style="max-height:10em; margin-right:1em"/>

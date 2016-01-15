@@ -175,7 +175,7 @@ angular.module('ReportsControllers', [])
 											  events: {
 												  load: function (event) {
 													  $scope.data.isLoading = false;
-													  $scope.$apply();
+													  //$scope.$apply();
 												  }
 											  }
 										  },
@@ -210,11 +210,11 @@ angular.module('ReportsControllers', [])
 									  },
 									  series: [
 										  {
-											  name: 'Before',
+											  name: 'Related Competencies Avg Before',
 											  data: resource.priorResponseAverages
 										  },
 										  {
-											  name: 'After',
+											  name: 'Related Competencies Avg After',
 											  data: resource.subsequentResponseAverages
 										  }
 									  ]
@@ -231,7 +231,7 @@ angular.module('ReportsControllers', [])
 						  }
 						  $scope.currentGraphIndex = 0;
 						  $scope.setGraphs = function () {
-							  $scope.data.isLoading = true;
+							  //$scope.data.isLoading = true;
 							  $timeout(function () {
 								  var nextIndex = ($scope.currentGraphIndex + 1) % $scope.numberOfGraphs;
 								  var previousIndex = ($scope.currentGraphIndex +
