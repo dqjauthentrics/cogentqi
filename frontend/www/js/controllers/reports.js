@@ -201,7 +201,7 @@ angular.module('ReportsControllers', [])
 										  yAxis: {
 											  min: 0,
 											  title: {
-												  text: 'Alignment Level'
+												  text: 'Average Score'
 											  },
 											  stackLabels: {
 												  enabled: false
