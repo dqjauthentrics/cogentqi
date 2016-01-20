@@ -2,56 +2,59 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <div class="row responsive-sm">
-            <div class="col padding panel">
-                <div class="pull-left" style="white-space: normal; line-height:1em; margin: 0 2em;">
-                    <a href="#/member/view/{{data.user.id}}">
-                        <avatar site="siteDir()" member-id="data.user.id" sz="'small'" level="data.user.lv"
-                                alt="avatarAlt(data.user)"></avatar>
-                    </a>
-                    <a href="#/member/view/{{data.user.id}}">{{data.user.fn}} {{data.user.ln}}</a>
+        <div class="paddedView">
+            <div class="row responsive-sm">
+                <div class="col padding panel">
+                    <div class="pull-left" style="white-space: normal; line-height:1em; margin: 0 2em;">
+                        <a href="#/member/view/{{data.user.id}}">
+                            <avatar site="siteDir()" member-id="data.user.id" sz="'small'" level="data.user.lv"
+                                    alt="avatarAlt(data.user)"></avatar>
+                        </a>
+                        <a href="#/member/view/{{data.user.id}}">{{data.user.fn}} {{data.user.ln}}</a>
+                    </div>
+                    <h1 class="pull-right" ng-bind-html="installation.name"></h1>
                 </div>
-                <h1 class="pull-right" ng-bind-html="installation.name"></h1>
             </div>
-        </div>
 
-        <div class="row responsive-lg" id="professionalLists">
-            <div class="col padding">
-                <div class="panel">
-                    <ion-list>
-                        <ion-item class="top fat" style="background:goldenrod !important; color:#FFF !important;"><i class="{{i.recommendation}}"></i>
-                            {{'Recommendations'|translate}}
-                        </ion-item>
-                        <ion-item ng-show="!data.planItems.length">None.</ion-item>
-                        <plan-item ng-repeat="item in items = (data.planItems|filter:recommendationFilter)"
-                                   item="item" i="i" verb="statusWord(item.s)">
-                        </plan-item>
-                    </ion-list>
+            <div class="row responsive-lg" id="professionalLists">
+                <div class="col col-33 padding">
+                    <div class="panel">
+                        <ion-list>
+                            <ion-item class="top fat" style="background:goldenrod !important; color:#FFF !important;"><i class="{{i.recommendation}}"></i>
+                                {{'Recommendations'|translate}}
+                            </ion-item>
+                            <ion-item ng-show="!data.planItems.length">None.</ion-item>
+                            <plan-item ng-repeat="item in items = (data.planItems|filter:recommendationFilter)"
+                                       item="item" i="i" verb="statusWord(item.s)">
+                            </plan-item>
+                        </ion-list>
+                    </div>
                 </div>
-            </div>
-            <div class="col padding">
-                <div class="panel">
-                    <ion-list>
-                        <ion-item class="top fat" style="background:darkgreen !important; color:#FFF;"><i class="{{i.plan}}"></i> {{'Learning Plan'|translate}}
-                        </ion-item>
-                        <ion-item ng-show="!data.planItems.length">None.</ion-item>
-                        <plan-item ng-repeat="item in items = (data.planItems|filter:nonRecommendationFilter)"
-                                   item="item" i="i" verb="statusWord(item.s)">
-                        </plan-item>
-                    </ion-list>
+                <div class="col col-33 padding">
+                    <div class="panel">
+                        <ion-list>
+                            <ion-item class="top fat" style="background:darkgreen !important; color:#FFF;"><i class="{{i.plan}}"></i> {{'Learning
+                                Plan'|translate}}
+                            </ion-item>
+                            <ion-item ng-show="!data.planItems.length">None.</ion-item>
+                            <plan-item ng-repeat="item in items = (data.planItems|filter:nonRecommendationFilter)"
+                                       item="item" i="i" verb="statusWord(item.s)">
+                            </plan-item>
+                        </ion-list>
+                    </div>
                 </div>
-            </div>
-            <div class="col padding">
-                <div class="panel">
-                    <ion-list>
-                        <ion-item class="top fat" style="background:navy !important; color:#FFF;">
-                            <i class="{{i.completed}}"></i> {{'Completed Courses'|translate}}
-                        </ion-item>
-                        <ion-item ng-show="!data.planItems.length">None.</ion-item>
-                        <plan-item ng-repeat="item in items = (data.planItems|filter:completedFilter)"
-                                   item="item" i="i" verb="statusWord(item.s)">
-                        </plan-item>
-                    </ion-list>
+                <div class="col col-33 padding">
+                    <div class="panel">
+                        <ion-list>
+                            <ion-item class="top fat" style="background:navy !important; color:#FFF;">
+                                <i class="{{i.completed}}"></i> {{'Completed Courses'|translate}}
+                            </ion-item>
+                            <ion-item ng-show="!data.planItems.length">None.</ion-item>
+                            <plan-item ng-repeat="item in items = (data.planItems|filter:completedFilter)"
+                                       item="item" i="i" verb="statusWord(item.s)">
+                            </plan-item>
+                        </ion-list>
+                    </div>
                 </div>
             </div>
         </div>
