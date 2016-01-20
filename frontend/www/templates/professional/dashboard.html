@@ -33,8 +33,7 @@
                 <div class="col col-33 padding">
                     <div class="panel">
                         <ion-list>
-                            <ion-item class="top fat" style="background:darkgreen !important; color:#FFF;"><i class="{{i.plan}}"></i> {{'Learning
-                                Plan'|translate}}
+                            <ion-item class="top fat" style="background:darkgreen !important; color:#FFF;"><i class="{{i.plan}}"></i> {{'Learning Plan'|translate}}
                             </ion-item>
                             <ion-item ng-show="!data.planItems.length">None.</ion-item>
                             <plan-item ng-repeat="item in items = (data.planItems|filter:nonRecommendationFilter)"
