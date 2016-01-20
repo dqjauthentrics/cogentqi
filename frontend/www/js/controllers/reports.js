@@ -232,14 +232,14 @@ angular.module('ReportsControllers', [])
 						  $scope.currentGraphIndex = 0;
 						  $scope.setGraphs = function () {
 							  //$scope.data.isLoading = true;
-							  $timeout(function () {
+							  //$timeout(function () {
 								  var nextIndex = ($scope.currentGraphIndex + 1) % $scope.numberOfGraphs;
 								  var previousIndex = ($scope.currentGraphIndex +
 									  $scope.numberOfGraphs - 1) % $scope.numberOfGraphs;
 								  $scope.currentGraph = $scope.graphs[$scope.currentGraphIndex];
 								  $scope.nextGraph = $scope.graphs[nextIndex];
 								  $scope.previousGraph = $scope.graphs[previousIndex];
-							  });
+							  //});
 						  };
 						  $scope.currentGraph = null;
 						  $scope.nextGraph = null;

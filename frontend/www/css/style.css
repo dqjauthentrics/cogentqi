@@ -1,5 +1,5 @@
-body, h1, h2, h3, h4, h5, td, th, p, div, input, textarea {
-    font-family: 'Ubuntu', serif;
+body, h1, h2, h3, h4, h5, td, th, p, div, input, textarea, a {
+    font-family: 'Ubuntu', arial, serif;
 }
 
 a {
