@@ -133,7 +133,16 @@ class Resource extends CogentModel {
 			$jsonAlignments = [];
 			/** @var OutcomeAlignment $alignment */
 			foreach ($alignments as $alignment) {
-				$jsonAlignments[] = $alignment->map();
+                $mappedAlignment = $alignment->map();
+				$mappedAlignment['mapping'] = [];
+				foreach ($alignment->mapping as $m) {
+					$mappedAlignment['mapping'][] = [
+						'response' => $m->response,
+						'utility' => $m->utility
+					];
+				}
+				$jsonAlignments[] = $mappedAlignment;
+
 			}
 			$map["alignments"] = $jsonAlignments;
 		}
