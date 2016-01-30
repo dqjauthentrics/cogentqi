@@ -1879,7 +1879,25 @@ list-searcher {
     display: none;
 }
 
-rzslider .rz-pointer {
+rzslider li {
+    margin: 0 !important;
+    list-style-type: none !important;
+}
+
+rzslider.vertical .rz-bar-wrapper {
+    width: auto !important;
+}
+
+rzslider.vertical .rz-pointer {
+    background-color: #777 !important;
+    border-radius: 1px !important;
+}
+
+rzslider .rz-pointer.rz-active:after {
+    background-color: #444 !important;
+}
+
+rzslider.assessment .rz-pointer {
     width: 2em !important;
     height: 2em !important;
     background-color: transparent !important;
@@ -1889,8 +1907,46 @@ rzslider .rz-pointer {
     border-radius: 0 !important;
 }
 
-rzslider .rz-bar {
+rzslider.assessment .rz-bar {
     background: transparent !important;
+}
+
+rzslider.assessment .rz-pointer:after {
+    display: none !important;
+}
+
+equalizer {
+    padding: 0.5em;
+    background: #F0F8FF;
+    border: 1px solid #AAA;
+    float: left;
+    border-radius: 0.3em;
+}
+
+equalizer > div > div {
+    float: left;
+    margin-right: 1em;
+    text-align: center;
+    width: 5em;
+}
+
+equalizer .rubric {
+    border-top: 1px solid #444;
+    line-height: 0.9em;
+    font-size: 0.7em;
+}
+
+equalizer > div > div:nth-child(2) {
+    background: #E0E8EF;
+}
+
+equalizer > div > div:first-child {
+    float: none;
+    font-weight: bold;
+    padding: 0 auto 0.7em auto;
+    margin: 0;
+    width: 100%;
+    border: none !important;
 }
 
 .infoBadge {
@@ -1900,10 +1956,6 @@ rzslider .rz-bar {
     background: #777;
     border-radius: 1em;
     margin: 0 1em;
-}
-
-rzslider .rz-pointer:after {
-    display: none !important;
 }
 
 .fc-content {

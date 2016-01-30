@@ -39,6 +39,13 @@ angular.module('app')
 		};
 	})
 
+	.directive('equalizer', function () {
+		return {
+			restrict: 'E', templateUrl: '../templates/common/_equalizer.html',
+			scope: {alignment: '=', choices: '=', values: '=', min: '=', max: '=', dirty: '='}
+		};
+	})
+
 	.directive('memberItem', function () {
 		return {restrict: 'E', templateUrl: '../templates/common/_memberItem.html'};
 	})

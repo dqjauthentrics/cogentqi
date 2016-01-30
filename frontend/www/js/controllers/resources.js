@@ -108,7 +108,11 @@ angular.module('ResourceControllers', [])
 				resources: [],
 				resource: {},
 				currentInstrument: null,
-				currentInstrumentId: 1
+				currentInstrumentId: 1,
+
+				minVal: 0,
+				maxVal: 5,
+				values: [3, 2, 5, 1, 2, 4]
 			};
 
 			Utility.getResource(Instruments.retrieve(), function (response) {

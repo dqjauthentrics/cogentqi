@@ -1,0 +1,23 @@
+<div style="{{'width: ' + ((max+1)*6) + 'em; float:left;'}}">
+    <div>{{'Relevance to Those Rated at Each Level'|translate}}</div>
+    <div>
+        <div style="{{'height:' + (choices.length*1.5) + 'em;'}}">
+            <rzslider
+                    rz-slider-model="alignment"
+                    rz-slider-options="{floor:min,ceil:max,vertical:true,showTicksValues:true}">
+            </rzslider>
+            <div class="clearfix"></div>
+            <div class="rubric" ng-bind-html="'Master'"></div>
+        </div>
+    </div>
+    <div ng-repeat="choice in choices track by $index" ng-show="$index > 0">
+        <div style="{{'height:' + (choices.length*1.5) + 'em;'}}" ng-show="$index > 0">
+            <rzslider
+                    rz-slider-model="choice.values[$index]"
+                    rz-slider-options="{floor:min,ceil:max,vertical:true,showTicksValues:true}">
+            </rzslider>
+        </div>
+        <div class="clearfix"></div>
+        <div class="rubric" ng-bind-html="choice.n|space2Break"></div>
+    </div>
+</div>
