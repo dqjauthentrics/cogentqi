@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AngularJS Touch Slider</title>
   <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./lib/bootstrap.min.css">
   <link rel="stylesheet" href="../dist/rzslider.css"/>
   <link rel="stylesheet" href="demo.css"/>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
@@ -27,8 +27,17 @@
 
   <article>
     <h2>Range slider</h2>
-    Min Value: <input type="number" ng-model="minRangeSlider.minValue"/><br/>
-    Max Value: <input type="number" ng-model="minRangeSlider.maxValue"/><br/>
+    Min Value: <input type="number" ng-model="rangeSlider.minValue"/><br/>
+    Max Value: <input type="number" ng-model="rangeSlider.maxValue"/><br/>
+    <rzslider
+      rz-slider-model="rangeSlider.minValue"
+      rz-slider-high="rangeSlider.maxValue"
+      rz-slider-options="rangeSlider.options"
+    ></rzslider>
+  </article>
+
+  <article>
+    <h2>Range slider with minimum range of 10</h2>
     <rzslider
       rz-slider-model="minRangeSlider.minValue"
       rz-slider-high="minRangeSlider.maxValue"
@@ -41,6 +50,22 @@
     <rzslider
       rz-slider-model="slider_visible_bar.value"
       rz-slider-options="slider_visible_bar.options"
+    ></rzslider>
+  </article>
+
+  <article>
+    <h2>Slider with visible selection bar at the end</h2>
+    <rzslider
+      rz-slider-model="slider_visible_bar_end.value"
+      rz-slider-options="slider_visible_bar_end.options"
+    ></rzslider>
+  </article>
+
+  <article>
+    <h2>Slider with dynamic selection bar colors</h2>
+    <rzslider
+      rz-slider-model="color_slider_bar.value"
+      rz-slider-options="color_slider_bar.options"
     ></rzslider>
   </article>
 
@@ -90,6 +115,14 @@
   </article>
 
   <article>
+    <h2>Slider with ticks and tooltips</h2>
+    <rzslider
+      rz-slider-model="slider_ticks_tooltip.value"
+      rz-slider-options="slider_ticks_tooltip.options"
+    ></rzslider>
+  </article>
+
+  <article>
     <h2>Slider with ticks and values (and tooltips)</h2>
     <rzslider
       rz-slider-model="slider_ticks_values.value"
@@ -112,6 +145,15 @@
       rz-slider-model="slider_draggable_range.minValue"
       rz-slider-high="slider_draggable_range.maxValue"
       rz-slider-options="slider_draggable_range.options"
+    ></rzslider>
+  </article>
+
+  <article>
+    <h2>Slider with draggable range only</h2>
+    <rzslider
+      rz-slider-model="slider_draggable_range_only.minValue"
+      rz-slider-high="slider_draggable_range_only.maxValue"
+      rz-slider-options="slider_draggable_range_only.options"
     ></rzslider>
   </article>
 
@@ -225,8 +267,8 @@
 </div>
 
 </body>
-<script src="../bower_components/angular/angular.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
+<script src="../node_modules/angular/angular.js"></script>
+<script src="./lib/ui-bootstrap-tpls.js"></script>
 <script src="../dist/rzslider.js"></script>
 <script src="demo.js"></script>
 </html>

@@ -30,9 +30,12 @@
                     <ion-item ng-repeat="question in data.currentInstrument.questions" type="item-text-wrap">
                         <div class="name">{{question.n}}</div>
                         <div style="float:right; margin: 1em 0.5em;">
-                            <equalizer min="question.type.min" max="question.type.max" values="data.values"
-                                       choices="question.type.choices">
-                                alignment="data.alignments[question.id]"
+                            <equalizer
+                                    qid = "question.id"
+                                    min="question.type.min" max="question.type.max" values="data.values"
+                                    choices="question.type.choices"
+                                    alignment="data.alignments[question.id]"
+                            >
                             </equalizer>
                         </div>
                         <div class="description" data-ng-bind-html="question.dsc"></div>

@@ -2,7 +2,6 @@
 namespace Cogent\Controllers;
 
 use Cogent\Models\CogentModel;
-use Cogent\Models\Member;
 use Phalcon\Mvc\Controller;
 
 class ControllerBase extends Controller {
@@ -21,20 +20,20 @@ class ControllerBase extends Controller {
 	/**
 	 * @param $model
 	 *
-	 * @return \Phalcon\Db\AdapterInterface
-	 */
-	public function getWriteConnection($model) {
-		return $this->modelsManager->getWriteConnection($model);
-	}
-
-	/**
-	 * @param $model
-	 *
 	 * @return bool
 	 */
 	public function beginTransaction($model) {
 		$this->transactionModel = $model;
 		return $this->getWriteConnection($model)->begin();
+	}
+
+	/**
+	 * @param $model
+	 *
+	 * @return \Phalcon\Db\AdapterInterface
+	 */
+	public function getWriteConnection($model) {
+		return $this->modelsManager->getWriteConnection($model);
 	}
 
 	/**
@@ -56,13 +55,6 @@ class ControllerBase extends Controller {
 	}
 
 	/**
-	 * @return string
-	 */
-	public function getInput() {
-		return file_get_contents('php://input');
-	}
-
-	/**
 	 * @param null $recordName
 	 *
 	 * @return mixed
@@ -73,6 +65,13 @@ class ControllerBase extends Controller {
 			$data = $data[$recordName];
 		}
 		return $data;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getInput() {
+		return file_get_contents('php://input');
 	}
 
 	/**

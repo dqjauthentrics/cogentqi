@@ -8,11 +8,11 @@ use Phalcon\Mvc\Model\Validator\Email as Email;
  * Class Member
  * @package Cogent\Models
  *
- * @method \Phalcon\Mvc\Model\Resultset\Simple|PlanItem[]    getPlanItems($parameters=[])
- * @method \Phalcon\Mvc\Model\Resultset\Simple|MemberBadge[] getBadges($parameters=[])
- * @method \Phalcon\Mvc\Model\Resultset\Simple|MemberNote[]  getNotes($parameters=[])
- * @method \Phalcon\Mvc\Model\Resultset\Simple|Assessment[]  getAssessments($parameters=[])
- * @method \Phalcon\Mvc\Model\Resultset\Simple|MemberEvent[] getEvents($parameters=[])
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|PlanItem[]    getPlanItems($parameters = [])
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|MemberBadge[] getBadges($parameters = [])
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|MemberNote[]  getNotes($parameters = [])
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|Assessment[]  getAssessments($parameters = [])
+ * @method \Phalcon\Mvc\Model\Resultset\Simple|MemberEvent[] getEvents($parameters = [])
  *
  * @property \Phalcon\Mvc\Model\Resultset\Simple|PlanItem[]    $planItems
  * @property \Phalcon\Mvc\Model\Resultset\Simple|MemberBadge[] $badges
@@ -241,7 +241,7 @@ class Member extends CogentModel {
 				//$map["assessments"] = $this->mapRecords($this->getAssessments(['order' => 'last_modified DESC']));
 				$map["assessments"] = [];
 				foreach ($this->getAssessments(['order' => 'last_modified DESC']) as $assessment) {
-					$map["assessments"][] = $assessment->map(['responses' => true]);
+					$map["assessments"][] = $assessment->map(['responses' => TRUE]);
 				}
 			}
 			if (!empty($options['lastAssessment'])) {

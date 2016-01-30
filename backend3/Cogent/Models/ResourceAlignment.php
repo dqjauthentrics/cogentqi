@@ -58,8 +58,8 @@ class ResourceAlignment extends CogentModel {
 		$this->belongsTo('resource_id', 'Cogent\Models\Resource', 'id', ['alias' => 'Resource']);
 		$this->belongsTo('question_id', 'Cogent\Models\Question', 'id', ['alias' => 'Question']);
 		$this->hasMany('id', 'Cogent\Models\ResourceAlignmentMap', 'resource_alignment_id', [
-				'foreignKey' => ['action' => Relation::ACTION_CASCADE],
-				'alias' => 'Mapping'
+			'foreignKey' => ['action' => Relation::ACTION_CASCADE],
+			'alias'      => 'Mapping'
 		]);
 	}
 
@@ -76,7 +76,7 @@ class ResourceAlignment extends CogentModel {
 	 * Set weight for the response to utility mapping
 	 *
 	 * @param int $response
-     */
+	 */
 	public function setUtilityByResponse($response) {
 		$this->weight = 0;
 		foreach ($this->mapping as $map) {

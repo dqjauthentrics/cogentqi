@@ -51,17 +51,6 @@ class Recommendation extends CogentModel {
 	}
 
 	/**
-	 * Allows to query the first record that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return Recommendation
-	 */
-	public static function findFirst($parameters = NULL) {
-		return parent::findFirst($parameters);
-	}
-
-	/**
 	 * Initialize method for model.
 	 */
 	public function initialize() {
@@ -77,37 +66,6 @@ class Recommendation extends CogentModel {
 	 */
 	public function getSource() {
 		return 'recommendation';
-	}
-
-	/**
-	 * @param int $outcomeId
-	 * @param     $outcomeEvents
-	 *
-	 * @return int
-	 */
-	public function countMatchingEvents($outcomeId, $outcomeEvents) {
-		$nMatches = 0;
-		foreach ($outcomeEvents as $outcomeEvent) {
-			if ($outcomeEvent['outcome_id'] == $outcomeId) {
-				$nMatches++;
-			}
-		}
-		return $nMatches;
-	}
-
-	/**
-	 * @param int $outcomeId
-	 * @param     $organizationOutcomes
-	 *
-	 * @return int
-	 */
-	public function getOrgOutcome($outcomeId, $organizationOutcomes) {
-		foreach ($organizationOutcomes as $organizationOutcome) {
-			if ($organizationOutcome['outcome_id'] == $outcomeId) {
-				return $organizationOutcome["level"];
-			}
-		}
-		return 0;
 	}
 
 	/**
@@ -177,6 +135,37 @@ class Recommendation extends CogentModel {
 			$result->setException($exception);
 		}
 		return $result;
+	}
+
+	/**
+	 * @param int $outcomeId
+	 * @param     $outcomeEvents
+	 *
+	 * @return int
+	 */
+	public function countMatchingEvents($outcomeId, $outcomeEvents) {
+		$nMatches = 0;
+		foreach ($outcomeEvents as $outcomeEvent) {
+			if ($outcomeEvent['outcome_id'] == $outcomeId) {
+				$nMatches++;
+			}
+		}
+		return $nMatches;
+	}
+
+	/**
+	 * @param int $outcomeId
+	 * @param     $organizationOutcomes
+	 *
+	 * @return int
+	 */
+	public function getOrgOutcome($outcomeId, $organizationOutcomes) {
+		foreach ($organizationOutcomes as $organizationOutcome) {
+			if ($organizationOutcome['outcome_id'] == $outcomeId) {
+				return $organizationOutcome["level"];
+			}
+		}
+		return 0;
 	}
 
 	/**
@@ -280,27 +269,6 @@ class Recommendation extends CogentModel {
 			}
 		}
 		return $scoredQuestions;
-	}
-
-	/**
-	 * @param int $assessmentId
-	 *
-	 * @return array
-	 */
-	public function createRecommendationsForAssessment($assessmentId) {
-		$assessment = Assessment::findFirst($assessmentId);
-		$rankedCoverages = [];
-		if (!empty($assessment)) {
-			$member = $assessment->assessee;
-			$scoredQuestions = $this->createScoredQuestions($assessment->responses);
-			// Filter out any competencies that don't require resource coverage
-			//
-			$filteredQuestions = $this->assessmentQuestionsToCover($scoredQuestions);
-			$rankedCoverages = $this->createRankedResourceList($filteredQuestions, $member);
-			$this->saveRankedResources($rankedCoverages, $member, $assessmentId);
-			$this->saveAssessmentCoverages($rankedCoverages, $assessmentId);
-		}
-		return $rankedCoverages;
 	}
 
 	/**
@@ -418,21 +386,60 @@ class Recommendation extends CogentModel {
 	}
 
 	/**
-	 * Save, for each covered competency, the covering resource.
-	 *
-	 * @param $rankedCoverages
-	 * @param $assessmentId
+	 * @param array $coverages
 	 */
-	private function saveAssessmentCoverages($rankedCoverages, $assessmentId) {
-		foreach ($rankedCoverages as $rankedCoverage) {
-			$responses = AssessmentResponse::query()
-				->where('assessment_id=:aid:', ['aid' => $assessmentId])
-				->inWhere('question_id', array_keys($rankedCoverage['questions']))
-				->execute();
-			/** @var AssessmentResponse $response */
-			foreach ($responses as $response) {
-				$response->update(['recommended_resource_id' => $rankedCoverage['resourceId']]);
+	private function sortResourceCoverages(&$coverages) {
+		usort($coverages, function ($r1, $r2) {
+			$w1 = $r1['totalWeight'];
+			$w2 = $r2['totalWeight'];
+			if ($w1 < $w2) {
+				return -1;
 			}
+			if ($w1 > $w2) {
+				return 1;
+			}
+			return 0;
+		});
+	}
+
+	/**
+	 * @param array $selectedCoverage
+	 * @param array $coverages
+	 * @param array $scoredQuestions
+	 */
+	private function reduceResourceCoverages($selectedCoverage, &$coverages, $scoredQuestions) {
+		foreach ($coverages as &$coverage) {
+			foreach ($selectedCoverage['questions'] as $question => $dummy) {
+				if (array_key_exists($question, $coverage['questions'])) {
+					unset($coverage['questions'][$question]);
+					$coverage['totalWeight'] -= $scoredQuestions[$question]['importance'];
+				}
+			}
+		}
+		unset($coverage);
+		$this->sortResourceCoverages($coverages);
+	}
+
+	/**
+	 * @param array $rankedCoverages
+	 * @param array $scoredQuestions
+	 */
+	private function setOrderAndRatings(&$rankedCoverages, $scoredQuestions) {
+		$order = 1;
+		$maxError = 0;
+		foreach ($rankedCoverages as &$coverage) {
+			$coverage['order'] = $order++;
+			foreach ($coverage['questions'] as $questionId => $dummy) {
+				$question = $scoredQuestions[$questionId];
+				$coverage['totalResponseError'] +=
+					1 - ($question['response'] / $question['maxResponse']);
+			}
+			if ($coverage['totalResponseError'] > $maxError) {
+				$maxError = $coverage['totalResponseError'];
+			}
+		}
+		foreach ($rankedCoverages as &$coverage) {
+			$coverage['rating'] = $maxError != 0 ? ceil(self::MAX_RATING * ($coverage['totalResponseError'] / $maxError)) : 0;
 		}
 	}
 
@@ -456,6 +463,44 @@ class Recommendation extends CogentModel {
 			'score'               => $order,
 			'recommendation_id'   => $recommendationId,
 		];
+	}
+
+	/**
+	 * @param int $assessmentId
+	 *
+	 * @return array
+	 */
+	public function createRecommendationsForAssessment($assessmentId) {
+		$assessment = Assessment::findFirst($assessmentId);
+		$rankedCoverages = [];
+		if (!empty($assessment)) {
+			$member = $assessment->assessee;
+			$scoredQuestions = $this->createScoredQuestions($assessment->responses);
+			// Filter out any competencies that don't require resource coverage
+			//
+			$filteredQuestions = $this->assessmentQuestionsToCover($scoredQuestions);
+			$rankedCoverages = $this->createRankedResourceList($filteredQuestions, $member);
+			$this->saveRankedResources($rankedCoverages, $member, $assessmentId);
+			$this->saveAssessmentCoverages($rankedCoverages, $assessmentId);
+		}
+		return $rankedCoverages;
+	}
+
+	/**
+	 * @param array $scoredQuestions
+	 *
+	 * @return array
+	 */
+	private function assessmentQuestionsToCover($scoredQuestions) {
+		$filteredQuestions = [];
+		foreach ($scoredQuestions as $questionId => $scoredQuestion) {
+			$score = $scoredQuestion['response'];
+			$max = $scoredQuestion['maxResponse'];
+			if ($score != 0 && $score != $max) {
+				$filteredQuestions[$questionId] = $scoredQuestion;
+			}
+		}
+		return $filteredQuestions;
 	}
 
 	/**
@@ -533,77 +578,32 @@ class Recommendation extends CogentModel {
 	}
 
 	/**
-	 * @param array $rankedCoverages
-	 * @param array $scoredQuestions
-	 */
-	private function setOrderAndRatings(&$rankedCoverages, $scoredQuestions) {
-		$order = 1;
-		$maxError = 0;
-		foreach ($rankedCoverages as &$coverage) {
-			$coverage['order'] = $order++;
-			foreach ($coverage['questions'] as $questionId => $dummy) {
-				$question = $scoredQuestions[$questionId];
-				$coverage['totalResponseError'] +=
-					1 - ($question['response'] / $question['maxResponse']);
-			}
-			if ($coverage['totalResponseError'] > $maxError) {
-				$maxError = $coverage['totalResponseError'];
-			}
-		}
-		foreach ($rankedCoverages as &$coverage) {
-			$coverage['rating'] = $maxError != 0 ? ceil(self::MAX_RATING * ($coverage['totalResponseError'] / $maxError)) : 0;
-		}
-	}
-
-	/**
-	 * @param array $scoredQuestions
+	 * Allows to query the first record that match the specified conditions
 	 *
-	 * @return array
+	 * @param mixed $parameters
+	 *
+	 * @return Recommendation
 	 */
-	private function assessmentQuestionsToCover($scoredQuestions) {
-		$filteredQuestions = [];
-		foreach ($scoredQuestions as $questionId => $scoredQuestion) {
-			$score = $scoredQuestion['response'];
-			$max = $scoredQuestion['maxResponse'];
-			if ($score != 0 && $score != $max) {
-				$filteredQuestions[$questionId] = $scoredQuestion;
-			}
-		}
-		return $filteredQuestions;
+	public static function findFirst($parameters = NULL) {
+		return parent::findFirst($parameters);
 	}
 
 	/**
-	 * @param array $selectedCoverage
-	 * @param array $coverages
-	 * @param array $scoredQuestions
+	 * Save, for each covered competency, the covering resource.
+	 *
+	 * @param $rankedCoverages
+	 * @param $assessmentId
 	 */
-	private function reduceResourceCoverages($selectedCoverage, &$coverages, $scoredQuestions) {
-		foreach ($coverages as &$coverage) {
-			foreach ($selectedCoverage['questions'] as $question => $dummy) {
-				if (array_key_exists($question, $coverage['questions'])) {
-					unset($coverage['questions'][$question]);
-					$coverage['totalWeight'] -= $scoredQuestions[$question]['importance'];
-				}
+	private function saveAssessmentCoverages($rankedCoverages, $assessmentId) {
+		foreach ($rankedCoverages as $rankedCoverage) {
+			$responses = AssessmentResponse::query()
+				->where('assessment_id=:aid:', ['aid' => $assessmentId])
+				->inWhere('question_id', array_keys($rankedCoverage['questions']))
+				->execute();
+			/** @var AssessmentResponse $response */
+			foreach ($responses as $response) {
+				$response->update(['recommended_resource_id' => $rankedCoverage['resourceId']]);
 			}
 		}
-		unset($coverage);
-		$this->sortResourceCoverages($coverages);
-	}
-
-	/**
-	 * @param array $coverages
-	 */
-	private function sortResourceCoverages(&$coverages) {
-		usort($coverages, function ($r1, $r2) {
-			$w1 = $r1['totalWeight'];
-			$w2 = $r2['totalWeight'];
-			if ($w1 < $w2) {
-				return -1;
-			}
-			if ($w1 > $w2) {
-				return 1;
-			}
-			return 0;
-		});
 	}
 }

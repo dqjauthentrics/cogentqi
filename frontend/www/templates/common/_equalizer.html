@@ -4,7 +4,8 @@
         <div style="{{'height:' + (choices.length*1.5) + 'em;'}}">
             <rzslider
                     rz-slider-model="alignment"
-                    rz-slider-options="{floor:min,ceil:max,vertical:true,showTicksValues:true}">
+                    rz-slider-options="{id:qid,floor:min,ceil:max,vertical:true,showTicksValues:true,onChange:$parent.masterChange}"
+            >
             </rzslider>
             <div class="clearfix"></div>
             <div class="rubric" ng-bind-html="'Master'"></div>
@@ -14,7 +15,7 @@
         <div style="{{'height:' + (choices.length*1.5) + 'em;'}}" ng-show="$index > 0">
             <rzslider
                     rz-slider-model="choice.values[$index]"
-                    rz-slider-options="{floor:min,ceil:max,vertical:true,showTicksValues:true}">
+                    rz-slider-options="{id:qid+'_'+$index,floor:min,ceil:max,vertical:true,showTicksValues:true}">
             </rzslider>
         </div>
         <div class="clearfix"></div>

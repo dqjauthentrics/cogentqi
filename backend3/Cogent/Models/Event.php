@@ -37,23 +37,6 @@ class Event extends CogentModel {
 	public $category;
 
 	/**
-	 * Initialize method for model.
-	 */
-	public function initialize() {
-		$this->hasMany('id', 'Cogent\Models\EventAlignment', 'event_id', ['alias' => 'Alignments']);
-		$this->hasMany('id', 'Cogent\Models\MemberEvent', 'event_id', ['alias' => 'Members']);
-	}
-
-	/**
-	 * Returns table name mapped in the model.
-	 *
-	 * @return string
-	 */
-	public function getSource() {
-		return 'event';
-	}
-
-	/**
 	 * Allows to query a set of records that match the specified conditions
 	 *
 	 * @param mixed $parameters
@@ -73,6 +56,23 @@ class Event extends CogentModel {
 	 */
 	public static function findFirst($parameters = NULL) {
 		return parent::findFirst($parameters);
+	}
+
+	/**
+	 * Initialize method for model.
+	 */
+	public function initialize() {
+		$this->hasMany('id', 'Cogent\Models\EventAlignment', 'event_id', ['alias' => 'Alignments']);
+		$this->hasMany('id', 'Cogent\Models\MemberEvent', 'event_id', ['alias' => 'Members']);
+	}
+
+	/**
+	 * Returns table name mapped in the model.
+	 *
+	 * @return string
+	 */
+	public function getSource() {
+		return 'event';
 	}
 
 	/**

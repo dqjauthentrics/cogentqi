@@ -7,10 +7,6 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	const TYPE_DATETIME = 2;
 	const TYPE_INT = 3;
 	const TYPE_REAL = 4;
-
-	/** @var \Phalcon\Db\AdapterInterface $dbif */
-	private $dbif = NULL;
-
 	/**
 	 * @var array $colName Map  Map column names to their abbreviations when transmitting via JSON.
 	 */
@@ -45,7 +41,7 @@ class CogentModel extends \Phalcon\Mvc\Model {
 		'fn'   => ['first_name', self::TYPE_STRING],
 		'fx'   => ['fax', self::TYPE_STRING],
 		'ii'   => ['instrument_id', self::TYPE_INT],
-        'inc'  => ['increment', self::TYPE_INT],
+		'inc'  => ['increment', self::TYPE_INT],
 		'isi'  => ['instrument_schedule_id', self::TYPE_INT],
 		'jt'   => ['job_title', self::TYPE_STRING],
 		'lk'   => ['locked_on', self::TYPE_DATETIME],
@@ -96,7 +92,7 @@ class CogentModel extends \Phalcon\Mvc\Model {
 		'sr'   => ['starts', self::TYPE_DATETIME],
 		'ss'   => ['status_stamp', self::TYPE_DATETIME],
 		'st'   => ['status_id', self::TYPE_STRING],
-        'ts'   => ['time_stamp', self::TYPE_DATETIME],
+		'ts'   => ['time_stamp', self::TYPE_DATETIME],
 		'ttl'  => ['title', self::TYPE_STRING],
 		'un'   => ['username', self::TYPE_STRING],
 		'v'    => ['value', self::TYPE_STRING],
@@ -108,13 +104,8 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	protected $mapExcludes = ['password'];
 	/** @var string[] $dateTimeCols Some columns might require special save/restore/format processing. */
 	protected $dateTimeCols = [];
-
-	/**
-	 * @return \Phalcon\Db\AdapterInterface
-	 */
-	public function getDBIF() {
-		return $this->getReadConnection();
-	}
+	/** @var \Phalcon\Db\AdapterInterface $dbif */
+	private $dbif = NULL;
 
 	/**
 	 * @return string
@@ -129,6 +120,46 @@ class CogentModel extends \Phalcon\Mvc\Model {
 			$tableName .= $ch;
 		}
 		return strtolower($tableName);
+	}
+
+	/**
+	 * @param string|null $dateTimeStr
+	 *
+	 * @return bool|string
+	 */
+	public static function dbDateTime($dateTimeStr = NULL) {
+		if (empty($dateTimeStr)) {
+			$dateTimeStr = date('m/d/Y h:i:s a', time());
+		}
+		$time = strtotime($dateTimeStr);
+		$mysqlDate = date('Y-m-d H:i:s', $time);
+		return $mysqlDate;
+	}
+
+	/**
+	 * @param array $jsonRecord
+	 *
+	 * @return array
+	 */
+	public static function genericUnmap($jsonRecord) {
+		$unmapped = [];
+		if (!empty($jsonRecord)) {
+			foreach ($jsonRecord as $jsonColName => $value) {
+				$fullName = @self::$colNameMap[$jsonColName][0];
+				if (empty($fullName)) {
+					$fullName = $jsonColName;
+				}
+				$unmapped[$fullName] = $value;
+			}
+		}
+		return $unmapped;
+	}
+
+	/**
+	 * @return \Phalcon\Db\AdapterInterface
+	 */
+	public function getDBIF() {
+		return $this->getReadConnection();
 	}
 
 	/**
@@ -246,20 +277,6 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	}
 
 	/**
-	 * @param string|null $dateTimeStr
-	 *
-	 * @return bool|string
-	 */
-	public static function dbDateTime($dateTimeStr = NULL) {
-		if (empty($dateTimeStr)) {
-			$dateTimeStr = date('m/d/Y h:i:s a', time());
-		}
-		$time = strtotime($dateTimeStr);
-		$mysqlDate = date('Y-m-d H:i:s', $time);
-		return $mysqlDate;
-	}
-
-	/**
 	 * @param array $jsonRecord
 	 *
 	 * @return array
@@ -279,25 +296,6 @@ class CogentModel extends \Phalcon\Mvc\Model {
 			}
 		}
 		return $newData;
-	}
-
-	/**
-	 * @param array $jsonRecord
-	 *
-	 * @return array
-	 */
-	public static function genericUnmap($jsonRecord) {
-		$unmapped = [];
-		if (!empty($jsonRecord)) {
-			foreach ($jsonRecord as $jsonColName => $value) {
-				$fullName = @self::$colNameMap[$jsonColName][0];
-				if (empty($fullName)) {
-					$fullName = $jsonColName;
-				}
-				$unmapped[$fullName] = $value;
-			}
-		}
-		return $unmapped;
 	}
 
 	/**

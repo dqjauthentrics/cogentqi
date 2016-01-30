@@ -68,7 +68,7 @@ class AssessmentController extends ControllerBase {
 		$orgModel = new Organization();
 
 		if ($user->app_role_id == Role::PROFESSIONAL) {
-			$assessments = Assessment::query()->where('member_id='.$user->id)->orderBy('last_saved DESC')->execute();
+			$assessments = Assessment::query()->where('member_id=' . $user->id)->orderBy('last_saved DESC')->execute();
 		}
 		else {
 			// This took 0.140 seconds. Two queries is slightly faster than one, and many times faster than a Phalcon join().

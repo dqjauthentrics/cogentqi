@@ -1,3 +1,38 @@
+# 2.5.0 (2016-01-24)
+## Features
+- Add a `minRange` option to set a minimal range (#231).
+- Pass the slider values to the `onStart`, `onChange` and `onEnd` callbacks.
+- Rollback and improve the callback changes brought with 2.4.1 that were no applying the last update to the scope anymore.
+
+# 2.4.1 (2016-01-15)
+## Performance improvements
+- Remove the $timeout call in the init method (#223).
+- Remove the $timeout call in the onStart callback.
+- Remove the $timeout call in the onChange callback (#229).
+
+# 2.4.0 (2015-12-30)
+## Features
+- Add an `enforceRange` options to round the `rzSliderModel` and `rzSliderHigh` to the slider range even when modified from outside the slider.(#208).
+- Add a `ticksTooltip` option used to display a tooltip when a tick is hovered (#209).
+- Add an `onlyBindHandles` option to only bind events on slider handles (#212).
+- Add a `showSelectionBarEnd` option to display the selection bar after the value (#214).
+
+## Bug fixes
+- Fix reset of maxH element (#204).
+- Change the watchers order to prevent unwanted model modifications (#207).
+
+# 2.3.0 (2015-12-22)
+## Features
+- Add keyboard support (activated by default with `keyboardSupport` set to true) (#191).
+- Add a `draggableRangeOnly` options (#203).
+
+# 2.2.0 (2015-12-17)
+## Features
+- Add a `getSelectionBarColor` option to dynamically change the selection bar color (#197).
+
+## Bug fixes
+- Fix negative float values rendering (#190).
+
 # 2.1.0 (2015-11-29)
 ## Features
 - Add a `vertical` options to display vertical sliders (#185).

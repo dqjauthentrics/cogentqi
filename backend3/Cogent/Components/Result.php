@@ -83,6 +83,35 @@ class Result {
 	}
 
 	/**
+	 * @param mixed $data
+	 */
+	public function sendNormal($data = FALSE) {
+		$this->setNormal($data);
+		$this->send();
+		exit();
+	}
+
+	/**
+	 * @param mixed $data
+	 */
+	public function setNormal($data = FALSE, $msg = FALSE) {
+		$this->status = Result::STATUS_OKAY;
+		if ($data !== FALSE) {
+			$this->data = $data;
+		}
+		if ($msg !== FALSE) {
+			$this->message = $msg;
+		}
+	}
+
+	/**
+	 */
+	public function send() {
+		echo json_encode($this->package($this->data), JSON_NUMERIC_CHECK);
+		//exit(0);
+	}
+
+	/**
 	 * @param mixed|null $data
 	 *
 	 * @return array
@@ -104,23 +133,11 @@ class Result {
 	}
 
 	/**
+	 * @param int $code
 	 */
-	public function send() {
-		echo json_encode($this->package($this->data), JSON_NUMERIC_CHECK);
-		//exit(0);
-	}
-
-	/**
-	 * @param mixed $data
-	 */
-	public function setNormal($data = FALSE, $msg = false) {
-		$this->status = Result::STATUS_OKAY;
-		if ($data !== FALSE) {
-			$this->data = $data;
-		}
-		if ($msg !== FALSE) {
-			$this->message = $msg;
-		}
+	public function sendError($code = self::CODE_INVALID_REQUEST, $message = FALSE) {
+		$this->setError($code, $message);
+		$this->send();
 	}
 
 	/**
@@ -137,22 +154,5 @@ class Result {
 			$tmp = self::MESSAGES;
 			$this->message = $tmp[$code];
 		}
-	}
-
-	/**
-	 * @param mixed $data
-	 */
-	public function sendNormal($data = FALSE) {
-		$this->setNormal($data);
-		$this->send();
-		exit();
-	}
-
-	/**
-	 * @param int $code
-	 */
-	public function sendError($code = self::CODE_INVALID_REQUEST, $message = FALSE) {
-		$this->setError($code, $message);
-		$this->send();
 	}
 }

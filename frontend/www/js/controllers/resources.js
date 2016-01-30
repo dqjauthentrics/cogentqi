@@ -127,6 +127,13 @@ angular.module('ResourceControllers', [])
 				$scope.setResource();
 			});
 
+			$scope.masterChange = function (sliderId, modelValue) {
+				console.log("master change", sliderId, modelValue);
+				for (var i=0; i<$scope.data.values.length; i++) {
+					$scope.data.values[i] = modelValue;
+				}
+			};
+
 			$scope.save = function () {
 				$scope.data.saving = true;
 				Resources.saveAlignments($scope.data.currentInstrumentId, $scope.data.resource.id, $scope.data.alignments,
@@ -185,21 +192,6 @@ angular.module('ResourceControllers', [])
 					$scope.initialize();
 					$scope.setAlignments();
 				}
-			};
-			$scope.alignmentLevelPhrase = function (level) {
-				var phrase = 'Not Aligned';
-				switch (parseInt(level)) {
-					case 1:
-						phrase = 'Partially Aligned';
-						break;
-					case 2:
-						phrase = 'Aligned';
-						break;
-					case 3:
-						phrase = 'Highly Aligned';
-						break;
-				}
-				return phrase;
 			};
 			$scope.isDirty = function () {
 				return $scope.dirty;

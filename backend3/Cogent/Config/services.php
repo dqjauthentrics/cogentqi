@@ -5,14 +5,14 @@
  * @var \Phalcon\Mvc\Application $config
  */
 
+use Cogent\Plugins;
 use Phalcon\Di\FactoryDefault;
+use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
-use Phalcon\Events\Manager as EventsManager;
-use Cogent\Plugins;
 
 //require_once dirname(__DIR__).'/plugins/SecurityPlugin.php';
 

@@ -30,7 +30,7 @@ class ConfigSettings {
 		],
 		/** <== Expected by Phalcon */
 
-		'components'    => [
+		'components' => [
 			'login' => ['social' => FALSE, 'register' => FALSE],
 
 			'dashboards' => [
