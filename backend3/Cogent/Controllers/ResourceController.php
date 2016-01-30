@@ -5,6 +5,7 @@ use Cogent\Components\Result;
 use Cogent\Models\PlanItem;
 use Cogent\Models\Resource;
 use Cogent\Models\ResourceAlignment;
+use Cogent\Models\ResourceAlignmentMap;
 use Phalcon\Exception;
 
 class ResourceController extends ControllerBase {
@@ -17,11 +18,9 @@ class ResourceController extends ControllerBase {
 	 * @return \Cogent\Models\ResourceAlignment
 	 */
 	private function find($resourceId, $questionId, $alignments) {
-		if (!empty($resources)) {
-			foreach ($alignments as $alignment) {
-				if ($alignment->question_id == $questionId && $alignment->resource_id == $resourceId) {
-					return $alignment;
-				}
+		foreach ($alignments as $alignment) {
+			if ($alignment->question_id == $questionId && $alignment->resource_id == $resourceId) {
+				return $alignment;
 			}
 		}
 		return NULL;
@@ -94,29 +93,50 @@ class ResourceController extends ControllerBase {
 		$result = new Result($this);
 		try {
 			$data = @$this->getInputData();
-			if (!empty($data["resourceId"]) && !empty($data["instrumentId"]) && !empty($data["alignments"])) {
+			if (!empty($data["resourceId"]) && !empty($data["alignments"])) {
 				$resourceId = $data["resourceId"];
 				$formAlignments = $data["alignments"];
 				if (!empty($formAlignments)) {
 					$alignments = ResourceAlignment::query()->where('resource_id=:id:', ['id' => $resourceId])->execute();
 					/** @var \Cogent\Models\ResourceAlignment[] $alignments
 					 */
-					foreach ($formAlignments as $questionId => $weight) {
+					foreach ($formAlignments as $questionId => $utilities) {
 						$alignment = $this->find($resourceId, $questionId, $alignments);
 						if (!empty($alignment)) {
-							if (empty($weight)) {
+                            $total = 0;
+                            $responseToUtility = [];
+                            foreach ($utilities as $utility) {
+                                $total += $utility['utility'];
+                                $responseToUtility[$utility['response']] =
+                                    $utility['utility'];
+                            }
+							if ($total == 0) {
 								$alignment->delete();
 							}
 							else {
-								$alignment->save(['question_id' => $questionId, 'weight' => $weight]);
+								foreach ($alignment->mapping as $m) {
+									$m->utility = $responseToUtility[$m->response];
+									$m->save();
+								}
 							}
 						}
 						else {
-							if (!empty($weight)) {
-								$alignment = new ResourceAlignment();
-								$alignmenRec = ['resource_id' => $resourceId, 'question_id' => $questionId, 'weight' => $weight];
-								$alignment->save($alignmenRec);
-							}
+                            $total = 0;
+                            $mapping = [];
+                            $alignment = new ResourceAlignment();
+                            $alignment->resource_id = $resourceId;
+                            $alignment->question_id = $questionId;
+                            for ($i = 0; $i < count($utilities); $i++) {
+                                $m = new ResourceAlignmentMap();
+                                $mapping[] = $m;
+                                $m->response = $utilities[$i]['response'];
+                                $m->utility = $utilities[$i]['utility'];
+                                $total += $utilities[$i]['utility'];
+                            }
+                            if ($total > 0) {
+                                $alignment->mapping = $mapping;
+                                $alignment->save();
+                            }
 						}
 					}
 				}

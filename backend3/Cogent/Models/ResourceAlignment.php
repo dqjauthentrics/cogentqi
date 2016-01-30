@@ -1,6 +1,8 @@
 <?php
 namespace Cogent\Models;
 
+use Phalcon\Mvc\Model\Relation;
+
 class ResourceAlignment extends CogentModel {
 
 	/**
@@ -55,6 +57,10 @@ class ResourceAlignment extends CogentModel {
 	public function initialize() {
 		$this->belongsTo('resource_id', 'Cogent\Models\Resource', 'id', ['alias' => 'Resource']);
 		$this->belongsTo('question_id', 'Cogent\Models\Question', 'id', ['alias' => 'Question']);
+		$this->hasMany('id', 'Cogent\Models\ResourceAlignmentMap', 'resource_alignment_id', [
+				'foreignKey' => ['action' => Relation::ACTION_CASCADE],
+				'alias' => 'Mapping'
+		]);
 	}
 
 	/**
@@ -66,4 +72,18 @@ class ResourceAlignment extends CogentModel {
 		return 'resource_alignment';
 	}
 
+	/**
+	 * Set weight for the response to utility mapping
+	 *
+	 * @param int $response
+     */
+	public function setUtilityByResponse($response) {
+		$this->weight = 0;
+		foreach ($this->mapping as $map) {
+			if ($map->response == $response) {
+				$this->weight = $map->utility;
+				return;
+			}
+		}
+	}
 }
