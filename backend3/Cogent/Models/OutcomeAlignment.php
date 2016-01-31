@@ -1,6 +1,16 @@
 <?php
 namespace Cogent\Models;
 
+/**
+ * Class OutcomeAlignment
+ * @package Cogent\Models
+ *
+ * @method Question getQuestion()
+ *
+ * @property Question   $question
+ *
+ */
+
 class OutcomeAlignment extends CogentModel {
 
 	/**
