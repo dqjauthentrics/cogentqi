@@ -1,12 +1,16 @@
 module.exports = function(grunt) {
+  var banner = '/*! <%= pkg.name %> - v<%= pkg.version %> - \n' +
+    ' (c) <%= pkg.author %> - \n'+
+    ' <%= pkg.repository.url %> - \n' +
+    ' <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+    minBanner = banner.replace(/\n/g, '') + '\n';
+
   // Project configuration.
   grunt.initConfig({
 
     pkg: grunt.file.readJSON('package.json'),
 
-    minBanner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-      '(c) <%= pkg.author %>, <%= pkg.repository.url %> - ' +
-      '<%= grunt.template.today("yyyy-mm-dd") %> */\n',
+    minBanner: minBanner,
 
     recess: {
       options: {
@@ -85,9 +89,24 @@ module.exports = function(grunt) {
       }
     },
 
+    concat: {
+      options: {
+        stripBanners: true,
+        banner: banner
+      },
+      js: {
+        src: ['dist/rzslider.js'],
+        dest: 'dist/rzslider.js'
+      },
+      css: {
+        src: ['dist/rzslider.css'],
+        dest: 'dist/rzslider.css'
+      }
+    },
+
     ngAnnotate: {
       options: {
-        singleQuotes: true,
+        singleQuotes: true
       },
       rzslider: {
         files: [{
@@ -106,32 +125,44 @@ module.exports = function(grunt) {
         }
       },
       js: {
-        files: ['src/*js', 'src/*.html'],
+        files: ['src/*.js', 'src/*.html'],
         tasks: ['js']
       },
       less: {
         files: ['src/*.less'],
         tasks: ['css']
+      },
+      test: {
+        files: ['src/*.js', 'tests/spec/*.js'],
+        tasks: ['test']
       }
     },
     serve: {
       options: {
         port: 9000
       }
+    },
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js',
+        singleRun: true
+      }
     }
-
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-recess');
   grunt.loadNpmTasks('grunt-angular-templates');
   grunt.loadNpmTasks('grunt-replace');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-serve');
+  grunt.loadNpmTasks('grunt-karma');
 
   grunt.registerTask('default', ['css', 'js']);
+  grunt.registerTask('test', ['karma']);
 
-  grunt.registerTask('css', ['recess']);
-  grunt.registerTask('js', ['ngtemplates', 'replace', 'ngAnnotate', 'uglify']);
+  grunt.registerTask('css', ['recess','concat:css']);
+  grunt.registerTask('js', ['ngtemplates', 'replace','concat:js', 'ngAnnotate', 'uglify']);
 };

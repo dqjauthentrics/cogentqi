@@ -102,6 +102,33 @@ class Instrument extends CogentModel {
 	}
 
 	/**
+	 * @param int $instrumentId
+	 * @param int $assessmentId
+	 *
+	 * @return array
+	 */
+	public static function createResponseTemplate($instrumentId, $assessmentId) {
+		$questionGroups = QuestionGroup::find(['conditions' => 'instrument_id=:id:', 'bind' => ['id' => $instrumentId], 'order' => 'sort_order']);
+		$responses = [];
+		foreach ($questionGroups as $questionGroup) {
+			$questions = $questionGroup->getQuestions(['order' => 'sort_order']);
+			if (!empty($questions)) {
+				foreach ($questions as $question) {
+					$responseInfo = [
+						'assessment_id'  => $assessmentId,
+						'question_id'    => $question->id,
+						'response'       => NULL,
+						'response_index' => NULL,
+					];
+					$response = new AssessmentResponse();
+					$responses[] = $response->save($responseInfo);
+				}
+			}
+		}
+		return $responses;
+	}
+
+	/**
 	 * Initialize method for model.
 	 */
 	public function initialize() {
@@ -160,33 +187,6 @@ class Instrument extends CogentModel {
 		}
 		$mapped["typeName"] = $this->getQuestionType()->name;
 		return $mapped;
-	}
-
-	/**
-	 * @param int $instrumentId
-	 * @param int $assessmentId
-	 *
-	 * @return array
-	 */
-	public static function createResponseTemplate($instrumentId, $assessmentId) {
-		$questionGroups = QuestionGroup::find(['conditions' => 'instrument_id=:id:', 'bind' => ['id' => $instrumentId], 'order' => 'sort_order']);
-		$responses = [];
-		foreach ($questionGroups as $questionGroup) {
-			$questions = $questionGroup->getQuestions(['order' => 'sort_order']);
-			if (!empty($questions)) {
-				foreach ($questions as $question) {
-					$responseInfo = [
-						'assessment_id'  => $assessmentId,
-						'question_id'    => $question->id,
-						'response'       => NULL,
-						'response_index' => NULL,
-					];
-					$response = new AssessmentResponse();
-					$responses[] = $response->save($responseInfo);
-				}
-			}
-		}
-		return $responses;
 	}
 
 }

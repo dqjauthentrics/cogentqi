@@ -32,23 +32,6 @@ class ModuleBadge extends CogentModel {
 	public $badge_id;
 
 	/**
-	 * Initialize method for model.
-	 */
-	public function initialize() {
-		$this->belongsTo('module_id', 'Cogent\Models\Module', 'id', ['alias' => 'Module']);
-		$this->belongsTo('badge_id', 'Cogent\Models\Badge', 'id', ['alias' => 'Badge']);
-	}
-
-	/**
-	 * Returns table name mapped in the model.
-	 *
-	 * @return string
-	 */
-	public function getSource() {
-		return 'module_badge';
-	}
-
-	/**
 	 * Allows to query a set of records that match the specified conditions
 	 *
 	 * @param mixed $parameters
@@ -68,6 +51,23 @@ class ModuleBadge extends CogentModel {
 	 */
 	public static function findFirst($parameters = NULL) {
 		return parent::findFirst($parameters);
+	}
+
+	/**
+	 * Initialize method for model.
+	 */
+	public function initialize() {
+		$this->belongsTo('module_id', 'Cogent\Models\Module', 'id', ['alias' => 'Module']);
+		$this->belongsTo('badge_id', 'Cogent\Models\Badge', 'id', ['alias' => 'Badge']);
+	}
+
+	/**
+	 * Returns table name mapped in the model.
+	 *
+	 * @return string
+	 */
+	public function getSource() {
+		return 'module_badge';
 	}
 
 }

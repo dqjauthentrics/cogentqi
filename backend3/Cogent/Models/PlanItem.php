@@ -126,11 +126,11 @@ class PlanItem extends CogentModel {
 		/** @var \Cogent\Models\Resource $resource */
 		$resourceName = !empty($resource) ? $resource->name : NULL;
 		$map = [
-			'm'  => $this->module_id,
-			's'  => $this->plan_item_status_id,
-			'dt' => $this->presentationDateTime($this->status_stamp),
-			'n'  => $resourceName,
-			'r'  => $resourceId,
+			'm'      => $this->module_id,
+			's'      => $this->plan_item_status_id,
+			'dt'     => $this->presentationDateTime($this->status_stamp),
+			'n'      => $resourceName,
+			'r'      => $resourceId,
 			'module' => $this->module->map(['minimal' => TRUE])
 		];
 		return $map;

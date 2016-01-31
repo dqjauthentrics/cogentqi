@@ -44,23 +44,6 @@ class MemberEvent extends CogentModel {
 	public $occurred;
 
 	/**
-	 * Initialize method for model.
-	 */
-	public function initialize() {
-		$this->belongsTo('event_id', 'Cogent\Models\Event', 'id', ['alias' => 'Event']);
-		$this->belongsTo('member_id', 'Cogent\Models\Member', 'id', ['alias' => 'Member']);
-	}
-
-	/**
-	 * Returns table name mapped in the model.
-	 *
-	 * @return string
-	 */
-	public function getSource() {
-		return 'member_event';
-	}
-
-	/**
 	 * Allows to query a set of records that match the specified conditions
 	 *
 	 * @param mixed $parameters
@@ -80,6 +63,23 @@ class MemberEvent extends CogentModel {
 	 */
 	public static function findFirst($parameters = NULL) {
 		return parent::findFirst($parameters);
+	}
+
+	/**
+	 * Initialize method for model.
+	 */
+	public function initialize() {
+		$this->belongsTo('event_id', 'Cogent\Models\Event', 'id', ['alias' => 'Event']);
+		$this->belongsTo('member_id', 'Cogent\Models\Member', 'id', ['alias' => 'Member']);
+	}
+
+	/**
+	 * Returns table name mapped in the model.
+	 *
+	 * @return string
+	 */
+	public function getSource() {
+		return 'member_event';
 	}
 
 	public function map($options = []) {

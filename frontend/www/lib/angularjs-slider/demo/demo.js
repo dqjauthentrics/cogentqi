@@ -6,6 +6,29 @@ app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
     value: 10
   };
 
+  //Range slider config
+  $scope.rangeSlider = {
+    minValue: 10,
+    maxValue: 90,
+    options: {
+      floor: 0,
+      ceil: 100,
+      step: 1
+    }
+  };
+
+  //Range slider with minRange config
+  $scope.minRangeSlider = {
+    minValue: 10,
+    maxValue: 90,
+    options: {
+      floor: 0,
+      ceil: 100,
+      step: 1,
+      minRange: 10
+    }
+  };
+
   //Slider with selection bar
   $scope.slider_visible_bar = {
     value: 10,
@@ -14,14 +37,29 @@ app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
     }
   };
 
-  //Range slider config
-  $scope.minRangeSlider = {
-    minValue: 10,
-    maxValue: 90,
+  //Slider with selection bar end
+  $scope.slider_visible_bar_end = {
+    value: 10,
     options: {
-      floor: 0,
       ceil: 100,
-      step: 1
+      showSelectionBarEnd: true
+    }
+  };
+
+  //Slider with selection bar
+  $scope.color_slider_bar = {
+    value: 12,
+    options: {
+      showSelectionBar: true,
+      getSelectionBarColor: function(value) {
+        if (value <= 3)
+          return 'red';
+        if (value <= 6)
+          return 'orange';
+        if (value <= 9)
+          return 'yellow';
+        return '#2AE02A';
+      }
     }
   };
 
@@ -39,18 +77,25 @@ app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
   $scope.slider_callbacks = {
     value: 100,
     options: {
-      onStart: function() {
-        $scope.otherData.start = $scope.slider_callbacks.value * 10;
+      onStart: function(id, newValue) {
+        console.info('start', id, newValue);
+        $scope.otherData.start = newValue * 10;
       },
-      onChange: function() {
-        $scope.otherData.change = $scope.slider_callbacks.value * 10;
+      onChange: function(id, newValue) {
+        console.info('change', id, newValue);
+        $scope.otherData.change = newValue * 10;
       },
-      onEnd: function() {
-        $scope.otherData.end = $scope.slider_callbacks.value * 10;
+      onEnd: function(id, newValue) {
+        console.info('end', id, newValue);
+        $scope.otherData.end = newValue * 10;
       }
     }
   };
-  $scope.otherData = {start: 0, change: 0, end: 0};
+  $scope.otherData = {
+    start: 0,
+    change: 0,
+    end: 0
+  };
 
   //Slider config with custom display function
   $scope.slider_translate = {
@@ -69,7 +114,7 @@ app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
   $scope.slider_alphabet = {
     value: 0,
     options: {
-      stepsArray:'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+      stepsArray: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
     }
   };
 
@@ -80,6 +125,19 @@ app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
       ceil: 10,
       floor: 0,
       showTicks: true
+    }
+  };
+
+  //Slider with ticks and tooltip
+  $scope.slider_ticks_tooltip = {
+    value: 5,
+    options: {
+      ceil: 10,
+      floor: 0,
+      showTicks: true,
+      ticksTooltip: function(v) {
+        return 'Tooltip for ' + v;
+      }
     }
   };
 
@@ -115,6 +173,17 @@ app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
       ceil: 10,
       floor: 0,
       draggableRange: true
+    }
+  };
+
+  //Slider with draggable range only
+  $scope.slider_draggable_range_only = {
+    minValue: 4,
+    maxValue: 6,
+    options: {
+      ceil: 10,
+      floor: 0,
+      draggableRangeOnly: true
     }
   };
 
@@ -263,7 +332,7 @@ app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
       $scope.percentages = percentages;
     });
     modalInstance.rendered.then(function() {
-      $rootScope.$broadcast('rzSliderForceRender');//Force refresh sliders on render. Otherwise bullets are aligned at left side.
+      $rootScope.$broadcast('rzSliderForceRender'); //Force refresh sliders on render. Otherwise bullets are aligned at left side.
     });
   };
 
@@ -302,10 +371,9 @@ app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
     }
   };
   $scope.toggleHighValue = function() {
-    if($scope.slider_all_options.maxValue != null) {
+    if ($scope.slider_all_options.maxValue != null) {
       $scope.slider_all_options.maxValue = undefined;
-    }
-    else {
+    } else {
       $scope.slider_all_options.maxValue = 8;
     }
   }

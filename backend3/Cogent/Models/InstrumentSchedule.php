@@ -90,6 +90,27 @@ class InstrumentSchedule extends CogentModel {
 	}
 
 	/**
+	 * @param string $roleId
+	 * @param string $operation
+	 *
+	 * @return InstrumentSchedule
+	 */
+	public static function latest($roleId, $operation) {
+		$ops = InstrumentScheduleOperation::find(['conditions' => 'role_id=:rid: AND operation_id=:oid:', 'bind' => ['rid' => $roleId, 'oid' => $operation]]);
+		$ids = [];
+		if (!empty($ops)) {
+			foreach ($ops as $op) {
+				$id = $op->instrument_schedule_id;
+				if (!in_array($id, $ids)) {
+					$ids[] = $id;
+				}
+			}
+		}
+		$scheduleItem = InstrumentSchedule::findFirst(['conditions' => 'id IN (' . implode(",", $ids) . ')', 'order' => 'starts DESC']);
+		return $scheduleItem;
+	}
+
+	/**
 	 * Allows to query the first record that match the specified conditions
 	 *
 	 * @param mixed $parameters
@@ -116,27 +137,6 @@ class InstrumentSchedule extends CogentModel {
 	 */
 	public function getSource() {
 		return 'instrument_schedule';
-	}
-
-	/**
-	 * @param string $roleId
-	 * @param string $operation
-	 *
-	 * @return InstrumentSchedule
-	 */
-	public static function latest($roleId, $operation) {
-		$ops = InstrumentScheduleOperation::find(['conditions' => 'role_id=:rid: AND operation_id=:oid:', 'bind' => ['rid' => $roleId, 'oid' => $operation]]);
-		$ids = [];
-		if (!empty($ops)) {
-			foreach ($ops as $op) {
-				$id = $op->instrument_schedule_id;
-				if (!in_array($id, $ids)) {
-					$ids[] = $id;
-				}
-			}
-		}
-		$scheduleItem = InstrumentSchedule::findFirst(['conditions' => 'id IN (' . implode(",", $ids) . ')', 'order' => 'starts DESC']);
-		return $scheduleItem;
 	}
 
 	/**

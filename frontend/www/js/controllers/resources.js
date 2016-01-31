@@ -108,7 +108,11 @@ angular.module('ResourceControllers', [])
 				resources: [],
 				resource: {},
 				currentInstrument: null,
-				currentInstrumentId: 1
+				currentInstrumentId: 1,
+
+				minVal: 0,
+				maxVal: 5,
+				values: [3, 2, 5, 1, 2, 4]
 			};
 
 			Utility.getResource(Instruments.retrieve(), function (response) {
@@ -122,6 +126,13 @@ angular.module('ResourceControllers', [])
 				$scope.data.resources = response.data;
 				$scope.setResource();
 			});
+
+			$scope.masterChange = function (sliderId, modelValue) {
+				console.log("master change", sliderId, modelValue);
+				for (var i=0; i<$scope.data.values.length; i++) {
+					$scope.data.values[i] = modelValue;
+				}
+			};
 
 			$scope.save = function () {
 				$scope.data.saving = true;
@@ -181,21 +192,6 @@ angular.module('ResourceControllers', [])
 					$scope.initialize();
 					$scope.setAlignments();
 				}
-			};
-			$scope.alignmentLevelPhrase = function (level) {
-				var phrase = 'Not Aligned';
-				switch (parseInt(level)) {
-					case 1:
-						phrase = 'Partially Aligned';
-						break;
-					case 2:
-						phrase = 'Aligned';
-						break;
-					case 3:
-						phrase = 'Highly Aligned';
-						break;
-				}
-				return phrase;
 			};
 			$scope.isDirty = function () {
 				return $scope.dirty;

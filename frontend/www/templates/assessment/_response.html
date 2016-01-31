@@ -14,7 +14,7 @@
             <div data-ng-switch-default="">
                 <div class="clearfix"></div>
                 <div style="width:100%; margin: 0 0 1em 0; float:none !important; clear:both;">
-                    <rzslider
+                    <rzslider class="assessment"
                             rz-slider-model="responses[question.id].rdx"
                             rz-slider-options="{step:1, precision:1, hideLimitLabels:true, floor: question.type.min, ceil: question.type.max, onChange:sliderChange, id:question.id}"
                             style="{{'width:' + (rubricWidth(question.type.max) * question.type.max)+ '%; margin-bottom:-1em; margin-left:' + (rubricWidth(question.type.max)/2)+ '%;'}}"
