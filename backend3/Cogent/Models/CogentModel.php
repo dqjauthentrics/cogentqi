@@ -379,7 +379,7 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	 *
 	 * @return array
 	 */
-	public function getColumn($records, $colName) {
+	public static function getColumn($records, $colName) {
 		$colValues = [];
 		if (!empty($records)) {
 			foreach ($records as $record) {
