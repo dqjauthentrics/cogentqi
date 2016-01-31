@@ -38,6 +38,12 @@ class EventAlignment extends CogentModel {
 	public $question_id;
 
 	/**
+	 *
+	 * @var integer
+	 */
+	public $weight;
+
+	/**
 	 * Allows to query a set of records that match the specified conditions
 	 *
 	 * @param mixed $parameters
