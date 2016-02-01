@@ -775,12 +775,10 @@ class Assessment extends CogentModel {
 	 *
 	 * @return mixed
 	 */
-	public function getLatestIds($memberId) {
-		$row = parent::getReadConnection()
+	public static function getLatestIds($memberId) {
+		return parent::getReadConnection()
 			->query("SELECT MAX(id) AS latest FROM assessment WHERE member_id=? GROUP BY instrument_id", ['memberId' => $memberId])
 			->fetchAll();
-		$orgIds = $row["orgIds"];
-		return $orgIds;
 	}
 
 	/**
@@ -788,9 +786,42 @@ class Assessment extends CogentModel {
 	 *
 	 * @return array
 	 */
-	public function getLatestAssessmentIds($memberId) {
-		$latest = $this->getLatestIds($memberId);
-		$assessmentIds = $this->getColumn($latest, 'latest');
-		return $assessmentIds;
+	public static function getLatestAssessmentIds($memberId) {
+		$latest = self::getLatestIds($memberId);
+		return self::getColumn($latest, 'latest');
 	}
+
+    /**
+     * @param $memberId
+     * @return \Phalcon\Mvc\Model\ResultsetInterface
+     */
+    public static function getLatestResponses($memberId) {
+        $latestIds = self::getLatestAssessmentIds($memberId);
+        return AssessmentResponse::query()->
+            inWhere('assessment_id', $latestIds)->
+            execute();
+    }
+
+    /**
+     * Return the previously saved assessment.
+     *
+     * @return array
+     */
+    public function getPreviousAssessment() {
+        $modDate = $this->last_modified;
+        $member = $this->member_id;
+        $instrument = $this->instrument_id;
+        $sql = "SELECT a.*
+            FROM assessment a
+              INNER JOIN (
+                SELECT MAX(last_modified) last_modified
+                FROM assessment
+                WHERE last_modified < '$modDate' AND
+                  member_id = $member AND
+                  instrument_id=$instrument
+              ) b ON a.last_modified = b.last_modified
+            where member_id = $member;
+            ";
+        return $this->getDBIF()->query($sql)->fetch();
+    }
 }
