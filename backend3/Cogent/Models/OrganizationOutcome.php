@@ -85,4 +85,22 @@ class OrganizationOutcome extends CogentModel {
 		return 'organization_outcome';
 	}
 
+    /**
+     * @param int $orgId
+     * @return \Phalcon\Mvc\Model\ResultsetInterface
+     */
+    public static function getLatestForOrganization($orgId) {
+        $sql = "SELECT a.id as id
+            FROM organization_outcome a
+              INNER JOIN (
+                SELECT MAX(id) id
+                FROM organization_outcome
+                WHERE organization_id = $orgId
+                GROUP BY outcome_id
+              ) b ON a.id = b.id
+            ";
+        $records = parent::getReadConnection()->query($sql)->fetchAll();
+        $ids = self::getColumn($records, 'id');
+        return OrganizationOutcome::query()->inWhere('id', $ids)->execute();
+	}
 }
