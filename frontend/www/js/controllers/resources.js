@@ -98,7 +98,7 @@ angular.module('ResourceControllers', [])
 
 	.controller(
 		'ResourceAlignmentCtrl',
-		function ($scope, $stateParams, $ionicPopup, Utility, Instruments, Resources) {
+		function ($scope, $stateParams, $ionicPopup, $timeout, Utility, Instruments, Resources) {
 			$scope.res = null;
 			$scope.data = {
 				dirty: false,
@@ -109,10 +109,7 @@ angular.module('ResourceControllers', [])
 				resource: {},
 				currentInstrument: null,
 				currentInstrumentId: 1,
-
-				minVal: 0,
-				maxVal: 5,
-				values: [3, 2, 5, 1, 2, 4]
+				maxLen: 0
 			};
 
 			Utility.getResource(Instruments.retrieve(), function (response) {
@@ -126,14 +123,12 @@ angular.module('ResourceControllers', [])
 				$scope.data.resources = response.data;
 				$scope.setResource();
 			});
-
 			$scope.masterChange = function (sliderId, modelValue) {
 				console.log("master change", sliderId, modelValue);
-				for (var i=0; i<$scope.data.values.length; i++) {
-					$scope.data.values[i] = modelValue;
+				for (var i = 1; i < $scope.data.maxLen; i++) {
+					$scope.data.alignments[sliderId][i].utility = modelValue;
 				}
 			};
-
 			$scope.save = function () {
 				$scope.data.saving = true;
 				Resources.saveAlignments($scope.data.currentInstrumentId, $scope.data.resource.id, $scope.data.alignments,
@@ -144,19 +139,46 @@ angular.module('ResourceControllers', [])
 										 }
 				);
 			};
+			$scope.refreshSliderBroadcast = function () {
+				$timeout(function () {
+					$scope.$broadcast('rzSliderForceRender');
+				});
+			};
 			$scope.initialize = function () {
 				if (!Utility.empty($scope.data.resource) && !Utility.empty($scope.data.currentInstrument)) {
 					$scope.data.alignments = {};
-					for (var z = 0; z < $scope.data.currentInstrument.questions.length; z++) {
-						var questionId = $scope.data.currentInstrument.questions[z].id;
-						$scope.data.alignments[questionId] = 0;
+					var question = null;
+					var z = 0;
+					for (z = 0; z < $scope.data.currentInstrument.questions.length; z++) {
+						question = $scope.data.currentInstrument.questions[z];
+						var type = question.type;
+						if (!Utility.empty(type) && question.type.choices.length > $scope.data.maxLen) {
+							$scope.data.maxLen = question.type.choices.length;
+						}
+					}
+					var emptyVals = [];
+					for (var c = 0; c < $scope.data.maxLen; c++) {
+						emptyVals.push({response: 0, utility: 0});
+					}
+					for (z = 0; z < $scope.data.currentInstrument.questions.length; z++) {
+						question = $scope.data.currentInstrument.questions[z];
+						$scope.data.alignments[question.id] = Utility.clone(emptyVals);
 					}
 					if (!Utility.empty($scope.data.resource) && !Utility.empty($scope.data.resource.alignments) && $scope.data.resource.alignments.length > 0) {
 						for (var i = 0; i < $scope.data.resource.alignments.length; i++) {
 							var alignment = $scope.data.resource.alignments[i];
-							$scope.data.alignments[alignment.qi] = alignment.wt;
+							var mapping = alignment.mapping;
+							$scope.data.alignments[alignment.qi] = Utility.clone(emptyVals);
+							for (var m = 0; m < mapping.length; m++) {
+								if (typeof mapping[m] == 'object' && typeof mapping[m].utility == 'number') {
+									$scope.data.alignments[alignment.qi][m] = Utility.clone(mapping[m]);
+								}
+							}
+							//$scope.data.alignments[alignment.qi][0] = Utility.clone({response: 0, utility: 0}); // for master use
 						}
 					}
+					console.log('alignments, qid:', question.id, $scope.data.alignments);
+					$scope.refreshSliderBroadcast();
 				}
 			};
 			$scope.setResource = function () {

@@ -33,6 +33,18 @@ angular.module('Utility', []).factory('Utility', [
 						});
 				}
 			},
+			clone: function (obj) {
+				if (null == obj || "object" != typeof obj) {
+					return obj;
+				}
+				var copy = obj.constructor();
+				for (var attr in obj) {
+					if (obj.hasOwnProperty(attr)) {
+						copy[attr] = obj[attr];
+					}
+				}
+				return copy;
+			},
 			confirm: function (title, prompt, callback) {
 				var confirmPopup = $ionicPopup.confirm({
 														   title: '<i class="fa fa-exclamation-triangle fa-lg 2x"></i> ' + title,

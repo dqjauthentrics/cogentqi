@@ -1,12 +1,12 @@
 <?php
 namespace Cogent\Plugins;
 
+use Cogent\Components\Result;
 use Phalcon\Dispatcher;
 use Phalcon\Events\Event;
 use Phalcon\Mvc\Dispatcher as MvcDispatcher;
 use Phalcon\Mvc\Dispatcher\Exception as DispatcherException;
 use Phalcon\Mvc\User\Plugin;
-use Cogent\Components\Result;
 
 /**
  * NotFoundPlugin
