@@ -27,11 +27,5 @@ ALTER TABLE event_alignment
 ALTER TABLE outcome_alignment
   ADD CONSTRAINT question_outcome_uc UNIQUE (question_id, outcome_id);
 
-
-ALTER TABLE organization_outcome
-DROP level;
-ALTER TABLE organization_outcome
-ADD COLUMN level FLOAT NOT NULL DEFAULT 0.0;
-
 DELETE FROM _db_update WHERE script_name LIKE '0011%';
 INSERT INTO _db_update (script_name) VALUES ('0011-UniqueAlignments.sql');
