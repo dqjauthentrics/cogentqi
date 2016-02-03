@@ -5,6 +5,7 @@ use Cogent\Components\Matrix;
 use Cogent\Components\Result;
 use Cogent\Models\Assessment;
 use Cogent\Models\Organization;
+use Cogent\Models\Recommendation;
 use Cogent\Models\Role;
 use Phalcon\Mvc\Model\Resultset;
 
@@ -143,12 +144,21 @@ class AssessmentController extends ControllerBase {
 	 */
 	public function lockAction($memberId, $assessmentId, $newState) {
 		$result = new Result();
+		$transacted = false;
 		try {
 			$assessment = Assessment::findFirst($assessmentId);
 			if (!empty($assessment)) {
 				/** @tbd Save the person who locked/unlocked.
 				 */
+				if ($assessment->edit_status == Assessment::STATUS_ACTIVE && $newState == Assessment::STATUS_LOCKED) {
+					$this->beginTransaction($assessment);
+					$transacted = TRUE;
+					Recommendation::createRecommendationsForMember($assessment->assessee);
+				}
 				$assessment->update(['edit_status' => $newState]);
+				if ($transacted) {
+					$this->commitTransaction();
+				}
 				$result->setNormal($assessment->map());
 			}
 			else {
@@ -156,6 +166,9 @@ class AssessmentController extends ControllerBase {
 			}
 		}
 		catch (\Exception $exception) {
+			if ($transacted) {
+				$this->rollbackTransaction();
+			}
 			$result->setError(Result::CODE_EXCEPTION, $exception->getMessage());
 		}
 		$result->sendNormal();

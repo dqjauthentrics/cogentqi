@@ -12,10 +12,10 @@ use Cogent\Controllers\ControllerBase;
  * @method Instrument getInstrument()
  * @method Member getAssessee()
  * @method Member getAssessor()
- * @method \Phalcon\Mvc\Model\Resultset\Simple|AssessmentResponse[] getResponses($options = [])
+ * @method AssessmentResponse[] getResponses($options = [])
  * @method InstrumentSchedule getSchedule()
  *
- * @property \Phalcon\Mvc\Model\Resultset\Simple|AssessmentResponse[] $responses
+ * @property AssessmentResponse[] $responses
  * @property Member                                                   $assessor
  * @property Member                                                   $assessee
  * @property Instrument                                               $instrument
@@ -232,6 +232,9 @@ class Assessment extends CogentModel {
 			if (!empty($formAssessment)) {
 				$assessment = Assessment::findFirst($formAssessment["id"]);
 				if (!empty($assessment)) {
+                    if ($assessment->edit_status == Assessment::STATUS_LOCKED) {
+                        throw new \Exception("Assessment is locked.");
+                    }
 					$controller->beginTransaction($assessment);
 					$transacted = TRUE;
 					$saveDateTime = $assessment->dbDateTime();
@@ -243,7 +246,6 @@ class Assessment extends CogentModel {
 						"last_modified"     => $saveDateTime,
 						"assessor_comments" => $formAssessment["ac"],
 						"member_comments"   => $formAssessment["mc"],
-						"edit_status"       => $formAssessment["es"],
 						"view_status"       => $formAssessment["vs"]
 					];
 					if (!$assessment->update($simpleRec)) {
@@ -277,8 +279,6 @@ class Assessment extends CogentModel {
 						}
 					}
 				}
-				$recommendationModel = new Recommendation();
-				$recommendationModel->createRecommendationsForAssessment($assessment->id);
 				$controller->commitTransaction();
 				$result->setNormal();
 			}
@@ -776,8 +776,12 @@ class Assessment extends CogentModel {
 	 * @return mixed
 	 */
 	public static function getLatestIds($memberId) {
-		return parent::getReadConnection()
-			->query("SELECT MAX(id) AS latest FROM assessment WHERE member_id=? GROUP BY instrument_id", ['memberId' => $memberId])
+        $assessment = new Assessment();
+		return $assessment->getDBIF()
+			->query("SELECT MAX(id) AS latest
+                      FROM assessment
+                      WHERE member_id = $memberId
+                      GROUP BY instrument_id")
 			->fetchAll();
 	}
 
@@ -788,7 +792,7 @@ class Assessment extends CogentModel {
 	 */
 	public static function getLatestAssessmentIds($memberId) {
 		$latest = self::getLatestIds($memberId);
-		return self::getColumn($latest, 'latest');
+		return self::getArrayColumn($latest, 'latest');
 	}
 
     /**

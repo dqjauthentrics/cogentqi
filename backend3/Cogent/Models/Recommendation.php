@@ -2,6 +2,7 @@
 namespace Cogent\Models;
 
 use Cogent\Components\Result;
+use Cogent\Models\Outcome;
 
 /**
  * Class Recommendation
@@ -51,6 +52,17 @@ class Recommendation extends CogentModel {
 	}
 
 	/**
+	 * Allows to query the first record that match the specified conditions
+	 *
+	 * @param mixed $parameters
+	 *
+	 * @return Recommendation
+	 */
+	public static function findFirst($parameters = NULL) {
+		return parent::findFirst($parameters);
+	}
+
+	/**
 	 * Initialize method for model.
 	 */
 	public function initialize() {
@@ -66,75 +78,6 @@ class Recommendation extends CogentModel {
 	 */
 	public function getSource() {
 		return 'recommendation';
-	}
-
-	/**
-	 * @param int $assessmentId
-	 *
-	 * @return Result
-	 */
-	public function recommend($assessmentId) {
-		$result = new Result();
-		try {
-			$assessment = Assessment::findFirst($assessmentId);
-			$member = $assessment->member;
-			$responses = $assessment->responses;
-
-			$organizationOutcomes = OrganizationOutcome::query()->where('organization_id=?', $member['organization_id'])->execute();
-			$outcomeAlignments = OutcomeAlignment::query()
-				->where(
-					'question_id IN (SELECT id FROM Cogent\Models\Question WHERE question_group_id IN (SELECT id FROM Cogent\Models\QuestionGroup WHERE instrument_id=:id:))',
-					['id' => $assessment->instrument_id]
-				);
-			$outcomeEvents = OutcomeEvent::query()->where('member_id=:id:', ['id' => $assessment->member_id])->execute();
-
-			$outTable = [];
-			foreach ($outcomeAlignments as $outcomeAlignment) {
-				$outcome = $outcomeAlignment->outcome;
-				$questionId = $outcomeAlignment["question_id"];
-				$outcomeId = $outcome["id"];
-				if (empty($outTable[$questionId])) {
-					$outTable[$questionId] = [];
-				}
-				$outTable[$questionId][$outcomeId] = [
-					'name'     => $outcome->name,
-					'weight'   => $outcomeAlignment->weight,
-					'relWt'    => $outcomeAlignment->rel_wt,
-					'nEvents'  => self::countMatchingEvents($outcomeId, $outcomeEvents),
-					'orgLevel' => self::getOrgOutcome($outcomeId, $organizationOutcomes)
-				];
-			}
-			/**
-			 * @var AssessmentResponse $response
-			 */
-			$disp = [];
-			foreach ($responses as $response) {
-				$questionId = $response->question_id;
-				$responseUpdater = [
-					'outcome_factor'      => 0,
-					'outcome_weight'      => 0,
-					'event_factor'        => 0,
-					'event_weight'        => 0,
-					'recommendation_rank' => 0
-				];
-				if (!empty($outTable[$questionId])) {
-					foreach ($outTable[$questionId] as $outcomeId => $weighting) {
-						if ($weighting['weight'] > 0 && $weighting["orgLevel"] > 0) {
-							$responseUpdater['outcome_factor'] += (self::MAX_ORG_LEVEL - $weighting['orgLevel']);
-							$responseUpdater['outcome_weight'] += ($weighting['weight'] / 100);
-						}
-						$responseUpdater['event_factor'] += $weighting['nEvents'];
-						$responseUpdater['event_weight'] += ($weighting['weight'] / 100);
-					}
-				}
-				$disp[] = $responseUpdater;
-				$response->update($responseUpdater);
-			}
-		}
-		catch (\Exception $exception) {
-			$result->setException($exception);
-		}
-		return $result;
 	}
 
 	/**
@@ -169,14 +112,83 @@ class Recommendation extends CogentModel {
 	}
 
 	/**
+	 * @param int $assessmentId
+	 *
+	 * @return Result
+	 */
+	public function recommend($assessmentId) {
+		$result = new Result();
+		try {
+			$assessment = Assessment::findFirst($assessmentId);
+			$member = $assessment->member;
+			$responses = $assessment->responses;
+
+			$organizationOutcomes = OrganizationOutcome::query()->where('organization_id=?', $member['organization_id'])->execute();
+			$outcomeAlignments = OutcomeAlignment::query()
+					->where(
+							'question_id IN (SELECT id FROM Cogent\Models\Question WHERE question_group_id IN (SELECT id FROM Cogent\Models\QuestionGroup WHERE instrument_id=:id:))',
+							['id' => $assessment->instrument_id]
+					);
+			$outcomeEvents = OutcomeEvent::query()->where('member_id=:id:', ['id' => $assessment->member_id])->execute();
+
+			$outTable = [];
+			foreach ($outcomeAlignments as $outcomeAlignment) {
+				$outcome = $outcomeAlignment->outcome;
+				$questionId = $outcomeAlignment["question_id"];
+				$outcomeId = $outcome["id"];
+				if (empty($outTable[$questionId])) {
+					$outTable[$questionId] = [];
+				}
+				$outTable[$questionId][$outcomeId] = [
+						'name'     => $outcome->name,
+						'weight'   => $outcomeAlignment->weight,
+						'relWt'    => $outcomeAlignment->rel_wt,
+						'nEvents'  => self::countMatchingEvents($outcomeId, $outcomeEvents),
+						'orgLevel' => self::getOrgOutcome($outcomeId, $organizationOutcomes)
+				];
+			}
+			/**
+			 * @var AssessmentResponse $response
+			 */
+			$disp = [];
+			foreach ($responses as $response) {
+				$questionId = $response->question_id;
+				$responseUpdater = [
+						'outcome_factor'      => 0,
+						'outcome_weight'      => 0,
+						'event_factor'        => 0,
+						'event_weight'        => 0,
+						'recommendation_rank' => 0
+				];
+				if (!empty($outTable[$questionId])) {
+					foreach ($outTable[$questionId] as $outcomeId => $weighting) {
+						if ($weighting['weight'] > 0 && $weighting["orgLevel"] > 0) {
+							$responseUpdater['outcome_factor'] += (self::MAX_ORG_LEVEL - $weighting['orgLevel']);
+							$responseUpdater['outcome_weight'] += ($weighting['weight'] / 100);
+						}
+						$responseUpdater['event_factor'] += $weighting['nEvents'];
+						$responseUpdater['event_weight'] += ($weighting['weight'] / 100);
+					}
+				}
+				$disp[] = $responseUpdater;
+				$response->update($responseUpdater);
+			}
+		}
+		catch (\Exception $exception) {
+			$result->setException($exception);
+		}
+		return $result;
+	}
+
+	/**
 	 * @param $planItem
 	 */
 	public function planItemCompleted($planItem) {
 		$assessmentModel = new Assessment();
 		$latestAssessmentIds = $assessmentModel->getLatestAssessmentIds($planItem->member_id);
 		$responses = AssessmentResponse::query()
-			->where("assessment_id IN ($latestAssessmentIds) AND recommended_resource_id IN ($planItem->module->resource_id)")
-			->execute();
+				->where("assessment_id IN ($latestAssessmentIds) AND recommended_resource_id IN ($planItem->module->resource_id)")
+				->execute();
 		/** @var AssessmentResponse $response */
 		foreach ($responses as $response) {
 			$response->update(['recommended_resource' => NULL]);
@@ -220,9 +232,9 @@ class Recommendation extends CogentModel {
 		$currentResourceRecommendations = [];
 		$order = 0;
 		$currentRecommendation = PlanItem::query()
-			->where('member_id', $memberEvent->member_id)
-			->andWhere('plan_item_status_id', PlanItem::STATUS_RECOMMENDED)
-			->execute();
+				->where('member_id', $memberEvent->member_id)
+				->andWhere('plan_item_status_id', PlanItem::STATUS_RECOMMENDED)
+				->execute();
 		foreach ($currentRecommendation as $recommendation) {
 			if ($recommendation->score > $order) {
 				$order = $recommendation->score;
@@ -241,44 +253,114 @@ class Recommendation extends CogentModel {
 			}
 			if (!array_key_exists($coverage['moduleId'], $currentResourceRecommendations)) {
 				$newRecommendations[] = self::createNewRecommendationArray(
-					$coverage['moduleId'],
-					$memberEvent->member_id,
-					$date,
-					self::MAX_RATING,
-					++$order,
-					1
+						$coverage['moduleId'],
+						$memberEvent->member_id,
+						$date,
+						self::MAX_RATING,
+						++$order,
+						1
 				);
 			}
 		}
 	}
 
 	/**
-	 * @param array $assessmentResponses
+	 * @param float $level   0 <= $level <= 1
+	 * @param int $responseMax
+	 * @return int  An integer x, 1 <= x <= $responseMax
+	 */
+	private static function outcomeLevelToResponse($level, $responseMax) {
+		return (($responseMax - 1)*$level) + 1;
+	}
+
+	private static function getOutcomeScores($organizationId) {
+		$orgOutcomes = OrganizationOutcome::getLatestForOrganization(
+				$organizationId);
+		/** @var OrganizationOutcome $orgOutcome */
+		$questionStats = [];
+		foreach ($orgOutcomes as $orgOutcome) {
+			/** @var OutcomeAlignment $alignment */
+			foreach($orgOutcome->outcome->alignments as $alignment) {
+				$questionId = $alignment->question_id;
+				if (!array_key_exists($questionId, $questionStats)) {
+					$questionStats[$questionId] = [];
+				}
+				$response = self::outcomeLevelToResponse(
+                    $orgOutcome->level, intval($alignment->question->type->max_range));
+				$questionStats[$questionId][] = [
+						'response' => $response,
+						'alignment' => $alignment->weight
+				];
+			}
+		}
+		$outcomeScores = [];
+		foreach ($questionStats as $questionId => $stats) {
+			$weightedSum = 0;
+			$total= 0;
+			foreach ($stats as $stat) {
+				$weightedSum += $stat['alignment']*$stat['response'];
+				$total += $stat['alignment'];
+			}
+			$outcomeScores[$questionId] = $weightedSum/$total;
+		}
+		return $outcomeScores;
+	}
+
+	/**
+	 * @param Member $member
 	 *
 	 * @return array
 	 */
-	private function createScoredQuestions($assessmentResponses) {
+	private static function createScoredQuestions($member) {
+		$outcomes = self::getOutcomeScores($member->organization_id);
 		$scoredQuestions = [];
-		if (!empty($assessmentResponses)) {
-			foreach ($assessmentResponses as $response) {
-				$scoredQuestions[$response->question_id] = [
-					'response'    => $response->response,
-					'maxResponse' => $response->question->type->max_range,
-					'importance'  => $response->question->importance,
-				];
+		// @todo need real weights...
+		$assessmentWeight = 1;
+		$outcomeWeight = 1;
+		/** @var AssessmentResponse $response */
+		foreach (Assessment::getLatestResponses($member->id) as $response) {
+			if ($response->question->type->entry_type !== 'LIKERT') {
+				continue;
 			}
+			$qId = $response->question_id;
+			$responseVal = empty($response->response) ? 0 : $response->response;
+			$outcome = !array_key_exists($qId, $outcomes) ? 0 : $outcomes[$qId];
+			if ($responseVal == 0 && $outcome == 0) {
+				continue;
+			}
+            $ow = $outcome == 0 ? 0 : $outcomeWeight;
+            $aw = $responseVal == 0 ? 0 : $assessmentWeight;
+			$scoredQuestions[$qId] = [
+					'score' => round((($aw*$responseVal) + ($ow*$outcome)) /($aw + $ow)),
+					'maxScore' => $response->question->type->max_range
+			];
 		}
 		return $scoredQuestions;
 	}
 
 	/**
-	 * @param array  $filteredQuestions
+	 * @param int $assessmentId
+	 *
+	 * @return array
+	 */
+	public static function createRecommendationsForMember($member) {
+		// Obtain the aggregate (assessment and outcome) scores
+		$scoredQuestions = self::createScoredQuestions($member);
+		$rankedResources = self::createRankedResourceList($scoredQuestions, $member);
+        //  @todo need to identify would is initiating the recommendation generation
+        //  passing 1 for now
+        self::saveRankedResources($rankedResources, $member, 1);
+		return $rankedResources;
+	}
+
+	/**
+	 * @param array  $scoredQuestions
 	 * @param Member $member
 	 *
 	 * @return array
 	 *
 	 */
-	private function createRankedResourceList($filteredQuestions, $member) {
+	private static function createRankedResourceList($scoredQuestions, $member) {
 		// Record the resources that will be offered in the future as a module.
 		// If multiple modules exist for a resource, select the earliest one.
 		//
@@ -289,8 +371,8 @@ class Recommendation extends CogentModel {
 			$starts = !empty($module->starts) ? strtotime($module->starts) : NULL;
 			if (!array_key_exists($rId, $futureResources)) {
 				$futureResources[$rId] = [
-					'moduleId' => $module->id,
-					'starts'   => $starts,
+						'moduleId' => $module->id,
+						'starts'   => $starts,
 				];
 			}
 			if (empty($futureResources[$rId]['starts'])) {
@@ -302,33 +384,35 @@ class Recommendation extends CogentModel {
 			}
 		}
 
-		if (!empty($filteredQuestions) && !empty($futureResources)) {
+		if (!empty($scoredQuestions) && !empty($futureResources)) {
 			// We don't want to recommend any resources that are contained in the member's plan except for previously recommended and
 			// withdrawn ones.
 			//
 			$pastResources = [];
 			foreach ($member->planItems as $item) {
 				if ($item->plan_item_status_id != PlanItem::STATUS_RECOMMENDED && $item->plan_item_status_id != PlanItem::STATUS_WITHDRAWN) {
-					array_push($pastResources, $item->module->resource->id);
+					array_push($pastResources, $item->module->resource_id);
 				}
 			}
-			if (!empty($pastResources)) {
-				$resourceAlignments = ResourceAlignment::query()
-					->inWhere('question_id', array_keys($filteredQuestions))
+
+			/** @var ResourceAlignment[] $resourceAlignments */
+			$resultSet = ResourceAlignment::query()
+					->inWhere('question_id', array_keys($scoredQuestions))
 					->notInWhere('resource_id', $pastResources)
 					->inWhere('resource_id', array_keys($futureResources))
 					->execute();
+			$resourceAlignments = [];
+			foreach ($resultSet as $alignment) {
+				$resourceAlignments[]= $alignment;
 			}
-			else {
-				$resourceAlignments = ResourceAlignment::query()
-					->inWhere('question_id', array_keys($filteredQuestions))
-					->inWhere('resource_id', array_keys($futureResources))
-					->execute();
+			foreach ($resourceAlignments as $resourceAlignment) {
+				$resourceAlignment->setUtilityByResponse(
+						$scoredQuestions[$resourceAlignment->question_id]['score']);
 			}
 
 			// Record the alignment strengths that constitute coverage for each question
 			$maxCoveringStrengths = [];
-			foreach ($filteredQuestions as $key => $value) {
+			foreach ($scoredQuestions as $key => $value) {
 				$maxCoveringStrengths[$key] = 0;
 			}
 			foreach ($resourceAlignments as $alignment) {
@@ -336,29 +420,68 @@ class Recommendation extends CogentModel {
 					$maxCoveringStrengths[$alignment->question_id] = $alignment->weight;
 				}
 			}
+			/*
+                        // Try to reuse resources that are shared between different instruments.
+                        // We will not be deleting recommendations from other instruments so we might
+                        // as well not re-cover them
 
+                        // get all plan items for this member that are recommended by
+                        // another instrument
+                        $questionsCoveredByOther = [];
+                        if (!empty($instrument)) {
+                            $resourcesRecommendedByOther = [];
+                            $resourceToPlanItem = [];
+                            $sharedPlanItems = [];
+                            $allRecommendedPlanItems = [];
+                            foreach ($member->planItems as $item) {
+                                if ($item->plan_item_status_id != PlanItem::STATUS_RECOMMENDED) {
+                                    continue;
+                                }
+                                $allRecommendedPlanItems[] = $item->id;
+                                foreach ($item->recommended as $recommended) {
+                                    if ($recommended->instrument_id != $instrument) {
+                                        $resourceToPlanItem[$item->module->resource_id] = $item->id;
+                                        $resourcesRecommendedByOther[$item->module->resource_id] = 0;
+                                        break;
+                                    }
+                                }
+                            }
+                            foreach ($resourceAlignments as $alignment) {
+                                if (array_key_exists($alignment->resource_id, $resourcesRecommendedByOther)) {
+                                    if ($alignment->weight == $maxCoveringStrengths[$alignment->question_id]) {
+                                        $questionsCoveredByOther[$alignment->question_id] = 0;
+                                        $sharedPlanItems[$resourceToPlanItem[$alignment->resource_id]] = 0;
+                                    }
+                                }
+                            }
+                            // Now adjust recommended table, Delete all recommended plan items
+                            // and add all shared.
+
+                        }
+            */
 			// Record how well each resource covers a subset of questions
 			$resourceCoverages = [];
 			foreach ($resourceAlignments as $alignment) {
 				$rId = $alignment->resource_id;
 				if (!array_key_exists($rId, $resourceCoverages)) {
 					$resourceCoverages[$rId] = [
-						'resourceId'         => $rId,
-						'moduleId'           => $futureResources[$rId]['moduleId'],
-						'totalWeight'        => 0,
-						'questions'          => [],
-						'totalResponseError' => 0,
-						'order'              => 0,
-						'rating'             => 0,
+							'resourceId'         => $rId,
+							'moduleId'           => $futureResources[$rId]['moduleId'],
+							'totalWeight'        => 0,
+							'questions'          => [],
+							'totalScoreError'    => 0,
+							'order'              => 0,
+							'rating'             => 0,
 					];
 				}
 				if ($alignment->weight == $maxCoveringStrengths[$alignment->question_id]) {
 					$coverage = &$resourceCoverages[$rId];
-					$coverage['totalWeight'] += $filteredQuestions[$alignment->question_id]['importance'];
+					$coverage['totalWeight'] += 1;
 					$coverage['questions'][$alignment->question_id] = 0;
 				}
 			}
-			$this->sortResourceCoverages($resourceCoverages);
+
+			self::sortResourceCoverages($resourceCoverages);
 			unset($coverage);
 			while (TRUE) {
 				for ($i = count($resourceCoverages) - 1; $i >= 0; $i--) {
@@ -366,7 +489,7 @@ class Recommendation extends CogentModel {
 					unset($resourceCoverages[$i]);
 					if ($coverage['totalWeight'] != 0) {
 						array_push($rankedCoverages, $coverage);
-						$this->reduceResourceCoverages($coverage, $resourceCoverages, $filteredQuestions);
+						self::reduceResourceCoverages($coverage, $resourceCoverages);
 						break;
 					}
 				}
@@ -374,72 +497,33 @@ class Recommendation extends CogentModel {
 					break;
 				}
 			}
-			$this->setOrderAndRatings($rankedCoverages, $filteredQuestions);
+			self::setOrderAndRatings($rankedCoverages, $scoredQuestions);
 
-			// Sort final resource list in descending order of the total response error
+			// Sort final resource list in descending order of the total total error
 			//
 			usort($rankedCoverages, function ($c1, $c2) {
-				return $c2['totalResponseError'] - $c1['totalResponseError'];
+				return $c2['totalScoreError'] - $c1['totalScoreError'];
 			});
 		}
 		return $rankedCoverages;
 	}
 
 	/**
-	 * @param array $coverages
+	 * Save, for each covered competency, the covering resource.
+	 *
+	 * @param $rankedCoverages
+	 * @param $assessmentId
 	 */
-	private function sortResourceCoverages(&$coverages) {
-		usort($coverages, function ($r1, $r2) {
-			$w1 = $r1['totalWeight'];
-			$w2 = $r2['totalWeight'];
-			if ($w1 < $w2) {
-				return -1;
+	private function saveAssessmentCoverages($rankedCoverages, $assessmentId) {
+		foreach ($rankedCoverages as $rankedCoverage) {
+			$responses = AssessmentResponse::query()
+					->where('assessment_id=:aid:', ['aid' => $assessmentId])
+					->inWhere('question_id', array_keys($rankedCoverage['questions']))
+					->execute();
+			/** @var AssessmentResponse $response */
+			foreach ($responses as $response) {
+				$response->update(['recommended_resource_id' => $rankedCoverage['resourceId']]);
 			}
-			if ($w1 > $w2) {
-				return 1;
-			}
-			return 0;
-		});
-	}
-
-	/**
-	 * @param array $selectedCoverage
-	 * @param array $coverages
-	 * @param array $scoredQuestions
-	 */
-	private function reduceResourceCoverages($selectedCoverage, &$coverages, $scoredQuestions) {
-		foreach ($coverages as &$coverage) {
-			foreach ($selectedCoverage['questions'] as $question => $dummy) {
-				if (array_key_exists($question, $coverage['questions'])) {
-					unset($coverage['questions'][$question]);
-					$coverage['totalWeight'] -= $scoredQuestions[$question]['importance'];
-				}
-			}
-		}
-		unset($coverage);
-		$this->sortResourceCoverages($coverages);
-	}
-
-	/**
-	 * @param array $rankedCoverages
-	 * @param array $scoredQuestions
-	 */
-	private function setOrderAndRatings(&$rankedCoverages, $scoredQuestions) {
-		$order = 1;
-		$maxError = 0;
-		foreach ($rankedCoverages as &$coverage) {
-			$coverage['order'] = $order++;
-			foreach ($coverage['questions'] as $questionId => $dummy) {
-				$question = $scoredQuestions[$questionId];
-				$coverage['totalResponseError'] +=
-					1 - ($question['response'] / $question['maxResponse']);
-			}
-			if ($coverage['totalResponseError'] > $maxError) {
-				$maxError = $coverage['totalResponseError'];
-			}
-		}
-		foreach ($rankedCoverages as &$coverage) {
-			$coverage['rating'] = $maxError != 0 ? ceil(self::MAX_RATING * ($coverage['totalResponseError'] / $maxError)) : 0;
 		}
 	}
 
@@ -453,54 +537,16 @@ class Recommendation extends CogentModel {
 	 *
 	 * @return array
 	 */
-	private function createNewRecommendationArray($moduleId, $memberId, $date, $rating, $order, $recommendationId) {
+	private static function createNewRecommendationArray($moduleId, $memberId, $date, $rating, $order, $recommendationId) {
 		return [
-			'module_id'           => $moduleId,
-			'plan_item_status_id' => PlanItem::STATUS_RECOMMENDED,
-			'status_stamp'        => $date,
-			'member_id'           => $memberId,
-			'rank'                => $rating,
-			'score'               => $order,
-			'recommendation_id'   => $recommendationId,
+				'module_id'           => $moduleId,
+				'plan_item_status_id' => PlanItem::STATUS_RECOMMENDED,
+				'status_stamp'        => $date,
+				'member_id'           => $memberId,
+				'rank'                => $rating,
+				'score'               => $order,
+				'recommendation_id'   => $recommendationId,
 		];
-	}
-
-	/**
-	 * @param int $assessmentId
-	 *
-	 * @return array
-	 */
-	public function createRecommendationsForAssessment($assessmentId) {
-		$assessment = Assessment::findFirst($assessmentId);
-		$rankedCoverages = [];
-		if (!empty($assessment)) {
-			$member = $assessment->assessee;
-			$scoredQuestions = $this->createScoredQuestions($assessment->responses);
-			// Filter out any competencies that don't require resource coverage
-			//
-			$filteredQuestions = $this->assessmentQuestionsToCover($scoredQuestions);
-			$rankedCoverages = $this->createRankedResourceList($filteredQuestions, $member);
-			$this->saveRankedResources($rankedCoverages, $member, $assessmentId);
-			$this->saveAssessmentCoverages($rankedCoverages, $assessmentId);
-		}
-		return $rankedCoverages;
-	}
-
-	/**
-	 * @param array $scoredQuestions
-	 *
-	 * @return array
-	 */
-	private function assessmentQuestionsToCover($scoredQuestions) {
-		$filteredQuestions = [];
-		foreach ($scoredQuestions as $questionId => $scoredQuestion) {
-			$score = $scoredQuestion['response'];
-			$max = $scoredQuestion['maxResponse'];
-			if ($score != 0 && $score != $max) {
-				$filteredQuestions[$questionId] = $scoredQuestion;
-			}
-		}
-		return $filteredQuestions;
 	}
 
 	/**
@@ -512,34 +558,35 @@ class Recommendation extends CogentModel {
 	 *
 	 * @throws \Exception
 	 */
-	private function saveRankedResources($rankedCoverages, $member, $assessmentId) {
-		$date = $this->dbDateTime();
+	private static function saveRankedResources($rankedCoverages, $member, $assessmentId) {
+		$date = self::dbDateTime();
 		$recommendationFields = [
-			'member_id'     => $member->id,
-			'assessment_id' => $assessmentId,
-			'created_on'    => $date,
+				'member_id'     => $member->id,
+				'assessment_id' => $assessmentId,
+				'created_on'    => $date,
 		];
 		$recommendation = self::findFirst([
-			'conditions' => "member_id=:mid: AND assessment_id=:aid:",
-			'bind'       => ['mid' => $member->id, 'aid' => $assessmentId]
+				'conditions' => "member_id=:mid: AND assessment_id=:aid:",
+				'bind'       => ['mid' => $member->id, 'aid' => $assessmentId]
 		]);
 		if (empty($recommendation)) {
 			$recommendation = new Recommendation();
 		}
+        /*
 		if (!$recommendation->save($recommendationFields)) {
 			throw new \Exception($recommendation->errorMessagesAsString());
 		}
-
+        */
 		// Create objects for plan_item entries
 		$newRecommendations = [];
 		foreach ($rankedCoverages as $coverage) {
-			$newRecommendations[] = $this->createNewRecommendationArray(
-				$coverage['moduleId'],
-				$member->id,
-				$date,
-				$coverage['rating'],
-				$coverage['order'],
-				$recommendation->id
+			$newRecommendations[] = self::createNewRecommendationArray(
+					$coverage['moduleId'],
+					$member->id,
+					$date,
+					$coverage['rating'],
+					$coverage['order'],
+					$recommendation->id
 			);
 		}
 		$oldRecommendations = [];
@@ -578,32 +625,77 @@ class Recommendation extends CogentModel {
 	}
 
 	/**
-	 * Allows to query the first record that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return Recommendation
+	 * @param array $rankedCoverages
+	 * @param array $scoredQuestions
 	 */
-	public static function findFirst($parameters = NULL) {
-		return parent::findFirst($parameters);
+	private static function setOrderAndRatings(&$rankedCoverages, $scoredQuestions) {
+		$order = 1;
+		$maxError = 0;
+		foreach ($rankedCoverages as &$coverage) {
+			$coverage['order'] = $order++;
+			foreach ($coverage['questions'] as $questionId => $dummy) {
+				$question = $scoredQuestions[$questionId];
+				$coverage['totalScoreError'] +=
+						1 - ($question['score'] / $question['maxScore']);
+			}
+			if ($coverage['totalScoreError'] > $maxError) {
+				$maxError = $coverage['totalScoreError'];
+			}
+		}
+		foreach ($rankedCoverages as &$coverage) {
+			$coverage['rating'] = $maxError != 0 ? ceil(self::MAX_RATING * ($coverage['totalScoreError'] / $maxError)) : 0;
+		}
 	}
 
 	/**
-	 * Save, for each covered competency, the covering resource.
+	 * @param array $scoredQuestions
 	 *
-	 * @param $rankedCoverages
-	 * @param $assessmentId
+	 * @return array
 	 */
-	private function saveAssessmentCoverages($rankedCoverages, $assessmentId) {
-		foreach ($rankedCoverages as $rankedCoverage) {
-			$responses = AssessmentResponse::query()
-				->where('assessment_id=:aid:', ['aid' => $assessmentId])
-				->inWhere('question_id', array_keys($rankedCoverage['questions']))
-				->execute();
-			/** @var AssessmentResponse $response */
-			foreach ($responses as $response) {
-				$response->update(['recommended_resource_id' => $rankedCoverage['resourceId']]);
+	private function assessmentQuestionsToCover($scoredQuestions) {
+		$filteredQuestions = [];
+		foreach ($scoredQuestions as $questionId => $scoredQuestion) {
+			$score = $scoredQuestion['response'];
+			$max = $scoredQuestion['maxResponse'];
+			if ($score != 0 && $score != $max) {
+				$filteredQuestions[$questionId] = $scoredQuestion;
 			}
 		}
+		return $filteredQuestions;
+	}
+
+	/**
+	 * @param array $selectedCoverage
+	 * @param array $coverages
+	 * @param array $scoredQuestions
+	 */
+	private static function reduceResourceCoverages($selectedCoverage, &$coverages) {
+		foreach ($coverages as &$coverage) {
+			foreach ($selectedCoverage['questions'] as $question => $dummy) {
+				if (array_key_exists($question, $coverage['questions'])) {
+					unset($coverage['questions'][$question]);
+					$coverage['totalWeight'] -= 1;
+				}
+			}
+		}
+		unset($coverage);
+		self::sortResourceCoverages($coverages);
+	}
+
+	/**
+	 * @param array $coverages
+	 */
+	private static function sortResourceCoverages(&$coverages) {
+		usort($coverages, function ($r1, $r2) {
+			$w1 = $r1['totalWeight'];
+			$w2 = $r2['totalWeight'];
+			if ($w1 < $w2) {
+				return -1;
+			}
+			if ($w1 > $w2) {
+				return 1;
+			}
+			return 0;
+		});
 	}
 }

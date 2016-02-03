@@ -70,7 +70,7 @@ class OutcomeAlignment extends CogentModel {
 	 */
 	public function initialize() {
 		$this->belongsTo('outcome_id', 'Cogent\Models\Outcome', 'id', ['alias' => 'Outcome']);
-		$this->belongsTo('question_id', 'Cogent\Models\Question', 'id', ['alias' => 'Questions']);
+		$this->belongsTo('question_id', 'Cogent\Models\Question', 'id', ['alias' => 'Question']);
 	}
 
 	/**
