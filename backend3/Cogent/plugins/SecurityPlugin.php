@@ -1,13 +1,13 @@
 <?php
 namespace Cogent\Plugins;
 
+use Cogent\Models\Role;
 use Phalcon\Acl;
 use Phalcon\Acl\Adapter\Memory as AclList;
 use Phalcon\Acl\Resource;
 use Phalcon\Events\Event;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\User\Plugin;
-use Cogent\Models\Role;
 
 /**
  * SecurityPlugin

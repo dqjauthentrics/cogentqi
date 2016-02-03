@@ -11,7 +11,7 @@
     "fontawesome": "~4.4.0",
     "angular-ui-calendar": "~1.0.1",
     "angular-ui-router": "~0.2.15",
-    "angularjs-slider": "^2.5.0"
+    "angularjs-slider": "2.6"
   },
   "resolutions": {
     "angular-translate": "~2.7.2",
