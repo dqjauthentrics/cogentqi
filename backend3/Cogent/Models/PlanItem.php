@@ -10,10 +10,10 @@ namespace Cogent\Models;
  * @method Recommendation getRecommendation()
  * @method PlanItemStatus getStatus()
  *
- * @method Member $member
- * @method Module $module
- * @method Recommendation $recommendation
- * @method PlanItemStatus $status
+ * @property Member $member
+ * @property Module $module
+ * @property Recommendation $recommendation
+ * @property PlanItemStatus $status
  *
  */
 class PlanItem extends CogentModel {

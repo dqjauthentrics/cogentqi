@@ -6,8 +6,8 @@ namespace Cogent\Models;
  * @method \Phalcon\Mvc\Model\Resultset\Simple|EventAlignment[] getAlignments()
  * @method \Phalcon\Mvc\Model\Resultset\Simple|Member[] getMembers()
  *
- * @method \Phalcon\Mvc\Model\Resultset\Simple|EventAlignment[] $alignments
- * @method \Phalcon\Mvc\Model\Resultset\Simple|Member[] $members
+ * @property \Phalcon\Mvc\Model\Resultset\Simple|EventAlignment[] $alignments
+ * @property \Phalcon\Mvc\Model\Resultset\Simple|Member[] $members
  *
  */
 class Event extends CogentModel {

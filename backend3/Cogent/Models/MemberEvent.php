@@ -7,8 +7,8 @@ namespace Cogent\Models;
  * @method Member getMember()
  * @method Event getEvent()
  *
- * @method Member $member
- * @method Event $event
+ * @property Member $member
+ * @property Event $event
  *
  */
 class MemberEvent extends CogentModel {
