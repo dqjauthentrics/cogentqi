@@ -1,6 +1,15 @@
 <?php
 namespace Cogent\Models;
 
+/**
+ * Class Assessment
+ * @package Cogent\Models
+ *
+ * @method Outcome getOutcome()
+ *
+ * @property Outcome $outcome
+ */
+
 class OrganizationOutcome extends CogentModel {
 
 	/**
@@ -71,9 +80,9 @@ class OrganizationOutcome extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('organization_id', 'Organization', 'id', ['alias' => 'Organization']);
-		$this->belongsTo('outcome_id', 'Outcome', 'id', ['alias' => 'Outcome']);
-		$this->belongsTo('evaluator_id', 'Member', 'id', ['alias' => 'Member']);
+		$this->belongsTo('organization_id', 'Cogent\Models\Organization', 'id', ['alias' => 'Organization']);
+		$this->belongsTo('outcome_id', 'Cogent\Models\Outcome', 'id', ['alias' => 'Outcome']);
+		$this->belongsTo('evaluator_id', 'Cogent\Models\Member', 'id', ['alias' => 'Member']);
 	}
 
 	/**
@@ -93,14 +102,14 @@ class OrganizationOutcome extends CogentModel {
         $sql = "SELECT a.id as id
             FROM organization_outcome a
               INNER JOIN (
-                SELECT MAX(id) id
+                SELECT MAX(id) as id
                 FROM organization_outcome
                 WHERE organization_id = $orgId
                 GROUP BY outcome_id
-              ) b ON a.id = b.id
-            ";
-        $records = parent::getReadConnection()->query($sql)->fetchAll();
-        $ids = self::getColumn($records, 'id');
+              ) b ON a.id = b.id";
+		$orgOutcome = new OrganizationOutcome();
+        $records = $orgOutcome->getDBIF()->query($sql)->fetchAll();
+        $ids = self::getArrayColumn($records, 'id');
         return OrganizationOutcome::query()->inWhere('id', $ids)->execute();
 	}
 }

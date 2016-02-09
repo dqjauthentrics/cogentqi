@@ -374,6 +374,22 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	}
 
 	/**
+	 * @param array[] 					   $array
+	 * @param string                       $key
+	 *
+	 * @return array
+	 */
+	public static function getArrayColumn($array, $key) {
+		$colValues = [];
+		foreach ($array as $element) {
+			if (isset($element[$key])) {
+				$colValues[] = $element[$key];
+			}
+		}
+		return $colValues;
+	}
+
+	/**
 	 * @param \Phalcon\Mvc\Model\Resultset $records
 	 * @param string                       $colName
 	 *

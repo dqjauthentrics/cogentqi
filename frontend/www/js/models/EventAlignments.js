@@ -19,7 +19,7 @@ angular.module('EventAlignments', []).service('EventAlignments', function ($cook
 																	   var response = result.data;
 																	   svc.alignments = response.data;
 																	   svc.alignments.forEach(function (alignment) {
-																		   svc.questions[alignment.qi] = true;
+																		   svc.questions[alignment.qi] = alignment.wt;
 																	   });
 																	   return svc;
 																   },
