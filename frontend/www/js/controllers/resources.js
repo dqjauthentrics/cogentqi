@@ -124,8 +124,9 @@ angular.module('ResourceControllers', [])
 				$scope.setResource();
 			});
 			$scope.masterChange = function (sliderId, modelValue) {
-				console.log("master change", sliderId, modelValue);
+				$scope.data.dirty = true;
 				for (var i = 1; i < $scope.data.maxLen; i++) {
+					console.log($scope.data.alignments[sliderId]);
 					$scope.data.alignments[sliderId][i].utility = modelValue;
 				}
 			};
@@ -158,7 +159,7 @@ angular.module('ResourceControllers', [])
 					}
 					var emptyVals = [];
 					for (var c = 0; c < $scope.data.maxLen; c++) {
-						emptyVals.push({response: 0, utility: 0});
+						emptyVals.push(Utility.clone({response: 0, utility: 0}));
 					}
 					for (z = 0; z < $scope.data.currentInstrument.questions.length; z++) {
 						question = $scope.data.currentInstrument.questions[z];
@@ -171,10 +172,10 @@ angular.module('ResourceControllers', [])
 							$scope.data.alignments[alignment.qi] = Utility.clone(emptyVals);
 							for (var m = 0; m < mapping.length; m++) {
 								if (typeof mapping[m] == 'object' && typeof mapping[m].utility == 'number') {
-									$scope.data.alignments[alignment.qi][m] = Utility.clone(mapping[m]);
+									$scope.data.alignments[alignment.qi][(m+1)] = Utility.clone(mapping[m]);
 								}
 							}
-							//$scope.data.alignments[alignment.qi][0] = Utility.clone({response: 0, utility: 0}); // for master use
+							$scope.data.alignments[alignment.qi][0] = Utility.clone({response: 0, utility: 0}); // for master use
 						}
 					}
 					console.log('alignments, qid:', question.id, $scope.data.alignments);

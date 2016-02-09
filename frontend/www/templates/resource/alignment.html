@@ -2,47 +2,41 @@
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false" overflow-scroll="true">
-        <div class="row responsive-lg">
-            <div class="col panel">
-                <div class="detail">
-                    <h1>{{'Learning Resource Alignments'|translate}}</h1>
-
-                    <div style="float:right; margin:0.5em;">
-                        <button ng-click="save(this);" data-ng-show="data.dirty" class="button button-action button-save button-dirty">
-                            <i data-ng-class="data.saving? i.loadingSpinner : i.save"></i>
-                        </button>
-                    </div>
-                    <h2><a href="#/resource/view/{{data.resource.id}}">{{data.resource.n}}</a></h2>
-
-                    <div class="description">
-                        {{data.resource.sm}}
-                    </div>
-                    <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId"
-                            data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
-                            data-ng-options="instrument.id as instrument.n for instrument in data.instruments">
-                    </select>
-
-                    <div class="clearfix"></div>
+        <ion-list type="card">
+            <ion-item>
+                <div style="float:right;">
+                    <button ng-click="save(this);" data-ng-show="data.dirty" class="button button-action button-save button-dirty">
+                        <i data-ng-class="data.saving? i.loadingSpinner : i.save"></i>
+                    </button>
                 </div>
-                <div style="float:right; margin-right:6em; font-weight:bold;">{{'Alignment Weights'|translate}}</div>
+                <h2 style="float:left; margin: 0.2em;"><a href="#/resource/view/{{data.resource.id}}">{{data.resource.n}}</a></h2>
                 <div class="clearfix"></div>
-                <ion-list>
-                    <ion-item ng-repeat="question in data.currentInstrument.questions" type="item-text-wrap">
-                        <div class="name">{{question.n}}</div>
-                        <div style="float:right; margin: 1em 0.5em;">
-                            <equalizer
-                                    qid = "question.id"
-                                    min="question.type.min" max="question.type.max" values="data.values"
-                                    choices="question.type.choices"
-                                    alignment="data.alignments[question.id]"
-                            >
-                            </equalizer>
-                        </div>
-                        <div class="description" data-ng-bind-html="question.dsc"></div>
-                    </ion-item>
-                </ion-list>
-            </div>
-        </div>
+                <div class="description">
+                    {{data.resource.sm}}
+                </div>
+                <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId"
+                        data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
+                        data-ng-options="instrument.id as instrument.n for instrument in data.instruments">
+                </select>
+
+                <div class="clearfix"></div>
+                <div style="float:right; margin-right:6em; font-weight:bold;">{{'Alignment Weights'|translate}}</div>
+            </ion-item>
+            <ion-item ng-repeat="question in data.currentInstrument.questions" type="item-text-wrap">
+                <div class="name">{{question.n}}</div>
+                <div style="float:right; margin: 1em 0.5em;">
+                    <equalizer
+                            qid="question.id"
+                            min="question.type.min" max="question.type.max" values="data.values"
+                            choices="question.type.choices"
+                            alignment="data.alignments[question.id]"
+                    >
+                    </equalizer>
+                </div>
+                <div class="description" data-ng-bind-html="question.dsc"></div>
+            </ion-item>
+        </ion-list>
+
     </ion-content>
     <ng-include src="'/templates/common/tabs.html'"></ng-include>
 </ion-view>
