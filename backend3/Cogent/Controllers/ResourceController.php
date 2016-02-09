@@ -106,8 +106,7 @@ class ResourceController extends ControllerBase {
 							$responseToUtility = [];
 							foreach ($utilities as $utility) {
 								$total += $utility['utility'];
-								$responseToUtility[$utility['response']] =
-									$utility['utility'];
+								$responseToUtility[$utility['response']] = $utility['utility'];
 							}
 							if ($total == 0) {
 								$alignment->delete();

@@ -126,7 +126,6 @@ angular.module('ResourceControllers', [])
 			$scope.masterChange = function (sliderId, modelValue) {
 				$scope.data.dirty = true;
 				for (var i = 1; i < $scope.data.maxLen; i++) {
-					console.log($scope.data.alignments[sliderId]);
 					$scope.data.alignments[sliderId][i].utility = modelValue;
 				}
 			};
@@ -178,7 +177,6 @@ angular.module('ResourceControllers', [])
 							$scope.data.alignments[alignment.qi][0] = Utility.clone({response: 0, utility: 0}); // for master use
 						}
 					}
-					console.log('alignments, qid:', question.id, $scope.data.alignments);
 					$scope.refreshSliderBroadcast();
 				}
 			};

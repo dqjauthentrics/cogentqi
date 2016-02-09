@@ -109,11 +109,11 @@ angular.module('Resources', []).service('Resources', function ($q, $resource, $h
 	svc.saveAlignments = function (instrumentId, resourceId, alignments, callbackFn) {
 		try {
 			$http.post("/api3/resource/saveAlignments", {resourceId: resourceId, alignments: alignments})
-				.then(function (data, status, headers, config) {
-						  callbackFn(data.status, data.message);
+				.then(function (result, headers, config) {
+						  callbackFn(result.status, result.message);
 					  },
-					  function (data, status, headers, config) {
-						  callbackFn(0, data);
+					  function (result, headers, config) {
+						  callbackFn(0, result);
 					  });
 		}
 		catch (exception) {
