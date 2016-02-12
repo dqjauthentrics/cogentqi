@@ -85,6 +85,17 @@ class ResourceController extends ControllerBase {
 		$result->sendNormal();
 	}
 
+	private static function filterFormAlignments(&$formAlignments) {
+		foreach ($formAlignments as $questionId => &$utilities) {
+			for ($i = 0; $i < count($utilities); $i++)  {
+				if ($utilities[$i]['response'] == 0) {
+					unset($utilities[$i]);
+					break;
+				}
+			}
+		}
+	}
+
 	/**
 	 * Save the given alignments for this resource.
 	 */
@@ -95,7 +106,9 @@ class ResourceController extends ControllerBase {
 			if (!empty($data["resourceId"]) && !empty($data["alignments"])) {
 				$resourceId = $data["resourceId"];
 				$formAlignments = $data["alignments"];
+				$transaction = $this->transactionManager->getOrCreateTransaction();
 				if (!empty($formAlignments)) {
+					self::filterFormAlignments($formAlignments);
 					$alignments = ResourceAlignment::query()->where('resource_id=:id:', ['id' => $resourceId])->execute();
 					/** @var \Cogent\Models\ResourceAlignment[] $alignments
 					 */
@@ -138,10 +151,12 @@ class ResourceController extends ControllerBase {
 						}
 					}
 				}
+				$transaction->commit();
 				$result->setNormal();
 			}
 		}
 		catch (\Exception $exception) {
+			$transaction->rollback();
 			$result->sendError(Result::CODE_EXCEPTION, $exception->getMessage());
 		}
 		$result->sendNormal();
