@@ -123,6 +123,10 @@ angular.module('ResourceControllers', [])
 				$scope.data.resources = response.data;
 				$scope.setResource();
 			});
+			$scope.slideChange = function (sliderId, modelValue) {
+				console.log("slideChange");
+				$scope.data.dirty = true;
+			};
 			$scope.masterChange = function (sliderId, modelValue) {
 				$scope.data.dirty = true;
 				for (var i = 1; i < $scope.data.maxLen; i++) {

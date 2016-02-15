@@ -1,7 +1,7 @@
-/*! angularjs-slider - v2.6.0 - 
+/*! angularjs-slider - v2.8.0 - 
  (c) Rafal Zajac <rzajac@gmail.com>, Valentin Hervieu <valentin@hervieu.me>, Jussi Saarivirta <jusasi@gmail.com>, Angelin Sirbu <angelin.sirbu@gmail.com> - 
  https://github.com/angular-slider/angularjs-slider - 
- 2016-01-31 */
+ 2016-02-08 */
 /*jslint unparam: true */
 /*global angular: false, console: false, define, module */
 (function(root, factory) {
@@ -39,6 +39,7 @@
       draggableRangeOnly: false,
       showSelectionBar: false,
       showSelectionBarEnd: false,
+      showSelectionBarFromValue: null,
       hideLimitLabels: false,
       readOnly: false,
       disabled: false,
@@ -48,9 +49,11 @@
       ticksTooltip: null,
       ticksValuesTooltip: null,
       vertical: false,
-      selectionBarColor: null,
+      getSelectionBarColor: null,
+      getPointerColor: null,
       keyboardSupport: true,
       scale: 1,
+      enforceStep: true,
       enforceRange: false,
       noSwitching: false,
       onlyBindHandles: false,
@@ -406,7 +409,8 @@
         this.options.showTicks = this.options.showTicks || this.options.showTicksValues;
         this.scope.showTicks = this.options.showTicks; //scope is used in the template
 
-        this.options.showSelectionBar = this.options.showSelectionBar || this.options.showSelectionBarEnd;
+        this.options.showSelectionBar = this.options.showSelectionBar || this.options.showSelectionBarEnd
+          || this.options.showSelectionBarFromValue !== null;
 
         if (this.options.stepsArray) {
           this.options.floor = 0;
@@ -603,10 +607,10 @@
        * @param {boolean} [useCustomTr]
        * @returns {undefined}
        */
-      translateFn: function(value, label, useCustomTr) {
+      translateFn: function(value, label, which, useCustomTr) {
         useCustomTr = useCustomTr === undefined ? true : useCustomTr;
 
-        var valStr = String((useCustomTr ? this.customTrFn(value, this.options.id) : value)),
+        var valStr = String((useCustomTr ? this.customTrFn(value, this.options.id, which) : value)),
           getDimension = false;
 
         if (label.rzsv === undefined || label.rzsv.length !== valStr.length || (label.rzsv.length > 0 && label.rzsd === 0)) {
@@ -614,7 +618,7 @@
           label.rzsv = valStr;
         }
 
-        label.text(valStr);
+        label.html(valStr);
 
         // Update width only when length of the label have changed
         if (getDimension) {
@@ -634,9 +638,11 @@
 
         this.minValue = this.options.floor;
 
-        this.scope.rzSliderModel = this.roundStep(this.scope.rzSliderModel);
-        if (this.range)
-          this.scope.rzSliderHigh = this.roundStep(this.scope.rzSliderHigh);
+        if (this.options.enforceStep) {
+          this.scope.rzSliderModel = this.roundStep(this.scope.rzSliderModel);
+          if (this.range)
+            this.scope.rzSliderHigh = this.roundStep(this.scope.rzSliderHigh);
+        }
 
         if (this.options.ceil != null)
           this.maxValue = this.options.ceil;
@@ -686,14 +692,14 @@
       updateAriaAttributes: function() {
         this.minH.attr({
           'aria-valuenow': this.scope.rzSliderModel,
-          'aria-valuetext': this.customTrFn(this.scope.rzSliderModel),
+          'aria-valuetext': this.customTrFn(this.scope.rzSliderModel, this.options.id, 'model'),
           'aria-valuemin': this.minValue,
           'aria-valuemax': this.maxValue
         });
         if (this.range) {
           this.maxH.attr({
             'aria-valuenow': this.scope.rzSliderHigh,
-            'aria-valuetext': this.customTrFn(this.scope.rzSliderHigh),
+            'aria-valuetext': this.customTrFn(this.scope.rzSliderHigh, this.options.id, 'high'),
             'aria-valuemin': this.minValue,
             'aria-valuemax': this.maxValue
           });
@@ -751,7 +757,7 @@
             tick.tooltipPlacement = this.options.vertical ? 'right' : 'top';
           }
           if (this.options.showTicksValues) {
-            tick.value = this.getDisplayValue(value);
+            tick.value = this.getDisplayValue(value, 'tick-value');
             if (this.options.ticksValuesTooltip) {
               tick.valueTooltip = this.options.ticksValuesTooltip(value);
               tick.valueTooltipPlacement = this.options.vertical ? 'right' : 'top';
@@ -762,8 +768,21 @@
       },
 
       isTickSelected: function(value) {
-        if (!this.range && this.options.showSelectionBar && value <= this.scope.rzSliderModel)
-          return true;
+        if (!this.range) {
+          if (this.options.showSelectionBarFromValue !== null) {
+            var center = this.options.showSelectionBarFromValue;
+            if (this.scope.rzSliderModel > center && value >= center && value <= this.scope.rzSliderModel)
+              return true;
+            else if (this.scope.rzSliderModel < center && value <= center && value >= this.scope.rzSliderModel)
+              return true;
+          }
+          else if (this.options.showSelectionBarEnd) {
+            if (value >= this.scope.rzSliderModel)
+              return true;
+          }
+          else if (this.options.showSelectionBar && value <= this.scope.rzSliderModel)
+            return true;
+        }
         if (this.range && value >= this.scope.rzSliderModel && value <= this.scope.rzSliderHigh)
           return true;
         return false;
@@ -775,7 +794,7 @@
        * @returns {undefined}
        */
       updateCeilLab: function() {
-        this.translateFn(this.maxValue, this.ceilLab);
+        this.translateFn(this.maxValue, this.ceilLab, 'ceil');
         this.setPosition(this.ceilLab, this.barDimension - this.ceilLab.rzsd);
         this.getDimension(this.ceilLab);
       },
@@ -786,7 +805,7 @@
        * @returns {undefined}
        */
       updateFloorLab: function() {
-        this.translateFn(this.minValue, this.flrLab);
+        this.translateFn(this.minValue, this.flrLab, 'floor');
         this.getDimension(this.flrLab);
       },
 
@@ -861,9 +880,22 @@
        */
       updateLowHandle: function(newOffset) {
         this.setPosition(this.minH, newOffset);
-        this.translateFn(this.scope.rzSliderModel, this.minLab);
-        var pos = Math.min(Math.max(newOffset - this.minLab.rzsd / 2 + this.handleHalfDim, 0), this.barDimension - this.ceilLab.rzsd);
+        this.translateFn(this.scope.rzSliderModel, this.minLab, 'model');
+        var pos = Math.min(
+          Math.max(
+            newOffset - this.minLab.rzsd / 2 + this.handleHalfDim,
+            0
+          ),
+          this.barDimension - this.minLab.rzsd
+        );
         this.setPosition(this.minLab, pos);
+
+        if (this.options.getPointerColor) {
+          var pointercolor = this.getPointerColor('min');
+          this.scope.minPointerStyle = {
+            backgroundColor: pointercolor
+          };
+        }
 
         this.shFloorCeil();
       },
@@ -876,9 +908,16 @@
        */
       updateHighHandle: function(newOffset) {
         this.setPosition(this.maxH, newOffset);
-        this.translateFn(this.scope.rzSliderHigh, this.maxLab);
-        var pos = Math.min((newOffset - this.maxLab.rzsd / 2 + this.handleHalfDim), (this.barDimension - this.ceilLab.rzsd));
+        this.translateFn(this.scope.rzSliderHigh, this.maxLab, 'high');
+        var pos = Math.min(newOffset - this.maxLab.rzsd / 2 + this.handleHalfDim, this.barDimension - this.maxLab.rzsd);
         this.setPosition(this.maxLab, pos);
+
+        if (this.options.getPointerColor) {
+          var pointercolor = this.getPointerColor('max');
+          this.scope.maxPointerStyle = {
+            backgroundColor: pointercolor
+          };
+        }
 
         this.shFloorCeil();
       },
@@ -932,12 +971,30 @@
       updateSelectionBar: function() {
         var position = 0,
           dimension = 0;
-        if (this.range || !this.options.showSelectionBarEnd) {
-          dimension = Math.abs(this.maxH.rzsp - this.minH.rzsp) + this.handleHalfDim
-          position = this.range ? this.minH.rzsp + this.handleHalfDim : 0;
-        } else {
-          dimension = Math.abs(this.maxPos - this.minH.rzsp) + this.handleHalfDim
+        if (this.range) {
+          dimension = Math.abs(this.maxH.rzsp - this.minH.rzsp);
           position = this.minH.rzsp + this.handleHalfDim;
+        }
+        else {
+          if (this.options.showSelectionBarFromValue !== null) {
+            var center = this.options.showSelectionBarFromValue,
+              centerPosition = this.valueToOffset(center);
+            if (this.scope.rzSliderModel > center) {
+              dimension = this.minH.rzsp - centerPosition;
+              position = centerPosition + this.handleHalfDim;
+            }
+            else {
+              dimension = centerPosition - this.minH.rzsp;
+              position = this.minH.rzsp + this.handleHalfDim;
+            }
+          }
+          else if (this.options.showSelectionBarEnd) {
+            dimension = Math.abs(this.maxPos - this.minH.rzsp) + this.handleHalfDim;
+            position = this.minH.rzsp + this.handleHalfDim;
+          } else {
+            dimension = Math.abs(this.maxH.rzsp - this.minH.rzsp) + this.handleHalfDim;
+            position = 0;
+          }
         }
         this.setDimension(this.selBar, dimension);
         this.setPosition(this.selBar, position);
@@ -960,19 +1017,36 @@
       },
 
       /**
+       * Wrapper around the getPointerColor of the user to pass to
+       * correct parameters
+       */
+      getPointerColor: function(pointerType) {
+        if ( pointerType === 'max' ) {
+          return this.options.getPointerColor(this.scope.rzSliderHigh, pointerType);
+        }
+        return this.options.getPointerColor(this.scope.rzSliderModel, pointerType);
+      },
+
+      /**
        * Update combined label position and value
        *
        * @returns {undefined}
        */
       updateCmbLabel: function() {
-        var lowTr, highTr;
 
         if (this.minLab.rzsp + this.minLab.rzsd + 10 >= this.maxLab.rzsp) {
-          lowTr = this.getDisplayValue(this.scope.rzSliderModel);
-          highTr = this.getDisplayValue(this.scope.rzSliderHigh);
+          var lowTr = this.getDisplayValue(this.scope.rzSliderModel, 'model'),
+            highTr = this.getDisplayValue(this.scope.rzSliderHigh, 'high'),
+            labelVal = lowTr === highTr ? lowTr : lowTr + ' - ' + highTr;
 
-          this.translateFn(lowTr + ' - ' + highTr, this.cmbLab, false);
-          var pos = Math.min(Math.max((this.selBar.rzsp + this.selBar.rzsd / 2 - this.cmbLab.rzsd / 2), 0), (this.barDimension - this.cmbLab.rzsd));
+          this.translateFn(labelVal, this.cmbLab, 'cmb', false);
+          var pos = Math.min(
+            Math.max(
+              this.selBar.rzsp + this.selBar.rzsd / 2 - this.cmbLab.rzsd / 2,
+              0
+            ),
+            this.barDimension - this.cmbLab.rzsd
+          );
           this.setPosition(this.cmbLab, pos);
           this.hideEl(this.minLab);
           this.hideEl(this.maxLab);
@@ -989,8 +1063,8 @@
        * @param value
        * @returns {*}
        */
-      getDisplayValue: function(value) {
-        return this.customTrFn(value, this.options.id);
+      getDisplayValue: function(value, which) {
+        return this.customTrFn(value, this.options.id, which);
       },
 
       /**
@@ -1649,7 +1723,7 @@
   'use strict';
 
   $templateCache.put('rzSliderTpl.html',
-    "<span class=rz-bar-wrapper><span class=rz-bar></span></span> <span class=rz-bar-wrapper><span class=\"rz-bar rz-selection\" ng-style=barStyle></span></span> <span class=rz-pointer></span> <span class=rz-pointer></span> <span class=\"rz-bubble rz-limit\"></span> <span class=\"rz-bubble rz-limit\"></span> <span class=rz-bubble></span> <span class=rz-bubble></span> <span class=rz-bubble></span><ul ng-show=showTicks class=rz-ticks><li ng-repeat=\"t in ticks track by $index\" class=tick ng-class=\"{selected: t.selected}\" ng-style=t.style ng-attr-uib-tooltip=\"{{ t.tooltip }}\" ng-attr-tooltip-placement={{t.tooltipPlacement}} ng-attr-tooltip-append-to-body=\"{{ t.tooltip ? true : undefined}}\"><span ng-if=\"t.value != null\" class=tick-value ng-attr-uib-tooltip=\"{{ t.valueTooltip }}\" ng-attr-tooltip-placement={{t.valueTooltipPlacement}}>{{ t.value }}</span></li></ul>"
+    "<span class=rz-bar-wrapper><span class=rz-bar></span></span> <span class=rz-bar-wrapper><span class=\"rz-bar rz-selection\" ng-style=barStyle></span></span> <span class=\"rz-pointer rz-pointer-min\" ng-style=minPointerStyle></span> <span class=\"rz-pointer rz-pointer-max\" ng-style=maxPointerStyle></span> <span class=\"rz-bubble rz-limit\"></span> <span class=\"rz-bubble rz-limit\"></span> <span class=rz-bubble></span> <span class=rz-bubble></span> <span class=rz-bubble></span><ul ng-show=showTicks class=rz-ticks><li ng-repeat=\"t in ticks track by $index\" class=tick ng-class=\"{selected: t.selected}\" ng-style=t.style ng-attr-uib-tooltip=\"{{ t.tooltip }}\" ng-attr-tooltip-placement={{t.tooltipPlacement}} ng-attr-tooltip-append-to-body=\"{{ t.tooltip ? true : undefined}}\"><span ng-if=\"t.value != null\" class=tick-value ng-attr-uib-tooltip=\"{{ t.valueTooltip }}\" ng-attr-tooltip-placement={{t.valueTooltipPlacement}}>{{ t.value }}</span></li></ul>"
   );
 
 }]);
