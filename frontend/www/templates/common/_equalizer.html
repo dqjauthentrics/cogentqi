@@ -11,14 +11,14 @@
             <div class="rubric" ng-bind-html="'Master'"></div>
         </div>
     </div>
-    <div ng-repeat="choice in choices track by $index" ng-show="$index > 0">
-        <div style="{{'height:' + (choices.length*1.5) + 'em;'}}" ng-show="$index > 0">
+    <div ng-repeat="choice in choices track by $index" ng-if="$index > 0">
+        <div style="{{'height:' + (choices.length*1.5) + 'em;'}}">
             <rzslider
-                    rz-slider-model="alignment[$index].utility"
-                    rz-slider-options="{id:'q_'+qid+'_'+$index,floor:min,ceil:max,vertical:true,showTicksValues:true}">
+                    rz-slider-model="alignmentItem[$index].utility"
+                    rz-slider-options="{id:'q_'+qid+'_'+$index,floor:min,ceil:max,vertical:true,showTicksValues:true,onChange:$parent.slideChange}">
             </rzslider>
         </div>
         <div class="clearfix"></div>
-        <div class="rubric" ng-bind-html="choice.n|space2Break"></div>
+        <div class="rubric" ng-bind-html="choices[$index].n|space2Break"></div>
     </div>
 </div>

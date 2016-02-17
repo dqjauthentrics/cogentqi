@@ -171,6 +171,7 @@ The default options are:
     draggableRangeOnly: false,
     showSelectionBar: false,
     showSelectionBarEnd: false,
+    showSelectionBarFromValue: null,
     hideLimitLabels: false,
     readOnly: false,
     disabled: false,
@@ -180,9 +181,11 @@ The default options are:
     ticksTooltip: null,
     ticksValuesTooltip: null,
     vertical: false,
-    selectionBarColor: null,
+    getSelectionBarColor: null,
+    getPointerColor: null,
     keyboardSupport: true,
     scale: 1,
+    enforceStep: true,
     enforceRange: false,
     noSwitching: false,
     onlyBindHandles: false,
@@ -202,7 +205,15 @@ The default options are:
 
 **minRange** - _Number (defaults to 0)_: The minimum range authorized on the slider. *Applies to range slider only.*
 
-**translate** - _Function(value, sliderId)_: Custom translate function. Use this if you want to translate values displayed on the slider. For example if you want to display dollar amounts instead of just numbers:
+**translate** - _Function(value, sliderId, label)_: Custom translate function. Use this if you want to translate values displayed on the slider.
+`sliderId` can be used to determine the slider for which we are translating the value. `label` is a string that can take the following values:
+  - *'model'*: the model label
+  - *'high'*: the high label
+  - *'floor'*: the floor label
+  - *'ceil'*: the ceil label
+  - *'tick-value'*: the ticks labels
+
+For example if you want to display dollar amounts instead of just numbers:
 ```html
 <div>
     <rzslider
@@ -235,7 +246,11 @@ $scope.slider = {
 
 **showSelectionBarEnd** - _Boolean (defaults to false)_: Set to true to always show the selection bar after the slider handle.
 
+**showSelectionBarFromValue** - _Number (defaults to null)_: Set a number to draw the selection bar between this value and the slider handle.
+
 **getSelectionBarColor** - _Function(value) or Function(minVal, maxVal) (defaults to null)_: Function that returns the current color of the selection bar. If the returned color depends on a model value (either `rzScopeModel`or `'rzSliderHigh`), you should use the argument passed to the function. Indeed, when the function is called, there is no certainty that the model has already been updated.
+
+**getPointerColor** - _Function(value, pointerType) (defaults to null)_: Function that returns the current color of a pointer. If the returned color depends on a model value (either `rzScopeModel`or `'rzSliderHigh`), you should use the argument passed to the function. Indeed, when the function is called, there is no certainty that the model has already been updated. To handle range slider pointers independently, you should evaluate pointerType within the given function where "min" stands for `rzScopeModel` and "max" for `rzScopeHigh` values.
 
 **hideLimitLabels** - _Boolean (defaults to false)_: Set to true to hide min / max labels
 
@@ -254,6 +269,8 @@ $scope.slider = {
 **ticksValuesTooltip** - _Function(value) (defaults to null)_: Same as `ticksTooltip` but for ticks values.
 
 **scale** - _Number (defaults to 1)_: If you display the slider in an element that uses `transform: scale(0.5)`, set the `scale` value to 2 so that the slider is rendered properly and the events are handled correctly.
+
+**enforceStep** - _Boolean (defaults to true)_: Set to true to force the value to be rounded to the step, even when modified from the outside.. When set to false, if the model values are modified from outside the slider, they are not rounded and can be between two steps.
 
 **enforceRange** - _Boolean (defaults to false)_: Set to true to round the `rzSliderModel` and `rzSliderHigh` to the slider range even when modified from outside the slider. When set to false, if the model values are modified from outside the slider, they are not rounded but they are still rendered properly on the slider.
 

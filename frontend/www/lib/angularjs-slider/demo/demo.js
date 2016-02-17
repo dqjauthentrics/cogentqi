@@ -58,12 +58,39 @@ app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
     }
   };
 
-  //Slider with selection bar
+  //Slider with selection bar from value
+  $scope.slider_visible_bar_from_value = {
+    value: 10,
+    options: {
+      floor: -100,
+      ceil: 100,
+      step: 10,
+      showSelectionBarFromValue: 0
+    }
+  };
+
+  //Slider with selection bar color
   $scope.color_slider_bar = {
     value: 12,
     options: {
       showSelectionBar: true,
       getSelectionBarColor: function(value) {
+        if (value <= 3)
+          return 'red';
+        if (value <= 6)
+          return 'orange';
+        if (value <= 9)
+          return 'yellow';
+        return '#2AE02A';
+      }
+    }
+  };
+
+  //Slider with pointer color
+  $scope.color_slider_pointer = {
+    value: 12,
+    options: {
+      getPointerColor: function(value) {
         if (value <= 3)
           return 'red';
         if (value <= 6)
@@ -116,8 +143,30 @@ app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
     options: {
       ceil: 500,
       floor: 0,
-      translate: function(value) {
+      id: 'translate-slider',
+      translate: function(value, id, which) {
+        console.info(value, id, which);
         return '$' + value;
+      }
+    }
+  };
+
+  //Slider config with custom display function using html formatting
+  $scope.slider_translate_html = {
+    minValue: 100,
+    maxValue: 400,
+    options: {
+      floor: 0,
+      ceil: 500,
+      translate: function(value, sliderId, label) {
+        switch (label) {
+          case 'model':
+            return '<b>Min price:</b> $' + value;
+          case 'high':
+            return '<b>Max price:</b> $' + value;
+          default:
+            return '$' + value
+        }
       }
     }
   };
