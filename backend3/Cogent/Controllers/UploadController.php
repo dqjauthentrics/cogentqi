@@ -11,8 +11,8 @@ namespace Cogent\Controllers;
 use Cogent\Components\Result;
 use Cogent\Models\Organization;
 use Cogent\Models\Member;
+use Cogent\Models\Relationship;
 use Nette\Neon\Exception;
-
 
 class UploadController extends ControllerBase {
 
@@ -44,10 +44,8 @@ class UploadController extends ControllerBase {
             }
             // Phalcon doesn't seem to be setting default value so re-getting orgs
             foreach ($table as $orgData) {
-                $externalIdToOrg[$orgData['id']] = Organization::findFirst([
-                    "conditions" => "external_id = :eId:",
-                    "bind"       => ['eId' => $orgData['id']]
-                ]);
+                $externalIdToOrg[$orgData['id']] =
+                    self::getByExternalId('Organization', $orgData['id']);
             }
             // Set parents
             foreach ($table as $orgData) {
@@ -93,10 +91,7 @@ class UploadController extends ControllerBase {
                 if (!array_key_exists($memberData['organization_id'],
                     $orgExternalToInternal)) {
                     $orgExternalToInternal[$memberData['organization_id']] =
-                        Organization::findFirst([
-                            "conditions" => "external_id = :eId:",
-                            "bind"       => ['eId' => $memberData['organization_id']]
-                        ])->id;
+                        self::getByExternalId("Organization", $memberData['organization_id'])->id;
                 }
                 $memberData['organization_id'] =
                     $orgExternalToInternal[$memberData['organization_id']];
@@ -130,8 +125,45 @@ class UploadController extends ControllerBase {
         }
     }
 
-    private static function generatePassword($length)
-    {
+    public function uploadRelationshipsAction() {
+        $result = new Result();
+        $requiredFields = ["superior_id","subordinate_id","relationship_type_id"];
+        $forbiddenFields = [];
+        $transaction = $this->transactionManager->getOrCreateTransaction();
+        try {
+            $table = self::getTableAsArray($requiredFields, $forbiddenFields);
+            // Create new orgs with null parents
+            foreach ($table as $relationshipData) {
+                /** @var Relationship $relationship */
+                $relationship = new Relationship();
+                $relationship->superior_id = self::getByExternalId(
+                    'Member', $relationshipData['superior_id'])->id;
+                $relationship->subordinate_id = self::getByExternalId(
+                    'Member', $relationshipData['subordinate_id'])->id;
+                $relationship->relationship_type_id =
+                    $relationshipData['relationship_type_id'];
+                if (!$relationship->save()) {
+                    throw new \Exception($relationship->errorMessagesAsString());
+                }
+            }
+            $transaction->commit();
+            $result->sendNormal();
+        }
+        catch (\Exception $exception) {
+            $transaction->rollback();
+            $result->sendError(Result::CODE_EXCEPTION, $exception->getMessage());
+        }
+    }
+
+    private static function getByExternalId($model, $externalId) {
+        $fullModel = 'Cogent\\Models\\' . $model;
+        return $fullModel::findFirst([
+            "conditions" => "external_id = :eId:",
+            "bind"       => ['eId' => $externalId]
+        ]);
+    }
+
+    private static function generatePassword($length) {
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
         $cl = strlen($characters) - 1;
         $password = '';
