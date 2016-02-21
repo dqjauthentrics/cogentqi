@@ -150,6 +150,12 @@ class Member extends CogentModel {
 	public $active_end;
 
 	/**
+	 *
+	 * @var integer
+	 */
+	public $external_id;
+
+	/**
 	 * Allows to query a set of records that match the specified conditions
 	 *
 	 * @param mixed $parameters

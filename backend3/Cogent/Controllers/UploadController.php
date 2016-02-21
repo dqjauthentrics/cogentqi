@@ -10,6 +10,7 @@ namespace Cogent\Controllers;
 
 use Cogent\Components\Result;
 use Cogent\Models\Organization;
+use Cogent\Models\Member;
 use Nette\Neon\Exception;
 
 
@@ -41,7 +42,7 @@ class UploadController extends ControllerBase {
                     throw new \Exception($org->errorMessagesAsString());
                 }
             }
-            // Phalcon doesn't seem to be setting default value so regetting orgs
+            // Phalcon doesn't seem to be setting default value so re-getting orgs
             foreach ($table as $orgData) {
                 $externalIdToOrg[$orgData['id']] = Organization::findFirst([
                     "conditions" => "external_id = :eId:",
@@ -50,14 +51,16 @@ class UploadController extends ControllerBase {
             }
             // Set parents
             foreach ($table as $orgData) {
+                $org = $externalIdToOrg[$orgData['id']];
                 if (!empty($orgData['parent_id'])) {
-                    $externalIdToOrg[$orgData['id']]->parent_id =
+                    $org->parent_id =
                         $externalIdToOrg[$orgData['parent_id']]->id;
                 }
                 else {
-                    $externalIdToOrg[$orgData['id']]->parent_id = 1;
+                    // Attach to top level
+                    $org->parent_id = 1;
                 }
-                if (!$externalIdToOrg[$orgData['id']]->save()) {
+                if (!$org->save()) {
                     throw new \Exception($org->errorMessagesAsString());
                 }
             }
@@ -68,6 +71,74 @@ class UploadController extends ControllerBase {
             $transaction->rollback();
             $result->sendError(Result::CODE_EXCEPTION, $exception->getMessage());
         }
+    }
+
+    public function uploadMembersAction() {
+        $result = new Result();
+        $requiredFields = ["id","organization_id","role_id","first_name","last_name","email"];
+        $forbiddenFields = ["password"];
+        $transaction = $this->transactionManager->getOrCreateTransaction();
+        try {
+            $table = self::getTableAsArray($requiredFields, $forbiddenFields);
+            $orgExternalToInternal = [];
+            $idToPassword = [];
+            // Create new orgs with null parents
+            foreach ($table as $memberData) {
+                /** @var Member $member */
+                $member = new Member();
+                $member->external_id = $memberData['id'];
+                unset($memberData['id']);
+                $password = self::generatePassword(8);
+                $member->password = md5($password);
+                if (!array_key_exists($memberData['organization_id'],
+                    $orgExternalToInternal)) {
+                    $orgExternalToInternal[$memberData['organization_id']] =
+                        Organization::findFirst([
+                            "conditions" => "external_id = :eId:",
+                            "bind"       => ['eId' => $memberData['organization_id']]
+                        ])->id;
+                }
+                $memberData['organization_id'] =
+                    $orgExternalToInternal[$memberData['organization_id']];
+                foreach ($memberData as $column => $value) {
+                    $member->$column = $value;
+                }
+                if (!$member->save()) {
+                    throw new \Exception($member->errorMessagesAsString());
+                }
+                $idToPassword[$member->id] = $password;
+            }
+            // Write new passwords to php temp directory
+            $filePath = sys_get_temp_dir() . "/" . "passwords" . date("Y-m-d_H:i:s") . '.txt';
+            $fileHandle = fopen($filePath, 'w');
+            fwrite($fileHandle, "id,password\n");
+            $count = 0;
+            foreach ($idToPassword as $id => $password) {
+                $count++;
+                fwrite($fileHandle, $id . ',' . $password);
+                if ($count < count($idToPassword)) {
+                    fwrite($fileHandle, "\n");
+                }
+            }
+            fclose($fileHandle);
+            $transaction->commit();
+            $result->sendNormal();
+        }
+        catch (\Exception $exception) {
+            $transaction->rollback();
+            $result->sendError(Result::CODE_EXCEPTION, $exception->getMessage());
+        }
+    }
+
+    private static function generatePassword($length)
+    {
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        $cl = strlen($characters) - 1;
+        $password = '';
+        for ($i = 0; $i < $length; $i++) {
+            $password .= $characters[mt_rand(0, $cl)];
+        }
+        return $password;
     }
 
     /**
