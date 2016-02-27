@@ -76,6 +76,12 @@ class Organization extends CogentModel {
 	public $is_department;
 
 	/**
+	 *
+	 * @var integer
+	 */
+	public $external_id;
+
+	/**
 	 * Allows to query a set of records that match the specified conditions
 	 *
 	 * @param mixed $parameters
