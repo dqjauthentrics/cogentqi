@@ -1915,32 +1915,33 @@ rzslider.assessment .rz-pointer:after {
     display: none !important;
 }
 
-equalizer {
+.equalizer {
     padding: 0.5em;
     background: #F0F8FF;
     border: 1px solid #AAA;
     float: left;
     border-radius: 0.3em;
+    font-size: 0.8em;
 }
 
-equalizer > div > div {
+.equalizer > div > div {
     float: left;
     margin-right: 1em;
     text-align: center;
     width: 5em;
 }
 
-equalizer .rubric {
+.equalizer .rubric {
     border-top: 1px solid #444;
     line-height: 0.9em;
     font-size: 0.7em;
 }
 
-equalizer > div > div:nth-child(2) {
+.equalizer > div > div:nth-child(2) {
     background: #E0E8EF;
 }
 
-equalizer > div > div:first-child {
+.equalizer > div > div:first-child {
     float: none;
     font-weight: bold;
     padding: 0 auto 0.7em auto;

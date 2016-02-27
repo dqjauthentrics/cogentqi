@@ -25,13 +25,21 @@
             <ion-item ng-repeat="question in data.currentInstrument.questions" type="item-text-wrap">
                 <div class="name">{{question.n}}</div>
                 <div style="float:right; margin: 1em 0.5em;">
-                    <equalizer
-                            qid="question.id"
-                            min="question.type.min" max="question.type.max" values="data.values"
-                            choices="question.type.choices"
-                            alignment="data.alignments[question.id]"
-                    >
-                    </equalizer>
+                    <div class="equalizer">
+                        <div style="{{'width: ' + ((question.type.max+1)*6) + 'em; float:left;'}}">
+                            <div>{{'Relevance to Those Rated at Each Level'|translate}}</div>
+                            <div ng-repeat="choice in question.type.choices track by $index">
+                                <div style="{{'height:' + (question.type.choices.length*1.5) + 'em;'}}">
+                                    <rzslider
+                                            rz-slider-model="data.alignments[question.id][$index].utility"
+                                            rz-slider-options="{id:'q_'+question.id+'_'+$index,floor:question.type.min,ceil:question.type.max,vertical:true,showTicksValues:true,onChange:slideChange}">
+                                    </rzslider>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="rubric" ng-bind-html="($index==0? '<i>master</i>':question.type.choices[$index].n|space2Break)"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="description" data-ng-bind-html="question.dsc"></div>
             </ion-item>

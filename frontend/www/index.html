@@ -108,6 +108,11 @@
     <script src="js/models/QuestionGroups.js"></script>
     <script src="js/models/ResourceAnalysis.js"></script>
     <script src="js/models/ResourceEfficacy.js"></script>
+    <script>
+        Array.prototype.clone = function () {
+            return this.slice(0);
+        };
+    </script>
 </head>
 <body data-ng-app="app">
 <!--
