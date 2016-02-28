@@ -82,7 +82,7 @@ class ResourceController extends ControllerBase {
 		catch (\Exception $exception) {
 			$result->setError(Result::CODE_EXCEPTION, $exception->getMessage());
 		}
-		$result->sendNormal();
+		$result->send();
 	}
 
 	private static function filterFormAlignments(&$formAlignments) {
@@ -101,12 +101,12 @@ class ResourceController extends ControllerBase {
 	 */
 	public function saveAlignmentsAction() {
 		$result = new Result($this);
+		$transaction = $this->transactionManager->getOrCreateTransaction();
 		try {
 			$data = @$this->getInputData();
 			if (!empty($data["resourceId"]) && !empty($data["alignments"])) {
 				$resourceId = $data["resourceId"];
 				$formAlignments = $data["alignments"];
-				$transaction = $this->transactionManager->getOrCreateTransaction();
 				if (!empty($formAlignments)) {
 					self::filterFormAlignments($formAlignments);
 					$alignments = ResourceAlignment::query()->where('resource_id=:id:', ['id' => $resourceId])->execute();
@@ -126,6 +126,7 @@ class ResourceController extends ControllerBase {
 							}
 							else {
 								foreach ($alignment->mapping as $m) {
+									/** @var ResourceAlignmentMap $m */
 									$m->utility = $responseToUtility[$m->response];
 									$m->save();
 								}
@@ -137,7 +138,7 @@ class ResourceController extends ControllerBase {
 							$alignment = new ResourceAlignment();
 							$alignment->resource_id = $resourceId;
 							$alignment->question_id = $questionId;
-							for ($i = 0; $i < count($utilities); $i++) {
+							for ($i = 1; $i < count($utilities); $i++) {
 								$m = new ResourceAlignmentMap();
 								$mapping[] = $m;
 								$m->response = $utilities[$i]['response'];
@@ -157,9 +158,9 @@ class ResourceController extends ControllerBase {
 		}
 		catch (\Exception $exception) {
 			$transaction->rollback();
-			$result->sendError(Result::CODE_EXCEPTION, $exception->getMessage());
+			$result->setError(Result::CODE_EXCEPTION, $exception->getMessage());
 		}
-		$result->sendNormal();
+		$result->send();
 	}
 
 	/**
@@ -173,14 +174,16 @@ class ResourceController extends ControllerBase {
 				$resource = Resource::findFirst($formResource['id']);
 				/** @var \Cogent\Models\Resource $resource */
 				if (!empty($resource)) {
-					$resource->update($formResource);
+					if ($resource->update($formResource)) {
+						$result->setNormal();
+					}
 				}
 			}
 		}
 		catch (\Exception $exception) {
-			$result->sendError(Result::CODE_EXCEPTION, $exception->getMessage());
+			$result->setError(Result::CODE_EXCEPTION, $exception->getMessage());
 		}
-		$result->sendNormal();
+		$result->send();
 	}
 
 	public function efficacyAction() {
@@ -203,11 +206,12 @@ class ResourceController extends ControllerBase {
 					'questionLabels'             => $questionLabels
 				];
 			}
-			$result->sendNormal($data);
+			$result->setNormal($data);
 		}
 		catch (\Exception $exception) {
-			$result->sendError(Result::CODE_EXCEPTION, $exception->getMessage());
+			$result->setError(Result::CODE_EXCEPTION, $exception->getMessage());
 		}
+		$result->send();
 	}
 
 	/**
@@ -261,6 +265,15 @@ class ResourceController extends ControllerBase {
 		}
 	}
 
+	/**
+	 * @param $timestamp
+	 * @param $memberId
+	 * @param $questionIds
+	 * @param $prior
+	 * @param $subsequent
+	 *
+	 * @throws \Exception
+	 */
 	private function getResponses($timestamp, $memberId, $questionIds, &$prior, &$subsequent) {
 		$questions = implode(',', $questionIds);
 		$resource = new Resource();

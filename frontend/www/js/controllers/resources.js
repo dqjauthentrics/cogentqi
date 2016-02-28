@@ -142,10 +142,10 @@ angular.module('ResourceControllers', [])
 			$scope.save = function () {
 				$scope.data.saving = true;
 				Resources.saveAlignments($scope.data.currentInstrumentId, $scope.data.resource.id, $scope.data.alignments,
-										 function (response) {
+										 function (result) {
 											 $scope.data.saving = false;
 											 $scope.data.dirty = false;
-											 Utility.statusAlert(response);
+											 Utility.statusAlert(result);
 										 }
 				);
 			};
@@ -171,7 +171,7 @@ angular.module('ResourceControllers', [])
 						var qid = question.id;
 						$scope.data.alignments[qid] = [];
 						for (var c = 0; c < $scope.data.maxLen; c++) {
-							$scope.data.alignments[qid].push({response: 0, utility: 0});
+							$scope.data.alignments[qid].push({response: c, utility: 0});
 						}
 					}
 					if (!Utility.empty($scope.data.resource.alignments) && $scope.data.resource.alignments.length > 0) {
@@ -180,7 +180,7 @@ angular.module('ResourceControllers', [])
 							var mapping = alignment.mapping;
 							$scope.data.alignments[alignment.qi] = [];
 							for (var d = 0; d < $scope.data.maxLen; d++) {
-								$scope.data.alignments[alignment.qi].push({response: 0, utility: 0});
+								$scope.data.alignments[alignment.qi].push({response: d, utility: 0});
 							}
 							for (var m = 0; m < mapping.length; m++) {
 								if (typeof mapping[m] == 'object' && typeof mapping[m].utility == 'number') {

@@ -700,7 +700,7 @@ select {
 }
 
 select.large {
-    font-size: 3.4vmin;
+    font-size: 1.4em;
     background: #CCC;
 }
 

@@ -110,10 +110,10 @@ angular.module('Resources', []).service('Resources', function ($q, $resource, $h
 		try {
 			$http.post("/api3/resource/saveAlignments", {resourceId: resourceId, alignments: alignments})
 				.then(function (result, headers, config) {
-						  callbackFn(result.status, result.message);
+						  callbackFn(result.data);
 					  },
 					  function (result, headers, config) {
-						  callbackFn(0, result);
+						  callbackFn(result.data);
 					  });
 		}
 		catch (exception) {

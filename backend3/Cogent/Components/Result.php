@@ -108,7 +108,7 @@ class Result {
 	 */
 	public function send() {
 		echo json_encode($this->package($this->data), JSON_NUMERIC_CHECK);
-		//exit(0);
+		exit(0);
 	}
 
 	/**
