@@ -1,6 +1,0 @@
-{
-  "require": {
-    "drahak/restful": "@dev",
-    "nette/nette": "~2.3.0"
-  }
-}

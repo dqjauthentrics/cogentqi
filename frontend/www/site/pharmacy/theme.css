@@ -13,3 +13,7 @@
 .tab-item:hover {
     color: yellow !important;
 }
+
+.card {
+    background: #EEE;
+}

@@ -5,8 +5,8 @@
         <ion-list type="card">
             <ion-item>
                 <div style="float:right;">
-                    <button ng-click="save(this);" data-ng-show="data.dirty" class="button button-action button-save button-dirty">
-                        <i data-ng-class="data.saving? i.loadingSpinner : i.save"></i>
+                    <button ng-click="save(this);" class="button button-action button-save">
+                        <i data-ng-class="(data.saving? i.loadingSpinner : i.save) + ' ' (data.dirty? 'button-dirty' : '')"></i>
                     </button>
                 </div>
                 <h2 style="float:left; margin: 0.2em;"><a href="#/resource/view/{{data.resource.id}}">{{data.resource.n}}</a></h2>

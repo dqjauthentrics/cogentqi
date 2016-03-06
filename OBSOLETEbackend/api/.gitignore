@@ -1,5 +1,0 @@
-log/*
-temp/*
-!.gitignore
-!.htaccess
-!web.config

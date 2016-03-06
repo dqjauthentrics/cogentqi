@@ -74,9 +74,6 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('resourceConfigure', {
 			url: '/resource/configure', templateUrl: 'templates/resource/configList.html', controller: 'ResourceListCtrl'
 		})
-		.state('resourceAlignment', {
-			url: '/resource/alignment/:resourceId', templateUrl: 'templates/resource/alignment.html', controller: 'ResourceAlignmentCtrl'
-		})
 
 		// Members
 		.state('memberView', {
