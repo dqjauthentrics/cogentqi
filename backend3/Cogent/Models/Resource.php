@@ -79,6 +79,12 @@ class Resource extends CogentModel {
 	public $last_modified;
 
 	/**
+	 *
+	 * @var integer
+	 */
+	public $external_id;
+
+	/**
 	 * Allows to query a set of records that match the specified conditions
 	 *
 	 * @param mixed $parameters

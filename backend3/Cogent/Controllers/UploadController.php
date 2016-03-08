@@ -8,21 +8,23 @@
 
 namespace Cogent\Controllers;
 
+use Cogent\Cogent;
 use Cogent\Components\Result;
+use Cogent\Models\CogentModel;
+use Cogent\Models\Module;
 use Cogent\Models\Organization;
 use Cogent\Models\Member;
 use Cogent\Models\Relationship;
-use Nette\Neon\Exception;
+use Cogent\Models\Resource;
 
 class UploadController extends ControllerBase {
 
     public function uploadOrganizationsAction() {
         $result = new Result();
         $requiredFields = ["id","parent_id","name"];
-        $forbiddenFields = [];
         $transaction = $this->transactionManager->getOrCreateTransaction();
         try {
-            $table = self::getTableAsArray($requiredFields, $forbiddenFields);
+            $table = self::getTableAsArray($requiredFields);
             /** @var Organization[] $externalIdToOrg */
             $externalIdToOrg = [];
             // Create new orgs with null parents
@@ -128,10 +130,9 @@ class UploadController extends ControllerBase {
     public function uploadRelationshipsAction() {
         $result = new Result();
         $requiredFields = ["superior_id","subordinate_id","relationship_type_id"];
-        $forbiddenFields = [];
         $transaction = $this->transactionManager->getOrCreateTransaction();
         try {
-            $table = self::getTableAsArray($requiredFields, $forbiddenFields);
+            $table = self::getTableAsArray($requiredFields);
             // Create new orgs with null parents
             foreach ($table as $relationshipData) {
                 /** @var Relationship $relationship */
@@ -144,6 +145,63 @@ class UploadController extends ControllerBase {
                     $relationshipData['relationship_type_id'];
                 if (!$relationship->save()) {
                     throw new \Exception($relationship->errorMessagesAsString());
+                }
+            }
+            $transaction->commit();
+            $result->sendNormal();
+        }
+        catch (\Exception $exception) {
+            $transaction->rollback();
+            $result->sendError(Result::CODE_EXCEPTION, $exception->getMessage());
+        }
+    }
+
+    public function uploadResourcesAction() {
+        $result = new Result();
+        $requiredFields = ["id", "name"];
+        $transaction = $this->transactionManager->getOrCreateTransaction();
+        try {
+            $table = self::getTableAsArray($requiredFields);
+            // Create new orgs with null parents
+            foreach ($table as $resourceData) {
+                /** @var Resource $resource */
+                $resource = new Resource();
+                $resource->external_id = $resourceData['id'];
+                unset($resourceData['id']);
+                foreach ($resourceData as $column => $value) {
+                    $resource->$column = $value;
+                }
+                if (!$resource->save()) {
+                    throw new \Exception($resource->errorMessagesAsString());
+                }
+            }
+            $transaction->commit();
+            $result->sendNormal();
+        }
+        catch (\Exception $exception) {
+            $transaction->rollback();
+            $result->sendError(Result::CODE_EXCEPTION, $exception->getMessage());
+        }
+    }
+
+    public function uploadModulesAction() {
+        $result = new Result();
+        $requiredFields = ["resource_id"];
+        $transaction = $this->transactionManager->getOrCreateTransaction();
+        try {
+            $table = self::getTableAsArray($requiredFields);
+            // Create new orgs with null parents
+            foreach ($table as $moduleData) {
+                /** @var Module $module */
+                $module = new Module();
+                $module->resource_id = self::getByExternalId(
+                    'Resource', $moduleData['resource_id'])->id;
+                unset($moduleData['resource_id']);
+                foreach ($moduleData as $column => $value) {
+                    $moduleData->$column = $value;
+                }
+                if (!$module->save()) {
+                    throw new \Exception($module->errorMessagesAsString());
                 }
             }
             $transaction->commit();
@@ -176,7 +234,7 @@ class UploadController extends ControllerBase {
     /**
      *  Get uploaded table in array form
      */
-    private static function getTableAsArray($requiredFields, $forbiddenFields) {
+    private static function getTableAsArray($requiredFields, $forbiddenFields = []) {
         $fileHandle = NULL;
         try {
             $table = [];

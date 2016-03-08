@@ -12,6 +12,8 @@ ALTER TABLE member
   MODIFY password  varchar(50) NOT NULL ,
   MODIFY address varchar(500) DEFAULT NULL;
 
+ALTER TABLE resource
+ADD COLUMN external_id VARCHAR(36);
 
 DELETE FROM _db_update WHERE script_name LIKE '0013%';
 INSERT INTO _db_update (script_name) VALUES ('0013-ExternalIds.sql');
