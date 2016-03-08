@@ -113,19 +113,16 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('outcomeConfigList', {
 			url: '/outcome/configList', templateUrl: 'templates/outcome/configList.html', controller: 'OutcomeConfigListCtrl'
 		})
-		.state('outcomeConfigEdit', {
-			url: '/outcome/configEdit/:outcomeId', templateUrl: 'templates/outcome/configEdit.html', controller: 'OutcomeConfigEditCtrl'
+		.state('outcomeConfigure', {
+			url: '/outcome/configure/:outcomeId', templateUrl: 'templates/outcome/configure.html', controller: 'OutcomeConfigureCtrl'
 		})
 
 		// Events
-		.state('eventEdit', {
-			url: '/event/edit/:eventId', templateUrl: 'templates/event/edit.html', controller: 'EventEditCtrl'
+		.state('eventConfigList', {
+			url: '/event/configList', templateUrl: 'templates/event/configList.html', controller: 'EventConfigListCtrl'
 		})
-		.state('eventCatalog', {
-			url: '/event/catalog', templateUrl: 'templates/event/catalog.html', controller: 'EventCatalogCtrl'
-		})
-		.state('eventAlignment', {
-			url: '/event/alignment/:eventId', templateUrl: 'templates/event/alignment.html', controller: 'EventAlignmentCtrl'
+		.state('eventConfigure', {
+			url: '/event/configure/:eventId', templateUrl: 'templates/event/configure.html', controller: 'EventConfigureCtrl'
 		})
 
 		// Instruments

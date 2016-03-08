@@ -152,11 +152,11 @@ angular.module('OutcomeControllers', [])
 		})
 
 	.controller(
-		'OutcomeConfigEditCtrl',
+		'OutcomeConfigureCtrl',
 		function ($scope, $stateParams, $ionicPopup, Utility, Instruments, Outcomes) {
 			$scope.Instruments = Instruments;
 			$scope.Outcomes = Outcomes;
-			$scope.data = {dirty: false, saving: false, alignments: []};
+			$scope.data = {dirty: false, loading: true, saving: false, alignments: [], currentInstrumentId: 0};
 
 			$scope.save = function () {
 				$scope.data.saving = true;
@@ -181,6 +181,7 @@ angular.module('OutcomeControllers', [])
 							$scope.data.alignments[alignment.qi] = alignment.wt;
 						}
 					}
+					$scope.data.loading = false;
 				}
 			};
 			$scope.setOutcome = function () {
@@ -188,16 +189,21 @@ angular.module('OutcomeControllers', [])
 					var outcomeId = $stateParams.outcomeId;
 					if (!Utility.empty(outcomeId)) {
 						$scope.Outcomes.current = Utility.findObjectById($scope.Outcomes.list, outcomeId);
-						$scope.setAlignments();
+						if (!Utility.empty($scope.Instruments.current)) {
+							$scope.data.currentInstrumentId = $scope.Instruments.current.id;
+							$scope.setAlignments();
+						}
 					}
 				}
-				$scope.setAlignments();
 			};
 			$scope.setCurrentInstrument = function (instrumentId) {
-				if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
-					$scope.Instruments.current = Utility.findObjectById($scope.data.instruments, instrumentId);
-					$scope.Instruments.currentId = $scope.Instruments.current.id;
-					$scope.setAlignments();
+				if (!Utility.empty(instrumentId) && !Utility.empty($scope.Instruments.list)) {
+					$scope.data.loading = true;
+					$scope.Instruments.current = Utility.findObjectById($scope.Instruments.list, instrumentId);
+					if (!Utility.empty($scope.Instruments.current)) {
+						$scope.data.currentInstrumentId = $scope.Instruments.current.id;
+						$scope.setAlignments();
+					}
 				}
 			};
 

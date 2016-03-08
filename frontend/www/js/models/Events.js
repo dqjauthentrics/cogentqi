@@ -6,8 +6,8 @@
 
 angular.module('Events', []).service('Events', function ($cookieStore, $q, $http, Utility) {
 	var svc = this;
-	svc.tempId = -1;
 	svc.list = null;
+	svc.current = null;
 
 	svc.get = function () {
 		if (svc.list == null) {
@@ -29,6 +29,31 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 			return $q.when(svc);
 		}
 	};
+	svc.loadAll = function (callbackFn) {
+		if (svc.list == null) {
+			return $http.get('/api3/event')
+				.then(
+					function (result) {
+						if (result.data.status !== 1) {
+							return $q.reject(result.data);
+						}
+						svc.list = result.data.data;
+						if (!Utility.empty(svc.list)) {
+							svc.current = svc.list[0];
+						}
+						callbackFn(svc.list);
+						return svc;
+					},
+					function (error) {
+						return $q.reject(error);
+					}
+				);
+		}
+		else {
+			callbackFn(svc.list);
+		}
+	};
+
 	// To create a new event call with event == null
 	svc.saveEvent = function (event) {
 		var isNew = event === null;

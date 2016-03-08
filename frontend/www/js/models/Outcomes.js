@@ -25,6 +25,9 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 							return $q.reject(result.data);
 						}
 						svc.list = result.data.data;
+						if (!Utility.empty(svc.list)) {
+							svc.current = svc.list[0];
+						}
 						callbackFn(svc.list);
 						return svc;
 					},

@@ -11,7 +11,7 @@ angular.module('ResourceControllers', [])
 		function ($rootScope, $scope, $timeout, $sce, $templateRequest, $stateParams, Instruments, Utility, Resources) {
 			$scope.Resources = Resources;
 			$scope.Instruments = Instruments;
-			$scope.data = {dirty: false, saving: false, alignments: [], maxLen: 0, isLoading: true};
+			$scope.data = {dirty: false, saving: false, alignments: [], maxLen: 0, isLoading: true, currentInstrumentId: null};
 
 			$scope.setCurrentInstrument = function () {
 				if (!Utility.empty($stateParams)) {
@@ -81,15 +81,21 @@ angular.module('ResourceControllers', [])
 						$scope.Resources.current = Utility.findObjectById($scope.Resources.list, resourceId);
 						if (!Utility.empty($scope.Resources.current)) {
 							$scope.Resources.current.location = 'modules/' + $scope.Resources.current.nmb.toLowerCase() + '.html';
-							$scope.initialize();
+							if (!Utility.empty($scope.Instruments.current)) {
+								$scope.data.currentInstrumentId = $scope.Instruments.current.id;
+								$scope.initialize();
+							}
 						}
 					}
 				}
 			};
 			$scope.setCurrentInstrument = function (instrumentId) {
-				if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
-					$scope.Instruments.current = Utility.findObjectById($scope.data.instruments, instrumentId);
-					$scope.setResource();
+				if (!Utility.empty(instrumentId) && !Utility.empty($scope.Instruments.list)) {
+					$scope.Instruments.current = Utility.findObjectById($scope.Instruments.list, instrumentId);
+					if (!Utility.empty($scope.Instruments.current)) {
+						$scope.data.currentInstrumentId = $scope.Instruments.current.id;
+						$scope.setResource();
+					}
 				}
 			};
 			$scope.isDirty = function () {
@@ -98,14 +104,6 @@ angular.module('ResourceControllers', [])
 			$scope.setDirty = function () {
 				$scope.dirty = true;
 			};
-
-			// Main
-			//
-			$scope.Instruments.loadAll(function (instruments) {
-				$scope.Resources.loadAll(function (response) {
-					$scope.setResource();
-				});
-			});
 			$scope.slideChange = function (sliderId, modelValue) {
 				try {
 					var idParts = sliderId.split('_');
@@ -121,6 +119,14 @@ angular.module('ResourceControllers', [])
 
 				}
 			};
+
+			// Main
+			//
+			$scope.Instruments.loadAll(function (instruments) {
+				$scope.Resources.loadAll(function (response) {
+					$scope.setResource();
+				});
+			});
 		})
 
 	.controller(

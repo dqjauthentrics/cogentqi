@@ -35,7 +35,7 @@ angular.module('SettingsControllers', [])
 					description: 'Review the set of general outcomes tracked by your organization, along with their alignments to competencies.'
 				},
 				{
-					url: "#/event/catalog",
+					url: "#/event/configList",
 					icon: Icons.event,
 					name: 'Events',
 					description: 'Review all events that can occur in your organization, along with their alignments to competencies.'

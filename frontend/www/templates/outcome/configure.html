@@ -30,8 +30,8 @@
             </ion-item>
             <div class="top padding">
                 <h3>{{'Alignments'|translate}}</h3>
-                <select style="margin-top:1em;" class="large" data-ng-model="Instruments.current.id"
-                        data-ng-change="setCurrentInstrument(Instruments.current.id)"
+                <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId"
+                        data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
                         ng-options="instrument.id as instrument.n for instrument in Instruments.list">
                 </select>
             </div>

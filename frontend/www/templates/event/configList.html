@@ -1,4 +1,4 @@
-<ion-view view-title="{{'Outcomes Configuration'|translate}}" cache-view="false">
+<ion-view view-title="{{'Events Configuration'|translate}}" cache-view="false">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content has-bouncing="false">
@@ -6,13 +6,13 @@
             <ion-item class="top">
                 <list-searcher></list-searcher>
             </ion-item>
-            <ion-item class="item-icon-right" ng-repeat="outcome in filtered = (Outcomes.list|filter:outcomeFilter)" type="item-text-wrap"
-                      href="#/outcome/configure/{{outcome.id}}">
-                <i class="{{i.outcome}} fa-lg"></i> {{outcome.nmb}} {{outcome.n}}
+            <ion-item class="item-icon-right" ng-repeat="event in filtered = (Events.list|filter:eventFilter)" type="item-text-wrap"
+                      href="#/event/configure/{{event.id}}">
+                <i class="{{i.event}} fa-lg"></i> {{event.nmb}} {{event.n}}
             </ion-item>
             <ion-item>
                 <button onclick="alert('TBD');" class="button button-balanced">
-                    <i class="{{i.add}} fa-lg"></i> {{'Add Outcome'|translate}}
+                    <i class="{{i.add}} fa-lg"></i> {{'Add Event'|translate}}
                 </button>
             </ion-item>
         </ion-list>
