@@ -38,7 +38,6 @@ angular.module('Resources', []).service('Resources', function ($q, $resource, $h
 		}
 		else {
 			callbackFn(svc.list);
-			return $q.when(svc);
 		}
 	};
 
@@ -106,9 +105,9 @@ angular.module('Resources', []).service('Resources', function ($q, $resource, $h
 		}
 	};
 
-	svc.saveAlignments = function (instrumentId, resourceId, alignments, callbackFn) {
+	svc.saveAlignments = function (instrumentId, resource, alignments, callbackFn) {
 		try {
-			$http.post("/api3/resource/saveAlignments", {resourceId: resourceId, alignments: alignments})
+			$http.post("/api3/resource/saveAlignments", {instrumentId: instrumentId, resource: resource, alignments: alignments})
 				.then(function (result, headers, config) {
 						  callbackFn(result.data);
 					  },

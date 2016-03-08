@@ -110,11 +110,11 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('outcomeList', {
 			url: '/outcome/list', templateUrl: 'templates/outcome/list.html', controller: 'OutcomeListCtrl'
 		})
-		.state('outcomeAlignments', {
-			url: '/outcome/alignments', templateUrl: 'templates/outcome/alignments.html', controller: 'OutcomeAlignmentsCtrl'
+		.state('outcomeConfigList', {
+			url: '/outcome/configList', templateUrl: 'templates/outcome/configList.html', controller: 'OutcomeConfigListCtrl'
 		})
-		.state('outcomeAlignment', {
-			url: '/outcome/alignment/:outcomeId', templateUrl: 'templates/outcome/alignment.html', controller: 'OutcomeAlignmentCtrl'
+		.state('outcomeConfigEdit', {
+			url: '/outcome/configEdit/:outcomeId', templateUrl: 'templates/outcome/configEdit.html', controller: 'OutcomeConfigEditCtrl'
 		})
 
 		// Events
@@ -131,6 +131,9 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		// Instruments
 		.state('instrumentView', {
 			url: '/instrument/view/:instrumentId', templateUrl: 'templates/instrument/view.html', controller: 'InstrumentCtrl'
+		})
+		.state('instrumentEdit', {
+			url: '/instrument/edit/:instrumentId', templateUrl: 'templates/instrument/edit.html', controller: 'InstrumentCtrl'
 		})
 		.state('instrumentList', {
 			url: '/instrument/list', templateUrl: 'templates/instrument/list.html', controller: 'InstrumentCtrl'

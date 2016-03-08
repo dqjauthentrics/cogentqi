@@ -1608,20 +1608,33 @@ table.perms th:nth-child(1) {
     margin-top: 1em;
 }
 
+.bottom-space {
+    margin-bottom: 5em !important;
+}
+
 input[type="text"] {
-    padding: 4px 8px;
+    padding: 8px 8px;
     background: #FEFFEE;
     border: 1px solid #888;
     border-radius: 4px;
     margin: 0.1em;
     color: #666;
+    vertical-align: middle;
 }
+
 input[type="search"] {
     padding: 0.1em 1em;
     width: 16em;
 }
+
 input.large {
-    font-size: 2em;
+    font-size: 1.2em;
+    line-height: 1.3em;
+    height: auto;
+}
+
+input.long {
+    width: 90%;
 }
 
 list-searcher {

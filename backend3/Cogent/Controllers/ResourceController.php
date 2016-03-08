@@ -87,8 +87,8 @@ class ResourceController extends ControllerBase {
 
 	private static function filterFormAlignments(&$formAlignments) {
 		foreach ($formAlignments as $questionId => &$utilities) {
-			for ($i = 0; $i < count($utilities); $i++)  {
-				if ($utilities[$i]['response'] == 0) {
+			for ($i = 0; $i < count($utilities); $i++) {
+				if (empty($utilities[$i]['utility'])) {
 					unset($utilities[$i]);
 					break;
 				}
@@ -104,8 +104,14 @@ class ResourceController extends ControllerBase {
 		$transaction = $this->transactionManager->getOrCreateTransaction();
 		try {
 			$data = @$this->getInputData();
-			if (!empty($data["resourceId"]) && !empty($data["alignments"])) {
-				$resourceId = $data["resourceId"];
+			if (!empty($data["resource"]) && !empty($data["alignments"])) {
+				$formResource = $data["resource"];
+				$resourceId = $formResource["id"];
+				$resourceRecord = Resource::findFirst($resourceId);
+				/** @var \Cogent\Models\Resource $resourceRecord */
+				if (!$resourceRecord->update(['description' => $formResource['dsc'], 'summary' => $formResource['sm']])) {
+					throw new \Exception($resourceRecord->errorMessagesAsString());
+				}
 				$formAlignments = $data["alignments"];
 				if (!empty($formAlignments)) {
 					self::filterFormAlignments($formAlignments);

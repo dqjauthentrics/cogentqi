@@ -2,6 +2,8 @@
 namespace Cogent\Models;
 
 class CogentModel extends \Phalcon\Mvc\Model {
+	public $id = NULL; // syntactic sugar
+
 	const TYPE_STRING = 0;
 	const TYPE_DATE = 1;
 	const TYPE_DATETIME = 2;
@@ -374,8 +376,26 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	}
 
 	/**
-	 * @param array[] 					   $array
-	 * @param string                       $key
+	 * @param CogentModel[] $records
+	 * @param int           $id
+	 *
+	 * @return QuestionGroup|null
+	 */
+	public static function findRecord($records, $id) {
+		if (!empty($records)) {
+			foreach ($records as $record) {
+				/** @var CogentModel $record */
+				if ($record->id == $id) {
+					return $record;
+				}
+			}
+		}
+		return NULL;
+	}
+
+	/**
+	 * @param array[] $array
+	 * @param string  $key
 	 *
 	 * @return array
 	 */

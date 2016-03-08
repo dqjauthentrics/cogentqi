@@ -96,7 +96,7 @@ angular.module('OutcomeControllers', [])
 		})
 
 	.controller(
-		'OutcomeListCtrl',
+		'OutcomeCoListCtrl',
 		function ($cookieStore, $scope, $stateParams, Utility, Organizations, Resources, Outcomes) {
 			$scope.Outcomes = Outcomes;
 			$scope.data = {currentOrg: {}, levels: [], dirty: false, isLoading: true};
@@ -130,7 +130,7 @@ angular.module('OutcomeControllers', [])
 		})
 
 	.controller(
-		'OutcomeAlignmentsCtrl',
+		'OutcomeConfigListCtrl',
 		function ($cookieStore, $scope, $stateParams, Utility, Outcomes) {
 			$scope.Outcomes = Outcomes;
 			$scope.data = {isLoading: true, searchFilter: ''};
@@ -152,27 +152,15 @@ angular.module('OutcomeControllers', [])
 		})
 
 	.controller(
-		'OutcomeAlignmentCtrl',
+		'OutcomeConfigEditCtrl',
 		function ($scope, $stateParams, $ionicPopup, Utility, Instruments, Outcomes) {
+			$scope.Instruments = Instruments;
 			$scope.Outcomes = Outcomes;
-			$scope.res = null;
-			$scope.data = {dirty: false, saving: false, alignments: [], instruments: [], currentInstrument: null, currentInstrumentId: 1};
-
-			Utility.getResource(Instruments.retrieve(), function (response) {
-				$scope.data.instruments = response.data;
-				Instruments.collate($scope.data.instruments);
-				if (!Utility.empty($scope.data.instruments)) {
-					$scope.setCurrentInstrument($scope.data.instruments[0].id);
-				}
-			});
-			Utility.getResource(Outcomes.retrieve(), function (response) {
-				$scope.Outcomes.list = response.data;
-				$scope.setOutcome();
-			});
+			$scope.data = {dirty: false, saving: false, alignments: []};
 
 			$scope.save = function () {
 				$scope.data.saving = true;
-				Outcomes.saveAlignments($scope.data.currentInstrumentId, $scope.Outcomes.current.id, $scope.data.alignments,
+				Outcomes.saveAlignments($scope.Instruments.current.id, $scope.Outcomes.current, $scope.data.alignments,
 										function (response) {
 											$scope.data.saving = false;
 											$scope.data.dirty = false;
@@ -180,10 +168,10 @@ angular.module('OutcomeControllers', [])
 										});
 			};
 			$scope.setAlignments = function () {
-				if (!Utility.empty($scope.Outcomes.current) && !Utility.empty($scope.data.currentInstrument)) {
+				if (!Utility.empty($scope.Outcomes.current) && !Utility.empty($scope.Instruments.current)) {
 					$scope.data.alignments = {};
-					for (var z = 0; z < $scope.data.currentInstrument.questions.length; z++) {
-						var questionId = $scope.data.currentInstrument.questions[z].id;
+					for (var z = 0; z < $scope.Instruments.current.questions.length; z++) {
+						var questionId = $scope.Instruments.current.questions[z].id;
 						$scope.data.alignments[questionId] = 0;
 					}
 					if (!Utility.empty($scope.Outcomes.current) && !Utility.empty(
@@ -207,10 +195,19 @@ angular.module('OutcomeControllers', [])
 			};
 			$scope.setCurrentInstrument = function (instrumentId) {
 				if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
-					$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
-					$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
+					$scope.Instruments.current = Utility.findObjectById($scope.data.instruments, instrumentId);
+					$scope.Instruments.currentId = $scope.Instruments.current.id;
 					$scope.setAlignments();
 				}
 			};
+
+			// Main
+			//
+			$scope.Instruments.loadAll(function (instruments) {
+				$scope.Outcomes.loadAll(function (response) {
+					$scope.setOutcome();
+				});
+			});
+
 		})
 ;

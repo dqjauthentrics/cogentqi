@@ -1,26 +1,26 @@
-<ion-view view-title="{{installation.name}}" cache-view="false">
+<ion-view view-title="{{'Configuration: Assessment Schedule'|translate}}" cache-view="false">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
-    <ion-content has-bouncing="false" overflow-scroll="true" style="margin-top:1em;">
-        <div class="iconBar">
-            <button data-ng-show="data.dirty" class="button button-action button-save {{data.dirty? 'button-dirty':'button-clean'}}"
-                    ng-click="save($event)">
-                <i class="{{i.save}}"></i>
-            </button>
-        </div>
-        <h2>{{'Configuration: Assessment Schedule'|translate}}</h2>
-
-        <div class="row responsive-lg">
-            <div class="col">
-                <table class="items">
-                    <tbody>
-                    <tr data-ng-repeat="item in data.scheduleItems" style="white-space: normal;">
-                        <td>
-                            <schedule-table></schedule-table>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+    <ion-content class="padding" has-bouncing="false" overflow-scroll="true">
+        <div class="paddedView">
+            <div class="iconBar">
+                <button data-ng-show="data.dirty" class="button button-action button-save {{data.dirty? 'button-dirty':'button-clean'}}"
+                        ng-click="save($event)">
+                    <i class="{{i.save}}"></i>
+                </button>
+            </div>
+            <div class="row responsive-lg">
+                <div class="col">
+                    <table class="items">
+                        <tbody>
+                        <tr data-ng-repeat="item in data.scheduleItems" style="white-space: normal;">
+                            <td>
+                                <schedule-table></schedule-table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </ion-content>

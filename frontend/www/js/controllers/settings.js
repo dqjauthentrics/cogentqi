@@ -25,11 +25,11 @@ angular.module('SettingsControllers', [])
 				{
 					url: "#/instrument/list",
 					icon: Icons.instrument,
-					name: 'Instruments (Competency Frameworks)',
+					name: 'Competency Instruments',
 					description: 'Define the set(s) of competencies recognized by your organization for use in assessments.'
 				},
 				{
-					url: "#/outcome/alignments",
+					url: "#/outcome/configList",
 					icon: Icons.outcome,
 					name: 'Outcomes',
 					description: 'Review the set of general outcomes tracked by your organization, along with their alignments to competencies.'

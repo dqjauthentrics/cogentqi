@@ -9,72 +9,18 @@ angular.module('ResourceControllers', [])
 	.controller(
 		'ResourceEditCtrl',
 		function ($rootScope, $scope, $timeout, $sce, $templateRequest, $stateParams, Instruments, Utility, Resources) {
-			$scope.res = null;
-			$scope.data = {
-				dirty: false,
-				saving: false,
-				alignments: [],
-				instruments: [],
-				resources: [],
-				resource: {},
-				currentInstrument: null,
-				currentInstrumentId: 1,
-				maxLen: 0
-			};
+			$scope.Resources = Resources;
+			$scope.Instruments = Instruments;
+			$scope.data = {dirty: false, saving: false, alignments: [], maxLen: 0, isLoading: true};
 
-			angular.element(document).ready(function () {
-				$('.wysiwyg').redactor(
-					{
-						formatting: ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5'],
-						buttons: [
-							'format',
-							'bold',
-							'italic',
-							'deleted',
-							'link',
-							'alignment',
-							'horizontalrule',
-							'table',
-							'image',
-							'video',
-							'file'
-						],
-						plugins: [
-							'bufferbuttons', 'inlinestyle', 'alignment', 'table', 'video', 'imagelink', 'fullscreen', 'source', 'iconic2'
-						]
-					});
-			});
-
-			Utility.getResource(Instruments.retrieve(), function (response) {
-				$scope.data.instruments = response.data;
-				Instruments.collate($scope.data.instruments);
-				if (!Utility.empty(response)) {
-					$scope.setCurrentInstrument(response.data[0].id);
-				}
-			});
-			Utility.getResource(Resources.retrieve(), function (response) {
-				$scope.data.resources = response.data;
-				$scope.setResource();
-			});
-			$scope.slideChange = function (sliderId, modelValue) {
-				try {
-					var idParts = sliderId.split('_');
-					console.log("slideChange:", sliderId, modelValue);
-					$scope.data.dirty = true;
-					if (idParts[2] == 0) {
-						var qid = idParts[1];
-						for (var i = 1; i < $scope.data.maxLen; i++) {
-							$scope.data.alignments[qid][i].utility = modelValue;
-						}
-					}
-				}
-				catch (exception) {
-
+			$scope.setCurrentInstrument = function () {
+				if (!Utility.empty($stateParams)) {
+					$scope.Instruments.current = Utility.findObjectById($scope.Instruments.list, $stateParams.instrumentId);
 				}
 			};
 			$scope.save = function () {
 				$scope.data.saving = true;
-				Resources.saveAlignments($scope.data.currentInstrumentId, $scope.data.resource.id, $scope.data.alignments,
+				Resources.saveAlignments($scope.Instruments.current.id, $scope.Resources.current, $scope.data.alignments,
 										 function (result) {
 											 $scope.data.saving = false;
 											 $scope.data.dirty = false;
@@ -88,28 +34,28 @@ angular.module('ResourceControllers', [])
 				});
 			};
 			$scope.initialize = function () {
-				if (!Utility.empty($scope.data.resource) && !Utility.empty($scope.data.currentInstrument)) {
+				if (!Utility.empty($scope.Resources.current) && !Utility.empty($scope.Instruments.current)) {
 					$scope.data.alignments = {};
 					var question = null;
 					var z = 0;
-					for (z = 0; z < $scope.data.currentInstrument.questions.length; z++) {
-						question = $scope.data.currentInstrument.questions[z];
+					for (z = 0; z < $scope.Instruments.current.questions.length; z++) {
+						question = $scope.Instruments.current.questions[z];
 						var type = question.type;
 						if (!Utility.empty(type) && question.type.choices.length > $scope.data.maxLen) {
 							$scope.data.maxLen = question.type.choices.length;
 						}
 					}
-					for (z = 0; z < $scope.data.currentInstrument.questions.length; z++) {
-						question = $scope.data.currentInstrument.questions[z];
+					for (z = 0; z < $scope.Instruments.current.questions.length; z++) {
+						question = $scope.Instruments.current.questions[z];
 						var qid = question.id;
 						$scope.data.alignments[qid] = [];
 						for (var c = 0; c < $scope.data.maxLen; c++) {
 							$scope.data.alignments[qid].push({response: c, utility: 0});
 						}
 					}
-					if (!Utility.empty($scope.data.resource.alignments) && $scope.data.resource.alignments.length > 0) {
-						for (var i = 0; i < $scope.data.resource.alignments.length; i++) {
-							var alignment = $scope.data.resource.alignments[i];
+					if (!Utility.empty($scope.Resources.current.alignments) && $scope.Resources.current.alignments.length > 0) {
+						for (var i = 0; i < $scope.Resources.current.alignments.length; i++) {
+							var alignment = $scope.Resources.current.alignments[i];
 							var mapping = alignment.mapping;
 							$scope.data.alignments[alignment.qi] = [];
 							for (var d = 0; d < $scope.data.maxLen; d++) {
@@ -123,41 +69,27 @@ angular.module('ResourceControllers', [])
 							$scope.data.alignments[alignment.qi][0] = {response: 0, utility: 0}; // for master use
 						}
 					}
+					$scope.data.isLoading = false;
 					$scope.refreshSliderBroadcast();
 				}
 			};
 			$scope.setResource = function () {
-				if (!Utility.empty($stateParams)) {
+				if (!Utility.empty($stateParams) && !Utility.empty($scope.Resources.list)) {
+					$scope.data.isLoading = true;
 					var resourceId = $stateParams.resourceId;
 					if (!Utility.empty(resourceId)) {
-						$scope.data.resource = Utility.findObjectById($scope.data.resources, resourceId);
-						$scope.data.resource.location = 'modules/' + $scope.data.resource.nmb.toLowerCase() + '.html';
-						$scope.initialize();
-					}
-				}
-				//$scope.initialize();
-			};
-			$scope.setAlignments = function () {
-				if (!Utility.empty($scope.data.outcome) && !Utility.empty($scope.data.currentInstrument)) {
-					$scope.data.alignments = {};
-					for (var z = 0; z < $scope.data.currentInstrument.questions.length; z++) {
-						var questionId = $scope.data.currentInstrument.questions[z].id;
-						$scope.data.alignments[questionId] = 0;
-					}
-					if (!Utility.empty($scope.data.outcome) && !Utility.empty($scope.data.outcome.alignments) && $scope.data.outcome.alignments.length > 0) {
-						for (var i = 0; i < $scope.data.outcome.alignments.length; i++) {
-							var alignment = $scope.data.outcome.alignments[i];
-							$scope.data.alignments[alignment.questionId] = alignment.wt;
+						$scope.Resources.current = Utility.findObjectById($scope.Resources.list, resourceId);
+						if (!Utility.empty($scope.Resources.current)) {
+							$scope.Resources.current.location = 'modules/' + $scope.Resources.current.nmb.toLowerCase() + '.html';
+							$scope.initialize();
 						}
 					}
 				}
 			};
 			$scope.setCurrentInstrument = function (instrumentId) {
 				if (!Utility.empty(instrumentId) && !Utility.empty($scope.data.instruments)) {
-					$scope.data.currentInstrument = Utility.findObjectById($scope.data.instruments, instrumentId);
-					$scope.data.currentInstrumentId = $scope.data.currentInstrument.id;
-					$scope.initialize();
-					//$scope.setAlignments();
+					$scope.Instruments.current = Utility.findObjectById($scope.data.instruments, instrumentId);
+					$scope.setResource();
 				}
 			};
 			$scope.isDirty = function () {
@@ -165,6 +97,29 @@ angular.module('ResourceControllers', [])
 			};
 			$scope.setDirty = function () {
 				$scope.dirty = true;
+			};
+
+			// Main
+			//
+			$scope.Instruments.loadAll(function (instruments) {
+				$scope.Resources.loadAll(function (response) {
+					$scope.setResource();
+				});
+			});
+			$scope.slideChange = function (sliderId, modelValue) {
+				try {
+					var idParts = sliderId.split('_');
+					$scope.data.dirty = true;
+					if (idParts[2] == 0) {
+						var qid = idParts[1];
+						for (var i = 1; i < $scope.data.maxLen; i++) {
+							$scope.data.alignments[qid][i].utility = modelValue;
+						}
+					}
+				}
+				catch (exception) {
+
+				}
 			};
 		})
 

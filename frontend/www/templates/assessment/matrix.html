@@ -17,7 +17,7 @@
             <table id="matrix" class="matrix" ng-show="Assessments.matrix">
                 <thead>
                 <tr>
-                    <th style="font-style: italic;">{{'Most Recent'|translate}}<br/>{{'Member Assessments'|translate}}</th>
+                    <th style="font-style: italic;">{{'Most Recent'|translate}}<br/>{{'Staff Assessments'|translate}}</th>
                     <th class="rotate" data-ng-repeat="hdr in Assessments.matrix.hdrs track by $index" data-ng-class="getCellClass(hdr)"
                         data-ng-show="show(hdr)">
                         <div><span>{{hdr[1]|ellipsify:24}}</span></div>

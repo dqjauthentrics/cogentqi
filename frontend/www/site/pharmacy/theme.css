@@ -15,5 +15,9 @@
 }
 
 .card {
-    background: #EEE;
+    background: #DDD;
+}
+
+.tabs-assertive > .tabs, .tabs.tabs-assertive {
+    border-color: #1b5123;
 }

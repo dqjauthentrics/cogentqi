@@ -9,10 +9,15 @@
 	 *
 	 */
 
-	var redactorOptions = {};
+	var redactorOptions = {
+		formatting: ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5'],
+		buttons: ['format', 'bold', 'italic', 'deleted', 'link', 'alignment', 'horizontalrule', 'table', 'image', 'video', 'file'],
+		plugins: ['bufferbuttons', 'inlinestyle', 'alignment', 'table', 'video', 'imagelink', 'fullscreen', 'source', 'iconic2']
+	};
 
 	angular.module('angular-redactor', [])
 		.constant('redactorOptions', redactorOptions)
+
 		.directive('redactor', [
 			'$timeout', function ($timeout) {
 				return {
@@ -36,9 +41,7 @@
 									change: updateModel
 								}
 							},
-							additionalOptions = attrs.redactor ?
-								scope.$eval(attrs.redactor) : {},
-							editor;
+							additionalOptions = attrs.redactor ? scope.$eval(attrs.redactor) : {}, editor;
 
 						angular.extend(options, redactorOptions, additionalOptions);
 

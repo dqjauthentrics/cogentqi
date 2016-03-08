@@ -56,7 +56,7 @@ class EventController extends ControllerBase {
 			$event = new Event();
 			$data = $event->unmap($this->getInputData());
 			if (array_key_exists('id', $data)) {
-				$event = Event::findFirst(['id' => $data['id']]);
+				$event = Event::findFirst($data['id']);
 			}
 			else {
 				$event->id = NULL;

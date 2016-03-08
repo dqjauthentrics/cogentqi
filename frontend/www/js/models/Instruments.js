@@ -4,7 +4,7 @@
  */
 'use strict';
 
-angular.module('Instruments', []).service('Instruments', function ($resource, Utility) {
+angular.module('Instruments', []).service('Instruments', function ($resource, $http, Utility) {
 	var svc = this;
 	svc.SECTION_ALL = -100;
 	svc.SECTION_SUMMARY = -101;
@@ -15,6 +15,46 @@ angular.module('Instruments', []).service('Instruments', function ($resource, Ut
 	svc.retrieve = function () {
 		return $resource('/api3/instrument', {}, {query: {method: 'GET', isArray: false, cache: false}});
 	};
+	svc.loadAll = function (callbackFn) {
+		if (svc.list == null) {
+			return $http.get('/api3/instrument')
+				.then(
+					function (result) {
+						if (result.data.status !== 1) {
+							return $q.reject(result.data);
+						}
+						svc.list = result.data.data;
+						if (svc.list.length > 0) {
+							svc.current = svc.list[0];
+						}
+						svc.collate(svc.list);
+						callbackFn(svc.list);
+					},
+					function (error) {
+						return $q.reject(error);
+					}
+				);
+		}
+		else {
+			callbackFn(svc.list);
+		}
+	};
+
+	svc.save = function (instrument, callbackFn) {
+		try {
+			$http.post("/api3/instrument/save", {instrument: instrument})
+				.then(function (data, status, headers, config) {
+						  callbackFn(data.data);
+					  },
+					  function (data, status, headers, config) {
+						  callbackFn(data);
+					  });
+		}
+		catch (exception) {
+			callbackFn(0, exception);
+		}
+	};
+
 	svc.groupName = function (group) {
 		if (group && group != undefined) {
 			return group.nmb + '. ' + group.tag;

@@ -2,8 +2,10 @@
 namespace Cogent\Controllers;
 
 use Cogent\Components\Result;
+use Cogent\Models\CogentModel;
 use Cogent\Models\Instrument;
 use Cogent\Models\InstrumentSchedule;
+use Cogent\Models\Question;
 use Cogent\Models\QuestionGroup;
 
 class InstrumentController extends ControllerBase {
@@ -72,6 +74,83 @@ class InstrumentController extends ControllerBase {
 			$result->setError(Result::CODE_EXCEPTION, $exception->getMessage());
 		}
 		$result->sendNormal($data);
+	}
+
+	/**
+	 * @param QuestionGroup[] $questionGroups
+	 * @param int             $questionGroupId
+	 *
+	 * @return QuestionGroup|null
+	 */
+	private function findGroup($questionGroups, $questionGroupId) {
+		$group = NULL;
+		if (!empty($questionGroups)) {
+			foreach ($questionGroups as $group) {
+				if ($group->id == $questionGroupId) {
+					return $group;
+				}
+			}
+		}
+		return $group;
+	}
+
+
+	/**
+	 * Save the given alignments for this resource.
+	 */
+	public function saveAction() {
+		$result = new Result($this);
+		$transaction = $this->transactionManager->getOrCreateTransaction();
+		try {
+			$data = @$this->getInputData();
+			if (!empty($data["instrument"])) {
+				$formInstrument = $data["instrument"];
+				$instrumentId = $formInstrument['id'];
+				$instrumentRecord = Instrument::findFirst($instrumentId);
+				/** @var \Cogent\Models\Instrument $resource */
+				if (!$instrumentRecord->update(['description' => $formInstrument['dsc']])) {
+					throw new \Exception($resource->errorMessagesAsString());
+				}
+				$formGroups = $formInstrument["questionGroups"];
+				if (!empty($formGroups)) {
+					$groupRecords = QuestionGroup::query()->where('instrument_id=:id:', ['id' => $instrumentId])->execute();
+					/** @var QuestionGroup[] $groupRecords */
+					foreach ($formGroups as $formGroup) {
+						$groupRecord = CogentModel::findRecord($groupRecords, $formGroup['id']);
+						if (!empty($groupRecord)) {
+							$groupRecord->update([
+									'tag'     => $formGroup['tag'],
+									'number'  => $formGroup['nmb'],
+									'summary' => $formGroup['sm']
+								]
+							);
+							$questionRecords = Question::query()->where('question_group_id=:id:', ['id' => $groupRecord->id])->execute();
+							/** @var Question[] $questionRecords */
+							if (!empty($formGroup['questions'])) {
+								foreach ($formGroup['questions'] as $formQuestion) {
+									$questionRecord = CogentModel::findRecord($questionRecords, $formQuestion['id']);
+									if (!empty($questionRecord)) {
+										$questionRecord->update([
+												'name'    => $formQuestion['n'],
+												'number'  => $formQuestion['nmb'],
+												'summary' => $formQuestion['sm']
+											]
+										);
+									}
+								}
+							}
+						}
+					}
+				}
+				$transaction->commit();
+				$result->setNormal();
+			}
+		}
+		catch (\Exception $exception) {
+			$transaction->rollback();
+			$result->setError(Result::CODE_EXCEPTION, $exception->getMessage());
+		}
+		$result->send();
 	}
 
 }

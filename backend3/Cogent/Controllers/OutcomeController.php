@@ -128,9 +128,14 @@ class OutcomeController extends ControllerBase {
 		$result = new Result($this);
 		try {
 			$data = $this->getInputData();
-			if (!empty($data["outcomeId"]) && !empty($data["instrumentId"]) && !empty($data["alignments"])) {
-				$outcomeId = $data["outcomeId"];
-				$instrumentId = $data["instrumentId"];
+			if (!empty($data["outcome"])) {
+				$formOutcome = $data["outcome"];
+				$outcomeId = $formOutcome["id"];
+				$outcomeRecord = Outcome::findFirst($outcomeId);
+				/** @var Outcome $outcomeRecord */
+				if (!$outcomeRecord->update(['name' => $formOutcome['n'], 'number' => $formOutcome['nmb'], 'summary' => $formOutcome['sm']])) {
+					throw new \Exception($outcomeRecord->errorMessagesAsString());
+				}
 				$formAlignments = $data["alignments"];
 				if (!empty($formAlignments)) {
 					/** @var OutcomeAlignment[] $alignments */

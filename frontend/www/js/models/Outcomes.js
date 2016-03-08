@@ -16,6 +16,28 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 		}
 		return null;
 	};
+	svc.loadAll = function (callbackFn) {
+		if (svc.list == null) {
+			return $http.get('/api3/outcome')
+				.then(
+					function (result) {
+						if (result.data.status !== 1) {
+							return $q.reject(result.data);
+						}
+						svc.list = result.data.data;
+						callbackFn(svc.list);
+						return svc;
+					},
+					function (error) {
+						return $q.reject(error);
+					}
+				);
+		}
+		else {
+			callbackFn(svc.list);
+		}
+	};
+
 	svc.retrieveSingle = function (outcomeId) {
 		var user = $cookieStore.get('user');
 		if (!Utility.empty(user) && !Utility.empty(outcomeId)) {
@@ -45,9 +67,9 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 		return null;
 	};
 
-	svc.saveAlignments = function (instrumentId, outcomeId, alignments, callbackFn) {
+	svc.saveAlignments = function (instrumentId, outcome, alignments, callbackFn) {
 		try {
-			$http.post("/api3/outcome/saveAlignments", {instrumentId: instrumentId, outcomeId: outcomeId, alignments: alignments})
+			$http.post("/api3/outcome/saveAlignments", {instrumentId: instrumentId, outcome: outcome, alignments: alignments})
 				.then(function (data, status, headers, config) {
 						  callbackFn(data.data);
 					  },

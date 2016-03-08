@@ -2,71 +2,66 @@
     <ion-nav-buttons side="left"><a ng-href="{{dashboardUrl()}}" ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
     <ion-content class="padding detail" has-bouncing="false" overflow-scroll="true">
-        <div class="iconBar">
-            <div style="float:right;">
-                <button ng-click="save(this)" class="button button-action button-save">
-                    <i ng-class="(data.saving? i.loadingSpinner : i.save) + ' ' + (data.dirty? 'button-dirty' : '')"></i>
-                </button>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="col">
-            <div class="card padding" style="margin-bottom:0;">
-                <div class="row responsive-md" style="font-size:2em;">
-                    <div class="col">
-                        <label for="Resource_number">{{'Number'|translate}}
-                            <input class="large" id="Resource_number" type="text" placeholder="number" ng-model="data.resource.nmb" ng-change="setDirty()">
-                        </label>
+        <div class="list">
+            <ion-item>
+                <div class="iconBar">
+                    <div style="float:right;">
+                        <button ng-click="save(this)" class="button button-action button-save" ng-class="(data.dirty? 'button-dirty' : '')">
+                            <i ng-class="(data.saving || data.isLoading? i.loadingSpinner : i.save)"></i>
+                        </button>
                     </div>
-                    <div class="col">
-                        <label for="Resource_name">{{'Name'|translate}}
-                            <input class="large" id="Resource_name" type="text" placeholder="name" ng-model="data.resource.n" ng-change="setDirty()">
-                        </label>
+                </div>
+                <div class="row responsive-lg">
+                    <div class="col-50 padding">
+                        <label for="Resource_number">{{'Number'|translate}}</label>
+                        <input class="large" id="Resource_number" type="text" placeholder="number" ng-model="Resources.current.nmb" ng-change="setDirty()">
+                    </div>
+                    <div class="col-50 padding">
+                        <label for="Resource_name">{{'Name'|translate}}</label>
+                        <input class="large long" id="Resource_name" type="text" placeholder="name" ng-model="Resources.current.n" ng-change="setDirty()">
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 <label for="Resource_summary">{{'Summary'|translate}}</label>
-                <textarea id="Resource_summary" ng-change="setDirty()" ng-model="data.resource.sm" class="wysiwyg"></textarea>
+                <textarea id="Resource_summary" data-ng-change="setDirty()" data-ng-model="Resources.current.sm" class="wysiwyg"
+                          ng-bind-html="Resources.current.sm"
+                          redactor>
+                 </textarea>
                 <div class="clearfix"></div>
                 <label for="Resource_description" class="item item-input">{{'Description'|translate}}</label>
-                <textarea id="Resource_description" ng-change="setDirty()" ng-model="data.resource.dsc" class="wysiwyg"></textarea>
+                <textarea id="Resource_description" data-ng-change="setDirty()" data-ng-model="Resources.current.dsc" class="wysiwyg"
+                          ng-bind-html="Resources.current.dsc"
+                          redactor>
+                </textarea>
+            </ion-item>
+            <div class="top padding">
+                <h3>{{'Alignments'|translate}}</h3>
+                <select style="margin-top:1em;" class="large" data-ng-model="Instruments.current.id"
+                        data-ng-change="setCurrentInstrument(Instruments.current.id)"
+                        data-ng-options="instrument.id as instrument.n for instrument in Instruments.list">
+                </select>
             </div>
-        </div>
-        <div class="col padding">
-            <div class="card padding">
-                <div class="top padding">
-                    <h3>{{'Alignments'|translate}}</h3>
-                    <select style="margin-top:1em;" class="large" ng-model="data.currentInstrumentId"
-                            ng-change="setCurrentInstrument(data.currentInstrumentId)"
-                            ng-options="instrument.id as instrument.n for instrument in data.instruments">
-                    </select>
-                </div>
-                <ion-list>
-                    <ion-item ng-repeat="question in data.currentInstrument.questions" type="item-text-wrap">
-                        <div class="name">{{question.n}}</div>
-                        <div style="float:right; margin: 1em 0.5em;">
-                            <div class="equalizer">
-                                <div style="{{'width: ' + ((question.type.max+1)*6) + 'em; float:left;'}}">
-                                    <div>{{'Relevance to Those Rated at Each Level'|translate}}</div>
-                                    <div ng-repeat="choice in question.type.choices track by $index">
-                                        <div style="{{'height:' + (question.type.choices.length*1.5) + 'em;'}}">
-                                            <rzslider
-                                                    rz-slider-model="data.alignments[question.id][$index].utility"
-                                                    rz-slider-options="{id:'q_'+question.id+'_'+$index,floor:question.type.min,ceil:question.type.max,vertical:true,showTicksValues:true,onChange:slideChange}">
-                                            </rzslider>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="rubric" ng-bind-html="($index==0? '<i>master</i>':question.type.choices[$index].n|space2Break)"></div>
-                                    </div>
+            <ion-item ng-repeat="question in Instruments.current.questions" type="item-text-wrap">
+                <div class="name">{{question.n}}</div>
+                <div style="float:right; margin: 1em 0.5em;">
+                    <div class="equalizer">
+                        <div style="{{'width: ' + ((question.type.max+1)*6) + 'em; float:left;'}}">
+                            <div>{{'Relevance to Those Rated at Each Level'|translate}}</div>
+                            <div ng-repeat="choice in question.type.choices track by $index">
+                                <div style="{{'height:' + (question.type.choices.length*1.5) + 'em;'}}">
+                                    <rzslider
+                                            rz-slider-model="data.alignments[question.id][$index].utility"
+                                            rz-slider-options="{id:'q_'+question.id+'_'+$index,floor:question.type.min,ceil:question.type.max,vertical:true,showTicksValues:true,onChange:slideChange}">
+                                    </rzslider>
                                 </div>
+                                <div class="clearfix"></div>
+                                <div class="rubric" ng-bind-html="($index==0? '<i>master</i>':question.type.choices[$index].n|space2Break)"></div>
                             </div>
                         </div>
-                        <div class="description" ng-bind-html="question.dsc"></div>
-                    </ion-item>
-                </ion-list>
-            </div>
-        </div>
-        </div>
+                    </div>
+                </div>
+                <div class="description" ng-bind-html="question.dsc"></div>
+            </ion-item>
     </ion-content>
     <ng-include src="'/templates/common/tabs.html'"></ng-include>
 </ion-view>
