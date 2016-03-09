@@ -23,6 +23,12 @@
                           ng-bind-html="Events.current.dsc"
                           redactor>
                  </textarea>
+                <div class="col-33 padding">
+                    <label for="Event_threshold">{{'Application Threshold'|translate}}</label>
+                    <input id="Event_threshold" type="range" name="importance" min="0" max="10" data-ng-bind="Events.current.threshold"
+                           data-ng-model="Events.current.threshold" data-ng-change="data.dirty = true"/>
+                    <div class="phrase">{{Events.thresholdPhrase(Events.current.threshold)|translate}}</div>
+                </div>
             </ion-item>
             <div class="top padding">
                 <h3>{{'Alignments'|translate}}</h3>
@@ -31,22 +37,17 @@
                         ng-options="instrument.id as instrument.n for instrument in Instruments.list">
                 </select>
             </div>
-            <ion-item class="item-icon-right" ng-repeat="question in Instruments.current.questions" type="item-text-wrap">
-                <div class="name">{{question.n}}</div>
-                <div style="float:right; width: 10em; margin: 1em 0.5em; text-align: center;">
-                    <div class="phrase">{{Events.alignmentLevelPhrase(data.alignments[question.id])|translate}}</div>
-                    <div class="item range range-positive" style="background:{{(data.alignments[question.id]>0? '#F0F8FF':'#FFF')}};">
-                         <input type="range" name="volume" min="0" max="3" data-ng-bind="data.alignments[question.id]"
-                                   data-ng-model="data.alignments[question.id]" data-ng-change="data.dirty = true"/>
-                        <div class="clearfix"></div>
-                        <div><span class="phrase">{{data.alignments[question.id]}}</span></div>
-                     </div>
-                    <div>{{'Relevance'|translate}}</div>
+            <ion-item ng-repeat="questionGroup in Instruments.current.questionGroups">
+                <h3>{{questionGroup.nmb}} {{questionGroup.tag}}</h3>
+                <div class="list">
+                    <ion-item class="event item-icon-right" ng-repeat="question in questionGroup.questions" type="item-text-wrap">
+                        <div class="name">{{questionGroup.nmb}}.{{question.nmb}} {{question.n}}</div>
+                        <div class="description" data-ng-bind-html="question.dsc"></div>
+                        <event-response></event-response>
+                    </ion-item>
                 </div>
-                <div class="description" data-ng-bind-html="question.dsc"></div>
             </ion-item>
         </ion-list>
     </ion-content>
     <ng-include src="'/templates/common/tabs.html'"></ng-include>
 </ion-view>
-

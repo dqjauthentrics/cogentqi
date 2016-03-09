@@ -20,7 +20,7 @@ angular.module('EventControllers', [])
 
 	.controller(
 		'EventConfigureCtrl',
-		function ($scope, $stateParams, $ionicPopup, Utility, Instruments, Events) {
+		function ($scope, $stateParams, $ionicPopup, $timeout, Utility, Instruments, Events) {
 			$scope.Instruments = Instruments;
 			$scope.Events = Events;
 			$scope.data = {dirty: false, saving: false, loading: true, alignments: [], currentInstrumentId: null};
@@ -45,7 +45,7 @@ angular.module('EventControllers', [])
 							$scope.Events.current.alignments) && $scope.Events.current.alignments.length > 0) {
 						for (var i = 0; i < $scope.Events.current.alignments.length; i++) {
 							var alignment = $scope.Events.current.alignments[i];
-							$scope.data.alignments[alignment.qi] = alignment.wt;
+							$scope.data.alignments[alignment.qi] = Utiltity.empty(alignment.wt) ? 0 : alignment.wt;
 						}
 					}
 					$scope.data.loading = false;
@@ -72,6 +72,43 @@ angular.module('EventControllers', [])
 						$scope.setAlignments();
 					}
 				}
+			};
+
+			// Duplicates of those in assessments controller!
+			$scope.updateResponse = function (question, value) {
+				$scope.data.dirty = true;
+				$scope.data.alignments[question.id] = value;
+			};
+			$scope.sliderChange = function (questionId) {
+			};
+			$scope.rubricWidth = function (nChoices) {
+				return 100 / (parseInt(nChoices) + 1);
+			};
+			$scope.refreshSliders = function () {
+				$timeout(function () {
+					$scope.$broadcast('rzSliderForceRender');
+				}, 100);
+			};
+			$scope.rubricSet = function (question, value) {
+				$scope.data.alignments[question.id] = value;
+				$scope.refreshSliders();
+			};
+			$scope.sliderTranslate = function (value) {
+				if (isNaN(value)) {
+					value = 0;
+				}
+				return value;
+			};
+			$scope.getRubricClass = function (response) {
+				var cClass = '';
+				try {
+					var stylePrefix = $scope.Instruments.current.questionChoices[response].iconPrefix;
+					cClass = 'rubric' + stylePrefix + response;
+				}
+				catch (exception) {
+					console.log(exception);
+				}
+				return cClass;
 			};
 
 			// Main

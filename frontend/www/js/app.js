@@ -32,6 +32,7 @@ angular.module(
 		'Icons',
 		'Messages',
 		'PDF',
+		'Configuration',
 		'Instruments',
 		'InstrumentSchedule',
 		'Settings',

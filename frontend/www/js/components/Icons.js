@@ -72,4 +72,5 @@ angular.module('Icons', []).service('Icons', function () {
 	this.unchecked = "fa fa-square-line";
 	this.unlocked = "ion-unlocked";
 	this.upArrow = "fa fa-arrow-circle-up";
+	this.weights = "fa fa-balance-scale";
 });

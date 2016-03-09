@@ -72,6 +72,13 @@ angular.module('app')
 		};
 	})
 
+	.directive('eventResponse', function () {
+		return {
+			restrict: 'E',
+			templateUrl: '../templates/event/_response.html'
+		};
+	})
+
 	.directive('assessmentNameCard', function () {
 		return {
 			restrict: 'E',

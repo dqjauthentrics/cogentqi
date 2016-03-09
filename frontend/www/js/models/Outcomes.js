@@ -122,15 +122,21 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 	};
 
 	svc.alignmentLevelPhrase = function (level) {
-		var phrase = 'No Alignment';
+		var phrase = 'Unaligned';
 		switch (parseInt(level)) {
 			case 1:
-				phrase = 'Partially Aligned';
+				phrase = 'Minimally Aligned';
 				break;
 			case 2:
-				phrase = 'Well-Aligned';
+				phrase = 'Partially Aligned';
 				break;
 			case 3:
+				phrase = 'Generally Aligned';
+				break;
+			case 4:
+				phrase = 'Mostly Aligned';
+				break;
+			case 5:
 				phrase = 'Highly Aligned';
 				break;
 		}

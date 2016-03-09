@@ -22,6 +22,7 @@ class CogentModel extends \Phalcon\Mvc\Model {
 		'asb'  => ['is_assessable', self::TYPE_INT],
 		'asi'  => ['assessor_id', self::TYPE_INT],
 		'av'   => ['avatar', self::TYPE_STRING],
+		'aw'   => ['assessment_weight', self::TYPE_INT],
 		'by'   => ['by_member_id', self::TYPE_STRING],
 		'cat'  => ['category', self::TYPE_STRING],
 		'cid'  => ['creator_id', self::TYPE_INT],

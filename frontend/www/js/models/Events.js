@@ -53,6 +53,50 @@ angular.module('Events', []).service('Events', function ($cookieStore, $q, $http
 			callbackFn(svc.list);
 		}
 	};
+	svc.alignmentLevelPhrase = function (level) {
+		var phrase = 'Irrelevant';
+		switch (parseInt(level)) {
+			case 1:
+				phrase = 'Minimally Relevant';
+				break;
+			case 2:
+				phrase = 'Partially Relevant';
+				break;
+			case 3:
+				phrase = 'Generally Relevant';
+				break;
+			case 4:
+				phrase = 'Mostly Relevant';
+				break;
+			case 5:
+				phrase = 'Fully Relevant';
+				break;
+		}
+		return phrase;
+	};
+	svc.saveAlignments = function (instrumentId, event, alignments, callbackFn) {
+		try {
+			$http.post("/api3/event/saveAlignments", {instrumentId: instrumentId, event: event, alignments: alignments})
+				.then(function (data, status, headers, config) {
+						  callbackFn(data.data);
+					  },
+					  function (data, status, headers, config) {
+						  var response = {status: 0, message: data};
+						  callbackFn(response);
+					  });
+		}
+		catch (exception) {
+			callbackFn(0, exception);
+		}
+	};
+	svc.thresholdPhrase = function (level) {
+		var phrase = 'Do Not Apply';
+		var levelNum = parseInt(level);
+		if (levelNum > 0) {
+			phrase = 'Apply after ' + level + ' event' + (levelNum == 1 ? '' : 's') + '.';
+		}
+		return phrase;
+	};
 
 	// To create a new event call with event == null
 	svc.saveEvent = function (event) {

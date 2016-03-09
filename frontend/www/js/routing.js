@@ -38,6 +38,9 @@ angular.module('Routing', ['ionic']).config(function ($stateProvider, $urlRouter
 		.state('administratorConfiguration', {
 			url: '/administrator/configuration', templateUrl: 'templates/administrator/configuration.html', controller: 'SettingsAdminCtrl'
 		})
+		.state('adminWeights', {
+			url: '/administrator/weights', templateUrl: 'templates/administrator/weights.html', controller: 'AdminWeightsCtrl'
+		})
 
 		// Assessments
 		.state('assessmentMatrixOrg', {

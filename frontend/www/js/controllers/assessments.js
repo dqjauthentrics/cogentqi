@@ -176,6 +176,9 @@ angular.module('AssessmentControllers', [])
 						Assessments.recommend($scope.Assessments.current.instrument, $scope.Resources.list, $scope.responses);
 				}
 			};
+			$scope.rubricWidth = function (nChoices) {
+				return 100 / (parseInt(nChoices) + 1);
+			};
 			$scope.getRubricClass = function (response) {
 				var cClass = '';
 				try {
@@ -277,10 +280,6 @@ angular.module('AssessmentControllers', [])
 				catch (exception) {
 					console.log("EXCEPTION:", exception);
 				}
-			};
-
-			$scope.rubricWidth = function (nChoices) {
-				return 100 / (parseInt(nChoices) + 1);
 			};
 
 			$scope.printIt = function () {

@@ -13,6 +13,30 @@ angular.module('ControllerAdministrator', [])
 		})
 
 	.controller(
+		'AdminWeightsCtrl',
+		function ($scope, Icons, Utility, Configuration) {
+			$scope.Configuration = Configuration;
+			$scope.data = {dirty: false, saving: false, loading: true, weight: 5};
+
+			$scope.save = function () {
+				$scope.data.saving = true;
+				$scope.Configuration.assessmentWeight = $scope.data.weight;
+				$scope.Configuration.outcomeWeight = 10 - $scope.data.weight;
+				$scope.Configuration.save(function (result) {
+											  $scope.data.saving = false;
+											  $scope.data.dirty = false;
+											  Utility.statusAlert(result);
+										  }
+				);
+			};
+
+			// Main
+			$scope.Configuration.retrieve(function () {
+				$scope.data.loading = false;
+			});
+		})
+
+	.controller(
 		'AdminScheduleCtrl',
 		function ($timeout, $scope, $stateParams, Utility, InstrumentSchedule) {
 			$scope.data = {dirty: false, scheduleItems: [], currentScheduleItem: {}, dob: new Date(1984, 4, 15)};

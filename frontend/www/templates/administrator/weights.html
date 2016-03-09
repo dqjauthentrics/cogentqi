@@ -1,0 +1,29 @@
+<ion-view view-title="{{'Top-Level Weights Configuration'|translate}}" cache-view="false">
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-content class="padding" has-bouncing="false" overflow-scroll="true">
+        <ion-list>
+            <ion-item>
+                <div class="iconBar">
+                    <div class="pull-right">
+                        <button ng-click="save(this)" class="button button-action button-save" ng-class="(data.dirty? 'button-dirty' : '')">
+                            <i ng-class="(data.saving || data.isLoading? i.loadingSpinner : i.save)"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div style="text-align: center;">
+                    {{'When making recommendations, the system can give more strength to one component or another.'|translate}}
+                </div>
+                <div style="margin:3vw; font-style:italic;">
+                    <label for="weight_distribution">{{'Assign Relative Weights'|translate}}</label>
+                    <input id="weight_distribution" type="range" min="0" max="10" data-ng-bind="Events.current.threshold"
+                           data-ng-model="data.weight" data-ng-change="data.dirty = true"/>
+                    <div class="pull-left" style="text-align: center;">{{'Assessments'|translate}}<br/>{{data.weight}}</div>
+                    <div class="pull-right" style="text-align: center;">{{'Outcomes'|translate}}<br/>{{10-data.weight}}</div>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
+</ion-view>
