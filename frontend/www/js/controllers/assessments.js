@@ -170,6 +170,25 @@ angular.module('AssessmentControllers', [])
 				}
 			};
 
+			$scope.percentComplete = function (questions) {
+				var pcnt = 0;
+				var tot = 0;
+				var nComplete = 0;
+				for (var i = 0; i < questions.length; i++) {
+					tot++;
+					var response = $scope.response(questions[i].id);
+					console.log('r', response.rdx);
+					if (response.rdx > 0) {
+						nComplete++;
+					}
+				}
+				if (nComplete > 0 && tot > 0) {
+					pcnt = Math.round((nComplete / tot ) * 100);
+				}
+				console.log(tot, nComplete, pcnt);
+				return pcnt;
+			};
+
 			$scope.getRecommendations = function () {
 				if ($scope.Assessments.current !== null && $scope.Resources.list !== null) {
 					$scope.data.recommendations =

@@ -418,9 +418,7 @@ ion-item .stamp {
 }
 
 .recommendationsPane, .assessmentNameCard {
-    min-height: 17em;
-    max-height: 17em;
-    height: 17em;
+    padding: 0.5em;
 }
 
 .recommendationsPane {
@@ -973,8 +971,8 @@ th.rotate > div > span {
 
 .score {
     color: #FFF;
-    line-height: 1.1vw;
-    font-size: 1.0vw;
+    line-height: 0.9em;
+    font-size: 0.9em;
     vertical-align: middle;
 }
 
@@ -1216,6 +1214,7 @@ table.assessmentItem td {
     font-weight: normal;
     color: gray;
 }
+
 .dashOrg {
     font-weight: normal;
     color: gray;
@@ -1894,6 +1893,7 @@ list-searcher {
 .range.outcomeLevel2 input::-webkit-slider-thumb:before {
     background: darkorange;
 }
+
 .range.outcomeLevel3 input::-webkit-slider-thumb:before {
     background: #68A;
 }
@@ -2127,3 +2127,9 @@ input[type=range]:focus::-ms-fill-upper {
     background: #367ebd;
 }
 ****/
+
+progress[value]::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}

@@ -302,6 +302,9 @@ angular.module('Instruments', []).service('Instruments', function ($resource, $h
 		}
 		return null;
 	};
+	svc.go = function(sectionIdx) {
+		svc.currentSectionIdx = sectionIdx;
+	};
 	svc.sectionNext = function (instrument) {
 		if (instrument == undefined) {
 			instrument = svc.current;
