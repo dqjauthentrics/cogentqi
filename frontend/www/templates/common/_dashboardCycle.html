@@ -4,7 +4,8 @@
             <div style="float:left; margin-top:-5.6em; font-size: 0.5em; line-height:1em; text-align: left;">
                 <div class="dashName">{{data.user.fn}} {{data.user.ln}}</div>
                 <div class="dashJob">{{data.user.jt}}</div>
-                <div class="dashRole" data-ng-show="data.user.rn != data.user.jt">({{data.user.rn}})</div>
+                <div class="dashRole" data-ng-show="data.user.rn != data.user.jt">{{data.user.rn}}</div>
+                <div class="dashOrg">{{data.user.org}}</div>
             </div>
             <a style="margin-left:1.5em;" href="#/assessment/matrix">{{'Assessment'|translate}}</a>
         </td>

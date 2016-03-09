@@ -104,7 +104,7 @@ angular.module('OutcomeControllers', [])
 		})
 
 	.controller(
-		'OutcomeCoListCtrl',
+		'OutcomeListCtrl',
 		function ($cookieStore, $scope, $stateParams, Utility, Organizations, Resources, Outcomes) {
 			$scope.Outcomes = Outcomes;
 			$scope.data = {currentOrg: {}, levels: [], dirty: false, isLoading: true};

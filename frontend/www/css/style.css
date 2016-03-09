@@ -1216,6 +1216,10 @@ table.assessmentItem td {
     font-weight: normal;
     color: gray;
 }
+.dashOrg {
+    font-weight: normal;
+    color: gray;
+}
 
 .item-complex.item-icon-right .item-content {
     /**

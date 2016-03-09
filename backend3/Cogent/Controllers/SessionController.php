@@ -12,6 +12,7 @@ class SessionController extends \Cogent\Controllers\ControllerBase {
 	 */
 	private function _setSession($member) {
 		$memberRec = $member->map();
+		$memberRec['org'] = $member->organization->name;
 		$this->session->set('auth', $memberRec);
 	}
 
