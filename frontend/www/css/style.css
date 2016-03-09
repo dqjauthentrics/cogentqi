@@ -2127,9 +2127,27 @@ input[type=range]:focus::-ms-fill-upper {
     background: #367ebd;
 }
 ****/
+.progressBar {
+    position: relative;
+    border: 1em solid white;
+    padding: 1em;
+    background: gray;
+    vertical-align: middle;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
 
-progress[value]::-webkit-progress-bar {
-    background-color: #eee;
-    border-radius: 2px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+.progressBar.selected:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -20px;
+    width: 0;
+    height: 0;
+    border-top: solid 20px gray;
+    border-left: solid 20px transparent;
+    border-right: solid 20px transparent;
 }

@@ -29,8 +29,7 @@
                 </div>
             </div>
             <div class="row responsive-sm" ng-show="!data.isLoading">
-                <div class="col"
-                     style="border: 1em solid white; padding:1em; background:gray; vertical-align: middle; color: white; font-weight:bold; text-align: center; cursor:pointer;"
+                <div class="col progressBar" ng-class="$index == Instruments.currentSectionIdx? 'selected':''"
                      ng-repeat="section in Assessments.current.instrument.sections" ng-click="go($index)">
                     <progressbar style="margin-bottom:0.2em;" class="progress active" max="100" value="percentComplete(section.questions)" type="success">
                     </progressbar>
