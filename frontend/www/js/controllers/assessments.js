@@ -177,7 +177,6 @@ angular.module('AssessmentControllers', [])
 				for (var i = 0; i < questions.length; i++) {
 					tot++;
 					var response = $scope.response(questions[i].id);
-					console.log('r', response.rdx);
 					if (response.rdx > 0) {
 						nComplete++;
 					}
@@ -185,7 +184,6 @@ angular.module('AssessmentControllers', [])
 				if (nComplete > 0 && tot > 0) {
 					pcnt = Math.round((nComplete / tot ) * 100);
 				}
-				console.log(tot, nComplete, pcnt);
 				return pcnt;
 			};
 
