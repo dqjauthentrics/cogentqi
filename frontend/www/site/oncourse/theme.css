@@ -18,7 +18,7 @@
     color: #8ae281;
 }
 
-ion-content.dashboard {
+ion-content.dashboard, ion-content.login {
     background: url("/site/oncourse/images/bgOpaque.png") top left no-repeat;
     background-size: cover;
 }
