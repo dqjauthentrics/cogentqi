@@ -14,7 +14,7 @@ angular.module('ResourceAnalysis', []).service(
 		svc.get = function () {
 			var promises = [];
 			promises.push(QuestionGroups.get());
-			promises.push(Resources.loadAll(function () {
+			promises.push(Resources.loadAll2(function () {
 			}));
 			return $q.all(promises)
 				.then(
