@@ -38,20 +38,6 @@ angular.module('Resources', []).service('Resources', function ($q, $resource, $h
 		}
 		else {
 			callbackFn(svc.list);
-		}
-	};
-
-	svc.loadAll2 = function (callbackFn) {
-		if (svc.list === null) {
-			return Utility.getResource(svc.retrieve(), function (response) {
-				svc.list = response.data;
-				svc.current = svc.list[0];
-				callbackFn(svc.list);
-				return svc;
-			}).$q;
-		}
-		else {
-			callbackFn(svc.list);
 			return $q.when(svc);
 		}
 	};

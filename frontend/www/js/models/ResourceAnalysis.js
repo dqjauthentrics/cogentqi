@@ -14,7 +14,7 @@ angular.module('ResourceAnalysis', []).service(
 		svc.get = function () {
 			var promises = [];
 			promises.push(QuestionGroups.get());
-			promises.push(Resources.loadAll2(function () {
+			promises.push(Resources.loadAll(function () {
 			}));
 			return $q.all(promises)
 				.then(
@@ -38,7 +38,11 @@ angular.module('ResourceAnalysis', []).service(
 								weights.push(0);
 							}
 							resource.alignments.forEach(function (alignment) {
-								weights[questionIdToIndex[alignment.qi]] = alignment.wt;
+								var totalUtility = 0;
+								alignment.mapping.forEach(function(map) {
+									totalUtility += map.utility;
+								});
+								weights[questionIdToIndex[alignment.qi]] = totalUtility;
 							});
 							svc.resources.push({
 												   name: resource.n,
