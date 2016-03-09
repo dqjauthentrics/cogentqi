@@ -164,7 +164,6 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 		var color = 'outcomeLevel' + grade;
 		range.removeClass('outcomeLevel0').removeClass('outcomeLevel1').removeClass('outcomeLevel2').removeClass('outcomeLevel3');
 		range.addClass(color);
-		console.log('barColor', color);
 		return color;
 	};
 	svc.outcomeLevelPhrase = function (level) {
