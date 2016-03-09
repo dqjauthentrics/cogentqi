@@ -1839,14 +1839,18 @@ list-searcher {
 }
 
 .outcomeLevel1 {
-    color: orange !important;
+    color: red !important;
 }
 
 .outcomeLevel2 {
-    color: #68A !important;
+    color: darkorange !important;
 }
 
 .outcomeLevel3 {
+    color: #68A !important;
+}
+
+.outcomeLevel4 {
     color: darkgreen !important;
 }
 
@@ -1856,18 +1860,42 @@ list-searcher {
 }
 
 .outcomeLevelBg1 {
-    background: orange;
+    background: red;
     color: #FFF;
 }
 
 .outcomeLevelBg2 {
-    background: #68A;
+    background: darkorange;
     color: #FFF;
 }
 
 .outcomeLevelBg3 {
+    background: #68A;
+    color: #FFF;
+}
+
+.outcomeLevelBg4 {
     background: darkgreen;
     color: #FFF;
+}
+
+.range.outcomeLevel0 input::-webkit-slider-thumb:before {
+    background: gray;
+}
+
+.range.outcomeLevel1 input::-webkit-slider-thumb:before {
+    background: red;
+}
+
+.range.outcomeLevel2 input::-webkit-slider-thumb:before {
+    background: darkorange;
+}
+.range.outcomeLevel3 input::-webkit-slider-thumb:before {
+    background: #68A;
+}
+
+.range.outcomeLevel4 input::-webkit-slider-thumb:before {
+    background: darkgreen;
 }
 
 .rubriclevelBg0 {
@@ -1993,6 +2021,7 @@ rzslider.assessment .rz-pointer:after {
     filter: hue-rotate(90deg);
 }
 
+/****
 input[type=range] {
     -webkit-appearance: none;
     margin: 18px 0;
@@ -2093,3 +2122,4 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
     background: #367ebd;
 }
+****/

@@ -93,6 +93,14 @@ angular.module('OutcomeControllers', [])
 					}
 				});
 			};
+			$scope.currLevel = function(index) {
+				try {
+					return $scope.data.currentOrg.lv[index][1];
+				}
+				catch (exception){
+					return 0;
+				}
+			}
 		})
 
 	.controller(

@@ -1,7 +1,7 @@
 <ion-view view-title="{{'Dashboard'|translate}}" cache-view="false">
     <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
     <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
-    <ion-content class="padding" has-bouncing="false">
+    <ion-content class="padding dashboard" has-bouncing="false">
         <div id="mainTitle"><a href="#/" ng-bind-html="installation.name"></a></div>
         <dashboard-cycle></dashboard-cycle>
     </ion-content>

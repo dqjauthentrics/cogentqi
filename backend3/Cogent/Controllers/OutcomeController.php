@@ -25,7 +25,7 @@ class OutcomeController extends ControllerBase {
 		/** @var OrganizationOutcome $orgOutLevelRec */
 		foreach ($orgOutLevelRecs as $orgOutLevelRec) {
 			if ($orgOutLevelRec->organization_id == $orgId && $orgOutLevelRec->outcome_id == $outcomeId) {
-				return [(int)$outcomeId, (int)$orgOutLevelRec->level];
+				return [(int)$outcomeId, $orgOutLevelRec->level];
 			}
 		}
 		return [(int)$outcomeId, 0];

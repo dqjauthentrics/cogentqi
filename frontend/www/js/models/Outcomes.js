@@ -142,46 +142,50 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 		}
 		return phrase;
 	};
-	svc.getBarColor = function (outcome, currentOrg) {
-		var color = 'stable';
-		if (!Utility.empty(outcome) && !Utility.empty(currentOrg)) {
-			var id = currentOrg.id;
-			var level = outcome.lv;
-			var range = $("#range" + outcome.id);
-			switch (parseInt(level)) {
-				case 1:
-					color = 'assertive';
-					break;
-				case 2:
-					color = 'energized';
-					break;
-				case 3:
-					color = 'balanced';
-					break;
-			}
-			range.removeClass('range-stable').removeClass('range-assertive').removeClass('range-energized').removeClass('range-balanced').addClass(
-				'range-' + color);
+	svc.levelGrade = function (level) {
+		var grade = 0;
+		if (level <= 0.25) {
+			grade = 1;
 		}
-		return 'range-' + color;
+		else if (level <= 0.5) {
+			grade = 2;
+		}
+		else if (level <= 0.75) {
+			grade = 3;
+		}
+		else {
+			grade = 4;
+		}
+		return grade;
+	};
+	svc.setBarColor = function (level, outcomeId) {
+		var grade = svc.levelGrade(level);
+		var range = $("#range" + outcomeId);
+		var color = 'outcomeLevel' + grade;
+		range.removeClass('outcomeLevel0').removeClass('outcomeLevel1').removeClass('outcomeLevel2').removeClass('outcomeLevel3');
+		range.addClass(color);
+		console.log('barColor', color);
+		return color;
 	};
 	svc.outcomeLevelPhrase = function (level) {
 		var phrase = 'No Data';
-		switch (parseInt(level)) {
-			case 1:
-				phrase = 'Unacceptable';
-				break;
-			case 2:
-				phrase = 'Acceptable';
-				break;
-			case 3:
-				phrase = 'Excellent';
-				break;
+		if (level <= 0.25) {
+			phrase = 'Unacceptable';
+		}
+		else if (level <= 0.5) {
+			phrase = 'Acceptable';
+		}
+		else if (level <= 0.75) {
+			phrase = 'Good';
+		}
+		else {
+			phrase = 'Excellent';
 		}
 		return phrase;
 	};
 	svc.getRubric = function (level) {
 		var rubric = '';
-		switch (parseInt(level)) {
+		switch (svc.levelGrade(level)) {
 			case 0:
 				rubric = 'This outcome is not relevant, at the moment.';
 				break;
@@ -190,9 +194,13 @@ angular.module('Outcomes', []).service('Outcomes', function ($cookieStore, $reso
 				break;
 			case 2:
 				rubric =
-					'The level of performance for this outcome is acceptable and within the range of normal, but there is room for improvement.';
+					'The level of performance for this outcome is acceptable and within the range of normal, but there is much room for improvement.';
 				break;
 			case 3:
+				rubric =
+					'The level of performance for this outcome is good, and well within the range of normal, but there is still some room for improvement.';
+				break;
+			case 4:
 				rubric = 'This performance level is excellent, exceeding the prescribed normal minimums.  No action is required.';
 				break;
 		}

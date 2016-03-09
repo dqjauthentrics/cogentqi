@@ -13,3 +13,7 @@
     color: #FFF;
     background-color: #AAA;
 }
+
+.tabs-assertive > .tabs, .tabs.tabs-assertive, .bar.bar-assertive {
+    border-color: navy;
+}

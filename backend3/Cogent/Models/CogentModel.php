@@ -53,7 +53,7 @@ class CogentModel extends \Phalcon\Mvc\Model {
 		'ln'   => ['last_name', self::TYPE_STRING],
 		'loc'  => ['location', self::TYPE_STRING],
 		'ls'   => ['last_saved', self::TYPE_DATETIME],
-		'lv'   => ['level', self::TYPE_INT],
+		'lv'   => ['level', self::TYPE_REAL],
 		'max'  => ['max_range', self::TYPE_INT],
 		'mb'   => ['mobile', self::TYPE_STRING],
 		'mc'   => ['member_comments', self::TYPE_STRING],
