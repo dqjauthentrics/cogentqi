@@ -31,7 +31,7 @@
             <div class="row responsive-sm" ng-show="!data.isLoading">
                 <div class="col"
                      style="border: 1em solid white; padding:1em; background:gray; vertical-align: middle; color: white; font-weight:bold; text-align: center; cursor:pointer;"
-                     ng-repeat="section in Assessments.current.instrument.sections" ng-click="Instruments.go($index)">
+                     ng-repeat="section in Assessments.current.instrument.sections" ng-click="go($index)">
                     <progressbar style="margin-bottom:0.2em;" class="progress active" max="100" value="percentComplete(section.questions)" type="success">
                     </progressbar>
                     <div>{{section.n}}</div>
@@ -50,11 +50,11 @@
                             </div>
                             <div class="clearfix"></div>
                             <div style="height:1em;"></div-->
-                            <ion-list>
+                            <div class="list card animated slideInRight">
                                 <ion-item class="top">
                                     <h2 style="float:left;">{{section.nmb}} {{section.n}}</h2>
                                 </ion-item>
-                                <ion-item class="item-remove-animate question" ng-repeat="question in section.questions" type="item-text-wrap">
+                                <ion-item class="item-remove-animate question fadein fadeout" ng-repeat="question in section.questions" type="item-text-wrap">
                                     <div>
                                         <div style="display:table-row;">
                                             <div style="display:table-cell;" class="number" data-ng-bind="section.nmb + '.' + question.nmb"></div>
@@ -84,7 +84,7 @@
                                         <div class="clearfix"></div>
                                     </div>
                                 </ion-item>
-                            </ion-list>
+                            </div>
                         </div>
                     </div>
                 </div>

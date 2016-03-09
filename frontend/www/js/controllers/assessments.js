@@ -239,7 +239,10 @@ angular.module('AssessmentControllers', [])
 					$scope.getRecommendations();
 				}
 			};
-
+			$scope.go = function (sectionIdx) {
+				Instruments.go(sectionIdx);
+				$scope.refreshSliders();
+			};
 			$scope.refreshSliders = function () {
 				$timeout(function () {
 					$scope.$broadcast('rzSliderForceRender');
