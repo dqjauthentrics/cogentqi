@@ -343,7 +343,10 @@ angular.module('AssessmentControllers', [])
 				});
 			};
 			$scope.canEdit = function () {
-				return !$rootScope.isProfessional();
+				if (!Utility.empty($rootScope.isProfessional)) {
+					return !$rootScope.isProfessional();
+				}
+				return false;
 			};
 			$scope.canRemove = function () {
 				return !Utility.empty($scope.Assessments.current) && !$rootScope.isProfessional() && $scope.canEdit();
