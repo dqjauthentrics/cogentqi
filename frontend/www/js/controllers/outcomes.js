@@ -62,7 +62,6 @@ angular.module('OutcomeControllers', [])
 				}
 				$scope.data.isLoading = false;
 			});
-
 			$scope.setCurrentOrg = function (organization) {
 				$scope.data.currentOrg = organization;
 			};
@@ -87,6 +86,7 @@ angular.module('OutcomeControllers', [])
 				$scope.Outcomes.saveLevels($scope.data.currentOrg, function (response) {
 					if (response.status == 1) {
 						$scope.data.dirty = false;
+						Utility.statusAlert(response);
 					}
 					else {
 						Utility.statusAlert(response);
@@ -101,40 +101,6 @@ angular.module('OutcomeControllers', [])
 					return 0;
 				}
 			}
-		})
-
-	.controller(
-		'OutcomeListCtrl',
-		function ($cookieStore, $scope, $stateParams, Utility, Organizations, Resources, Outcomes) {
-			$scope.Outcomes = Outcomes;
-			$scope.data = {currentOrg: {}, levels: [], dirty: false, isLoading: true};
-			$scope.user = $cookieStore.get('user');
-
-			Utility.getResource(Outcomes.retrieveForOrg($scope.user.oi, false), function (response) {
-				if (response.status == 1) {
-					$scope.Outcomes.list = response.data.outcomes;
-					$scope.data.currentOrg = response.data.orgLevels[0];
-					$scope.data.dirty = false;
-				}
-				else {
-					Utility.statusAlert(response);
-				}
-				$scope.data.isLoading = false;
-			});
-
-			$scope.changed = function (outcome) {
-				$scope.data.dirty = true;
-			};
-			$scope.save = function () {
-				$scope.Outcomes.saveLevels($scope.data.currentOrg, function (response) {
-					if (response.status == 1) {
-						$scope.data.dirty = false;
-					}
-					else {
-						Utility.statusAlert(response);
-					}
-				});
-			};
 		})
 
 	.controller(

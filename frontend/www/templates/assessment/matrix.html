@@ -13,6 +13,12 @@
             <h1 data-ng-show="Instruments.list.length == 1">{{Instruments.current.n}}</h1>
             <h2>{{Assessments.matrix.org.n}}</h2>
         </div>
+        <div class="row responsive-sm" ng-show="Instruments.list.length > 1">
+            <div class="col progressBar" ng-class="$index == Instruments.currentSectionIdx? 'selected':''"
+                 ng-repeat="section in Instruments.current.sections" ng-click="go($index)">
+                <div>{{section.n|ellipsify:24}}</div>
+            </div>
+        </div>
         <div style="overflow: auto !important;">
             <table id="matrix" class="matrix" ng-show="Assessments.matrix">
                 <thead>

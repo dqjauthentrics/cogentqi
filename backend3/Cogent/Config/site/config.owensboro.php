@@ -4,6 +4,6 @@ return [
 	'textName' => 'Owensboro Healthcare',
 	'logo'     => '<img src="/site/owensboro/images/logoHeader.png" alt=""/>',
 	'database' => [
-		'dbname' => 'cogentqi_v1_healthcare'
+		'dbname' => 'cogentqi_v1_owensboro'
 	],
 ];

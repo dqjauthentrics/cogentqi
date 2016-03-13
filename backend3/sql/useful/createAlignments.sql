@@ -1,3 +1,4 @@
+USE cogentqi_v1_owensboro;
 DELETE FROM outcome_alignment;
 INSERT INTO outcome_alignment (outcome_id, question_id, weight, rel_wt)
   SELECT

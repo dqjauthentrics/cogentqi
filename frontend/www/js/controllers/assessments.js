@@ -67,6 +67,9 @@ angular.module('AssessmentControllers', [])
 					});
 				}
 			};
+			$scope.go = function (sectionIdx) {
+				Instruments.go(sectionIdx);
+			};
 			$scope.getScoreClass = function (response) {
 				var cClass = '';
 				try {

@@ -34,7 +34,7 @@
                     <progressbar style="margin-bottom:0.2em;" class="progress active" max="100" value="percentComplete(section.questions)" type="success">
                         {{percentComplete(section.questions) + '%'}}
                     </progressbar>
-                    <div>{{section.n}}</div>
+                    <div>{{section.n|ellipsify:24}}</div>
                 </div>
             </div>
             <div class="row responsive-lg detail" ng-show="!data.isLoading">

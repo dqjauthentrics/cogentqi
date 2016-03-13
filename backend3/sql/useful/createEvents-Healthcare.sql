@@ -1,3 +1,4 @@
+USE cogentqi_v1_owensboro;
 DELETE FROM member_event;
 DELETE FROM event;
 INSERT INTO event (name, description, category) VALUES ('Patient Fall', '.', 'Patient Care');

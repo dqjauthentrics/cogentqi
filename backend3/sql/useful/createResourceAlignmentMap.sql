@@ -1,3 +1,7 @@
+USE cogentqi_v1_owensboro;
+INSERT INTO resource_alignment (resource_id, question_id)
+  SELECT r.id, q.id FROM resource r, question q ORDER BY rand() LIMIT 300;
+
 INSERT INTO resource_alignment_map (resource_alignment_id, response, utility)
   SELECT
     id, 1, round(1 + rand() * 4) FROM resource_alignment
