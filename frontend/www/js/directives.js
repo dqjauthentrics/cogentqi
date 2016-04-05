@@ -78,6 +78,12 @@ angular.module('app')
 			templateUrl: '../templates/event/_response.html'
 		};
 	})
+	.directive('choiceEditor', function () {
+		return {
+			restrict: 'E',
+			templateUrl: '../templates/instrument/_choiceEditor.html'
+		};
+	})
 
 	.directive('assessmentNameCard', function () {
 		return {

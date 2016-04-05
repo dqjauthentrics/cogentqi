@@ -4,6 +4,6 @@ return [
 	'textName' => 'OnCourse Learning',
 	'logo'     => '<img src="/site/oncourse/images/logoHeader.png" alt="" style="height:38px; width:38px;"/>',
 	'database' => [
-		'dbname' => 'cogentqi_v1_healthcare'
+		'dbname' => 'cogentqi_v1_oncourse'
 	],
 ];

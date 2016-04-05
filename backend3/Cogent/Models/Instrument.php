@@ -6,7 +6,6 @@ namespace Cogent\Models;
  * @package Cogent\Models
  *
  * @method QuestionType getQuestionType()
- * @method Instrument|Instrument[] get($id = NULL, $mapIt = TRUE, $orderBy = 'id', $where = '1=1', $whereParams = [])
  * @method \Phalcon\Mvc\Model\Resultset\Simple getSchedule()
  *
  * @method Instrument $instrument
@@ -99,6 +98,19 @@ class Instrument extends CogentModel {
 	 */
 	public static function findFirst($parameters = NULL) {
 		return parent::findFirst($parameters);
+	}
+
+	/**
+	 * @param int|null $id
+	 * @param bool     $mapIt
+	 * @param string   $orderBy
+	 * @param string   $where
+	 * @param array    $whereParams
+	 *
+	 * @return array|\Cogent\Models\CogentModel|\Cogent\Models\CogentModel[]|null
+	 */
+	public function get($id = NULL, $mapIt = TRUE, $orderBy = 'id', $where = "status='A'", $whereParams = []) {
+		return parent::get($id, $mapIt, $orderBy, $where, $whereParams);
 	}
 
 	/**

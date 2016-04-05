@@ -1,0 +1,20 @@
+<div style="margin: 1em 1em 1em 5em;">
+    <div style="font-size:1.2em; font-weight:bold; color: #888;" ng-click="data.toggles[question.id] = !data.toggles[question.id]">
+        {{'Responses'|translate}} <i ng-class="data.toggles[question.id]? i.expanded : i.collapsed"></i>
+    </div>
+     <select data-ng-model="question.type.id" data-ng-options="choiceType.id as choiceType.n for choiceType in data.choiceTypes">
+    </select>
+    <div ng-show="data.toggles[question.id]">
+        <div><input style="font-size:1.2em; font-weight:bold; width:20em;" type="text" ng-bind="question.type.n" ng-model="question.type.n"/></div>
+        <div ng-repeat="choice in question.type.choices track by $index">
+            <div class="row responsive-sm">
+                <div class="col col-33">
+                    <span>{{$index}}</span>. <input style="display:inline;" type="text" ng-bind="choice.n" ng-model="choice.n"/>
+                </div>
+                <div class="col col-67">
+                    <textarea data-ng-change="setDirty()" data-ng-model="choice.ru" class="wysiwyg" ng-bind-html="choice.ru" redactor></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

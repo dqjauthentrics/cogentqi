@@ -15,6 +15,7 @@ angular.module('Icons', []).service('Icons', function () {
 	this.building = "fa fa-building-o";
 	this.buildingOn = "fa fa-building";
 	this.checked = "fa fa-check-mark-2";
+	this.collapsed = "fa fa-caret-right";
 	this.completed = "ion-checkmark";
 	this.criterion = "fa fa-bookmark";
 	this.dashboard = "fa fa-tachometer";
@@ -23,6 +24,7 @@ angular.module('Icons', []).service('Icons', function () {
 	this.edit = "ion-compose";
 	this.email = "fa fa-mail";
 	this.event = "fa fa-warning";
+	this.expanded = "fa fa-caret-down";
 	this.externalLink = "fa fa-external-link-square";
 	this.flag = "fa fa-flag";
 	this.flagOff = "fa fa-flag-o";

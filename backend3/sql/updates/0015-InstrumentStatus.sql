@@ -1,0 +1,1 @@
+ALTER TABLE instrument ADD COLUMN status CHAR NOT NULL DEFAULT 'A';

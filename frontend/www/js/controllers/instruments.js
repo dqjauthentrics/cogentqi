@@ -10,11 +10,31 @@ angular.module('InstrumentControllers', [])
 		'InstrumentCtrl',
 		function ($scope, $stateParams, Utility, Instruments, $ionicSlideBoxDelegate) {
 			$scope.Instruments = Instruments;
-			$scope.data = {dirty: false};
+			$scope.data = {dirty: false, choiceTypes: []};
+
+			$scope.typeInArray = function (type, choiceTypes) {
+				for (var i = 0; i < choiceTypes.length; i++) {
+					if (choiceTypes[i].id == type.id) {
+						return true;
+					}
+				}
+				return false;
+			};
 
 			$scope.setCurrentInstrument = function () {
 				if (!Utility.empty($scope.Instruments) && !Utility.empty($stateParams)) {
 					$scope.Instruments.current = Utility.findObjectById($scope.Instruments.list, $stateParams.instrumentId);
+					if (!Utility.empty($scope.Instruments.current)) {
+						for (var i = 0; i < $scope.Instruments.current.questionGroups.length; i++) {
+							for (var j = 0; j < $scope.Instruments.current.questionGroups[i].questions.length; j++) {
+								var type = $scope.Instruments.current.questionGroups[i].questions[j].type;
+								if (type !== undefined && !$scope.typeInArray(type, $scope.data.choiceTypes)) {
+									$scope.data.choiceTypes.push(type);
+								}
+							}
+						}
+						$scope.data.choiceTypes.push({id: -1, n: '-add new response set-', ru: ''});
+					}
 				}
 			};
 
