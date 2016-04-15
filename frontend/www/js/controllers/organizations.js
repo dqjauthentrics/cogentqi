@@ -9,7 +9,7 @@ angular.module('OrganizationControllers', [])
 	.controller(
 		'OrganizationCtrl',
 		function ($scope, $cookieStore, $stateParams, Utility, Icons, Organizations, Members) {
-			$scope.data = {canEdit: true, organizations: [], currentMembers: undefined, currentOrg: {}, parentOrg: {}};
+			$scope.data = {canEdit: true, organizations: [], currentMembers: undefined, currentOrg: {}, parentOrg: {}, children: []};
 			$scope.Members = Members;  //@todo currently need to pass through to memberItem tag
 			var user = $cookieStore.get('user');
 
@@ -25,12 +25,23 @@ angular.module('OrganizationControllers', [])
 					});
 				}
 			};
+			$scope.getChildren = function (organizationId) {
+				if (!Utility.empty(organizationId)) {
+					Utility.getResource(Organizations.retrieve(organizationId), function (response) {
+						if (!Utility.empty(response) && !Utility.empty(response.data)) {
+							response.data.shift();
+							$scope.data.children = response.data;
+						}
+					});
+				}
+			};
 			$scope.setCurrentOrg = function (organization) {
 				$scope.data.currentOrg = organization;
 				$scope.data.currentMembers = [];
 				if (!Utility.empty(organization)) {
 					Organizations.members(organization.id).query(function (response) {
 						$scope.data.currentMembers = response.data;
+						$scope.getChildren($scope.data.currentOrg.id);
 					});
 				}
 			};
