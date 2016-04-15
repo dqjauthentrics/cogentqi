@@ -413,12 +413,20 @@ class Matrix {
 		$row = $this->dbif->query("SELECT retrieveOrgDescendantIds($organizationId) AS orgIds")->fetch();
 		$orgIds = $row["orgIds"];
 		$orgIds = $organizationId . (strlen($orgIds) > 0 ? "," : "") . $orgIds;
-		$sql = "SELECT m.organization_id, o.name, q.question_group_id, ar.question_id, t.entry_type, AVG(ar.response_index) AS response
-					FROM assessment_response ar, assessment a, member m, organization o, question q, question_type t
-					WHERE a.instrument_id=$instrumentId AND a.member_id=m.id AND q.question_type_id=t.id AND
-						m.organization_id IN (SELECT id FROM organization WHERE id IN($orgIds)) AND ar.assessment_id=a.id AND m.organization_id=o.id
-						AND q.id=ar.question_id
-					GROUP BY m.organization_id, o.name, ar.question_id ORDER BY o.name,o.id,q.sort_order";
+		$sql = "SELECT 	
+					retrieveOrgSubParentId($organizationId,m.organization_id) AS organization_id, 
+					retrieveOrgSubParentName($organizationId,m.organization_id) name, 
+					q.question_group_id, ar.question_id, t.entry_type, AVG(ar.response_index) AS response
+				FROM 
+					assessment_response ar, assessment a, member m, organization o, question q, question_type t
+				WHERE 	
+					a.instrument_id=$instrumentId AND a.member_id=m.id AND q.question_type_id=t.id 
+					AND m.organization_id IN (SELECT id FROM organization WHERE id IN($orgIds)) 
+					AND m.organization_id = o.id
+					AND ar.assessment_id=a.id
+					AND q.id=ar.question_id
+				GROUP BY retrieveOrgSubParentId($organizationId,m.organization_id), name, q.question_group_id, ar.question_id, t.entry_type
+				ORDER BY organization_id, name,q.sort_order";
 		$dbRecords = $this->dbif->query($sql)->fetchAll();
 
 		$matrix = ['total' => 0, 'count' => 0, 'typeName' => NULL];
@@ -499,6 +507,12 @@ class Matrix {
 
 			$columnSummaries = [];
 			foreach ($columns as $colIdx => $info) {
+				if (empty($columns[$colIdx]["total"])) {
+					$columns[$colIdx]["total"] = 0;
+					$columns[$colIdx]["count"] = 0;
+					$columns[$colIdx]["typeName"] = 'TBD';
+					$columns[$colIdx]["groupIdx"] = 0;
+				}
 				$columnSummaries[] = [
 					'C' . @$columns[$colIdx]['t'],
 					$this->avg($columns[$colIdx]["total"], $columns[$colIdx]["count"]),

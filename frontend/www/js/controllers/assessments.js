@@ -263,16 +263,18 @@ angular.module('AssessmentControllers', [])
 				$scope.responses = $scope.Assessments.current.responses;
 				var instrumentId = $scope.Assessments.current.instrument.id;
 				var instrument = Utility.findObjectById($scope.Instruments.list, instrumentId);
-				var scoreInfo = Assessments.scorify(instrument, $scope.responses);
-				var question = instrument.sections[0].questions[0];
-				$scope.Assessments.current.instrument = instrument;
-				$scope.Assessments.current.sc = scoreInfo.avg;
-				$scope.Assessments.current.rk = scoreInfo.avgRound;
-				$scope.Assessments.current.scoreWord = Assessments.scoreWord(question.id, scoreInfo.avgRound, $scope.responses);
-				$scope.data.assessor = $cookieStore.get('user');
-				$scope.getRecommendations();
-				$scope.data.isLoading = false;
-				$scope.refreshSliders();
+				if (!Utility.empty(instrument)) {
+					var scoreInfo = Assessments.scorify(instrument, $scope.responses);
+					var question = instrument.sections[0].questions[0];
+					$scope.Assessments.current.instrument = instrument;
+					$scope.Assessments.current.sc = scoreInfo.avg;
+					$scope.Assessments.current.rk = scoreInfo.avgRound;
+					$scope.Assessments.current.scoreWord = Assessments.scoreWord(question.id, scoreInfo.avgRound, $scope.responses);
+					$scope.data.assessor = $cookieStore.get('user');
+					$scope.getRecommendations();
+					$scope.data.isLoading = false;
+					$scope.refreshSliders();
+				}
 			};
 			$scope.getAssessment = function () {
 				try {
