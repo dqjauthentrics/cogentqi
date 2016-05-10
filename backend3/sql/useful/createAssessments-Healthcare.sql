@@ -1,6 +1,4 @@
-USE cogentqi_v1_owensboro;
-DELETE FROM assessment_response;
-DELETE FROM assessment;
+USE cogentqi_v1_oncourse;
 SET @ii = 15;
 SET @isi = 6;
 INSERT INTO assessment (instrument_id, instrument_schedule_id, member_id, assessor_id, last_saved, last_modified,
