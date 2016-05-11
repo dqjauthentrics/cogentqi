@@ -593,30 +593,30 @@ table.microBadgeHolder {
 }
 
 .yesNoBg0, .yesNoBg0:hover {
-    background: #666;
-    color: #FFF;
+    background: #666 !important;
+    color: #FFF !important;
 }
 
 .yesNoBg1, .yesNoBg1:hover {
-    background: #FF0000;
-    color: #FFF;
+    background: #FF0000 !important;
+    color: #FFF !important;
 }
 
 .yesNoBg2, .yesNoBg2:hover {
-    background: #008000;
-    color: #FFF;
+    background: #008000 !important;
+    color: #FFF !important;
 }
 
 .yesNoColor0, .yesNoColor0:hover {
-    color: #AAA;
+    color: #AAA !important;
 }
 
 .yesNoColor1, .yesNoColor1:hover {
-    color: #FF0000;
+    color: #FF0000 !important;
 }
 
 .yesNoColor2, .yesNoColor2:hover {
-    color: #008000;
+    color: #008000 !important;
 }
 
 .levelBg0 {
