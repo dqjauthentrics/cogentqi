@@ -1,0 +1,35 @@
+<ion-navbar *navbar>
+    <button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Dashboard</ion-title>
+</ion-navbar>
+<ion-content padding>
+    <table class="cycle">
+        <tr>
+            <td style="text-align:left; vertical-align: middle !important; padding-top:2em;">
+                 <button >{{'Assessment'}}</button>
+            </td>
+            <td style="text-align:center; vertical-align: bottom !important;">
+                <a style="margin-left:-1em;" href="{{'#/outcome/'}}">{{'Outcomes'}}</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="poweredBy">
+                    <a href="//cogentQI.com">Powered by <img data-ng-src="/img/logo_272x60.png" alt="" style="width: 15vmin;"/></a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:left; vertical-align: top !important;">
+                <div style="margin-left:1.0em;">
+                    <a href="{{'#/resource/list'}}">{{'Professional Development'}}</a>
+                </div>
+            </td>
+            <td style="text-align:left; vertical-align: top !important; padding-top:1.4em;">
+                <a href="#/module/list" style="margin-left:-1.6em;">{{'Planning'}}</a>
+            </td>
+        </tr>
+    </table>
+</ion-content>
