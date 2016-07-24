@@ -14,7 +14,7 @@ export class MemberData {
             return Promise.resolve(this.data);
         }
         return new Promise(resolve => {
-            this.http.get('/api3/member/index/2/1/0').subscribe(res => {
+            this.http.get('http://pharmacy.dev2.cog/api3/member/index/2/1/0').subscribe(res => {
                 var jsonResponse = res.json();
                 this.data = jsonResponse.data;
                 //console.log('members retrieved:', this.data);
@@ -30,7 +30,7 @@ export class MemberData {
     loadProfile(memberId) {
         console.log('loading member:', memberId);
         return new Promise(resolve => {
-            this.http.get('/api3/member/getProfile/' + memberId).subscribe(res => {
+            this.http.get('http://pharmacy.dev2.cog/api3/member/getProfile/' + memberId).subscribe(res => {
                 //console.log('parsing', res);
                 var jsonResponse = res.json();
                 //console.log('done parsing');
