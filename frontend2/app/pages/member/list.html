@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-navbar>
+        <button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Members</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content member-list">
+    <ion-card *ngFor="let member of members" class="member">
+
+        <ion-card-header>
+            <ion-item>
+                <ion-avatar item-left>
+                    <img [src]="member.av">
+                </ion-avatar>
+                <a (click)="goToDetail(member)">{{member.ln}} {{member.ln}}</a>
+            </ion-item>
+        </ion-card-header>
+
+        <ion-card-content class="outer-content">
+        </ion-card-content>
+
+    </ion-card>
+</ion-content>

@@ -141,6 +141,32 @@ export class ConferenceData {
         session.hide = !(matchesQueryText && matchesTracks && matchesSegment);
     }
 
+    getMembers() {
+        return this.load().then(data => [
+            {
+                "name": "Burt Bear",
+                "profilePic": "img/speakers/bear.jpg",
+                "twitter": "ionicframework",
+                "about": "Burt is a Bear.",
+                "location": "Everywhere"
+            },
+            {
+                "name": "Charlie Cheetah",
+                "profilePic": "img/speakers/cheetah.jpg",
+                "twitter": "ionicframework",
+                "about": "Charlie is a Cheetah.",
+                "location": "Everywhere"
+            },
+            {
+                "name": "Donald Duck",
+                "profilePic": "img/speakers/duck.jpg",
+                "twitter": "ionicframework",
+                "about": "Donald is a Duck.",
+                "location": "Everywhere"
+            }
+        ]);
+    }
+
     getSpeakers() {
         return this.load().then(data => {
             return data.speakers.sort((a, b) => {
@@ -154,12 +180,6 @@ export class ConferenceData {
     getTracks() {
         return this.load().then(data => {
             return data.tracks.sort();
-        });
-    }
-
-    getMap() {
-        return this.load().then(data => {
-            return data.map;
         });
     }
 

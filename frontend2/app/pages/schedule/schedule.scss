@@ -11,10 +11,6 @@ $categories: (
  navigation: #6600CC,
 );
 
-@function auxiliary-categories() {
-  @return map-remove($categories);
-}
-
 .schedule-page {
   @each $track, $value in auxiliary-categories() {
    ion-item-sliding[track=#{$track}] ion-label {

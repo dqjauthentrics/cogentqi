@@ -79,6 +79,8 @@ class ControllerBase extends Controller {
 	 */
 	public function currentUser() {
 		$auth = $this->session->get('auth');
+		/** @var @todo TEMPORARY!!!!! */
+		$auth = ['app_role_id' => \Cogent\Models\Role::ADMINISTRATOR];
 		$user = CogentModel::genericUnmap($auth);
 		return (object)$user;
 	}

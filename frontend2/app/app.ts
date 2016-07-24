@@ -3,6 +3,7 @@ import {Events, ionicBootstrap, MenuController, Nav, Platform} from "ionic-angul
 import {Splashscreen, StatusBar} from "ionic-native";
 import {AccountPage} from "./pages/account/account";
 import {ConferenceData} from "./providers/conference-data";
+import {MemberData} from "./providers/member-data";
 import {LoginPage} from "./pages/login/login";
 import {SignupPage} from "./pages/signup/signup";
 import {TabsPage} from "./pages/tabs/tabs";
@@ -30,7 +31,6 @@ class ConferenceApp {
     appPages: PageObj[] = [
         {title: 'Schedule', component: TabsPage, icon: 'calendar'},
         {title: 'Speakers', component: TabsPage, index: 1, icon: 'contacts'},
-        {title: 'Map', component: TabsPage, index: 2, icon: 'map'},
         {title: 'About', component: TabsPage, index: 3, icon: 'information-circle'},
     ];
     loggedInPages: PageObj[] = [
@@ -47,7 +47,8 @@ class ConferenceApp {
                 private userData: UserData,
                 private menu: MenuController,
                 platform: Platform,
-                confData: ConferenceData) {
+                confData: ConferenceData,
+                memberData: MemberData) {
         // Call any initial plugins when ready
         platform.ready().then(() => {
             StatusBar.styleDefault();
@@ -115,6 +116,6 @@ class ConferenceApp {
 // See the theming docs for the default values:
 // http://ionicframework.com/docs/v2/theming/platform-specific-styles/
 
-ionicBootstrap(ConferenceApp, [ConferenceData, UserData], {
+ionicBootstrap(ConferenceApp, [ConferenceData, MemberData, UserData], {
     tabbarPlacement: 'bottom'
 });
