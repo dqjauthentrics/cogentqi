@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
-import {MemberData} from "../../providers/member-data";
+import {MemberData} from "../../providers/member";
 
 @Component({
     templateUrl: 'build/pages/member/detail.html'

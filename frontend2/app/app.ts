@@ -1,14 +1,16 @@
-import {Component, ViewChild} from "@angular/core";
+import {Component, ViewChild, Provider} from "@angular/core";
 import {Events, ionicBootstrap, MenuController, Nav, Platform} from "ionic-angular";
 import {Splashscreen, StatusBar} from "ionic-native";
 import {AccountPage} from "./pages/account/account";
-import {ConferenceData} from "./providers/conference-data";
-import {MemberData} from "./providers/member-data";
+import {MemberData} from "./providers/member";
+import {ResourceData} from "./providers/resource";
 import {LoginPage} from "./pages/login/login";
 import {SignupPage} from "./pages/signup/signup";
 import {TabsPage} from "./pages/tabs/tabs";
-import {TutorialPage} from "./pages/tutorial/tutorial";
-import {UserData} from "./providers/user-data";
+import {UserData} from "./providers/user";
+import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe} from "ng2-translate/ng2-translate";
+import {ROUTER_PROVIDERS} from "@angular/router";
+import {HTTP_PROVIDERS, Http} from "@angular/http";
 
 interface PageObj {
     title: string;
@@ -18,9 +20,12 @@ interface PageObj {
 }
 
 @Component({
-    templateUrl: 'build/app.html'
+    templateUrl: 'build/app.html',
+    pipes: [TranslatePipe]
 })
-class ConferenceApp {
+class CogicApp {
+    translate: TranslateService;
+
     // the root nav is a child of the root app component
     // @ViewChild(Nav) gets a reference to the app's root nav
     @ViewChild(Nav) nav: Nav;
@@ -29,8 +34,9 @@ class ConferenceApp {
     // the left menu only works after login
     // the login page disables the left menu
     appPages: PageObj[] = [
-        {title: 'Schedule', component: TabsPage, icon: 'calendar'},
-        {title: 'Speakers', component: TabsPage, index: 1, icon: 'contacts'},
+        {title: 'Dashboard', component: TabsPage, index: 0, icon: 'pulse'},
+        {title: 'Members', component: TabsPage, index: 1, icon: 'people'},
+        {title: 'Resources', component: TabsPage, index: 2, icon: 'contacts'},
         {title: 'About', component: TabsPage, index: 3, icon: 'information-circle'},
     ];
     loggedInPages: PageObj[] = [
@@ -41,38 +47,38 @@ class ConferenceApp {
         {title: 'Login', component: LoginPage, icon: 'log-in'},
         {title: 'Signup', component: SignupPage, icon: 'person-add'}
     ];
-    rootPage: any = TutorialPage;
+    rootPage: any = TabsPage;
 
     constructor(private events: Events,
                 private userData: UserData,
                 private menu: MenuController,
                 platform: Platform,
-                confData: ConferenceData,
-                memberData: MemberData) {
+                memberData: MemberData,
+                resourceData: ResourceData,
+                translate: TranslateService) {
+
         // Call any initial plugins when ready
         platform.ready().then(() => {
             StatusBar.styleDefault();
             Splashscreen.hide();
         });
 
-        // load the conference data
-        confData.load();
-
         // decide which menu items should be hidden by current login status stored in local storage
         this.userData.hasLoggedIn().then((hasLoggedIn) => {
             this.enableMenu(hasLoggedIn === 'true');
         });
-
+        this.translate = translate;
+        this.translate.use('en');
         this.listenToLoginEvents();
     }
 
     openPage(page: PageObj) {
-        // the nav component was found using @ViewChild(Nav)
-        // reset the nav to remove previous pages and only have this page
-        // we wouldn't want the back button to show in this scenario
+        // The nav component was found using @ViewChild(Nav)
+        // Reset the nav to remove previous pages and only have this page.
+        // We wouldn't want the back button to show in this scenario.
+        console.log('PAGE:', page);
         if (page.index) {
             this.nav.setRoot(page.component, {tabIndex: page.index});
-
         }
         else {
             this.nav.setRoot(page.component);
@@ -116,6 +122,19 @@ class ConferenceApp {
 // See the theming docs for the default values:
 // http://ionicframework.com/docs/v2/theming/platform-specific-styles/
 
-ionicBootstrap(ConferenceApp, [ConferenceData, MemberData, UserData], {
-    tabbarPlacement: 'bottom'
-});
+ionicBootstrap(CogicApp,
+    [
+        ROUTER_PROVIDERS,
+        HTTP_PROVIDERS,
+        MemberData,
+        ResourceData,
+        UserData,
+        new Provider(TranslateLoader, {
+            useFactory: (http: Http) => new TranslateStaticLoader(http, 'assets/i18n', '.json'),
+            deps: [Http]
+        }),
+        TranslateService
+    ],
+    {
+        tabbarPlacement: 'bottom'
+    });

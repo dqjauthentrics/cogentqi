@@ -4,7 +4,7 @@ import { NavController } from 'ionic-angular';
 
 import { SignupPage } from '../signup/signup';
 import { TabsPage } from '../tabs/tabs';
-import { UserData } from '../../providers/user-data';
+import { UserData } from '../../providers/user';
 
 
 @Component({

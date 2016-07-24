@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Alert, NavController } from 'ionic-angular';
 
 import { LoginPage } from '../login/login';
-import { UserData } from '../../providers/user-data';
+import { UserData } from '../../providers/user';
 
 
 @Component({

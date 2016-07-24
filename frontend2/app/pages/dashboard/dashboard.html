@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-navbar>
+        <button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Dashboard</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content dashboard">
+    <table class="cycle">
+        <tr>
+            <td style="text-align:left; vertical-align: middle !important; padding-top:2em;">
+                <div style="float:left; margin-top:-5.6em; font-size: 0.5em; line-height:1em; text-align: left;">
+                    <div class="dashName">name</div>
+                    <div class="dashJob">title</div>
+                    <div class="dashRole">role</div>
+                    <div class="dashOrg">org</div>
+                </div>
+                <a style="margin-left:1.5em;" href="/matrix">{{'Assessment'|translate}}</a>
+            </td>
+            <td style="text-align:center; vertical-align: bottom !important;">
+                <a style="margin-left:-1em;" href="/outcomes">{{'Outcomes'|translate}}</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="poweredBy">
+                    <a href="//cogentQI.com">Powered by <img data-ng-src="/img/logo_272x60.png" alt="" style="width: 15vmin;"/></a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:left; vertical-align: top !important;">
+                <div style="margin-left:1.0em;">
+                    <a href="/resources"
+                       ng-bind-html="'Professional Development'|translate|replace:' ':'<br/>'"></a>
+                </div>
+            </td>
+            <td style="text-align:left; vertical-align: top !important; padding-top:1.4em;">
+                <a href="/calendar" style="margin-left:-1.6em;">{{'Planning'|translate}}</a>
+            </td>
+        </tr>
+    </table>
+</ion-content>

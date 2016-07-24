@@ -1,0 +1,37 @@
+.dashboard {
+  div.poweredBy a, .cycle a {
+    color: #066eb7 !important;
+  }
+
+  .cycle a {
+    color: #005090 !important;
+  }
+
+  div.poweredBy {
+    width: 8em;
+    text-align: center;
+    margin: 0 auto;
+    line-height: 1.0em;
+    font-size: 0.45em !important;
+  }
+
+  table.cycle {
+    margin: 1em auto;
+    width: 80vmin;
+    height: 80vmin;
+    max-width: 80vmin;
+    max-height: 80vmin;
+    background: url(/img/cycle.png) top center no-repeat;
+    background-size: contain;
+    font-size: 1.8vmin;
+  }
+
+  .cycle td {
+    font-size: 2.2em;
+    line-height: 0.9em;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    color: #336699;
+  }
+}

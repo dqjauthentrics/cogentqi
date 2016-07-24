@@ -3,23 +3,24 @@
         <button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>Members</ion-title>
+        <ion-title>Resources</ion-title>
     </ion-navbar>
 </ion-header>
 
-<ion-content class="outer-content member-list">
-    <ion-card *ngFor="let member of members" class="member">
+<ion-content class="outer-content resource-list">
+    <ion-card *ngFor="let resource of resources" class="resource" (click)="goToResourceDetail(resource)">
 
         <ion-card-header>
             <ion-item>
                 <ion-avatar item-left>
-                    <img [src]="member.av">
+                    <ion-icon name="school"></ion-icon>
                 </ion-avatar>
-                <a (click)="goToDetail(member)">{{member.fn}} {{member.ln}}</a>
+                {{resource.n}}
             </ion-item>
         </ion-card-header>
 
         <ion-card-content class="outer-content">
+            <div [innerHTML]="resource.sm"></div>
         </ion-card-content>
 
     </ion-card>
