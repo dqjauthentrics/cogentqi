@@ -119,6 +119,11 @@ class MemberController extends ControllerBase {
 		$result->sendNormal();
 	}
 
+	//@todo Replace getProfileAction with generic singleAction() once moved to Ionic/Angular 2
+	public function singleAction($id) {
+		$this->getProfileAction($id);
+	}
+
 	/**
 	 * Save a member profile record.
 	 */

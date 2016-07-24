@@ -10,7 +10,7 @@ export class MemberDetailPage {
 
     constructor(private nav: NavController, private navParams: NavParams, memberData: MemberData) {
         this.member = this.navParams.data;
-        memberData.getProfile(this.member.id).then(member => {
+        memberData.getSingle(this.member.id).then(member => {
             this.member = member;
         });
         console.log('member detail constructor', this.member);

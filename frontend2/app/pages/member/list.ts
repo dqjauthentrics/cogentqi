@@ -11,7 +11,7 @@ export class MemberListPage {
 
     constructor(private nav: NavController, memberData: MemberData) {
         console.log('member constructor');
-        memberData.getMembers().then(members => {
+        memberData.getAll().then(members => {
             console.log(members);
             this.members = members;
         });
