@@ -4,8 +4,14 @@ import {Events, LocalStorage, Storage} from "ionic-angular";
 
 @Injectable()
 export class UserData {
+    fn: string = 'Dave';
+    ln: string = 'QJ';
+    r: string = 'Administrator';
+    jt: string = 'Puba';
+
     _favorites = [];
     HAS_LOGGED_IN = 'hasLoggedIn';
+    isLoggedIn: boolean = false;
     storage = new Storage(LocalStorage);
 
     constructor(private events: Events) {
@@ -28,6 +34,7 @@ export class UserData {
 
     login(username) {
         this.storage.set(this.HAS_LOGGED_IN, true);
+        this.isLoggedIn = true;
         this.setUsername(username);
         this.events.publish('user:login');
     }
@@ -57,6 +64,7 @@ export class UserData {
     // return a promise
     hasLoggedIn() {
         return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
+            console.log('hasLoggedIn:', value);
             return value;
         });
     }

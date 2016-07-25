@@ -1,17 +1,20 @@
 import {Component, ViewChild, Provider} from "@angular/core";
 import {Events, ionicBootstrap, MenuController, Nav, Platform} from "ionic-angular";
 import {Splashscreen, StatusBar} from "ionic-native";
-import {AccountPage} from "./pages/account/account";
-import {MemberData} from "./providers/member";
-import {ResourceData} from "./providers/resource";
-import {LoginPage} from "./pages/login/login";
-import {SignupPage} from "./pages/signup/signup";
-import {TabsPage} from "./pages/tabs/tabs";
-import {UserData} from "./providers/user";
-import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe} from "ng2-translate/ng2-translate";
 import {ROUTER_PROVIDERS} from "@angular/router";
 import {HTTP_PROVIDERS, Http} from "@angular/http";
+import {MemberData} from "./providers/member";
+import {ResourceData} from "./providers/resource";
+import {UserData} from "./providers/user";
+import {LoginPage} from "./pages/login/login";
+import {AccountPage} from "./pages/account/account";
+import {SignupPage} from "./pages/signup/signup";
+import {TabsPage} from "./pages/tabs/tabs";
+import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe} from "ng2-translate/ng2-translate";
 
+/**
+ * Page information.
+ */
 interface PageObj {
     title: string;
     component: any;
@@ -26,20 +29,16 @@ interface PageObj {
 class CogicApp {
     translate: TranslateService;
 
-    // the root nav is a child of the root app component
-    // @ViewChild(Nav) gets a reference to the app's root nav
+    // The root nav is a child of the root app component.  @ViewChild(Nav) gets a reference to the app's root nav
     @ViewChild(Nav) nav: Nav;
 
-    // List of pages that can be navigated to from the left menu
-    // the left menu only works after login
-    // the login page disables the left menu
-    appPages: PageObj[] = [
+    // List of pages that can be navigated to from the left menu.  The left menu only works after login; the login page disables it;
+    appPages: PageObj[] = [];
+    loggedInPages: PageObj[] = [
         {title: 'Dashboard', component: TabsPage, index: 0, icon: 'pulse'},
         {title: 'Members', component: TabsPage, index: 1, icon: 'people'},
         {title: 'Resources', component: TabsPage, index: 2, icon: 'contacts'},
         {title: 'About', component: TabsPage, index: 3, icon: 'information-circle'},
-    ];
-    loggedInPages: PageObj[] = [
         {title: 'Account', component: AccountPage, icon: 'person'},
         {title: 'Logout', component: TabsPage, icon: 'log-out'}
     ];
@@ -47,6 +46,8 @@ class CogicApp {
         {title: 'Login', component: LoginPage, icon: 'log-in'},
         {title: 'Signup', component: SignupPage, icon: 'person-add'}
     ];
+    pages: PageObj[] = this.loggedOutPages;
+
     rootPage: any = TabsPage;
 
     constructor(private events: Events,
@@ -63,13 +64,13 @@ class CogicApp {
             Splashscreen.hide();
         });
 
-        // decide which menu items should be hidden by current login status stored in local storage
-        this.userData.hasLoggedIn().then((hasLoggedIn) => {
-            this.enableMenu(hasLoggedIn === 'true');
-        });
         this.translate = translate;
         this.translate.use('en');
         this.listenToLoginEvents();
+
+        this.userData.hasLoggedIn().then((hasLoggedIn) => {
+            this.setPages(hasLoggedIn === 'true');
+        });
     }
 
     openPage(page: PageObj) {
@@ -94,21 +95,21 @@ class CogicApp {
 
     listenToLoginEvents() {
         this.events.subscribe('user:login', () => {
-            this.enableMenu(true);
+            this.setPages(true);
         });
 
         this.events.subscribe('user:signup', () => {
-            this.enableMenu(true);
+            this.setPages(true);
         });
 
         this.events.subscribe('user:logout', () => {
-            this.enableMenu(false);
+            console.log('logout', this.userData);
+            this.setPages(false);
         });
     }
 
-    enableMenu(loggedIn) {
-        this.menu.enable(loggedIn, 'loggedInMenu');
-        this.menu.enable(!loggedIn, 'loggedOutMenu');
+    setPages(loggedIn) {
+        this.pages = loggedIn ? this.loggedInPages : this.loggedOutPages;
     }
 }
 

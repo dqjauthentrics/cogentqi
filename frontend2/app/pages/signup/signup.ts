@@ -1,26 +1,25 @@
-import { Component } from '@angular/core';
-
-import { NavController } from 'ionic-angular';
-
-import { TabsPage } from '../tabs/tabs';
-import { UserData } from '../../providers/user';
+import {Component} from "@angular/core";
+import {NavController} from "ionic-angular";
+import {TabsPage} from "../tabs/tabs";
+import {UserData} from "../../providers/user";
 
 
 @Component({
-  templateUrl: 'build/pages/signup/signup.html'
+    templateUrl: 'build/pages/signup/signup.html'
 })
 export class SignupPage {
-  signup: {username?: string, password?: string} = {};
-  submitted = false;
+    signup: {username?: string, password?: string} = {};
+    submitted = false;
 
-  constructor(private nav: NavController, private userData: UserData) {}
-
-  onSignup(form) {
-    this.submitted = true;
-
-    if (form.valid) {
-      this.userData.signup(this.signup.username);
-      this.nav.push(TabsPage);
+    constructor(private nav: NavController, private userData: UserData) {
     }
-  }
+
+    onSignup(form) {
+        this.submitted = true;
+
+        if (form.valid) {
+            this.userData.signup(this.signup.username);
+            this.nav.push(TabsPage);
+        }
+    }
 }

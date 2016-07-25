@@ -12,9 +12,9 @@
         <tr>
             <td style="text-align:left; vertical-align: middle !important; padding-top:2em;">
                 <div style="float:left; margin-top:-5.6em; font-size: 0.5em; line-height:1em; text-align: left;">
-                    <div class="dashName">name</div>
-                    <div class="dashJob">title</div>
-                    <div class="dashRole">role</div>
+                    <div class="dashName">{{user.fn}} {{user.ln}}</div>
+                    <div class="dashJob">{{user.jt}}</div>
+                    <div class="dashRole">{{user.r}}</div>
                     <div class="dashOrg">org</div>
                 </div>
                 <a style="margin-left:1.5em;" href="/matrix">{{'Assessment'|translate}}</a>
@@ -33,8 +33,7 @@
         <tr>
             <td style="text-align:left; vertical-align: top !important;">
                 <div style="margin-left:1.0em;">
-                    <a href="/resources"
-                       ng-bind-html="'Professional Development'|translate|replace:' ':'<br/>'"></a>
+                    <a href="/resources" [innerHTML]="'Professional Development'|translate|replace:' ':'<br/>'"></a>
                 </div>
             </td>
             <td style="text-align:left; vertical-align: top !important; padding-top:1.4em;">

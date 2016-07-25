@@ -10,7 +10,6 @@ export class MemberListPage {
     members = [];
 
     constructor(private nav: NavController, memberData: MemberData) {
-        console.log('member constructor');
         memberData.getAll().then(members => {
             console.log(members);
             this.members = members;
@@ -18,7 +17,6 @@ export class MemberListPage {
     }
 
     goToDetail(member) {
-        console.log(member);
         this.nav.push(MemberDetailPage, member);
     }
 
