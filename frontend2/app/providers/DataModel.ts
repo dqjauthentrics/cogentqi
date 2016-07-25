@@ -1,18 +1,19 @@
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
+import {Config} from "./config";
 
 @Injectable()
 export class DataModel {
-    baseUrl: string = 'http://pharmacy.dev2.cog/api3/';
+    baseUrl: string = '';
     name: string = '';
     data: any;
     http: Http;
     debug: boolean = false;
 
-    constructor(name: string, http: Http) {
+    constructor(name: string, http: Http, config: Config) {
         this.http = http;
         this.name = name;
-        this.baseUrl += name;
+        this.baseUrl = 'http://' + config.siteDir + '.dev2.cog/api3/' + name;
     }
 
     loadAll() {

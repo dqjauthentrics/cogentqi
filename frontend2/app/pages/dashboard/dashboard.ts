@@ -1,16 +1,21 @@
+import {UserData} from "../../providers/user";
+import {Config} from "../../providers/config";
 import {Replace} from "../../pipes/strings";
 import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
-import {TranslatePipe, TranslateService} from "ng2-translate/ng2-translate";
-import {UserData} from "../../providers/user";
+//import {TranslateService} from "ng2-translate/ng2-translate";
 
 @Component({
     templateUrl: 'build/pages/dashboard/dashboard.html',
-    pipes: [TranslatePipe, Replace]
+    pipes: [Replace]
 })
 export class DashboardPage {
 
-    constructor(private nav: NavController, private navParams: NavParams, private translate: TranslateService, private user: UserData) {
+    constructor(private config: Config,
+                private nav: NavController,
+                private navParams: NavParams,
+                //private translate: TranslateService,
+                private user: UserData) {
     }
 
     goToPage(page) {

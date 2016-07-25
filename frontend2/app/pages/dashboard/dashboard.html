@@ -3,7 +3,7 @@
         <button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>Dashboard</ion-title>
+        <ion-title>Cogic Dashboard</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -15,7 +15,7 @@
                     <div class="dashName">{{user.fn}} {{user.ln}}</div>
                     <div class="dashJob">{{user.jt}}</div>
                     <div class="dashRole">{{user.r}}</div>
-                    <div class="dashOrg">org</div>
+                    <div class="dashOrg">{{config.siteDir}}</div>
                 </div>
                 <a style="margin-left:1.5em;" href="/matrix">{{'Assessment'|translate}}</a>
             </td>

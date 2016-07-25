@@ -1,8 +1,9 @@
-import {Component, ViewChild, Provider} from "@angular/core";
+import {Component, ViewChild, Provider, PLATFORM_PIPES} from "@angular/core";
 import {Events, ionicBootstrap, MenuController, Nav, Platform} from "ionic-angular";
 import {Splashscreen, StatusBar} from "ionic-native";
 import {ROUTER_PROVIDERS} from "@angular/router";
 import {HTTP_PROVIDERS, Http} from "@angular/http";
+import {Config} from "./providers/config";
 import {MemberData} from "./providers/member";
 import {ResourceData} from "./providers/resource";
 import {UserData} from "./providers/user";
@@ -10,7 +11,7 @@ import {LoginPage} from "./pages/login/login";
 import {AccountPage} from "./pages/account/account";
 import {SignupPage} from "./pages/signup/signup";
 import {TabsPage} from "./pages/tabs/tabs";
-import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe} from "ng2-translate/ng2-translate";
+import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe, MissingTranslationHandler} from "ng2-translate/ng2-translate";
 
 /**
  * Page information.
@@ -50,13 +51,18 @@ class CogicApp {
 
     rootPage: any = TabsPage;
 
+    config: Config;
+
     constructor(private events: Events,
                 private userData: UserData,
                 private menu: MenuController,
                 platform: Platform,
+                config: Config,
                 memberData: MemberData,
                 resourceData: ResourceData,
                 translate: TranslateService) {
+
+        this.config = config;
 
         // Call any initial plugins when ready
         platform.ready().then(() => {
@@ -73,7 +79,7 @@ class CogicApp {
         });
     }
 
-    openPage(page: PageObj) {
+    zopenPage(page: PageObj) {
         // The nav component was found using @ViewChild(Nav)
         // Reset the nav to remove previous pages and only have this page.
         // We wouldn't want the back button to show in this scenario.
@@ -114,6 +120,22 @@ class CogicApp {
 }
 
 
+export class MyMissingTranslationHandler implements MissingTranslationHandler {
+    handle(key: string) {
+        return key;
+    }
+}
+
+/**
+ * @todo This should be done in the Config object, but I can't figure out how to access the CogicApp values here.
+ */
+var translations = '/site/default/translations';
+var hostname = window.location.hostname;
+var parts = hostname.split('.');
+if (parts.length >= 2 && parts[0]) {
+    translations = '/site/' + parts[0] + '/translations';
+}
+
 // Pass the main App component as the first argument
 // Pass any providers for your app in the second argument
 // Set any config for your app as the third argument, see the docs for
@@ -127,15 +149,20 @@ ionicBootstrap(CogicApp,
     [
         ROUTER_PROVIDERS,
         HTTP_PROVIDERS,
-        MemberData,
-        ResourceData,
-        UserData,
+        new Provider(Window, {useValue: window}),
         new Provider(TranslateLoader, {
-            useFactory: (http: Http) => new TranslateStaticLoader(http, 'assets/i18n', '.json'),
+            useFactory: (http: Http) => new TranslateStaticLoader(http, translations, '.json'),
             deps: [Http]
         }),
-        TranslateService
+        {provide: MissingTranslationHandler, useClass: MyMissingTranslationHandler},
+        TranslateService,
+        {provide: PLATFORM_PIPES, useValue: TranslatePipe, multi: true},
+        Config,
+        MemberData,
+        ResourceData,
+        UserData
     ],
     {
         tabbarPlacement: 'bottom'
-    });
+    }
+);
