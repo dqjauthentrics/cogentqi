@@ -13,7 +13,6 @@ export class MemberDetailPage {
         memberData.getSingle(this.member.id).then(member => {
             this.member = member;
         });
-        console.log('member detail constructor', this.member);
     }
 
     goToAssessment(assessment) {

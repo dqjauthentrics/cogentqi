@@ -48,6 +48,17 @@ class ResourceController extends ControllerBase {
 		$result->sendNormal($resource);
 	}
 
+	/** @todo Replace getAction call above with this when moving to v2. */
+	public function singleAction($id) {
+		$this->getAction($id);
+	}
+
+	public function contentAction($path) {
+		$path = str_replace(':', '/', $path);
+		$path = dirname(dirname(dirname(__DIR__))) . '/learning/' . $path . '.html';
+		echo file_get_contents($path);
+	}
+
 	/**
 	 * Create a new record, storing the given form information.
 	 */

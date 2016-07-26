@@ -5,7 +5,6 @@ import {Config} from "./config";
 
 @Injectable()
 export class ResourceData extends DataModel {
-    data: any;
 
     constructor(http: Http, config: Config) {
         super('resource', http, config);

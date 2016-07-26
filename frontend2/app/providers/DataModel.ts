@@ -8,7 +8,7 @@ export class DataModel {
     name: string = '';
     data: any;
     http: Http;
-    debug: boolean = false;
+    debug: boolean = true;
 
     constructor(name: string, http: Http, config: Config) {
         this.http = http;
