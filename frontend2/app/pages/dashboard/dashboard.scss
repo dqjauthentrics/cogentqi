@@ -1,10 +1,18 @@
 .dashboard {
+  .logo img {
+    width: auto;
+    height: 5vh;
+    float: right;
+    margin: 1vmin 5vmin;
+  }
+
   div.poweredBy a, .cycle a {
     color: #066eb7 !important;
   }
 
   .cycle a {
     color: #005090 !important;
+    text-decoration: none;
   }
 
   div.poweredBy {
@@ -16,7 +24,7 @@
   }
 
   table.cycle {
-    margin: 1em auto;
+    margin: 0 auto 1em auto;
     width: 80vmin;
     height: 80vmin;
     max-width: 80vmin;

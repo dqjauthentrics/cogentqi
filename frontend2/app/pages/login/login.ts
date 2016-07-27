@@ -4,6 +4,7 @@ import {TranslatePipe, TranslateService} from "ng2-translate/ng2-translate";
 import {SignupPage} from "../signup/signup";
 import {TabsPage} from "../tabs/tabs";
 import {UserData} from "../../providers/user";
+import {Config} from "../../providers/config";
 
 @Component({
     templateUrl: 'build/pages/login/login.html',
@@ -13,7 +14,7 @@ export class LoginPage {
     login: {username?: string, password?: string} = {};
     submitted = false;
 
-    constructor(private nav: NavController, private translate: TranslateService, private userData: UserData) {
+    constructor(private nav: NavController, private translate: TranslateService, private userData: UserData, private config: Config) {
     }
 
     onLogin(form) {

@@ -11,6 +11,7 @@ import {LoginPage} from "./pages/login/login";
 import {AccountPage} from "./pages/account/account";
 import {SignupPage} from "./pages/signup/signup";
 import {TabsPage} from "./pages/tabs/tabs";
+import {TutorialPage} from "./pages/tutorial/tutorial";
 import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe, MissingTranslationHandler} from "ng2-translate/ng2-translate";
 
 /**
@@ -49,7 +50,7 @@ class CogicApp {
     ];
     pages: PageObj[] = this.loggedOutPages;
 
-    rootPage: any = TabsPage;
+    rootPage: any = LoginPage;
 
     config: Config;
 
@@ -79,11 +80,10 @@ class CogicApp {
         });
     }
 
-    zopenPage(page: PageObj) {
+    openPage(page: PageObj) {
         // The nav component was found using @ViewChild(Nav)
         // Reset the nav to remove previous pages and only have this page.
         // We wouldn't want the back button to show in this scenario.
-        console.log('PAGE:', page);
         if (page.index) {
             this.nav.setRoot(page.component, {tabIndex: page.index});
         }
@@ -95,6 +95,7 @@ class CogicApp {
             // Give the menu time to close before changing to logged out
             setTimeout(() => {
                 this.userData.logout();
+                this.setPages(false);
             }, 1000);
         }
     }
@@ -115,6 +116,7 @@ class CogicApp {
     }
 
     setPages(loggedIn) {
+        this.rootPage = loggedIn ? TabsPage : LoginPage;
         this.pages = loggedIn ? this.loggedInPages : this.loggedOutPages;
     }
 }

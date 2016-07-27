@@ -1,11 +1,9 @@
-var configuration = {
+{
     "appName": "CogentQI",
     "copyright": "Copyright \u00a9 2015, CogentQI.com.  All rights reserved.",
-    "dbUser": "cogentqiapp",
-    "dbPass": "cogentqi42app",
     "trademarkName": "CogentQI&#8482;",
-    "name": "IT Professional Development",
-    "logo": "<img src=\"\/site\/it\/images\/headerLogo.png\" alt=\"\"\/>",
+    "name": "<img src=\"\/site\/3rdnursing\/images\/logo.png\" alt=\"\" style=\"height:60px; width:auto;\"\/>",
+    "logo": "<img src=\"\/site\/3rdnursing\/images\/logoHeader.png\" alt=\"\" style=\"height:38px; width:38px;\"\/>",
     "components": {
         "login": {
             "social": false,
@@ -22,4 +20,4 @@ var configuration = {
             "administrator": []
         }
     }
-};
+}

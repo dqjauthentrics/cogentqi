@@ -1,11 +1,9 @@
-var configuration = {
+{
     "appName": "CogentQI",
     "copyright": "Copyright \u00a9 2015, CogentQI.com.  All rights reserved.",
-    "dbUser": "cogentqiapp",
-    "dbPass": "cogentqi42app",
     "trademarkName": "CogentQI&#8482;",
-    "name": "Caralot Pharmacy",
-    "logo": "<img src=\"\/site\/pharmacy\/images\/logoHeader.png\" alt=\"\"\/>",
+    "name": "<img src=\"\/site\/owensboro\/images\/logoFull.png\" alt=\"\" style=\"height:60px; width:auto;\"\/>",
+    "logo": "<img src=\"\/site\/owensboro\/images\/logoHeader.png\" alt=\"\"\/>",
     "components": {
         "login": {
             "social": false,
@@ -22,4 +20,4 @@ var configuration = {
             "administrator": []
         }
     }
-};
+}

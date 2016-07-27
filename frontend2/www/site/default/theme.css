@@ -1,4 +1,4 @@
-.customerBg, .tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
+.toolbar-background {
     background: #066eb7 url(../../img/banner.jpg) top left repeat-y !important;
 }
 

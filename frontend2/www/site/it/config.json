@@ -1,11 +1,11 @@
-var configuration = {
-    "appName": "CVS Pharmacy",
+{
+    "appName": "CogentQI",
     "copyright": "Copyright \u00a9 2015, CogentQI.com.  All rights reserved.",
     "dbUser": "cogentqiapp",
     "dbPass": "cogentqi42app",
-    "trademarkName": "CVS&#8482;",
-    "name": "CVS Pharmacy",
-    "logo": "<img src=\"\/site\/cvs\/images\/logoHeader.png\" width=\"38\" height=\"38\" alt=\"\"\/>",
+    "trademarkName": "CogentQI&#8482;",
+    "name": "IT Professional Development",
+    "logo": "<img src=\"\/site\/it\/images\/headerLogo.png\" alt=\"\"\/>",
     "components": {
         "login": {
             "social": false,
@@ -22,4 +22,4 @@ var configuration = {
             "administrator": []
         }
     }
-};
+}

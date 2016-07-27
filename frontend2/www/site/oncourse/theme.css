@@ -1,4 +1,4 @@
-.customerBg, .tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
+.toolbar-background {
     background-color: #243842 !important;
 }
 

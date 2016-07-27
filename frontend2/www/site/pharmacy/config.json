@@ -1,4 +1,4 @@
-var configuration = {
+{
     "appName": "CogentQI",
     "copyright": "Copyright \u00a9 2015, CogentQI.com.  All rights reserved.",
     "dbUser": "cogentqiapp",
@@ -22,4 +22,4 @@ var configuration = {
             "administrator": []
         }
     }
-};
+}
