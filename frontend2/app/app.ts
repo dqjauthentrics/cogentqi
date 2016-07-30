@@ -12,7 +12,6 @@ import {LoginPage} from "./pages/login/login";
 import {AccountPage} from "./pages/account/account";
 import {SignupPage} from "./pages/signup/signup";
 import {TabsPage} from "./pages/tabs/tabs";
-
 import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe, MissingTranslationHandler} from "ng2-translate/ng2-translate";
 
 /**
@@ -103,16 +102,16 @@ class CogicApp {
 
     listenToLoginEvents() {
         this.events.subscribe('user:login', () => {
-            this.setPages(true);
-        });
-
-        this.events.subscribe('user:signup', () => {
+            this.rootPage = TabsPage;
             this.setPages(true);
         });
 
         this.events.subscribe('user:logout', () => {
-            console.log('logout', this.userData);
+            this.rootPage = LoginPage;
+            console.log('logout event received', this.userData);
             this.setPages(false);
+            let loginPage: PageObj = {title: 'Login', component: LoginPage, icon: 'log-in'};
+            this.openPage(loginPage);
         });
     }
 

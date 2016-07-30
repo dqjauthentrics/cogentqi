@@ -5,7 +5,7 @@ import {Config} from "./config";
 
 @Injectable()
 export class DataModel {
-    baseUrl: string = 'http://pharmacy.dev.cog/api3';
+    baseUrl: string = '/api3';
     name: string = '';
     data: any;
     debug: boolean = true;

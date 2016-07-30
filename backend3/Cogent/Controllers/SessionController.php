@@ -13,6 +13,7 @@ class SessionController extends \Cogent\Controllers\ControllerBase {
 		$memberRec = $member->map();
 		$memberRec['org'] = $member->organization->name;
 		$this->session->set('auth', $memberRec);
+		file_put_contents('/tmp/dqj.dbg', '_setSession:'.$this->dumpToStr($memberRec).PHP_EOL, FILE_APPEND);
 	}
 
 	/**
@@ -41,6 +42,7 @@ class SessionController extends \Cogent\Controllers\ControllerBase {
 		if ($member != FALSE) {
 			$this->_setSession($member);
 			$data = $this->session->get('auth');
+			file_put_contents('/tmp/dqj.dbg', 'LOGIN GET:'.$this->dumpToStr($data).PHP_EOL, FILE_APPEND);
 			$result->setNormal($data);
 		}
 		else {

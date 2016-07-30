@@ -11,6 +11,7 @@ export class UserProvider extends DataModel {
     r: string = 'Administrator';
     jt: string = 'Puba';
     o: string = 'Someplace';
+    oi: number = 0;
 
     _favorites = [];
     HAS_LOGGED_IN = 'hasLoggedIn';
@@ -38,15 +39,21 @@ export class UserProvider extends DataModel {
 
     validate(jsonInfo) {
         if (jsonInfo && jsonInfo.data) {
-            var data = jsonInfo.data;
-            this.fn = data.fn;
-            this.ln = data.ln;
-            this.jt = data.jt;
-            this.r = data.r;
-            this.o = data.o;
-            this.storage.set(this.HAS_LOGGED_IN, true);
-            this.isLoggedIn = true;
-            this.events.publish('user:login');
+            if (!jsonInfo.status) {
+                this.logout();
+            }
+            else {
+                var data = jsonInfo.data;
+                this.fn = data.fn;
+                this.ln = data.ln;
+                this.jt = data.jt;
+                this.r = data.r;
+                this.o = data.o;
+                this.oi = data.oi;
+                this.storage.set(this.HAS_LOGGED_IN, true);
+                this.isLoggedIn = true;
+                this.events.publish('user:login');
+            }
         }
         else {
             this.logout();
@@ -58,8 +65,7 @@ export class UserProvider extends DataModel {
             let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
             let options = new RequestOptions({headers: headers});
             let data = {username: username, password: password};
-            var postData = 'username=' + username + '&password=' + password;
-            this.http.post('http://pharmacy.dev2.cog/api3' + '/session/login', data, null).subscribe(res => {
+            this.http.post('/api3/session/login', data, null).subscribe(res => {
                 var jsonResponse = res.json();
                 this.validate(jsonResponse);
                 resolve(jsonResponse);

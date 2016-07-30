@@ -67,6 +67,7 @@ class AssessmentController extends ControllerBase {
 	 */
 	public function byOrganizationAction($organizationId) {
 		$user = $this->currentUser();
+		file_put_contents('/tmp/dqj.dbg', 'userId:'.$user->id.PHP_EOL);
 		$result = new Result($this);
 		$orgModel = new Organization();
 

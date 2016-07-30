@@ -8,6 +8,13 @@ class ControllerBase extends Controller {
 	public $transactionModel = NULL;
 	public $startAction = NULL;
 
+	public static function dumpToStr($var) {
+		ob_start();
+		var_dump($var);
+		$result = ob_get_clean();
+		return $result;
+	}
+
 	public function beforeExecuteRoute($dispatcher) {
 		$this->startAction = microtime(TRUE);
 	}
@@ -79,8 +86,6 @@ class ControllerBase extends Controller {
 	 */
 	public function currentUser() {
 		$auth = $this->session->get('auth');
-		/** @var @todo TEMPORARY!!!!! */
-		$auth = ['app_role_id' => \Cogent\Models\Role::ADMINISTRATOR];
 		$user = CogentModel::genericUnmap($auth);
 		return (object)$user;
 	}

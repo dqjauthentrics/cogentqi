@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {AssessmentProvider} from "../../providers/assessment";
+import {UserProvider} from "../../providers/user";
 
 @Component({
     templateUrl: 'build/pages/matrix/matrix.html',
@@ -8,9 +9,9 @@ import {AssessmentProvider} from "../../providers/assessment";
 export class MatrixPage {
     public matrix = {};
 
-    constructor(private nav: NavController, assessmentData: AssessmentProvider) {
+    constructor(private nav: NavController, private user: UserProvider, assessmentData: AssessmentProvider) {
         /** @todo Greg? These need to be arguments */
-        var organizationId: number = 3;
+        var organizationId: number = user.oi;
         var instrumentId: number = 5;
 
         assessmentData.loadMatrix(organizationId, instrumentId).then(matrix => {
