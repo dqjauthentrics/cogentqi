@@ -141,7 +141,8 @@ class Result {
 	}
 
 	/**
-	 * @param int $code
+	 * @param int         $code
+	 * @param bool|string $message
 	 */
 	public function setError($code = self::CODE_INVALID_REQUEST, $message = FALSE) {
 		$this->status = Result::STATUS_ERROR;

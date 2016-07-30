@@ -3,7 +3,6 @@ namespace Cogent\Controllers;
 
 use Cogent\Components\Result;
 use Cogent\Models\Member;
-use Phalcon\Mvc\Model\Resultset;
 
 class SessionController extends \Cogent\Controllers\ControllerBase {
 
@@ -21,14 +20,18 @@ class SessionController extends \Cogent\Controllers\ControllerBase {
 	 */
 	public function loginAction() {
 		$result = new Result($this);
-		$data = '';
 		if ($this->request->isPost()) {
 			$username = $this->request->getPost('username');
 			$password = $this->request->getPost('password');
+			if (empty($username)) { //@todo Greg? This is how it works for Angular 2.  I do not understand how to get it to work as a 'regular' PHP post.
+				$postData = json_decode(file_get_contents("php://input"));
+				$username = $postData->username;
+				$password = $postData->password;
+			}
 		}
 		else {
-			$username = @$_GET["username"];
-			$password = @$_GET["password"];
+			$username = @$_REQUEST["username"];
+			$password = @$_REQUEST["password"];
 		}
 		$member = Member::findFirst([
 				'conditions' => "(email = :username: OR username = :username:) AND password = :password:",
@@ -37,10 +40,11 @@ class SessionController extends \Cogent\Controllers\ControllerBase {
 		);
 		if ($member != FALSE) {
 			$this->_setSession($member);
-			$result->setNormal($this->session->get('auth'));
+			$data = $this->session->get('auth');
+			$result->setNormal($data);
 		}
 		else {
-			$result->setError(404);
+			$result->setError(404, 'u=' . @$username);
 		}
 		$result->send();
 		exit();
@@ -48,9 +52,7 @@ class SessionController extends \Cogent\Controllers\ControllerBase {
 
 	/**
 	 * Finishes the active session redirecting to the index
-	 *
-	 * @return mixed
-	 */
+	 **/
 	public function logoutAction() {
 		$result = new Result($this);
 		$this->session->remove('auth');

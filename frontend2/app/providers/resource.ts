@@ -1,13 +1,14 @@
+import {Events} from "ionic-angular";
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
-import {DataModel} from "./DataModel";
+import {DataModel} from "./data-model";
 import {Config} from "./config";
 
 @Injectable()
-export class ResourceData extends DataModel {
+export class ResourceProvider extends DataModel {
 
-    constructor(http: Http, config: Config) {
-        super('resource', http, config);
+    constructor(protected http: Http, config: Config, protected events: Events) {
+        super('resource', http, config, events);
     }
 
 }

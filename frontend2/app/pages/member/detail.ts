@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
-import {MemberData} from "../../providers/member";
+import {MemberProvider} from "../../providers/member";
 
 @Component({
     templateUrl: 'build/pages/member/detail.html'
@@ -8,7 +8,7 @@ import {MemberData} from "../../providers/member";
 export class MemberDetailPage {
     member: any;
 
-    constructor(private nav: NavController, private navParams: NavParams, memberData: MemberData) {
+    constructor(private nav: NavController, private navParams: NavParams, memberData: MemberProvider) {
         this.member = this.navParams.data;
         memberData.getSingle(this.member.id).then(member => {
             this.member = member;

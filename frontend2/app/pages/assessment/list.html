@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-navbar>
+        <button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Assessments</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content assessment-list">
+    <ion-card *ngFor="let member of members" class="member">
+        <ion-card-header>
+            <ion-item>
+                <a (click)="goToDetail(assessment)">{{assessment.n}}</a>
+            </ion-item>
+        </ion-card-header>
+        <ion-card-content class="outer-content">
+        </ion-card-content>
+    </ion-card>
+</ion-content>

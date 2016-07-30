@@ -49,7 +49,6 @@ export class Config {
     }
 
     processData(jsonObject) {
-        console.log(jsonObject);
         if (jsonObject.logo) {
             this.logo = jsonObject.logo;
         }

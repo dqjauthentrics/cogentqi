@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {TabsPage} from "../tabs/tabs";
-import {UserData} from "../../providers/user";
+import {UserProvider} from "../../providers/user";
 
 
 @Component({
@@ -11,7 +11,7 @@ export class SignupPage {
     signup: {username?: string, password?: string} = {};
     submitted = false;
 
-    constructor(private nav: NavController, private userData: UserData) {
+    constructor(private nav: NavController, private userData: UserProvider) {
     }
 
     onSignup(form) {

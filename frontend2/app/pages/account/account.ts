@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {Alert, NavController} from "ionic-angular";
 import {LoginPage} from "../login/login";
-import {UserData} from "../../providers/user";
+import {UserProvider} from "../../providers/user";
 
 @Component({
     templateUrl: 'build/pages/account/account.html',
@@ -9,7 +9,7 @@ import {UserData} from "../../providers/user";
 export class AccountPage {
     username: string;
 
-    constructor(private nav: NavController, private userData: UserData) {
+    constructor(private nav: NavController, private userData: UserProvider) {
 
     }
 

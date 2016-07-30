@@ -1,9 +1,11 @@
-import {UserData} from "../../providers/user";
+import {UserProvider} from "../../providers/user";
 import {Config} from "../../providers/config";
 import {Replace} from "../../pipes/strings";
 import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
-//import {TranslateService} from "ng2-translate/ng2-translate";
+import {MemberListPage} from "../member/list";
+import {ResourceListPage} from "../resource/list";
+import {MatrixPage} from "../matrix/matrix";
 
 @Component({
     templateUrl: 'build/pages/dashboard/dashboard.html',
@@ -14,11 +16,10 @@ export class DashboardPage {
     constructor(private config: Config,
                 private nav: NavController,
                 private navParams: NavParams,
-                //private translate: TranslateService,
-                private user: UserData) {
+                private user: UserProvider) {
     }
 
-    goToPage(page) {
-        this.nav.push(page);
+    goToPage() {
+        this.nav.push(MatrixPage);
     }
 }

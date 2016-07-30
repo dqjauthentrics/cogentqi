@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
-import {ResourceData} from "../../providers/resource";
+import {ResourceProvider} from "../../providers/resource";
 import {ResourceDetailPage} from "./detail";
 
 @Component({
@@ -9,9 +9,8 @@ import {ResourceDetailPage} from "./detail";
 export class ResourceListPage {
     resources = [];
 
-    constructor(private nav: NavController, resourceData: ResourceData) {
-        resourceData.getAll().then(resources => {
-            console.log(resources);
+    constructor(private nav: NavController, resourceData: ResourceProvider) {
+        resourceData.getAll(null).then(resources => {
             this.resources = resources;
         });
     }

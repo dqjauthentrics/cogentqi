@@ -1,48 +1,55 @@
+import {Events} from "ionic-angular";
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import {Config} from "./config";
 
 @Injectable()
 export class DataModel {
-    baseUrl: string = '';
+    baseUrl: string = 'http://pharmacy.dev.cog/api3';
     name: string = '';
     data: any;
-    http: Http;
     debug: boolean = true;
 
-    constructor(name: string, http: Http, config: Config) {
-        this.http = http;
+    constructor(name: string, protected http: Http, config: Config, protected events: Events) {
         this.name = name;
         this.baseUrl = 'http://' + config.siteDir + '.dev2.cog/api3/' + name;
     }
 
-    loadAll() {
+    static buildArgs(args) {
+        var argStr = '';
+        if (args) {
+            argStr = '/' + args.join('/');
+        }
+        return argStr;
+    }
+
+    loadAll(args: string) {
         if (this.data) {
             return Promise.resolve(this.data);
         }
         return new Promise(resolve => {
-            var url = this.baseUrl + '/index/2/1/0';
+            var url = this.baseUrl + '/index' + (typeof args == 'string' ? args : '');
             if (this.debug) {
-                console.log('loading: ' + url);
+                console.log('loading all ' + this.name + 's:' + url);
             }
             this.http.get(url).subscribe(res => {
                 var jsonResponse = res.json();
                 this.data = jsonResponse.data;
                 if (this.debug) {
-                    console.log(this.name + ' retrieved:', this.data);
+                    console.log(this.name + 's retrieved:', this.data);
                 }
                 resolve(this.data);
             });
         });
     }
 
-    getAll() {
-        return this.loadAll().then(data => this.data);
+    getAll(args: string) {
+        return this.loadAll(args).then(data => this.data);
     }
 
     loadSingle(modelId) {
         if (this.debug) {
-            console.log('loading ' + this.name + ':', modelId);
+            console.log('loading single ' + this.name + ':', modelId);
         }
         return new Promise(resolve => {
             this.http.get(this.baseUrl + '/single/' + modelId).subscribe(res => {

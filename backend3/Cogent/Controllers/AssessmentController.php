@@ -7,7 +7,6 @@ use Cogent\Models\Assessment;
 use Cogent\Models\Organization;
 use Cogent\Models\Recommendation;
 use Cogent\Models\Role;
-use Phalcon\Mvc\Model\Resultset;
 
 class AssessmentController extends ControllerBase {
 	public $debug = FALSE;
@@ -16,14 +15,17 @@ class AssessmentController extends ControllerBase {
 	 * @param int $organizationId
 	 */
 	public function indexAction($organizationId = NULL) {
-		if (empty($organizationId)) {
-			$result = new Result($this);
-			$data = $this->mapRecords(Assessment::query()->orderBy("last_saved")->execute(), []);
-			$result->sendNormal($data);
-		}
-		else {
-			$this->byOrganizationAction($organizationId);
-		}
+		$this->byOrganizationAction($organizationId);
+		/**
+		 * if (empty($organizationId)) {
+		 * $result = new Result($this);
+		 * $data = $this->mapRecords(Assessment::query()->orderBy("last_saved")->execute(), []);
+		 * $result->sendNormal($data);
+		 * }
+		 * else {
+		 * $this->byOrganizationAction($organizationId);
+		 * }
+		 **/
 	}
 
 	/**
@@ -144,7 +146,7 @@ class AssessmentController extends ControllerBase {
 	 */
 	public function lockAction($memberId, $assessmentId, $newState) {
 		$result = new Result();
-		$transacted = false;
+		$transacted = FALSE;
 		try {
 			$assessment = Assessment::findFirst($assessmentId);
 			if (!empty($assessment)) {

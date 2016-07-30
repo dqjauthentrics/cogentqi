@@ -19,7 +19,7 @@
                     <div class="dashRole">{{user.r}}</div>
                     <div class="dashOrg">{{config.siteDir}}</div>
                 </div>
-                <a style="margin-left:1.5em;" href="/matrix">{{'Assessment'|translate}}</a>
+                <a style="margin-left:1.5em;" (click)="goToPage()">{{'Assessment'|translate}}</a>
             </td>
             <td style="text-align:center; vertical-align: bottom !important;">
                 <a style="margin-left:-1em;" href="/outcomes">{{'Outcomes'|translate}}</a>

@@ -2,18 +2,16 @@ import {Component} from "@angular/core";
 import {DomSanitizationService} from "@angular/platform-browser";
 import {Http} from "@angular/http";
 import {NavController, NavParams} from "ionic-angular";
-import {ResourceData} from "../../providers/resource";
-import {MyNgInclude} from "../../providers/myNgInclude.component.ts";
+import {ResourceProvider} from "../../providers/resource";
 
 @Component({
     templateUrl: 'build/pages/resource/detail.html',
-    directives: [MyNgInclude],
 })
 export class ResourceDetailPage {
     resource: any;
     content: any;
 
-    constructor(private nav: NavController, private navParams: NavParams, resourceData: ResourceData, http: Http, private sanitizer: DomSanitizationService) {
+    constructor(private nav: NavController, private navParams: NavParams, resourceData: ResourceProvider, http: Http, private sanitizer: DomSanitizationService) {
         var that = this;
         this.resource = this.navParams.data;
         resourceData.getSingle(this.resource.id).then(resource => {

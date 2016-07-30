@@ -4,14 +4,15 @@ import {Splashscreen, StatusBar} from "ionic-native";
 import {ROUTER_PROVIDERS} from "@angular/router";
 import {HTTP_PROVIDERS, Http} from "@angular/http";
 import {Config} from "./providers/config";
-import {MemberData} from "./providers/member";
-import {ResourceData} from "./providers/resource";
-import {UserData} from "./providers/user";
+import {MemberProvider} from "./providers/member";
+import {ResourceProvider} from "./providers/resource";
+import {AssessmentProvider} from "./providers/assessment";
+import {UserProvider} from "./providers/user";
 import {LoginPage} from "./pages/login/login";
 import {AccountPage} from "./pages/account/account";
 import {SignupPage} from "./pages/signup/signup";
 import {TabsPage} from "./pages/tabs/tabs";
-import {TutorialPage} from "./pages/tutorial/tutorial";
+
 import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe, MissingTranslationHandler} from "ng2-translate/ng2-translate";
 
 /**
@@ -55,12 +56,12 @@ class CogicApp {
     config: Config;
 
     constructor(private events: Events,
-                private userData: UserData,
+                private userData: UserProvider,
                 private menu: MenuController,
                 platform: Platform,
                 config: Config,
-                memberData: MemberData,
-                resourceData: ResourceData,
+                memberData: MemberProvider,
+                resourceData: ResourceProvider,
                 translate: TranslateService) {
 
         this.config = config;
@@ -160,9 +161,10 @@ ionicBootstrap(CogicApp,
         TranslateService,
         {provide: PLATFORM_PIPES, useValue: TranslatePipe, multi: true},
         Config,
-        MemberData,
-        ResourceData,
-        UserData
+        MemberProvider,
+        ResourceProvider,
+        AssessmentProvider,
+        UserProvider
     ],
     {
         tabbarPlacement: 'bottom'
