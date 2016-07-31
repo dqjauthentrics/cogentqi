@@ -3,12 +3,27 @@
         <button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>{{assessment.fn}} {{assessment.ln}}</ion-title>
+        <ion-title>{{instrument.n}}: {{assessment.member|namify}} {{assessment.lm|date}}</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content class="outer-content assessment-detail" padding="true">
-    <h1>{{assessment.n}}</h1>
+    <h1>{{instrument.n}}</h1>
+    <ion-grid class="header">
+        <ion-row>
+            <ion-col>
+                <div class="pull-left"><avatar [src]="assessment.member.av" [size]="'full'"></avatar></div>
+                <div class="pull-left"><h3>{{assessment.member|namify}}</h3></div>
+            </ion-col>
+            <ion-col>
+                Last modified {{assessment.lm|date}} by {{assessment.assessor|namify}}
+                <avatar [src]="assessment.assessor.av" [size]="'tiny'"></avatar>
+            </ion-col>
+            <ion-col>
+                Coll 3
+            </ion-col>
+        </ion-row>
+    </ion-grid>
     <ion-segment>
         <ion-segment-button *ngFor="let questionGroup of instrument.questionGroups; let groupIndex = index"
                             value="questionGroup.tag" (click)="goTo(groupIndex)"
@@ -30,7 +45,8 @@
                             </ion-card-header>
                             <ion-card-content>
                                 <div class="slide-width-{{question.type.choices.length}}">
-                                    <ion-range min="0" [max]="(question.type.choices.length-1)" step="1" snaps="true" [(ngModel)]="question.response"></ion-range>
+                                    <ion-range min="0" [max]="(question.type.choices.length-1)" step="1" snaps="true"
+                                               [(ngModel)]="question.response"></ion-range>
                                 </div>
                                 <rubric [question]="question"></rubric>
                             </ion-card-content>

@@ -13,6 +13,12 @@
 }
 
 .assessment-detail {
+  ion-grid.header ion-col:nth-child(2) {
+    text-align: center;
+  }
+  ion-grid.header ion-col:nth-child(3) {
+    text-align: right;
+  }
   ion-card-header.title {
     font-size: 1.4em;
     font-weight: bold;
@@ -28,9 +34,6 @@
   }
   ion-card-content {
     text-align: left;
-  }
-  ion-segment {
-    margin-top: 2em;
   }
   ion-segment-button {
     background: gray;
@@ -61,6 +64,7 @@
     border-left: solid 20px transparent;
     border-right: solid 20px transparent;
   }
+
   .range-slider {
     height: 10px;
   }
@@ -86,23 +90,25 @@
     width: 100%;
   }
 
-  ion-card.question {
-    background: #F4F4F4;
+  ion-card.question-group > ion-card-content > div:nth-child(even) > ion-card {
+    background: #F8F8F8;
+  }
+  ion-card.question-group > ion-card-content > div:nth-child(odd) > ion-card {
+    background: #F8FFF8;
   }
 }
 
 .rubric {
   ion-col {
-    border: 1px solid #999;
+    border: 1px transparent;
   }
   ion-row .header {
-    background: #BBB;
-    color: #000;
     text-align: center;
-    border: 1px solid #999;
+    border: 1px transparent;
+    padding: 0.4em;
   }
   ion-col.inactive {
-    opacity: 0.8;
+    opacity: 0.7;
   }
   ion-col.active {
     font-weight: bold;
