@@ -16,8 +16,6 @@ export class Config {
     translations: string = this.site + '/translations';
     fullLogo: string = '<img src="/site/default/images/hdrLogo.png" alt=""/>';
 
-   // public roles = {'A': 'Administrator', 'M': 'Manager', 'N':'Nurse', 'P': 'Physician Assistant',}
-
     constructor(private window: Window, private translate: TranslateService, private http: Http) {
         try {
             var hostname = this.window.location.hostname;

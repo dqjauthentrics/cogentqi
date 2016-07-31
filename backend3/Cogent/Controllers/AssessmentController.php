@@ -45,6 +45,13 @@ class AssessmentController extends ControllerBase {
 	}
 
 	/**
+	 * @todo Replace getAction() call above when moved to I2/A2.
+	 */
+	public function singleAction($id) {
+		$this->getAction($id);
+	}
+
+	/**
 	 * @param int $memberId
 	 */
 	public function byMemberAction($memberId) {

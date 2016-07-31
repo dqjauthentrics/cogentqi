@@ -7,7 +7,8 @@ import {Config} from "./config";
 export class DataModel {
     baseUrl: string = '/api3';
     name: string = '';
-    data: any;
+    list: any;
+    single: any;
     debug: boolean = true;
 
     constructor(name: string, protected http: Http, config: Config, protected events: Events) {
@@ -24,8 +25,8 @@ export class DataModel {
     }
 
     loadAll(args: string) {
-        if (this.data) {
-            return Promise.resolve(this.data);
+        if (this.list) {
+            return Promise.resolve(this.list);
         }
         return new Promise(resolve => {
             var url = this.baseUrl + '/index' + (typeof args == 'string' ? args : '');
@@ -34,17 +35,17 @@ export class DataModel {
             }
             this.http.get(url).subscribe(res => {
                 var jsonResponse = res.json();
-                this.data = jsonResponse.data;
+                this.list = jsonResponse.data;
                 if (this.debug) {
-                    console.log(this.name + 's retrieved:', this.data);
+                    console.log(this.name + 's retrieved:', this.list);
                 }
-                resolve(this.data);
+                resolve(this.list);
             });
         });
     }
 
     getAll(args: string) {
-        return this.loadAll(args).then(data => this.data);
+        return this.loadAll(args).then(data => this.list);
     }
 
     loadSingle(modelId) {
@@ -54,17 +55,17 @@ export class DataModel {
         return new Promise(resolve => {
             this.http.get(this.baseUrl + '/single/' + modelId).subscribe(res => {
                 var jsonResponse = res.json();
-                this.data = jsonResponse.data;
+                this.single = jsonResponse.data;
                 if (this.debug) {
-                    console.log('model retrieved:', this.data);
+                    console.log('model retrieved:', this.single);
                 }
-                resolve(this.data);
+                resolve(this.single);
             });
         });
     }
 
     getSingle(modelId) {
-        return this.loadSingle(modelId).then(data => this.data);
+        return this.loadSingle(modelId).then(data => this.single);
     }
 
 }
