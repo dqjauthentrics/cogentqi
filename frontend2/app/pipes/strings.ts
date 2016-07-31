@@ -1,11 +1,11 @@
-import {Pipe} from "@angular/core";
+import {Pipe, PipeTransform} from "@angular/core";
 
 @Pipe({
-    name: "Replace"
+    name: "replace"
 })
 
-export class Replace {
-    static transform(value: string, fromStr: string, toStr: string):string {
+export class Replace implements PipeTransform {
+    transform(value: string, fromStr: string, toStr: string): string {
         console.log(value, fromStr, toStr);
         return value.replace(fromStr, toStr);
     }

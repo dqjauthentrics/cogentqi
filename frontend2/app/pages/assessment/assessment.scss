@@ -1,8 +1,13 @@
 
 .assessment-list {
 
-  ion-avatar img {
-    width: 48px;
-    height: 48px;
+  ion-card-content > div:first-child {
+    font-weight: bold;
+    width: 14em;
   }
+  ion-card-content > div:nth-child(2) .name {
+    font-weight: bold;
+    font-style: italic;
+  }
+
 }

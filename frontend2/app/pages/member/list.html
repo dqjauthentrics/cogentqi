@@ -5,17 +5,20 @@
         </button>
         <ion-title>Members</ion-title>
     </ion-navbar>
+    <ion-toolbar no-border-top>
+        <ion-searchbar primary [(ngModel)]="queryText" placeholder="Search"></ion-searchbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="outer-content member-list">
-    <ion-card *ngFor="let member of members" class="member">
+    <ion-card *ngFor="let member of members|filter:queryText" class="member">
 
         <ion-card-header>
             <ion-item>
                 <ion-avatar item-left>
                     <img [src]="member.av">
                 </ion-avatar>
-                <a (click)="goToDetail(member)">{{member.fn}} {{member.ln}}</a>
+                <a (click)="goToDetail(member)">{{member|namify}}</a>
             </ion-item>
         </ion-card-header>
 

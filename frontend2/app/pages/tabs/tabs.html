@@ -1,7 +1,7 @@
 <ion-tabs [selectedIndex]="mySelectedIndex">
-    <ion-tab [root]="dashboardRoot" tabTitle="Dashboard" tabIcon="pulse"></ion-tab>
-    <ion-tab [root]="memberRoot" tabTitle="Members" tabIcon="people"></ion-tab>
-    <ion-tab [root]="resourceRoot" tabTitle="Resources" tabIcon="contacts"></ion-tab>
-    <ion-tab [root]="assessmentRoot" tabTitle="{{'Assessments'}}" tabIcon="options"></ion-tab>
-    <ion-tab [root]="tab4Root" tabTitle="About" tabIcon="information-circle"></ion-tab>
+    <ion-tab [root]="dashboardRoot" tabTitle="{{'Dashboard'|translate}}" tabIcon="{{'dashboard'|icon}}"></ion-tab>
+    <ion-tab [root]="memberRoot" tabTitle="{{'People'|translate}}" tabIcon="{{'people'|icon}}"></ion-tab>
+    <ion-tab [root]="resourceRoot" tabTitle="{{'Resources'|translate}}" tabIcon="{{'resources'|icon}}"></ion-tab>
+    <ion-tab [root]="assessmentRoot" tabTitle="{{'Assessments'|translate}}" tabIcon="{{'assessments'|icon}}"></ion-tab>
+    <ion-tab [root]="helpRoot" tabTitle="help" tabIcon="{{'help'|icon}}"></ion-tab>
 </ion-tabs>

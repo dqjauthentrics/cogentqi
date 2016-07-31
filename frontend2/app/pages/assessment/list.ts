@@ -5,13 +5,15 @@ import {UserProvider} from "../../providers/user";
 import {AssessmentDetailPage} from "./detail";
 
 @Component({
-    templateUrl: 'build/pages/assessment/list.html'
+    templateUrl: 'build/pages/assessment/list.html',
 })
+
 export class AssessmentListPage {
     assessments = [];
 
     constructor(private nav: NavController, private user: UserProvider, assessmentData: AssessmentProvider) {
-        var organizationId = user.oi;
+        //@todo Use valid organization Id
+        var organizationId = 3; //user.oi;
         assessmentData.getAll('/' + organizationId).then(assessments => {
             this.assessments = assessments;
         });

@@ -1,7 +1,6 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {TranslatePipe, TranslateService} from "ng2-translate/ng2-translate";
-import {SignupPage} from "../signup/signup";
 import {TabsPage} from "../tabs/tabs";
 import {UserProvider} from "../../providers/user";
 import {Config} from "../../providers/config";
@@ -29,9 +28,5 @@ export class LoginPage {
     onLogout() {
         this.userData.logout();
         this.nav.push(TabsPage);
-    }
-
-    onSignup() {
-        this.nav.push(SignupPage);
     }
 }

@@ -1,6 +1,5 @@
 import {UserProvider} from "../../providers/user";
 import {Config} from "../../providers/config";
-import {Replace} from "../../pipes/strings";
 import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
 import {MemberListPage} from "../member/list";
@@ -9,17 +8,25 @@ import {MatrixPage} from "../matrix/matrix";
 
 @Component({
     templateUrl: 'build/pages/dashboard/dashboard.html',
-    pipes: [Replace]
 })
 export class DashboardPage {
+    matrix: MatrixPage;
+    resources: ResourceListPage;
 
     constructor(private config: Config,
                 private nav: NavController,
                 private navParams: NavParams,
-                private user: UserProvider) {
+                private user: UserProvider
+    ) {
+
     }
 
-    goToPage() {
-        this.nav.push(MatrixPage);
+    goToPage(pageName) {
+        let page: any = MatrixPage;
+        switch (pageName) {
+            case 'resources':
+                page = ResourceListPage;
+        }
+        this.nav.push(page);
     }
 }

@@ -1,4 +1,4 @@
-import {Component, ViewChild, Provider, PLATFORM_PIPES} from "@angular/core";
+import {Component, ViewChild, Provider, PLATFORM_PIPES, PLATFORM_DIRECTIVES} from "@angular/core";
 import {Events, ionicBootstrap, MenuController, Nav, Platform} from "ionic-angular";
 import {Splashscreen, StatusBar} from "ionic-native";
 import {ROUTER_PROVIDERS} from "@angular/router";
@@ -10,8 +10,13 @@ import {AssessmentProvider} from "./providers/assessment";
 import {UserProvider} from "./providers/user";
 import {LoginPage} from "./pages/login/login";
 import {AccountPage} from "./pages/account/account";
-import {SignupPage} from "./pages/signup/signup";
 import {TabsPage} from "./pages/tabs/tabs";
+import {FilterArrayPipe} from './pipes/filter-array-pipe';
+import {Namify} from "./pipes/namify";
+import {Replace} from "./pipes/strings";
+import {Icon} from "./pipes/icon";
+import {Avatar} from "./directives/avatar";
+
 import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe, MissingTranslationHandler} from "ng2-translate/ng2-translate";
 
 /**
@@ -26,8 +31,8 @@ interface PageObj {
 
 @Component({
     templateUrl: 'build/app.html',
-    pipes: [TranslatePipe]
 })
+
 class CogicApp {
     translate: TranslateService;
 
@@ -40,13 +45,12 @@ class CogicApp {
         {title: 'Dashboard', component: TabsPage, index: 0, icon: 'pulse'},
         {title: 'Members', component: TabsPage, index: 1, icon: 'people'},
         {title: 'Resources', component: TabsPage, index: 2, icon: 'contacts'},
-        {title: 'About', component: TabsPage, index: 3, icon: 'information-circle'},
+        {title: 'help', component: TabsPage, index: 3, icon: 'information-circle'},
         {title: 'Account', component: AccountPage, icon: 'person'},
         {title: 'Logout', component: TabsPage, icon: 'log-out'}
     ];
     loggedOutPages: PageObj[] = [
         {title: 'Login', component: LoginPage, icon: 'log-in'},
-        {title: 'Signup', component: SignupPage, icon: 'person-add'}
     ];
     pages: PageObj[] = this.loggedOutPages;
 
@@ -75,9 +79,10 @@ class CogicApp {
         this.translate.use('en');
         this.listenToLoginEvents();
 
-        this.userData.hasLoggedIn().then((hasLoggedIn) => {
-            this.setPages(hasLoggedIn === 'true');
-        });
+        //this.userData.hasLoggedIn().then((hasLoggedIn) => {
+        //    this.setPages(hasLoggedIn === 'true');
+        //});
+        this.setPages(this.userData.isLoggedIn);
     }
 
     openPage(page: PageObj) {
@@ -158,7 +163,22 @@ ionicBootstrap(CogicApp,
         }),
         {provide: MissingTranslationHandler, useClass: MyMissingTranslationHandler},
         TranslateService,
-        {provide: PLATFORM_PIPES, useValue: TranslatePipe, multi: true},
+        new Provider(PLATFORM_PIPES, {
+            useValue: [
+                TranslatePipe,
+                Namify,
+                Replace,
+                Icon,
+                FilterArrayPipe
+            ],
+            multi: true
+        }),
+        new Provider(PLATFORM_DIRECTIVES, {
+            useValue: [
+                Avatar
+            ],
+            multi: true
+        }),
         Config,
         MemberProvider,
         ResourceProvider,
@@ -168,4 +188,5 @@ ionicBootstrap(CogicApp,
     {
         tabbarPlacement: 'bottom'
     }
-);
+)
+;

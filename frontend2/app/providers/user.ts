@@ -4,37 +4,32 @@ import {Http, Headers, RequestOptions} from "@angular/http";
 import {Config} from "./config";
 import {DataModel} from "./data-model";
 
+interface StoredUser {
+    first: string;
+    last: string;
+    role: string;
+    jobTitle: string;
+    orgName: string;
+    orgId: number;
+}
+
 @Injectable()
 export class UserProvider extends DataModel {
-    fn: string = 'Dave';
-    ln: string = 'QJ';
-    r: string = 'Administrator';
-    jt: string = 'Puba';
-    o: string = 'Someplace';
-    oi: number = 0;
+    public storedUser: StoredUser = {first: '', last: '', role: '', jobTitle: '', orgName: '', orgId: 0};
 
-    _favorites = [];
-    HAS_LOGGED_IN = 'hasLoggedIn';
-    isLoggedIn: boolean = false;
-    storage = new Storage(LocalStorage);
+    public first: string = '';
+    public last: string = '';
+    public role: string = '';
+    public jobTitle: string = '';
+    public orgName: string = '';
+    public orgId: number = 0;
+    public isLoggedIn: boolean = false;
+
+    private storage = new Storage(LocalStorage);
 
     constructor(protected http: Http, config: Config, protected events: Events) {
         super('user', http, config, events);
-    }
-
-    hasFavorite(sessionName) {
-        return (this._favorites.indexOf(sessionName) > -1);
-    }
-
-    addFavorite(sessionName) {
-        this._favorites.push(sessionName);
-    }
-
-    removeFavorite(sessionName) {
-        let index = this._favorites.indexOf(sessionName);
-        if (index > -1) {
-            this._favorites.splice(index, 1);
-        }
+        this.checkLogin();
     }
 
     validate(jsonInfo) {
@@ -44,13 +39,14 @@ export class UserProvider extends DataModel {
             }
             else {
                 var data = jsonInfo.data;
-                this.fn = data.fn;
-                this.ln = data.ln;
-                this.jt = data.jt;
-                this.r = data.r;
-                this.o = data.o;
-                this.oi = data.oi;
-                this.storage.set(this.HAS_LOGGED_IN, true);
+                this.first = data.fn;
+                this.last = data.ln;
+                this.role = data.r;
+                this.jobTitle = data.jt;
+                this.orgName = data.o;
+                this.orgId = data.oi;
+                this.storedUser = {first: data.fn, last: data.ln, role: data.r, jobTitle: data.jt, orgName: data.o, orgId: data.oi};
+                this.storage.set('user', JSON.stringify(this.storedUser));
                 this.isLoggedIn = true;
                 this.events.publish('user:login');
             }
@@ -73,33 +69,27 @@ export class UserProvider extends DataModel {
         });
     }
 
-    signup(username) {
-        this.storage.set(this.HAS_LOGGED_IN, true);
-        this.setUsername(username);
-        this.events.publish('user:signup');
-    }
-
     logout() {
         this.isLoggedIn = false;
-        this.storage.remove(this.HAS_LOGGED_IN);
-        this.storage.remove('username');
+        this.storage.set('user', null);
         this.events.publish('user:logout');
     }
 
-    setUsername(username) {
-        this.storage.set('username', username);
-    }
-
-    getUsername() {
-        return this.storage.get('username').then((value) => {
-            return value;
-        });
-    }
-
-    // return a promise
-    hasLoggedIn() {
-        return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
-            console.log('hasLoggedIn:', value);
+    checkLogin() {
+        return this.storage.get('user').then((value) => {
+            console.log('checkLogin():', value);
+            if (value) {
+                this.storedUser = JSON.parse(value);
+                console.log('STORED:', this.storedUser);
+                this.first = this.storedUser.first;
+                this.last = this.storedUser.last;
+                this.role = this.storedUser.role;
+                this.jobTitle = this.storedUser.jobTitle;
+                this.orgName = this.storedUser.orgName;
+                this.orgId = this.storedUser.orgId;
+                this.isLoggedIn = true;
+                this.events.publish('user:login');
+            }
             return value;
         });
     }

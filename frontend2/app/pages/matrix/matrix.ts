@@ -11,7 +11,7 @@ export class MatrixPage {
 
     constructor(private nav: NavController, private user: UserProvider, assessmentData: AssessmentProvider) {
         /** @todo Greg? These need to be arguments */
-        var organizationId: number = user.oi;
+        var organizationId: number = user.orgId;
         var instrumentId: number = 5;
 
         assessmentData.loadMatrix(organizationId, instrumentId).then(matrix => {

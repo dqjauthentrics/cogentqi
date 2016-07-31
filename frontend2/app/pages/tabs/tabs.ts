@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {NavParams} from "ionic-angular";
 import {DashboardPage} from "../dashboard/dashboard";
-import {AboutPage} from "../about/about";
+import {helpPage} from "../help/help";
 import {AssessmentListPage} from "../assessment/list";
 import {ResourceListPage} from "../resource/list";
 import {MemberListPage} from "../member/list";
@@ -14,7 +14,7 @@ export class TabsPage {
     memberRoot: any = MemberListPage;
     resourceRoot: any = ResourceListPage;
     assessmentRoot: any = AssessmentListPage;
-    tab4Root: any = AboutPage;
+    helpRoot: any = helpPage;
     mySelectedIndex: number;
 
     constructor(navParams: NavParams) {

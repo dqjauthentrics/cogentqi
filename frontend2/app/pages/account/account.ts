@@ -39,7 +39,8 @@ export class AccountPage {
         alert.addButton({
             text: 'Ok',
             handler: data => {
-                this.userData.setUsername(data.username);
+                // @todo
+                ///this.userData.setUsername(data.username);
                 this.getUsername();
             }
         });
@@ -48,9 +49,12 @@ export class AccountPage {
     }
 
     getUsername() {
-        this.userData.getUsername().then((username) => {
-            this.username = username;
-        });
+        /**
+         * @todo
+         */
+        //this.userData.getUsername().then((username) => {
+        //    this.username = username;
+        //});
     }
 
     changePassword() {
