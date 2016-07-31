@@ -11,3 +11,100 @@
   }
 
 }
+
+.assessment-detail {
+  ion-card-header.title {
+    font-size: 1.4em;
+    font-weight: bold;
+  }
+  .question .title {
+    font-weight: bold;
+  }
+  ion-slides {
+    margin-top: 30px;
+  }
+  .swiper-container {
+    height: auto;
+  }
+  ion-card-content {
+    text-align: left;
+  }
+  ion-segment {
+    margin-top: 2em;
+  }
+  ion-segment-button {
+    background: gray;
+    color: #FFF;
+    margin: 1em;
+    opacity: 1.0;
+    position: relative;
+    overflow: visible;
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+    text-transform: none;
+  }
+  ion-segment-button > div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.4em;
+    font-weight: bold;
+  }
+  .segment-button.active:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -20px;
+    width: 0;
+    height: 0;
+    border-top: solid 20px gray;
+    border-left: solid 20px transparent;
+    border-right: solid 20px transparent;
+  }
+  .range-slider {
+    height: 10px;
+  }
+
+  .slide-width-5 {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  ion-card.question-group {
+    padding: 0;
+  }
+  ion-card.question-group > ion-card-header {
+    background: #666;
+    color: #FFF;
+    text-align: left;
+    margin: 0;
+    padding: 0.5em;
+  }
+
+  ion-card {
+    margin: 0;
+    width: 100%;
+  }
+
+  ion-card.question {
+    background: #F4F4F4;
+  }
+}
+
+.rubric {
+  ion-col {
+    border: 1px solid #999;
+  }
+  ion-row .header {
+    background: #BBB;
+    color: #000;
+    text-align: center;
+    border: 1px solid #999;
+  }
+  ion-col.inactive {
+    opacity: 0.8;
+  }
+  ion-col.active {
+    font-weight: bold;
+  }
+}

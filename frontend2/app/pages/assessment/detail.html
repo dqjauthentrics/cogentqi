@@ -7,8 +7,37 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content class="outer-content assessment-list">
-    <ion-grid>
-        <h1>Assessment TBD</h1>
-    </ion-grid>
+<ion-content class="outer-content assessment-detail" padding="true">
+    <h1>{{assessment.n}}</h1>
+    <ion-segment>
+        <ion-segment-button *ngFor="let questionGroup of instrument.questionGroups; let groupIndex = index"
+                            value="questionGroup.tag" (click)="goTo(groupIndex)"
+                            ngClass="{{(groupIndex == slideIndex? 'active' : 'inactive')}}"
+        >
+            <div>{{questionGroup.tag}}</div>
+        </ion-segment-button>
+    </ion-segment>
+    <ion-slides #assessmentSlider [options]="{loop:false, effect:'slide', autoHeight:true, onlyExternal:true}">
+        <ion-slide *ngFor="let questionGroup of instrument.questionGroups; let groupIndex = index" (swipe)="swipeEvent($event)">
+            <ion-card class="question-group">
+                <ion-card-header class="title" [innerHtml]="questionGroup.tag"></ion-card-header>
+                <ion-card-content>
+                    <div *ngFor="let question of instrument.questions; let questionIndex = index">
+                        <ion-card class="question" *ngIf="(question.qg == questionGroup.id)">
+                            <ion-card-header>
+                                <div class="title" [innerHtml]="question.n"></div>
+                                <div class="text" [innerHtml]="question.sm"></div>
+                            </ion-card-header>
+                            <ion-card-content>
+                                <div class="slide-width-{{question.type.choices.length}}">
+                                    <ion-range min="0" [max]="(question.type.choices.length-1)" step="1" snaps="true" [(ngModel)]="question.response"></ion-range>
+                                </div>
+                                <rubric [question]="question"></rubric>
+                            </ion-card-content>
+                        </ion-card>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </ion-slide>
+    </ion-slides>
 </ion-content>

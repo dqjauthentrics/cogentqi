@@ -1,0 +1,2565 @@
+{
+  "status": 1,
+  "code": 200,
+  "duration": 0.37847,
+  "message": null,
+  "data": {
+    "id": 5,
+    "n": "Nursing Evaluation",
+    "r": "N",
+    "usageId": "R",
+    "dsc": null,
+    "sm": null,
+    "isUniform": 1,
+    "qt": 37,
+    "max": 4,
+    "min": 0,
+    "so": 5,
+    "status": "A",
+    "questionChoices": [
+      {
+        "id": 158,
+        "qt": 37,
+        "so": 0,
+        "n": "(not set)",
+        "v": 0,
+        "ru": "(no value)",
+        "iconPrefix": "levelBg"
+      },
+      {
+        "id": 159,
+        "qt": 37,
+        "so": 1,
+        "n": "Advanced Beginner",
+        "v": 1,
+        "ru": "Performs assessment and identifies appropriate nursing diagnosis and\/or patient care standard with assistance.\n",
+        "iconPrefix": "levelBg"
+      },
+      {
+        "id": 160,
+        "qt": 37,
+        "so": 2,
+        "n": "Fully Competent",
+        "v": 2,
+        "ru": "Independently and completely performs focused assessment to provide most effective patient care for a given patient population.\nRecognizes specialty data.\n",
+        "iconPrefix": "levelBg"
+      },
+      {
+        "id": 161,
+        "qt": 37,
+        "so": 3,
+        "n": "Proficient",
+        "v": 3,
+        "ru": "Independently and consistently performs goal- focused and individualized assessment when caring for all patients, including those with complex pathophysiological and psychosocial needs.\n",
+        "iconPrefix": "levelBg"
+      },
+      {
+        "id": 162,
+        "qt": 37,
+        "so": 4,
+        "n": "Expert",
+        "v": 4,
+        "ru": "Exhibits highly developed assessment abilities that exemplify a comprehensive understanding of the total patient\/family situation.\n",
+        "iconPrefix": "levelBg"
+      }
+    ],
+    "questionGroups": [
+      {
+        "id": 24,
+        "ii": 5,
+        "tag": "Clinical Skills and Knowledge",
+        "nmb": "A",
+        "so": 1,
+        "sm": "",
+        "dsc": null,
+        "questions": [
+          {
+            "id": 95,
+            "qg": 24,
+            "qt": 37,
+            "so": 1,
+            "nmb": 1,
+            "n": "Assessment",
+            "sm": "Gathering of information about a patient's physiological, psychological, sociological, and spiritual status.",
+            "dsc": null,
+            "importance": 1,
+            "type": {
+              "id": 37,
+              "n": "Q1",
+              "sm": null,
+              "min": 0,
+              "max": 4,
+              "entryType": "LIKERT",
+              "choices": [
+                {
+                  "id": 158,
+                  "qt": 37,
+                  "so": 0,
+                  "n": "(not set)",
+                  "v": 0,
+                  "ru": "(no value)",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 159,
+                  "qt": 37,
+                  "so": 1,
+                  "n": "Advanced Beginner",
+                  "v": 1,
+                  "ru": "Performs assessment and identifies appropriate nursing diagnosis and\/or patient care standard with assistance.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 160,
+                  "qt": 37,
+                  "so": 2,
+                  "n": "Fully Competent",
+                  "v": 2,
+                  "ru": "Independently and completely performs focused assessment to provide most effective patient care for a given patient population.\nRecognizes specialty data.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 161,
+                  "qt": 37,
+                  "so": 3,
+                  "n": "Proficient",
+                  "v": 3,
+                  "ru": "Independently and consistently performs goal- focused and individualized assessment when caring for all patients, including those with complex pathophysiological and psychosocial needs.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 162,
+                  "qt": 37,
+                  "so": 4,
+                  "n": "Expert",
+                  "v": 4,
+                  "ru": "Exhibits highly developed assessment abilities that exemplify a comprehensive understanding of the total patient\/family situation.\n",
+                  "iconPrefix": "levelBg"
+                }
+              ]
+            }
+          },
+          {
+            "id": 96,
+            "qg": 24,
+            "qt": 38,
+            "so": 2,
+            "nmb": 2,
+            "n": "Nursing Diagnosis",
+            "sm": null,
+            "dsc": null,
+            "importance": 1,
+            "type": {
+              "id": 38,
+              "n": "Q2",
+              "sm": null,
+              "min": 0,
+              "max": 4,
+              "entryType": "LIKERT",
+              "choices": [
+                {
+                  "id": 163,
+                  "qt": 38,
+                  "so": 0,
+                  "n": "(not set)",
+                  "v": 0,
+                  "ru": "(no value)",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 164,
+                  "qt": 38,
+                  "so": 1,
+                  "n": "Advanced Beginner",
+                  "v": 1,
+                  "ru": "Recognizes data and identifies obvious nursing diagnoses.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 165,
+                  "qt": 38,
+                  "so": 2,
+                  "n": "Fully Competent",
+                  "v": 2,
+                  "ru": "Prioritizes key nursing diagnoses to address physical and psychosocial\/ emotional areas.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 166,
+                  "qt": 38,
+                  "so": 3,
+                  "n": "Proficient",
+                  "v": 3,
+                  "ru": "Individualizes nursing diagnoses based on assessment data.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 167,
+                  "qt": 38,
+                  "so": 4,
+                  "n": "Expert",
+                  "v": 4,
+                  "ru": "Individualizes nursing diagnoses based on assessment data and integrates that with the diagnoses &amp; priorities of other disciplines in order to provide holistic care.\n",
+                  "iconPrefix": "levelBg"
+                }
+              ]
+            }
+          },
+          {
+            "id": 97,
+            "qg": 24,
+            "qt": 39,
+            "so": 3,
+            "nmb": 3,
+            "n": "Planning\/Implementation\/Evaluation",
+            "sm": null,
+            "dsc": null,
+            "importance": 1,
+            "type": {
+              "id": 39,
+              "n": "Q3",
+              "sm": null,
+              "min": 0,
+              "max": 4,
+              "entryType": "LIKERT",
+              "choices": [
+                {
+                  "id": 168,
+                  "qt": 39,
+                  "so": 0,
+                  "n": "(not set)",
+                  "v": 0,
+                  "ru": "(no value)",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 169,
+                  "qt": 39,
+                  "so": 1,
+                  "n": "Advanced Beginner",
+                  "v": 1,
+                  "ru": "Practice is guided primarily by policies, procedures, and standards.\nIdentifies expected outcomes and nursing interventions to meet identified diagnoses and maintain standards of clinical practice.\nEvaluates patients based on basic standards.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 170,
+                  "qt": 39,
+                  "so": 2,
+                  "n": "Fully Competent",
+                  "v": 2,
+                  "ru": "Practice is driven by theory and experience. Independently develops, implements, and evaluates plan of care that recognizes subtle changes in patient\u00c2\u2019s condition and adapts plan as needed.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 171,
+                  "qt": 39,
+                  "so": 3,
+                  "n": "Proficient",
+                  "v": 3,
+                  "ru": "Practice relies on previous experience for focused analysis of problems and solutions with individual patient modification in order to meet outcomes.\nAccommodates unplanned events and evaluates\/ responds appropriately with speed, efficiency, flexibility and confidence.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 172,
+                  "qt": 39,
+                  "so": 4,
+                  "n": "Expert",
+                  "v": 4,
+                  "ru": "Practice is driven by an intuitive base and is self- directed, flexible, and innovative.\nIs consistently effective in providing holistic care that ensures positive change even in the most challenging patient care situations.\n",
+                  "iconPrefix": "levelBg"
+                }
+              ]
+            }
+          },
+          {
+            "id": 98,
+            "qg": 24,
+            "qt": 40,
+            "so": 4,
+            "nmb": 4,
+            "n": "Technology",
+            "sm": null,
+            "dsc": null,
+            "importance": 1,
+            "type": {
+              "id": 40,
+              "n": "Q4",
+              "sm": null,
+              "min": 0,
+              "max": 4,
+              "entryType": "LIKERT",
+              "choices": [
+                {
+                  "id": 173,
+                  "qt": 40,
+                  "so": 0,
+                  "n": "(not set)",
+                  "v": 0,
+                  "ru": "(no value)",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 174,
+                  "qt": 40,
+                  "so": 1,
+                  "n": "Advanced Beginner",
+                  "v": 1,
+                  "ru": "Utilizes standard unit technology and with assistance uses advanced technology as appropriate. Utilizes computer correctly for basis functions, including: \u00c2\u2022 Groupwise \u00c2\u2022 CareWeb \u00c2\u2013 labs and radiology results reporting \u00c2\u2022 Omnicell \u00c2\u2022 Mandatory Program\/ Competencies \u00c2\u2022 Policies and procedures\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 175,
+                  "qt": 40,
+                  "so": 2,
+                  "n": "Fully Competent",
+                  "v": 2,
+                  "ru": "Utilizes standard unit technology and uses advanced technology as appropriate. Utilizes computer for basic functions as well as reference on patient conditions and treatment.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 176,
+                  "qt": 40,
+                  "so": 3,
+                  "n": "Proficient",
+                  "v": 3,
+                  "ru": "Becomes expert and resource for use of standard unit technology and advanced technology as appropriate.\nBecomes resource for use of computer.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 177,
+                  "qt": 40,
+                  "so": 4,
+                  "n": "Expert",
+                  "v": 4,
+                  "ru": "Takes a leadership role in evaluating technology and its potential for use.\nAble to conduct literature search through library functions \u00c2\u2013 CINAHL, Cochrane, Medline, PubMed.\n",
+                  "iconPrefix": "levelBg"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": 25,
+        "ii": 5,
+        "tag": "Therapeutic Relationships",
+        "nmb": "B",
+        "so": 2,
+        "sm": "An intentional interactive relationship with patients and families that iscaring, clear, boundaried, positive and professional. It encompasses the philosophy of the institution, empowerment of the care givers and empowerment of the patient\/family.",
+        "dsc": null,
+        "questions": [
+          {
+            "id": 99,
+            "qg": 25,
+            "qt": 41,
+            "so": 5,
+            "nmb": 1,
+            "n": "Therapeutic Communication",
+            "sm": null,
+            "dsc": null,
+            "importance": 1,
+            "type": {
+              "id": 41,
+              "n": "Q5",
+              "sm": null,
+              "min": 0,
+              "max": 4,
+              "entryType": "LIKERT",
+              "choices": [
+                {
+                  "id": 178,
+                  "qt": 41,
+                  "so": 0,
+                  "n": "(not set)",
+                  "v": 0,
+                  "ru": "(no value)",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 179,
+                  "qt": 41,
+                  "so": 1,
+                  "n": "Advanced Beginner",
+                  "v": 1,
+                  "ru": "Recognizes how the nurse- patient\/family relationship impacts the patient experience. Introduces self as a Registered Nurse and describes role.\nConsistently wears identification. Establishes open communication.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 180,
+                  "qt": 41,
+                  "so": 2,
+                  "n": "Fully Competent",
+                  "v": 2,
+                  "ru": "Possesses clarity on ones own values and how they effect interactions, relationships and boundary setting.\nIndividualizes communication based on assessment of the patients and families.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 181,
+                  "qt": 41,
+                  "so": 3,
+                  "n": "Proficient",
+                  "v": 3,
+                  "ru": "Consistently role models individualized therapeutic communication based on patient and family needs. Initiates consultation\/leader- ship with the healthcare team to share and promote collaborative approach to patient and family care.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 182,
+                  "qt": 41,
+                  "so": 4,
+                  "n": "Expert",
+                  "v": 4,
+                  "ru": "Intuitively uses expert therapeutic communication with patient\/family.\nShares and promotes collaborative approach to patient and family care.\n",
+                  "iconPrefix": "levelBg"
+                }
+              ]
+            }
+          },
+          {
+            "id": 100,
+            "qg": 25,
+            "qt": 42,
+            "so": 6,
+            "nmb": 2,
+            "n": "Empowerment: Nurse, Patient, Family",
+            "sm": null,
+            "dsc": null,
+            "importance": 1,
+            "type": {
+              "id": 42,
+              "n": "Q6",
+              "sm": null,
+              "min": 0,
+              "max": 4,
+              "entryType": "LIKERT",
+              "choices": [
+                {
+                  "id": 183,
+                  "qt": 42,
+                  "so": 0,
+                  "n": "(not set)",
+                  "v": 0,
+                  "ru": "(no value)",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 184,
+                  "qt": 42,
+                  "so": 1,
+                  "n": "Advanced Beginner",
+                  "v": 1,
+                  "ru": "Recognizes the need for patient and family to participate in care. Seeks help as appropriate to assess readiness for participation in care.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 185,
+                  "qt": 42,
+                  "so": 2,
+                  "n": "Fully Competent",
+                  "v": 2,
+                  "ru": "Incorporates patient\/family in planning and implementing care.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 186,
+                  "qt": 42,
+                  "so": 3,
+                  "n": "Proficient",
+                  "v": 3,
+                  "ru": "Invites patients and families to actively participate in plan of care to foster growth and competence.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 187,
+                  "qt": 42,
+                  "so": 4,
+                  "n": "Expert",
+                  "v": 4,
+                  "ru": "Maximizes patient\/family participation in decision making and goal setting along the continuum of care.\n",
+                  "iconPrefix": "levelBg"
+                }
+              ]
+            }
+          },
+          {
+            "id": 101,
+            "qg": 25,
+            "qt": 43,
+            "so": 7,
+            "nmb": 3,
+            "n": "Compassion",
+            "sm": null,
+            "dsc": null,
+            "importance": 1,
+            "type": {
+              "id": 43,
+              "n": "Q7",
+              "sm": null,
+              "min": 0,
+              "max": 4,
+              "entryType": "LIKERT",
+              "choices": [
+                {
+                  "id": 188,
+                  "qt": 43,
+                  "so": 0,
+                  "n": "(not set)",
+                  "v": 0,
+                  "ru": "(no value)",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 189,
+                  "qt": 43,
+                  "so": 1,
+                  "n": "Advanced Beginner",
+                  "v": 1,
+                  "ru": "Actively listens to patient\/ family concerns in a respectful manner.\nShows kindness and caring with patients\/families.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 190,
+                  "qt": 43,
+                  "so": 2,
+                  "n": "Fully Competent",
+                  "v": 2,
+                  "ru": "Demonstrates empathy in interactions with patient\/ Families.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 191,
+                  "qt": 43,
+                  "so": 3,
+                  "n": "Proficient",
+                  "v": 3,
+                  "ru": "Plans and provides nursing care that promotes intentional caring.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 192,
+                  "qt": 43,
+                  "so": 4,
+                  "n": "Expert",
+                  "v": 4,
+                  "ru": "Intuitive understanding of patient\/family experience and is proactive in providing creative approaches to optimize comfort and support.\n",
+                  "iconPrefix": "levelBg"
+                }
+              ]
+            }
+          },
+          {
+            "id": 102,
+            "qg": 25,
+            "qt": 44,
+            "so": 8,
+            "nmb": 4,
+            "n": "Advocacy and Ethics",
+            "sm": null,
+            "dsc": null,
+            "importance": 1,
+            "type": {
+              "id": 44,
+              "n": "Q8",
+              "sm": null,
+              "min": 0,
+              "max": 4,
+              "entryType": "LIKERT",
+              "choices": [
+                {
+                  "id": 193,
+                  "qt": 44,
+                  "so": 0,
+                  "n": "(not set)",
+                  "v": 0,
+                  "ru": "(no value)",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 194,
+                  "qt": 44,
+                  "so": 1,
+                  "n": "Advanced Beginner",
+                  "v": 1,
+                  "ru": "Recognizes, respects, and supports patient\/family rights and maintains confidentiality.\nAware of UMHS patient rights and responsibility.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 195,
+                  "qt": 44,
+                  "so": 2,
+                  "n": "Fully Competent",
+                  "v": 2,
+                  "ru": "Mobilizes appropriate resources in response to situations that have the potential to negatively impact patient\/family outcomes.\nRecognizes ethical issues and seeks assistance in addressing them.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 196,
+                  "qt": 44,
+                  "so": 3,
+                  "n": "Proficient",
+                  "v": 3,
+                  "ru": "Challenges situations and\/or decisions that obstruct positive patient outcomes and works to reduce barriers. Anticipates patient\/family needs.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 197,
+                  "qt": 44,
+                  "so": 4,
+                  "n": "Expert",
+                  "v": 4,
+                  "ru": "***Challenges and adapts systems to maximize the benefits for patient care.\n",
+                  "iconPrefix": "levelBg"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": 26,
+        "ii": 5,
+        "tag": "Professional Relationships",
+        "nmb": "C",
+        "so": 3,
+        "sm": "An intentional interactive relationship with the health care team thatis marked by mutual regard, trust, and active engagement.",
+        "dsc": null,
+        "questions": [
+          {
+            "id": 103,
+            "qg": 26,
+            "qt": 45,
+            "so": 9,
+            "nmb": 1,
+            "n": "Collaboration with the Health Care Team",
+            "sm": null,
+            "dsc": null,
+            "importance": 1,
+            "type": {
+              "id": 45,
+              "n": "Q9",
+              "sm": null,
+              "min": 0,
+              "max": 4,
+              "entryType": "LIKERT",
+              "choices": [
+                {
+                  "id": 198,
+                  "qt": 45,
+                  "so": 0,
+                  "n": "(not set)",
+                  "v": 0,
+                  "ru": "(no value)",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 199,
+                  "qt": 45,
+                  "so": 1,
+                  "n": "Advanced Beginner",
+                  "v": 1,
+                  "ru": "Recognizes role of each member of the health care team.\nAware of importance of team collaboration and with guidance begins to initiate collaborative communication.\nInitiates referrals.\nRecognizes the impact of one\u00c2\u2019s behavior on others.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 200,
+                  "qt": 45,
+                  "so": 2,
+                  "n": "Fully Competent",
+                  "v": 2,
+                  "ru": "Initiates, recognizes and values professional collaborative communication and the positive effect on patient outcomes. Identifies and utilizes collaborative resources.\nMonitors referrals.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 201,
+                  "qt": 45,
+                  "so": 3,
+                  "n": "Proficient",
+                  "v": 3,
+                  "ru": "Is sought out by members of the multi-disciplinary health care team.\nFrequently initiates consults with health care team.\nActively collaborates with other health professionals in delivering care.\nRecognizes need and calls for team conference.\nActs as resource to nursing and health care team.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 202,
+                  "qt": 45,
+                  "so": 4,
+                  "n": "Expert",
+                  "v": 4,
+                  "ru": "Through shared values and a clear professional identify, demonstrates and role models an interdisciplinary collaborative approach to patient care.\nParticipates and\/or leads team care conference.\n",
+                  "iconPrefix": "levelBg"
+                }
+              ]
+            }
+          },
+          {
+            "id": 104,
+            "qg": 26,
+            "qt": 46,
+            "so": 10,
+            "nmb": 2,
+            "n": "Valuing Teams\/Teamwork",
+            "sm": null,
+            "dsc": null,
+            "importance": 1,
+            "type": {
+              "id": 46,
+              "n": "Q10",
+              "sm": null,
+              "min": 0,
+              "max": 4,
+              "entryType": "LIKERT",
+              "choices": [
+                {
+                  "id": 203,
+                  "qt": 46,
+                  "so": 0,
+                  "n": "(not set)",
+                  "v": 0,
+                  "ru": "(no value)",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 204,
+                  "qt": 46,
+                  "so": 1,
+                  "n": "Advanced Beginner",
+                  "v": 1,
+                  "ru": "Identifies self as member of nursing and health care teams. Begins to generate trust, respect, and compassion within the workgroup.\nTakes responsibility for developing beginning team relationships.\nSeeks assistance with resolving conflict. Meets professional commitments consistently.\nAsks for and accepts help when needed.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 205,
+                  "qt": 46,
+                  "so": 2,
+                  "n": "Fully Competent",
+                  "v": 2,
+                  "ru": "Functions as an independent and supportive team member. Provides assistance to others. Demonstrates empathy and compassion in interactions with team members.\nApproaches conflict situations in a constructive manner.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 206,
+                  "qt": 46,
+                  "so": 3,
+                  "n": "Proficient",
+                  "v": 3,
+                  "ru": "Fosters mutual regard, respect, and trust.\nDemonstrates flexibility.\nCreates conditions and relationships that promote creative, innovative, and positive processes and outcomes.\nRole models behaviors that demonstrate compassion and caring.\nFosters other\u00c2\u2019s development of conflict resolution skills.\nDemonstrates active engagement to enhance patient care and promote a positive workplace.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 207,
+                  "qt": 46,
+                  "so": 4,
+                  "n": "Expert",
+                  "v": 4,
+                  "ru": "Demonstrates team values that orient people to care about performance and success of others.\nRecognizes value of conflict in individual and organization learning and growth.\n",
+                  "iconPrefix": "levelBg"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": 27,
+        "ii": 5,
+        "tag": "Professional Development",
+        "nmb": "D",
+        "so": 4,
+        "sm": "Committed to the professional development of self and others.",
+        "dsc": null,
+        "questions": [
+          {
+            "id": 105,
+            "qg": 27,
+            "qt": 47,
+            "so": 11,
+            "nmb": 1,
+            "n": "Self",
+            "sm": null,
+            "dsc": null,
+            "importance": 1,
+            "type": {
+              "id": 47,
+              "n": "Q11",
+              "sm": null,
+              "min": 0,
+              "max": 4,
+              "entryType": "LIKERT",
+              "choices": [
+                {
+                  "id": 208,
+                  "qt": 47,
+                  "so": 0,
+                  "n": "(not set)",
+                  "v": 0,
+                  "ru": "(no value)",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 209,
+                  "qt": 47,
+                  "so": 1,
+                  "n": "Advanced Beginner",
+                  "v": 1,
+                  "ru": "Engages in self assessment related to orientation and ongoing learning needs and seeks out unit resources to assist in meeting needs.\nCompletes mandatory\/ competency requirements during orientation and annually.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 210,
+                  "qt": 47,
+                  "so": 2,
+                  "n": "Fully Competent",
+                  "v": 2,
+                  "ru": "Sets goals for knowledge\/ skill enhancement within the practice setting.\nSeeks out additional learning experiences within practice area: \u00c2\u2022 Unit specific certifications \u00c2\u2022 Consultation with experts \u00c2\u2022 Inservices\/rounds \u00c2\u2022 Collaborates with multidisciplinary team\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 211,
+                  "qt": 47,
+                  "so": 3,
+                  "n": "Proficient",
+                  "v": 3,
+                  "ru": "***Sets goals for knowledge\/skill enhancement within and beyond the practice setting.\n***Attends inservice(s)\/CE within and beyond practice area.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 212,
+                  "qt": 47,
+                  "so": 4,
+                  "n": "Expert",
+                  "v": 4,
+                  "ru": "***Sets goals in self directed manner and actively seeks out opportunities for knowledge\/skill enhancement within and beyond the practice setting.\n***Evidence of advancing professional identify (at least one): \u00c2\u2022 Certification in specialty (ACCN, ANCC Specialty Areas) \u00c2\u2022 Active participation in Professional organization (i.e., clinical specialty organizations, UMPNC, MNA, ANA, UAN) \u00c2\u2022 Active membership\/ leadership role in institutional groups related to nursing\n",
+                  "iconPrefix": "levelBg"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": 28,
+        "ii": 5,
+        "tag": "Advancing Practice through Innovation and Research",
+        "nmb": "E",
+        "so": 5,
+        "sm": "Demonstrates ongoing innovation byreviewing, critiquing and applying existing evidence to practice. Continually improves practice by applying performance improvement methodologies.",
+        "dsc": null,
+        "questions": [
+          {
+            "id": 106,
+            "qg": 28,
+            "qt": 48,
+            "so": 12,
+            "nmb": 1,
+            "n": "Innovation (creative solutions to everyday problems)",
+            "sm": null,
+            "dsc": null,
+            "importance": 1,
+            "type": {
+              "id": 48,
+              "n": "Q12",
+              "sm": null,
+              "min": 0,
+              "max": 4,
+              "entryType": "LIKERT",
+              "choices": [
+                {
+                  "id": 213,
+                  "qt": 48,
+                  "so": 0,
+                  "n": "(not set)",
+                  "v": 0,
+                  "ru": "(no value)",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 214,
+                  "qt": 48,
+                  "so": 1,
+                  "n": "Advanced Beginner",
+                  "v": 1,
+                  "ru": "Has knowledge of and supports established nursing improvement projects\/endeavors in practice setting.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 215,
+                  "qt": 48,
+                  "so": 2,
+                  "n": "Fully Competent",
+                  "v": 2,
+                  "ru": "Identifies areas for creative improvement in practice setting and seeks out resources and avenues to address them (unit practice council, content experts, etc.).\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 216,
+                  "qt": 48,
+                  "so": 3,
+                  "n": "Proficient",
+                  "v": 3,
+                  "ru": "Takes on leadership role in relation to innovations\/ improvements in practice setting. Reads evidence based articles related to area of practice.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 217,
+                  "qt": 48,
+                  "so": 4,
+                  "n": "Expert",
+                  "v": 4,
+                  "ru": "Independently seeks out opportunities to share information and influence evidence based nursing practice.\nEvaluates effectiveness of innovation\/practice challenges.\n",
+                  "iconPrefix": "levelBg"
+                }
+              ]
+            }
+          },
+          {
+            "id": 107,
+            "qg": 28,
+            "qt": 49,
+            "so": 13,
+            "nmb": 2,
+            "n": "Research",
+            "sm": null,
+            "dsc": null,
+            "importance": 1,
+            "type": {
+              "id": 49,
+              "n": "Q13",
+              "sm": null,
+              "min": 0,
+              "max": 4,
+              "entryType": "LIKERT",
+              "choices": [
+                {
+                  "id": 218,
+                  "qt": 49,
+                  "so": 0,
+                  "n": "(not set)",
+                  "v": 0,
+                  "ru": "(no value)",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 219,
+                  "qt": 49,
+                  "so": 1,
+                  "n": "Advanced Beginner",
+                  "v": 1,
+                  "ru": "Reads clinical articles. Participates in unit\/area based Continuous Quality Improvement projects.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 220,
+                  "qt": 49,
+                  "so": 2,
+                  "n": "Fully Competent",
+                  "v": 2,
+                  "ru": "Demonstrates an awareness of current literature in area of practice, including journal club, inservices, etc.\nIdentifies individual patient problems which require investigation. Participates in unit\/area based research, as appropriate.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 221,
+                  "qt": 49,
+                  "so": 3,
+                  "n": "Proficient",
+                  "v": 3,
+                  "ru": "***Participates in unit\/area based\/institutional Continuous Quality Improvement projects.\nPresents at unit based educational forums.\n",
+                  "iconPrefix": "levelBg"
+                },
+                {
+                  "id": 222,
+                  "qt": 49,
+                  "so": 4,
+                  "n": "Expert",
+                  "v": 4,
+                  "ru": "Implements change in practice for a population of patients based on the application of current research findings and evaluates effectiveness of practice changes.\nMakes recommendations for changes in practice based on findings. ***Shares findings of Continuous Quality Improvement projects, such as: \u00c2\u2022 Unit presentation \u00c2\u2022 Rounds \u00c2\u2022 Poster \u00c2\u2022 Publishing\nApplies current literature\/ research to problems in practice area.\n",
+                  "iconPrefix": "levelBg"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "id": 95,
+        "qg": 24,
+        "qt": 37,
+        "so": 1,
+        "nmb": 1,
+        "n": "Assessment",
+        "sm": "Gathering of information about a patient's physiological, psychological, sociological, and spiritual status.",
+        "dsc": null,
+        "importance": 1,
+        "type": {
+          "id": 37,
+          "n": "Q1",
+          "sm": null,
+          "min": 0,
+          "max": 4,
+          "entryType": "LIKERT",
+          "choices": [
+            {
+              "id": 158,
+              "qt": 37,
+              "so": 0,
+              "n": "(not set)",
+              "v": 0,
+              "ru": "(no value)",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 159,
+              "qt": 37,
+              "so": 1,
+              "n": "Advanced Beginner",
+              "v": 1,
+              "ru": "Performs assessment and identifies appropriate nursing diagnosis and\/or patient care standard with assistance.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 160,
+              "qt": 37,
+              "so": 2,
+              "n": "Fully Competent",
+              "v": 2,
+              "ru": "Independently and completely performs focused assessment to provide most effective patient care for a given patient population.\nRecognizes specialty data.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 161,
+              "qt": 37,
+              "so": 3,
+              "n": "Proficient",
+              "v": 3,
+              "ru": "Independently and consistently performs goal- focused and individualized assessment when caring for all patients, including those with complex pathophysiological and psychosocial needs.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 162,
+              "qt": 37,
+              "so": 4,
+              "n": "Expert",
+              "v": 4,
+              "ru": "Exhibits highly developed assessment abilities that exemplify a comprehensive understanding of the total patient\/family situation.\n",
+              "iconPrefix": "levelBg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 96,
+        "qg": 24,
+        "qt": 38,
+        "so": 2,
+        "nmb": 2,
+        "n": "Nursing Diagnosis",
+        "sm": null,
+        "dsc": null,
+        "importance": 1,
+        "type": {
+          "id": 38,
+          "n": "Q2",
+          "sm": null,
+          "min": 0,
+          "max": 4,
+          "entryType": "LIKERT",
+          "choices": [
+            {
+              "id": 163,
+              "qt": 38,
+              "so": 0,
+              "n": "(not set)",
+              "v": 0,
+              "ru": "(no value)",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 164,
+              "qt": 38,
+              "so": 1,
+              "n": "Advanced Beginner",
+              "v": 1,
+              "ru": "Recognizes data and identifies obvious nursing diagnoses.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 165,
+              "qt": 38,
+              "so": 2,
+              "n": "Fully Competent",
+              "v": 2,
+              "ru": "Prioritizes key nursing diagnoses to address physical and psychosocial\/ emotional areas.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 166,
+              "qt": 38,
+              "so": 3,
+              "n": "Proficient",
+              "v": 3,
+              "ru": "Individualizes nursing diagnoses based on assessment data.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 167,
+              "qt": 38,
+              "so": 4,
+              "n": "Expert",
+              "v": 4,
+              "ru": "Individualizes nursing diagnoses based on assessment data and integrates that with the diagnoses &amp; priorities of other disciplines in order to provide holistic care.\n",
+              "iconPrefix": "levelBg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 97,
+        "qg": 24,
+        "qt": 39,
+        "so": 3,
+        "nmb": 3,
+        "n": "Planning\/Implementation\/Evaluation",
+        "sm": null,
+        "dsc": null,
+        "importance": 1,
+        "type": {
+          "id": 39,
+          "n": "Q3",
+          "sm": null,
+          "min": 0,
+          "max": 4,
+          "entryType": "LIKERT",
+          "choices": [
+            {
+              "id": 168,
+              "qt": 39,
+              "so": 0,
+              "n": "(not set)",
+              "v": 0,
+              "ru": "(no value)",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 169,
+              "qt": 39,
+              "so": 1,
+              "n": "Advanced Beginner",
+              "v": 1,
+              "ru": "Practice is guided primarily by policies, procedures, and standards.\nIdentifies expected outcomes and nursing interventions to meet identified diagnoses and maintain standards of clinical practice.\nEvaluates patients based on basic standards.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 170,
+              "qt": 39,
+              "so": 2,
+              "n": "Fully Competent",
+              "v": 2,
+              "ru": "Practice is driven by theory and experience. Independently develops, implements, and evaluates plan of care that recognizes subtle changes in patient\u00c2\u2019s condition and adapts plan as needed.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 171,
+              "qt": 39,
+              "so": 3,
+              "n": "Proficient",
+              "v": 3,
+              "ru": "Practice relies on previous experience for focused analysis of problems and solutions with individual patient modification in order to meet outcomes.\nAccommodates unplanned events and evaluates\/ responds appropriately with speed, efficiency, flexibility and confidence.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 172,
+              "qt": 39,
+              "so": 4,
+              "n": "Expert",
+              "v": 4,
+              "ru": "Practice is driven by an intuitive base and is self- directed, flexible, and innovative.\nIs consistently effective in providing holistic care that ensures positive change even in the most challenging patient care situations.\n",
+              "iconPrefix": "levelBg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 98,
+        "qg": 24,
+        "qt": 40,
+        "so": 4,
+        "nmb": 4,
+        "n": "Technology",
+        "sm": null,
+        "dsc": null,
+        "importance": 1,
+        "type": {
+          "id": 40,
+          "n": "Q4",
+          "sm": null,
+          "min": 0,
+          "max": 4,
+          "entryType": "LIKERT",
+          "choices": [
+            {
+              "id": 173,
+              "qt": 40,
+              "so": 0,
+              "n": "(not set)",
+              "v": 0,
+              "ru": "(no value)",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 174,
+              "qt": 40,
+              "so": 1,
+              "n": "Advanced Beginner",
+              "v": 1,
+              "ru": "Utilizes standard unit technology and with assistance uses advanced technology as appropriate. Utilizes computer correctly for basis functions, including: \u00c2\u2022 Groupwise \u00c2\u2022 CareWeb \u00c2\u2013 labs and radiology results reporting \u00c2\u2022 Omnicell \u00c2\u2022 Mandatory Program\/ Competencies \u00c2\u2022 Policies and procedures\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 175,
+              "qt": 40,
+              "so": 2,
+              "n": "Fully Competent",
+              "v": 2,
+              "ru": "Utilizes standard unit technology and uses advanced technology as appropriate. Utilizes computer for basic functions as well as reference on patient conditions and treatment.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 176,
+              "qt": 40,
+              "so": 3,
+              "n": "Proficient",
+              "v": 3,
+              "ru": "Becomes expert and resource for use of standard unit technology and advanced technology as appropriate.\nBecomes resource for use of computer.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 177,
+              "qt": 40,
+              "so": 4,
+              "n": "Expert",
+              "v": 4,
+              "ru": "Takes a leadership role in evaluating technology and its potential for use.\nAble to conduct literature search through library functions \u00c2\u2013 CINAHL, Cochrane, Medline, PubMed.\n",
+              "iconPrefix": "levelBg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 99,
+        "qg": 25,
+        "qt": 41,
+        "so": 5,
+        "nmb": 1,
+        "n": "Therapeutic Communication",
+        "sm": null,
+        "dsc": null,
+        "importance": 1,
+        "type": {
+          "id": 41,
+          "n": "Q5",
+          "sm": null,
+          "min": 0,
+          "max": 4,
+          "entryType": "LIKERT",
+          "choices": [
+            {
+              "id": 178,
+              "qt": 41,
+              "so": 0,
+              "n": "(not set)",
+              "v": 0,
+              "ru": "(no value)",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 179,
+              "qt": 41,
+              "so": 1,
+              "n": "Advanced Beginner",
+              "v": 1,
+              "ru": "Recognizes how the nurse- patient\/family relationship impacts the patient experience. Introduces self as a Registered Nurse and describes role.\nConsistently wears identification. Establishes open communication.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 180,
+              "qt": 41,
+              "so": 2,
+              "n": "Fully Competent",
+              "v": 2,
+              "ru": "Possesses clarity on ones own values and how they effect interactions, relationships and boundary setting.\nIndividualizes communication based on assessment of the patients and families.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 181,
+              "qt": 41,
+              "so": 3,
+              "n": "Proficient",
+              "v": 3,
+              "ru": "Consistently role models individualized therapeutic communication based on patient and family needs. Initiates consultation\/leader- ship with the healthcare team to share and promote collaborative approach to patient and family care.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 182,
+              "qt": 41,
+              "so": 4,
+              "n": "Expert",
+              "v": 4,
+              "ru": "Intuitively uses expert therapeutic communication with patient\/family.\nShares and promotes collaborative approach to patient and family care.\n",
+              "iconPrefix": "levelBg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 100,
+        "qg": 25,
+        "qt": 42,
+        "so": 6,
+        "nmb": 2,
+        "n": "Empowerment: Nurse, Patient, Family",
+        "sm": null,
+        "dsc": null,
+        "importance": 1,
+        "type": {
+          "id": 42,
+          "n": "Q6",
+          "sm": null,
+          "min": 0,
+          "max": 4,
+          "entryType": "LIKERT",
+          "choices": [
+            {
+              "id": 183,
+              "qt": 42,
+              "so": 0,
+              "n": "(not set)",
+              "v": 0,
+              "ru": "(no value)",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 184,
+              "qt": 42,
+              "so": 1,
+              "n": "Advanced Beginner",
+              "v": 1,
+              "ru": "Recognizes the need for patient and family to participate in care. Seeks help as appropriate to assess readiness for participation in care.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 185,
+              "qt": 42,
+              "so": 2,
+              "n": "Fully Competent",
+              "v": 2,
+              "ru": "Incorporates patient\/family in planning and implementing care.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 186,
+              "qt": 42,
+              "so": 3,
+              "n": "Proficient",
+              "v": 3,
+              "ru": "Invites patients and families to actively participate in plan of care to foster growth and competence.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 187,
+              "qt": 42,
+              "so": 4,
+              "n": "Expert",
+              "v": 4,
+              "ru": "Maximizes patient\/family participation in decision making and goal setting along the continuum of care.\n",
+              "iconPrefix": "levelBg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 101,
+        "qg": 25,
+        "qt": 43,
+        "so": 7,
+        "nmb": 3,
+        "n": "Compassion",
+        "sm": null,
+        "dsc": null,
+        "importance": 1,
+        "type": {
+          "id": 43,
+          "n": "Q7",
+          "sm": null,
+          "min": 0,
+          "max": 4,
+          "entryType": "LIKERT",
+          "choices": [
+            {
+              "id": 188,
+              "qt": 43,
+              "so": 0,
+              "n": "(not set)",
+              "v": 0,
+              "ru": "(no value)",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 189,
+              "qt": 43,
+              "so": 1,
+              "n": "Advanced Beginner",
+              "v": 1,
+              "ru": "Actively listens to patient\/ family concerns in a respectful manner.\nShows kindness and caring with patients\/families.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 190,
+              "qt": 43,
+              "so": 2,
+              "n": "Fully Competent",
+              "v": 2,
+              "ru": "Demonstrates empathy in interactions with patient\/ Families.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 191,
+              "qt": 43,
+              "so": 3,
+              "n": "Proficient",
+              "v": 3,
+              "ru": "Plans and provides nursing care that promotes intentional caring.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 192,
+              "qt": 43,
+              "so": 4,
+              "n": "Expert",
+              "v": 4,
+              "ru": "Intuitive understanding of patient\/family experience and is proactive in providing creative approaches to optimize comfort and support.\n",
+              "iconPrefix": "levelBg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 102,
+        "qg": 25,
+        "qt": 44,
+        "so": 8,
+        "nmb": 4,
+        "n": "Advocacy and Ethics",
+        "sm": null,
+        "dsc": null,
+        "importance": 1,
+        "type": {
+          "id": 44,
+          "n": "Q8",
+          "sm": null,
+          "min": 0,
+          "max": 4,
+          "entryType": "LIKERT",
+          "choices": [
+            {
+              "id": 193,
+              "qt": 44,
+              "so": 0,
+              "n": "(not set)",
+              "v": 0,
+              "ru": "(no value)",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 194,
+              "qt": 44,
+              "so": 1,
+              "n": "Advanced Beginner",
+              "v": 1,
+              "ru": "Recognizes, respects, and supports patient\/family rights and maintains confidentiality.\nAware of UMHS patient rights and responsibility.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 195,
+              "qt": 44,
+              "so": 2,
+              "n": "Fully Competent",
+              "v": 2,
+              "ru": "Mobilizes appropriate resources in response to situations that have the potential to negatively impact patient\/family outcomes.\nRecognizes ethical issues and seeks assistance in addressing them.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 196,
+              "qt": 44,
+              "so": 3,
+              "n": "Proficient",
+              "v": 3,
+              "ru": "Challenges situations and\/or decisions that obstruct positive patient outcomes and works to reduce barriers. Anticipates patient\/family needs.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 197,
+              "qt": 44,
+              "so": 4,
+              "n": "Expert",
+              "v": 4,
+              "ru": "***Challenges and adapts systems to maximize the benefits for patient care.\n",
+              "iconPrefix": "levelBg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 103,
+        "qg": 26,
+        "qt": 45,
+        "so": 9,
+        "nmb": 1,
+        "n": "Collaboration with the Health Care Team",
+        "sm": null,
+        "dsc": null,
+        "importance": 1,
+        "type": {
+          "id": 45,
+          "n": "Q9",
+          "sm": null,
+          "min": 0,
+          "max": 4,
+          "entryType": "LIKERT",
+          "choices": [
+            {
+              "id": 198,
+              "qt": 45,
+              "so": 0,
+              "n": "(not set)",
+              "v": 0,
+              "ru": "(no value)",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 199,
+              "qt": 45,
+              "so": 1,
+              "n": "Advanced Beginner",
+              "v": 1,
+              "ru": "Recognizes role of each member of the health care team.\nAware of importance of team collaboration and with guidance begins to initiate collaborative communication.\nInitiates referrals.\nRecognizes the impact of one\u00c2\u2019s behavior on others.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 200,
+              "qt": 45,
+              "so": 2,
+              "n": "Fully Competent",
+              "v": 2,
+              "ru": "Initiates, recognizes and values professional collaborative communication and the positive effect on patient outcomes. Identifies and utilizes collaborative resources.\nMonitors referrals.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 201,
+              "qt": 45,
+              "so": 3,
+              "n": "Proficient",
+              "v": 3,
+              "ru": "Is sought out by members of the multi-disciplinary health care team.\nFrequently initiates consults with health care team.\nActively collaborates with other health professionals in delivering care.\nRecognizes need and calls for team conference.\nActs as resource to nursing and health care team.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 202,
+              "qt": 45,
+              "so": 4,
+              "n": "Expert",
+              "v": 4,
+              "ru": "Through shared values and a clear professional identify, demonstrates and role models an interdisciplinary collaborative approach to patient care.\nParticipates and\/or leads team care conference.\n",
+              "iconPrefix": "levelBg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 104,
+        "qg": 26,
+        "qt": 46,
+        "so": 10,
+        "nmb": 2,
+        "n": "Valuing Teams\/Teamwork",
+        "sm": null,
+        "dsc": null,
+        "importance": 1,
+        "type": {
+          "id": 46,
+          "n": "Q10",
+          "sm": null,
+          "min": 0,
+          "max": 4,
+          "entryType": "LIKERT",
+          "choices": [
+            {
+              "id": 203,
+              "qt": 46,
+              "so": 0,
+              "n": "(not set)",
+              "v": 0,
+              "ru": "(no value)",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 204,
+              "qt": 46,
+              "so": 1,
+              "n": "Advanced Beginner",
+              "v": 1,
+              "ru": "Identifies self as member of nursing and health care teams. Begins to generate trust, respect, and compassion within the workgroup.\nTakes responsibility for developing beginning team relationships.\nSeeks assistance with resolving conflict. Meets professional commitments consistently.\nAsks for and accepts help when needed.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 205,
+              "qt": 46,
+              "so": 2,
+              "n": "Fully Competent",
+              "v": 2,
+              "ru": "Functions as an independent and supportive team member. Provides assistance to others. Demonstrates empathy and compassion in interactions with team members.\nApproaches conflict situations in a constructive manner.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 206,
+              "qt": 46,
+              "so": 3,
+              "n": "Proficient",
+              "v": 3,
+              "ru": "Fosters mutual regard, respect, and trust.\nDemonstrates flexibility.\nCreates conditions and relationships that promote creative, innovative, and positive processes and outcomes.\nRole models behaviors that demonstrate compassion and caring.\nFosters other\u00c2\u2019s development of conflict resolution skills.\nDemonstrates active engagement to enhance patient care and promote a positive workplace.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 207,
+              "qt": 46,
+              "so": 4,
+              "n": "Expert",
+              "v": 4,
+              "ru": "Demonstrates team values that orient people to care about performance and success of others.\nRecognizes value of conflict in individual and organization learning and growth.\n",
+              "iconPrefix": "levelBg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 105,
+        "qg": 27,
+        "qt": 47,
+        "so": 11,
+        "nmb": 1,
+        "n": "Self",
+        "sm": null,
+        "dsc": null,
+        "importance": 1,
+        "type": {
+          "id": 47,
+          "n": "Q11",
+          "sm": null,
+          "min": 0,
+          "max": 4,
+          "entryType": "LIKERT",
+          "choices": [
+            {
+              "id": 208,
+              "qt": 47,
+              "so": 0,
+              "n": "(not set)",
+              "v": 0,
+              "ru": "(no value)",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 209,
+              "qt": 47,
+              "so": 1,
+              "n": "Advanced Beginner",
+              "v": 1,
+              "ru": "Engages in self assessment related to orientation and ongoing learning needs and seeks out unit resources to assist in meeting needs.\nCompletes mandatory\/ competency requirements during orientation and annually.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 210,
+              "qt": 47,
+              "so": 2,
+              "n": "Fully Competent",
+              "v": 2,
+              "ru": "Sets goals for knowledge\/ skill enhancement within the practice setting.\nSeeks out additional learning experiences within practice area: \u00c2\u2022 Unit specific certifications \u00c2\u2022 Consultation with experts \u00c2\u2022 Inservices\/rounds \u00c2\u2022 Collaborates with multidisciplinary team\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 211,
+              "qt": 47,
+              "so": 3,
+              "n": "Proficient",
+              "v": 3,
+              "ru": "***Sets goals for knowledge\/skill enhancement within and beyond the practice setting.\n***Attends inservice(s)\/CE within and beyond practice area.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 212,
+              "qt": 47,
+              "so": 4,
+              "n": "Expert",
+              "v": 4,
+              "ru": "***Sets goals in self directed manner and actively seeks out opportunities for knowledge\/skill enhancement within and beyond the practice setting.\n***Evidence of advancing professional identify (at least one): \u00c2\u2022 Certification in specialty (ACCN, ANCC Specialty Areas) \u00c2\u2022 Active participation in Professional organization (i.e., clinical specialty organizations, UMPNC, MNA, ANA, UAN) \u00c2\u2022 Active membership\/ leadership role in institutional groups related to nursing\n",
+              "iconPrefix": "levelBg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 106,
+        "qg": 28,
+        "qt": 48,
+        "so": 12,
+        "nmb": 1,
+        "n": "Innovation (creative solutions to everyday problems)",
+        "sm": null,
+        "dsc": null,
+        "importance": 1,
+        "type": {
+          "id": 48,
+          "n": "Q12",
+          "sm": null,
+          "min": 0,
+          "max": 4,
+          "entryType": "LIKERT",
+          "choices": [
+            {
+              "id": 213,
+              "qt": 48,
+              "so": 0,
+              "n": "(not set)",
+              "v": 0,
+              "ru": "(no value)",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 214,
+              "qt": 48,
+              "so": 1,
+              "n": "Advanced Beginner",
+              "v": 1,
+              "ru": "Has knowledge of and supports established nursing improvement projects\/endeavors in practice setting.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 215,
+              "qt": 48,
+              "so": 2,
+              "n": "Fully Competent",
+              "v": 2,
+              "ru": "Identifies areas for creative improvement in practice setting and seeks out resources and avenues to address them (unit practice council, content experts, etc.).\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 216,
+              "qt": 48,
+              "so": 3,
+              "n": "Proficient",
+              "v": 3,
+              "ru": "Takes on leadership role in relation to innovations\/ improvements in practice setting. Reads evidence based articles related to area of practice.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 217,
+              "qt": 48,
+              "so": 4,
+              "n": "Expert",
+              "v": 4,
+              "ru": "Independently seeks out opportunities to share information and influence evidence based nursing practice.\nEvaluates effectiveness of innovation\/practice challenges.\n",
+              "iconPrefix": "levelBg"
+            }
+          ]
+        }
+      },
+      {
+        "id": 107,
+        "qg": 28,
+        "qt": 49,
+        "so": 13,
+        "nmb": 2,
+        "n": "Research",
+        "sm": null,
+        "dsc": null,
+        "importance": 1,
+        "type": {
+          "id": 49,
+          "n": "Q13",
+          "sm": null,
+          "min": 0,
+          "max": 4,
+          "entryType": "LIKERT",
+          "choices": [
+            {
+              "id": 218,
+              "qt": 49,
+              "so": 0,
+              "n": "(not set)",
+              "v": 0,
+              "ru": "(no value)",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 219,
+              "qt": 49,
+              "so": 1,
+              "n": "Advanced Beginner",
+              "v": 1,
+              "ru": "Reads clinical articles. Participates in unit\/area based Continuous Quality Improvement projects.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 220,
+              "qt": 49,
+              "so": 2,
+              "n": "Fully Competent",
+              "v": 2,
+              "ru": "Demonstrates an awareness of current literature in area of practice, including journal club, inservices, etc.\nIdentifies individual patient problems which require investigation. Participates in unit\/area based research, as appropriate.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 221,
+              "qt": 49,
+              "so": 3,
+              "n": "Proficient",
+              "v": 3,
+              "ru": "***Participates in unit\/area based\/institutional Continuous Quality Improvement projects.\nPresents at unit based educational forums.\n",
+              "iconPrefix": "levelBg"
+            },
+            {
+              "id": 222,
+              "qt": 49,
+              "so": 4,
+              "n": "Expert",
+              "v": 4,
+              "ru": "Implements change in practice for a population of patients based on the application of current research findings and evaluates effectiveness of practice changes.\nMakes recommendations for changes in practice based on findings. ***Shares findings of Continuous Quality Improvement projects, such as: \u00c2\u2022 Unit presentation \u00c2\u2022 Rounds \u00c2\u2022 Poster \u00c2\u2022 Publishing\nApplies current literature\/ research to problems in practice area.\n",
+              "iconPrefix": "levelBg"
+            }
+          ]
+        }
+      }
+    ],
+    "alignments": [
+      {
+        "id": 1419,
+        "ri": 1,
+        "qi": 95
+      },
+      {
+        "id": 1420,
+        "ri": 2,
+        "qi": 95
+      },
+      {
+        "id": 1421,
+        "ri": 3,
+        "qi": 95
+      },
+      {
+        "id": 1422,
+        "ri": 4,
+        "qi": 95
+      },
+      {
+        "id": 1423,
+        "ri": 5,
+        "qi": 95
+      },
+      {
+        "id": 1424,
+        "ri": 6,
+        "qi": 95
+      },
+      {
+        "id": 1425,
+        "ri": 7,
+        "qi": 95
+      },
+      {
+        "id": 1426,
+        "ri": 8,
+        "qi": 95
+      },
+      {
+        "id": 1427,
+        "ri": 9,
+        "qi": 95
+      },
+      {
+        "id": 1428,
+        "ri": 10,
+        "qi": 95
+      },
+      {
+        "id": 1429,
+        "ri": 11,
+        "qi": 95
+      },
+      {
+        "id": 1430,
+        "ri": 12,
+        "qi": 95
+      },
+      {
+        "id": 1431,
+        "ri": 1,
+        "qi": 96
+      },
+      {
+        "id": 1432,
+        "ri": 2,
+        "qi": 96
+      },
+      {
+        "id": 1433,
+        "ri": 3,
+        "qi": 96
+      },
+      {
+        "id": 1434,
+        "ri": 4,
+        "qi": 96
+      },
+      {
+        "id": 1435,
+        "ri": 5,
+        "qi": 96
+      },
+      {
+        "id": 1436,
+        "ri": 6,
+        "qi": 96
+      },
+      {
+        "id": 1437,
+        "ri": 7,
+        "qi": 96
+      },
+      {
+        "id": 1438,
+        "ri": 8,
+        "qi": 96
+      },
+      {
+        "id": 1439,
+        "ri": 9,
+        "qi": 96
+      },
+      {
+        "id": 1440,
+        "ri": 10,
+        "qi": 96
+      },
+      {
+        "id": 1441,
+        "ri": 11,
+        "qi": 96
+      },
+      {
+        "id": 1442,
+        "ri": 12,
+        "qi": 96
+      },
+      {
+        "id": 1443,
+        "ri": 1,
+        "qi": 97
+      },
+      {
+        "id": 1444,
+        "ri": 2,
+        "qi": 97
+      },
+      {
+        "id": 1445,
+        "ri": 3,
+        "qi": 97
+      },
+      {
+        "id": 1446,
+        "ri": 4,
+        "qi": 97
+      },
+      {
+        "id": 1447,
+        "ri": 5,
+        "qi": 97
+      },
+      {
+        "id": 1448,
+        "ri": 6,
+        "qi": 97
+      },
+      {
+        "id": 1449,
+        "ri": 7,
+        "qi": 97
+      },
+      {
+        "id": 1450,
+        "ri": 8,
+        "qi": 97
+      },
+      {
+        "id": 1451,
+        "ri": 9,
+        "qi": 97
+      },
+      {
+        "id": 1452,
+        "ri": 10,
+        "qi": 97
+      },
+      {
+        "id": 1453,
+        "ri": 11,
+        "qi": 97
+      },
+      {
+        "id": 1454,
+        "ri": 12,
+        "qi": 97
+      },
+      {
+        "id": 1455,
+        "ri": 1,
+        "qi": 98
+      },
+      {
+        "id": 1456,
+        "ri": 2,
+        "qi": 98
+      },
+      {
+        "id": 1457,
+        "ri": 3,
+        "qi": 98
+      },
+      {
+        "id": 1458,
+        "ri": 4,
+        "qi": 98
+      },
+      {
+        "id": 1459,
+        "ri": 5,
+        "qi": 98
+      },
+      {
+        "id": 1460,
+        "ri": 6,
+        "qi": 98
+      },
+      {
+        "id": 1461,
+        "ri": 7,
+        "qi": 98
+      },
+      {
+        "id": 1462,
+        "ri": 8,
+        "qi": 98
+      },
+      {
+        "id": 1463,
+        "ri": 9,
+        "qi": 98
+      },
+      {
+        "id": 1464,
+        "ri": 10,
+        "qi": 98
+      },
+      {
+        "id": 1465,
+        "ri": 11,
+        "qi": 98
+      },
+      {
+        "id": 1466,
+        "ri": 12,
+        "qi": 98
+      },
+      {
+        "id": 1467,
+        "ri": 1,
+        "qi": 99
+      },
+      {
+        "id": 1468,
+        "ri": 2,
+        "qi": 99
+      },
+      {
+        "id": 1469,
+        "ri": 3,
+        "qi": 99
+      },
+      {
+        "id": 1470,
+        "ri": 4,
+        "qi": 99
+      },
+      {
+        "id": 1471,
+        "ri": 5,
+        "qi": 99
+      },
+      {
+        "id": 1472,
+        "ri": 6,
+        "qi": 99
+      },
+      {
+        "id": 1473,
+        "ri": 7,
+        "qi": 99
+      },
+      {
+        "id": 1474,
+        "ri": 8,
+        "qi": 99
+      },
+      {
+        "id": 1475,
+        "ri": 9,
+        "qi": 99
+      },
+      {
+        "id": 1476,
+        "ri": 10,
+        "qi": 99
+      },
+      {
+        "id": 1477,
+        "ri": 11,
+        "qi": 99
+      },
+      {
+        "id": 1478,
+        "ri": 12,
+        "qi": 99
+      },
+      {
+        "id": 1479,
+        "ri": 1,
+        "qi": 101
+      },
+      {
+        "id": 1480,
+        "ri": 2,
+        "qi": 101
+      },
+      {
+        "id": 1481,
+        "ri": 3,
+        "qi": 101
+      },
+      {
+        "id": 1482,
+        "ri": 4,
+        "qi": 101
+      },
+      {
+        "id": 1483,
+        "ri": 5,
+        "qi": 101
+      },
+      {
+        "id": 1484,
+        "ri": 6,
+        "qi": 101
+      },
+      {
+        "id": 1485,
+        "ri": 7,
+        "qi": 101
+      },
+      {
+        "id": 1486,
+        "ri": 8,
+        "qi": 101
+      },
+      {
+        "id": 1487,
+        "ri": 9,
+        "qi": 101
+      },
+      {
+        "id": 1488,
+        "ri": 10,
+        "qi": 101
+      },
+      {
+        "id": 1489,
+        "ri": 11,
+        "qi": 101
+      },
+      {
+        "id": 1490,
+        "ri": 12,
+        "qi": 101
+      },
+      {
+        "id": 1491,
+        "ri": 1,
+        "qi": 102
+      },
+      {
+        "id": 1492,
+        "ri": 2,
+        "qi": 102
+      },
+      {
+        "id": 1493,
+        "ri": 3,
+        "qi": 102
+      },
+      {
+        "id": 1494,
+        "ri": 4,
+        "qi": 102
+      },
+      {
+        "id": 1495,
+        "ri": 5,
+        "qi": 102
+      },
+      {
+        "id": 1496,
+        "ri": 6,
+        "qi": 102
+      },
+      {
+        "id": 1497,
+        "ri": 7,
+        "qi": 102
+      },
+      {
+        "id": 1498,
+        "ri": 8,
+        "qi": 102
+      },
+      {
+        "id": 1499,
+        "ri": 9,
+        "qi": 102
+      },
+      {
+        "id": 1500,
+        "ri": 10,
+        "qi": 102
+      },
+      {
+        "id": 1501,
+        "ri": 11,
+        "qi": 102
+      },
+      {
+        "id": 1502,
+        "ri": 12,
+        "qi": 102
+      },
+      {
+        "id": 1503,
+        "ri": 1,
+        "qi": 103
+      },
+      {
+        "id": 1504,
+        "ri": 2,
+        "qi": 103
+      },
+      {
+        "id": 1505,
+        "ri": 3,
+        "qi": 103
+      },
+      {
+        "id": 1506,
+        "ri": 4,
+        "qi": 103
+      },
+      {
+        "id": 1507,
+        "ri": 5,
+        "qi": 103
+      },
+      {
+        "id": 1508,
+        "ri": 6,
+        "qi": 103
+      },
+      {
+        "id": 1509,
+        "ri": 7,
+        "qi": 103
+      },
+      {
+        "id": 1510,
+        "ri": 8,
+        "qi": 103
+      },
+      {
+        "id": 1511,
+        "ri": 9,
+        "qi": 103
+      },
+      {
+        "id": 1512,
+        "ri": 10,
+        "qi": 103
+      },
+      {
+        "id": 1513,
+        "ri": 11,
+        "qi": 103
+      },
+      {
+        "id": 1514,
+        "ri": 12,
+        "qi": 103
+      },
+      {
+        "id": 1515,
+        "ri": 1,
+        "qi": 104
+      },
+      {
+        "id": 1516,
+        "ri": 2,
+        "qi": 104
+      },
+      {
+        "id": 1517,
+        "ri": 3,
+        "qi": 104
+      },
+      {
+        "id": 1518,
+        "ri": 4,
+        "qi": 104
+      },
+      {
+        "id": 1519,
+        "ri": 5,
+        "qi": 104
+      },
+      {
+        "id": 1520,
+        "ri": 6,
+        "qi": 104
+      },
+      {
+        "id": 1521,
+        "ri": 7,
+        "qi": 104
+      },
+      {
+        "id": 1522,
+        "ri": 8,
+        "qi": 104
+      },
+      {
+        "id": 1523,
+        "ri": 9,
+        "qi": 104
+      },
+      {
+        "id": 1524,
+        "ri": 10,
+        "qi": 104
+      },
+      {
+        "id": 1525,
+        "ri": 11,
+        "qi": 104
+      },
+      {
+        "id": 1526,
+        "ri": 12,
+        "qi": 104
+      },
+      {
+        "id": 1527,
+        "ri": 1,
+        "qi": 105
+      },
+      {
+        "id": 1528,
+        "ri": 2,
+        "qi": 105
+      },
+      {
+        "id": 1529,
+        "ri": 3,
+        "qi": 105
+      },
+      {
+        "id": 1530,
+        "ri": 4,
+        "qi": 105
+      },
+      {
+        "id": 1531,
+        "ri": 5,
+        "qi": 105
+      },
+      {
+        "id": 1532,
+        "ri": 6,
+        "qi": 105
+      },
+      {
+        "id": 1533,
+        "ri": 7,
+        "qi": 105
+      },
+      {
+        "id": 1534,
+        "ri": 8,
+        "qi": 105
+      },
+      {
+        "id": 1535,
+        "ri": 9,
+        "qi": 105
+      },
+      {
+        "id": 1536,
+        "ri": 10,
+        "qi": 105
+      },
+      {
+        "id": 1537,
+        "ri": 11,
+        "qi": 105
+      },
+      {
+        "id": 1538,
+        "ri": 12,
+        "qi": 105
+      },
+      {
+        "id": 1539,
+        "ri": 1,
+        "qi": 106
+      },
+      {
+        "id": 1540,
+        "ri": 2,
+        "qi": 106
+      },
+      {
+        "id": 1541,
+        "ri": 3,
+        "qi": 106
+      },
+      {
+        "id": 1542,
+        "ri": 4,
+        "qi": 106
+      },
+      {
+        "id": 1543,
+        "ri": 5,
+        "qi": 106
+      },
+      {
+        "id": 1544,
+        "ri": 6,
+        "qi": 106
+      },
+      {
+        "id": 1545,
+        "ri": 7,
+        "qi": 106
+      },
+      {
+        "id": 1546,
+        "ri": 8,
+        "qi": 106
+      },
+      {
+        "id": 1547,
+        "ri": 9,
+        "qi": 106
+      },
+      {
+        "id": 1548,
+        "ri": 10,
+        "qi": 106
+      },
+      {
+        "id": 1549,
+        "ri": 11,
+        "qi": 106
+      },
+      {
+        "id": 1550,
+        "ri": 12,
+        "qi": 106
+      },
+      {
+        "id": 1551,
+        "ri": 1,
+        "qi": 107
+      },
+      {
+        "id": 1552,
+        "ri": 2,
+        "qi": 107
+      },
+      {
+        "id": 1553,
+        "ri": 3,
+        "qi": 107
+      },
+      {
+        "id": 1554,
+        "ri": 4,
+        "qi": 107
+      },
+      {
+        "id": 1555,
+        "ri": 5,
+        "qi": 107
+      },
+      {
+        "id": 1556,
+        "ri": 6,
+        "qi": 107
+      },
+      {
+        "id": 1557,
+        "ri": 7,
+        "qi": 107
+      },
+      {
+        "id": 1558,
+        "ri": 8,
+        "qi": 107
+      },
+      {
+        "id": 1559,
+        "ri": 9,
+        "qi": 107
+      },
+      {
+        "id": 1560,
+        "ri": 10,
+        "qi": 107
+      },
+      {
+        "id": 1561,
+        "ri": 11,
+        "qi": 107
+      },
+      {
+        "id": 1562,
+        "ri": 12,
+        "qi": 107
+      }
+    ],
+    "typeName": "Q1"
+  }
+}
