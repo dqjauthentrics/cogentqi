@@ -16,7 +16,7 @@
                 <div class="pull-left"><h3>{{assessment.member|namify}}</h3></div>
             </ion-col>
             <ion-col>
-                Last modified {{assessment.lm|date}} by {{assessment.assessor|namify}}
+                Last modified {{assessment.lm|date:'M/d/yyyy @ h:mm'}} by {{assessment.assessor|namify}}
                 <avatar [src]="assessment.assessor.av" [size]="'tiny'"></avatar>
             </ion-col>
             <ion-col>
