@@ -11,11 +11,12 @@ interface StoredUser {
     jobTitle: string;
     orgName: string;
     orgId: number;
+    roleName: string;
 }
 
 @Injectable()
 export class UserProvider extends DataModel {
-    public storedUser: StoredUser = {first: '', last: '', role: '', jobTitle: '', orgName: '', orgId: 0};
+    public storedUser: StoredUser = {first: '', last: '', role: '', jobTitle: '', orgName: '', orgId: 0, roleName: ''};
 
     public first: string = '';
     public last: string = '';
@@ -45,7 +46,7 @@ export class UserProvider extends DataModel {
                 this.jobTitle = data.jt;
                 this.orgName = data.o;
                 this.orgId = data.oi;
-                this.storedUser = {first: data.fn, last: data.ln, role: data.r, jobTitle: data.jt, orgName: data.o, orgId: data.oi};
+                this.storedUser = {first: data.fn, last: data.ln, role: data.r, jobTitle: data.jt, orgName: data.o, orgId: data.oi, roleName: data.rn};
                 this.storage.set('user', JSON.stringify(this.storedUser));
                 this.isLoggedIn = true;
                 this.events.publish('user:login');

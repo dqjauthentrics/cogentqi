@@ -28,23 +28,4 @@ export class MemberListPage {
         this.nav.push(MemberDetailPage, member);
     }
 
-    filterer = function (member, filterText) {
-        console.log('FILTER:', member, filterText);
-        try {
-           // for (var member of this.members) {
-                filterText = filterText.toLowerCase();
-                member.visible = filterText == null ||
-                    member.fn.toLowerCase().indexOf(filterText) >= 0 ||
-                    member.ln.toLowerCase().indexOf(filterText) >= 0 ||
-                    (member.rn != undefined ? member.rn.toLowerCase().indexOf(filterText) >= 0 : false)
-                ;
-            //}
-        }
-        catch (exception) {
-            console.log(exception);
-        }
-        return true;
-    }
-
-
 }
