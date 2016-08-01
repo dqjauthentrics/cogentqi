@@ -28,6 +28,9 @@ export class Icon implements PipeTransform {
             case 'assessment':
                 className = 'options';
                 break;
+            case 'pdf':
+                className = 'fa fa-file-pdf-o fa-lg';
+                break;
         }
         return className;
     }

@@ -12,23 +12,29 @@
     <ion-grid class="header">
         <ion-row>
             <ion-col>
-                <div class="pull-left"><avatar [src]="assessment.member.av" [size]="'full'"></avatar></div>
+                <div class="pull-left">
+                    <avatar [src]="assessment.member.av" [size]="'full'"></avatar>
+                </div>
                 <div class="pull-left"><h3>{{assessment.member|namify}}</h3></div>
             </ion-col>
             <ion-col>
                 Last modified {{assessment.lm|date:'M/d/yyyy @ h:mm'}} by {{assessment.assessor|namify}}
                 <avatar [src]="assessment.assessor.av" [size]="'tiny'"></avatar>
             </ion-col>
-            <ion-col>
-                Coll 3
+            <ion-col class="button-bar">
+                <button>
+                    <ion-icon name="{{'lock'|icon}}"></ion-icon>
+                </button>
+                <button>
+                    <ion-icon class="fa fa-file-pdf-o"></ion-icon>
+                </button>
             </ion-col>
         </ion-row>
     </ion-grid>
     <ion-segment>
         <ion-segment-button *ngFor="let questionGroup of instrument.questionGroups; let groupIndex = index"
                             value="questionGroup.tag" (click)="goTo(groupIndex)"
-                            ngClass="{{(groupIndex == slideIndex? 'active' : 'inactive')}}"
-        >
+                            ngClass="{{(groupIndex == slideIndex? 'active' : 'inactive')}}">
             <div>{{questionGroup.tag}}</div>
         </ion-segment-button>
     </ion-segment>

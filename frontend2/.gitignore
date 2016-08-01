@@ -13,12 +13,8 @@ log.txt
 .sass-cache/
 .versions/
 coverage/
-node_modules/
 tmp/
 temp/
-hooks/
-platforms/
-plugins/
 www/build/
 $RECYCLE.BIN/
 
