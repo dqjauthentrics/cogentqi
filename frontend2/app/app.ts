@@ -17,6 +17,7 @@ import {Namify} from "./pipes/namify";
 import {Replace} from "./pipes/strings";
 import {Icon} from "./pipes/icon";
 import {Avatar} from "./directives/avatar";
+import {HeaderBar} from "./directives/header-bar";
 import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe, MissingTranslationHandler} from "ng2-translate/ng2-translate";
 
 /**
@@ -175,7 +176,8 @@ ionicBootstrap(CogicApp,
         }),
         new Provider(PLATFORM_DIRECTIVES, {
             useValue: [
-                Avatar
+                Avatar,
+                HeaderBar
             ],
             multi: true
         }),

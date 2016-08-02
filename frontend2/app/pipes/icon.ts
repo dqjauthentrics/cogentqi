@@ -8,7 +8,10 @@ export class Icon implements PipeTransform {
     transform(standardName: string): string {
         let className: string = standardName;
         switch (standardName) {
-            case 'help':
+            case 'logout':
+                className = 'power';
+                break;
+           case 'help':
                 className = 'help';
                 break;
             case 'dashboard':
