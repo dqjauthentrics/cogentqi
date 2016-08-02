@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Resources</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content resource-list">
+  <ion-card *ngFor="let resource of resources" class="resource">
+
+    <ion-card-header>
+      <ion-item>
+        <ion-avatar item-left>
+          <img [src]="resource.profilePic">
+        </ion-avatar>
+        {{resource.name}}
+      </ion-item>
+    </ion-card-header>
+
+    <ion-card-content class="outer-content">
+      <ion-list>
+        <button ion-item *ngFor="let session of resource.sessions" (click)="goToSessionDetail(session)">
+          <h3>{{session.name}}</h3>
+        </button>
+        <button ion-item (click)="goToResourceDetail(resource)">
+          <h3>About {{resource.name}}</h3>
+        </button>
+      </ion-list>
+    </ion-card-content>
+
+    <ion-item>
+      <button (click)="goToResourceTwitter(resource)" clear item-left>
+        <ion-icon name="logo-twitter"></ion-icon>
+        Tweet
+      </button>
+      <button (click)="openResourceShare(resource)" clear item-right>
+        <ion-icon name="share"></ion-icon>
+        Share
+      </button>
+    </ion-item>
+
+  </ion-card>
+</ion-content>

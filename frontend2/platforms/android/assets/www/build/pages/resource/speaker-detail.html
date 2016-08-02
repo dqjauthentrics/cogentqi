@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{resource.name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="resource-detail">
+
+  <div text-center>
+    <img [src]="resource.profilePic" [alt]="resource.name"><br>
+
+    <button clear small twitter><ion-icon name="logo-twitter"></ion-icon></button>
+    <button clear small github><ion-icon name="logo-github"></ion-icon></button>
+    <button clear small instagram><ion-icon name="logo-instagram"></ion-icon></button>
+  </div>
+
+  <p>{{resource.about}}</p>
+
+</ion-content>
