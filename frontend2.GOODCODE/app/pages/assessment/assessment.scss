@@ -1,0 +1,116 @@
+
+.assessment-list {
+
+  ion-card-content > div:first-child {
+    font-weight: bold;
+    width: 14em;
+  }
+  ion-card-content > div:nth-child(2) .name {
+    font-weight: bold;
+    font-style: italic;
+  }
+
+}
+
+.assessment-detail {
+  ion-grid.header ion-col:nth-child(2) {
+    text-align: center;
+  }
+  ion-grid.header ion-col:nth-child(3) {
+    text-align: right;
+  }
+  ion-card-header.title {
+    font-size: 1.4em;
+    font-weight: bold;
+  }
+  .question .title {
+    font-weight: bold;
+  }
+  ion-slides {
+    margin-top: 30px;
+  }
+  .swiper-container {
+    height: auto;
+  }
+  ion-card-content {
+    text-align: left;
+  }
+  ion-segment-button {
+    background: gray;
+    color: #FFF;
+    margin: 1em;
+    opacity: 1.0;
+    position: relative;
+    overflow: visible;
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+    text-transform: none;
+  }
+  ion-segment-button > div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.4em;
+    font-weight: bold;
+  }
+  .segment-button.active:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -20px;
+    width: 0;
+    height: 0;
+    border-top: solid 20px gray;
+    border-left: solid 20px transparent;
+    border-right: solid 20px transparent;
+  }
+
+  .range-slider {
+    height: 10px;
+  }
+
+  .slide-width-5 {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  ion-card.question-group {
+    padding: 0;
+  }
+  ion-card.question-group > ion-card-header {
+    background: #666;
+    color: #FFF;
+    text-align: left;
+    margin: 0;
+    padding: 0.5em;
+  }
+
+  ion-card {
+    margin: 0;
+    width: 100%;
+  }
+
+  ion-card.question-group > ion-card-content > div:nth-child(even) > ion-card {
+    background: #F8F8F8;
+  }
+  ion-card.question-group > ion-card-content > div:nth-child(odd) > ion-card {
+    background: #F8FFF8;
+  }
+}
+
+.rubric {
+  ion-col {
+    border: 1px transparent;
+  }
+  ion-row .header {
+    text-align: center;
+    border: 1px transparent;
+    padding: 0.4em;
+  }
+  ion-col.inactive {
+    opacity: 0.7;
+  }
+  ion-col.active {
+    font-weight: bold;
+  }
+}

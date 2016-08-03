@@ -1,0 +1,9 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{resource.npm}} {{resource.n}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding class="resource-detail">
+    <div [innerHtml]="sanitizer.bypassSecurityTrustHtml(content)"></div>
+</ion-content>

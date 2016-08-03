@@ -1,0 +1,28 @@
+.toolbar-background {
+    background-color: #217BBD !important;
+}
+
+a, a:visited {
+    color: #217BBD;
+}
+
+.cycle a {
+    color: #606060 !important;
+}
+
+.button.button-positive.active, .button.button-positive.activated {
+    border-color: #999;
+    background-color: #999;
+    color: #FFF;
+}
+
+.button.button-positive {
+    border-color: #AAA;
+    color: #FFF;
+    background-color: #AAA;
+}
+
+.tabs-assertive > .tabs, .tabs.tabs-assertive {
+    border-color: #217BBD;
+    background: none;
+}

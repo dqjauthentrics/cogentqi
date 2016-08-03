@@ -1,0 +1,30 @@
+
+.login-page {
+  div.logo {
+    margin: 1em auto;
+    width: 60vw;
+    min-width: 250px;
+    max-width: 400px;
+  }
+  img.appLogo {
+    width: 100%;
+  }
+
+  ion-row.panel {
+    background: #DDD;
+    min-width: 300px !important;
+    padding: 1em;
+  }
+
+  .item {
+    background: transparent;
+  }
+
+  ion-input {
+    background: #FFF;
+    padding: 0.4em;
+    line-height: 1.4em;
+    vertical-align: middle;
+  }
+
+}

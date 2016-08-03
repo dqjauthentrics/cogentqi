@@ -1,0 +1,7 @@
+.toolbar-background {
+    background: #066eb7;
+}
+
+.tab-item:hover {
+    color: yellow !important;
+}

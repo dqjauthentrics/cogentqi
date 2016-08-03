@@ -1,0 +1,109 @@
+// http://ionicframework.com/docs/v2/theming/
+
+// App Shared Sass
+// --------------------------------------------------
+// CSS that should apply to the app for every mode
+.avatar-tiny {
+  width: 4em;
+  height: auto;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+
+.clearfix:before, .clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.pull-left {
+  float: left;
+  margin-left: 0.5em;
+}
+
+.pull-left:first-child {
+  margin-left: 0;
+}
+
+.pull-right {
+  float: right;
+  margin-right: 0.5em;
+}
+
+.pull-right:first-child {
+  margin-right: 0;
+}
+
+ion-card {
+  padding: 8px;
+  cursor: pointer;
+}
+
+ion-card ion-card-header .item {
+  padding: 4px;
+}
+
+ion-card ion-card-content .list {
+  margin: 0;
+}
+
+ion-card ion-card-header,
+ion-card ion-card-content,
+ion-card ion-card-content .list ion-item-content {
+  padding: 0;
+}
+
+.tab-button-text {
+  text-transform: none;
+}
+
+.button-bar ion-icon {
+  line-height: 48px;
+  width: 48px;
+  height: 48px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+img.avatar-tiny {
+  width: 24px;
+  height: 24px;
+  border-radius: 24px;
+  vertical-align: middle;
+}
+
+img.avatar-full {
+  width: 88px;
+  height: 88px;
+  border-radius: 64px;
+  vertical-align: middle;
+}
+
+img.avatar-list {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  vertical-align: middle;
+}
+
+// App Shared Imports
+// --------------------------------------------------
+// These are the various page imports which make up this app.
+// By default each design mode includes these shared imports.
+// App Shared Sass variables belong in app.variables.scss.
+@import "./app.levels";
+@import "../pages/help/help";
+@import "../pages/dashboard/dashboard";
+@import "../pages/matrix/matrix";
+@import "../pages/account/account";
+@import "../pages/login/login";
+@import "../pages/resource/resource";
+@import "../pages/assessment/assessment";
+@import "../pages/member/member";
+@import "../pages/tutorial/tutorial";

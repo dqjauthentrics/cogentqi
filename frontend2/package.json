@@ -1,7 +1,7 @@
 {
-  "name": "Cogic",
-  "description": "An intelligent continuous learning app.",
-  "license": "TBD",
+  "name": "conference",
+  "description": "conference: An Ionic project",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/driftyco/ionic-conference-app.git"
@@ -14,10 +14,8 @@
     "@angular/platform-browser": "^2.0.0-rc.3",
     "@angular/platform-browser-dynamic": "^2.0.0-rc.3",
     "@angular/router": "^2.0.0-rc.2",
-    "angular2-highcharts": "^0.1.1",
-    "angular2-letter-avatar": "^2.0.5",
-    "angular2-tag-input": "^0.1.5",
     "es6-shim": "0.35.0",
+    "font-awesome": "^4.6.3",
     "ionic-angular": "^2.0.0-beta.10",
     "ionic-native": "^1.1.0",
     "ionicons": "3.0.0",

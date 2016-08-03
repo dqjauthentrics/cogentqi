@@ -1,0 +1,65 @@
+{
+  "name": "Cogic",
+  "description": "An intelligent continuous learning app.",
+  "license": "TBD",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/driftyco/ionic-conference-app.git"
+  },
+  "dependencies": {
+    "@angular/common": "^2.0.0-rc.3",
+    "@angular/compiler": "^2.0.0-rc.3",
+    "@angular/core": "^2.0.0-rc.3",
+    "@angular/http": "^2.0.0-rc.3",
+    "@angular/platform-browser": "^2.0.0-rc.3",
+    "@angular/platform-browser-dynamic": "^2.0.0-rc.3",
+    "@angular/router": "^2.0.0-rc.2",
+    "angular2-highcharts": "^0.1.1",
+    "angular2-letter-avatar": "^2.0.5",
+    "angular2-tag-input": "^0.1.5",
+    "es6-shim": "0.35.0",
+    "ionic-angular": "^2.0.0-beta.9-201606271842",
+    "ionic-native": "^1.3.10",
+    "ionicons": "3.0.0",
+    "ng2-translate": "^2.2.2",
+    "reflect-metadata": "0.1.3",
+    "rxjs": "5.0.0-beta.6",
+    "tslint": "^3.14.0",
+    "zone.js": "0.6.12"
+  },
+  "devDependencies": {
+    "del": "2.2.0",
+    "gulp": "3.9.1",
+    "gulp-tslint": "^5.0.0",
+    "gulp-watch": "4.3.5",
+    "ionic-gulp-browserify-typescript": "^1.1.0",
+    "ionic-gulp-fonts-copy": "^1.0.0",
+    "ionic-gulp-html-copy": "^1.0.0",
+    "ionic-gulp-sass-build": "^1.0.0",
+    "ionic-gulp-scripts-copy": "^2.0.0",
+    "ionic-gulp-tslint": "^1.0.0",
+    "run-sequence": "1.1.5",
+    "tslint": "^3.10.1",
+    "tslint-ionic-rules": "^0.0.3"
+  },
+  "cordovaPlugins": [
+    "cordova-plugin-device",
+    "cordova-plugin-console",
+    "cordova-plugin-whitelist",
+    {
+      "locator": "https://github.com/apache/cordova-plugin-splashscreen.git",
+      "id": "cordova-plugin-splashscreen"
+    },
+    "cordova-plugin-statusbar",
+    "ionic-plugin-keyboard"
+  ],
+  "cordovaPlatforms": [
+    "ios",
+    "android",
+    {
+      "platform": "ios",
+      "version": "",
+      "locator": "ios"
+    }
+  ]
+}
