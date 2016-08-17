@@ -1,3 +1,122 @@
-.matrix {
+.matrix-page {
+  th.rotate {
+    height: 5.4em;
+    text-overflow-ellipsis: ellipsis;
+    white-space: nowrap;
+    border: none;
+  }
+
+  th.rotate > div {
+    -webkit-transform: translate(1.0em, 3.4em) rotate(315deg);
+    transform: translate(1.0em, 3.4em) rotate(315deg);
+    width: 1.4em;
+    font-weight: normal;
+  }
+
+  thead tr {
+    height: 10em;
+  }
+
+  th.rotate > div > span {
+    border-bottom: 1px solid #ccc;
+  }
+
+  #matrix {
+    border-collapse: collapse;
+  }
+
+  #matrix td {
+    border: 1px solid gray;
+    padding: 0.4em;
+    font-size: 0.9em;
+    margin: 0;
+    font-weight: normal;
+  }
+
+  #matrix td.typeV {
+    background: #FFF;
+  }
+
+  #matrix td.typeS {
+    background: #DFDFDF;
+    font-weight: bold;
+  }
+
+  #matrix td.typeC {
+    background: #CCC;
+    font-weight: bold;
+  }
+
+  #matrix td.typeCS {
+    background: #CCC;
+    font-weight: bold;
+  }
+
+  #matrix td.typeR {
+    background: #CCC;
+    font-weight: bold;
+  }
+
+  #matrix td.typeRC {
+    background: #CCC;
+    font-weight: bold;
+  }
+  .matrixCircle, .matrixCircle a {
+    font-size: 1.4vmin;
+    padding: 0.2vmin 0.9vmin;
+    border-radius: 3vmin;
+    margin: 0;
+    text-decoration: none;
+  }
+
+  .matrixF, .matrixFg a {
+  }
+
+  .matrix td.average {
+    background: #F5F5F5;
+    color: #555;
+    font-style: italic;
+    text-align: center;
+  }
+
+  .average .matrixCircle {
+    font-style: normal !important;
+  }
+  .matrix {
+    margin: 4em auto 1em auto;
+    padding-right: 5em;
+  }
+
+  .matrix tbody tr:nth-child(even) {
+    background: #EFE;
+  }
+
+  .matrix td {
+    font-size: 1.8vmin;
+    padding: 0;
+    border: 1px solid #AAA;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .matrix table table {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .matrix td {
+    padding: 0.3em;
+  }
+
+  .matrix .leftHeader .avatar-tiny {
+    vertical-align: middle;
+    margin: 0.1em 0.3em 0.1em 0.1em;
+  }
+
+  .matrix .leftHeader {
+    font-weight: bold;
+    text-align: left;
+  }
 
 }

@@ -11,4 +11,15 @@ export class InstrumentProvider extends DataModel {
         super('instrument', http, config, events);
     }
 
+    find(id: number) {
+        if (this.list) {
+            for (let i = 0; i < this.list.length; i++) {
+                if (this.list[i].id == id) {
+                    console.log('found instrument:', this.list[i]);
+                    return this.list[i];
+                }
+            }
+        }
+        return null;
+    }
 }

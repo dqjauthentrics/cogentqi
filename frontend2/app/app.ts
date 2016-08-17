@@ -14,6 +14,8 @@ import {AccountPage} from "./pages/account/account";
 import {TabsPage} from "./pages/tabs/tabs";
 import {FilterArrayPipe} from "./pipes/filter-array-pipe";
 import {Namify} from "./pipes/namify";
+import {Ellipsify} from "./pipes/ellipsify";
+import {Round} from "./pipes/round";
 import {Replace} from "./pipes/strings";
 import {Icon} from "./pipes/icon";
 import {Avatar} from "./directives/avatar";
@@ -168,6 +170,8 @@ ionicBootstrap(CogicApp,
             useValue: [
                 TranslatePipe,
                 Namify,
+                Ellipsify,
+                Round,
                 Replace,
                 Icon,
                 FilterArrayPipe

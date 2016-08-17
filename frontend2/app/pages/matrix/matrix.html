@@ -3,21 +3,47 @@
         <ion-title>Matrix</ion-title>
     </ion-navbar>
 </ion-header>
-<ion-content padding>
-    <h1>{{'Evaluation'|translate}} {{'Matrix'|translate}}</h1>
-    <!--@todo Greg? -->
-    <table>
+<ion-content padding class="matrix-page">
+    <h1>{{instrument.n}} {{'Matrix'|translate}}</h1>
+    <ion-segment [ngShow]="instrument">
+        <ion-segment-button *ngFor="let questionGroup of instrument.questionGroups; let groupIndex = index"
+                            value="questionGroup.tag" (click)="goToGroup(groupIndex)"
+                            ngClass="{{(groupIndex == 42? 'active' : 'inactive')}}">
+            <div>{{questionGroup.tag}}</div>
+        </ion-segment-button>
+    </ion-segment>
+    <table id="matrix" class="matrix">
         <thead>
         <tr>
-            <td *ngFor="let hdr of matrix.hdrs">
-                {{hdr}}
-            </td>
+            <th style="font-style: italic;">{{'Most Recent'|translate}}<br/>{{'Staff Assessments'|translate}}</th>
+            <th *ngFor="let hdr of matrix.hdrs" [class]="'rotate ' + getCellClass(hdr)">
+                <div><span>{{hdr[1]|ellipsify:24}}</span></div>
+            </th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let row of matrix.rows">
-            <td *ngFor="let response of row.rsp">
-                {{response[1]}}
+            <td [class]="'leftHeader' + (row.mid == -1 || row.oid == -1? 'average':'')">
+                <div [ngSwitch]="(matrix.mType == 'M' ? row.mid : row.oid)">
+                    <div *ngSwitchCase="'-1'" style="text-align: right;">
+                        {{row.n}}
+                    </div>
+                    <div *ngSwitchDefault>
+                        <div [ngSwitch]="matrix.mType">
+                            <div *ngSwitchCase="'M'">
+                                <avatar [src]="row.mid" [size]="'tiny'"></avatar>
+                                <ion-icon name="{{'assessment'|icon}}" (click)="goToAssessment(row.aid)"></ion-icon>
+                                <span (click)="goToOrganization(row.oid)">{{row.n}}</span>
+                            </div>
+                            <div *ngSwitchCase="'O'">
+                                <a (click)="goToOrganization(row.oid)">{{row.n}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td *ngFor="let response of row.rsp" [class]="getCellClass(response)">
+                <div [class]="getScoreClass(response)">{{response[1]|round}}</div>
             </td>
         </tr>
         </tbody>
