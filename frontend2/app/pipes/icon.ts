@@ -20,6 +20,10 @@ export class Icon implements PipeTransform {
             case 'people':
                 className = 'people';
                 break;
+            case 'organization':
+            case 'organizations':
+                className = 'ios-body';
+                break;
             case 'member':
                 className = 'person';
                 break;

@@ -3,6 +3,10 @@
 // App Shared Sass
 // --------------------------------------------------
 // CSS that should apply to the app for every mode
+a {
+  cursor: pointer;
+}
+
 .avatar-tiny {
   width: 4em;
   height: auto;
@@ -94,9 +98,9 @@ img.avatar-list {
 
 .matrix-page, .assessment-detail {
   ion-segment-button {
-    background: gray;
-    color: #FFF;
-    margin: 1em;
+    background: lightgray;
+    color: #243842;
+    margin: 0.4em;
     opacity: 1.0;
     position: relative;
     overflow: visible;
@@ -107,8 +111,6 @@ img.avatar-list {
   ion-segment-button > div {
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 1.4em;
-    font-weight: bold;
   }
   .segment-button.active:after {
     content: '';
@@ -118,7 +120,7 @@ img.avatar-list {
     margin-left: -20px;
     width: 0;
     height: 0;
-    border-top: solid 20px gray;
+    border-top: solid 20px lightgray;
     border-left: solid 20px transparent;
     border-right: solid 20px transparent;
   }

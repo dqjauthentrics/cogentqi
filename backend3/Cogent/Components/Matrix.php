@@ -158,7 +158,7 @@ class Matrix {
 		/** @var \PDO $pdo */
 		$pdo = $this->dbif;
 		$sql = "SELECT
-				a.member_id,max(a.last_modified) AS maxMod, m.first_name, m.last_name, m.role_id, m.job_title, m.email, m.level
+				a.member_id,max(a.last_modified) AS maxMod, m.first_name, m.last_name, m.role_id, m.job_title, m.email, m.level, m.avatar
 			FROM assessment a, member m
 			WHERE a.member_id=m.id AND instrument_id=? AND member_id IN (SELECT id FROM member WHERE organization_id=?) GROUP BY member_id";
 		$statement = $pdo->prepare($sql);
@@ -177,6 +177,7 @@ class Matrix {
 				'jt'  => $dbRecord["job_title"],
 				'em'  => $dbRecord["email"],
 				'lv'  => $dbRecord["level"],
+				'av'  => $dbRecord['avatar'],
 			];
 		}
 		$memberIds = implode(",", $memberIds);
@@ -378,6 +379,7 @@ class Matrix {
 							'jt'  => $member["jt"],
 							'lv'  => $member["lv"],
 							'em'  => $member["em"],
+							'av'  => $member['av'],
 							'rsp' => $responses,
 						];
 					}

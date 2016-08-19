@@ -19,6 +19,7 @@ import {Round} from "./pipes/round";
 import {Replace} from "./pipes/strings";
 import {Icon} from "./pipes/icon";
 import {Avatar} from "./directives/avatar";
+import {AppIcon} from "./directives/app-icon";
 import {HeaderBar} from "./directives/header-bar";
 import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe, MissingTranslationHandler} from "ng2-translate/ng2-translate";
 
@@ -68,6 +69,7 @@ class CogicApp {
                 config: Config,
                 memberData: MemberProvider,
                 resourceData: ResourceProvider,
+                private instrumentData: InstrumentProvider,
                 translate: TranslateService) {
 
         this.config = config;
@@ -112,6 +114,7 @@ class CogicApp {
         this.events.subscribe('user:login', () => {
             this.rootPage = TabsPage;
             this.setPages(true);
+            this.instrumentData.loadAll(null);
         });
 
         this.events.subscribe('user:logout', () => {
@@ -181,6 +184,7 @@ ionicBootstrap(CogicApp,
         new Provider(PLATFORM_DIRECTIVES, {
             useValue: [
                 Avatar,
+                AppIcon,
                 HeaderBar
             ],
             multi: true

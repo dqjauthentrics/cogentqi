@@ -1,4 +1,35 @@
 .matrix-page {
+  .ion-input-select--large, .ion-input-select, select {
+    background: #FFF;
+    border: thin solid #dddddd;
+    font-weight: 600;
+    display: inline;
+    vertical-align: middle;
+    color: #333;
+    padding: auto 0;
+    box-sizing: border-box;
+  }
+
+  .ion-input-select--large {
+    font-size: 2.4rem;
+    padding: 0.3rem 1rem 0.3rem 2rem;
+  }
+
+  .ion-input-select--large::after {
+    content: "HELLO THERE";
+  }
+
+  .ion-input-select {
+    font-size: 1rem;
+    background-image: url(http://i.imgur.com/nA9xx1X.png);
+    text-indent: 20px;
+    padding: .5rem 0;
+  }
+
+  option {
+    background: #444;
+  }
+
   th.rotate {
     height: 5.4em;
     text-overflow-ellipsis: ellipsis;
@@ -14,7 +45,7 @@
   }
 
   thead tr {
-    height: 10em;
+    height: 9.4em;
   }
 
   th.rotate > div > span {

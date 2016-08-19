@@ -5,6 +5,7 @@ import {Config} from "./config";
 import {DataModel} from "./data-model";
 
 interface StoredUser {
+    id: number;
     first: string;
     last: string;
     role: string;
@@ -16,8 +17,9 @@ interface StoredUser {
 
 @Injectable()
 export class UserProvider extends DataModel {
-    public storedUser: StoredUser = {first: '', last: '', role: '', jobTitle: '', orgName: '', orgId: 0, roleName: ''};
+    public storedUser: StoredUser = {id: 0, first: '', last: '', role: '', jobTitle: '', orgName: '', orgId: 0, roleName: ''};
 
+    public id: number;
     public first: string = '';
     public last: string = '';
     public role: string = '';
@@ -40,13 +42,23 @@ export class UserProvider extends DataModel {
             }
             else {
                 var data = jsonInfo.data;
+                this.id = data.id;
                 this.first = data.fn;
                 this.last = data.ln;
                 this.role = data.r;
                 this.jobTitle = data.jt;
                 this.orgName = data.o;
                 this.orgId = data.oi;
-                this.storedUser = {first: data.fn, last: data.ln, role: data.r, jobTitle: data.jt, orgName: data.o, orgId: data.oi, roleName: data.rn};
+                this.storedUser = {
+                    id: data.id,
+                    first: data.fn,
+                    last: data.ln,
+                    role: data.r,
+                    jobTitle: data.jt,
+                    orgName: data.o,
+                    orgId: data.oi,
+                    roleName: data.rn
+                };
                 this.storage.set('user', JSON.stringify(this.storedUser));
                 this.isLoggedIn = true;
                 this.events.publish('user:login');

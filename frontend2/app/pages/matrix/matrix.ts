@@ -3,51 +3,86 @@ import {NavController} from "ionic-angular";
 import {AssessmentProvider} from "../../providers/assessment";
 import {UserProvider} from "../../providers/user";
 import {InstrumentProvider} from "../../providers/instrument";
+import {MemberProvider} from "../../providers/member";
 import {MemberDetailPage} from "../member/detail";
+import {AssessmentDetailPage} from "../assessment/detail";
 
 @Component({
     templateUrl: 'build/pages/matrix/matrix.html',
 })
 export class MatrixPage {
     public matrix = {};
-    public instrument = {n: '', questionGroups: []};
-    public instrumentData: InstrumentProvider;
-    public instrumentId: number;
+    public instrument = {id: null, n: '', questionGroups: []};
     public organizationId: number;
+    public instrumentId: number;
 
-    constructor(private nav: NavController, private user: UserProvider, private assessmentData: AssessmentProvider, instrumentData: InstrumentProvider) {
-        /** @todo These need to be arguments */
+    constructor(private nav: NavController, private user: UserProvider, private assessmentData: AssessmentProvider,
+                private instrumentData: InstrumentProvider, private memberData: MemberProvider) {
         this.organizationId = user.orgId;
-        this.instrumentId = 5;
-        this.instrumentData = instrumentData;
-
-        assessmentData.loadMatrix(this.organizationId, this.instrumentId).then(matrix => {
-            console.log("Retrieved matrix: ", matrix);
-            this.matrix = matrix;
-            this.loadInstruments();
-        });
+        this.checkInstruments();
     }
 
-    loadInstruments() {
-        this.instrumentData.loadAll(null).then(instrument => {
-            this.instrument = this.instrumentData.find(this.instrumentId);
-        })
+    checkInstruments() {
+        if (this.instrumentData.list) {
+            this.instrument = this.instrumentData.list[0];
+            this.loadMatrix(this.instrument.id);
+        }
+    }
+
+    loadMatrix(instrumentId) {
+        if (this.instrument && this.instrument.id != this.instrumentId) {
+            this.assessmentData.loadMatrix(this.organizationId, this.instrument.id).then(matrix => {
+                this.matrix = matrix;
+                this.instrumentId = this.instrument.id;
+                this.instrumentData.currentSectionIdx = this.instrumentData.SECTION_ALL;
+            });
+        }
+    }
+
+    changeInstrument(id) {
+        let tmp = this.instrumentData.find(id);
+        if (tmp) {
+            this.instrument = tmp;
+            this.loadMatrix(this.instrument.id);
+        }
+    }
+
+    showCell(response) {
+        if (response) {
+            if (this.instrumentData.currentSectionIdx == this.instrumentData.SECTION_SUMMARY) {
+                return response[0] == 'S' || response[0] == 'CS';
+            }
+            else {
+                return this.instrumentData.currentSectionIdx < 0 || this.instrumentData.currentSectionIdx == response[3];
+            }
+        }
+        return false;
     }
 
     goToGroup(groupIndex: number) {
-
+        this.instrumentData.currentSectionIdx = groupIndex;
     }
 
     goToMember(id: number) {
-        this.nav.push(MemberDetailPage);
+        console.log('looking for member: ', id);
+        this.memberData.getSingle(id).then(member => {
+            console.log('going to member: ', member);
+            this.nav.push(MemberDetailPage, member);
+        });
     }
 
     goToAssessment(id: number) {
-        this.nav.push(MemberDetailPage);
+        console.log('looking for assessment: ', id);
+        this.assessmentData.getSingle(id).then(assessment => {
+            console.log('going to assessment: ', assessment);
+            this.nav.push(AssessmentDetailPage, assessment);
+        });
     }
 
     goToOrganization(id: number) {
-        this.nav.push(MemberDetailPage);
+        this.organizationId = id;
+        this.instrumentId = null;
+        this.loadMatrix(this.instrument.id);
     }
 
     getScoreClass(response) {
