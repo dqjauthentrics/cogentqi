@@ -12,6 +12,17 @@ a {
   height: auto;
 }
 
+ion-spinner {
+  display: block;
+  margin: 1em auto;
+  width: 100%;
+}
+
+ion-spinner svg {
+  stroke: red !important;
+  fill: green !important;
+}
+
 .clearfix {
   *zoom: 1;
 }
@@ -69,8 +80,8 @@ ion-card ion-card-content .list ion-item-content {
 
 .button-bar ion-icon {
   line-height: 48px;
-  width: 48px;
   height: 48px;
+  font-size: 1.8em;
   text-align: center;
   vertical-align: middle;
 }

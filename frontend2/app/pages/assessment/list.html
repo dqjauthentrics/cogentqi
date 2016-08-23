@@ -8,8 +8,9 @@
 </ion-header>
 
 <ion-content class="outer-content assessment-list">
+    <loading-indicator [hidden]="assessments?.length"></loading-indicator>
     <ion-card *ngFor="let assessment of assessments" class="assessment" (click)="goToDetail(assessment)">
-         <ion-card-content class="outer-content">
+        <ion-card-content class="outer-content">
             <div class="pull-left">
                 <avatar [src]="assessment.member.av" [size]="'list'"></avatar>
                 {{assessment.member|namify}}
@@ -18,9 +19,11 @@
                 <span class="name">{{assessment.instrument.n}}</span>, {{assessment.lm|date}}
                 <br/>
                 <div *ngIf="assessment.assessor.id != assessment.member.id">
-                    <div class="pull-left">by </div>
-                    <div class="pull-left"><avatar [src]="assessment.assessor.av" [size]="'tiny'"></avatar></div>
-                        <div class="pull-left">{{assessment.assessor.fn}} {{assessment.assessor.ln}}</div>
+                    <div class="pull-left">by</div>
+                    <div class="pull-left">
+                        <avatar [src]="assessment.assessor.av" [size]="'tiny'"></avatar>
+                    </div>
+                    <div class="pull-left">{{assessment.assessor.fn}} {{assessment.assessor.ln}}</div>
                 </div>
                 <div *ngIf="assessment.assessor.id == assessment.member.id">
                     (self-evaluation)

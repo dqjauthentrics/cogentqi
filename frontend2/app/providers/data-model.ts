@@ -1,6 +1,6 @@
+import {Headers, RequestOptions, Http} from "@angular/http";
 import {Events} from "ionic-angular";
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
 import {Config} from "./config";
 
 @Injectable()
@@ -68,4 +68,14 @@ export class DataModel {
         return this.loadSingle(modelId).then(data => this.single);
     }
 
+    update(data: any) {
+        let body = JSON.stringify({data});
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+        let url = this.baseUrl + '/update';
+        console.log('update:' + url);
+        this.http.post(url, body, options).subscribe(res => {
+            console.log(this.name + 'update returns:');
+        });
+    }
 }

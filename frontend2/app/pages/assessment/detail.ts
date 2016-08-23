@@ -15,13 +15,12 @@ export class AssessmentDetailPage {
     instrument: any = {};
     assessment: any = {};
 
-    constructor(private nav: NavController, private navParams: NavParams, assessmentData: AssessmentProvider, instrumentData: InstrumentProvider) {
+    constructor(private nav: NavController, private navParams: NavParams, private assessmentData: AssessmentProvider, private instrumentData: InstrumentProvider) {
         this.assessment = this.navParams.data;
         assessmentData.getSingle(this.assessment.id).then(assessment => {
             console.log(assessment);
             this.assessment = assessment;
             instrumentData.getSingle(this.assessment.instrument.id).then(instrument => {
-                console.log(assessment);
                 this.instrument = instrument;
                 for (let i = 0; i < this.instrument.questions.length; i++) {
                     let id = this.instrument.questions[i].id;
@@ -31,6 +30,27 @@ export class AssessmentDetailPage {
                 }
             });
         });
+    }
+
+    save() {
+        let instrument = this.instrument;
+        if (instrument.questions) {
+            let data = {memberId: this.assessment.mid, id: this.assessment.id, responses: []};
+            for (let i = 0; i < instrument.questions.length; i++) {
+                let id = instrument.questions[i].id;
+                data.responses.push([instrument.questions[i].id, instrument.questions[i].response]);
+            }
+            console.log('data', data);
+            this.assessmentData.update(data);
+        }
+    }
+
+    pdf() {
+        alert('pdf');
+    }
+
+    lock() {
+        alert('lock');
     }
 
     goTo(slideIndex) {

@@ -11,8 +11,8 @@
 </ion-header>
 
 <ion-content class="outer-content resource-list">
+    <loading-indicator [hidden]="resources?.length"></loading-indicator>
     <ion-card *ngFor="let resource of resources|filter:queryText" class="resource" (click)="goToResourceDetail(resource)">
-
         <ion-card-header>
             <ion-item>
                 <ion-avatar item-left>
@@ -21,10 +21,8 @@
                 {{resource.n}}
             </ion-item>
         </ion-card-header>
-
         <ion-card-content class="outer-content">
             <div [innerHTML]="resource.sm"></div>
         </ion-card-content>
-
     </ion-card>
 </ion-content>

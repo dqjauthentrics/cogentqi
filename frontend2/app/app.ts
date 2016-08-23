@@ -4,6 +4,7 @@ import {Splashscreen, StatusBar} from "ionic-native";
 import {ROUTER_PROVIDERS} from "@angular/router";
 import {HTTP_PROVIDERS, Http} from "@angular/http";
 import {Config} from "./providers/config";
+import {IconProvider} from "./providers/icon";
 import {InstrumentProvider} from "./providers/instrument";
 import {MemberProvider} from "./providers/member";
 import {ResourceProvider} from "./providers/resource";
@@ -19,7 +20,9 @@ import {Round} from "./pipes/round";
 import {Replace} from "./pipes/strings";
 import {Icon} from "./pipes/icon";
 import {Avatar} from "./directives/avatar";
+import {LoadingIndicator} from "./directives/loading-indicator";
 import {AppIcon} from "./directives/app-icon";
+import {AppIconButton} from "./directives/app-icon-button";
 import {HeaderBar} from "./directives/header-bar";
 import {TranslateService, TranslateLoader, TranslateStaticLoader, TranslatePipe, MissingTranslationHandler} from "ng2-translate/ng2-translate";
 
@@ -185,11 +188,14 @@ ionicBootstrap(CogicApp,
             useValue: [
                 Avatar,
                 AppIcon,
-                HeaderBar
+                AppIconButton,
+                HeaderBar,
+                LoadingIndicator
             ],
             multi: true
         }),
         Config,
+        IconProvider,
         InstrumentProvider,
         MemberProvider,
         ResourceProvider,

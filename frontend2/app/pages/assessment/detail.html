@@ -22,15 +22,13 @@
                 <avatar [src]="assessment.assessor.av" [size]="'tiny'"></avatar>
             </ion-col>
             <ion-col class="button-bar">
-                <button>
-                    <ion-icon name="{{'lock'|icon}}"></ion-icon>
-                </button>
-                <button>
-                    <ion-icon class="fa fa-file-pdf-o"></ion-icon>
-                </button>
-            </ion-col>
+                <app-icon-button (click)="save()" name="save"></app-icon-button>
+                <app-icon-button (click)="lock()" name="lock"></app-icon-button>
+                <app-icon-button (click)="pdf()" name="pdf"></app-icon-button>
+             </ion-col>
         </ion-row>
     </ion-grid>
+    <loading-indicator [hidden]="instrument?.questions?.length"></loading-indicator>
     <ion-segment>
         <ion-segment-button *ngFor="let questionGroup of instrument.questionGroups; let groupIndex = index"
                             value="questionGroup.tag" (click)="goTo(groupIndex)"

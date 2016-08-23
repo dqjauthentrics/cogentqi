@@ -11,14 +11,16 @@
 </ion-header>
 
 <ion-content class="outer-content member-list">
+    <loading-indicator [hidden]="members?.length"></loading-indicator>
     <ion-card *ngFor="let member of members|filter:queryText" class="member">
-
         <ion-card-header>
             <ion-item>
-                <ion-avatar item-left>
-                    <img [src]="member.av">
-                </ion-avatar>
-                <a (click)="goToDetail(member)">{{member|namify}}</a>, {{member.rn}}
+                <div class="pull-left">
+                    <avatar [src]="member.av" [size]="'list'"></avatar>
+                </div>
+                <div class="pull-left">
+                    <a (click)="goToDetail(member)">{{member|namify}}</a>, {{member.rn}}
+                </div>
             </ion-item>
         </ion-card-header>
 
