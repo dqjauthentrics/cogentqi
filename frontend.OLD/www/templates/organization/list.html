@@ -1,0 +1,107 @@
+<ion-view view-title="{{'Organizations'|translate}}" cache-view="false">
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-content has-bouncing="false" overflow-scroll="true" class="padding">
+        <div class="paddedView">
+            <div class="row responsive-md">
+                <div class="col col-25">
+                    <ion-list>
+                        <ion-item class="top"><i class="{{i.tree}}"></i> {{data.parentOrg.n}}</ion-item>
+                        <ion-item ng-class="isCurrent(organization)? 'active':''" class="item-icon-right"
+                                  ng-repeat="organization in data.organizations"
+                                  type="item-text-wrap" ng-click="setCurrentOrg(organization)">
+                            <i data-ng-class="listIcon(organization)"></i> {{organization.n}}
+                            <i style="color:black;" class="icon ion-chevron-right icon-accessory" data-ng-show="isCurrent(organization)"></i>
+                        </ion-item>
+                    </ion-list>
+                </div>
+                <div class="col col-75">
+                    <div class="detail panel">
+                        <div style="float:right;">
+                            <button class="button button-action button-save" ng-click="save()" ng-show="isDirty()">
+                                <i class="{{i.save}}"></i>
+                            </button>
+                            <button class="button button-action button-general" data-ng-show="data.currentMembers !== undefined > 0"
+                                    ng-click="orgMatrix(data.currentOrg.id)"><i class="{{i.grid}}"></i></button>
+                            <button class="button button-action button-general" data-ng-show="data.currentOrg.nc"
+                                    ng-click="drilldown(data.currentOrg.id)">
+                                <i class="{{i.tree}}"></i>
+                            </button>
+                        </div>
+                        <div style="float:left;">
+                            <table>
+                                <tr>
+                                    <td colspan="2" class="name" style="margin-bottom:0.2em;" edit-disabled="!data.canEdit"
+                                        editable-text="data.currentOrg.name">
+                                        {{data.currentOrg.n || 'empty'}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">phone</td>
+                                    <td>
+                                        <div e-class="phone" onaftersave="setDirty()" edit-disabled="!data.canEdit"
+                                             editable-text="data.currentOrg.ph">{{data.currentOrg.ph ||'empty'}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">fax</td>
+                                    <td>
+                                        <div class="phone" onaftersave="setDirty()" edit-disabled="!data.canEdit" editable-text="data.currentOrg.fx">
+                                            {{data.currentOrg.fx || 'empty'}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">address</td>
+                                    <td>
+                                        <div onaftersave="setDirty()" edit-disabled="!data.canEdit" editable-text="data.currentOrg.ad">{{data.currentOrg.ad ||
+                                            'empty'}}
+                                        </div>
+                                        <span onaftersave="setDirty()" edit-disabled="!data.canEdit" editable-text="data.currentOrg.cy">{{data.currentOrg.cy || 'empty'}}</span>,
+                                        <span onaftersave="setDirty()" edit-disabled="!data.canEdit" editable-text="data.currentOrg.sp">{{data.currentOrg.st || 'empty'}}</span>
+                                        <span onaftersave="setDirty()" edit-disabled="!data.canEdit" editable-text="data.currentOrg.zc">{{data.currentOrg.zc || 'empty'}}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <ion-list ng-show="data.children.length > 0">
+                        <ion-item class="top">{{'Departments'|translate}}</ion-item>
+                        <ion-item class="gray" ng-show="data.children == undefined"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
+                        <ion-item ng-repeat="child in data.children" class="item-icon-right item-text-wrap" href="#/organization/view/{{child.id}}">
+                            <div>{{child.n}}</div>
+                            <i class="icon ion-chevron-right icon-accessory"></i>
+                        </ion-item>
+                    </ion-list>
+                    <ion-list data-ng-show="data.currentMembers.length > 0">
+                        <ion-item class="top">{{'Members'|translate}}</ion-item>
+                        <ion-item class="gray" data-ng-show="data.currentMembers == undefined"><i class="{{i.loadingSpinner}}"></i> Loading...</ion-item>
+                        <ion-item ng-repeat="member in data.currentMembers" class="item-icon-right item-text-wrap" href="#/member/view/{{member.id}}">
+                            <member-item member="member" m="Members"></member-item>
+                            <i class="icon ion-chevron-right icon-accessory"></i>
+                        </ion-item>
+                    </ion-list>
+                    <div data-ng-show="data.currentMembers.length == 0">
+                        {{'This organization has no direct members.'|translate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
+</ion-view>
+<style>
+    td.label {
+        font-style: italic;
+        color: #888;
+        text-align: right !important;
+        display: block;
+    }
+</style>
+<script>
+    $(".phone").on("click", function () { // not yet working
+        $(this).mask('+7(999)999-9999');
+    });
+</script>

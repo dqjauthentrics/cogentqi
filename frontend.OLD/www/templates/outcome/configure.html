@@ -1,0 +1,62 @@
+<ion-view view-title="{{'Outcome Editor'|translate}}" cache-view="false">
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-content class="padding" has-bouncing="false" overflow-scroll="true">
+        <div class="list">
+            <ion-item>
+                <div class="iconBar">
+                    <div class="pull-right">
+                        <button ng-click="save(this)" class="button button-action button-save" ng-class="(data.dirty? 'button-dirty' : '')">
+                            <i ng-class="(data.saving || data.isLoading? i.loadingSpinner : i.save)"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row responsive-lg">
+                    <div class="col-50 padding">
+                        <label for="Outcome_number">{{'Number'|translate}}</label>
+                        <input class="large" id="Outcome_number" type="text" placeholder="number" ng-model="Outcomes.current.nmb" ng-change="setDirty()">
+                    </div>
+                    <div class="col-50 padding">
+                        <label for="Outcome_name">{{'Name'|translate}}</label>
+                        <input class="large long" id="Outcome_name" type="text" placeholder="name" ng-model="Outcomes.current.n" ng-change="setDirty()">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <label for="Outcome_summary">{{'Summary'|translate}}</label>
+                <textarea id="Outcome_summary" data-ng-change="setDirty()" data-ng-model="Outcomes.current.sm" class="wysiwyg"
+                          ng-bind-html="Outcomes.current.sm"
+                          redactor>
+                 </textarea>
+            </ion-item>
+            <div class="top padding">
+                <h3>{{'Alignments'|translate}}</h3>
+                <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId"
+                        data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
+                        ng-options="instrument.id as instrument.n for instrument in Instruments.list">
+                </select>
+            </div>
+            <ion-item ng-repeat="questionGroup in Instruments.current.questionGroups">
+                <h3>{{questionGroup.nmb}} {{questionGroup.tag}}</h3>
+                <div class="list">
+                    <ion-item class="item-icon-right" ng-repeat="question in questionGroup.questions">
+                        <div class="name">{{questionGroup.nmb}}.{{question.nmb}} {{question.n}}</div>
+                        <div style="float:right; width: 10em; margin: 1em 0.5em;">
+                            <div class="phrase">{{Outcomes.alignmentLevelPhrase(data.alignments[question.id])|translate}}</div>
+                            <div class="item range range-positive" style="background:{{(data.alignments[question.id]>0? '#F0F8FF':'#FFF')}};">
+                                <input type="range" name="volume" min="0" max="5" data-ng-bind="data.alignments[question.id]"
+                                       data-ng-model="data.alignments[question.id]" data-ng-change="data.dirty = true"/>
+
+                                <div class="clearfix"></div>
+                                <div><span class="phrase">{{data.alignments[question.id]}}</span></div>
+                            </div>
+                        </div>
+                        <div class="description" data-ng-bind-html="question.dsc"></div>
+                    </ion-item>
+                </div>
+            </ion-item>
+        </div>
+        <div class="bottom-space"></div>
+    </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
+</ion-view>
+

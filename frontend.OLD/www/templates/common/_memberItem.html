@@ -1,0 +1,19 @@
+<div class="row responsive-md">
+    <div class="col col-25">
+        <avatar site="siteDir()" member-id="member.id" sz="small" level="member.lv" alt="avatarAlt(member)"></avatar>
+        <div style="float:left;">
+            <div class="name">{{member.fn}} {{member.ln}}</div>
+            <div class="title">{{member.jt}}</div>
+            <div class="role" data-ng-show="member.rn.length && member.rn != member.jt">({{member.rn}})</div>
+            <div class="itemInactiveText" ng-show="member.ae">{{'Inactive as of:'|translate}} {{member.ae|date}}</div>
+        </div>
+    </div>
+    <div class="col col-25">
+        <micro-badge text="member.badges.length + ''" size="'count'"></micro-badge>
+    </div>
+    <div class="col col-50">
+        <div ng-show="member.lastAssessment.lm">
+            <assessment-item site="siteDir()" prefix="'Last Assessment'|translate" assessment="member.lastAssessment" i="i"></assessment-item>
+        </div>
+    </div>
+</div>

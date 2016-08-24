@@ -1,0 +1,54 @@
+<ion-view view-title="Alignments" cache-view="false">
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-content has-bouncing="false" overflow-scroll="true">
+        <div class="row responsive-lg">
+            <div class="col  panel">
+                <div class="detail">
+                    <h1>{{'Event Alignment'|translate}}</h1>
+
+                    <div style="float:right; margin:0.5em;">
+                        <button ng-click="save();" class="button button-action button-save {{data.isDirty? 'button-dirty':'button-clean'}}">
+                            <i data-ng-class="data.saving? i.loadingSpinner : i.save"></i>
+                        </button>
+                    </div>
+                    <h2>{{event.n}}</h2>
+
+                    <div class="description">{{event.dsc}}</div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+                <ion-list>
+                    <div ng-repeat="questionGroup in questionGroups.items" type="item-text-wrap">
+
+                        <ion-item class="item-stable"
+                                  ng-click="toggleOpen(questionGroup)"
+                                  ng-class="{active: questionGroup.isOpen}">
+                            <i class="icon" ng-class="questionGroup.isOpen ? 'ion-minus' : 'ion-plus'"></i>
+                            &nbsp;
+                            {{questionGroup.tag}}
+                        </ion-item>
+                        <ion-item class="item-accordion"
+                                  ng-repeat="question in questionGroup.questions"
+                                  ng-show="questionGroup.isOpen">
+                            {{question.n}}
+                            <div style="float:right; margin: 1em 0.5em;">
+                                <div class="list-item">
+                                    <label class="toggle toggle-balanced">
+                                        <input id="{{'checkbox-' + question.id}}" type="checkbox" name="isAligned" data-ng-change="isDirty(true)" data-ng-model="question.alignment.isAligned"/>
+                                        <div class="track">
+                                            <div class="handle"></div>
+                                        </div>
+                                    </label>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </ion-item>
+                    </div>
+                </ion-list>
+            </div>
+        </div>
+    </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
+</ion-view>
+

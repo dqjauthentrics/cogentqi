@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+node_modules/phonegap/node_modules/cordova/node_modules/cordova-lib/node_modules/cordova-js/node_modules/browserify/node_modules/module-deps/node_modules/detective/node_modules/escodegen/node_modules/source-map/node_modules/
+platforms
+plugins/
+.DS_Store
+._DS_Store

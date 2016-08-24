@@ -1,0 +1,59 @@
+<ion-view view-title="{{'Member'|translate}}" cache-view="false" on-swipe-left="goToNotes()">
+    <ion-nav-title>{{data.name}}</ion-nav-title>
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-content class="padding detail" has-bouncing="false" id="profile" style="height:auto;">
+        <page-loader i="i" loading="data.isLoading"></page-loader>
+        <div class="paddedView">
+            <div class="iconBar" ng-show="!data.isLoading">
+                <button class="button button-action button-save button-dirty" ng-click="save()" ng-show="isDirty()">
+                    <i class="{{i.save}}"></i>
+                </button>
+                <button class="button button-action" data-ng-show="Members.current.assessments.length > 0" ng-click="goToProgress()">
+                    <i class="{{i.reports}}"></i>
+                </button>
+                <button class="button button-action" data-ng-show="Members.current.assessments.length > 0" ng-click="goToBarProgress()">
+                    <i class="{{i.barChart}}"></i>
+                </button>
+                <button class="button button-action" data-ng-show="!roleIs([APP_ROLES.PROFESSIONAL])" ng-click="goToNotes()">
+                    <i class="{{i.stickyNote}}"></i>
+                </button>
+                <button class="button button-action" data-ng-show="!roleIs([APP_ROLES.PROFESSIONAL])" ng-click="deOrReactivate()"
+                        title="{{(Members.current.ae?'Reactivate':'Deactivate')|translate}}">
+                    <i ng-class="Members.current.ae? i.reactivate : i.deactivate"></i>
+                </button>
+            </div>
+            <div data-ng-switch="Members.current.asb">
+                <div data-ng-switch-when="1">
+                    <div class="row responsive-lg" ng-show="!data.isLoading">
+                        <div class="col col-33 padding">
+                            <member-overview></member-overview>
+                        </div>
+                        <div class="col col-67 padding" ng-show="!Members.current.minimal && Members.current.asb && !data.isLoading">
+                            <member-assessments></member-assessments>
+                        </div>
+                    </div>
+                    <div class="row responsive-lg" ng-show="!data.isLoading">
+                        <div class="col col-33 padding" ng-show="!data.isLoading">
+                            <member-contact></member-contact>
+                        </div>
+                        <div ng-if="!Members.current.minimal" class="col col-67 padding" ng-show="!data.isLoading && Members.current.asb == 1">
+                            <member-events></member-events>
+                        </div>
+                    </div>
+                </div>
+                <div data-ng-switch-default>
+                    <div class="row responsive-lg" ng-show="!data.isLoading">
+                        <div class="col col-25 col-offset-25 padding">
+                            <member-overview></member-overview>
+                        </div>
+                        <div class="col col-25 padding" ng-show="!data.isLoading">
+                            <member-contact></member-contact>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
+</ion-view>

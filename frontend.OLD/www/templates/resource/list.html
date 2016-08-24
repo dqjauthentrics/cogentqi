@@ -1,0 +1,25 @@
+<ion-view view-title="{{'Learning Resources'|translate}}">
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-content has-bouncing="false" overflow-scroll="true">
+        <ion-list type="card">
+            <ion-item class="top">
+                <list-searcher></list-searcher>
+            </ion-item>
+            <ion-item class="item-icon-right" data-ng-repeat="resource in filtered = (Resources.list|filter:resourceFilter)" type="item-text-wrap"
+                      href="#/resource/view/{{resource.id}}">
+                <div><i class="{{i.resource}} fa-lg fa-2x"></i> <span style="font-size:1.5em;">{{resource.nmb}}</span></div>
+                <div class="title">
+                    <a ng-show="!resource.loc" href="#/resource/view/{{resource.id}}" title="">{{resource.n}}</a>
+                    <a ng-show="resource.loc" href="{{resource.loc}}" target="_blank" title="">{{resource.n}} <i class="{{i.externalLink}}"></i></a>
+                </div>
+                <div class="description" data-ng-bind-html="resource.sm"></div>
+                <div data-ng-repeat="tag in resource.tags">
+                    <div class="tag"><i class="{{i.tag}}"></i> {{tag}}</div>
+                </div>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
+</ion-view>

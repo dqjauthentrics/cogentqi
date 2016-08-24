@@ -1,0 +1,31 @@
+<ion-view view-title="Outcomes" cache-view="false">
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-content has-bouncing="false" overflow-scroll="true">
+        <div class="detail">
+            <h1>{{'Outcome/Competency Alignments'|translate}}</h1>
+            <div style="float:right; margin:0.5em;">
+                <button ng-click="saveOutcomeAlignments()" class="button button-action button-save" data-ng-class="isDirty()? 'button-dirty':''">
+                    <i class="{{i.save}}"></i>
+                </button>
+            </div>
+            <h2><a href="#/resource/view/{{data.outcome.id}}">{{data.outcome.n}}</a></h2>
+
+            <div class="description">
+                {{data.outcome.sm}}
+            </div>
+            <div>
+                METHOD: {{data.outcome.mth}}
+            </div>
+           <div>
+                SO: {{data.outcome.so}}
+            </div>
+           <div>
+                CMI: {{data.outcome.cmi}}
+            </div>
+             <div class="clearfix"></div>
+            {{data.outcome}}
+        </div>
+    </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
+</ion-view>

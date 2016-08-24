@@ -1,0 +1,68 @@
+<div class="panel" ng-class="Members.current.ae? 'inactive':''">
+    <h3>{{'Contact'|translate}}</h3>
+
+    <label for="email">{{'email'|translate}}</label>
+
+    <div id="email">
+    <span class="email" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.em">
+                        {{Members.current.em || '-'}}
+                    </span>
+                    <span>
+                        <a ng-click="sendEmail(Members.current)"><i class="fa fa-envelope fa-lg"></i></a>
+                    </span>
+    </div>
+
+    <label for="address">{{'address'|translate}}</label>
+
+    <div id="address" class="address" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.ad">
+        {{ Members.current.ad || '-' }}
+    </div>
+    <label for="city">{{'city'|translate}}</label>
+
+    <div id="city" class="city" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.cy">
+        {{ Members.current.cy || '-' }}
+    </div>
+    <label for="state">{{'state'|translate}}</label>
+
+    <div id="state" class="state" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.sp">
+        {{ Members.current.sp || '-' }}
+    </div>
+    <label for="postal">{{'postal code'|translate}}</label>
+
+    <div id="postal" class="postal" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.zc">
+        {{ Members.current.zc || '-' }}
+    </div>
+    <label for="mobile">{{'mobile'|translate}}</label>
+
+    <div id="mobile">
+                    <span class="phone" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.mb">
+                        {{ (Members.current.mb || '-')|tel }}
+                    </span>
+                    <span>
+                        <a ng-click="sendText(Members.current)"><i class="fa fa-mobile fa-2x"></i></a>
+                    </span>
+    </div>
+
+    <label for="provider">{{'mobile provider'|translate}}</label>
+
+    <div>
+        <select id="provider" data-ng-model="Members.current.mfm" data-ng-change="setDirty()">
+            <option value="">-Cannot Receive Texts-</option>
+            <option value="{n}@txt.att.net">AT&T</option>
+            <option value="{n}@vtext.com">Verizon</option>
+            <option value="{n}@tmomail.net">T-Mobile</option>
+            <option value="{n}@messaging.sprintpcs.com">Sprint PCS</option>
+            <option value="{n}@vmobl.com">Virgin Mobile</option>
+            <option value="{n}@email.uscc.net">US Cellular</option>
+            <option value="{n}@messaging.nextel.com">Nextel</option>
+            <option value="{n}@myboostmobile.com">Boost</option>
+            <option value="{n}@message.alltel.com">Alltel</option>
+        </select>
+    </div>
+
+    <label for="phone">{{'home phone'|translate}}</label>
+
+    <div id="phone" class="phone" onaftersave="setDirty()" edit-disabled="!canEdit()" editable-text="Members.current.ph">
+        {{ (Members.current.ph || '-')|tel }}
+    </div>
+</div>

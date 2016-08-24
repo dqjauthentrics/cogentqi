@@ -1,0 +1,51 @@
+<ion-view view-title="Alignments">
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-content has-bouncing="false" overflow-scroll="true">
+        <ion-list type="card">
+            <ion-item>
+                <div style="float:right;">
+                    <button ng-click="save(this);" class="button button-action button-save">
+                        <i data-ng-class="(data.saving? i.loadingSpinner : i.save) + ' ' (data.dirty? 'button-dirty' : '')"></i>
+                    </button>
+                </div>
+                <h2 style="float:left; margin: 0.2em;"><a href="#/resource/view/{{data.resource.id}}">{{data.resource.n}}</a></h2>
+                <div class="clearfix"></div>
+                <div class="description">
+                    {{data.resource.sm}}
+                </div>
+                <select style="margin-top:1em;" class="large" data-ng-model="data.currentInstrumentId"
+                        data-ng-change="setCurrentInstrument(data.currentInstrumentId)"
+                        data-ng-options="instrument.id as instrument.n for instrument in data.instruments">
+                </select>
+
+                <div class="clearfix"></div>
+                <div style="float:right; margin-right:6em; font-weight:bold;">{{'Alignment Weights'|translate}}</div>
+            </ion-item>
+            <ion-item ng-repeat="question in data.currentInstrument.questions" type="item-text-wrap">
+                <div class="name">{{question.n}}</div>
+                <div style="float:right; margin: 1em 0.5em;">
+                    <div class="equalizer">
+                        <div style="{{'width: ' + ((question.type.max+1)*6) + 'em; float:left;'}}">
+                            <div>{{'Relevance to Those Rated at Each Level'|translate}}</div>
+                            <div ng-repeat="choice in question.type.choices track by $index">
+                                <div style="{{'height:' + (question.type.choices.length*1.5) + 'em;'}}">
+                                    <rzslider
+                                            rz-slider-model="data.alignments[question.id][$index].utility"
+                                            rz-slider-options="{id:'q_'+question.id+'_'+$index,floor:question.type.min,ceil:question.type.max,vertical:true,showTicksValues:true,onChange:slideChange}">
+                                    </rzslider>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="rubric" ng-bind-html="($index==0? '<i>master</i>':question.type.choices[$index].n|space2Break)"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="description" data-ng-bind-html="question.dsc"></div>
+            </ion-item>
+        </ion-list>
+
+    </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
+</ion-view>
+

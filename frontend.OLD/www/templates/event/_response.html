@@ -1,0 +1,32 @@
+<div data-ng-switch="question.type.entryType">
+    <div data-ng-switch-when="YESNO">
+        <div class="button-bar" style="max-width:16em; min-width:12em;">
+            <a class="button toggle" data-ng-class="data.alignments[question.id] == 0? 'yesNoBg0' : 'off'"
+               data-ng-click="updateResponse(question, 0)">N/A</a>
+            <a class="button toggle" data-ng-class="data.alignments[question.id] == 1? 'yesNoBg1' : 'off'"
+               data-ng-click="updateResponse(question, 1)">No</a>
+            <a class="button toggle" data-ng-class="data.alignments[question.id] == 2? 'yesNoBg2' : 'off'"
+               data-ng-click="updateResponse(question, 2)">Yes</a>
+        </div>
+    </div>
+    <div data-ng-switch-default="">
+        <div class="clearfix"></div>
+        <div style="width:100%; margin: 0 0 1em 0; float:none !important; clear:both;">
+            <rzslider class="assessment"
+                      rz-slider-model="data.alignments[question.id]"
+                      rz-slider-options="{step:1, precision:1, hideLimitLabels:true, floor: question.type.min, ceil: question.type.max, onChange:sliderChange, id:question.id}"
+                      style="{{'width:' + (rubricWidth(question.type.max) * question.type.max)+ '%; margin-bottom:-1em; margin-left:' + (rubricWidth(question.type.max)/2)+ '%;'}}"
+            >
+            </rzslider>
+        </div>
+        <div class="rubric">
+            <div class="{{$index == data.alignments[question.id]? 'active':'inactive'}}" id="{{'rubric_'+question.id+'_'+$index}}"
+                 ng-repeat="choice in question.type.choices" ng-click="rubricSet(question,$index)"
+                 style="{{'width:' + rubricWidth(question.type.max) + '%;'}}"
+            >
+                <div ng-class="getRubricClass($index)">{{choice.n}}</div>
+                <p data-ng-show="choice.ru.length > 0">{{choice.ru}}</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<ion-view view-title="{{'Instrument'|translate}}" cache-view="false">
+    <ion-nav-buttons side="left"><a data-ng-href="{{dashboardUrl()}}" data-ng-bind-html="installation.logo"></a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="logout()"><i class="logo {{i.signOut}}"></i></a></ion-nav-buttons>
+    <ion-content class="padding" has-bouncing="false" overflow-scroll="true">
+        <div class="iconBar">
+            <div style="float:right;">
+                <button ng-click="save(this)" class="button button-action button-save">
+                    <i ng-class="(data.saving? i.loadingSpinner : i.save) + ' ' + (data.dirty? 'button-dirty' : '')"></i>
+                </button>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col">
+            <div class="card padding" style="margin-bottom:0;">
+                <div class="row responsive-md" style="font-size:2em;">
+                    <div class="col">
+                        <label for="Instrument_name">{{'Name'|translate}}
+                            <input class="large" id="Instrument_name" type="text" placeholder="name" ng-model="Instruments.current.n" ng-change="setDirty()">
+                        </label>
+                    </div>
+                </div>
+                <label for="Resource_description" class="item item-input">{{'Description'|translate}}</label>
+                <textarea id="Resource_description" ng-change="setDirty()"
+                          ng-model="Instruments.current.dsc" class="wysiwyg" ng-bind-html="Instruments.current.dsc" redactor>
+                </textarea>
+            </div>
+        </div>
+        <div class="col padding">
+            <div class="card padding">
+                <ion-list>
+                    <ion-item class="item-icon-right" ng-repeat="question in Instruments.current.questions track by $index" type="item-text-wrap">
+                        <label for="name{{$index}}">{{'Name'|translate}}</label>
+                        <input id="name{{$index}}" type="text" class="name" ng-model="question.n" ng-bind="question.n"/>
+                        <label for="summ{{$index}}">{{'Detail'|translate}}</label>
+                        <textarea id="summ{{$index}}" ng-change="setDirty()" ng-model="Instruments.current.dsc" class="wysiwyg" ng-bind-html="question.dsc"
+                                  redactor>
+                        </textarea>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+    </ion-content>
+    <ng-include src="'/templates/common/tabs.html'"></ng-include>
+</ion-view>
