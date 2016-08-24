@@ -1,8 +1,7 @@
-import {UserProvider} from "../../providers/user";
+import {SessionProvider} from "../../providers/session";
 import {Config} from "../../providers/config";
 import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
-import {MemberListPage} from "../member/list";
 import {ResourceListPage} from "../resource/list";
 import {MatrixPage} from "../matrix/matrix";
 
@@ -10,15 +9,12 @@ import {MatrixPage} from "../matrix/matrix";
     templateUrl: 'build/pages/dashboard/dashboard.html',
 })
 export class DashboardPage {
+    user: any = null;
     matrix: MatrixPage;
     resources: ResourceListPage;
 
-    constructor(private config: Config,
-                private nav: NavController,
-                private navParams: NavParams,
-                private user: UserProvider
-    ) {
-
+    constructor(private config: Config, private nav: NavController, private navParams: NavParams, private session: SessionProvider) {
+        this.user = session.user;
     }
 
     goToPage(pageName) {

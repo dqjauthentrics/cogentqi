@@ -1,8 +1,8 @@
 <?php
-namespace Cogent\Controllers;
+namespace App\Controllers;
 
-use Cogent\Components\Result;
-use Cogent\Models\Message;
+use App\Components\Result;
+use App\Models\Message;
 
 class MessageController extends ControllerBase {
 

@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 
-class CogentModel extends \Phalcon\Mvc\Model {
+class AppModel extends \Phalcon\Mvc\Model {
 	public $id = NULL; // syntactic sugar
 
 	const TYPE_STRING = 0;
@@ -50,7 +50,7 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	}
 
 	/**
-	 * @param \Phalcon\Mvc\Model\Resultset\Simple|CogentModel[] $records
+	 * @param \Phalcon\Mvc\Model\Resultset\Simple|AppModel[]    $records
 	 * @param                                                   $keyColName
 	 *
 	 * @return array
@@ -91,28 +91,34 @@ class CogentModel extends \Phalcon\Mvc\Model {
 	 * @param string          $where
 	 * @param array           $whereParams
 	 *
-	 * @return CogentModel[]|CogentModel|array|null
+	 * @return AppModel[]|AppModel|array|null
 	 */
 	public function get($id = NULL, $mapIt = TRUE, $orderBy = 'id', $where = '1=1', $whereParams = []) {
 		$data = !empty($id) ? NULL : [];
-		/** @var CogentModel $record */
+		/** @var AppModel $record */
 		if (empty($id)) {
 			$records = $this->query()->where($where, $whereParams)->orderBy($orderBy)->execute();
-			foreach ($records as $record) {
-				$data[] = $record;
+			if ($mapIt) {
+				foreach ($records as $record) {
+					$data[] = $record->map();
+				}
+			}
+			else {
+				$data = $records;
 			}
 		}
 		else {
-			$data = $this->findFirst($id);
+			$record = $this->findFirst($id);
+			$data = $mapIt ? $record->map() : $record;
 		}
 		return $data;
 	}
 
 	/**
-	 * @param CogentModel[] $records
-	 * @param int           $id
+	 * @param AppModel[] $records
+	 * @param int        $id
 	 *
-	 * @return CogentModel|null
+	 * @return AppModel|null
 	 */
 	public static function findRecord($records, $id) {
 		if (!empty($records)) {
@@ -174,5 +180,112 @@ class CogentModel extends \Phalcon\Mvc\Model {
 			}
 		}
 		return $msgString;
+	}
+
+	/**
+	 * @param string $colName
+	 *
+	 * @return string
+	 */
+	protected function jsonifyName($colName) {
+		$jsonName = "";
+		for ($i = 0; $i < strlen($colName); $i++) {
+			$ch = substr($colName, $i, 1);
+			if ($ch == "_") {
+				$i++;
+				$ch = strtoupper(substr($colName, $i, 1));
+			}
+			$jsonName .= $ch;
+		}
+		return $jsonName;
+	}
+
+	/**
+	 * @param string $jsonColName
+	 *
+	 * @return array
+	 */
+	public function unJsonifyName($jsonColName) {
+		$unJson = '';
+		for ($i = 0; $i < strlen($jsonColName); $i++) {
+			$ch = substr($jsonColName, $i, 1);
+			if (ctype_upper($ch)) {
+				$unJson .= '_';
+			}
+			$unJson .= strtolower($ch);
+		}
+		return $unJson;
+	}
+
+	/**
+	 * @param array    $jsonRecord
+	 * @param AppModel $dbRecord
+	 *
+	 */
+	public function unmap($jsonRecord, &$dbRecord) {
+		$tblCols = $this->getColNames();
+		if (!empty($jsonRecord) && !empty($dbRecord)) {
+			foreach ($jsonRecord as $jsonColName => $value) {
+				$dbColName = $this->unJsonifyName($jsonColName);
+				if (in_array($dbColName, $tblCols)) {
+					$dbRecord->$dbColName = $value;
+				}
+			}
+		}
+	}
+
+	/**
+	 * @param $value
+	 * @param $dataType
+	 *
+	 * @return float|int
+	 */
+	public static function value($value, $dataType = self::TYPE_STRING) { //@todo get col type
+		if ($dataType == self::TYPE_INT) {
+			$value = (int)@$value;
+		}
+		elseif ($dataType == self::TYPE_DATETIME) {
+			$value = self::presentationDateTime($value);
+		}
+		elseif ($dataType == self::TYPE_DATE) {
+			$value = self::presentationDateTime($value);
+		}
+		elseif ($dataType == self::TYPE_REAL) {
+			$value = (double)$value;
+		}
+		return $value;
+	}
+
+	/**
+	 * @param AppModel[] $records
+	 *
+	 * @return array
+	 */
+	public function mapRecords($records) {
+		$jsonRecords = [];
+		foreach ($records as $dbRecord) {
+			$mapped = $dbRecord->map();
+			if ($mapped !== NULL) {
+				$jsonRecords[] = $mapped;
+			}
+		}
+		return $jsonRecords;
+	}
+
+	/**
+	 * @param array $options
+	 *
+	 * @return array
+	 */
+	public function map($options = []) {
+		$jsonRecord = [];
+		$metaData = $this->getModelsMetaData();
+		$columnNames = $metaData->getAttributes($this);
+		for ($i = 0; $i < count($columnNames); $i++) {
+			$colName = strtolower(trim($columnNames[$i]));
+			$jsonColName = $this->jsonifyName($colName);
+			$jsonRecord[$jsonColName] = self::value($this->{$colName});
+		}
+		return $jsonRecord;
 	}
 }

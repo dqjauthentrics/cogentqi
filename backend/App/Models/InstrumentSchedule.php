@@ -1,9 +1,9 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class InstrumentSchedule
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method Instrument getInstrument()
  * @method Assessment[] getAssessments()
@@ -14,7 +14,7 @@ namespace Cogent\Models;
  * @property \Phalcon\Mvc\Model\Resultset\Simple|InstrumentScheduleOperation[] $operations
  *
  */
-class InstrumentSchedule extends CogentModel {
+class InstrumentSchedule extends AppModel {
 	const STATUS_ACTIVE = 'A';
 	const STATUS_INACITVE = 'I';
 
@@ -125,9 +125,9 @@ class InstrumentSchedule extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'Cogent\Models\Assessment', 'instrument_schedule_id', ['alias' => 'Assessments']);
-		$this->hasMany('id', 'Cogent\Models\InstrumentScheduleOperation', 'instrument_schedule_id', ['alias' => 'Operations']);
-		$this->belongsTo('instrument_id', 'Cogent\Models\Instrument', 'id', ['alias' => 'Instrument']);
+		$this->hasMany('id', 'App\Models\Assessment', 'instrument_schedule_id', ['alias' => 'Assessments']);
+		$this->hasMany('id', 'App\Models\InstrumentScheduleOperation', 'instrument_schedule_id', ['alias' => 'Operations']);
+		$this->belongsTo('instrument_id', 'App\Models\Instrument', 'id', ['alias' => 'Instrument']);
 	}
 
 	/**

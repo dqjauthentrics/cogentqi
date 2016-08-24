@@ -32,11 +32,11 @@
             <ion-col width-67>
                 <ion-list>
                     <ion-item *ngFor="let assessment of member.assessments" (click)="goToAssessment(assessment)">
-                        {{assessment.instrument.n}} {{assessment.lm|date}}
-                        by {{assessment.assessor.fn}} {{assessment.assessor.ln}}
-                        <img class="avatar border border{{assessment.assessor.lv}} avatar-tiny"
+                        {{assessment.instrument.name}} {{assessment.lastModifed|date}}
+                        by {{assessment.assessor.firstName}} {{assessment.assessor.lastName}}
+                        <img class="avatar border border{{assessment.assessor.level}} avatar-tiny"
                              src="/site/pharmacy/avatars/{{assessment.assessor.id}}.png"
-                             alt="{{assessment.assessor.fn}} {{assessment.assessor.ln}}"/>
+                             alt="{{assessment.assessor.firstName}} {{assessment.assessor.lastName}}"/>
                     </ion-item>
                 </ion-list>
             </ion-col>

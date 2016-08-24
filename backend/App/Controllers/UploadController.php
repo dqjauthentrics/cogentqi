@@ -6,16 +6,16 @@
  * Time: 3:32 PM
  */
 
-namespace Cogent\Controllers;
+namespace App\Controllers;
 
-use Cogent\Cogent;
-use Cogent\Components\Result;
-use Cogent\Models\CogentModel;
-use Cogent\Models\Module;
-use Cogent\Models\Organization;
-use Cogent\Models\Member;
-use Cogent\Models\Relationship;
-use Cogent\Models\Resource;
+use App\App;
+use App\Components\Result;
+use App\Models\AppModel;
+use App\Models\Module;
+use App\Models\Organization;
+use App\Models\Member;
+use App\Models\Relationship;
+use App\Models\Resource;
 
 class UploadController extends ControllerBase {
 
@@ -214,7 +214,7 @@ class UploadController extends ControllerBase {
     }
 
     private static function getByExternalId($model, $externalId) {
-        $fullModel = 'Cogent\\Models\\' . $model;
+        $fullModel = 'App\\Models\\' . $model;
         return $fullModel::findFirst([
             "conditions" => "external_id = :eId:",
             "bind"       => ['eId' => $externalId]

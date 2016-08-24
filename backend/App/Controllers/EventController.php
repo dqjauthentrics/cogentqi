@@ -1,10 +1,10 @@
 <?php
-namespace Cogent\Controllers;
+namespace App\Controllers;
 
-use Cogent\Components\Result;
-use Cogent\Models\Event;
-use Cogent\Models\EventAlignment;
-use Cogent\Models\MemberEvent;
+use App\Components\Result;
+use App\Models\Event;
+use App\Models\EventAlignment;
+use App\Models\MemberEvent;
 use Phalcon\Exception;
 
 class EventController extends ControllerBase {

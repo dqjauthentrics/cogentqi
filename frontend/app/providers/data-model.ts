@@ -5,7 +5,7 @@ import {Config} from "./config";
 
 @Injectable()
 export class DataModel {
-    baseUrl: string = '/api3';
+    baseUrl: string = '/api';
     name: string = '';
     list: any;
     single: any;
@@ -13,7 +13,7 @@ export class DataModel {
 
     constructor(name: string, protected http: Http, config: Config, protected events: Events) {
         this.name = name;
-        this.baseUrl = 'http://' + config.siteDir + '.dev2.cog/api3/' + name;
+        this.baseUrl = 'http://' + config.siteDir + '.dev2.cog/api/' + name;
     }
 
     static buildArgs(args) {

@@ -1,7 +1,7 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
-class Organization extends CogentModel {
+class Organization extends AppModel {
 
 	/**
 	 *
@@ -86,7 +86,7 @@ class Organization extends CogentModel {
 	 *
 	 * @param mixed $parameters
 	 *
-	 * @return Organization[]
+	 * @return Organization[]|\Phalcon\Mvc\Model[]|\Phalcon\Mvc\Model\ResultInterface[]|\Phalcon\Mvc\Model\ResultsetInterface
 	 */
 	public static function find($parameters = NULL) {
 		return parent::find($parameters);
@@ -97,7 +97,7 @@ class Organization extends CogentModel {
 	 *
 	 * @param mixed $parameters
 	 *
-	 * @return Organization
+	 * @return Organization|\Phalcon\Mvc\Model
 	 */
 	public static function findFirst($parameters = NULL) {
 		return parent::findFirst($parameters);

@@ -1,7 +1,7 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
-class Role extends CogentModel {
+class Role extends AppModel {
 	const GUEST = 'G';
 	const PROFESSIONAL = 'P';
 	const MANAGER = 'M';
@@ -66,9 +66,9 @@ class Role extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'Cogent\Models\Instrument', 'role_id', ['alias' => 'Instruments']);
-		$this->hasMany('id', 'Cogent\Models\InstrumentScheduleOperation', 'role_id', ['alias' => 'InstrumentScheduleOperations']);
-		$this->hasMany('id', 'Cogent\Models\Member', 'role_id', ['alias' => 'Members']);
+		$this->hasMany('id', 'App\Models\Instrument', 'role_id', ['alias' => 'Instruments']);
+		$this->hasMany('id', 'App\Models\InstrumentScheduleOperation', 'role_id', ['alias' => 'InstrumentScheduleOperations']);
+		$this->hasMany('id', 'App\Models\Member', 'role_id', ['alias' => 'Members']);
 	}
 
 	/**

@@ -1,9 +1,9 @@
 <?php
-namespace Cogent\Controllers;
+namespace App\Controllers;
 
-use Cogent\Components\Result;
-use Cogent\Models\Member;
-use Cogent\Models\Organization;
+use App\Components\Result;
+use App\Models\Member;
+use App\Models\Organization;
 
 class OrganizationController extends ControllerBase {
 	const DRILL_NONE = 0;

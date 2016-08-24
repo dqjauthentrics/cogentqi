@@ -1,7 +1,7 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
-class ResourceAlignmentMap extends CogentModel {
+class ResourceAlignmentMap extends AppModel {
 
 	/**
 	 *
@@ -53,7 +53,7 @@ class ResourceAlignmentMap extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('resource_alignment_id', 'Cogent\Models\ResourceAlignment', 'id', ['alias' => 'Alignment']);
+		$this->belongsTo('resource_alignment_id', 'App\Models\ResourceAlignment', 'id', ['alias' => 'Alignment']);
 	}
 
 	/**

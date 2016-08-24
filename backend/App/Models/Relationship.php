@@ -1,7 +1,7 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
-class Relationship extends CogentModel {
+class Relationship extends AppModel {
 
 	/**
 	 *
@@ -53,8 +53,8 @@ class Relationship extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('superior_id', 'Cogent\Models\Member', 'id', ['alias' => 'Superior', 'foreignKey' => TRUE]);
-		$this->belongsTo('subordinate_id', "Cogent\Models\Member", 'id', ['alias' => 'Subordinate', 'foreignKey' => TRUE]);
+		$this->belongsTo('superior_id', 'App\Models\Member', 'id', ['alias' => 'Superior', 'foreignKey' => TRUE]);
+		$this->belongsTo('subordinate_id', "App\Models\Member", 'id', ['alias' => 'Subordinate', 'foreignKey' => TRUE]);
 	}
 
 	/**

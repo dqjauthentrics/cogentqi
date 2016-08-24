@@ -1,9 +1,9 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 use Phalcon\Mvc\Model\Relation;
 
-class ResourceAlignment extends CogentModel {
+class ResourceAlignment extends AppModel {
 
 	/**
 	 *
@@ -55,9 +55,9 @@ class ResourceAlignment extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('resource_id', 'Cogent\Models\Resource', 'id', ['alias' => 'Resource']);
-		$this->belongsTo('question_id', 'Cogent\Models\Question', 'id', ['alias' => 'Question']);
-		$this->hasMany('id', 'Cogent\Models\ResourceAlignmentMap', 'resource_alignment_id', [
+		$this->belongsTo('resource_id', 'App\Models\Resource', 'id', ['alias' => 'Resource']);
+		$this->belongsTo('question_id', 'App\Models\Question', 'id', ['alias' => 'Question']);
+		$this->hasMany('id', 'App\Models\ResourceAlignmentMap', 'resource_alignment_id', [
 			'foreignKey' => ['action' => Relation::ACTION_CASCADE],
 			'alias'      => 'Mapping'
 		]);

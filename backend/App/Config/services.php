@@ -5,7 +5,7 @@
  * @var \Phalcon\Mvc\Application $config
  */
 
-use Cogent\Plugins;
+use App\Plugins;
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Dispatcher;
@@ -23,19 +23,19 @@ $di = new FactoryDefault();
 
 $di->set('dispatcher', function () use ($di) {
 	$dispatcher = new Dispatcher();
-	$dispatcher->setDefaultNamespace("\Cogent\Controllers");
+	$dispatcher->setDefaultNamespace("\App\Controllers");
 
 	$eventsManager = new EventsManager;
 
 	/**
 	 * Check if the user is allowed to access certain action using the SecurityPlugin
 	 */
-	//$eventsManager->attach('dispatch:beforeDispatch', new Cogent\Plugins\SecurityPlugin);
+	//$eventsManager->attach('dispatch:beforeDispatch', new App\Plugins\SecurityPlugin);
 
 	/**
 	 * Handle exceptions and not-found exceptions using NotFoundPlugin
 	 */
-	//$eventsManager->attach('dispatch:beforeException', new \Cogent\Plugins\NotFoundPlugin);
+	//$eventsManager->attach('dispatch:beforeException', new \App\Plugins\NotFoundPlugin);
 	//$dispatcher->setEventsManager($eventsManager);
 	return $dispatcher;
 });

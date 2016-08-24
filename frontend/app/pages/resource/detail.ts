@@ -16,7 +16,7 @@ export class ResourceDetailPage {
         this.resource = this.navParams.data;
         resourceData.getSingle(this.resource.id).then(resource => {
             this.resource = resource;
-            http.get('http://pharmacy.dev2.cog/api3/resource/content/nursing:nrs002')
+            http.get('http://pharmacy.dev2.cog/api/resource/content/nursing:nrs002')
                 .map(res => res.text())
                 .subscribe(
                     res => this.content = this.adjustContent(res),

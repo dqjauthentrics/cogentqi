@@ -1,5 +1,5 @@
 <?php
-namespace Cogent\Components;
+namespace App\Components;
 
 class Utility {
 

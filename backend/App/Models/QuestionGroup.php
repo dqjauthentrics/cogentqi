@@ -1,15 +1,15 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class QuestionGroup
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method \Phalcon\Mvc\Model\Resultset\Simple|Question[] getQuestions($parameters = [])
  *
  * @method \Phalcon\Mvc\Model\Resultset\Simple|Question[] $questions
  */
-class QuestionGroup extends CogentModel {
+class QuestionGroup extends AppModel {
 
 	/**
 	 *
@@ -79,8 +79,8 @@ class QuestionGroup extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'Cogent\Models\Question', 'question_group_id', ['alias' => 'Questions']);
-		$this->belongsTo('instrument_id', 'Cogent\Models\Instrument', 'id', ['alias' => 'Instrument']);
+		$this->hasMany('id', 'App\Models\Question', 'question_group_id', ['alias' => 'Questions']);
+		$this->belongsTo('instrument_id', 'App\Models\Instrument', 'id', ['alias' => 'Instrument']);
 	}
 
 	/**

@@ -1,7 +1,7 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
-class PlanItemStatus extends CogentModel {
+class PlanItemStatus extends AppModel {
 
 	/**
 	 *

@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {AssessmentProvider} from "../../providers/assessment";
-import {UserProvider} from "../../providers/user";
+import {SessionProvider} from "../../providers/session";
 import {InstrumentProvider} from "../../providers/instrument";
 import {MemberProvider} from "../../providers/member";
 import {MemberDetailPage} from "../member/detail";
@@ -11,14 +11,16 @@ import {AssessmentDetailPage} from "../assessment/detail";
     templateUrl: 'build/pages/matrix/matrix.html',
 })
 export class MatrixPage {
+    public user = {};
     public matrix = {};
     public instrument = {id: null, n: '', questionGroups: []};
     public organizationId: number;
     public instrumentId: number;
 
-    constructor(private nav: NavController, private user: UserProvider, private assessmentData: AssessmentProvider,
+    constructor(private nav: NavController, private session: SessionProvider, private assessmentData: AssessmentProvider,
                 private instrumentData: InstrumentProvider, private memberData: MemberProvider) {
-        this.organizationId = user.orgId;
+        this.user = session.user;
+        this.organizationId = session.user.organizationId;
         this.checkInstruments();
     }
 

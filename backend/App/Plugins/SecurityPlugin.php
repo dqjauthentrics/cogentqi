@@ -1,7 +1,7 @@
 <?php
-namespace Cogent\Plugins;
+namespace App\Plugins;
 
-use Cogent\Models\Role;
+use App\Models\Role;
 use Phalcon\Acl;
 use Phalcon\Acl\Adapter\Memory as AclList;
 use Phalcon\Acl\Resource;

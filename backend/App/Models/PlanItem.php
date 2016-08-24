@@ -1,9 +1,9 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class PlanItem
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method Member getMember()
  * @method Module getModule()
@@ -16,7 +16,7 @@ namespace Cogent\Models;
  * @property PlanItemStatus $status
  *
  */
-class PlanItem extends CogentModel {
+class PlanItem extends AppModel {
 	const STATUS_RECOMMENDED = 'R';
 	const STATUS_ENROLLED = 'E';
 	const STATUS_WITHDRAWN = 'W';
@@ -96,10 +96,10 @@ class PlanItem extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('module_id', 'Cogent\Models\Module', 'id', ['alias' => 'Module']);
-		$this->belongsTo('member_id', 'Cogent\Models\Member', 'id', ['alias' => 'Member']);
-		$this->belongsTo('plan_item_status_id', 'Cogent\Models\PlanItemStatus', 'id', ['alias' => 'Status']);
-		$this->belongsTo('recommendation_id', 'Cogent\Models\Recommendation', 'id', ['alias' => 'Recommendation']);
+		$this->belongsTo('module_id', 'App\Models\Module', 'id', ['alias' => 'Module']);
+		$this->belongsTo('member_id', 'App\Models\Member', 'id', ['alias' => 'Member']);
+		$this->belongsTo('plan_item_status_id', 'App\Models\PlanItemStatus', 'id', ['alias' => 'Status']);
+		$this->belongsTo('recommendation_id', 'App\Models\Recommendation', 'id', ['alias' => 'Recommendation']);
 	}
 
 	/**
@@ -123,7 +123,7 @@ class PlanItem extends CogentModel {
 		$module = $this->module;
 		$resourceId = !empty($module) ? $module->resource_id : NULL;
 		$resource = !empty($module) ? $module->resource : NULL;
-		/** @var \Cogent\Models\Resource $resource */
+		/** @var \App\Models\Resource $resource */
 		$resourceName = !empty($resource) ? $resource->name : NULL;
 		$map = [
 			'm'      => $this->module_id,

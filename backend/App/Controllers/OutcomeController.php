@@ -1,10 +1,10 @@
 <?php
-namespace Cogent\Controllers;
+namespace App\Controllers;
 
-use Cogent\Components\Result;
-use Cogent\Models\OrganizationOutcome;
-use Cogent\Models\Outcome;
-use Cogent\Models\OutcomeAlignment;
+use App\Components\Result;
+use App\Models\OrganizationOutcome;
+use App\Models\Outcome;
+use App\Models\OutcomeAlignment;
 
 class OutcomeController extends ControllerBase {
 
@@ -72,7 +72,7 @@ class OutcomeController extends ControllerBase {
 		$childIds = $childIds[0];
 
 		$queryBuilder = new \Phalcon\Mvc\Model\Query\Builder([
-			'models'  => ['Cogent\Models\Organization'],
+			'models'  => ['App\Models\Organization'],
 			'columns' => ['id', 'name', 'retrieveOrgDescendantIds(id) AS child_ids'],
 		]);
 		$organizationRecs = $queryBuilder->where("id IN ($childIds)")->orderBy('id<>' . $organizationId . ',parent_id,name')->getQuery()->execute();

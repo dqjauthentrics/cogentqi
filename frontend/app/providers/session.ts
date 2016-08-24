@@ -4,31 +4,10 @@ import {Http, Headers, RequestOptions} from "@angular/http";
 import {Config} from "./config";
 import {DataModel} from "./data-model";
 
-interface StoredUser {
-    id: number;
-    first_name: string;
-    last_name: string;
-    role_id: string;
-    job_title: string;
-    organization_name: string;
-    organization_id: number;
-    role_name: string;
-}
-
 @Injectable()
-export class UserProvider extends DataModel {
-    public storedUser: StoredUser = {
-        id: 0,
-        first_name: '',
-        last_name: '',
-        role_id: '',
-        job_title: '',
-        organization_name: '',
-        organization_id: 0,
-        role_name: ''
-    };
+export class SessionProvider extends DataModel {
+    public user: any = null;
     public isLoggedIn: boolean = false;
-
     private storage = new Storage(LocalStorage);
 
     constructor(protected http: Http, config: Config, protected events: Events) {
@@ -42,8 +21,8 @@ export class UserProvider extends DataModel {
                 this.logout();
             }
             else {
-                this.storedUser = jsonInfo.data;
-                this.storage.set('user', JSON.stringify(this.storedUser));
+                this.user = jsonInfo.data;
+                this.storage.set('user', JSON.stringify(this.user));
                 this.isLoggedIn = true;
                 this.events.publish('user:login');
             }
@@ -69,16 +48,14 @@ export class UserProvider extends DataModel {
     logout() {
         this.isLoggedIn = false;
         this.storage.set('user', null);
-        this.storedUser = null;
+        this.user = null;
         this.events.publish('user:logout');
     }
 
     checkLogin() {
         return this.storage.get('user').then((value) => {
-            console.log('checkLogin():', value);
             if (value) {
-                this.storedUser = JSON.parse(value);
-                console.log('STORED:', this.storedUser);
+                this.user = JSON.parse(value);
                 this.isLoggedIn = true;
                 this.events.publish('user:login');
             }

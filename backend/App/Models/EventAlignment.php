@@ -1,9 +1,9 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class EventAlignment
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method Event getEvent()
  * @method Question getQuestion()
@@ -11,7 +11,7 @@ namespace Cogent\Models;
  * @property Event    $event
  * @property Question $question
  */
-class EventAlignment extends CogentModel {
+class EventAlignment extends AppModel {
 
 	/**
 	 *
@@ -69,8 +69,8 @@ class EventAlignment extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('event_id', 'Cogent\Models\Event', 'id', ['alias' => 'Event']);
-		$this->belongsTo('question_id', 'Cogent\Models\Question', 'id', ['alias' => 'Question']);
+		$this->belongsTo('event_id', 'App\Models\Event', 'id', ['alias' => 'Event']);
+		$this->belongsTo('question_id', 'App\Models\Question', 'id', ['alias' => 'Question']);
 	}
 
 	/**

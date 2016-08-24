@@ -1,16 +1,16 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class Assessment
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method Outcome getOutcome()
  *
  * @property Outcome $outcome
  */
 
-class OrganizationOutcome extends CogentModel {
+class OrganizationOutcome extends AppModel {
 
 	/**
 	 *
@@ -80,9 +80,9 @@ class OrganizationOutcome extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('organization_id', 'Cogent\Models\Organization', 'id', ['alias' => 'Organization']);
-		$this->belongsTo('outcome_id', 'Cogent\Models\Outcome', 'id', ['alias' => 'Outcome']);
-		$this->belongsTo('evaluator_id', 'Cogent\Models\Member', 'id', ['alias' => 'Member']);
+		$this->belongsTo('organization_id', 'App\Models\Organization', 'id', ['alias' => 'Organization']);
+		$this->belongsTo('outcome_id', 'App\Models\Outcome', 'id', ['alias' => 'Outcome']);
+		$this->belongsTo('evaluator_id', 'App\Models\Member', 'id', ['alias' => 'Member']);
 	}
 
 	/**

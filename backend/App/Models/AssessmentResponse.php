@@ -1,9 +1,9 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class AssessmentResponse
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method Question getQuestion()
  * @method Resource getResource
@@ -14,7 +14,7 @@ namespace Cogent\Models;
  * @property Assessment $assessment
  *
  */
-class AssessmentResponse extends CogentModel {
+class AssessmentResponse extends AppModel {
 
 	/**
 	 *
@@ -102,9 +102,9 @@ class AssessmentResponse extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('recommended_resource_id', '\Cogent\Models\Resource', 'id', ['alias' => 'RecommendedResource']);
-		$this->belongsTo('assessment_id', '\Cogent\Models\Assessment', 'id', ['alias' => 'Assessment']);
-		$this->belongsTo('question_id', '\Cogent\Models\Question', 'id', ['alias' => 'Question']);
+		$this->belongsTo('recommended_resource_id', '\App\Models\Resource', 'id', ['alias' => 'RecommendedResource']);
+		$this->belongsTo('assessment_id', '\App\Models\Assessment', 'id', ['alias' => 'Assessment']);
+		$this->belongsTo('question_id', '\App\Models\Question', 'id', ['alias' => 'Question']);
 	}
 
 	/**

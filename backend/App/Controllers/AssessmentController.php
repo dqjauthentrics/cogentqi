@@ -1,12 +1,12 @@
 <?php
-namespace Cogent\Controllers;
+namespace App\Controllers;
 
-use Cogent\Components\Matrix;
-use Cogent\Components\Result;
-use Cogent\Models\Assessment;
-use Cogent\Models\Organization;
-use Cogent\Models\Recommendation;
-use Cogent\Models\Role;
+use App\Components\Matrix;
+use App\Components\Result;
+use App\Models\Assessment;
+use App\Models\Organization;
+use App\Models\Recommendation;
+use App\Models\Role;
 
 class AssessmentController extends ControllerBase {
 	public $debug = FALSE;
@@ -87,10 +87,10 @@ class AssessmentController extends ControllerBase {
 			$assessments = Assessment::query()->where('member_id IN (' . $memberIds . ')')->orderBy('last_saved DESC')->execute();
 
 			// This took 4.6 seconds, vs 0.14 seconds for two queries above!
-			//$assessments = Assessment::query()->join('Cogent\Models\Member','organization_id=4')->orderBy('last_saved DESC')->execute();
+			//$assessments = Assessment::query()->join('App\Models\Member','organization_id=4')->orderBy('last_saved DESC')->execute();
 
 			// This took 0.145 seconds.
-			//$assessments = Assessment::query()->where('member_id IN (SELECT m.id FROM Cogent\Models\Member AS m WHERE organization_id=4)')->orderBy('last_saved DESC')->execute();
+			//$assessments = Assessment::query()->where('member_id IN (SELECT m.id FROM App\Models\Member AS m WHERE organization_id=4)')->orderBy('last_saved DESC')->execute();
 		}
 		if ($assessments === FALSE) {
 			$result->setError(Result::CODE_EXCEPTION);

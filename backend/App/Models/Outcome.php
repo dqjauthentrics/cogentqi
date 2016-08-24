@@ -1,9 +1,9 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
-use Cogent\Components\Result;
+use App\Components\Result;
 
-class Outcome extends CogentModel {
+class Outcome extends AppModel {
 
 	/**
 	 *
@@ -73,9 +73,9 @@ class Outcome extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'Cogent\Models\OrganizationOutcome', 'outcome_id', ['alias' => 'OrganizationOutcomes']);
-		$this->hasMany('id', 'Cogent\Models\OutcomeAlignment', 'outcome_id', ['alias' => 'Alignments']);
-		$this->hasMany('id', 'Cogent\Models\OutcomeEvent', 'outcome_id', ['alias' => 'Events']);
+		$this->hasMany('id', 'App\Models\OrganizationOutcome', 'outcome_id', ['alias' => 'OrganizationOutcomes']);
+		$this->hasMany('id', 'App\Models\OutcomeAlignment', 'outcome_id', ['alias' => 'Alignments']);
+		$this->hasMany('id', 'App\Models\OutcomeEvent', 'outcome_id', ['alias' => 'Events']);
 	}
 
 	/**

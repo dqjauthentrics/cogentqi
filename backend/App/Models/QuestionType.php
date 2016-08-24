@@ -1,15 +1,15 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class QuestionType
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method \Phalcon\Mvc\Model\Resultset\Simple getChoices()
  *
  * @property \Phalcon\Mvc\Model\Resultset\Simple $choices
  */
-class QuestionType extends CogentModel {
+class QuestionType extends AppModel {
 
 	/**
 	 *
@@ -73,7 +73,7 @@ class QuestionType extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'Cogent\Models\QuestionChoice', 'question_type_id', ['alias' => 'Choices']);
+		$this->hasMany('id', 'App\Models\QuestionChoice', 'question_type_id', ['alias' => 'Choices']);
 	}
 
 	/**

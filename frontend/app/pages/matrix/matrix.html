@@ -10,7 +10,7 @@
             {{matrix.org?.name}}
             ID:{{user.id}}
             <select class="ion-input-select--large" [(ngModel)]="instrumentId" (change)="changeInstrument($event.target.value)">
-                <option *ngFor="let instr of instrumentData.list" [value]="instr.id">{{instr.n}}</option>
+                <option *ngFor="let instr of instrumentData.list" [value]="instr.id">{{instr.name}}</option>
             </select>
         </h1>
     </ion-item>

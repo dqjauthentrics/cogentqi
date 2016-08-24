@@ -1,18 +1,18 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
-use Cogent\Components\Result;
-use Cogent\Models\Outcome;
+use App\Components\Result;
+use App\Models\Outcome;
 
 /**
  * Class Recommendation
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method \Phalcon\Mvc\Model\Resultset\Simple|PlanItem[] getPlanItems()
  * @method Member getMember()
  * @method Assessment getAssessment()
  */
-class Recommendation extends CogentModel {
+class Recommendation extends AppModel {
 	const MAX_ORG_LEVEL = 3;
 	const MAX_RATING = 4;
 
@@ -66,9 +66,9 @@ class Recommendation extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'Cogent\Models\PlanItem', 'recommendation_id', ['alias' => 'PlanItems']);
-		$this->belongsTo('member_id', 'Cogent\Models\Member', 'id', ['alias' => 'Member']);
-		$this->belongsTo('assessment_id', 'Cogent\Models\Assessment', 'id', ['alias' => 'Assessment']);
+		$this->hasMany('id', 'App\Models\PlanItem', 'recommendation_id', ['alias' => 'PlanItems']);
+		$this->belongsTo('member_id', 'App\Models\Member', 'id', ['alias' => 'Member']);
+		$this->belongsTo('assessment_id', 'App\Models\Assessment', 'id', ['alias' => 'Assessment']);
 	}
 
 	/**
@@ -126,7 +126,7 @@ class Recommendation extends CogentModel {
 			$organizationOutcomes = OrganizationOutcome::query()->where('organization_id=?', $member['organization_id'])->execute();
 			$outcomeAlignments = OutcomeAlignment::query()
 					->where(
-							'question_id IN (SELECT id FROM Cogent\Models\Question WHERE question_group_id IN (SELECT id FROM Cogent\Models\QuestionGroup WHERE instrument_id=:id:))',
+							'question_id IN (SELECT id FROM App\Models\Question WHERE question_group_id IN (SELECT id FROM App\Models\QuestionGroup WHERE instrument_id=:id:))',
 							['id' => $assessment->instrument_id]
 					);
 			$outcomeEvents = OutcomeEvent::query()->where('member_id=:id:', ['id' => $assessment->member_id])->execute();

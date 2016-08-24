@@ -1,8 +1,8 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 /**
  * Class Event
- * @package Cogent\Models
+ * @package App\Models
  * @method \Phalcon\Mvc\Model\Resultset\Simple|EventAlignment[] getAlignments()
  * @method \Phalcon\Mvc\Model\Resultset\Simple|Member[] getMembers()
  *
@@ -10,7 +10,7 @@ namespace Cogent\Models;
  * @property \Phalcon\Mvc\Model\Resultset\Simple|Member[] $members
  *
  */
-class Event extends CogentModel {
+class Event extends AppModel {
 
 	/**
 	 *
@@ -68,8 +68,8 @@ class Event extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'Cogent\Models\EventAlignment', 'event_id', ['alias' => 'Alignments']);
-		$this->hasMany('id', 'Cogent\Models\MemberEvent', 'event_id', ['alias' => 'Members']);
+		$this->hasMany('id', 'App\Models\EventAlignment', 'event_id', ['alias' => 'Alignments']);
+		$this->hasMany('id', 'App\Models\MemberEvent', 'event_id', ['alias' => 'Members']);
 	}
 
 	/**

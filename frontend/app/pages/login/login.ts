@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {TranslatePipe, TranslateService} from "ng2-translate/ng2-translate";
 import {TabsPage} from "../tabs/tabs";
-import {UserProvider} from "../../providers/user";
+import {SessionProvider} from "../../providers/session";
 import {Config} from "../../providers/config";
 
 @Component({
@@ -13,7 +13,7 @@ export class LoginPage {
     login: {username?: string, password?: string} = {};
     submitted = false;
 
-    constructor(private nav: NavController, private translate: TranslateService, private userData: UserProvider, private config: Config) {
+    constructor(private nav: NavController, private translate: TranslateService, private userData: SessionProvider, private config: Config) {
     }
 
     onLogin(form) {

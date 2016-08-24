@@ -1,5 +1,5 @@
 <?php
-namespace Cogent\Components;
+namespace App\Components;
 
 class ConfigSettings {
 	public $config = [
@@ -20,12 +20,12 @@ class ConfigSettings {
 		],
 		'application'   => [
 			'appDir'         => APP_PATH,
-			'controllersDir' => APP_PATH . '/Cogent/Controllers/',
-			'modelsDir'      => APP_PATH . '/Cogent/Models/',
-			'componentsDir'  => APP_PATH . '/Cogent/Components/',
-			'viewsDir'       => APP_PATH . '/Cogent/Views/',
-			'pluginsDir'     => APP_PATH . '/Cogent/Plugins/',
-			'cacheDir'       => APP_PATH . '/Cogent/cache/',
+			'controllersDir' => APP_PATH . '/App/Controllers/',
+			'modelsDir'      => APP_PATH . '/App/Models/',
+			'componentsDir'  => APP_PATH . '/App/Components/',
+			'viewsDir'       => APP_PATH . '/App/Views/',
+			'pluginsDir'     => APP_PATH . '/App/Plugins/',
+			'cacheDir'       => APP_PATH . '/App/cache/',
 			'baseUri'        => '/api3/',
 		],
 		/** <== Expected by Phalcon */

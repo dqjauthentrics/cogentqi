@@ -1,8 +1,8 @@
 <?php
-namespace Cogent\Controllers;
+namespace App\Controllers;
 
-use Cogent\Components\Result;
-use Cogent\Models\Module;
+use App\Components\Result;
+use App\Models\Module;
 
 class ModuleController extends ControllerBase {
 

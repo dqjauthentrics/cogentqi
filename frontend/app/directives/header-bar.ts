@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {UserProvider} from "../providers/user";
+import {SessionProvider} from "../providers/session";
 import {Alert, NavController} from "ionic-angular";
 
 @Component({
@@ -10,7 +10,7 @@ import {Alert, NavController} from "ionic-angular";
 export class HeaderBar {
     @Input() title: string = "Cogic";
 
-    constructor(private nav: NavController, private user: UserProvider) {
+    constructor(private nav: NavController, private session: SessionProvider) {
     }
 
     logOut() {
@@ -27,7 +27,7 @@ export class HeaderBar {
                 {
                     text: 'Log Me Out',
                     handler: () => {
-                        this.user.logout();
+                        this.session.logout();
                     }
                 }
             ]

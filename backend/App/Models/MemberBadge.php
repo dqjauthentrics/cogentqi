@@ -1,9 +1,9 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class MemberBadge
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method Member getMember()
  * @method Badge getBadge()
@@ -12,7 +12,7 @@ namespace Cogent\Models;
  * @property Badge  $badge
  *
  */
-class MemberBadge extends CogentModel {
+class MemberBadge extends AppModel {
 	/**
 	 *
 	 * @var integer
@@ -63,8 +63,8 @@ class MemberBadge extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('member_id', 'Cogent\Models\Member', 'id', ['alias' => 'Member', 'foreignKey' => TRUE]);
-		$this->belongsTo('badge_id', 'Cogent\Models\Badge', 'id', ['alias' => 'Badge', 'foreignKey' => TRUE]);
+		$this->belongsTo('member_id', 'App\Models\Member', 'id', ['alias' => 'Member', 'foreignKey' => TRUE]);
+		$this->belongsTo('badge_id', 'App\Models\Badge', 'id', ['alias' => 'Badge', 'foreignKey' => TRUE]);
 	}
 
 	/**

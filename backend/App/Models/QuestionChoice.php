@@ -1,12 +1,12 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class QuestionChoice
- * @package Cogent\Models
+ * @package App\Models
  * @method QuestionType getType()
  */
-class QuestionChoice extends CogentModel {
+class QuestionChoice extends AppModel {
 
 	/**
 	 *
@@ -76,7 +76,7 @@ class QuestionChoice extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('question_type_id', 'Cogent\Models\QuestionType', 'id', ['alias' => 'Type']);
+		$this->belongsTo('question_type_id', 'App\Models\QuestionType', 'id', ['alias' => 'Type']);
 	}
 
 	/**

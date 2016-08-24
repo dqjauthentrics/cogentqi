@@ -1,8 +1,8 @@
 <?php
-namespace Cogent\Controllers;
+namespace App\Controllers;
 
-use Cogent\Components\Result;
-use Cogent\Models\Member;
+use App\Components\Result;
+use App\Models\Member;
 
 class MemberController extends ControllerBase {
 	/**
@@ -99,8 +99,8 @@ class MemberController extends ControllerBase {
 	public function getSubordinatesAction($parentMemberId) {
 		$result = new Result($this);
 		$members = Member::query()
-			->leftJoin('Cogent\Models\Relationship', 'Cogent\Models\Member.id=subordinate_id')
-			->where('Cogent\Models\Relationship.superior_id = :id:', ['id' => $parentMemberId])
+			->leftJoin('App\Models\Relationship', 'App\Models\Member.id=subordinate_id')
+			->where('App\Models\Relationship.superior_id = :id:', ['id' => $parentMemberId])
 			->execute();
 		$data = [];
 		/** @var Member $member */

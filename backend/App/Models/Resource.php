@@ -1,14 +1,14 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class Resource
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method \Phalcon\Mvc\Model\Resultset\Simple getAlignments()
- * @method \Cogent\Models\OutcomeAlignment[]|\Cogent\Models\OutcomeAlignment get($id = NULL, $mapIt = TRUE)
+ * @method \App\Models\OutcomeAlignment[]|\App\Models\OutcomeAlignment get($id = NULL, $mapIt = TRUE)
  */
-class Resource extends CogentModel {
+class Resource extends AppModel {
 	const STATUS_ACTIVE = 'A';
 	const STATUS_LOCKED = 'L';
 
@@ -110,10 +110,10 @@ class Resource extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'Cogent\Models\Module', 'resource_id', ['alias' => 'Modules']);
-		$this->hasMany('id', 'Cogent\Models\ResourceAlignment', 'resource_id', ['alias' => 'Alignments']);
-		$this->belongsTo('resource_type_id', 'Cogent\Models\ResourceType', 'id', ['alias' => 'ResourceType']);
-		$this->belongsTo('creator_id', 'Cogent\Models\Member', 'id', ['alias' => 'Creator']);
+		$this->hasMany('id', 'App\Models\Module', 'resource_id', ['alias' => 'Modules']);
+		$this->hasMany('id', 'App\Models\ResourceAlignment', 'resource_id', ['alias' => 'Alignments']);
+		$this->belongsTo('resource_type_id', 'App\Models\ResourceType', 'id', ['alias' => 'ResourceType']);
+		$this->belongsTo('creator_id', 'App\Models\Member', 'id', ['alias' => 'Creator']);
 	}
 
 	/**

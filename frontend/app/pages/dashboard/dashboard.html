@@ -9,11 +9,10 @@
         <tr>
             <td style="text-align:left; vertical-align: middle !important; padding-top:2em;">
                 <div style="float:left; margin-top:-5.6em; font-size: 0.5em; line-height:1em; text-align: left;">
-                    <div class="dashName">{{user.isLoggedIn}}</div>
-                    <div class="dashName">{{user.first}} {{user.last}}</div>
-                    <div class="dashJob">{{user.jobTitle}}</div>
-                    <div class="dashRole">{{user.roleName}}</div>
-                    <div class="dashOrg">{{user.organization}}</div>
+                    <div class="dashName">{{user?.firstName}} {{user?.lastName}}</div>
+                    <div class="dashJob">{{user?.jobTitle}}</div>
+                    <div class="dashRole">{{user?.roleName}}</div>
+                    <div class="dashOrg">{{user?.organizationName}}</div>
                 </div>
                 <a style="margin-left:1.5em;" (click)="goToPage('matrix')">{{'Assessment'|translate}}</a>
             </td>

@@ -1,17 +1,17 @@
 <?php
-namespace Cogent\Components;
+namespace App\Components;
 
-use Cogent\Models\Assessment;
-use Cogent\Models\AssessmentResponse;
-use Cogent\Models\Instrument;
-use Cogent\Models\Organization;
-use Cogent\Models\Question;
-use Cogent\Models\QuestionChoice;
-use Cogent\Models\QuestionGroup;
+use App\Models\Assessment;
+use App\Models\AssessmentResponse;
+use App\Models\Instrument;
+use App\Models\Organization;
+use App\Models\Question;
+use App\Models\QuestionChoice;
+use App\Models\QuestionGroup;
 
 /**
  * Class Matrix
- * @package Cogent\Components
+ * @package App\Components
  */
 class Matrix {
 	/** @var \Phalcon\Db\AdapterInterface $dbif */

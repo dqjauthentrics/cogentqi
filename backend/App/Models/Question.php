@@ -1,9 +1,9 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class Question
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method QuestionType getType()
  * @method QuestionGroup getGroup()
@@ -16,7 +16,7 @@ namespace Cogent\Models;
  * @property \Phalcon\Mvc\Model\Resultset\Simple|AssessmentResponse[] $responses
  *
  */
-class Question extends CogentModel {
+class Question extends AppModel {
 
 	/**
 	 *
@@ -110,11 +110,11 @@ class Question extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'Cogent\Models\AssessmentResponse', 'question_id', ['alias' => 'Responses']);
-		$this->hasMany('id', 'Cogent\Models\OutcomeAlignment', 'question_id', ['alias' => 'OutcomeAlignments']);
-		$this->hasMany('id', 'Cogent\Models\ResourceAlignment', 'question_id', ['alias' => 'ResourceAlignments']);
-		$this->belongsTo('question_group_id', 'Cogent\Models\QuestionGroup', 'id', ['alias' => 'Group']);
-		$this->belongsTo('question_type_id', 'Cogent\Models\QuestionType', 'id', ['alias' => 'Type']);
+		$this->hasMany('id', 'App\Models\AssessmentResponse', 'question_id', ['alias' => 'Responses']);
+		$this->hasMany('id', 'App\Models\OutcomeAlignment', 'question_id', ['alias' => 'OutcomeAlignments']);
+		$this->hasMany('id', 'App\Models\ResourceAlignment', 'question_id', ['alias' => 'ResourceAlignments']);
+		$this->belongsTo('question_group_id', 'App\Models\QuestionGroup', 'id', ['alias' => 'Group']);
+		$this->belongsTo('question_type_id', 'App\Models\QuestionType', 'id', ['alias' => 'Type']);
 	}
 
 	/**

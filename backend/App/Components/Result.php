@@ -3,7 +3,7 @@
  * @author     David Quinn-Jacobs
  * @copyright  CogentQI.com, 2015.  All rights reserved.
  */
-namespace Cogent\Components;
+namespace App\Components;
 
 class Result {
 	const STATUS_OKAY = 1;
@@ -49,14 +49,14 @@ class Result {
 	public $duration = 0;
 
 	/**
-	 * @var \Cogent\Controllers\ControllerBase $controller
+	 * @var \App\Controllers\ControllerBase $controller
 	 */
 	public $controller = NULL;
 
 	/**
 	 * AjaxResult constructor.
 	 *
-	 * @param \Cogent\Controllers\ControllerBase $controller
+	 * @param \App\Controllers\ControllerBase $controller
 	 * @param int                                $status
 	 * @param string|null                        $message
 	 * @param int                                $code

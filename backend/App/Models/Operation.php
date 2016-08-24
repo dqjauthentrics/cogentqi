@@ -1,7 +1,7 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
-class Operation extends CogentModel {
+class Operation extends AppModel {
 
 	/**
 	 *

@@ -1,8 +1,8 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 /**
  * Class MemberEvent
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method Member getMember()
  * @method Event getEvent()
@@ -11,7 +11,7 @@ namespace Cogent\Models;
  * @property Event $event
  *
  */
-class MemberEvent extends CogentModel {
+class MemberEvent extends AppModel {
 
 	/**
 	 *
@@ -69,8 +69,8 @@ class MemberEvent extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('event_id', 'Cogent\Models\Event', 'id', ['alias' => 'Event']);
-		$this->belongsTo('member_id', 'Cogent\Models\Member', 'id', ['alias' => 'Member']);
+		$this->belongsTo('event_id', 'App\Models\Event', 'id', ['alias' => 'Event']);
+		$this->belongsTo('member_id', 'App\Models\Member', 'id', ['alias' => 'Member']);
 	}
 
 	/**

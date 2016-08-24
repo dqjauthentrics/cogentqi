@@ -1,12 +1,12 @@
 <?php
-namespace Cogent\Controllers;
+namespace App\Controllers;
 
-use Cogent\Components\Result;
-use Cogent\Models\CogentModel;
-use Cogent\Models\Instrument;
-use Cogent\Models\InstrumentSchedule;
-use Cogent\Models\Question;
-use Cogent\Models\QuestionGroup;
+use App\Components\Result;
+use App\Models\AppModel;
+use App\Models\Instrument;
+use App\Models\InstrumentSchedule;
+use App\Models\Question;
+use App\Models\QuestionGroup;
 
 class InstrumentController extends ControllerBase {
 	/**
@@ -114,7 +114,7 @@ class InstrumentController extends ControllerBase {
 				$formInstrument = $data["instrument"];
 				$instrumentId = $formInstrument['id'];
 				$instrumentRecord = Instrument::findFirst($instrumentId);
-				/** @var \Cogent\Models\Instrument $resource */
+				/** @var \App\Models\Instrument $resource */
 				if (!$instrumentRecord->update(['description' => $formInstrument['dsc']])) {
 					throw new \Exception($resource->errorMessagesAsString());
 				}
@@ -123,7 +123,7 @@ class InstrumentController extends ControllerBase {
 					$groupRecords = QuestionGroup::query()->where('instrument_id=:id:', ['id' => $instrumentId])->execute();
 					/** @var QuestionGroup[] $groupRecords */
 					foreach ($formGroups as $formGroup) {
-						$groupRecord = CogentModel::findRecord($groupRecords, $formGroup['id']);
+						$groupRecord = AppModel::findRecord($groupRecords, $formGroup['id']);
 						if (!empty($groupRecord)) {
 							$groupRecord->update([
 									'tag'     => $formGroup['tag'],
@@ -135,7 +135,7 @@ class InstrumentController extends ControllerBase {
 							/** @var Question[] $questionRecords */
 							if (!empty($formGroup['questions'])) {
 								foreach ($formGroup['questions'] as $formQuestion) {
-									$questionRecord = CogentModel::findRecord($questionRecords, $formQuestion['id']);
+									$questionRecord = AppModel::findRecord($questionRecords, $formQuestion['id']);
 									if (!empty($questionRecord)) {
 										$questionRecord->update([
 												'name'    => $formQuestion['n'],

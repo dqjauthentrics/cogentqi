@@ -1,20 +1,20 @@
 <?php
-namespace Cogent\Controllers;
+namespace App\Controllers;
 
-use Cogent\Components\Result;
-use Cogent\Models\PlanItem;
-use Cogent\Models\Resource;
-use Cogent\Models\ResourceAlignment;
-use Cogent\Models\ResourceAlignmentMap;
+use App\Components\Result;
+use App\Models\PlanItem;
+use App\Models\Resource;
+use App\Models\ResourceAlignment;
+use App\Models\ResourceAlignmentMap;
 
 class ResourceController extends ControllerBase {
 
 	/**
 	 * @param int                                $resourceId
 	 * @param int                                $questionId
-	 * @param \Cogent\Models\ResourceAlignment[] $alignments
+	 * @param \App\Models\ResourceAlignment[] $alignments
 	 *
-	 * @return \Cogent\Models\ResourceAlignment
+	 * @return \App\Models\ResourceAlignment
 	 */
 	private function find($resourceId, $questionId, $alignments) {
 		foreach ($alignments as $alignment) {
@@ -68,7 +68,7 @@ class ResourceController extends ControllerBase {
 			$params = json_decode(file_get_contents('php://input'), TRUE);
 			$resourceForm = $params["resource"];
 			if (!empty($resourceForm) && is_array($resourceForm)) {
-				$resource = new \Cogent\Models\Resource();
+				$resource = new \App\Models\Resource();
 				$resourceForm = $resource->unmap($resourceForm);
 				$resourceForm['creator_id'] = $this->currentUser()->id;
 				if (empty($resourceForm['resource_type_id'])) {
@@ -79,7 +79,7 @@ class ResourceController extends ControllerBase {
 				}
 				else {
 					$resource = Resource::findFirst($resourceForm["id"]);
-					/** @var \Cogent\Models\Resource $resource */
+					/** @var \App\Models\Resource $resource */
 					if (!empty($resource)) {
 						$resource->update($resource);
 					}
@@ -119,7 +119,7 @@ class ResourceController extends ControllerBase {
 				$formResource = $data["resource"];
 				$resourceId = $formResource["id"];
 				$resourceRecord = Resource::findFirst($resourceId);
-				/** @var \Cogent\Models\Resource $resourceRecord */
+				/** @var \App\Models\Resource $resourceRecord */
 				if (!$resourceRecord->update(['description' => $formResource['dsc'], 'summary' => $formResource['sm']])) {
 					throw new \Exception($resourceRecord->errorMessagesAsString());
 				}
@@ -127,7 +127,7 @@ class ResourceController extends ControllerBase {
 				if (!empty($formAlignments)) {
 					self::filterFormAlignments($formAlignments);
 					$alignments = ResourceAlignment::query()->where('resource_id=:id:', ['id' => $resourceId])->execute();
-					/** @var \Cogent\Models\ResourceAlignment[] $alignments
+					/** @var \App\Models\ResourceAlignment[] $alignments
 					 */
 					foreach ($formAlignments as $questionId => $utilities) {
 						$alignment = $this->find($resourceId, $questionId, $alignments);
@@ -189,7 +189,7 @@ class ResourceController extends ControllerBase {
 			$formResource = @$this->getInputData('resource');
 			if (!empty($formResource)) {
 				$resource = Resource::findFirst($formResource['id']);
-				/** @var \Cogent\Models\Resource $resource */
+				/** @var \App\Models\Resource $resource */
 				if (!empty($resource)) {
 					if ($resource->update($formResource)) {
 						$result->setNormal();
@@ -232,19 +232,19 @@ class ResourceController extends ControllerBase {
 	}
 
 	/**
-	 * @param $resource \Cogent\Models\Resource
+	 * @param $resource \App\Models\Resource
 	 */
 	private function singleResourceEfficacy(
 		$resource, &$priorResponseAverages, &$subsequentResponseAverages, &$questionLabels) {
 
 		// Determine the competencies aligned to this resource
-		/** @var \Cogent\Models\ResourceAlignment[] $alignments */
+		/** @var \App\Models\ResourceAlignment[] $alignments */
 		$alignments = $resource->alignments;
 		$questionIds = [];
 		$questionNames = [];
 		$prior = [];
 		$subsequent = [];
-		/** @var \Cogent\Models\ResourceAlignment $alignments */
+		/** @var \App\Models\ResourceAlignment $alignments */
 		foreach ($alignments as $alignment) {
 			$questionIds[] = $alignment->question->id;
 			$questionNames[$alignment->question->id] =

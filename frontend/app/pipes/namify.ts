@@ -6,6 +6,6 @@ import {Pipe, PipeTransform} from "@angular/core";
 
 export class Namify implements PipeTransform {
     transform(member): string {
-        return member.fn + ' ' + member.ln
+        return member.firstName + ' ' + member.lastName
     }
 }

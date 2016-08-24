@@ -13,13 +13,13 @@
         <ion-row>
             <ion-col>
                 <div class="pull-left">
-                    <avatar [src]="assessment.member.av" [size]="'full'"></avatar>
+                    <avatar [src]="assessment.member.avatar" [size]="'full'"></avatar>
                 </div>
                 <div class="pull-left"><h3>{{assessment.member|namify}}</h3></div>
             </ion-col>
             <ion-col>
-                Last modified {{assessment.lm|date:'M/d/yyyy @ h:mm'}} by {{assessment.assessor|namify}}
-                <avatar [src]="assessment.assessor.av" [size]="'tiny'"></avatar>
+                Last modified {{assessment.lastModfied|date:'M/d/yyyy @ h:mm'}} by {{assessment.assessor|namify}}
+                <avatar [src]="assessment.assessor.avatar" [size]="'tiny'"></avatar>
             </ion-col>
             <ion-col class="button-bar">
                 <app-icon-button (click)="save()" name="save"></app-icon-button>
@@ -42,10 +42,10 @@
                 <ion-card-header class="title" [innerHtml]="questionGroup.tag"></ion-card-header>
                 <ion-card-content>
                     <div *ngFor="let question of instrument.questions; let questionIndex = index">
-                        <ion-card class="question" *ngIf="(question.qg == questionGroup.id)">
+                        <ion-card class="question" *ngIf="(question.questionGroupId == questionGroup.id)">
                             <ion-card-header>
-                                <div class="title" [innerHtml]="question.n"></div>
-                                <div class="text" [innerHtml]="question.sm"></div>
+                                <div class="title" [innerHtml]="question.name()"></div>
+                                <div class="text" [innerHtml]="question.summary"></div>
                             </ion-card-header>
                             <ion-card-content>
                                 <div class="slide-width-{{question.type.choices.length}}">

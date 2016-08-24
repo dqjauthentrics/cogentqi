@@ -1,7 +1,7 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
-class ResourceType extends CogentModel {
+class ResourceType extends AppModel {
 
 	/**
 	 *

@@ -1,7 +1,7 @@
 <?php
-namespace Cogent\Controllers;
+namespace App\Controllers;
 
-use Cogent\Components\Result;
+use App\Components\Result;
 
 class IndexController extends ControllerBase {
 

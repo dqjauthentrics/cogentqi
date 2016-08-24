@@ -9,7 +9,7 @@ import {InstrumentProvider} from "./providers/instrument";
 import {MemberProvider} from "./providers/member";
 import {ResourceProvider} from "./providers/resource";
 import {AssessmentProvider} from "./providers/assessment";
-import {UserProvider} from "./providers/user";
+import {SessionProvider} from "./providers/session";
 import {LoginPage} from "./pages/login/login";
 import {AccountPage} from "./pages/account/account";
 import {TabsPage} from "./pages/tabs/tabs";
@@ -66,7 +66,7 @@ class CogicApp {
     config: Config;
 
     constructor(private events: Events,
-                private userData: UserProvider,
+                private userData: SessionProvider,
                 private menu: MenuController,
                 platform: Platform,
                 config: Config,
@@ -200,7 +200,7 @@ ionicBootstrap(CogicApp,
         MemberProvider,
         ResourceProvider,
         AssessmentProvider,
-        UserProvider
+        SessionProvider
     ],
     {
         tabbarPlacement: 'bottom'

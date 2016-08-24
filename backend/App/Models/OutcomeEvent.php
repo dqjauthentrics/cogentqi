@@ -1,7 +1,7 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
-class OutcomeEvent extends CogentModel {
+class OutcomeEvent extends AppModel {
 
 	/**
 	 *

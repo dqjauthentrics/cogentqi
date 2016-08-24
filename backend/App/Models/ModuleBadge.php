@@ -1,9 +1,9 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class ModuleBadge
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method Module getModule()
  * @method Badge  getBadge()
@@ -11,7 +11,7 @@ namespace Cogent\Models;
  * @property Module $module
  * @property Badge  $badge
  */
-class ModuleBadge extends CogentModel {
+class ModuleBadge extends AppModel {
 
 	/**
 	 *
@@ -57,8 +57,8 @@ class ModuleBadge extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('module_id', 'Cogent\Models\Module', 'id', ['alias' => 'Module']);
-		$this->belongsTo('badge_id', 'Cogent\Models\Badge', 'id', ['alias' => 'Badge']);
+		$this->belongsTo('module_id', 'App\Models\Module', 'id', ['alias' => 'Module']);
+		$this->belongsTo('badge_id', 'App\Models\Badge', 'id', ['alias' => 'Badge']);
 	}
 
 	/**

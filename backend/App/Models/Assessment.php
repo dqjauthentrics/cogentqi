@@ -1,13 +1,13 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
-use Cogent\Components\Result;
-use Cogent\Components\Utility;
-use Cogent\Controllers\ControllerBase;
+use App\Components\Result;
+use App\Components\Utility;
+use App\Controllers\ControllerBase;
 
 /**
  * Class Assessment
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method Instrument getInstrument()
  * @method Member getAssessee()
@@ -21,7 +21,7 @@ use Cogent\Controllers\ControllerBase;
  * @property Instrument                                               $instrument
  * @property InstrumentSchedule                                       $schedule
  */
-class Assessment extends CogentModel {
+class Assessment extends AppModel {
 	const STATUS_ACTIVE = 'A';
 	const STATUS_LOCKED = 'L';
 
@@ -129,12 +129,12 @@ class Assessment extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'Cogent\Models\AssessmentResponse', 'assessment_id', ['alias' => 'Responses']);
-		$this->hasMany('id', 'Cogent\Models\Recommendation', 'assessment_id', ['alias' => 'Recommendation']);
-		$this->belongsTo('member_id', 'Cogent\Models\Member', 'id', ['alias' => 'Assessee']);
-		$this->belongsTo('assessor_id', 'Cogent\Models\Member', 'id', ['alias' => 'Assessor']);
-		$this->belongsTo('instrument_id', 'Cogent\Models\Instrument', 'id', ['alias' => 'Instrument']);
-		$this->belongsTo('instrument_schedule_id', 'Cogent\Models\InstrumentSchedule', 'id', ['alias' => 'Schedule']);
+		$this->hasMany('id', 'App\Models\AssessmentResponse', 'assessment_id', ['alias' => 'Responses']);
+		$this->hasMany('id', 'App\Models\Recommendation', 'assessment_id', ['alias' => 'Recommendation']);
+		$this->belongsTo('member_id', 'App\Models\Member', 'id', ['alias' => 'Assessee']);
+		$this->belongsTo('assessor_id', 'App\Models\Member', 'id', ['alias' => 'Assessor']);
+		$this->belongsTo('instrument_id', 'App\Models\Instrument', 'id', ['alias' => 'Instrument']);
+		$this->belongsTo('instrument_schedule_id', 'App\Models\InstrumentSchedule', 'id', ['alias' => 'Schedule']);
 	}
 
 	/**
@@ -223,7 +223,7 @@ class Assessment extends CogentModel {
 	 * @param ControllerBase $controller
 	 * @param array          $formAssessment
 	 *
-	 * @return \Cogent\Components\Result
+	 * @return \App\Components\Result
 	 */
 	public function saveExisting($controller, $formAssessment) {
 		$result = new Result($controller);
@@ -268,7 +268,7 @@ class Assessment extends CogentModel {
 											"member_comments"   => $formResponse["mc"]
 										];
 										if (!empty($responseUpdater['response']) && $responseUpdater['response'] != $response->response) {
-											$responseUpdater['time_stamp'] = CogentModel::dbDateTime();
+											$responseUpdater['time_stamp'] = AppModel::dbDateTime();
 										}
 										if (!$response->update($responseUpdater)) {
 											throw new \Exception($this->errorMessagesAsString());

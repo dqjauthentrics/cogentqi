@@ -1,9 +1,9 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class Badge
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method \Phalcon\Mvc\Model\Resultset\Simple|Badge[] getMemberBadges()
  * @method Module getModule()
@@ -12,7 +12,7 @@ namespace Cogent\Models;
  * @property Module                                      $module
  *
  */
-class Badge extends CogentModel {
+class Badge extends AppModel {
 
 	/**
 	 *
@@ -82,8 +82,8 @@ class Badge extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'Cogent\Models\MemberBadge', 'badge_id', ['alias' => 'MemberBadges']);
-		$this->belongsTo('module_id', 'Cogent\Models\Module', 'id', ['alias' => 'Module']);
+		$this->hasMany('id', 'App\Models\MemberBadge', 'badge_id', ['alias' => 'MemberBadges']);
+		$this->belongsTo('module_id', 'App\Models\Module', 'id', ['alias' => 'Module']);
 	}
 
 	/**

@@ -1,16 +1,16 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class Instrument
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method QuestionType getQuestionType()
  * @method \Phalcon\Mvc\Model\Resultset\Simple getSchedule()
  *
  * @method Instrument $instrument
  */
-class Instrument extends CogentModel {
+class Instrument extends AppModel {
 
 	/**
 	 *
@@ -107,7 +107,7 @@ class Instrument extends CogentModel {
 	 * @param string   $where
 	 * @param array    $whereParams
 	 *
-	 * @return array|\Cogent\Models\CogentModel|\Cogent\Models\CogentModel[]|null
+	 * @return array|\App\Models\AppModel|\App\Models\AppModel[]|null
 	 */
 	public function get($id = NULL, $mapIt = TRUE, $orderBy = 'id', $where = "status='A'", $whereParams = []) {
 		return parent::get($id, $mapIt, $orderBy, $where, $whereParams);
@@ -144,12 +144,12 @@ class Instrument extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'Cogent\Models\Assessment', 'instrument_id', ['alias' => 'Assessments']);
-		$this->hasMany('id', 'Cogent\Models\InstrumentSchedule', 'instrument_id', ['alias' => 'Schedule']);
-		$this->hasMany('id', 'Cogent\Models\QuestionGroup', 'instrument_id', ['alias' => 'QuestionGroups']);
-		$this->belongsTo('role_id', 'Cogent\Models\AppRole', 'id', ['alias' => 'AppRole']);
-		$this->belongsTo('usage_id', 'Cogent\Models\AlgorithmUsage', 'id', ['alias' => 'AlgorithmUsage']);
-		$this->belongsTo('question_type_id', 'Cogent\Models\QuestionType', 'id', ['alias' => 'QuestionType']);
+		$this->hasMany('id', 'App\Models\Assessment', 'instrument_id', ['alias' => 'Assessments']);
+		$this->hasMany('id', 'App\Models\InstrumentSchedule', 'instrument_id', ['alias' => 'Schedule']);
+		$this->hasMany('id', 'App\Models\QuestionGroup', 'instrument_id', ['alias' => 'QuestionGroups']);
+		$this->belongsTo('role_id', 'App\Models\AppRole', 'id', ['alias' => 'AppRole']);
+		$this->belongsTo('usage_id', 'App\Models\AlgorithmUsage', 'id', ['alias' => 'AlgorithmUsage']);
+		$this->belongsTo('question_type_id', 'App\Models\QuestionType', 'id', ['alias' => 'QuestionType']);
 	}
 
 	/**

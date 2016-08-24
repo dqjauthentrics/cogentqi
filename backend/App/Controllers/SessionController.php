@@ -1,10 +1,10 @@
 <?php
-namespace Cogent\Controllers;
+namespace App\Controllers;
 
-use Cogent\Components\Result;
-use Cogent\Models\Member;
+use App\Components\Result;
+use App\Models\Member;
 
-class SessionController extends \Cogent\Controllers\ControllerBase {
+class SessionController extends \App\Controllers\ControllerBase {
 
 	/**
 	 * @param Member $member
@@ -12,8 +12,8 @@ class SessionController extends \Cogent\Controllers\ControllerBase {
 	private function _setSession($member) {
 		$memberRec = $member->map();
 		$memberRec['organizationName'] = $member->organization->name;
+		unset($memberRec['password']);
 		$this->session->set('auth', $memberRec);
-		file_put_contents('/tmp/dqj.dbg', '_setSession:'.$this->dumpToStr($memberRec).PHP_EOL, FILE_APPEND);
 	}
 
 	/**

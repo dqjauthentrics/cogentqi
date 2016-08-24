@@ -1,6 +1,6 @@
 <?php
-namespace Cogent;
+namespace App;
 
-class Cogent {
+class App {
 
 }

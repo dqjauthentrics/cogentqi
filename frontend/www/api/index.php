@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 use Phalcon\Loader;
 use Phalcon\Mvc\Application;
 
-define('APP_PATH', dirname(dirname(dirname(__DIR__))) . '/backend3/');
+define('APP_PATH', dirname(dirname(dirname(__DIR__))) . '/backend/');
 
 /**
 set_error_handler(function ($errno, $errstr, $errfile, $errline) {
@@ -38,7 +38,7 @@ set_error_handler(function ($errno, $errstr, $errfile, $errline) {
 **/
 
 try {
-	$config = include APP_PATH . "Cogent/Config/config.php";
+	$config = include APP_PATH . "App/Config/config.php";
 
 	/**
 	 * Set up autoloading of classes.
@@ -46,12 +46,12 @@ try {
 	 */
 	$loader = new Loader();
 	$loader->registerNamespaces([
-		'Cogent\Controllers' => APP_PATH . '/Cogent/Controllers/',
-		'Cogent\Models'      => APP_PATH . '/Cogent/Models/',
-		'Cogent\Components'  => APP_PATH . '/Cogent/Components/',
-		'Cogent'             => APP_PATH . '/',
+		'App\Controllers' => APP_PATH . '/App/Controllers/',
+		'App\Models'      => APP_PATH . '/App/Models/',
+		'App\Components'  => APP_PATH . '/App/Components/',
+		'App'             => APP_PATH . '/',
 	]);
-	$loader->registerDirs([APP_PATH . '/Cogent/Models/']); // needed for getting related objects, for some reason
+	$loader->registerDirs([APP_PATH . '/App/Models/']); // needed for getting related objects, for some reason
 
 	$eventsManager = new \Phalcon\Events\Manager();
 	$eventsManager->attach('loader', function ($event, $loader) {
@@ -67,7 +67,7 @@ try {
 	/**
 	 * Define services.
 	 */
-	include APP_PATH . "Cogent/Config/services.php";
+	include APP_PATH . "App/Config/services.php";
 
 	/**
 	 * Run the page.

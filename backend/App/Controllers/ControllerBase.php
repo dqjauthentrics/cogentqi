@@ -1,7 +1,7 @@
 <?php
-namespace Cogent\Controllers;
+namespace App\Controllers;
 
-use Cogent\Models\CogentModel;
+use App\Models\AppModel;
 use Phalcon\Mvc\Controller;
 
 class ControllerBase extends Controller {
@@ -86,7 +86,7 @@ class ControllerBase extends Controller {
 	 */
 	public function currentUser() {
 		$auth = $this->session->get('auth');
-		$user = CogentModel::genericUnmap($auth);
+		$user = AppModel::genericUnmap($auth);
 		return (object)$user;
 	}
 
@@ -105,7 +105,7 @@ class ControllerBase extends Controller {
 	public function mapRecords($records, $options = FALSE) {
 		$data = [];
 		if (!empty($records)) {
-			/** @var CogentModel $record */
+			/** @var AppModel $record */
 			foreach ($records as $record) {
 				if ($options !== FALSE) {
 					$data[] = $record->map($options);

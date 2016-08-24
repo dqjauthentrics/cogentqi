@@ -1,9 +1,9 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class Module
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method \Phalcon\Mvc\Model\Resultset\Simple|ModuleBadge[] getModuleBadges()
  * @method \Phalcon\Mvc\Model\Resultset\Simple|PlanItem[] getPlanItems()
@@ -13,7 +13,7 @@ namespace Cogent\Models;
  * @property \Phalcon\Mvc\Model\Resultset\Simple|PlanItem[]    $planItems
  * @property Resource                                          $resource
  */
-class Module extends CogentModel {
+class Module extends AppModel {
 
 	/**
 	 *
@@ -71,9 +71,9 @@ class Module extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'Cogent\Models\PlanItem', 'module_id', ['alias' => 'PlanItems']);
-		$this->hasMany('id', 'Cogent\Models\ModuleBadge', 'module_id', ['alias' => 'ModuleBadges']);
-		$this->belongsTo('resource_id', 'Cogent\Models\Resource', 'id', ['alias' => 'Resource']);
+		$this->hasMany('id', 'App\Models\PlanItem', 'module_id', ['alias' => 'PlanItems']);
+		$this->hasMany('id', 'App\Models\ModuleBadge', 'module_id', ['alias' => 'ModuleBadges']);
+		$this->belongsTo('resource_id', 'App\Models\Resource', 'id', ['alias' => 'Resource']);
 	}
 
 	/**

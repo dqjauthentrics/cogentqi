@@ -1,9 +1,9 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class OutcomeAlignment
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method Question getQuestion()
  *
@@ -11,7 +11,7 @@ namespace Cogent\Models;
  *
  */
 
-class OutcomeAlignment extends CogentModel {
+class OutcomeAlignment extends AppModel {
 
 	/**
 	 *
@@ -69,8 +69,8 @@ class OutcomeAlignment extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('outcome_id', 'Cogent\Models\Outcome', 'id', ['alias' => 'Outcome']);
-		$this->belongsTo('question_id', 'Cogent\Models\Question', 'id', ['alias' => 'Question']);
+		$this->belongsTo('outcome_id', 'App\Models\Outcome', 'id', ['alias' => 'Outcome']);
+		$this->belongsTo('question_id', 'App\Models\Question', 'id', ['alias' => 'Question']);
 	}
 
 	/**

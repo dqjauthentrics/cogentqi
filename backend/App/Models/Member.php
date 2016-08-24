@@ -1,12 +1,12 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
-use Cogent\Components\Utility;
+use App\Components\Utility;
 use Phalcon\Mvc\Model\Validator\Email as Email;
 
 /**
  * Class Member
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method \Phalcon\Mvc\Model\Resultset\Simple|PlanItem[]    getPlanItems($parameters = [])
  * @method \Phalcon\Mvc\Model\Resultset\Simple|MemberBadge[] getBadges($parameters = [])
@@ -21,7 +21,7 @@ use Phalcon\Mvc\Model\Validator\Email as Email;
  * @property \Phalcon\Mvc\Model\Resultset\Simple|MemberEvent[] $events
  *
  */
-class Member extends CogentModel {
+class Member extends AppModel {
 
 	/**
 	 *
@@ -203,16 +203,16 @@ class Member extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'Cogent\Models\PlanItem', 'member_id', ['alias' => 'PlanItems']);
-		$this->hasMany('id', 'Cogent\Models\Assessment', 'member_id', ['alias' => 'Assessments']);
-		$this->hasMany('id', 'Cogent\Models\Recommendation', 'member_id', ['alias' => 'Recommendations']);
-		$this->hasMany('id', 'Cogent\Models\MemberBadge', 'member_id', ['alias' => 'Badges']);
-		$this->hasMany('id', 'Cogent\Models\Relationship', 'superior_id', ['alias' => 'Subordinates']);
-		$this->hasMany('id', 'Cogent\Models\MemberNote', 'member_id', ['alias' => 'Notes']);
-		$this->hasMany('id', 'Cogent\Models\MemberEvent', 'member_id', ['alias' => 'Events']);
+		$this->hasMany('id', 'App\Models\PlanItem', 'member_id', ['alias' => 'PlanItems']);
+		$this->hasMany('id', 'App\Models\Assessment', 'member_id', ['alias' => 'Assessments']);
+		$this->hasMany('id', 'App\Models\Recommendation', 'member_id', ['alias' => 'Recommendations']);
+		$this->hasMany('id', 'App\Models\MemberBadge', 'member_id', ['alias' => 'Badges']);
+		$this->hasMany('id', 'App\Models\Relationship', 'superior_id', ['alias' => 'Subordinates']);
+		$this->hasMany('id', 'App\Models\MemberNote', 'member_id', ['alias' => 'Notes']);
+		$this->hasMany('id', 'App\Models\MemberEvent', 'member_id', ['alias' => 'Events']);
 
-		$this->belongsTo('role_id', 'Cogent\Models\Role', 'id', ['alias' => 'Role', 'foreignKey' => TRUE]);
-		$this->belongsTo('organization_id', "Cogent\Models\Organization", 'id', ['alias' => 'Organization', 'foreignKey' => TRUE]);
+		$this->belongsTo('role_id', 'App\Models\Role', 'id', ['alias' => 'Role', 'foreignKey' => TRUE]);
+		$this->belongsTo('organization_id', "App\Models\Organization", 'id', ['alias' => 'Organization', 'foreignKey' => TRUE]);
 	}
 
 	/**
@@ -229,8 +229,9 @@ class Member extends CogentModel {
 		'minimal'        => FALSE,
 	]
 	) {
-		$map['app_role_id'] = $this->role->app_role_id;
-		$map['role_name'] = $this->role->name;
+		$map = parent::map($options);
+		$map['appRoleId'] = $this->role->app_role_id;
+		$map['roleName'] = $this->role->name;
 		if (empty($options['minimal'])) {
 			if (!empty($options['badges'])) {
 				$map["badges"] = $this->getBadges(['order' => 'earned DESC']);

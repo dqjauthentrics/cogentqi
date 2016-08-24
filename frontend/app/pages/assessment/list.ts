@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {AssessmentProvider} from "../../providers/assessment";
-import {UserProvider} from "../../providers/user";
+import {SessionProvider} from "../../providers/session";
 import {AssessmentDetailPage} from "./detail";
 
 @Component({
@@ -11,9 +11,8 @@ import {AssessmentDetailPage} from "./detail";
 export class AssessmentListPage {
     assessments = [];
 
-    constructor(private nav: NavController, private user: UserProvider, assessmentData: AssessmentProvider) {
-        //@todo Use valid organization Id
-        var organizationId = 3; //user.oi;
+    constructor(private nav: NavController, private session: SessionProvider, assessmentData: AssessmentProvider) {
+        var organizationId = session.user.organization_id;
         assessmentData.getAll('/' + organizationId).then(assessments => {
             this.assessments = assessments;
         });

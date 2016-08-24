@@ -1,7 +1,7 @@
 <?php
-namespace Cogent\Plugins;
+namespace App\Plugins;
 
-use Cogent\Components\Result;
+use App\Components\Result;
 use Phalcon\Dispatcher;
 use Phalcon\Events\Event;
 use Phalcon\Mvc\Dispatcher as MvcDispatcher;

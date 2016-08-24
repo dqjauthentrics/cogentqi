@@ -1,7 +1,7 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
-class AlgorithmUsage extends CogentModel {
+class AlgorithmUsage extends AppModel {
 	/**
 	 *
 	 * @var string

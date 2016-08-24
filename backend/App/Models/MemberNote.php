@@ -1,9 +1,9 @@
 <?php
-namespace Cogent\Models;
+namespace App\Models;
 
 /**
  * Class MemberNote
- * @package Cogent\Models
+ * @package App\Models
  *
  * @method Member getMember()
  * @method Member getCreator()
@@ -12,7 +12,7 @@ namespace Cogent\Models;
  * @property Member $creator
  *
  */
-class MemberNote extends CogentModel {
+class MemberNote extends AppModel {
 
 	/**
 	 *
@@ -82,8 +82,8 @@ class MemberNote extends CogentModel {
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->belongsTo('member_id', 'Cogent\Models\Member', 'id', ['alias' => 'Member']);
-		$this->belongsTo('creator_id', 'Cogent\Models\Member', 'id', ['alias' => 'Creator']);
+		$this->belongsTo('member_id', 'App\Models\Member', 'id', ['alias' => 'Member']);
+		$this->belongsTo('creator_id', 'App\Models\Member', 'id', ['alias' => 'Creator']);
 	}
 
 	/**

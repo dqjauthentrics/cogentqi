@@ -16,14 +16,14 @@
                 {{assessment.member|namify}}
             </div>
             <div class="pull-left">
-                <span class="name">{{assessment.instrument.n}}</span>, {{assessment.lm|date}}
+                <span class="name">{{assessment.instrument.name}}</span>, {{assessment.lastModified|date}}
                 <br/>
                 <div *ngIf="assessment.assessor.id != assessment.member.id">
                     <div class="pull-left">by</div>
                     <div class="pull-left">
-                        <avatar [src]="assessment.assessor.av" [size]="'tiny'"></avatar>
+                        <avatar [src]="assessment.assessor.avatar" [size]="'tiny'"></avatar>
                     </div>
-                    <div class="pull-left">{{assessment.assessor.fn}} {{assessment.assessor.ln}}</div>
+                    <div class="pull-left">{{assessment.assessor.firstName}} {{assessment.assessor.lastName}}</div>
                 </div>
                 <div *ngIf="assessment.assessor.id == assessment.member.id">
                     (self-evaluation)
