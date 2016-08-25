@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.conference532198" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.cogentqi.cogic" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>conference</name>
   <description>
-        An Ionic Framework application for the Ionic Conference.
+        An advanced performance management application.
   </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+  <author email="dqj@cogentqi.com" href="http://cogentqi.com/">
+      CogentQI Development Group
   </author>
   <content src="index.html"/>
   <access origin="*"/>

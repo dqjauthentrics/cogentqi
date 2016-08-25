@@ -12,7 +12,7 @@ class InstrumentController extends ControllerBase {
 	/**
 	 * Return a list.
 	 */
-	public function indexAction() {
+	public function listAction() {
 		$instrument = new Instrument();
 		$data = $instrument->get(NULL, TRUE, 'sort_order');
 		$result = new Result($this);
@@ -127,8 +127,8 @@ class InstrumentController extends ControllerBase {
 						if (!empty($groupRecord)) {
 							$groupRecord->update([
 									'tag'     => $formGroup['tag'],
-									'number'  => $formGroup['nmb'],
-									'summary' => $formGroup['sm']
+									'number'  => $formGroup['number'],
+									'summary' => $formGroup['summary']
 								]
 							);
 							$questionRecords = Question::query()->where('question_group_id=:id:', ['id' => $groupRecord->id])->execute();
@@ -138,9 +138,9 @@ class InstrumentController extends ControllerBase {
 									$questionRecord = AppModel::findRecord($questionRecords, $formQuestion['id']);
 									if (!empty($questionRecord)) {
 										$questionRecord->update([
-												'name'    => $formQuestion['n'],
-												'number'  => $formQuestion['nmb'],
-												'summary' => $formQuestion['sm']
+												'name'    => $formQuestion['name'],
+												'number'  => $formQuestion['number'],
+												'summary' => $formQuestion['summary']
 											]
 										);
 									}

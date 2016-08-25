@@ -12,7 +12,7 @@
     <ion-card *ngFor="let assessment of assessments" class="assessment" (click)="goToDetail(assessment)">
         <ion-card-content class="outer-content">
             <div class="pull-left">
-                <avatar [src]="assessment.member.av" [size]="'list'"></avatar>
+                <avatar [src]="assessment.member.avatar" [size]="'list'"></avatar>
                 {{assessment.member|namify}}
             </div>
             <div class="pull-left">

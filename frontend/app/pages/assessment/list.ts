@@ -12,7 +12,7 @@ export class AssessmentListPage {
     assessments = [];
 
     constructor(private nav: NavController, private session: SessionProvider, assessmentData: AssessmentProvider) {
-        var organizationId = session.user.organization_id;
+        var organizationId = session.user.organizationId;
         assessmentData.getAll('/' + organizationId).then(assessments => {
             this.assessments = assessments;
         });

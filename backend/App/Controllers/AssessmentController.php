@@ -12,23 +12,6 @@ class AssessmentController extends ControllerBase {
 	public $debug = FALSE;
 
 	/**
-	 * @param int $organizationId
-	 */
-	public function indexAction($organizationId = NULL) {
-		$this->byOrganizationAction($organizationId);
-		/**
-		 * if (empty($organizationId)) {
-		 * $result = new Result($this);
-		 * $data = $this->mapRecords(Assessment::query()->orderBy("last_saved")->execute(), []);
-		 * $result->sendNormal($data);
-		 * }
-		 * else {
-		 * $this->byOrganizationAction($organizationId);
-		 * }
-		 **/
-	}
-
-	/**
 	 * @param int $id
 	 */
 	public function getAction($id) {
@@ -72,13 +55,13 @@ class AssessmentController extends ControllerBase {
 	/**
 	 * @param int $organizationId
 	 */
-	public function byOrganizationAction($organizationId) {
+	public function listAction($organizationId) {
 		$user = $this->currentUser();
 		file_put_contents('/tmp/dqj.dbg', 'userId:'.$user->id.PHP_EOL);
 		$result = new Result($this);
 		$orgModel = new Organization();
 
-		if ($user->app_role_id == Role::PROFESSIONAL) {
+		if ($user->appRoleId == Role::PROFESSIONAL) {
 			$assessments = Assessment::query()->where('member_id=' . $user->id)->orderBy('last_saved DESC')->execute();
 		}
 		else {

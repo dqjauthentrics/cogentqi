@@ -4,6 +4,7 @@ import {Splashscreen, StatusBar} from "ionic-native";
 import {ROUTER_PROVIDERS} from "@angular/router";
 import {HTTP_PROVIDERS, Http} from "@angular/http";
 import {Config} from "./providers/config";
+import {ColorProvider} from "./providers/color";
 import {IconProvider} from "./providers/icon";
 import {InstrumentProvider} from "./providers/instrument";
 import {MemberProvider} from "./providers/member";
@@ -195,6 +196,7 @@ ionicBootstrap(CogicApp,
             multi: true
         }),
         Config,
+        ColorProvider,
         IconProvider,
         InstrumentProvider,
         MemberProvider,

@@ -16,10 +16,10 @@ use App\Controllers\ControllerBase;
  * @method InstrumentSchedule getSchedule()
  *
  * @property AssessmentResponse[] $responses
- * @property Member                                                   $assessor
- * @property Member                                                   $assessee
- * @property Instrument                                               $instrument
- * @property InstrumentSchedule                                       $schedule
+ * @property Member               $assessor
+ * @property Member               $assessee
+ * @property Instrument           $instrument
+ * @property InstrumentSchedule   $schedule
  */
 class Assessment extends AppModel {
 	const STATUS_ACTIVE = 'A';
@@ -175,14 +175,14 @@ class Assessment extends AppModel {
 	public function map($options = ['instrument' => FALSE, 'schedule' => FALSE, 'responses' => FALSE, 'verbose' => FALSE]) {
 		$map = parent::map();
 		if (empty($options['verbose'])) {
-			$map = Utility::arrayRemoveByKey("ac", $map);
-			$map = Utility::arrayRemoveByKey("mc", $map);
+			$map = Utility::arrayRemoveByKey("assessorComments", $map);
+			$map = Utility::arrayRemoveByKey("memberComments", $map);
 		}
 		if (!empty($options['instrument'])) {
 			$map['instrument'] = $this->instrument->map(['questions' => FALSE]);
 		}
 		else {
-			$map['instrument'] = ['n' => $this->instrument->name];
+			$map['instrument'] = ['name' => $this->instrument->name];
 		}
 		if (!empty($options['schedule'])) {
 			$schedule = $this->getInstrument()->getSchedule();
@@ -208,8 +208,8 @@ class Assessment extends AppModel {
 			}
 			foreach ($responses as $response) { // order needed on question order
 				$map['responses'][$response->question_id] = $response->map();
-				if (empty($map['responses'][$response->question_id]['rdx'])) {
-					$map['responses'][$response->question_id]['rdx'] = 0;
+				if (empty($map['responses'][$response->question_id]['responseIndex'])) {
+					$map['responses'][$response->question_id]['responseIndex'] = 0;
 				}
 			}
 		}
@@ -232,48 +232,42 @@ class Assessment extends AppModel {
 			if (!empty($formAssessment)) {
 				$assessment = Assessment::findFirst($formAssessment["id"]);
 				if (!empty($assessment)) {
-                    if ($assessment->edit_status == Assessment::STATUS_LOCKED) {
-                        throw new \Exception("Assessment is locked.");
-                    }
+					if ($assessment->edit_status == Assessment::STATUS_LOCKED) {
+						throw new \Exception("Assessment is locked.");
+					}
 					$controller->beginTransaction($assessment);
 					$transacted = TRUE;
 					$saveDateTime = $assessment->dbDateTime();
 					$simpleRec = [
-						"member_id"         => $formAssessment["member"]["id"],
-						"score"             => $formAssessment["sc"],
-						"rank"              => $formAssessment["rk"],
+						"member_id"         => $formAssessment["memberId"],
+						"score"             => $formAssessment["score"],
+						"rank"              => $formAssessment["rank"],
 						"last_saved"        => $saveDateTime,
 						"last_modified"     => $saveDateTime,
-						"assessor_comments" => $formAssessment["ac"],
-						"member_comments"   => $formAssessment["mc"],
-						"view_status"       => $formAssessment["vs"]
+						"assessor_comments" => $formAssessment["assessorComments"],
+						"member_comments"   => $formAssessment["memberComments"],
+						"view_status"       => $formAssessment["viewStatus"]
 					];
 					if (!$assessment->update($simpleRec)) {
 						throw new \Exception($this->errorMessagesAsString());
 					}
-					$formSections = $formAssessment['instrument']['sections'];
-					if (!empty($formSections)) {
-						foreach ($formSections as $formSection) {
-							$formQuestions = $formSection['questions'];
-							if (!empty($formQuestions)) {
-								foreach ($formQuestions as $formQuestion) {
-									$formResponse = $formAssessment["rsp"][$formQuestion["id"]];
-									$response = AssessmentResponse::findFirst($formResponse['id']);
-									/** @var AssessmentResponse $response */
-									if (!empty($response)) {
-										$responseUpdater = [
-											"response_index"    => (int)$formResponse["rdx"],
-											"response"          => !empty($formResponse["rp"]) ? $formResponse["rp"] : NULL,
-											"assessor_comments" => $formResponse["ac"],
-											"member_comments"   => $formResponse["mc"]
-										];
-										if (!empty($responseUpdater['response']) && $responseUpdater['response'] != $response->response) {
-											$responseUpdater['time_stamp'] = AppModel::dbDateTime();
-										}
-										if (!$response->update($responseUpdater)) {
-											throw new \Exception($this->errorMessagesAsString());
-										}
-									}
+					$formResponses = $formAssessment['responses'];
+					if (!empty($formResponses)) {
+						foreach ($formResponses as $questionId => $formResponse) {
+							$response = AssessmentResponse::findFirst($formResponse['id']);
+							if (!empty($response)) {
+								$responseUpdater = [
+									'response_index'    => (int)$formResponse['responseIndex'],
+									'response'          => (int)$formResponse['response'],
+									'assessor_comments' => $formResponse['assessorComments'],
+									'member_comments'   => $formResponse['memberComments'],
+									'time_stamp'        => $formResponse['timeStamp'],
+								];
+								if (!empty($responseUpdater['response']) && $responseUpdater['response'] != $response->response) {
+									$responseUpdater['time_stamp'] = AppModel::dbDateTime();
+								}
+								if (!$response->update($responseUpdater)) {
+									throw new \Exception($this->errorMessagesAsString());
 								}
 							}
 						}
@@ -776,7 +770,7 @@ class Assessment extends AppModel {
 	 * @return mixed
 	 */
 	public static function getLatestIds($memberId) {
-        $assessment = new Assessment();
+		$assessment = new Assessment();
 		return $assessment->getDBIF()
 			->query("SELECT MAX(id) AS latest
                       FROM assessment
@@ -795,27 +789,28 @@ class Assessment extends AppModel {
 		return self::getArrayColumn($latest, 'latest');
 	}
 
-    /**
-     * @param $memberId
-     * @return \Phalcon\Mvc\Model\ResultsetInterface
-     */
-    public static function getLatestResponses($memberId) {
-        $latestIds = self::getLatestAssessmentIds($memberId);
-        return AssessmentResponse::query()->
-            inWhere('assessment_id', $latestIds)->
-            execute();
-    }
+	/**
+	 * @param $memberId
+	 *
+	 * @return \Phalcon\Mvc\Model\ResultsetInterface
+	 */
+	public static function getLatestResponses($memberId) {
+		$latestIds = self::getLatestAssessmentIds($memberId);
+		return AssessmentResponse::query()->
+		inWhere('assessment_id', $latestIds)->
+		execute();
+	}
 
-    /**
-     * Return the previously saved assessment.
-     *
-     * @return array
-     */
-    public function getPreviousAssessment() {
-        $modDate = $this->last_modified;
-        $member = $this->member_id;
-        $instrument = $this->instrument_id;
-        $sql = "SELECT a.*
+	/**
+	 * Return the previously saved assessment.
+	 *
+	 * @return array
+	 */
+	public function getPreviousAssessment() {
+		$modDate = $this->last_modified;
+		$member = $this->member_id;
+		$instrument = $this->instrument_id;
+		$sql = "SELECT a.*
             FROM assessment a
               INNER JOIN (
                 SELECT MAX(last_modified) last_modified
@@ -826,6 +821,6 @@ class Assessment extends AppModel {
               ) b ON a.last_modified = b.last_modified
             where member_id = $member;
             ";
-        return $this->getDBIF()->query($sql)->fetch();
-    }
+		return $this->getDBIF()->query($sql)->fetch();
+	}
 }

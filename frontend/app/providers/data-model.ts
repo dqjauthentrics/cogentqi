@@ -29,7 +29,7 @@ export class DataModel {
             return Promise.resolve(this.list);
         }
         return new Promise(resolve => {
-            var url = this.baseUrl + '/index' + (typeof args == 'string' ? args : '');
+            var url = this.baseUrl + '/list' + (typeof args == 'string' ? args : '');
             if (this.debug) {
                 console.log('loading all ' + this.name + 's:' + url);
             }

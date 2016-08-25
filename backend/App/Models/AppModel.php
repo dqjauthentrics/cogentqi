@@ -29,6 +29,21 @@ class AppModel extends \Phalcon\Mvc\Model {
 	}
 
 	/**
+	 * @param array $jsonRecord
+	 *
+	 * @return array
+	 */
+	public static function genericUnmap($jsonRecord) {
+		$unmapped = [];
+		if (!empty($jsonRecord)) {
+			foreach ($jsonRecord as $jsonColName => $value) {
+				$unmapped[$jsonColName] = $value;
+			}
+		}
+		return $unmapped;
+	}
+
+	/**
 	 * @param string|null $dateTimeStr
 	 *
 	 * @return bool|string

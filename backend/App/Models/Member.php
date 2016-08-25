@@ -232,6 +232,7 @@ class Member extends AppModel {
 		$map = parent::map($options);
 		$map['appRoleId'] = $this->role->app_role_id;
 		$map['roleName'] = $this->role->name;
+		unset($map['password']);
 		if (empty($options['minimal'])) {
 			if (!empty($options['badges'])) {
 				$map["badges"] = $this->getBadges(['order' => 'earned DESC']);

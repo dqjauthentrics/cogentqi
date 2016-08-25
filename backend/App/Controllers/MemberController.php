@@ -3,15 +3,10 @@ namespace App\Controllers;
 
 use App\Components\Result;
 use App\Models\Member;
+use App\Models\Role;
+
 
 class MemberController extends ControllerBase {
-	/**
-	 * List all members.
-	 *
-	 * @param int $organizationId
-	 * @param int $drilldown
-	 * @param int $includeInactive
-	 */
 	public function listAction($organizationId = NULL, $drilldown = 0, $includeInactive = 0) {
 		$result = new Result($this);
 		$data = [];
@@ -38,7 +33,12 @@ class MemberController extends ControllerBase {
 			}
 			/** @var Member $member */
 			foreach ($members as $member) {
-				$data[] = $member;
+				if ($user->appRoleId == Role::PROFESSIONAL) {
+					$data[] = $member->map(['minimal']);
+				}
+				else {
+					$data[] = $member->map();
+				}
 			}
 		}
 		catch (\Exception $exception) {
@@ -56,7 +56,18 @@ class MemberController extends ControllerBase {
 			$user = $this->currentUser();
 			$member = Member::findFirst($id);
 			if (!empty($member)) {
-				$result->setNormal($member);
+				if ($user->appRoleId == Role::PROFESSIONAL && $id != $user->id) {
+					$data = $member->map(['minimal']);
+				}
+				else {
+					$data = $member->map(['assessments' => TRUE]);
+				}
+				if (!empty($data)) {
+					$result->setNormal($data);
+				}
+				else {
+					$result->setError(Result::CODE_EXCEPTION, 'Unable to map data properly.');
+				}
 			}
 			else {
 				$result->setError(Result::CODE_NOT_FOUND);

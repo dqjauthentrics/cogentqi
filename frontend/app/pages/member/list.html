@@ -16,10 +16,10 @@
         <ion-card-header>
             <ion-item>
                 <div class="pull-left">
-                    <avatar [src]="member.av" [size]="'list'"></avatar>
+                    <avatar [src]="member.avatar" [size]="'list'"></avatar>
                 </div>
                 <div class="pull-left">
-                    <a (click)="goToDetail(member)">{{member|namify}}</a>, {{member.rn}}
+                    <a (click)="goToDetail(member)">{{member|namify}}</a>, {{member.roleName}}
                 </div>
             </ion-item>
         </ion-card-header>
