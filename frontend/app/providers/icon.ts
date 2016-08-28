@@ -14,8 +14,16 @@ export class IconProvider {
             case 'dashboard':
                 className = 'pulse';
                 break;
+            case 'event':
+            case 'events':
+                className = 'warning';
+                break;
             case 'help':
-                className = 'help';
+                className = 'information-circle';
+                break;
+            case 'instrumment':
+            case 'instruments':
+                className = 'clipboard';
                 break;
             case 'level-down':
                 isAwesome = true;
@@ -48,6 +56,22 @@ export class IconProvider {
             case 'save':
                 isAwesome = true;
                 className = 'cloud-upload';
+                break;
+            case 'schedule':
+                className = 'calendar';
+                break;
+            case 'settings':
+            case 'setting':
+                className = 'settings';
+                break;
+            case 'outcome':
+            case 'outcomes':
+                className = 'speedometer';
+                break;
+            case 'weight':
+            case 'weights':
+                isAwesome = true;
+                className = 'balance-scale';
                 break;
         }
         if (isAwesome) {

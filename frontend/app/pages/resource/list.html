@@ -18,11 +18,11 @@
                 <ion-avatar item-left>
                     <ion-icon name="{{'resource'|icon}}"></ion-icon>
                 </ion-avatar>
-                {{resource.n}}
+                {{resource.name}}
             </ion-item>
         </ion-card-header>
         <ion-card-content class="outer-content">
-            <div [innerHTML]="resource.sm"></div>
+            <div [innerHTML]="resource.summary"></div>
         </ion-card-content>
     </ion-card>
 </ion-content>

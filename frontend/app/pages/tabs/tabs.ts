@@ -5,6 +5,7 @@ import {helpPage} from "../help/help";
 import {AssessmentListPage} from "../assessment/list";
 import {ResourceListPage} from "../resource/list";
 import {MemberListPage} from "../member/list";
+//import {ConfigurationPage} from "../configuration/menu";
 
 @Component({
     templateUrl: 'build/pages/tabs/tabs.html'
@@ -14,6 +15,7 @@ export class TabsPage {
     memberRoot: any = MemberListPage;
     resourceRoot: any = ResourceListPage;
     assessmentRoot: any = AssessmentListPage;
+ //   configurationRoot: any = ConfigurationPage;
     helpRoot: any = helpPage;
     mySelectedIndex: number;
 

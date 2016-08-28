@@ -1,4 +1,3 @@
-import {Events} from "ionic-angular";
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import {DataModel} from "./data-model";
@@ -7,8 +6,8 @@ import {Config} from "./config";
 @Injectable()
 export class AssessmentProvider extends DataModel {
 
-    constructor(protected http: Http, config: Config, protected events: Events) {
-        super('assessment', http, config, events);
+    constructor(protected http: Http, config: Config) {
+        super('assessment', http, config);
     }
 
     loadMatrix(organizationId: number, instrumentId: number) {

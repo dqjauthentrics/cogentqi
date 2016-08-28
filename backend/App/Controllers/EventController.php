@@ -11,7 +11,7 @@ class EventController extends ControllerBase {
 	/**
 	 * Return a list.
 	 */
-	public function indexAction() {
+	public function listAction() {
 		$event = new Event();
 		$data = $event->get();
 		$result = new Result($this);

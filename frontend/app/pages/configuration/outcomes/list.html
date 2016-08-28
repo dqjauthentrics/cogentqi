@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-navbar>
+        <button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{'Outcomes'|translate}}</ion-title>
+    </ion-navbar>
+    <ion-toolbar no-border-top>
+        <ion-searchbar primary [(ngModel)]="queryText" placeholder="Search"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="outer-content outcome-list">
+    <ion-card *ngFor="let outcome of outcomes|filter:queryText" class="outcome">
+
+        <ion-card-header>
+            <ion-item>
+                <app-icon [name]="'outcome'"></app-icon>
+                <a (click)="configureOutcome(outcome)">{{outcome.name}}</a>
+            </ion-item>
+        </ion-card-header>
+
+        <ion-card-content class="outer-content">
+        </ion-card-content>
+
+    </ion-card>
+</ion-content>

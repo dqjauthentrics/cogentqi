@@ -19,7 +19,7 @@ class OutcomeController extends ControllerBase {
 	 * @param int $orgId
 	 * @param int $outcomeId
 	 *
-	 * @return int
+	 * @return int[]
 	 */
 	private function findLevel($orgOutLevelRecs, $orgId, $outcomeId) {
 		/** @var OrganizationOutcome $orgOutLevelRec */
@@ -34,7 +34,7 @@ class OutcomeController extends ControllerBase {
 	/**
 	 * Return a list.
 	 */
-	public function indexAction() {
+	public function listAction() {
 		$outcome = new Outcome();
 		$data = $outcome->get();
 		$result = new Result($this);

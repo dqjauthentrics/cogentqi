@@ -11,7 +11,7 @@ export class SessionProvider extends DataModel {
     private storage = new Storage(LocalStorage);
 
     constructor(protected http: Http, config: Config, protected events: Events) {
-        super('user', http, config, events);
+        super('user', http, config);
         this.checkLogin();
     }
 

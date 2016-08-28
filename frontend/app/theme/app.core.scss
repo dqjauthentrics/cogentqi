@@ -7,6 +7,22 @@ a {
   cursor: pointer;
 }
 
+button ion-icon {
+  line-height: 32px;
+  height: 32px;
+  font-size: 1.4em;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
 .pdf-question {
   background: red;
   color: white;
@@ -157,3 +173,4 @@ img.avatar-list {
 @import "../pages/assessment/assessment";
 @import "../pages/member/member";
 @import "../pages/tutorial/tutorial";
+@import "../pages/configuration/settings/settings";

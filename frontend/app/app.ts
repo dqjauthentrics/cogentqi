@@ -10,10 +10,14 @@ import {InstrumentProvider} from "./providers/instrument";
 import {MemberProvider} from "./providers/member";
 import {ResourceProvider} from "./providers/resource";
 import {AssessmentProvider} from "./providers/assessment";
+import {OutcomeProvider} from "./providers/outcome";
+import {EventProvider} from "./providers/event";
+import {ScheduleProvider} from "./providers/schedule";
 import {SessionProvider} from "./providers/session";
 import {LoginPage} from "./pages/login/login";
 import {AccountPage} from "./pages/account/account";
 import {TabsPage} from "./pages/tabs/tabs";
+import {ConfigTabsPage} from "./pages/configuration/tabs";
 import {FilterArrayPipe} from "./pipes/filter-array-pipe";
 import {Namify} from "./pipes/namify";
 import {Ellipsify} from "./pipes/ellipsify";
@@ -48,14 +52,22 @@ class CogicApp {
     @ViewChild(Nav) nav: Nav;
 
     // List of pages that can be navigated to from the left menu.  The left menu only works after login; the login page disables it;
-    appPages: PageObj[] = [];
-    loggedInPages: PageObj[] = [
+    accountPages: PageObj[] = [
+        {title: 'Account', component: AccountPage, icon: 'person'},
+        {title: 'Logout', component: TabsPage, icon: 'log-out'}
+    ];
+    configurationPages: PageObj[] = [
+        {title: 'Schedule', component: ConfigTabsPage, index: 2, icon: 'schedule'},
+        {title: 'Resources', component: ConfigTabsPage, index: 3, icon: 'resources'},
+        {title: 'Events', component: ConfigTabsPage, index: 4, icon: 'events'},
+        {title: 'Outcomes', component: ConfigTabsPage, index: 5, icon: 'outcomes'},
+        {title: 'Instruments', component: ConfigTabsPage, index: 6, icon: 'instruments'},
+        {title: 'Weighting', component: ConfigTabsPage, index: 7, icon: 'weights'},
+    ];
+    navigationPages: PageObj[] = [
         {title: 'Dashboard', component: TabsPage, index: 0, icon: 'pulse'},
         {title: 'Members', component: TabsPage, index: 1, icon: 'people'},
         {title: 'Resources', component: TabsPage, index: 2, icon: 'contacts'},
-        {title: 'help', component: TabsPage, index: 3, icon: 'information-circle'},
-        {title: 'Account', component: AccountPage, icon: 'person'},
-        {title: 'Logout', component: TabsPage, icon: 'log-out'}
     ];
     loggedOutPages: PageObj[] = [
         {title: 'Login', component: LoginPage, icon: 'log-in'},
@@ -132,7 +144,7 @@ class CogicApp {
 
     setPages(loggedIn) {
         this.rootPage = loggedIn ? TabsPage : LoginPage;
-        this.pages = loggedIn ? this.loggedInPages : this.loggedOutPages;
+        //this.pages = loggedIn ? this.loggedInPages : this.loggedOutPages;
     }
 }
 
@@ -202,7 +214,10 @@ ionicBootstrap(CogicApp,
         MemberProvider,
         ResourceProvider,
         AssessmentProvider,
-        SessionProvider
+        SessionProvider,
+        OutcomeProvider,
+        ScheduleProvider,
+        EventProvider
     ],
     {
         tabbarPlacement: 'bottom'

@@ -5,10 +5,9 @@ import {DataModel} from "./data-model";
 import {Config} from "./config";
 
 @Injectable()
-export class MemberProvider extends DataModel {
+export class ScheduleProvider extends DataModel {
 
     constructor(protected http: Http, config: Config) {
-        super('member', http, config);
+        super('schedule', http, config);
     }
-
 }

@@ -1,44 +1,18 @@
 import {Pipe, PipeTransform} from "@angular/core";
+import {IconProvider} from "../providers/icon";
 
 @Pipe({
     name: "icon"
 })
 
 export class Icon implements PipeTransform {
+    constructor(private icon: IconProvider) {
+
+    }
+
     transform(standardName: string): string {
-        let className: string = standardName;
-        switch (standardName) {
-            case 'logout':
-                className = 'power';
-                break;
-           case 'help':
-                className = 'help';
-                break;
-            case 'dashboard':
-                className = 'pulse';
-                break;
-            case 'people':
-                className = 'people';
-                break;
-            case 'organization':
-            case 'organizations':
-                className = 'ios-body';
-                break;
-            case 'member':
-                className = 'person';
-                break;
-            case 'resources':
-            case 'resource':
-                className = 'school';
-                break;
-            case 'assessments':
-            case 'assessment':
-                className = 'options';
-                break;
-            case 'pdf':
-                className = 'fa fa-file-pdf-o fa-lg';
-                break;
-        }
-        return className;
+        let iconClass = this.icon.getClass(standardName);
+        iconClass = iconClass.replace('ion-ios-', '');
+        return iconClass;
     }
 }

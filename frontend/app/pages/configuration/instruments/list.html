@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-navbar>
+        <button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{'Instruments'|translate}}</ion-title>
+    </ion-navbar>
+    <ion-toolbar no-border-top>
+        <ion-searchbar primary [(ngModel)]="queryText" placeholder="Search"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="outer-content instrument-list">
+    <ion-card *ngFor="let instrument of instruments|filter:queryText" class="instrument">
+
+        <ion-card-header>
+            <ion-item>
+                <app-icon [name]="'instrument'"></app-icon>
+                <a (click)="configureInstrument(instrument)">{{instrument.name}}</a>
+            </ion-item>
+        </ion-card-header>
+
+        <ion-card-content class="outer-content">
+        </ion-card-content>
+
+    </ion-card>
+</ion-content>

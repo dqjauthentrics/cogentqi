@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-navbar>
+        <button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{'Settinging Configuration'|translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="padding" class="setting-configuration">
+    <ion-list>
+        <ion-item>
+            <div style="text-align: center;">
+                {{'When making recommendations, the system can give more strength to one component or another.'|translate}}
+            </div>
+            <div style="margin:3vw; font-style:italic;">
+                <label for="setting_distribution">{{'Assign Relative Settings'|translate}}</label>
+                <input id="setting_distribution" type="range" min="0" max="10" data-ng-bind="data.threshold"
+                       data-ng-model="data.setting" data-ng-change="data.dirty = true"/>
+                <div class="pull-left" style="text-align: center;">{{'Assessments'|translate}}<br/>{{data.setting}}</div>
+                <div class="pull-right" style="text-align: center;">{{'Outcomes'|translate}}<br/>{{10-data.setting}}</div>
+            </div>
+        </ion-item>
+    </ion-list>
+</ion-content>

@@ -28,7 +28,7 @@ class ResourceController extends ControllerBase {
 	/**
 	 * Return a list.
 	 */
-	public function indexAction() {
+	public function listAction() {
 		$resource = new Resource();
 		$data = $resource->get();
 		$result = new Result($this);

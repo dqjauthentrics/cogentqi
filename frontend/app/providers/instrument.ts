@@ -1,4 +1,3 @@
-import {Events} from "ionic-angular";
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import {DataModel} from "./data-model";
@@ -12,8 +11,8 @@ export class InstrumentProvider extends DataModel {
     public current = null;
     public currentSectionIdx = this.SECTION_ALL;
 
-    constructor(protected http: Http, config: Config, protected events: Events) {
-        super('instrument', http, config, events);
+    constructor(protected http: Http, config: Config) {
+        super('instrument', http, config);
     }
 
     find(id: number) {

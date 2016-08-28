@@ -61,29 +61,6 @@ class InstrumentController extends ControllerBase {
 	}
 
 	/**
-	 * Retrieves a full schedule for the givent instrumentId
-	 *
-	 * @param int $instrumentId
-	 */
-	public function scheduleAction($instrumentId = NULL) {
-		$result = new Result($this);
-		$data = [];
-		try {
-			$sched = new InstrumentSchedule();
-			if (empty($instrumentId)) {
-				$data = $sched->get();
-			}
-			else {
-				$data = $sched->get(NULL, TRUE, '', 'instrument_id=:id:', ['id' => 'ends DESC,starts DESC']);
-			}
-		}
-		catch (\Exception $exception) {
-			$result->setError(Result::CODE_EXCEPTION, $exception->getMessage());
-		}
-		$result->sendNormal($data);
-	}
-
-	/**
 	 * @param QuestionGroup[] $questionGroups
 	 * @param int             $questionGroupId
 	 *
@@ -100,7 +77,6 @@ class InstrumentController extends ControllerBase {
 		}
 		return $group;
 	}
-
 
 	/**
 	 * Save the given alignments for this resource.

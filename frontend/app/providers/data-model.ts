@@ -1,5 +1,4 @@
 import {Headers, RequestOptions, Http} from "@angular/http";
-import {Events} from "ionic-angular";
 import {Injectable} from "@angular/core";
 import {Config} from "./config";
 
@@ -11,7 +10,7 @@ export class DataModel {
     single: any;
     debug: boolean = true;
 
-    constructor(name: string, protected http: Http, config: Config, protected events: Events) {
+    constructor(name: string, protected http: Http, config: Config) {
         this.name = name;
         this.baseUrl = 'http://' + config.siteDir + '.dev2.cog/api/' + name;
     }
