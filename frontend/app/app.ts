@@ -4,6 +4,7 @@ import {Splashscreen, StatusBar} from "ionic-native";
 import {ROUTER_PROVIDERS} from "@angular/router";
 import {HTTP_PROVIDERS, Http} from "@angular/http";
 import {Config} from "./providers/config";
+import {GlobalsProvider} from "./providers/globals";
 import {ColorProvider} from "./providers/color";
 import {IconProvider} from "./providers/icon";
 import {InstrumentProvider} from "./providers/instrument";
@@ -17,7 +18,6 @@ import {SessionProvider} from "./providers/session";
 import {LoginPage} from "./pages/login/login";
 import {AccountPage} from "./pages/account/account";
 import {TabsPage} from "./pages/tabs/tabs";
-import {ConfigTabsPage} from "./pages/configuration/tabs";
 import {FilterArrayPipe} from "./pipes/filter-array-pipe";
 import {Namify} from "./pipes/namify";
 import {Ellipsify} from "./pipes/ellipsify";
@@ -39,6 +39,7 @@ interface PageObj {
     component: any;
     icon: string;
     index?: number;
+    tabMode: string;
 }
 
 @Component({
@@ -53,24 +54,24 @@ class CogicApp {
 
     // List of pages that can be navigated to from the left menu.  The left menu only works after login; the login page disables it;
     accountPages: PageObj[] = [
-        {title: 'Account', component: AccountPage, icon: 'person'},
-        {title: 'Logout', component: TabsPage, icon: 'log-out'}
+        {title: 'Account', component: AccountPage, icon: 'person', tabMode: 'normal'},
+        {title: 'Logout', component: TabsPage, icon: 'log-out', tabMode: 'normal'}
     ];
     configurationPages: PageObj[] = [
-        {title: 'Schedule', component: ConfigTabsPage, index: 2, icon: 'schedule'},
-        {title: 'Resources', component: ConfigTabsPage, index: 3, icon: 'resources'},
-        {title: 'Events', component: ConfigTabsPage, index: 4, icon: 'events'},
-        {title: 'Outcomes', component: ConfigTabsPage, index: 5, icon: 'outcomes'},
-        {title: 'Instruments', component: ConfigTabsPage, index: 6, icon: 'instruments'},
-        {title: 'Weighting', component: ConfigTabsPage, index: 7, icon: 'weights'},
+        {title: 'Schedule', component: TabsPage, index: 2, icon: 'schedule', tabMode: 'configuration'},
+        {title: 'Resources', component: TabsPage, index: 3, icon: 'resources', tabMode: 'configuration'},
+        {title: 'Events', component: TabsPage, index: 4, icon: 'events', tabMode: 'configuration'},
+        {title: 'Outcomes', component: TabsPage, index: 5, icon: 'outcomes', tabMode: 'configuration'},
+        {title: 'Instruments', component: TabsPage, index: 6, icon: 'instruments', tabMode: 'configuration'},
+        {title: 'Weighting', component: TabsPage, index: 7, icon: 'weights', tabMode: 'configuration'},
     ];
     navigationPages: PageObj[] = [
-        {title: 'Dashboard', component: TabsPage, index: 0, icon: 'pulse'},
-        {title: 'Members', component: TabsPage, index: 1, icon: 'people'},
-        {title: 'Resources', component: TabsPage, index: 2, icon: 'contacts'},
+        {title: 'Dashboard', component: TabsPage, index: 0, icon: 'pulse', tabMode: 'normal'},
+        {title: 'Members', component: TabsPage, index: 1, icon: 'people', tabMode: 'normal'},
+        {title: 'Resources', component: TabsPage, index: 2, icon: 'contacts', tabMode: 'normal'},
     ];
     loggedOutPages: PageObj[] = [
-        {title: 'Login', component: LoginPage, icon: 'log-in'},
+        {title: 'Login', component: LoginPage, icon: 'log-in', tabMode: 'normal'},
     ];
     pages: PageObj[] = this.loggedOutPages;
 
@@ -83,6 +84,7 @@ class CogicApp {
                 private menu: MenuController,
                 platform: Platform,
                 config: Config,
+                private globals: GlobalsProvider,
                 memberData: MemberProvider,
                 resourceData: ResourceProvider,
                 private instrumentData: InstrumentProvider,
@@ -110,8 +112,14 @@ class CogicApp {
         // The nav component was found using @ViewChild(Nav)
         // Reset the nav to remove previous pages and only have this page.
         // We wouldn't want the back button to show in this scenario.
+        if (page.tabMode) {
+            this.globals.tabMode = page.tabMode;
+        }
+        else {
+            this.globals.tabMode = 'normal';
+        }
         if (page.index) {
-            this.nav.setRoot(page.component, {tabIndex: page.index});
+            this.nav.setRoot(page.component, {tabIndex: page.index, tabMode: page.tabMode});
         }
         else {
             this.nav.setRoot(page.component);
@@ -137,7 +145,7 @@ class CogicApp {
             this.rootPage = LoginPage;
             console.log('logout event received', this.userData);
             this.setPages(false);
-            let loginPage: PageObj = {title: 'Login', component: LoginPage, icon: 'log-in'};
+            let loginPage: PageObj = {title: 'Login', component: LoginPage, icon: 'log-in', tabMode: 'normal'};
             this.openPage(loginPage);
         });
     }
@@ -208,6 +216,7 @@ ionicBootstrap(CogicApp,
             multi: true
         }),
         Config,
+        GlobalsProvider,
         ColorProvider,
         IconProvider,
         InstrumentProvider,

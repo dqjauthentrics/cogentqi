@@ -1,7 +1,19 @@
-<ion-tabs [selectedIndex]="mySelectedIndex">
-    <ion-tab [root]="dashboardRoot" tabTitle="{{'Dashboard'|translate}}" tabIcon="{{'dashboard'|icon}}"></ion-tab>
-    <ion-tab [root]="memberRoot" tabTitle="{{'People'|translate}}" tabIcon="{{'people'|icon}}"></ion-tab>
-    <ion-tab [root]="resourceRoot" tabTitle="{{'Resources'|translate}}" tabIcon="{{'resources'|icon}}"></ion-tab>
-    <ion-tab [root]="assessmentRoot" tabTitle="{{'Assessments'|translate}}" tabIcon="{{'assessments'|icon}}"></ion-tab>
-    <ion-tab [root]="helpRoot" tabTitle="{{'Help'|translate}}" tabIcon="{{'help'|icon}}"></ion-tab>
+<ion-tabs id="mainTabs" [selectedIndex]="selectedIndex">
+    <div *ngIf="!globals.tabMode || globals.tabMode=='normal'">
+        <ion-tab [root]="mainDashboardRoot" tabTitle="{{'Dashboard'|translate}}" tabIcon="{{'dashboard'|icon}}"></ion-tab>
+        <ion-tab [root]="mainMemberRoot" tabTitle="{{'People'|translate}}" tabIcon="{{'people'|icon}}"></ion-tab>
+        <ion-tab [root]="mainResourceRoot" tabTitle="{{'Resources'|translate}}" tabIcon="{{'resources'|icon}}"></ion-tab>
+        <ion-tab [root]="mainAssessmentRoot" tabTitle="{{'Assessments'|translate}}" tabIcon="{{'assessments'|icon}}"></ion-tab>
+        <ion-tab [root]="mainHelpRoot" tabTitle="{{'Help'|translate}}" tabIcon="{{'help'|icon}}"></ion-tab>
+    </div>
+    <div *ngIf="globals.tabMode=='configuration'">
+        <ion-tab [root]="cfgDashboardRoot" tabTitle="{{'Dashboard'|translate}}" tabIcon="{{'dashboard'|icon}}" (ionSelect)="goHome()"></ion-tab>
+        <ion-tab [root]="cfgScheduleRoot" tabTitle="{{'Schedule'|translate}}" tabIcon="{{'schedule'|icon}}"></ion-tab>
+        <ion-tab [root]="cfgResourcesRoot" tabTitle="{{'Resources'|translate}}" tabIcon="{{'resources'|icon}}"></ion-tab>
+        <ion-tab [root]="cfgEventsRoot" tabTitle="{{'Events'|translate}}" tabIcon="{{'events'|icon}}"></ion-tab>
+        <ion-tab [root]="cfgOutcomesRoot" tabTitle="{{'Outcomes'|translate}}" tabIcon="{{'outcomes'|icon}}"></ion-tab>
+        <ion-tab [root]="cfgInstrumentsRoot" tabTitle="{{'Instruments'|translate}}" tabIcon="{{'instruments'|icon}}"></ion-tab>
+        <ion-tab [root]="cfgSettingsRoot" tabTitle="{{'Settings'|translate}}" tabIcon="{{'settings'|icon}}"></ion-tab>
+        <ion-tab [root]="cfgHelpRoot" tabTitle="{{'Help'|translate}}" tabIcon="{{'help'|icon}}"></ion-tab>
+    </div>
 </ion-tabs>
