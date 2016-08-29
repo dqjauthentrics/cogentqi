@@ -58,12 +58,12 @@ class CogicApp {
         {title: 'Logout', component: TabsPage, icon: 'log-out', tabMode: 'normal'}
     ];
     configurationPages: PageObj[] = [
-        {title: 'Schedule', component: TabsPage, index: 2, icon: 'schedule', tabMode: 'configuration'},
-        {title: 'Resources', component: TabsPage, index: 3, icon: 'resources', tabMode: 'configuration'},
-        {title: 'Events', component: TabsPage, index: 4, icon: 'events', tabMode: 'configuration'},
-        {title: 'Outcomes', component: TabsPage, index: 5, icon: 'outcomes', tabMode: 'configuration'},
-        {title: 'Instruments', component: TabsPage, index: 6, icon: 'instruments', tabMode: 'configuration'},
-        {title: 'Weighting', component: TabsPage, index: 7, icon: 'weights', tabMode: 'configuration'},
+        {title: 'Schedule', component: TabsPage, index: 1, icon: 'schedule', tabMode: 'configuration'},
+        {title: 'Resources', component: TabsPage, index: 2, icon: 'resources', tabMode: 'configuration'},
+        {title: 'Events', component: TabsPage, index: 3, icon: 'events', tabMode: 'configuration'},
+        {title: 'Outcomes', component: TabsPage, index: 4, icon: 'outcomes', tabMode: 'configuration'},
+        {title: 'Instruments', component: TabsPage, index: 5, icon: 'instruments', tabMode: 'configuration'},
+        {title: 'Weighting', component: TabsPage, index: 6, icon: 'weights', tabMode: 'configuration'},
     ];
     navigationPages: PageObj[] = [
         {title: 'Dashboard', component: TabsPage, index: 0, icon: 'pulse', tabMode: 'normal'},
