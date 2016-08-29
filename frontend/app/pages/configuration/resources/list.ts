@@ -6,7 +6,7 @@ import {ResourceConfigPage} from "./config";
 @Component({
     templateUrl: 'build/pages/configuration/resources/list.html'
 })
-export class ConfigureResourcesListPage {
+export class CfgResourcesListPage {
     resources = [];
 
     constructor(private nav: NavController, resourceData: ResourceProvider) {

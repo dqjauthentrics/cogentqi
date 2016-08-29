@@ -35,6 +35,7 @@ export class IconProvider {
                 className = 'power';
                 break;
             case 'member':
+            case 'members':
                 className = 'person';
                 break;
             case 'organization':

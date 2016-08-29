@@ -6,7 +6,7 @@ import {ScheduleConfigPage} from "./config";
 @Component({
     templateUrl: 'build/pages/configuration/schedule/list.html'
 })
-export class ConfigureScheduleListPage {
+export class CfgScheduleListPage {
     schedule = [];
 
     constructor(private nav: NavController, scheduleData: ScheduleProvider) {

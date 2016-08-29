@@ -6,7 +6,7 @@ import {OutcomeConfigPage} from "./config";
 @Component({
     templateUrl: 'build/pages/configuration/outcomes/list.html'
 })
-export class ConfigureOutcomesListPage {
+export class CfgOutcomesListPage {
     outcomes = [];
 
     constructor(private nav: NavController, outcomeData: OutcomeProvider) {

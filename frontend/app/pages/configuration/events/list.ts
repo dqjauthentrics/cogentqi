@@ -6,7 +6,7 @@ import {EventConfigPage} from "./config";
 @Component({
     templateUrl: 'build/pages/configuration/events/list.html'
 })
-export class ConfigureEventsListPage {
+export class CfgEventsListPage {
     events = [];
 
     constructor(private nav: NavController, eventData: EventProvider) {

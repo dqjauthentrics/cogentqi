@@ -2,50 +2,71 @@ import {Component} from "@angular/core";
 import {NavParams, NavController} from "ionic-angular";
 import {GlobalsProvider} from "../../providers/globals";
 import {DashboardPage} from "../dashboard/dashboard";
-import {helpPage} from "../help/help";
+import {HelpPage} from "../help/help";
 import {AssessmentListPage} from "../assessment/list";
 import {ResourceListPage} from "../resource/list";
 import {MemberListPage} from "../member/list";
 import {ConfigHelpIndex} from "../configuration/help/index";
-import {ConfigureScheduleListPage} from "../configuration/schedule/list";
-import {ConfigureResourcesListPage} from "../configuration/resources/list";
-import {ConfigureInstrumentsListPage} from "../configuration/instruments/list";
-import {ConfigureEventsListPage} from "../configuration/events/list";
-import {ConfigureOutcomesListPage} from "../configuration/outcomes/list";
+import {CfgScheduleListPage} from "../configuration/schedule/list";
+import {CfgResourcesListPage} from "../configuration/resources/list";
+import {CfgInstrumentsListPage} from "../configuration/instruments/list";
+import {CfgEventsListPage} from "../configuration/events/list";
+import {CfgOutcomesListPage} from "../configuration/outcomes/list";
 import {SettingsConfigPage} from "../configuration/settings/config";
+
+interface TabPageObj {
+    title: string;
+    page: any;
+    icon: string;
+}
 
 @Component({
     templateUrl: 'build/pages/tabs/tabs.html'
 })
-export class TabsPage {
-    mainDashboardRoot: any = DashboardPage;
-    mainMemberRoot: any = MemberListPage;
-    mainResourceRoot: any = ResourceListPage;
-    mainAssessmentRoot: any = AssessmentListPage;
-    mainHelpRoot: any = helpPage;
 
-    cfgDashboardRoot: any = DashboardPage;
-    cfgScheduleRoot: any = ConfigureScheduleListPage;
-    cfgResourcesRoot: any = ConfigureResourcesListPage;
-    cfgEventsRoot: any = ConfigureEventsListPage;
-    cfgOutcomesRoot: any = ConfigureOutcomesListPage;
-    cfgInstrumentsRoot: any = ConfigureInstrumentsListPage;
-    cfgSettingsRoot: any = SettingsConfigPage;
-    cfgHelpRoot: any = ConfigHelpIndex;
+export class TabsPage {
+    pages: TabPageObj[] = [];
+
+    mainPages: TabPageObj[] = [
+        {title: 'Dashboard', page: DashboardPage, icon: 'dashboard'},
+        {title: 'Members', page: MemberListPage, icon: 'members'},
+        {title: 'Resources', page: ResourceListPage, icon: 'resources'},
+        {title: 'Assessments', page: AssessmentListPage, icon: 'assessments'},
+        {title: 'Help', page: HelpPage, icon: 'help'}
+    ];
+    cfgPages: TabPageObj[] = [
+        {title: 'Dashboard', page: DashboardPage, icon: 'dashboard'},
+        {title: 'Schedule', page: CfgScheduleListPage, icon: 'schedule'},
+        {title: 'Resources', page: CfgResourcesListPage, icon: 'resources'},
+        {title: 'Events', page: CfgEventsListPage, icon: 'events'},
+        {title: 'Outcomes', page: CfgOutcomesListPage, icon: 'outcomes'},
+        {title: 'Instruments', page: CfgInstrumentsListPage, icon: 'instruments'},
+        {title: 'Settings', page: SettingsConfigPage, icon: 'settings'},
+        {title: 'Help', page: ConfigHelpIndex, icon: 'help'}
+    ];
 
     selectedIndex: number;
 
+    /**
+     * TabsPage constructor.
+     * @param navParams
+     * @param nav
+     * @param globals
+     */
     constructor(private navParams: NavParams, private nav: NavController, private globals: GlobalsProvider) {
+        this.pages = globals.tabMode == 'normal' ? this.mainPages : this.cfgPages;
         this.selectedIndex = navParams.data.tabIndex || 0;
-        if (navParams.data.tabMode) {
-            globals.tabMode = navParams.data.tabMode;
-        }
-        console.log('TABS:', this);
     }
 
-    goHome() {
-        this.globals.tabMode = 'normal';
-        this.nav.setRoot(TabsPage);
+    /**
+     * Called on (ionselect), switches back to main dashboard tabs from configuration.
+     * @returns {boolean}
+     */
+    tabSelected(index, page) {
+        if (index == 0 && this.globals.tabMode != 'normal') {
+            this.globals.tabMode = 'normal';
+            this.nav.setRoot(TabsPage);
+        }
         return true;
     }
 

@@ -6,7 +6,7 @@ import {InstrumentConfigPage} from "./config";
 @Component({
     templateUrl: 'build/pages/configuration/instruments/list.html'
 })
-export class ConfigureInstrumentsListPage {
+export class CfgInstrumentsListPage {
     instruments = [];
 
     constructor(private nav: NavController, instrumentData: InstrumentProvider) {
