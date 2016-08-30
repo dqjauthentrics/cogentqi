@@ -2,7 +2,7 @@ import {Pipe, PipeTransform} from "@angular/core";
 
 @Pipe({name: 'filter'})
 export class FilterArrayPipe implements PipeTransform {
-    private validKeys = ['n', 'fn', 'ln', 'r', 'jt', 'o', 'rn', 'sm', 'dsc', 'roleName', 'first', 'last', 'organization', 'jobTitle'];
+    private validKeys = ['name', 'jobTitle', 'organizationName', 'roleName', 'summary', 'description', 'roleName', 'firstName', 'lastName', 'organization', 'jobTitle'];
     transform(arrayItem, filterValue) {
         if (!filterValue || filterValue == undefined) {
             return arrayItem;

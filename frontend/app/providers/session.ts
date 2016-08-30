@@ -56,8 +56,16 @@ export class SessionProvider extends DataModel {
         return this.storage.get('user').then((value) => {
             if (value) {
                 this.user = JSON.parse(value);
-                this.isLoggedIn = true;
-                this.events.publish('user:login');
+                if (this.user.id) {
+                    this.isLoggedIn = true;
+                    this.events.publish('user:login');
+                }
+                else {
+                    this.isLoggedIn = false;
+                }
+            }
+            else {
+                this.isLoggedIn = false;
             }
             return value;
         });

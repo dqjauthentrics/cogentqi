@@ -1,5 +1,5 @@
 import {Component, ViewChild, Provider, PLATFORM_PIPES, PLATFORM_DIRECTIVES} from "@angular/core";
-import {Events, ionicBootstrap, MenuController, Nav, Platform} from "ionic-angular";
+import {Events, ionicBootstrap, Nav, Platform} from "ionic-angular";
 import {Splashscreen, StatusBar} from "ionic-native";
 import {ROUTER_PROVIDERS} from "@angular/router";
 import {HTTP_PROVIDERS, Http} from "@angular/http";
@@ -77,21 +77,7 @@ class CogicApp {
 
     rootPage: any = LoginPage;
 
-    config: Config;
-
-    constructor(private events: Events,
-                private userData: SessionProvider,
-                private menu: MenuController,
-                platform: Platform,
-                config: Config,
-                private globals: GlobalsProvider,
-                memberData: MemberProvider,
-                resourceData: ResourceProvider,
-                private instrumentData: InstrumentProvider,
-                translate: TranslateService) {
-
-        this.config = config;
-
+    constructor(private events: Events, private globals: GlobalsProvider, private session: SessionProvider, platform: Platform, private config: Config, private instrumentData: InstrumentProvider, translate: TranslateService) {
         // Call any initial plugins when ready
         platform.ready().then(() => {
             StatusBar.styleDefault();
@@ -102,13 +88,12 @@ class CogicApp {
         this.translate.use('en');
         this.listenToLoginEvents();
 
-        //this.userData.hasLoggedIn().then((hasLoggedIn) => {
-        //    this.setPages(hasLoggedIn === 'true');
-        //});
-        this.setPages(this.userData.isLoggedIn);
+        this.session.checkLogin();
+        this.setPages(this.session.isLoggedIn);
     }
 
     openPage(page: PageObj) {
+        this.session.checkLogin();
         // The nav component was found using @ViewChild(Nav)
         // Reset the nav to remove previous pages and only have this page.
         // We wouldn't want the back button to show in this scenario.
@@ -128,7 +113,7 @@ class CogicApp {
         if (page.title === 'Logout') {
             // Give the menu time to close before changing to logged out
             setTimeout(() => {
-                this.userData.logout();
+                this.session.logout();
                 this.setPages(false);
             }, 1000);
         }
@@ -140,10 +125,8 @@ class CogicApp {
             this.setPages(true);
             this.instrumentData.loadAll(null);
         });
-
         this.events.subscribe('user:logout', () => {
             this.rootPage = LoginPage;
-            console.log('logout event received', this.userData);
             this.setPages(false);
             let loginPage: PageObj = {title: 'Login', component: LoginPage, icon: 'log-in', tabMode: 'normal'};
             this.openPage(loginPage);
