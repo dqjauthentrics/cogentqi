@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-navbar>
+        <button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{instrument.name}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content instrument-list">
+    <ion-card class="instrument">
+        <ion-card-header>
+            <ion-item>
+                <h1>{{instrument?.name}}</h1>
+            </ion-item>
+        </ion-card-header>
+        <ion-card-content class="outer-content">
+            {{instrument?.summary}}
+        </ion-card-content>
+    </ion-card>
+</ion-content>

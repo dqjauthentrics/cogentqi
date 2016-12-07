@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-navbar>
+        <button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{event.name}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content event-list">
+    <ion-card class="event">
+        <ion-card-header>
+            <ion-item>
+                <h1>{{event?.name}}</h1>
+            </ion-item>
+        </ion-card-header>
+        <ion-card-content class="outer-content">
+            {{event?.summary}}
+        </ion-card-content>
+    </ion-card>
+</ion-content>

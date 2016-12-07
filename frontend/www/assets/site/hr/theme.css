@@ -1,0 +1,58 @@
+body {
+    color: #666;
+}
+
+a, a:visited {
+    color: #666;
+}
+
+.customerBg {
+    background: #F8F8F8 !important;
+    background-size: 100% 100% !important;
+}
+
+ion-header-bar {
+    background: #F8F8F8 !important;
+}
+
+ion-header-bar img {
+    vertical-align: top !important;
+}
+
+ion-content {
+    background: #FFF !important;
+    background-size: 100% 100% !important;
+}
+
+ion-header-bar a, .tab-item {
+    color: #ea272b !important;
+}
+
+.tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
+    background: #F8F8F8 !important;
+}
+
+.bar.bar-assertive .title {
+    color: #ea272b;
+}
+
+.bar-assertive .button.button-clear {
+    color: #ea272b;
+}
+
+.cycle a {
+    color: #606060 !important;
+}
+
+.dashname {
+    color: #606060;
+}
+
+.tab-item-active {
+    color: #666;
+}
+
+.tab-item:hover {
+    color: #666 !important;
+}
+

@@ -1,0 +1,27 @@
+{
+  "status": 1,
+  "code": 200,
+  "duration": 0.0481,
+  "message": null,
+  "data": {
+    "id": 22,
+    "guideCategoryId": 12,
+    "title": "Computer Repair Technology",
+    "version": 1,
+    "battery": null,
+    "summary": null,
+    "description": null,
+    "lastUpdatedOn": "2016-10-08 13:56:36",
+    "code": null,
+    "testCode": null,
+    "counts": {
+      "competencies": 0,
+      "questions": 0
+    },
+    "jobs": [],
+    "questions": [],
+    "resources": [],
+    "standards": []
+  },
+  "error": null
+}

@@ -18,16 +18,15 @@
     "cordova-plugin-whitelist": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-whitelist@~1.0.0"
+            "id": "cordova-plugin-whitelist@1.3.0"
         },
         "is_top_level": true,
         "variables": {}
     },
     "cordova-plugin-splashscreen": {
         "source": {
-            "type": "git",
-            "url": "https://github.com/apache/cordova-plugin-splashscreen.git",
-            "subdir": "."
+            "type": "registry",
+            "id": "cordova-plugin-splashscreen@4.0.0"
         },
         "is_top_level": true,
         "variables": {}
@@ -35,7 +34,7 @@
     "cordova-plugin-statusbar": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-statusbar"
+            "id": "cordova-plugin-statusbar@2.2.0"
         },
         "is_top_level": true,
         "variables": {}
@@ -46,22 +45,6 @@
             "id": "ionic-plugin-keyboard"
         },
         "is_top_level": true,
-        "variables": {}
-    },
-    "cordova-plugin-camera": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-camera"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
-    "cordova-plugin-compat": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-compat"
-        },
-        "is_top_level": false,
         "variables": {}
     }
 }

@@ -1,0 +1,36 @@
+.customerBg {
+    background-color: #FFF !important;
+    color: #c00000 !important;
+}
+
+ion-content > div {
+    background: url(/site/trucking/images/heroOpaque.jpg) no-repeat top center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.bar.bar-assertive, .assertive, .bar.bar-assertive .title {
+    border: none;
+    color: #c00000 !important;
+}
+
+.cycle a {
+    color: #878787 !important;
+}
+
+.tab-item-active, .tab-item:hover {
+    color: #FFF !important;
+}
+.tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
+    background: #C00000 !important;
+    color: #FFF !important;
+}
+.tabs a {
+    color: #CCC;
+}
+
+ion-header-bar a {
+    color: #C00000 !important;
+}

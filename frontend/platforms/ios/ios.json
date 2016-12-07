@@ -35,24 +35,6 @@
                         {
                             "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<preference name=\"CameraUsesGeolocation\" value=\"false\" />",
-                            "count": 1
-                        }
-                    ]
-                }
-            },
-            "*-Info.plist": {
-                "parents": {
-                    "NSLocationWhenInUseUsageDescription": [
-                        {
-                            "xml": "<string />",
-                            "count": 1
                         }
                     ]
                 }
@@ -61,28 +43,22 @@
     },
     "installed_plugins": {
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "io.ionic.conference"
+            "PACKAGE_NAME": "io.ionic.starter"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "io.ionic.conference"
+            "PACKAGE_NAME": "io.ionic.starter"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "io.ionic.conference"
+            "PACKAGE_NAME": "io.ionic.starter"
         },
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "io.ionic.conference"
+            "PACKAGE_NAME": "io.ionic.starter"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "io.ionic.conference"
+            "PACKAGE_NAME": "io.ionic.starter"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "io.ionic.conference"
-        },
-        "cordova-plugin-compat": {
-            "PACKAGE_NAME": "io.ionic.conference"
-        },
-        "cordova-plugin-camera": {
-            "PACKAGE_NAME": "io.ionic.conference"
+            "PACKAGE_NAME": "io.ionic.starter"
         }
     },
     "dependent_plugins": {},
@@ -135,48 +111,14 @@
                 "cordova.plugins.Keyboard"
             ],
             "runs": true
-        },
-        {
-            "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
-            "id": "cordova-plugin-camera.Camera",
-            "pluginId": "cordova-plugin-camera",
-            "clobbers": [
-                "Camera"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-camera/www/CameraPopoverOptions.js",
-            "id": "cordova-plugin-camera.CameraPopoverOptions",
-            "pluginId": "cordova-plugin-camera",
-            "clobbers": [
-                "CameraPopoverOptions"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-camera/www/Camera.js",
-            "id": "cordova-plugin-camera.camera",
-            "pluginId": "cordova-plugin-camera",
-            "clobbers": [
-                "navigator.camera"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-camera/www/ios/CameraPopoverHandle.js",
-            "id": "cordova-plugin-camera.CameraPopoverHandle",
-            "pluginId": "cordova-plugin-camera",
-            "clobbers": [
-                "CameraPopoverHandle"
-            ]
         }
     ],
     "plugin_metadata": {
-        "cordova-plugin-console": "1.0.3",
-        "cordova-plugin-device": "1.1.2",
+        "cordova-plugin-console": "1.0.4",
+        "cordova-plugin-device": "1.1.3",
         "cordova-plugin-splashscreen": "4.0.0",
-        "cordova-plugin-statusbar": "2.1.3",
-        "cordova-plugin-whitelist": "1.0.0",
-        "ionic-plugin-keyboard": "2.2.1",
-        "cordova-plugin-compat": "1.0.0",
-        "cordova-plugin-camera": "2.2.0"
+        "cordova-plugin-statusbar": "2.2.0",
+        "cordova-plugin-whitelist": "1.3.0",
+        "ionic-plugin-keyboard": "2.2.1"
     }
 }

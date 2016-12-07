@@ -1,0 +1,4142 @@
+{
+  "status": 1,
+  "code": 200,
+  "duration": 1.15454,
+  "message": null,
+  "data": {
+    "id": 123456,
+    "code": null,
+    "organizationId": null,
+    "roleId": "S",
+    "firstName": "Estudiante",
+    "middleName": null,
+    "lastName": "Diligente",
+    "jobTitle": null,
+    "email": null,
+    "username": 123456,
+    "avatar": null,
+    "phone": null,
+    "mobile": null,
+    "address": null,
+    "city": null,
+    "state": null,
+    "postal": null,
+    "messageFormat": null,
+    "activeStart": null,
+    "activeEnd": null,
+    "lastUpdatedOn": null,
+    "guides": [],
+    "guide": {
+      "id": 221,
+      "guideCategoryId": null,
+      "title": "Computer Repair Technology",
+      "version": 1,
+      "battery": "Job Ready",
+      "summary": null,
+      "description": null,
+      "lastUpdatedOn": "2016-10-18 11:13:16",
+      "code": 6515,
+      "testCode": 4515,
+      "counts": {
+        "competencies": 51,
+        "questions": 35
+      },
+      "jobs": [
+        {
+          "id": 865,
+          "guideId": 221,
+          "title": "Device Identification",
+          "body": "Participant will be required to identify the features of a computer and record the name next to the correct letter.",
+          "minutes": 25,
+          "percent": 19,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-10-19 14:40:20",
+          "totalPoints": 160,
+          "points": 30,
+          "items": [
+            {
+              "id": 1607,
+              "guideJobId": 865,
+              "statement": "How to identify various features of a computer?",
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-11 10:55:35"
+            }
+          ]
+        },
+        {
+          "id": 866,
+          "guideId": 221,
+          "title": "Installing New Hardware\/Troubleshooting",
+          "body": "",
+          "minutes": 60,
+          "percent": 37,
+          "sortOrder": 2,
+          "lastUpdatedOn": "2016-10-19 14:40:20",
+          "totalPoints": 160,
+          "points": 60,
+          "items": [
+            {
+              "id": 1608,
+              "guideJobId": 866,
+              "statement": "How to use correct tools and safely perform procedures to diagnose a computer and document systems?",
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-11 10:55:35"
+            },
+            {
+              "id": 1609,
+              "guideJobId": 866,
+              "statement": "How to install NIC into a computer on the correct driver from the provided media?",
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-11 10:55:35"
+            }
+          ]
+        },
+        {
+          "id": 867,
+          "guideId": 221,
+          "title": "Network Connectivity",
+          "body": "",
+          "minutes": 30,
+          "percent": 44,
+          "sortOrder": 3,
+          "lastUpdatedOn": "2016-10-19 14:40:20",
+          "totalPoints": 160,
+          "points": 70,
+          "items": [
+            {
+              "id": 1610,
+              "guideJobId": 867,
+              "statement": "How to configure NIC to automatically obtain an IP address for a network device using a command line?",
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-11 10:55:35"
+            },
+            {
+              "id": 1611,
+              "guideJobId": 867,
+              "statement": "How to verify connectivity?",
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-11 10:55:35"
+            },
+            {
+              "id": 1612,
+              "guideJobId": 867,
+              "statement": "How to  install crossover cables?",
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-11 10:55:35"
+            },
+            {
+              "id": 1613,
+              "guideJobId": 867,
+              "statement": "How to join the workgroup?",
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-11 10:55:35"
+            },
+            {
+              "id": 1614,
+              "guideJobId": 867,
+              "statement": "How to ping the IP address?",
+              "sortOrder": 5,
+              "lastUpdatedOn": "2016-11-11 10:55:35"
+            },
+            {
+              "id": 1615,
+              "guideJobId": 867,
+              "statement": "How to connect the machine and transfer file?",
+              "sortOrder": 6,
+              "lastUpdatedOn": "2016-11-11 10:55:35"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": 4698,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "A wrist grounding strap should be worn to repair a",
+          "guideStandardId": 1857,
+          "choices": [
+            {
+              "id": 18782,
+              "guideQuestionId": 4698,
+              "body": "CRT monitor",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18783,
+              "guideQuestionId": 4698,
+              "body": "power supply",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18784,
+              "guideQuestionId": 4698,
+              "body": "system board",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18785,
+              "guideQuestionId": 4698,
+              "body": "laser printer",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4699,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "All batteries are considered to be hazardous and need to be",
+          "guideStandardId": 1857,
+          "choices": [
+            {
+              "id": 18786,
+              "guideQuestionId": 4699,
+              "body": "recycled as such",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18787,
+              "guideQuestionId": 4699,
+              "body": "taken to a dumpster",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18788,
+              "guideQuestionId": 4699,
+              "body": "placed in plastic container",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18789,
+              "guideQuestionId": 4699,
+              "body": "stored in a metal cabinet",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4700,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "A USB 2.0 transfers data at the <u>maximum<\/u> speed of",
+          "guideStandardId": 2,
+          "choices": [
+            {
+              "id": 18790,
+              "guideQuestionId": 4700,
+              "body": "12 Mbps",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18791,
+              "guideQuestionId": 4700,
+              "body": "24 Mbps",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18792,
+              "guideQuestionId": 4700,
+              "body": "100 Mbps",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18793,
+              "guideQuestionId": 4700,
+              "body": "480 Mbps",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4701,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "What does a MMC card use for storing data?",
+          "guideStandardId": 2,
+          "choices": [
+            {
+              "id": 18794,
+              "guideQuestionId": 4701,
+              "body": "reflective surface and optical readers",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18795,
+              "guideQuestionId": 4701,
+              "body": "magnetic tape",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18796,
+              "guideQuestionId": 4701,
+              "body": "rewritable integrated chips",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18797,
+              "guideQuestionId": 4701,
+              "body": "magnetic disks and platters",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4702,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "What is the difference between Solid State Drives (SSD) and Integrated Drive Electronics (IDE) hard drives?",
+          "guideStandardId": 2,
+          "choices": [
+            {
+              "id": 18798,
+              "guideQuestionId": 4702,
+              "body": "larger IDE storage capacity",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18799,
+              "guideQuestionId": 4702,
+              "body": "smaller IDE storage capacity",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18800,
+              "guideQuestionId": 4702,
+              "body": "medium IDE storage capacity",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18801,
+              "guideQuestionId": 4702,
+              "body": "no moving parts",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4703,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "What type of module has 184 pins?",
+          "guideStandardId": 2,
+          "choices": [
+            {
+              "id": 18802,
+              "guideQuestionId": 4703,
+              "body": "DDR RAM",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18803,
+              "guideQuestionId": 4703,
+              "body": "DDR2",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18804,
+              "guideQuestionId": 4703,
+              "body": "FPM RAM",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18805,
+              "guideQuestionId": 4703,
+              "body": "SDRAM",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4704,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "What key should be pressed at startup to display the Windows<sup>\u00ae<\/sup> advanced startup options?",
+          "guideStandardId": 2,
+          "choices": [
+            {
+              "id": 18806,
+              "guideQuestionId": 4704,
+              "body": "F4",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18807,
+              "guideQuestionId": 4704,
+              "body": "Windows<sup>\u00ae<\/sup>",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18808,
+              "guideQuestionId": 4704,
+              "body": "Fn",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18809,
+              "guideQuestionId": 4704,
+              "body": "F8",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4705,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "In Windows<sup>\u00ae<\/sup>, a memory module error may cause",
+          "guideStandardId": 3,
+          "choices": [
+            {
+              "id": 18810,
+              "guideQuestionId": 4705,
+              "body": "a generic page fault",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18811,
+              "guideQuestionId": 4705,
+              "body": "the blue screen of death",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18812,
+              "guideQuestionId": 4705,
+              "body": "fatal exception error",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18813,
+              "guideQuestionId": 4705,
+              "body": "kernel panic",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4706,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "Which of the following can shut down programs that are having problems or have frozen?",
+          "guideStandardId": 3,
+          "choices": [
+            {
+              "id": 18814,
+              "guideQuestionId": 4706,
+              "body": "control panel",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18815,
+              "guideQuestionId": 4706,
+              "body": "task manager",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18816,
+              "guideQuestionId": 4706,
+              "body": "msconfig",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18817,
+              "guideQuestionId": 4706,
+              "body": "chkdsk",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4707,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "If a system crashes, where should a technician check to review the system logs?",
+          "guideStandardId": 3,
+          "choices": [
+            {
+              "id": 18818,
+              "guideQuestionId": 4707,
+              "body": "control panel",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18819,
+              "guideQuestionId": 4707,
+              "body": "task manager",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18820,
+              "guideQuestionId": 4707,
+              "body": "event viewer",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18821,
+              "guideQuestionId": 4707,
+              "body": "default programs",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4708,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "Which of the following commands verifies a specific host is reachable?",
+          "guideStandardId": 3,
+          "choices": [
+            {
+              "id": 18822,
+              "guideQuestionId": 4708,
+              "body": "assoc",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18823,
+              "guideQuestionId": 4708,
+              "body": "defrag",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18824,
+              "guideQuestionId": 4708,
+              "body": "ping",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18825,
+              "guideQuestionId": 4708,
+              "body": "ftp",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4709,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "The four basic units of electricity are amps, watts, ohms, and",
+          "guideStandardId": 3,
+          "choices": [
+            {
+              "id": 18826,
+              "guideQuestionId": 4709,
+              "body": "joules",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18827,
+              "guideQuestionId": 4709,
+              "body": "farads",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18828,
+              "guideQuestionId": 4709,
+              "body": "volts",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18829,
+              "guideQuestionId": 4709,
+              "body": "coulombs",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4710,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "A\/An _____ is a small piece of software that piggybacks on other programs.",
+          "guideStandardId": 1113,
+          "choices": [
+            {
+              "id": 18830,
+              "guideQuestionId": 4710,
+              "body": "virus",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18831,
+              "guideQuestionId": 4710,
+              "body": "worm",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18832,
+              "guideQuestionId": 4710,
+              "body": "Trojan horse",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18833,
+              "guideQuestionId": 4710,
+              "body": "executable file",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4711,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "A software patch is a",
+          "guideStandardId": 1113,
+          "choices": [
+            {
+              "id": 18834,
+              "guideQuestionId": 4711,
+              "body": "small piece of computer program code that replaces a part of software already installed",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18835,
+              "guideQuestionId": 4711,
+              "body": "software that is designed to covertly infiltrate or damage a computer system",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18836,
+              "guideQuestionId": 4711,
+              "body": "computer program that scans and attempts recovery of bad sectors on a computer's hard drive",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18837,
+              "guideQuestionId": 4711,
+              "body": "utility that detects and protects a personal computer from unauthorized access",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4712,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "A good preventive maintenance plan should include backing up the registry, documents, and",
+          "guideStandardId": 1113,
+          "choices": [
+            {
+              "id": 18838,
+              "guideQuestionId": 4712,
+              "body": "temporary files",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18839,
+              "guideQuestionId": 4712,
+              "body": "RAM",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18840,
+              "guideQuestionId": 4712,
+              "body": "operating system settings",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18841,
+              "guideQuestionId": 4712,
+              "body": "owner's manual",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4713,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "TRACERT is a command that",
+          "guideStandardId": 1113,
+          "choices": [
+            {
+              "id": 18842,
+              "guideQuestionId": 4713,
+              "body": "checks the network path from the host to a website",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18843,
+              "guideQuestionId": 4713,
+              "body": "scan for viruses and malware",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18844,
+              "guideQuestionId": 4713,
+              "body": "scan and attempt recovery of bad sectors on a computer's hard drive",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18845,
+              "guideQuestionId": 4713,
+              "body": "maintain a log of all users who access a computer's hard drive",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4714,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "The _____ is an example of firmware.",
+          "guideStandardId": 5,
+          "choices": [
+            {
+              "id": 18846,
+              "guideQuestionId": 4714,
+              "body": "word processor",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18847,
+              "guideQuestionId": 4714,
+              "body": "BIOS",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18848,
+              "guideQuestionId": 4714,
+              "body": "hard drive",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18849,
+              "guideQuestionId": 4714,
+              "body": "RAM",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4715,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "Which of the following is overclocking used for?",
+          "guideStandardId": 5,
+          "choices": [
+            {
+              "id": 18850,
+              "guideQuestionId": 4715,
+              "body": "corrects the date and time setting when the CMOS battery is low",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18851,
+              "guideQuestionId": 4715,
+              "body": "upgrades a P3 Intel processor to emulate an Intel P4 processor",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18852,
+              "guideQuestionId": 4715,
+              "body": "increases the speed and functionality of Intel processors only",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18853,
+              "guideQuestionId": 4715,
+              "body": "temporarily increases the speed and functionality of a processor",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4716,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "An example of a biometric device is a",
+          "guideStandardId": 6,
+          "choices": [
+            {
+              "id": 18854,
+              "guideQuestionId": 4716,
+              "body": "barcode reader",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18855,
+              "guideQuestionId": 4716,
+              "body": "fingerprint reader",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18856,
+              "guideQuestionId": 4716,
+              "body": "trackball mouse",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18857,
+              "guideQuestionId": 4716,
+              "body": "pen wand",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4717,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "The PS\/2 ports on a PC are usually used for which type of device?",
+          "guideStandardId": 6,
+          "choices": [
+            {
+              "id": 18858,
+              "guideQuestionId": 4717,
+              "body": "modem",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18859,
+              "guideQuestionId": 4717,
+              "body": "mouse",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18860,
+              "guideQuestionId": 4717,
+              "body": "printer",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18861,
+              "guideQuestionId": 4717,
+              "body": "scanner",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4718,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "Which of the following <u>best<\/u> describes a VGA monitor connector?",
+          "guideStandardId": 6,
+          "choices": [
+            {
+              "id": 18862,
+              "guideQuestionId": 4718,
+              "body": "round with 9 pins",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18863,
+              "guideQuestionId": 4718,
+              "body": "D-shaped with 9 pins",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18864,
+              "guideQuestionId": 4718,
+              "body": "D-shaped with 15 pins",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18865,
+              "guideQuestionId": 4718,
+              "body": "round with 15 pins",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4719,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "A newly installed printer will not print from the computer.  The <u>first<\/u> thing a technician should do is",
+          "guideStandardId": 6,
+          "choices": [
+            {
+              "id": 18866,
+              "guideQuestionId": 4719,
+              "body": "self test the printer",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18867,
+              "guideQuestionId": 4719,
+              "body": "reinstall the printer with a different driver",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18868,
+              "guideQuestionId": 4719,
+              "body": "try to print from DOS",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18869,
+              "guideQuestionId": 4719,
+              "body": "test the printer on a different computer",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4720,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "Fusing is a step in the _____ printing process that uses heat and pressure to seal the toner to the paper.",
+          "guideStandardId": 7,
+          "choices": [
+            {
+              "id": 18870,
+              "guideQuestionId": 4720,
+              "body": "thermal transfer",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18871,
+              "guideQuestionId": 4720,
+              "body": "laser",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18872,
+              "guideQuestionId": 4720,
+              "body": "dot matrix",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18873,
+              "guideQuestionId": 4720,
+              "body": "inkjet",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4721,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "Which of the following is a printer that focuses a high intensity light beam to form images that are transferred to paper?",
+          "guideStandardId": 7,
+          "choices": [
+            {
+              "id": 18874,
+              "guideQuestionId": 4721,
+              "body": "inkjet",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18875,
+              "guideQuestionId": 4721,
+              "body": "thermal",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18876,
+              "guideQuestionId": 4721,
+              "body": "laser",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18877,
+              "guideQuestionId": 4721,
+              "body": "dye-sublimation",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4722,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "When using NIC communications methods, half-duplex is similar to a",
+          "guideStandardId": 7,
+          "choices": [
+            {
+              "id": 18878,
+              "guideQuestionId": 4722,
+              "body": "radio",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18879,
+              "guideQuestionId": 4722,
+              "body": "walkie-talkie",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18880,
+              "guideQuestionId": 4722,
+              "body": "telephone",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18881,
+              "guideQuestionId": 4722,
+              "body": "television",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4723,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "Two devices transmitting on a shared medium at the same time is known as",
+          "guideStandardId": 8,
+          "choices": [
+            {
+              "id": 18882,
+              "guideQuestionId": 4723,
+              "body": "merging",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18883,
+              "guideQuestionId": 4723,
+              "body": "interference",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18884,
+              "guideQuestionId": 4723,
+              "body": "collision",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18885,
+              "guideQuestionId": 4723,
+              "body": "blockage",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4724,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "What is a hot spot?",
+          "guideStandardId": 8,
+          "choices": [
+            {
+              "id": 18886,
+              "guideQuestionId": 4724,
+              "body": "a location allowing wired connections to a wireless network",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18887,
+              "guideQuestionId": 4724,
+              "body": "a computer network covering a small physical area",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18888,
+              "guideQuestionId": 4724,
+              "body": "public locations where wireless Internet access is available",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18889,
+              "guideQuestionId": 4724,
+              "body": "a device for connecting multiple fiber optic Ethernet devices together to make them act as a single network segment",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4725,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "The IP address 192.168.0.1 is an example of what type of address?",
+          "guideStandardId": 8,
+          "choices": [
+            {
+              "id": 18890,
+              "guideQuestionId": 4725,
+              "body": "private",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18891,
+              "guideQuestionId": 4725,
+              "body": "public",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18892,
+              "guideQuestionId": 4725,
+              "body": "Class A",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18893,
+              "guideQuestionId": 4725,
+              "body": "Class B",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4726,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "A customer calls and tells the computer technician their DSL Internet is running slow.  The customer has rebooted the computer and it's still slow as well as other computers through the wired and wireless connection within the house.  What is the <u>first<\/u>  step the technician should advise the customer to take?",
+          "guideStandardId": 8,
+          "choices": [
+            {
+              "id": 18894,
+              "guideQuestionId": 4726,
+              "body": "have the customer power cycle the DSL modem",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18895,
+              "guideQuestionId": 4726,
+              "body": "have the customer try accessing the Internet through WIFI on their Smartphone",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18896,
+              "guideQuestionId": 4726,
+              "body": "have the customer try accessing the Internet in Safe Mode on the PC",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18897,
+              "guideQuestionId": 4726,
+              "body": "have the customer call the DSL company",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4727,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "A system designed to prevent unauthorized access to or from a private network is known as a\/an",
+          "guideStandardId": 8,
+          "choices": [
+            {
+              "id": 18898,
+              "guideQuestionId": 4727,
+              "body": "password",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18899,
+              "guideQuestionId": 4727,
+              "body": "firewall",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18900,
+              "guideQuestionId": 4727,
+              "body": "spam blocker",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18901,
+              "guideQuestionId": 4727,
+              "body": "encryption code",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4728,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "A malicious program that presents itself as a legitimate program is a",
+          "guideStandardId": 1858,
+          "choices": [
+            {
+              "id": 18902,
+              "guideQuestionId": 4728,
+              "body": "logic bomb",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18903,
+              "guideQuestionId": 4728,
+              "body": "Trojan",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18904,
+              "guideQuestionId": 4728,
+              "body": "spyware program",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18905,
+              "guideQuestionId": 4728,
+              "body": "script virus",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4729,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "Which of the following prevents, detects, and removes viruses, worms, and Trojans?",
+          "guideStandardId": 1858,
+          "choices": [
+            {
+              "id": 18906,
+              "guideQuestionId": 4729,
+              "body": "firewall",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18907,
+              "guideQuestionId": 4729,
+              "body": "host address",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18908,
+              "guideQuestionId": 4729,
+              "body": "virus protection",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18909,
+              "guideQuestionId": 4729,
+              "body": "convergence",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4730,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "A technician has just finished adding more RAM to a customer's computer.  The RAM costs $85.23 and the technician took 1.5 hours to complete the upgrade.  Labor costs are $25.50 per hour.  The customer has a coupon for 15 percent off the cost of parts and labor.  The total bill before taxes would be",
+          "guideStandardId": 1858,
+          "choices": [
+            {
+              "id": 18910,
+              "guideQuestionId": 4730,
+              "body": 92.21,
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18911,
+              "guideQuestionId": 4730,
+              "body": 104.96,
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18912,
+              "guideQuestionId": 4730,
+              "body": 110.73,
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18913,
+              "guideQuestionId": 4730,
+              "body": 123.48,
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4731,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "How should a computer handle an upset customer who called for technical support to ensure customer satisfaction and to maintain professionalism?",
+          "guideStandardId": 10,
+          "choices": [
+            {
+              "id": 18914,
+              "guideQuestionId": 4731,
+              "body": "The technician should listen to the customer until they have explained the situation, then calmly acknowledge their frustration, and let the customer know that he or she will do their very best to resolve the situation.",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18915,
+              "guideQuestionId": 4731,
+              "body": "The technician should interrupt the customer and politely tell them to call back when they have calmed down.",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18916,
+              "guideQuestionId": 4731,
+              "body": "The technician should place the customer on hold and wait a couple minutes for the customer to cool off.",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18917,
+              "guideQuestionId": 4731,
+              "body": "The technician should place the customer on hold and transfer the call to their supervisor.",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        },
+        {
+          "id": 4732,
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-11-08 10:39:49",
+          "body": "When working with other technicians, why is it important to maintain thorough documentation?",
+          "guideStandardId": 10,
+          "choices": [
+            {
+              "id": 18918,
+              "guideQuestionId": 4732,
+              "body": "It ensures all technicians have access to the same information.",
+              "explanation": null,
+              "isCorrect": 1,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18919,
+              "guideQuestionId": 4732,
+              "body": "It is a government policy that companies have to adhere to.",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18920,
+              "guideQuestionId": 4732,
+              "body": "It ensures a well-rounded job experience for all technicians.",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            },
+            {
+              "id": 18921,
+              "guideQuestionId": 4732,
+              "body": "It is a required part of every technician's job.",
+              "explanation": null,
+              "isCorrect": 0,
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-11-08 10:39:49"
+            }
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": 889,
+          "resourceTypeId": "R",
+          "externalId": null,
+          "name": "Andrews, J. (2010). A+ guide to managing and maintaining your PC. (7th Ed.). Clifton Park, NY: Delmar Cengage Learning.",
+          "location": "",
+          "summary": null,
+          "description": null,
+          "content": null,
+          "lastUpdatedOn": "2016-11-11 11:24:01"
+        },
+        {
+          "id": 890,
+          "resourceTypeId": "R",
+          "externalId": null,
+          "name": "Argier, C. (2013). How to safely clean an LCD flat screen TV screen or computer monitor.",
+          "location": "http:\/\/www.ehow.com\/how_5590749_safely-tv-screen-computer-monitor.html",
+          "summary": null,
+          "description": null,
+          "content": null,
+          "lastUpdatedOn": "2016-11-11 11:24:01"
+        },
+        {
+          "id": 891,
+          "resourceTypeId": "R",
+          "externalId": null,
+          "name": "Chiappetta, M. (2013). PC world: How to install a CPU cooler.",
+          "location": "http:\/\/www.pcworld.com\/article\/246577\/how_to_install_a_cpu_cooler.html",
+          "summary": null,
+          "description": null,
+          "content": null,
+          "lastUpdatedOn": "2016-11-11 11:24:01"
+        },
+        {
+          "id": 892,
+          "resourceTypeId": "R",
+          "externalId": null,
+          "name": "U.S. Department of Labor Occupational Safety & Health Administration. (2013). Computer workstations \u2013 Monitors: OSHA ergonomic solutions.",
+          "location": "http:\/\/www.osha.gov\/SLTC\/etools\/computerworkstations\/components_monitors.html",
+          "summary": null,
+          "description": null,
+          "content": null,
+          "lastUpdatedOn": "2016-11-11 11:24:01"
+        },
+        {
+          "id": 893,
+          "resourceTypeId": "R",
+          "externalId": null,
+          "name": "U.S. Environmental Protection Agency. (2013). Wastes- resource conservation- common wastes and materials \u2013 ecycling.",
+          "location": "http:\/\/www.epa.gov\/epawaste\/conserve\/materials\/ecycling\/faq.htm",
+          "summary": null,
+          "description": null,
+          "content": null,
+          "lastUpdatedOn": "2016-11-11 11:24:01"
+        }
+      ],
+      "standards": [
+        {
+          "id": 2,
+          "body": "Installing, Configuring, and Upgrading",
+          "guideId": 221,
+          "sortOrder": 2,
+          "lastUpdatedOn": "2016-10-07 13:42:16",
+          "percent": 13,
+          "competencies": [
+            {
+              "id": 12990,
+              "guideStandardId": 2,
+              "body": "Install, configure, optimize, and upgrade system board, power supplies, and cooling systems",
+              "sortOrder": 5,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 12991,
+              "guideStandardId": 2,
+              "body": "Differentiate characteristics of various processor and memory types",
+              "sortOrder": 6,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 12992,
+              "guideStandardId": 2,
+              "body": "Identify and configure CMOS setup and BIOS",
+              "sortOrder": 7,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 12993,
+              "guideStandardId": 2,
+              "body": "Identify functionality, install, and configure storage device options",
+              "sortOrder": 8,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 12994,
+              "guideStandardId": 2,
+              "body": "Identify and describe characteristics of various peripherals and ports used",
+              "sortOrder": 9,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 12995,
+              "guideStandardId": 2,
+              "body": "Display knowledge of different operating systems and licensing requirements",
+              "sortOrder": 10,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            }
+          ],
+          "questions": [
+            {
+              "id": 4700,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "A USB 2.0 transfers data at the <u>maximum<\/u> speed of",
+              "guideStandardId": 2,
+              "choices": [
+                {
+                  "id": 18790,
+                  "guideQuestionId": 4700,
+                  "body": "12 Mbps",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18791,
+                  "guideQuestionId": 4700,
+                  "body": "24 Mbps",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18792,
+                  "guideQuestionId": 4700,
+                  "body": "100 Mbps",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18793,
+                  "guideQuestionId": 4700,
+                  "body": "480 Mbps",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4701,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "What does a MMC card use for storing data?",
+              "guideStandardId": 2,
+              "choices": [
+                {
+                  "id": 18794,
+                  "guideQuestionId": 4701,
+                  "body": "reflective surface and optical readers",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18795,
+                  "guideQuestionId": 4701,
+                  "body": "magnetic tape",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18796,
+                  "guideQuestionId": 4701,
+                  "body": "rewritable integrated chips",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18797,
+                  "guideQuestionId": 4701,
+                  "body": "magnetic disks and platters",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4702,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "What is the difference between Solid State Drives (SSD) and Integrated Drive Electronics (IDE) hard drives?",
+              "guideStandardId": 2,
+              "choices": [
+                {
+                  "id": 18798,
+                  "guideQuestionId": 4702,
+                  "body": "larger IDE storage capacity",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18799,
+                  "guideQuestionId": 4702,
+                  "body": "smaller IDE storage capacity",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18800,
+                  "guideQuestionId": 4702,
+                  "body": "medium IDE storage capacity",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18801,
+                  "guideQuestionId": 4702,
+                  "body": "no moving parts",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4703,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "What type of module has 184 pins?",
+              "guideStandardId": 2,
+              "choices": [
+                {
+                  "id": 18802,
+                  "guideQuestionId": 4703,
+                  "body": "DDR RAM",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18803,
+                  "guideQuestionId": 4703,
+                  "body": "DDR2",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18804,
+                  "guideQuestionId": 4703,
+                  "body": "FPM RAM",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18805,
+                  "guideQuestionId": 4703,
+                  "body": "SDRAM",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4704,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "What key should be pressed at startup to display the Windows<sup>\u00ae<\/sup> advanced startup options?",
+              "guideStandardId": 2,
+              "choices": [
+                {
+                  "id": 18806,
+                  "guideQuestionId": 4704,
+                  "body": "F4",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18807,
+                  "guideQuestionId": 4704,
+                  "body": "Windows<sup>\u00ae<\/sup>",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18808,
+                  "guideQuestionId": 4704,
+                  "body": "Fn",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18809,
+                  "guideQuestionId": 4704,
+                  "body": "F8",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "body": "Diagnosing and Troubleshooting",
+          "guideId": 221,
+          "sortOrder": 3,
+          "lastUpdatedOn": "2016-10-07 13:42:16",
+          "percent": 22,
+          "competencies": [
+            {
+              "id": 12996,
+              "guideStandardId": 3,
+              "body": "Diagnose and identify processor and memory faults",
+              "sortOrder": 11,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 12997,
+              "guideStandardId": 3,
+              "body": "Demonstrate ability to isolate and resolve power supply and battery failures on the system board",
+              "sortOrder": 12,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 12998,
+              "guideStandardId": 3,
+              "body": "Display ability to identify and resolve storage device issues",
+              "sortOrder": 13,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 12999,
+              "guideStandardId": 3,
+              "body": "Identify uses of troubleshooting utilities",
+              "sortOrder": 14,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13000,
+              "guideStandardId": 3,
+              "body": "Troubleshoot and resolve expansion card issues (drivers)",
+              "sortOrder": 15,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13001,
+              "guideStandardId": 3,
+              "body": "Demonstrate ability to setup and troubleshoot external display",
+              "sortOrder": 16,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13002,
+              "guideStandardId": 3,
+              "body": "Identify tools, diagnostic procedures, and troubleshooting techniques for operating system",
+              "sortOrder": 17,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13003,
+              "guideStandardId": 3,
+              "body": "Demonstrate ability to isolate and resolve peripheral and connectivity failures",
+              "sortOrder": 18,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13004,
+              "guideStandardId": 3,
+              "body": "Utilize command line techniques for diagnosing and troubleshooting",
+              "sortOrder": 19,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13005,
+              "guideStandardId": 3,
+              "body": "Demonstrate the proper use of multimeters and other test equipment",
+              "sortOrder": 20,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13006,
+              "guideStandardId": 3,
+              "body": "Identify basic electrical, transmission, and storage units of measurement",
+              "sortOrder": 21,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            }
+          ],
+          "questions": [
+            {
+              "id": 4705,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "In Windows<sup>\u00ae<\/sup>, a memory module error may cause",
+              "guideStandardId": 3,
+              "choices": [
+                {
+                  "id": 18810,
+                  "guideQuestionId": 4705,
+                  "body": "a generic page fault",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18811,
+                  "guideQuestionId": 4705,
+                  "body": "the blue screen of death",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18812,
+                  "guideQuestionId": 4705,
+                  "body": "fatal exception error",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18813,
+                  "guideQuestionId": 4705,
+                  "body": "kernel panic",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4706,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "Which of the following can shut down programs that are having problems or have frozen?",
+              "guideStandardId": 3,
+              "choices": [
+                {
+                  "id": 18814,
+                  "guideQuestionId": 4706,
+                  "body": "control panel",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18815,
+                  "guideQuestionId": 4706,
+                  "body": "task manager",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18816,
+                  "guideQuestionId": 4706,
+                  "body": "msconfig",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18817,
+                  "guideQuestionId": 4706,
+                  "body": "chkdsk",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4707,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "If a system crashes, where should a technician check to review the system logs?",
+              "guideStandardId": 3,
+              "choices": [
+                {
+                  "id": 18818,
+                  "guideQuestionId": 4707,
+                  "body": "control panel",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18819,
+                  "guideQuestionId": 4707,
+                  "body": "task manager",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18820,
+                  "guideQuestionId": 4707,
+                  "body": "event viewer",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18821,
+                  "guideQuestionId": 4707,
+                  "body": "default programs",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4708,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "Which of the following commands verifies a specific host is reachable?",
+              "guideStandardId": 3,
+              "choices": [
+                {
+                  "id": 18822,
+                  "guideQuestionId": 4708,
+                  "body": "assoc",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18823,
+                  "guideQuestionId": 4708,
+                  "body": "defrag",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18824,
+                  "guideQuestionId": 4708,
+                  "body": "ping",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18825,
+                  "guideQuestionId": 4708,
+                  "body": "ftp",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4709,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "The four basic units of electricity are amps, watts, ohms, and",
+              "guideStandardId": 3,
+              "choices": [
+                {
+                  "id": 18826,
+                  "guideQuestionId": 4709,
+                  "body": "joules",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18827,
+                  "guideQuestionId": 4709,
+                  "body": "farads",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18828,
+                  "guideQuestionId": 4709,
+                  "body": "volts",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18829,
+                  "guideQuestionId": 4709,
+                  "body": "coulombs",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "body": "System Boards, Storage, Processors, and Memory",
+          "guideId": 221,
+          "sortOrder": 5,
+          "lastUpdatedOn": "2016-10-07 13:42:16",
+          "percent": 7,
+          "competencies": [
+            {
+              "id": 13013,
+              "guideStandardId": 5,
+              "body": "Identify processor compatibility, architecture, and upgrade issues",
+              "sortOrder": 28,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13014,
+              "guideStandardId": 5,
+              "body": "Identify and differentiate memory characteristics and upgrade issues",
+              "sortOrder": 29,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13015,
+              "guideStandardId": 5,
+              "body": "Identify and differentiate system board characteristics and upgrade issues",
+              "sortOrder": 30,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13016,
+              "guideStandardId": 5,
+              "body": "Install and troubleshoot RAID 0, 1, 5",
+              "sortOrder": 31,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13017,
+              "guideStandardId": 5,
+              "body": "Differentiate the characteristics and components of mobile devices",
+              "sortOrder": 32,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            }
+          ],
+          "questions": [
+            {
+              "id": 4714,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "The _____ is an example of firmware.",
+              "guideStandardId": 5,
+              "choices": [
+                {
+                  "id": 18846,
+                  "guideQuestionId": 4714,
+                  "body": "word processor",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18847,
+                  "guideQuestionId": 4714,
+                  "body": "BIOS",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18848,
+                  "guideQuestionId": 4714,
+                  "body": "hard drive",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18849,
+                  "guideQuestionId": 4714,
+                  "body": "RAM",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4715,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "Which of the following is overclocking used for?",
+              "guideStandardId": 5,
+              "choices": [
+                {
+                  "id": 18850,
+                  "guideQuestionId": 4715,
+                  "body": "corrects the date and time setting when the CMOS battery is low",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18851,
+                  "guideQuestionId": 4715,
+                  "body": "upgrades a P3 Intel processor to emulate an Intel P4 processor",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18852,
+                  "guideQuestionId": 4715,
+                  "body": "increases the speed and functionality of Intel processors only",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18853,
+                  "guideQuestionId": 4715,
+                  "body": "temporarily increases the speed and functionality of a processor",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "body": "Input-Output (I\/O) Devices",
+          "guideId": 221,
+          "sortOrder": 6,
+          "lastUpdatedOn": "2016-10-07 13:42:16",
+          "percent": 4,
+          "competencies": [
+            {
+              "id": 13018,
+              "guideStandardId": 6,
+              "body": "Identify uses of various input devices (e.g., digital camera, scanner, biometric devices)",
+              "sortOrder": 33,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13019,
+              "guideStandardId": 6,
+              "body": "Identify various I\/O connectivity methods (e.g., HDMI, USB, wireless, Bluetooth)",
+              "sortOrder": 34,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            }
+          ],
+          "questions": [
+            {
+              "id": 4716,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "An example of a biometric device is a",
+              "guideStandardId": 6,
+              "choices": [
+                {
+                  "id": 18854,
+                  "guideQuestionId": 4716,
+                  "body": "barcode reader",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18855,
+                  "guideQuestionId": 4716,
+                  "body": "fingerprint reader",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18856,
+                  "guideQuestionId": 4716,
+                  "body": "trackball mouse",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18857,
+                  "guideQuestionId": 4716,
+                  "body": "pen wand",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4717,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "The PS\/2 ports on a PC are usually used for which type of device?",
+              "guideStandardId": 6,
+              "choices": [
+                {
+                  "id": 18858,
+                  "guideQuestionId": 4717,
+                  "body": "modem",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18859,
+                  "guideQuestionId": 4717,
+                  "body": "mouse",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18860,
+                  "guideQuestionId": 4717,
+                  "body": "printer",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18861,
+                  "guideQuestionId": 4717,
+                  "body": "scanner",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4718,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "Which of the following <u>best<\/u> describes a VGA monitor connector?",
+              "guideStandardId": 6,
+              "choices": [
+                {
+                  "id": 18862,
+                  "guideQuestionId": 4718,
+                  "body": "round with 9 pins",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18863,
+                  "guideQuestionId": 4718,
+                  "body": "D-shaped with 9 pins",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18864,
+                  "guideQuestionId": 4718,
+                  "body": "D-shaped with 15 pins",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18865,
+                  "guideQuestionId": 4718,
+                  "body": "round with 15 pins",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4719,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "A newly installed printer will not print from the computer.  The <u>first<\/u> thing a technician should do is",
+              "guideStandardId": 6,
+              "choices": [
+                {
+                  "id": 18866,
+                  "guideQuestionId": 4719,
+                  "body": "self test the printer",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18867,
+                  "guideQuestionId": 4719,
+                  "body": "reinstall the printer with a different driver",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18868,
+                  "guideQuestionId": 4719,
+                  "body": "try to print from DOS",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18869,
+                  "guideQuestionId": 4719,
+                  "body": "test the printer on a different computer",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "body": "Printing",
+          "guideId": 221,
+          "sortOrder": 7,
+          "lastUpdatedOn": "2016-10-07 13:42:16",
+          "percent": 5,
+          "competencies": [
+            {
+              "id": 13020,
+              "guideStandardId": 7,
+              "body": "Identify and differentiate various printers and printer processes (e.g., inkjet, laser)",
+              "sortOrder": 35,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13021,
+              "guideStandardId": 7,
+              "body": "Identify various printer connectivity methodologies (e.g., local, network)",
+              "sortOrder": 36,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13022,
+              "guideStandardId": 7,
+              "body": "Install and troubleshoot printers",
+              "sortOrder": 37,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            }
+          ],
+          "questions": [
+            {
+              "id": 4720,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "Fusing is a step in the _____ printing process that uses heat and pressure to seal the toner to the paper.",
+              "guideStandardId": 7,
+              "choices": [
+                {
+                  "id": 18870,
+                  "guideQuestionId": 4720,
+                  "body": "thermal transfer",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18871,
+                  "guideQuestionId": 4720,
+                  "body": "laser",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18872,
+                  "guideQuestionId": 4720,
+                  "body": "dot matrix",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18873,
+                  "guideQuestionId": 4720,
+                  "body": "inkjet",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4721,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "Which of the following is a printer that focuses a high intensity light beam to form images that are transferred to paper?",
+              "guideStandardId": 7,
+              "choices": [
+                {
+                  "id": 18874,
+                  "guideQuestionId": 4721,
+                  "body": "inkjet",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18875,
+                  "guideQuestionId": 4721,
+                  "body": "thermal",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18876,
+                  "guideQuestionId": 4721,
+                  "body": "laser",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18877,
+                  "guideQuestionId": 4721,
+                  "body": "dye-sublimation",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4722,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "When using NIC communications methods, half-duplex is similar to a",
+              "guideStandardId": 7,
+              "choices": [
+                {
+                  "id": 18878,
+                  "guideQuestionId": 4722,
+                  "body": "radio",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18879,
+                  "guideQuestionId": 4722,
+                  "body": "walkie-talkie",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18880,
+                  "guideQuestionId": 4722,
+                  "body": "telephone",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18881,
+                  "guideQuestionId": 4722,
+                  "body": "television",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "body": "Basic Networking",
+          "guideId": 221,
+          "sortOrder": 8,
+          "lastUpdatedOn": "2016-10-07 13:42:16",
+          "percent": 19,
+          "competencies": [
+            {
+              "id": 13023,
+              "guideStandardId": 8,
+              "body": "Install, configure, and troubleshoot Network Interface Cards (NICs)",
+              "sortOrder": 38,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13024,
+              "guideStandardId": 8,
+              "body": "Install, configure, and troubleshoot wired and wireless network connections",
+              "sortOrder": 39,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13025,
+              "guideStandardId": 8,
+              "body": "Identify various network topologies (e.g., star, ring, mesh, bus)",
+              "sortOrder": 40,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13026,
+              "guideStandardId": 8,
+              "body": "Identify various network access methods",
+              "sortOrder": 41,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13027,
+              "guideStandardId": 8,
+              "body": "Differentiate between a client\/server and a peer-to-peer network",
+              "sortOrder": 42,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13028,
+              "guideStandardId": 8,
+              "body": "Convert units between binary, decimal, and hexadecimal",
+              "sortOrder": 43,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13029,
+              "guideStandardId": 8,
+              "body": "Identify the seven layers of the OSI model",
+              "sortOrder": 44,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13030,
+              "guideStandardId": 8,
+              "body": "Explain the properties and characteristics of the TCP\/IP model",
+              "sortOrder": 45,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13031,
+              "guideStandardId": 8,
+              "body": "Install and troubleshoot email",
+              "sortOrder": 46,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            }
+          ],
+          "questions": [
+            {
+              "id": 4723,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "Two devices transmitting on a shared medium at the same time is known as",
+              "guideStandardId": 8,
+              "choices": [
+                {
+                  "id": 18882,
+                  "guideQuestionId": 4723,
+                  "body": "merging",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18883,
+                  "guideQuestionId": 4723,
+                  "body": "interference",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18884,
+                  "guideQuestionId": 4723,
+                  "body": "collision",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18885,
+                  "guideQuestionId": 4723,
+                  "body": "blockage",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4724,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "What is a hot spot?",
+              "guideStandardId": 8,
+              "choices": [
+                {
+                  "id": 18886,
+                  "guideQuestionId": 4724,
+                  "body": "a location allowing wired connections to a wireless network",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18887,
+                  "guideQuestionId": 4724,
+                  "body": "a computer network covering a small physical area",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18888,
+                  "guideQuestionId": 4724,
+                  "body": "public locations where wireless Internet access is available",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18889,
+                  "guideQuestionId": 4724,
+                  "body": "a device for connecting multiple fiber optic Ethernet devices together to make them act as a single network segment",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4725,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "The IP address 192.168.0.1 is an example of what type of address?",
+              "guideStandardId": 8,
+              "choices": [
+                {
+                  "id": 18890,
+                  "guideQuestionId": 4725,
+                  "body": "private",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18891,
+                  "guideQuestionId": 4725,
+                  "body": "public",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18892,
+                  "guideQuestionId": 4725,
+                  "body": "Class A",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18893,
+                  "guideQuestionId": 4725,
+                  "body": "Class B",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4726,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "A customer calls and tells the computer technician their DSL Internet is running slow.  The customer has rebooted the computer and it's still slow as well as other computers through the wired and wireless connection within the house.  What is the <u>first<\/u>  step the technician should advise the customer to take?",
+              "guideStandardId": 8,
+              "choices": [
+                {
+                  "id": 18894,
+                  "guideQuestionId": 4726,
+                  "body": "have the customer power cycle the DSL modem",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18895,
+                  "guideQuestionId": 4726,
+                  "body": "have the customer try accessing the Internet through WIFI on their Smartphone",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18896,
+                  "guideQuestionId": 4726,
+                  "body": "have the customer try accessing the Internet in Safe Mode on the PC",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18897,
+                  "guideQuestionId": 4726,
+                  "body": "have the customer call the DSL company",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4727,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "A system designed to prevent unauthorized access to or from a private network is known as a\/an",
+              "guideStandardId": 8,
+              "choices": [
+                {
+                  "id": 18898,
+                  "guideQuestionId": 4727,
+                  "body": "password",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18899,
+                  "guideQuestionId": 4727,
+                  "body": "firewall",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18900,
+                  "guideQuestionId": 4727,
+                  "body": "spam blocker",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18901,
+                  "guideQuestionId": 4727,
+                  "body": "encryption code",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "body": "Customer Support and Ethics",
+          "guideId": 221,
+          "sortOrder": 10,
+          "lastUpdatedOn": "2016-10-07 13:42:16",
+          "percent": 7,
+          "competencies": [
+            {
+              "id": 13034,
+              "guideStandardId": 10,
+              "body": "Practice professional behavior, including communication and customer service skills",
+              "sortOrder": 49,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13035,
+              "guideStandardId": 10,
+              "body": "Practice ethical use of software and hardware (e.g., copyright laws, hacking)",
+              "sortOrder": 50,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13036,
+              "guideStandardId": 10,
+              "body": "Demonstrate an awareness of emerging technologies",
+              "sortOrder": 51,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            }
+          ],
+          "questions": [
+            {
+              "id": 4731,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "How should a computer handle an upset customer who called for technical support to ensure customer satisfaction and to maintain professionalism?",
+              "guideStandardId": 10,
+              "choices": [
+                {
+                  "id": 18914,
+                  "guideQuestionId": 4731,
+                  "body": "The technician should listen to the customer until they have explained the situation, then calmly acknowledge their frustration, and let the customer know that he or she will do their very best to resolve the situation.",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18915,
+                  "guideQuestionId": 4731,
+                  "body": "The technician should interrupt the customer and politely tell them to call back when they have calmed down.",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18916,
+                  "guideQuestionId": 4731,
+                  "body": "The technician should place the customer on hold and wait a couple minutes for the customer to cool off.",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18917,
+                  "guideQuestionId": 4731,
+                  "body": "The technician should place the customer on hold and transfer the call to their supervisor.",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4732,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "When working with other technicians, why is it important to maintain thorough documentation?",
+              "guideStandardId": 10,
+              "choices": [
+                {
+                  "id": 18918,
+                  "guideQuestionId": 4732,
+                  "body": "It ensures all technicians have access to the same information.",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18919,
+                  "guideQuestionId": 4732,
+                  "body": "It is a government policy that companies have to adhere to.",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18920,
+                  "guideQuestionId": 4732,
+                  "body": "It ensures a well-rounded job experience for all technicians.",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18921,
+                  "guideQuestionId": 4732,
+                  "body": "It is a required part of every technician's job.",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1113,
+          "body": "Preventive Maintenance",
+          "guideId": 221,
+          "sortOrder": 4,
+          "lastUpdatedOn": "2016-10-18 11:13:15",
+          "percent": 10,
+          "competencies": [
+            {
+              "id": 13007,
+              "guideStandardId": 1113,
+              "body": "Differentiate between an electrical line conditioner, uninterruptible power supply (UPS)",
+              "sortOrder": 22,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13008,
+              "guideStandardId": 1113,
+              "body": "Select and perform proper file backup procedures",
+              "sortOrder": 23,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13009,
+              "guideStandardId": 1113,
+              "body": "Identify the use of system monitoring and various system utilities",
+              "sortOrder": 24,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13010,
+              "guideStandardId": 1113,
+              "body": "Install and maintain current software patches, service packs, and upgrades",
+              "sortOrder": 25,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13011,
+              "guideStandardId": 1113,
+              "body": "Maintain current antivirus, spyware, and\/or malware software",
+              "sortOrder": 26,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13012,
+              "guideStandardId": 1113,
+              "body": "Clean and maintain physical computer components according to industry standards",
+              "sortOrder": 27,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            }
+          ],
+          "questions": [
+            {
+              "id": 4710,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "A\/An _____ is a small piece of software that piggybacks on other programs.",
+              "guideStandardId": 1113,
+              "choices": [
+                {
+                  "id": 18830,
+                  "guideQuestionId": 4710,
+                  "body": "virus",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18831,
+                  "guideQuestionId": 4710,
+                  "body": "worm",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18832,
+                  "guideQuestionId": 4710,
+                  "body": "Trojan horse",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18833,
+                  "guideQuestionId": 4710,
+                  "body": "executable file",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4711,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "A software patch is a",
+              "guideStandardId": 1113,
+              "choices": [
+                {
+                  "id": 18834,
+                  "guideQuestionId": 4711,
+                  "body": "small piece of computer program code that replaces a part of software already installed",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18835,
+                  "guideQuestionId": 4711,
+                  "body": "software that is designed to covertly infiltrate or damage a computer system",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18836,
+                  "guideQuestionId": 4711,
+                  "body": "computer program that scans and attempts recovery of bad sectors on a computer's hard drive",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18837,
+                  "guideQuestionId": 4711,
+                  "body": "utility that detects and protects a personal computer from unauthorized access",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4712,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "A good preventive maintenance plan should include backing up the registry, documents, and",
+              "guideStandardId": 1113,
+              "choices": [
+                {
+                  "id": 18838,
+                  "guideQuestionId": 4712,
+                  "body": "temporary files",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18839,
+                  "guideQuestionId": 4712,
+                  "body": "RAM",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18840,
+                  "guideQuestionId": 4712,
+                  "body": "operating system settings",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18841,
+                  "guideQuestionId": 4712,
+                  "body": "owner's manual",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4713,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "TRACERT is a command that",
+              "guideStandardId": 1113,
+              "choices": [
+                {
+                  "id": 18842,
+                  "guideQuestionId": 4713,
+                  "body": "checks the network path from the host to a website",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18843,
+                  "guideQuestionId": 4713,
+                  "body": "scan for viruses and malware",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18844,
+                  "guideQuestionId": 4713,
+                  "body": "scan and attempt recovery of bad sectors on a computer's hard drive",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18845,
+                  "guideQuestionId": 4713,
+                  "body": "maintain a log of all users who access a computer's hard drive",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1857,
+          "body": "Safety",
+          "guideId": 221,
+          "sortOrder": 1,
+          "lastUpdatedOn": "2016-10-18 11:33:51",
+          "percent": 7,
+          "competencies": [
+            {
+              "id": 12986,
+              "guideStandardId": 1857,
+              "body": "Identify and implement proper personal and equipment safety procedures",
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 12987,
+              "guideStandardId": 1857,
+              "body": "Identify proper disposal and recycling procedures (PC components)",
+              "sortOrder": 2,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 12988,
+              "guideStandardId": 1857,
+              "body": "Identify industry standards and federal regulations",
+              "sortOrder": 3,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 12989,
+              "guideStandardId": 1857,
+              "body": "Recognize proper body mechanics and ergonomic principles",
+              "sortOrder": 4,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            }
+          ],
+          "questions": [
+            {
+              "id": 4698,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "A wrist grounding strap should be worn to repair a",
+              "guideStandardId": 1857,
+              "choices": [
+                {
+                  "id": 18782,
+                  "guideQuestionId": 4698,
+                  "body": "CRT monitor",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18783,
+                  "guideQuestionId": 4698,
+                  "body": "power supply",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18784,
+                  "guideQuestionId": 4698,
+                  "body": "system board",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18785,
+                  "guideQuestionId": 4698,
+                  "body": "laser printer",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4699,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "All batteries are considered to be hazardous and need to be",
+              "guideStandardId": 1857,
+              "choices": [
+                {
+                  "id": 18786,
+                  "guideQuestionId": 4699,
+                  "body": "recycled as such",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18787,
+                  "guideQuestionId": 4699,
+                  "body": "taken to a dumpster",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18788,
+                  "guideQuestionId": 4699,
+                  "body": "placed in plastic container",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18789,
+                  "guideQuestionId": 4699,
+                  "body": "stored in a metal cabinet",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1858,
+          "body": "Security",
+          "guideId": 221,
+          "sortOrder": 9,
+          "lastUpdatedOn": "2016-10-18 11:33:51",
+          "percent": 6,
+          "competencies": [
+            {
+              "id": 13032,
+              "guideStandardId": 1858,
+              "body": "Identify and implement physical security (e.g., locked areas, biometric devices, cameras)",
+              "sortOrder": 47,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            },
+            {
+              "id": 13033,
+              "guideStandardId": 1858,
+              "body": "Identify and implement digital security (e.g., firewalls, antivirus, spyware, malware)",
+              "sortOrder": 48,
+              "lastUpdatedOn": "2016-10-19 10:12:27"
+            }
+          ],
+          "questions": [
+            {
+              "id": 4728,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "A malicious program that presents itself as a legitimate program is a",
+              "guideStandardId": 1858,
+              "choices": [
+                {
+                  "id": 18902,
+                  "guideQuestionId": 4728,
+                  "body": "logic bomb",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18903,
+                  "guideQuestionId": 4728,
+                  "body": "Trojan",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18904,
+                  "guideQuestionId": 4728,
+                  "body": "spyware program",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18905,
+                  "guideQuestionId": 4728,
+                  "body": "script virus",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4729,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "Which of the following prevents, detects, and removes viruses, worms, and Trojans?",
+              "guideStandardId": 1858,
+              "choices": [
+                {
+                  "id": 18906,
+                  "guideQuestionId": 4729,
+                  "body": "firewall",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18907,
+                  "guideQuestionId": 4729,
+                  "body": "host address",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18908,
+                  "guideQuestionId": 4729,
+                  "body": "virus protection",
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18909,
+                  "guideQuestionId": 4729,
+                  "body": "convergence",
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            },
+            {
+              "id": 4730,
+              "guideId": 221,
+              "sortOrder": 1,
+              "lastUpdatedOn": "2016-11-08 10:39:49",
+              "body": "A technician has just finished adding more RAM to a customer's computer.  The RAM costs $85.23 and the technician took 1.5 hours to complete the upgrade.  Labor costs are $25.50 per hour.  The customer has a coupon for 15 percent off the cost of parts and labor.  The total bill before taxes would be",
+              "guideStandardId": 1858,
+              "choices": [
+                {
+                  "id": 18910,
+                  "guideQuestionId": 4730,
+                  "body": 92.21,
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 1,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18911,
+                  "guideQuestionId": 4730,
+                  "body": 104.96,
+                  "explanation": null,
+                  "isCorrect": 1,
+                  "sortOrder": 2,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18912,
+                  "guideQuestionId": 4730,
+                  "body": 110.73,
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 3,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                },
+                {
+                  "id": 18913,
+                  "guideQuestionId": 4730,
+                  "body": 123.48,
+                  "explanation": null,
+                  "isCorrect": 0,
+                  "sortOrder": 4,
+                  "lastUpdatedOn": "2016-11-08 10:39:49"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "competencies": {
+      "12993": {
+        "id": 10,
+        "state": -1
+      },
+      "12991": {
+        "id": 11,
+        "state": 1
+      },
+      "12990": {
+        "id": 12,
+        "state": 1
+      },
+      "12994": {
+        "id": 13,
+        "state": 1
+      },
+      "13020": {
+        "id": 14,
+        "state": 1
+      },
+      "12987": {
+        "id": 15,
+        "state": 1
+      },
+      "12996": {
+        "id": 16,
+        "state": 1
+      },
+      "12997": {
+        "id": 17,
+        "state": 1
+      },
+      "12998": {
+        "id": 18,
+        "state": 1
+      },
+      "13027": {
+        "id": 19,
+        "state": 1
+      },
+      "13028": {
+        "id": 20,
+        "state": 1
+      },
+      "13029": {
+        "id": 21,
+        "state": 1
+      },
+      "13030": {
+        "id": 22,
+        "state": 1
+      },
+      "13031": {
+        "id": 23,
+        "state": 1
+      },
+      "13026": {
+        "id": 24,
+        "state": 1
+      },
+      "13025": {
+        "id": 25,
+        "state": 1
+      },
+      "13024": {
+        "id": 26,
+        "state": 1
+      },
+      "13023": {
+        "id": 27,
+        "state": 1
+      },
+      "12992": {
+        "id": 28,
+        "state": 1
+      },
+      "13032": {
+        "id": 29,
+        "state": 1
+      },
+      "13033": {
+        "id": 30,
+        "state": 1
+      },
+      "13013": {
+        "id": 31,
+        "state": 1
+      },
+      "13014": {
+        "id": 32,
+        "state": 1
+      },
+      "13015": {
+        "id": 33,
+        "state": 1
+      },
+      "13016": {
+        "id": 34,
+        "state": 1
+      },
+      "12995": {
+        "id": 35,
+        "state": 0
+      },
+      "13007": {
+        "id": 36,
+        "state": 0
+      },
+      "13008": {
+        "id": 37,
+        "state": 1
+      },
+      "13003": {
+        "id": 38,
+        "state": 0
+      },
+      "13034": {
+        "id": 39,
+        "state": 1
+      },
+      "13035": {
+        "id": 40,
+        "state": 1
+      },
+      "13036": {
+        "id": 41,
+        "state": 1
+      },
+      "13021": {
+        "id": 42,
+        "state": 1
+      },
+      "13022": {
+        "id": 43,
+        "state": 1
+      },
+      "13009": {
+        "id": 44,
+        "state": 1
+      }
+    },
+    "jobItemCompetencies": {
+      "1607": {
+        "id": 1,
+        "state": -1
+      },
+      "1608": {
+        "id": 2,
+        "state": 0
+      },
+      "1609": {
+        "id": 3,
+        "state": 1
+      },
+      "1611": {
+        "id": 4,
+        "state": 0
+      },
+      "1612": {
+        "id": 5,
+        "state": 0
+      },
+      "1613": {
+        "id": 6,
+        "state": 0
+      },
+      "1610": {
+        "id": 7,
+        "state": 1
+      }
+    },
+    "questions": {
+      "4700": {
+        "state": 0,
+        "flagged": 0,
+        "numIncorrect": 3
+      },
+      "4728": {
+        "state": 1,
+        "flagged": 0,
+        "numIncorrect": 1
+      },
+      "4705": {
+        "state": 0,
+        "flagged": 0,
+        "numIncorrect": 3
+      },
+      "4701": {
+        "state": 1,
+        "flagged": 0,
+        "numIncorrect": 1
+      },
+      "4702": {
+        "state": 1,
+        "flagged": 0,
+        "numIncorrect": 0
+      },
+      "4703": {
+        "state": 1,
+        "flagged": 0,
+        "numIncorrect": 0
+      },
+      "4704": {
+        "state": 1,
+        "flagged": 0,
+        "numIncorrect": 2
+      },
+      "4706": {
+        "state": 1,
+        "flagged": 0,
+        "numIncorrect": 1
+      },
+      "4698": {
+        "state": 1,
+        "flagged": 0,
+        "numIncorrect": 1
+      },
+      "4715": {
+        "state": 0,
+        "flagged": 0,
+        "numIncorrect": 1
+      },
+      "4710": {
+        "state": 1,
+        "flagged": 0,
+        "numIncorrect": 3
+      }
+    },
+    "organizationName": null
+  },
+  "error": null
+}

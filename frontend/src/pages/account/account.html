@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-navbar>
+        <button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{'Account'|translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content">
+    <div padding-top text-center>
+        <avatar [src]="session.user.avatar" [size]="'full'"></avatar>
+        <h2>USER:{{session.user|namify}}</h2>
+
+        <video id="video" width="640" height="480" autoplay></video>
+        <button id="snap">Snap Photo</button>
+        <canvas id="canvas" width="640" height="480"></canvas>
+
+        <ion-list inset>
+            <button ion-item (click)="takeSnapshot()">Take Snapshot</button>
+            <button ion-item (click)="changeEmail()">Change Username</button>
+            <button ion-item (click)="changePassword()">Change Password</button>
+            <button ion-item (click)="logout()">Logout</button>
+        </ion-list>
+    </div>
+</ion-content>

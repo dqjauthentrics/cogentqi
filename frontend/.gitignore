@@ -2,12 +2,19 @@
 # http://git-scm.com/docs/gitignore
 
 *~
-.vscode/
+*.sw[mnpcod]
+*.log
+*.tmp
+*.tmp.*
+npm-debug.log*
 .idea/
+.sass-cache/
+.tmp/
+.versions/
+coverage/
+dist/
 tmp/
 temp/
-www/build/
-$RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate

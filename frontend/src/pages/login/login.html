@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-navbar>
+        <button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Login</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="dashboard login" padding>
+    <ion-card>
+        <form #loginForm="ngForm" novalidate>
+            <div [innerHTML]="config.fullLogo"></div>
+            <h3>Log In</h3>
+            <ion-item>
+                <ion-label floating primary>Email Address</ion-label>
+                <ion-input [(ngModel)]="login.username" name="username" type="text" #username="ngModel" spellcheck="false" autocapitalize="off"
+                           required></ion-input>
+            </ion-item>
+            <p [hidden]="username.valid || submitted == false" danger padding-left>
+                {{'Username is required'}}
+            </p>
+            <ion-item>
+                <ion-label floating primary>{{'Password'}}</ion-label>
+                <ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" required></ion-input>
+            </ion-item>
+            <p [hidden]="password.valid || submitted == false" danger padding-left>
+                {{'Password is required'}}
+            </p>
+            <div class="error">{{session? session.loginError : ''}}</div>
+            <ion-row responsive-md>
+                <ion-col>
+                    <button ion-button (click)="onLogin(loginForm)" type="submit">Login</button>
+                </ion-col>
+            </ion-row>
+        </form>
+    </ion-card>
+</ion-content>
