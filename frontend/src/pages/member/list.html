@@ -15,15 +15,22 @@
                 <mfDefaultSorter by="roleName">Role</mfDefaultSorter>
             </th>
             <th>
-                Last Assessment
+                <mfDefaultSorter [by]="sortBadges">Badges</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter [by]="sortLastAssessment">Last Assessment</mfDefaultSorter>
             </th>
         </tr>
         <tr>
             <th colspan="7">
-                <input class="filter" [(ngModel)]="filterQuery" placeholder="filter"/>
+                <ion-searchbar [(ngModel)]="filterQuery" placeholder="filter"></ion-searchbar>
             </th>
         </tr>
-        <tr [hidden]="!loading"><td colspan="4"><loading-indicator [loading]="loading"></loading-indicator></td></tr>
+        <tr [hidden]="!loading">
+            <td colspan="4">
+                <loading-indicator [loading]="loading"></loading-indicator>
+            </td>
+        </tr>
         </thead>
         <tbody>
         <tr *ngFor="let member of mf.data" class="order">
@@ -38,6 +45,9 @@
             </td>
             <td>
                 {{member.roleName}}
+            </td>
+            <td>
+                <micro-badge [text]="member.badges.length + ''" [size]="'count'"></micro-badge>
             </td>
             <td>
                 <assessment-item [assessment]="member.lastAssessment" [showMember]="false" [showIcon]="false"></assessment-item>

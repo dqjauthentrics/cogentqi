@@ -38,7 +38,11 @@ export class MemberListPage {
         return member.lastName + ', ' + member.firstName + ' ' + member.middleName;
     }
 
-    sortOrganization(member: any) {
-        return member.organization.name;
+    sortLastAssessment(member: any) {
+        return member.lastAssessment ? member.lastAssessment.lastModified : null;
+    }
+
+    sortBadges(member: any) {
+        return member.badges.length;
     }
 }

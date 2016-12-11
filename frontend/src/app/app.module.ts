@@ -4,17 +4,36 @@ import {APP_BASE_HREF} from "@angular/common";
 import {IonicApp, IonicModule} from "ionic-angular";
 import {ChartModule} from "ng2-chartjs2";
 import {DataTableModule} from "angular2-datatable";
-/*****
- * SEP
- ****/
-import {AccountPage} from "../pages/account/account";
+/**
+ * Pipes
+ **/
+import {DataFilterPipe} from "../pipes/data-filter-pipe";
+import {Ellipsify} from "../pipes/ellipsify";
+import {FilterArrayPipe} from "../pipes/filter-array-pipe";
+import {Icon} from "../pipes/icon";
+import {Namify} from "../pipes/namify";
+import {Replace} from "../pipes/strings";
+import {Round} from "../pipes/round";
+import {Translate} from "../pipes/translate";
+import {Space2break} from "../pipes/space2break";
+/**
+ * Components
+ **/
 import {AppIconButton} from "../components/app-icon-button";
 import {AppIcon} from "../components/app-icon";
+import {Avatar} from "../components/avatar";
+import {HeaderBar} from "../components/header-bar";
+import {LoadingIndicator} from "../components/loading-indicator";
+import {MicroBadge} from "../components/micro-badge";
+import {InfoBadge} from "../components/info-badge";
+/**
+ * Pages
+ **/
+import {AccountPage} from "../pages/account/account";
 import {AssessmentDetailPage} from "../pages/assessment/detail";
 import {AssessmentListPage} from "../pages/assessment/list";
 import {AssessmentItem} from "../pages/assessment/_item";
 import {AssessmentProvider} from "../providers/assessment";
-import {Avatar} from "../components/avatar";
 import {CfgEventsListPage} from "../pages/configuration/events/list";
 import {CfgInstrumentsListPage} from "../pages/configuration/instruments/list";
 import {CfgOutcomesListPage} from "../pages/configuration/outcomes/list";
@@ -25,42 +44,43 @@ import {ConfigHelpIndex} from "../pages/configuration/help";
 import {ConfigurationPage} from "../pages/configuration/configuration";
 import {Config} from "../providers/config";
 import {DashboardPage} from "../pages/dashboard/dashboard";
-import {DataFilterPipe} from "../pipes/data-filter-pipe";
-import {Ellipsify} from "../pipes/ellipsify";
 import {EventConfigPage} from "../pages/configuration/events/config";
 import {EventProvider} from "../providers/event";
-import {FilterArrayPipe} from "../pipes/filter-array-pipe";
 import {Globals} from "../providers/globals";
-import {HeaderBar} from "../components/header-bar";
 import {HelpPage} from "../pages/help/help";
 import {IconProvider} from "../providers/icon";
-import {Icon} from "../pipes/icon";
 import {InstrumentConfigPage} from "../pages/configuration/instruments/config";
 import {InstrumentDetailPage} from "../pages/instrument/detail";
 import {InstrumentListPage} from "../pages/instrument/list";
 import {InstrumentProvider} from "../providers/instrument";
-import {LoadingIndicator} from "../components/loading-indicator";
 import {LoginPage} from "../pages/login/login";
 import {MatrixPage} from "../pages/matrix/matrix";
 import {MemberDetailPage} from "../pages/member/detail";
 import {MemberListPage} from "../pages/member/list";
 import {MemberProvider} from "../providers/member";
-import {Namify} from "../pipes/namify";
 import {OutcomeConfigPage} from "../pages/configuration/outcomes/config";
 import {OutcomeProvider} from "../providers/outcome";
-import {Replace} from "../pipes/strings";
 import {ResourceConfigPage} from "../pages/configuration/resources/config";
 import {ResourceDetailPage} from "../pages/resource/detail";
 import {ResourceListPage} from "../pages/resource/list";
 import {ResourceProvider} from "../providers/resource";
-import {Round} from "../pipes/round";
 import {Rubric} from "../pages/assessment/rubric";
 import {ScheduleConfigPage} from "../pages/configuration/schedule/config";
 import {ScheduleProvider} from "../providers/schedule";
 import {SessionProvider} from "../providers/session";
 import {SettingsConfigPage} from "../pages/configuration/settings/config";
 import {TabsPage} from "../pages/tabs/tabs";
-import {Translate} from "../pipes/translate";
+
+/**
+ export const deepLinkConfig: DeepLinkConfig = {
+    links: [
+        {segment: '', component: DashboardPage, name: 'DashboardPage'},
+        {segment: '', component: MemberListPage, name: 'MemberListPage'},
+        {segment: '', component: ResourceListPage, name: 'ResourceListPage'},
+        {segment: '', component: ConfigurationPage, name: 'ConfigurationPage'},
+    ]
+};
+ **/
 
 @NgModule({
     declarations: [
@@ -94,6 +114,8 @@ import {Translate} from "../pipes/translate";
         MatrixPage,
         MemberDetailPage,
         MemberListPage,
+        MicroBadge,
+        InfoBadge,
         Namify,
         DataFilterPipe,
         OutcomeConfigPage,
@@ -105,6 +127,7 @@ import {Translate} from "../pipes/translate";
         Rubric,
         ScheduleConfigPage,
         SettingsConfigPage,
+        Space2break,
         TabsPage,
         Translate,
     ],
@@ -138,6 +161,8 @@ import {Translate} from "../pipes/translate";
         InstrumentDetailPage,
         InstrumentListPage,
         LoginPage,
+        MicroBadge,
+        InfoBadge,
         MatrixPage,
         MemberDetailPage,
         MemberListPage,
@@ -163,6 +188,7 @@ import {Translate} from "../pipes/translate";
         InstrumentProvider,
         MemberProvider,
         Namify,
+        Space2break,
         ResourceProvider,
         AssessmentProvider,
         SessionProvider,

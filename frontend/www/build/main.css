@@ -5085,6 +5085,201 @@ ion-list div.forward {
   vertical-align: middle !important;
 }
 
+table.microBadgeHolder {
+  float: left;
+  margin: 0.3em;
+  max-width: 100px;
+  min-width: 100px;
+}
+
+.microBadge {
+  background: transparent url(/assets/img/badge.png) center center no-repeat;
+  background-size: contain;
+  white-space: normal;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+  margin: 0.5em;
+}
+
+.microBadge.count {
+  height: 6vmin;
+  width: 6vmin;
+  min-height: 30px;
+  min-width: 30px;
+  max-height: 60px;
+  max-width: 60px;
+  font-size: 1.0em;
+  line-height: 0.9em;
+}
+
+.microBadge.icon {
+  height: 5vmin;
+  width: 5vmin;
+  font-size: 1.3vmin;
+  line-height: 1.3vmin;
+  display: inline;
+}
+
+.microBadge.small {
+  height: 10vmin;
+  width: 10vmin;
+  font-size: 1.3vmin;
+  line-height: 1.3vmin;
+}
+
+.microBadge.large {
+  height: 15vmin;
+  width: 15vmin;
+  font-size: 2vmin;
+  line-height: 2vmin;
+}
+
+.levelBadge i, .outcomeLevel i {
+  font-size: 1.5em;
+  font-weight: bold;
+  width: 3em;
+}
+
+.levelBadge {
+  padding: 0.4em;
+  border-radius: 0.3em;
+  font-size: 0.8em !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  line-height: 1.5em;
+  vertical-align: middle;
+  float: left;
+  margin: 0.4em;
+  max-width: 50vmin;
+  white-space: normal !important;
+}
+
+.level {
+  font-size: 1.2em !important;
+  font-weight: bold;
+}
+
+.levelName {
+  padding: 0.4em 0.4em;
+  border-radius: 1em;
+  margin: 0.1em;
+  font-size: 0.7em;
+  line-height: 0.9em;
+  height: auto;
+  white-space: normal;
+  text-align: center;
+}
+
+.button {
+  background: #DDD;
+}
+
+.button.toggle.off {
+  color: #999;
+}
+
+.yesNoBg0, .yesNoBg0:hover {
+  background: #666 !important;
+  color: #FFF !important;
+}
+
+.yesNoBg1, .yesNoBg1:hover {
+  background: #FF0000 !important;
+  color: #FFF !important;
+}
+
+.yesNoBg2, .yesNoBg2:hover {
+  background: #008000 !important;
+  color: #FFF !important;
+}
+
+.yesNoColor0, .yesNoColor0:hover {
+  color: #AAA !important;
+}
+
+.yesNoColor1, .yesNoColor1:hover {
+  color: #FF0000 !important;
+}
+
+.yesNoColor2, .yesNoColor2:hover {
+  color: #008000 !important;
+}
+
+.levelBg0 {
+  background: #AAA;
+  color: #FFF;
+}
+
+.levelBg1 {
+  background: #BB4444;
+  color: #FFF;
+}
+
+.levelBg2 {
+  background: #EE7A00;
+  color: #FFF;
+}
+
+.levelBg3 {
+  background: #FFD700;
+  color: #444;
+}
+
+.levelBg4 {
+  background: #6A8;
+  color: #FFF;
+}
+
+.levelBg5 {
+  background: #C000C0;
+  color: #FFF;
+}
+
+.level3Bg0, .rubriclevel3Bg0 {
+  background: #AAA;
+  color: #FFF;
+}
+
+.level3Bg1, .rubriclevel3Bg1 {
+  background: #BB4444;
+  color: #FFF;
+}
+
+.level3Bg2, .rubriclevel3Bg2 {
+  background: #7799EE;
+  color: #FFF;
+}
+
+.level3Bg3, .rubriclevel3Bg3 {
+  background: #6A8;
+  color: #FFF;
+}
+
+.levelColor0 {
+  color: #AAA;
+}
+
+.levelColor1 {
+  color: #BB4444;
+}
+
+.levelColor2 {
+  color: #EE7A00;
+}
+
+.levelColor3 {
+  color: #FFD700;
+}
+
+.levelColor4 {
+  color: #6A8;
+}
+
+.levelColor5 {
+  color: #C000C0;
+}
+
 ion-action-sheet {
   position: absolute;
   top: 0;
