@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-navbar>
+        <button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Members</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content member-list">
+    <ion-list>
+        <ion-item *ngFor="let item of menuItems;" class="item-icon-right" (click)="goToPage(item)">
+            <div style="vertical-align: top;">
+                <app-icon [name]="item.icon"></app-icon>
+                <div class="name">{{item.name|translate}}</div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="description">{{item.description|translate}}</div>
+            <div class="forward"><ion-icon name="arrow-forward"></ion-icon></div>
+        </ion-item>
+    </ion-list>
+</ion-content>

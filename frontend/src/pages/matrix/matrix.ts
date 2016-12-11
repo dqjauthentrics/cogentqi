@@ -11,14 +11,14 @@ import {AssessmentDetailPage} from "../assessment/detail";
     templateUrl: 'matrix.html',
 })
 export class MatrixPage {
-    public user = {};
-    public matrix = {};
+    public user: any;
+    public matrix: any;
     public instrument = {id: null, n: '', questionGroups: []};
     public organizationId: number;
     public instrumentId: number;
 
-    constructor(private nav: NavController, private session: SessionProvider, private assessmentData: AssessmentProvider,
-                private instrumentData: InstrumentProvider, private memberData: MemberProvider) {
+    constructor(private nav: NavController, public session: SessionProvider, private assessmentData: AssessmentProvider,
+                public instrumentData: InstrumentProvider, private memberData: MemberProvider) {
         this.user = session.user;
         this.organizationId = session.user.organizationId;
         this.checkInstruments();

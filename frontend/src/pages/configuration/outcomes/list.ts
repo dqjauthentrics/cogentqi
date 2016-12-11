@@ -8,9 +8,10 @@ import {OutcomeConfigPage} from "./config";
 })
 export class CfgOutcomesListPage {
     outcomes = [];
+    queryText: string;
 
     constructor(private nav: NavController, outcomeData: OutcomeProvider) {
-        outcomeData.getAll(null).then(outcomes => {
+        outcomeData.getAll(null, false).then(outcomes => {
             this.outcomes = outcomes;
         });
     }

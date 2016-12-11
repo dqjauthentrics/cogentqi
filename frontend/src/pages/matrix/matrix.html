@@ -49,7 +49,7 @@
                         <div [ngSwitch]="matrix.mType">
                             <div *ngSwitchCase="'M'">
                                 <div *ngIf="row.mid > 0">
-                                    <avatar [src]="row.av" [size]="'tiny'"></avatar>
+                                    <avatar [id]="row.mid" [size]="'tiny'"></avatar>
                                     <ion-icon name="{{'assessment'|icon}}" (click)="goToAssessment(row.aid)"></ion-icon>
                                     <a (click)="goToMember(row.mid)">{{row.n}}</a>
                                 </div>

@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 
 @Injectable()
-export class GlobalsProvider {
+export class Globals {
     public tabMode: string = 'normal';
     public static isProduction: boolean = true;
     public debug: boolean = false;

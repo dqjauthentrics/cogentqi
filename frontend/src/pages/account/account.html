@@ -9,8 +9,8 @@
 
 <ion-content class="outer-content">
     <div padding-top text-center>
-        <avatar [src]="session.user.avatar" [size]="'full'"></avatar>
-        <h2>USER:{{session.user|namify}}</h2>
+        <avatar [id]="session.user.id" [size]="'full'"></avatar>
+        <h2>USER:{{session.user|namify:false}}</h2>
 
         <video id="video" width="640" height="480" autoplay></video>
         <button id="snap">Snap Photo</button>

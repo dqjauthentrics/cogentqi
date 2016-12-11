@@ -8,19 +8,25 @@ import {DataModel} from "../../providers/data-model";
     templateUrl: 'list.html'
 })
 export class MemberListPage {
-    members = [];
-    queryText: string = '';
+    public loading: boolean = false;
+    public members = [];
+    public filterQuery = "";
+    public rowsOnPage = 5;
+    public sortBy = "orderedOn";
+    public sortOrder = "desc";
 
     constructor(private nav: NavController, memberData: MemberProvider) {
-        var organizationId = 2;
-        var drilldown = 1;
-        var includeInactive = 0;
-        var args = [organizationId, drilldown, includeInactive];
-        memberData.getAll(DataModel.buildArgs(args)).then(members => {
+        this.loading = true;
+        let organizationId = 2;
+        let drilldown = 1;
+        let includeInactive = 0;
+        let args = [organizationId, drilldown, includeInactive];
+        memberData.getAll(DataModel.buildArgs(args), false).then(members => {
             this.members = members;
-            for (var member of this.members) {
+            for (let member of this.members) {
                 member.visible = true;
             }
+            this.loading = false;
         });
     }
 
@@ -28,4 +34,11 @@ export class MemberListPage {
         this.nav.push(MemberDetailPage, member);
     }
 
+    sortName(member: any) {
+        return member.lastName + ', ' + member.firstName + ' ' + member.middleName;
+    }
+
+    sortOrganization(member: any) {
+        return member.organization.name;
+    }
 }

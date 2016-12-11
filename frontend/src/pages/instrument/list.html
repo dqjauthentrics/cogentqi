@@ -18,7 +18,7 @@
                 <ion-avatar item-left>
                     <img [src]="instrument.av">
                 </ion-avatar>
-                <a (click)="goToDetail(instrument)">{{instrument|namify}}</a>, {{instrument.rn}}
+                <a (click)="goToDetail(instrument)">{{instrument|namify:false}}</a>, {{instrument.rn}}
             </ion-item>
         </ion-card-header>
 

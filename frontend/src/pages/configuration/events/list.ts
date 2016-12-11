@@ -8,9 +8,10 @@ import {EventConfigPage} from "./config";
 })
 export class CfgEventsListPage {
     events = [];
+    queryText: string;
 
     constructor(private nav: NavController, eventData: EventProvider) {
-        eventData.getAll(null).then(events => {
+        eventData.getAll(null, false).then(events => {
             this.events = events;
         });
     }

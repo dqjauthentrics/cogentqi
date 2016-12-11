@@ -4,7 +4,7 @@ import {Injectable} from "@angular/core";
 export class Graphs {
 
     static defaultConfiguration(graphType:string) {
-        let configuration: any = { //Chart.Options
+        return { //Chart.Options
             type: graphType,
             data: {
                 datasets: [
@@ -39,6 +39,5 @@ export class Graphs {
                 }
             }
         };
-        return configuration;
     }
 }

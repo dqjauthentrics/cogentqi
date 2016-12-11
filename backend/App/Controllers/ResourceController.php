@@ -10,8 +10,8 @@ use App\Models\ResourceAlignmentMap;
 class ResourceController extends ControllerBase {
 
 	/**
-	 * @param int                                $resourceId
-	 * @param int                                $questionId
+	 * @param int                             $resourceId
+	 * @param int                             $questionId
 	 * @param \App\Models\ResourceAlignment[] $alignments
 	 *
 	 * @return \App\Models\ResourceAlignment
@@ -54,9 +54,12 @@ class ResourceController extends ControllerBase {
 	}
 
 	public function contentAction($path) {
+		$result = new Result($this);
 		$path = str_replace(':', '/', $path);
 		$path = dirname(dirname(dirname(__DIR__))) . '/learning/' . $path . '.html';
-		echo file_get_contents($path);
+		$content = file_get_contents($path);
+		$result->setNormal($content);
+		$result->send();
 	}
 
 	/**

@@ -8,9 +8,10 @@ import {ResourceConfigPage} from "./config";
 })
 export class CfgResourcesListPage {
     resources = [];
+    queryText: string;
 
     constructor(private nav: NavController, resourceData: ResourceProvider) {
-        resourceData.getAll(null).then(resources => {
+        resourceData.getAll(null, false).then(resources => {
             this.resources = resources;
         });
     }

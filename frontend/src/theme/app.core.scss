@@ -43,11 +43,6 @@ ion-footer ion-icon:before {
   color: rgba(140, 140, 140, 0.7);
 }
 
-ion-footer app-icon {
-  color: rgba(140, 140, 140, 0.7);
-  cursor: pointer;
-}
-
 ion-footer div.title {
   cursor: pointer;
   font-size: calc(8px + 0.8vw);
@@ -135,19 +130,6 @@ ion-footer ion-toolbar ion-col {
   border: 2px solid #F7941E;
 }
 
-.dashHeader img {
-  width: auto;
-  margin: 0 auto;
-  max-height: 140px;
-}
-
-.dashHeader div:nth-child(3) {
-  font-size: 1.2rem;
-  text-align: center;
-  color: gray;
-  margin: 0;
-}
-
 .styled-select {
   background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
   height: 29px;
@@ -173,13 +155,6 @@ select {
 ion-menu app-icon {
   color: gray;
   font-size: 1.4em;
-}
-
-app-icon {
-  font-size: 2.0rem;
-  margin: 0.3rem 0.4rem 0 0.4rem;
-  color: color($colors, secondary);
-  vertical-align: middle;
 }
 
 table thead tr th {
@@ -344,69 +319,34 @@ ion-footer .tabs ion-col.selected ion-icon, .tabs ion-col.selected ion-icon:befo
 }
 
 app-icon {
-  border: 1px solid;
   height: 4.25rem;
-  padding: 8px 10px;
   width: 4.25rem;
   text-align: center;
-  background: #fff;
+  vertical-align: center;
   color: #95989a;
   display: inline-block;
-  cursor: pointer;
 }
 
-.left-menu {
-  padding: 15px;
-  background: #f2f2f2;
-  border-right: 1px solid #95989a;
-  -webkit-box-shadow: 8px -10px 8px -12px #000;
-  -moz-box-shadow: 8px -10px 8px -12px #000;
-  box-shadow: 8px -10px 8px -12px #000;
+app-icon ion-icon:before {
+  font-size: 4.0rem;
+}
 
-  span i {
-    color: #95989a;
-  }
-  app-icon ion-icon {
-    font-size: 2.5rem !important;
-  }
-  .item-block .item-inner ion-label {
-    color: #8dc75c;
+ion-list {
+  div.name {
+    float: left;
+    margin: 1rem;
     font-weight: bold;
-    font-size: 1.3rem;
   }
-  .docTitle ion-label {
-    text-align: center;
+  app-icon {
+    float: left;
   }
-  a {
-    font-size: 1.6rem;
-    color: #95989a;
-    font-weight: 200;
-    vertical-align: middle;
+  div.description {
+    font-style: italic;
+    color: #666;
   }
-  ion-item.selected a {
-    color: color($colors, primary);
-  }
-  i {
-    cursor: pointer;
-    padding: 0.5rem;
-  }
-  .item, .button {
-    background: #F4F4F4;
-  }
-  ion-label {
-    white-space: normal;
-    font-size: 1.5rem;
-    line-height: 1.8rem;
-    padding: 0 !important;
-    margin: 0 !important;
-    height: auto;
-  }
-  ion-list-header {
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-  button {
-    font-size: 1.4rem;
+  div.forward {
+    float: right;
+    color: #999;
   }
 }
 
@@ -415,3 +355,30 @@ app-icon {
     padding: 3vw;
   }
 }
+
+.table thead th {
+  background: #DDD;
+  color: #000;
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+  background-color: color($colors, secondary);
+  border-color: color($colors, secondary);
+}
+
+.pagination > li > a, .pagination > li > span {
+  color: color($colors, secondary);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #FCFFFE;
+}
+
+.table-striped > tbody > tr:nth-of-type(even) {
+  background-color: #F9FCFF;
+}
+
+.table td, .table th {
+  vertical-align: middle !important;
+}
+

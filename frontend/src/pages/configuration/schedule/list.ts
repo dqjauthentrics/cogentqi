@@ -8,9 +8,10 @@ import {ScheduleConfigPage} from "./config";
 })
 export class CfgScheduleListPage {
     schedule = [];
+    queryText: string;
 
     constructor(private nav: NavController, scheduleData: ScheduleProvider) {
-        scheduleData.getAll(null).then(schedule => {
+        scheduleData.getAll(null, false).then(schedule => {
             this.schedule = schedule;
         });
     }

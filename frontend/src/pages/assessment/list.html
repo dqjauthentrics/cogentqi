@@ -12,8 +12,8 @@
     <ion-card *ngFor="let assessment of assessments" class="assessment" (click)="goToDetail(assessment)">
         <ion-card-content class="outer-content">
             <div class="pull-left">
-                <avatar [src]="assessment.member.avatar" [size]="'list'"></avatar>
-                {{assessment.member|namify}}
+                <avatar [id]="assessment.member.id" [size]="'list'"></avatar>
+                {{assessment.member|namify:false}}
             </div>
             <div class="pull-left">
                 <span class="name">{{assessment.instrument.name}}</span>, {{assessment.lastModified|date}}
@@ -21,7 +21,7 @@
                 <div *ngIf="assessment.assessor.id != assessment.member.id">
                     <div class="pull-left">by</div>
                     <div class="pull-left">
-                        <avatar [src]="assessment.assessor.avatar" [size]="'tiny'"></avatar>
+                        <avatar [id]="assessment.assessor.id" [size]="'tiny'"></avatar>
                     </div>
                     <div class="pull-left">{{assessment.assessor.firstName}} {{assessment.assessor.lastName}}</div>
                 </div>

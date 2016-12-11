@@ -4,16 +4,16 @@ import {Http} from "@angular/http";
 @Injectable()
 export class Config {
     data: any;
-    appName = "Cogic";
-    copyright = "Copyright \u00a9 2015, CogentQI.com.  All rights reserved.";
-    trademarkName = "CogentQI&#8482;";
-    name = "Demonstration";
-    logo = '<img src="/assets/site/default/images/hdrLogo.png" alt=""/>';
-    site = '/site/default';
-    siteDir: string = 'default';
-    css: string = this.site + '/theme.css';
-    translations: string = this.site + '/translations';
-    fullLogo: string = '<img src="/assets/site/default/images/hdrLogo.png" alt=""/>';
+    public appName = "Cogic";
+    public copyright = "Copyright \u00a9 2015, CogentQI.com.  All rights reserved.";
+    public trademarkName = "CogentQI&#8482;";
+    public name = "Demonstration";
+    public logo = '<img src="/assets/site/default/images/hdrLogo.png" alt=""/>';
+    public site = '/site/default';
+    public siteDir: string = 'default';
+    public css: string = this.site + '/theme.css';
+    public translations: string = this.site + '/translations';
+    public fullLogo: string = '<img src="/assets/site/default/images/hdrLogo.png" alt=""/>';
 
     constructor(protected http: Http) {
         try {
@@ -21,10 +21,13 @@ export class Config {
             let parts = hostname.split('.');
             if (parts.length >= 2 && parts[0]) {
                 this.siteDir = parts[0];
-                this.site = '/site/' + this.siteDir;
+                this.site = '/assets/site/' + this.siteDir;
                 this.css = this.site + '/theme.css';
                 this.translations = this.site + '/translations';
-                window.document.getElementById('theme').setAttribute('href', this.css);
+                let themeElement = window.document.getElementById('theme');
+                if (themeElement) {
+                    themeElement.setAttribute('href', this.css);
+                }
                 this.load();
                 //translate.resetLang('en');
                 //translate.use('../../' + this.siteDir + '/translations/en');
@@ -36,20 +39,21 @@ export class Config {
     }
 
     load() {
+        let cfg = this;
         if (this.data) {
             return Promise.resolve(this.data);
         }
         return new Promise(resolve => {
             this.http.get(this.site + '/config.json').subscribe(res => {
-                this.data = this.processData(res.json());
-                resolve(this.data);
+                cfg.data = cfg.processData(res.json());
+                resolve(cfg.data);
             });
         });
     }
 
     processData(jsonObject) {
-        if (jsonObject.logo) {
-            this.logo = jsonObject.logo;
+        if (jsonObject.headerLogo) {
+            this.logo = jsonObject.headerLogo;
         }
         if (jsonObject.fullLogo) {
             this.fullLogo = jsonObject.fullLogo;

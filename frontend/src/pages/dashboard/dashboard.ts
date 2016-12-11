@@ -13,7 +13,7 @@ export class DashboardPage {
     matrix: MatrixPage;
     resources: ResourceListPage;
 
-    constructor(private config: Config, private nav: NavController, private navParams: NavParams, private session: SessionProvider) {
+    constructor(public config: Config, private nav: NavController, private navParams: NavParams, public session: SessionProvider) {
         this.user = session.user;
     }
 

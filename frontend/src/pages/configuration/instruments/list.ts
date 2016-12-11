@@ -8,9 +8,10 @@ import {InstrumentConfigPage} from "./config";
 })
 export class CfgInstrumentsListPage {
     instruments = [];
+    queryText: string;
 
     constructor(private nav: NavController, instrumentData: InstrumentProvider) {
-        instrumentData.getAll(null).then(instruments => {
+        instrumentData.getAll(null, false).then(instruments => {
             this.instruments = instruments;
         });
     }

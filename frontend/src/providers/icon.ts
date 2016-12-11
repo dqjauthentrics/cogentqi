@@ -21,7 +21,7 @@ export class IconProvider {
             case 'help':
                 className = 'information-circle';
                 break;
-            case 'instrumment':
+            case 'instrument':
             case 'instruments':
                 className = 'clipboard';
                 break;
@@ -61,6 +61,7 @@ export class IconProvider {
             case 'schedule':
                 className = 'calendar';
                 break;
+            case 'configuration':
             case 'settings':
             case 'setting':
                 className = 'settings';

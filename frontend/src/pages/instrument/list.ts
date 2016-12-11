@@ -14,7 +14,7 @@ export class InstrumentListPage {
     constructor(private nav: NavController, instrumentData: InstrumentProvider) {
         var organizationId = 2;
         var args = [organizationId];
-        instrumentData.getAll(DataModel.buildArgs(args)).then(instruments => {
+        instrumentData.getAll(DataModel.buildArgs(args), false).then(instruments => {
             this.instruments = instruments;
             for (var instrument of this.instruments) {
                 instrument.visible = true;

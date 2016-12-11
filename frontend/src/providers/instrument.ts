@@ -1,6 +1,8 @@
 import {Injectable} from "@angular/core";
+import {Events, ToastController} from "ionic-angular";
 import {Http} from "@angular/http";
 import {DataModel} from "./data-model";
+import {Globals} from "./globals";
 import {Config} from "./config";
 
 @Injectable()
@@ -11,8 +13,8 @@ export class InstrumentProvider extends DataModel {
     public current = null;
     public currentSectionIdx = this.SECTION_ALL;
 
-    constructor(protected http: Http, config: Config) {
-        super('instrument', http, config);
+    constructor(protected toastCtrl: ToastController, protected http: Http, protected globals: Globals, protected config: Config, private events: Events) {
+        super('member', toastCtrl, http, globals, config);
     }
 
     find(id: number) {

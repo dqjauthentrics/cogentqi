@@ -1,9 +1,8 @@
 import {Component} from "@angular/core";
 import {NavParams, NavController} from "ionic-angular";
-import {GlobalsProvider} from "../../providers/globals";
+import {Globals} from "../../providers/globals";
 import {DashboardPage} from "../dashboard/dashboard";
 import {HelpPage} from "../help/help";
-import {AssessmentListPage} from "../assessment/list";
 import {ResourceListPage} from "../resource/list";
 import {MemberListPage} from "../member/list";
 import {ConfigHelpIndex} from "../configuration/help/index";
@@ -13,6 +12,7 @@ import {CfgInstrumentsListPage} from "../configuration/instruments/list";
 import {CfgEventsListPage} from "../configuration/events/list";
 import {CfgOutcomesListPage} from "../configuration/outcomes/list";
 import {SettingsConfigPage} from "../configuration/settings/config";
+import {ConfigurationPage} from "../configuration/configuration";
 
 export interface TabPageObj {
     title: string;
@@ -31,7 +31,7 @@ export class TabsPage {
         {title: 'Dashboard', page: DashboardPage, icon: 'dashboard'},
         {title: 'Members', page: MemberListPage, icon: 'members'},
         {title: 'Resources', page: ResourceListPage, icon: 'resources'},
-        {title: 'Assessments', page: AssessmentListPage, icon: 'assessments'},
+        {title: 'Configuration', page: ConfigurationPage, icon: 'configuration'},
         {title: 'Help', page: HelpPage, icon: 'help'}
     ];
     cfgPages: TabPageObj[] = [
@@ -53,7 +53,7 @@ export class TabsPage {
      * @param nav
      * @param globals
      */
-    constructor(private navParams: NavParams, private nav: NavController, private globals: GlobalsProvider) {
+    constructor(private navParams: NavParams, private nav: NavController, private globals: Globals) {
         this.pages = globals.tabMode == 'normal' ? this.mainPages : this.cfgPages;
         this.selectedIndex = navParams.data.tabIndex || 0;
     }

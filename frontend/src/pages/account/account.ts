@@ -9,7 +9,7 @@ import {SessionProvider} from "../../providers/session";
 export class AccountPage {
     public base64Image: string;
 
-    constructor(private alertCtrl: AlertController, private nav: NavController, private session: SessionProvider) {
+    constructor(private alertCtrl: AlertController, private nav: NavController, public session: SessionProvider) {
     }
 
     takeSnapshot() {

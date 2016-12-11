@@ -2,14 +2,14 @@ import {Component, ViewChild, enableProdMode} from "@angular/core";
 import {Events, Nav, Platform} from "ionic-angular";
 import {StatusBar} from "ionic-native";
 import {Config} from "../providers/config";
-import {GlobalsProvider} from "../providers/globals";
+import {Globals} from "../providers/globals";
 import {InstrumentProvider} from "../providers/instrument";
 import {SessionProvider} from "../providers/session";
 import {LoginPage} from "../pages/login/login";
 import {AccountPage} from "../pages/account/account";
 import {TabsPage} from "../pages/tabs/tabs";
 
-if (GlobalsProvider.isProduction == true) {
+if (Globals.isProduction == true) {
     enableProdMode();
 }
 
@@ -57,7 +57,7 @@ export class CogicApp {
 
     rootPage: any = LoginPage;
 
-    constructor(private events: Events, private globals: GlobalsProvider, private session: SessionProvider, platform: Platform, private config: Config, private instrumentData: InstrumentProvider) {
+    constructor(private events: Events, private globals: Globals, private session: SessionProvider, platform: Platform, private config: Config, private instrumentData: InstrumentProvider) {
         // Call any initial plugins when ready
         platform.ready().then(() => {
             StatusBar.styleDefault();
@@ -99,12 +99,12 @@ export class CogicApp {
     }
 
     listenToLoginEvents() {
-        this.events.subscribe('user:login', () => {
+        this.events.subscribe('session:login', () => {
             this.rootPage = TabsPage;
             this.setPages(true);
             this.instrumentData.loadAll(null);
         });
-        this.events.subscribe('user:logout', () => {
+        this.events.subscribe('session:logout', () => {
             this.rootPage = LoginPage;
             this.setPages(false);
             let loginPage: PageObj = {title: 'Login', component: LoginPage, icon: 'log-in', tabMode: 'normal'};

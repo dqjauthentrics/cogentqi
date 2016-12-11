@@ -1,31 +1,55 @@
 <ion-header>
-    <ion-navbar>
-        <button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>Members</ion-title>
-    </ion-navbar>
-    <ion-toolbar no-border-top>
-        <ion-searchbar primary [(ngModel)]="queryText" placeholder="Search"></ion-searchbar>
-    </ion-toolbar>
+    <header-bar title="Members"></header-bar>
 </ion-header>
 
-<ion-content class="outer-content member-list">
-    <loading-indicator [hidden]="members?.length"></loading-indicator>
-    <ion-card *ngFor="let member of members|filter:queryText" class="member">
-        <ion-card-header>
-            <ion-item>
-                <div class="pull-left">
-                    <avatar [src]="member.avatar" [size]="'list'"></avatar>
-                </div>
-                <div class="pull-left">
-                    <a (click)="goToDetail(member)">{{member|namify}}</a>, {{member.roleName}}
-                </div>
-            </ion-item>
-        </ion-card-header>
-
-        <ion-card-content class="outer-content">
-        </ion-card-content>
-
-    </ion-card>
+<ion-content class="dashboard member-list">
+    <table class="table table-striped" [mfData]="members | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
+           [(mfSortOrder)]="sortOrder">
+        <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>
+                <mfDefaultSorter [by]="sortName">Name</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter by="roleName">Role</mfDefaultSorter>
+            </th>
+            <th>
+                Last Assessment
+            </th>
+        </tr>
+        <tr>
+            <th colspan="7">
+                <input class="filter" [(ngModel)]="filterQuery" placeholder="filter"/>
+            </th>
+        </tr>
+        <tr [hidden]="!loading"><td colspan="4"><loading-indicator [loading]="loading"></loading-indicator></td></tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let member of mf.data" class="order">
+            <td>
+                <avatar *ngIf="member.avatar" [id]="member.id" [size]="'list'"></avatar>
+            </td>
+            <td>
+                <a [href]="'mailto:' + (member && member.email? member.email : '')">
+                    <app-icon name="members"></app-icon>
+                </a>
+                <a (click)="goToDetail(member)">{{member|namify:false}}</a>
+            </td>
+            <td>
+                {{member.roleName}}
+            </td>
+            <td>
+                <assessment-item [assessment]="member.lastAssessment" [showMember]="false" [showIcon]="false"></assessment-item>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
 </ion-content>

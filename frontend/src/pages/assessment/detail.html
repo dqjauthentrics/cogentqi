@@ -3,7 +3,7 @@
         <button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>{{instrument.n}}: {{assessment.member|namify}} {{assessment.lm|date}}</ion-title>
+        <ion-title>{{instrument.n}}: {{assessment.member|namify:false}} {{assessment.lm|date}}</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -13,13 +13,13 @@
         <ion-row>
             <ion-col>
                 <div class="pull-left">
-                    <avatar [src]="assessment.member.avatar" [size]="'full'"></avatar>
+                    <avatar [id]="assessment.member.id" [size]="'full'"></avatar>
                 </div>
-                <div class="pull-left"><h3>{{assessment.member|namify}}</h3></div>
+                <div class="pull-left"><h3>{{assessment.member|namify:false}}</h3></div>
             </ion-col>
             <ion-col>
-                Last modified {{assessment.lastModfied|date:'M/d/yyyy @ h:mm'}} by {{assessment.assessor|namify}}
-                <avatar [src]="assessment.assessor.avatar" [size]="'tiny'"></avatar>
+                Last modified {{assessment.lastModfied|date:'M/d/yyyy @ h:mm'}} by {{assessment.assessor|namify:false}}
+                <avatar [id]="assessment.assessor.id" [size]="'tiny'"></avatar>
             </ion-col>
             <ion-col class="button-bar">
                 <app-icon-button (click)="save()" name="save"></app-icon-button>

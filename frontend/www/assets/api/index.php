@@ -1,4 +1,13 @@
 <?php
+define('APP_PATH', dirname(dirname(dirname(dirname(__DIR__)))) . '/backend/');
+$server = @$_SERVER['SERVER_NAME'];
+$isProduction = !empty($server) && strstr($server, '.com');
+
+ini_set('html_errors', FALSE);
+ini_set('error_log', APP_PATH . 'logs/php.log');
+ini_set('display_errors', FALSE); // forces a 500 for AJAX returns because no output is sent
+ini_set('display_startup_errors', FALSE);
+
 if (isset($_SERVER['HTTP_ORIGIN'])) {
 	header("Access-Control-Allow-Origin: *");
 	header('Access-Control-Allow-Credentials: true');
@@ -8,7 +17,6 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 
 // Access-Control headers are received during OPTIONS requests
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-
 	if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'])) {
 		header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 	}
@@ -19,23 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 }
 use Phalcon\Loader;
 use Phalcon\Mvc\Application;
-
-define('APP_PATH', dirname(dirname(dirname(dirname(__DIR__)))) . '/backend/');
-
-/**
-set_error_handler(function ($errno, $errstr, $errfile, $errline) {
-if ($errno == E_USER_ERROR) {
-echo "ERR:" . $errstr;
-$result = new Cogent\Components\Result();
-$result->message = $errstr;
-$result->send();
-exit(1);
-}
-else {
-return TRUE;
-}
-});
- **/
 
 try {
 	$config = include APP_PATH . "App/Config/config.php";
@@ -76,54 +67,13 @@ try {
 	echo $application->handle()->getContent();
 }
 catch (\Exception $e) {
-	?>
-    <table>
-        <tr>
-            <th>Exception</th>
-            <td><?= $e->getMessage() ?></td>
-        </tr>
-        <tr>
-            <th>Class</th>
-            <td><?= get_class($e) ?></td>
-        </tr>
-        <tr>
-            <th>File</th>
-            <td><?= $e->getFile() ?></td>
-        </tr>
-        <tr>
-            <th>Line</th>
-            <td><?= $e->getLine() ?></td>
-        </tr>
-        <tr>
-            <th>Trace</th>
-            <td>
-                <pre><?= $e->getTraceAsString() ?></pre>
-            </td>
-        </tr>
-    </table>
-    <style>
-        table {
-            margin: 1em auto;
-            border-collapse: collapse;
-            max-width: 100%;
-        }
-
-        th, td {
-            border: 1px solid #AAA;
-            padding: 0.5em;
-            vertical-align: top;
-            margin: 0;
-            white-space: normal;
-        }
-
-        th {
-            font-weight: normal;
-            text-align: right;
-        }
-
-        td {
-            font-weight: bold;
-        }
-    </style>
-	<?php
+	$result = new \App\Components\Result($this);
+	$result->data = [
+		'message' => $e->getMessage(),
+		'class'   => get_class($e),
+		'file'    => $e->getFile(),
+		'line'    => $e->getLine(),
+		'trace'   => $e->getTraceAsString()
+	];
+	$result->sendError(500);
 }

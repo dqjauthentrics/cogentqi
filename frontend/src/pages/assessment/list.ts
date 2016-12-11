@@ -13,7 +13,7 @@ export class AssessmentListPage {
 
     constructor(private nav: NavController, private session: SessionProvider, assessmentData: AssessmentProvider) {
         var organizationId = session.user.organizationId;
-        assessmentData.getAll('/' + organizationId).then(assessments => {
+        assessmentData.getAll('/' + organizationId, false).then(assessments => {
             this.assessments = assessments;
         });
     }

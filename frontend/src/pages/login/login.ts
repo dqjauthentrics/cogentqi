@@ -11,20 +11,20 @@ export class LoginPage {
     login: {username?: string, password?: string} = {};
     submitted = false;
 
-    constructor(private nav: NavController, private userData: SessionProvider, private config: Config) {
+    constructor(private nav: NavController, public session: SessionProvider, public config: Config) {
     }
 
     onLogin(form) {
         this.submitted = true;
 
         if (form.valid) {
-            this.userData.login(this.login.username, this.login.password);
+            this.session.login(this.login.username, this.login.password);
             this.nav.push(TabsPage);
         }
     }
 
     onLogout() {
-        this.userData.logout();
+        this.session.logout();
         this.nav.push(TabsPage);
     }
 }

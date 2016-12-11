@@ -1,0 +1,44 @@
+<ion-row responsive-lg class="assessmentItem" *ngIf="assessment">
+    <ion-col>
+        <table>
+            <tr>
+                <td *ngIf="showIcon">
+                    <app-icon name="assessment"></app-icon>
+                </td>
+                <td>
+                    <div style="text-align:center;" [class]="'matrixFg ' + (assessment.typ == 'NAYesNo'?'yesNoFg':'levelFg') + assessment.rank">
+                        <div [ngSwitch]="assessment.editStatus">
+                            <div *ngSwitchCase="L">
+                                <app-icon name="locked"></app-icon>
+                            </div>
+                            <div *ngSwitchCase="A">
+                                <app-icon name="active"></app-icon>
+                            </div>
+                            <div *ngSwitchCase="C">
+                                <app-icon name="completed"></app-icon>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <a href="#/assessment/view/{{assessment.id}}">
+                        <span [hidden]="!prefix">{{prefix}}, </span>
+                        <span class="name">{{assessment.instrument.name}}, {{assessment.schedule.name}}</span>
+                        {{assessment.lastModified|date:'EEE'}}, {{assessment.lastModified|date:'short'}}</a>
+                </td>
+            </tr>
+        </table>
+    </ion-col>
+    <ion-col *ngIf="showMember">
+        <avatar [id]="assessment.member.id"></avatar>
+        {{assessment.member.fn}}
+        <br/>
+        {{assessment.member.ln}}
+        <div class="role">{{assessment.member.roleName}}</div>
+    </ion-col>
+    <ion-col *ngIf="assessment.assessor">
+        by {{assessment.assessor|namify:false}}
+        <avatar [id]="assessment.assessor.id"></avatar>
+        <div class="role">{{assessment.assessor.roleName}}</div>
+    </ion-col>
+</ion-row>
