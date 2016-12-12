@@ -1,0 +1,17 @@
+<table class="table table-striped" [mfData]="assessments" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
+       [(mfSortOrder)]="sortOrder">
+    <tbody>
+    <tr *ngFor="let assessment of mf.data" (click)="goToAssessment(assessment)">
+        <td>
+            <assessment-item [assessment]="assessment" [showMember]="false" [showIcon]="true"></assessment-item>
+        </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+    </tr>
+    </tfoot>
+</table>

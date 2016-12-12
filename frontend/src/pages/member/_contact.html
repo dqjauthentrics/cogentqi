@@ -1,0 +1,69 @@
+<table [class]="member.activeEnd? 'inactive':'active' + ' form'">
+    <tr>
+        <th>{{'email'|translate}}</th>
+        <td>
+            <inline-editor type="text" (onSave)="saveItem()" [disabled]="!canEdit()" [(ngModel)]="member.email" size="40"></inline-editor>
+            <span><a (click)="sendEmail(member)"><i class="fa fa-envelope fa-lg"></i></a></span>
+        </td>
+    </tr>
+
+    <tr>
+        <th>{{'address'|translate}}</th>
+        <td>
+            <inline-editor id="address" type="text" (onSave)="saveItem()" [disabled]="!canEdit()" [(ngModel)]="member.address" size="40"></inline-editor>
+        </td>
+    </tr>
+
+    <tr>
+        <th>{{'city'|translate}}</th>
+        <td>
+            <inline-editor id="city" type="text" (onSave)="saveItem()" [disabled]="!canEdit()" [(ngModel)]="member.city" size="40"></inline-editor>
+        </td>
+    </tr>
+
+    <tr>
+        <th>{{'state'|translate}}</th>
+        <td>
+            <inline-editor id="state" type="text" (onSave)="saveItem()" [disabled]="!canEdit()" [(ngModel)]="member.state" size="2"></inline-editor>
+        </td>
+    </tr>
+
+    <tr>
+        <th>{{'postal code'|translate}}</th>
+        <td>
+            <inline-editor id="postal" type="text" (onSave)="saveItem()" [disabled]="!canEdit()" [(ngModel)]="member.postal" size="10"></inline-editor>
+        </td>
+    </tr>
+
+    <tr>
+        <th>{{'mobile'|translate}}</th>
+        <td>
+            <inline-editor type="text" (onSave)="saveItem()" [disabled]="!canEdit()" [(ngModel)]="member.mobile" size="20"></inline-editor>
+            <span><a (click)="sendTextPrompt(member)"><i class="fa fa-mobile fa-2x"></i></a></span>
+        </td>
+    </tr>
+
+    <tr>
+        <th>{{'mobile provider'|translate}}</th>
+        <td>
+            <select id="provider" [(ngModel)]="member.messageFormat" data-ng-change="setDirty()">
+                <option value="">cannot receive texts</option>
+                <option value="{n}@txt.att.net">AT&T</option>
+                <option value="{n}@vtext.com">Verizon</option>
+                <option value="{n}@tmomail.net">T-Mobile</option>
+                <option value="{n}@messaging.sprintpcs.com">Sprint PCS</option>
+                <option value="{n}@vmobl.com">Virgin Mobile</option>
+                <option value="{n}@email.uscc.net">US Cellular</option>
+                <option value="{n}@messaging.nextel.com">Nextel</option>
+                <option value="{n}@myboostmobile.com">Boost</option>
+                <option value="{n}@message.alltel.com">Alltel</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <th>{{'home phone'|translate}}</th>
+        <td>
+            <inline-editor id="phone" type="text" (onSave)="saveItem()" [disabled]="!canEdit()" [(ngModel)]="member.phone" size="20"></inline-editor>
+        </td>
+    </tr>
+</table>

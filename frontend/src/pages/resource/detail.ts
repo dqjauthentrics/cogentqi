@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {Http} from "@angular/http";
 import {NavController, NavParams} from "ionic-angular";
 import {ResourceProvider} from "../../providers/resource";
+import {Globals} from "../../providers/globals";
 
 @Component({
     templateUrl: 'detail.html',
@@ -10,11 +11,11 @@ export class ResourceDetailPage {
     resource: any;
     content: any;
 
-    constructor(private nav: NavController, private navParams: NavParams, resourceData: ResourceProvider, http: Http) {
+    constructor(private nav: NavController, private navParams: NavParams, resourceData: ResourceProvider, http: Http, private globals: Globals) {
         this.resource = this.navParams.data;
-        resourceData.getSingle(this.resource.id).then(resource => {
+        resourceData.getSingle(this.resource.id).then(resource => { //@todo move to resource data model
             this.resource = resource;
-            http.get('http://pharmacy.dev2.cog/assets/api/resource/content/nursing:nrs002')
+            http.get(this.globals.URL_API + 'resource/content/nursing:nrs002')
                 .subscribe(
                     res => {
                         let data: any = res.json();

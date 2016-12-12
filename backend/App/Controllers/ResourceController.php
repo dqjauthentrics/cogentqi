@@ -123,7 +123,7 @@ class ResourceController extends ControllerBase {
 				$resourceId = $formResource["id"];
 				$resourceRecord = Resource::findFirst($resourceId);
 				/** @var \App\Models\Resource $resourceRecord */
-				if (!$resourceRecord->update(['description' => $formResource['dsc'], 'summary' => $formResource['sm']])) {
+				if (!$resourceRecord->update(['description' => $formResource['description'], 'summary' => $formResource['summary']])) {
 					throw new \Exception($resourceRecord->errorMessagesAsString());
 				}
 				$formAlignments = $data["alignments"];

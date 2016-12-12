@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {IconProvider} from "../providers/icon";
+import {Config} from "../providers/config";
 
 @Component({
     selector: 'micro-badge',
@@ -8,10 +8,13 @@ import {IconProvider} from "../providers/icon";
 
 export class MicroBadge {
     @Input() src: string = "";
-    @Input() text: string = "";
+    @Input() name: string = "";
     @Input() size: string = "small";
 
-    constructor(public icon: IconProvider) {
+    constructor(private config: Config) {
+    }
 
+    getSrc(src) {
+        return this.config.site + '/badges/' + src;
     }
 }

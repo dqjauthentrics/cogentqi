@@ -7,17 +7,17 @@
     <div class="clearfix"></div>
     <table class="cycle">
         <tr>
-            <td style="text-align:left; vertical-align: middle !important; padding-top:2em;">
-                <div style="float:left; margin-top:-5.6em; font-size: 0.5em; line-height:1em; text-align: left;">
+            <td style="text-align:left; vertical-align: middle !important; padding-top:2rem;">
+                <div style="float:left; margin-top:-5.6rem; font-size: 1.4rem; line-height:1.6rem; text-align: left;">
                     <div class="dashName">{{user?.firstName}} {{user?.lastName}}</div>
                     <div class="dashJob">{{user?.jobTitle}}</div>
                     <div class="dashRole">{{user?.roleName}}</div>
                     <div class="dashOrg">{{user?.organizationName}}</div>
                 </div>
-                <a style="margin-left:1.5em;" (click)="goToPage('matrix')">{{'Assessment'|translate}}</a>
+                <a style="margin-left:1.5rem;" (click)="goToPage('matrix')">{{'Assessment'|translate}}</a>
             </td>
             <td style="text-align:center; vertical-align: bottom !important;">
-                <a style="margin-left:-1em;" (click)="goToPage('resources')">{{'Outcomes'|translate}}</a>
+                <a style="margin-left:-1rem;" (click)="goToPage('resources')">{{'Outcomes'|translate}}</a>
             </td>
         </tr>
         <tr>
@@ -33,7 +33,7 @@
                     <a href="/resources" [innerHTML]="'Professional Development'|translate|replace:' ':'<br/>'"></a>
                 </div>
             </td>
-            <td style="text-align:left; vertical-align: top !important; padding-top:1.4em;">
+            <td style="text-align:left; vertical-align: top !important; padding-top:1.4rem;">
                 <a href="/calendar" style="margin-left:-1.6em;">{{'Planning'|translate}}</a>
             </td>
         </tr>

@@ -1,0 +1,36 @@
+<table class="table table-striped" [mfData]="events | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
+       [(mfSortOrder)]="sortOrder">
+    <thead>
+    <tr>
+        <th>
+            <mfDefaultSorter by="occurred">{{'Occurred'|translate}}</mfDefaultSorter>
+        </th>
+       <th>
+            <mfDefaultSorter by="namr">{{'Type'|translate}}</mfDefaultSorter>
+        </th>
+        <th>
+            <mfDefaultSorter by="category">{{'Category'|translate}}</mfDefaultSorter>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let event of mf.data" class="order">
+        <td>
+            {{event.occurred}}
+        </td>
+        <td>
+            {{event.name}}
+        </td>
+        <td>
+            {{event.category}}
+        </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+    </tr>
+    </tfoot>
+</table>

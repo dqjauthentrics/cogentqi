@@ -43,28 +43,6 @@ class Event extends AppModel {
 	public $threshold;
 
 	/**
-	 * Allows to query a set of records that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return Event[]
-	 */
-	public static function find($parameters = NULL) {
-		return parent::find($parameters);
-	}
-
-	/**
-	 * Allows to query the first record that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return Event
-	 */
-	public static function findFirst($parameters = NULL) {
-		return parent::findFirst($parameters);
-	}
-
-	/**
 	 * Initialize method for model.
 	 */
 	public function initialize() {
@@ -88,11 +66,13 @@ class Event extends AppModel {
 	 */
 	public function map($options = []) {
 		$map = parent::map();
-		$jsonAlignments = [];
-		foreach ($this->alignments as $alignment) {
-			$jsonAlignments[] = $alignment->map();
+		if (empty($options['minimal'])) {
+			$jsonAlignments = [];
+			foreach ($this->alignments as $alignment) {
+				$jsonAlignments[] = $alignment->map();
+			}
+			$map["alignments"] = $jsonAlignments;
 		}
-		$map["alignments"] = $jsonAlignments;
 		return $map;
 	}
 

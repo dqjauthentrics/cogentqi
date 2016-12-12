@@ -37,27 +37,6 @@ class MemberBadge extends AppModel {
 	 */
 	public $earned;
 
-	/**
-	 * Allows to query a set of records that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return MemberBadge[]
-	 */
-	public static function find($parameters = NULL) {
-		return parent::find($parameters);
-	}
-
-	/**
-	 * Allows to query the first record that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return MemberBadge
-	 */
-	public static function findFirst($parameters = NULL) {
-		return parent::findFirst($parameters);
-	}
 
 	/**
 	 * Initialize method for model.
@@ -84,7 +63,9 @@ class MemberBadge extends AppModel {
 	public function map($options = []) {
 		$map = parent::map($options);
 		if (!empty($this->badge)) {
+			$map['name'] = $this->badge->name;
 			$map['image'] = $this->badge->image;
+			$map['description'] = $this->badge->description;
 		}
 		return $map;
 	}

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Events, ToastController} from "ionic-angular";
+import {Events, AlertController} from "ionic-angular";
 import {Storage} from "@ionic/storage";
 import {Http} from "@angular/http";
 import {Config} from "./config";
@@ -14,8 +14,8 @@ export class SessionProvider extends DataModel {
 
     public loginError: string = 'okay';
 
-    constructor(protected toastCtrl: ToastController, protected http: Http, protected globals: Globals, protected config: Config, private events: Events) {
-        super('user', toastCtrl, http, globals, config);
+    constructor(protected alertCtrl: AlertController, protected http: Http, protected globals: Globals, protected config: Config, private events: Events) {
+        super('user', alertCtrl, http, globals, config);
         this.checkLogin();
     }
 
@@ -64,7 +64,7 @@ export class SessionProvider extends DataModel {
             console.log('SessionProvider:refreshUser(entry)');
         }
         return new Promise(resolve => {
-            this.http.post('/assets/api/session/refreshUser', null, null).subscribe(res => {
+            this.http.post(this.baseUrl + 'refreshUser', null, null).subscribe(res => {
                 let jsonResponse = res.json();
                 this.validate(jsonResponse, true);
                 if (this.globals.debug) {
@@ -78,7 +78,7 @@ export class SessionProvider extends DataModel {
     login(username, password) {
         return new Promise(resolve => {
             let data = {username: username, password: password};
-            this.http.post('/assets/api/session/login', data, null).subscribe(res => {
+            this.http.post(this.baseUrl + 'login', data, null).subscribe(res => {
                 let jsonResponse = res.json();
                 this.validate(jsonResponse, false);
                 resolve(jsonResponse);

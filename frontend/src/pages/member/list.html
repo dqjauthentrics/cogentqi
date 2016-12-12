@@ -47,7 +47,7 @@
                 {{member.roleName}}
             </td>
             <td>
-                <micro-badge [text]="member.badges.length + ''" [size]="'count'"></micro-badge>
+                <micro-badge-count [n]="member.badges.length"></micro-badge-count>
             </td>
             <td>
                 <assessment-item [assessment]="member.lastAssessment" [showMember]="false" [showIcon]="false"></assessment-item>

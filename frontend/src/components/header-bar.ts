@@ -3,7 +3,7 @@ import {SessionProvider} from "../providers/session";
 import {AlertController, NavController} from "ionic-angular";
 
 @Component({
-    selector: '<header-bar [title]="title"></header-bar>',
+    selector: 'header-bar',
     templateUrl: 'header-bar.html'
 })
 

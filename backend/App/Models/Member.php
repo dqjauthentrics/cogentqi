@@ -235,20 +235,16 @@ class Member extends AppModel {
 		unset($map['password']);
 		if (empty($options['minimal'])) {
 			if (!empty($options['badges'])) {
-				$map["badges"] = $this->getBadges(['order' => 'earned DESC']);
+				$map["badges"] = $this->mapChildren('\App\Models\MemberBadge', 'member_id', 'earned DESC');
 			}
 			if (!empty($options['notes'])) {
-				$map["notes"] = $this->getNotes(['order' => 'last_modified DESC']);
+				$map["notes"] = $this->mapChildren('\App\Models\MemberNote', 'member_id', 'last_modified DESC');
 			}
 			if (!empty($options['events'])) {
-				$map['events'] = $this->getEvents(['order' => 'occurred DESC']);
+				$map['events'] = $this->mapChildren('\App\Models\MemberEvent', 'member_id', 'occurred DESC');
 			}
 			if (!empty($options['assessments'])) {
-				//$map["assessments"] = $this->mapRecords($this->getAssessments(['order' => 'last_modified DESC']));
-				$map["assessments"] = [];
-				foreach ($this->getAssessments(['order' => 'last_modified DESC']) as $assessment) {
-					$map["assessments"][] = $assessment->map(['responses' => TRUE]);
-				}
+				$map["assessments"] = $this->mapChildren('\App\Models\Assessment', 'member_id', 'last_modified DESC');
 			}
 			if (!empty($options['lastAssessment'])) {
 				$map["lastAssessment"] = $this->mapLastAssessment();
@@ -256,9 +252,9 @@ class Member extends AppModel {
 		}
 		else {
 			$map['minimal'] = 1; // flag to indicate we're returning minimal info, in case of permission checking
-			$map = Utility::arrayRemoveByKey('ad', $map);
-			$map = Utility::arrayRemoveByKey('cy', $map);
-			$map = Utility::arrayRemoveByKey('sp', $map);
+			$map = Utility::arrayRemoveByKey('address', $map);
+			$map = Utility::arrayRemoveByKey('city', $map);
+			$map = Utility::arrayRemoveByKey('state', $map);
 		}
 		return $map;
 	}

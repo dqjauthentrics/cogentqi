@@ -60,7 +60,7 @@ class MemberController extends ControllerBase {
 					$data = $member->map(['minimal']);
 				}
 				else {
-					$data = $member->map(['assessments' => TRUE]);
+					$data = $member->map(['assessments' => TRUE, 'events' => TRUE, 'badges' => TRUE]);
 				}
 				if (!empty($data)) {
 					$result->setNormal($data);

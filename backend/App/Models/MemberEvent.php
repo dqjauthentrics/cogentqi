@@ -44,28 +44,6 @@ class MemberEvent extends AppModel {
 	public $occurred;
 
 	/**
-	 * Allows to query a set of records that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return MemberEvent[]
-	 */
-	public static function find($parameters = NULL) {
-		return parent::find($parameters);
-	}
-
-	/**
-	 * Allows to query the first record that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return MemberEvent
-	 */
-	public static function findFirst($parameters = NULL) {
-		return parent::findFirst($parameters);
-	}
-
-	/**
 	 * Initialize method for model.
 	 */
 	public function initialize() {
@@ -84,9 +62,8 @@ class MemberEvent extends AppModel {
 
 	public function map($options = []) {
 		$map = parent::map($options);
-		$map['n'] = $this->event->name;
-		$map['dsc'] = $this->event->description;
-		$map['cat'] = $this->event->category;
+		$map['name'] = $this->event->name;
+		$map['category'] = $this->event->category;
 		return $map;
 	}
 

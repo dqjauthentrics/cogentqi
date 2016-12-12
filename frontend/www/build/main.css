@@ -4725,10 +4725,17 @@ h2 {
   color: #666;
 }
 
-h3 {
-  font-size: 4vmin;
-  font-weight: normal;
-  color: #8DC75C;
+h3, .card h3 {
+  margin-top: 1rem !important;
+  font-size: 2rem !important;
+  font-weight: 100 !important;
+  color: #777 !important;
+}
+
+h4, .card h4 {
+  margin-top: 1rem !important;
+  font-size: 1.8rem !important;
+  font-weight: bold !important;
 }
 
 h4 {
@@ -4903,13 +4910,22 @@ table thead tr th {
   margin-right: 0;
 }
 
-ion-card {
+ion-card, ion-card.card {
   padding: 8px;
-  cursor: pointer;
+  background: #EFEFEF;
+}
+
+ion-card img {
+  display: inline !important;
+  width: auto !important;
 }
 
 ion-card ion-card-header .item {
   padding: 4px;
+}
+
+.item {
+  background-color: transparent !important;
 }
 
 ion-card ion-card-content .list {
@@ -5029,10 +5045,30 @@ app-icon {
   vertical-align: center;
   color: #95989a;
   display: inline-block;
+  margin: 0.5rem;
 }
 
 app-icon ion-icon:before {
   font-size: 4.0rem;
+}
+
+app-icon[size="small"] {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+app-icon[size="small"] ion-icon:before {
+  font-size: 2.25rem;
+}
+
+ion-navbar button {
+  background: transparent;
+  color: #FFF;
+}
+
+ion-navbar button ion-icon:after {
+  background: transparent;
+  color: #FFF;
 }
 
 ion-list div.name {
@@ -5085,14 +5121,7 @@ ion-list div.forward {
   vertical-align: middle !important;
 }
 
-table.microBadgeHolder {
-  float: left;
-  margin: 0.3em;
-  max-width: 100px;
-  min-width: 100px;
-}
-
-.microBadge {
+table.micro-badge {
   background: transparent url(/assets/img/badge.png) center center no-repeat;
   background-size: contain;
   white-space: normal;
@@ -5100,39 +5129,42 @@ table.microBadgeHolder {
   vertical-align: middle;
   font-weight: bold;
   margin: 0.5em;
-}
-
-.microBadge.count {
-  height: 6vmin;
-  width: 6vmin;
-  min-height: 30px;
-  min-width: 30px;
-  max-height: 60px;
-  max-width: 60px;
+  max-width: 24px;
+  max-height: 24px;
+  min-height: 24px;
+  min-width: 24px;
   font-size: 1.0em;
   line-height: 0.9em;
 }
 
-.microBadge.icon {
-  height: 5vmin;
-  width: 5vmin;
-  font-size: 1.3vmin;
-  line-height: 1.3vmin;
-  display: inline;
+.micro-badge {
+  font-size: 1rem;
+  line-height: 1.1rem;
+  display: inline-block;
+  margin: 1rem;
 }
 
-.microBadge.small {
-  height: 10vmin;
-  width: 10vmin;
-  font-size: 1.3vmin;
-  line-height: 1.3vmin;
+.micro-badge img {
+  width: auto;
 }
 
-.microBadge.large {
-  height: 15vmin;
-  width: 15vmin;
-  font-size: 2vmin;
-  line-height: 2vmin;
+.micro-badge div {
+  text-align: center;
+}
+
+.micro-badge.small img {
+  height: 5rem;
+  width: 5rem;
+}
+
+.micro-badge.medium img {
+  height: 8rem;
+  width: 8rem;
+}
+
+.micro-badge.large img {
+  height: 12rem;
+  width: 12rem;
 }
 
 .levelBadge i, .outcomeLevel i {
@@ -5278,6 +5310,55 @@ table.microBadgeHolder {
 
 .levelColor5 {
   color: #C000C0;
+}
+
+.label {
+  color: #555;
+  font-weight: 100;
+}
+
+.panel {
+  background: #EEE;
+}
+
+label {
+  font-weight: 100;
+  font-style: italic;
+  margin: 0.5rem 0.5rem 0 0;
+}
+
+inline-editor {
+  margin: 0 1rem 2rem 1rem;
+}
+
+.alert-button {
+  background-color: #F0F0F0 !important;
+  color: #004462 !important;
+  border-radius: 2px !important;
+}
+
+.alert-message {
+  padding: 12px !important;
+}
+
+.alert-head {
+  background: #D0D0D0;
+  color: #FFF;
+}
+
+table.form th, table.form td {
+  padding: 2px;
+}
+
+table.form th {
+  font-weight: 100;
+  color: #666;
+  text-align: right;
+  font-style: italic;
+}
+
+table.form td {
+  text-align: left;
 }
 
 ion-action-sheet {
@@ -27147,6 +27228,10 @@ sub {
   font-style: italic;
 }
 
+assessment-item {
+  color: #444;
+}
+
 .assessment-detail ion-grid.header ion-col:nth-child(2) {
   text-align: center;
 }
@@ -27497,6 +27582,10 @@ ion-content.login form img {
 .member-list ion-avatar img {
   width: 48px;
   height: 48px;
+}
+
+.member-list ion-content > div > table > thead > tr > th:nth-child(4), .member-list ion-content > div > table > tbody > tr > td:nth-child(4) {
+  max-width: 2rem;
 }
 
 .resource-detail .video-embed {

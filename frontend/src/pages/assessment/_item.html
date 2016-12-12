@@ -3,7 +3,7 @@
         <table>
             <tr>
                 <td *ngIf="showIcon">
-                    <app-icon name="assessment"></app-icon>
+                    <app-icon name="assessment" size="small"></app-icon>
                 </td>
                 <td>
                     <div style="text-align:center;" [class]="'matrixFg ' + (assessment.typ == 'NAYesNo'?'yesNoFg':'levelFg') + assessment.rank">
@@ -31,14 +31,12 @@
     </ion-col>
     <ion-col *ngIf="showMember">
         <avatar [id]="assessment.member.id"></avatar>
-        {{assessment.member.fn}}
-        <br/>
-        {{assessment.member.ln}}
-        <div class="role">{{assessment.member.roleName}}</div>
+        {{assessment.member|namify:false}},
+        <span class="role">{{assessment.member.roleName}}</span>
     </ion-col>
     <ion-col *ngIf="assessment.assessor">
-        by {{assessment.assessor|namify:false}}
+        by {{assessment.assessor|namify:false}},
         <avatar [id]="assessment.assessor.id"></avatar>
-        <div class="role">{{assessment.assessor.roleName}}</div>
+        <span class="role">{{assessment.assessor.roleName}}</span>
     </ion-col>
 </ion-row>

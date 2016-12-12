@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Components\Result;
+use App\Models\Member;
 use App\Models\Message;
 
 class MessageController extends ControllerBase {
@@ -39,10 +40,10 @@ class MessageController extends ControllerBase {
 			$memberId = @$data["memberId"];
 			$message = @$data["message"];
 			if (!empty($memberId) && !empty($message)) {
-				$member = $this->database->table('member')->get($memberId);
-				if (TRUE || !empty($member)) {
-					if (TRUE || (!empty($member["mobile"]) && !empty($member["message_format"]))) {
-						$number = str_replace('{n}', $member["mobile"], $member["message_format"]);
+				$member = Member::findFirst($memberId);
+				if (!empty($member)) {
+					if ((!empty($member->mobile) && !empty($member->message_format))) {
+						$number = str_replace('{n}', $member->mobile, $member->message_format);
 						$number = '6072277351@vtext.com'; //@todo dqj hard-coded text messaging
 						$headers = "From: dqj@cogentqi.com \r\n";
 						if (mail($number, NULL, $message, $headers)) {

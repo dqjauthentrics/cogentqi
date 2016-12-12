@@ -16,6 +16,7 @@ export class MemberListPage {
     public sortOrder = "desc";
 
     constructor(private nav: NavController, memberData: MemberProvider) {
+        console.log('member constructor', this.members);
         this.loading = true;
         let organizationId = 2;
         let drilldown = 1;
@@ -27,6 +28,7 @@ export class MemberListPage {
                 member.visible = true;
             }
             this.loading = false;
+            console.log('member constructor loaded', this.members);
         });
     }
 
