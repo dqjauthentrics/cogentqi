@@ -11,8 +11,9 @@ export class CfgScheduleListPage {
     queryText: string;
 
     constructor(private nav: NavController, scheduleData: ScheduleProvider) {
+        let comp = this;
         scheduleData.getAll(null, false).then(schedule => {
-            this.schedule = schedule;
+            comp.schedule = schedule;
         });
     }
 

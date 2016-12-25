@@ -7,12 +7,19 @@ import {InstrumentConfigPage} from "./config";
     templateUrl: 'list.html'
 })
 export class CfgInstrumentsListPage {
-    instruments = [];
-    queryText: string;
+    public instruments = [];
+    public loading: boolean = false;
+    public filterQuery = "";
+    public rowsOnPage = 5;
+    public sortBy = "orderedOn";
+    public sortOrder = "desc";
 
     constructor(private nav: NavController, instrumentData: InstrumentProvider) {
+        let comp = this;
+        this.loading = true;
         instrumentData.getAll(null, false).then(instruments => {
-            this.instruments = instruments;
+            comp.instruments = instruments;
+            comp.loading = false;
         });
     }
 

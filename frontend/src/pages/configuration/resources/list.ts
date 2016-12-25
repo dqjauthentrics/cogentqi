@@ -7,12 +7,19 @@ import {ResourceConfigPage} from "./config";
     templateUrl: 'list.html'
 })
 export class CfgResourcesListPage {
-    resources = [];
-    queryText: string;
+    public resources = [];
+    public loading: boolean = false;
+    public filterQuery = "";
+    public rowsOnPage = 5;
+    public sortBy = "orderedOn";
+    public sortOrder = "desc";
 
     constructor(private nav: NavController, resourceData: ResourceProvider) {
+        let comp = this;
+        this.loading = true;
         resourceData.getAll(null, false).then(resources => {
-            this.resources = resources;
+            comp.resources = resources;
+            comp.loading = false;
         });
     }
 

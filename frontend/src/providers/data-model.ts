@@ -2,19 +2,20 @@ import {Injectable} from "@angular/core";
 import {Http, Headers, RequestOptions} from "@angular/http";
 import {Globals} from "./globals";
 import {Config} from "./config";
-import {AlertController} from "ionic-angular";
+import {SessionProvider} from "./session";
+import {ToastController} from "ionic-angular";
 
 @Injectable()
 export class DataModel {
     protected result: any;
 
-    baseUrl: string = '/assets/api/';
+    baseUrl: string = '/assets/api';
     list: any;
     single: any;
 
-    constructor(protected name: string, protected alertCtrl: AlertController, protected http: Http, protected globals: Globals, protected config: Config) {
+    constructor(protected name: string, protected toastCtrl: ToastController, protected http: Http, protected globals: Globals, protected config: Config, protected session: SessionProvider) {
         this.name = this.constructor.name.replace('Provider', '').toLowerCase();
-        this.baseUrl = this.globals.URL_API + name + '/';
+        this.baseUrl = '/assets/api/' + name;
     }
 
     static buildArgs(args) {
@@ -29,72 +30,76 @@ export class DataModel {
         let headers = new Headers({
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         });
-        return new RequestOptions({
+        let options = new RequestOptions({
             headers: headers
         });
+        return options;
     }
 
-    displayStatus(msg: string, status: string) {
-        let prompt = this.alertCtrl.create({
-            title: 'Result',
-            message: msg,
-            cssClass: status,
-            buttons: [
-                {
-                    text: 'Okay'
-                }
-            ]
-        });
-        prompt.present();
-    }
-
-    checkResult(result) {
-        let msg = result && result.message ? result.message : 'Okay!';
-        if (!result || result.code !== 200) {
-            msg = 'Sorry.  An error occurred on the server.' + (result.message ? result.message : '');
-            this.displayError(msg);
+    checkResult(result, notify: boolean) {
+        if (notify) {
+            let toast = this.toastCtrl.create({
+                message: result && result.code != 200 ? result.message : 'Okay!',
+                duration: 4000,
+                position: 'middle',
+                showCloseButton: true,
+                closeButtonText: 'Dismiss',
+                dismissOnPageChange: true,
+                cssClass: result && result.code == 200 ? "success" : "error"
+            });
+            toast.present();
         }
-        else {
-            this.displaySuccess(msg);
+        if (result && result.code == 500 && result.message && result.message.indexOf('Not logged in') >= 0) {
+            console.log('logging out...');
+            this.session.logout();
         }
     }
 
-    displayError(msg) {
-        this.displayStatus(msg, this.globals.STATUS_ERROR);
-    }
-
-    displayWarning(msg) {
-        this.displayStatus(msg, this.globals.STATUS_WARNING);
-    }
-
-    displayInfo(msg) {
-        this.displayStatus(msg, this.globals.STATUS_INFO);
-    }
-
-    displaySuccess(msg) {
-        this.displayStatus(msg, this.globals.STATUS_SUCCESS);
-    }
-
-    loadAll(args: string) {
-        console.log('loadAll(' + this.name + ')');
-        let that = this;
-        if (this.list) {
-            return Promise.resolve(this.list);
+    loadData(urlSegment: string) {
+        let provider = this;
+        let url = this.baseUrl + urlSegment;
+        if (this.globals.debug) {
+            console.log('data loading: ' + url);
         }
         return new Promise(resolve => {
-            let url = this.baseUrl + 'list' + (typeof args == 'string' ? args : '');
-            if (that.globals.debug) {
-                console.log('loading all ' + this.name + 's:' + url);
-            }
-            this.http.get(url).subscribe(res => {
-                let jsonResponse = res.json();
-                this.list = jsonResponse.data;
-                if (that.globals.debug) {
-                    console.log(this.name + 's retrieved:', this.list);
+            this.http.get(url).subscribe(
+                res => {
+                    try {
+                        let jsonResponse = res.json();
+                        provider.checkResult(jsonResponse, false);
+                        let data = jsonResponse.data;
+                        if (this.globals.debug) {
+                            console.log('jsonResponse: ', jsonResponse);
+                            console.log('data retrieved::', data);
+                        }
+                        resolve(data);
+                    }
+                    catch (exception) {
+                        console.error(exception);
+                    }
+                },
+                err => {
+                    this.checkResult(err, true);
                 }
-                resolve(this.list);
-            });
+            );
         });
+    }
+
+    getData(urlSegment: string) {
+        return this.loadData(urlSegment);
+    }
+
+    displayError(err) {
+        console.log(err);
+        let toast = this.toastCtrl.create({
+            message: 'Sorry.  An error occurred on the server.' + (err.status != 500 ? err.message : ''),
+            position: 'middle',
+            showCloseButton: true,
+            closeButtonText: 'Dismiss',
+            dismissOnPageChange: true,
+            cssClass: "error"
+        });
+        toast.present();
     }
 
 
@@ -103,43 +108,75 @@ export class DataModel {
     }
 
     getAll(args: string, resetFirst: boolean) {
-        console.log('getAll(' + this.name + '): ' + (resetFirst? 'reset':'existing'), this.list);
         if (resetFirst) {
             this.unsetList();
         }
-        return this.loadAll(args).then(data => this.list);
-    }
-
-    loadSingle(modelId) {
-        let that = this;
-        if (this.globals.debug) {
-            console.log('loading single ' + this.name + ':', modelId);
+        else {
+            if (this.list) {
+                return Promise.resolve(this.list);
+            }
         }
-        return new Promise(resolve => {
-            this.http.get(this.baseUrl + 'single/' + modelId).subscribe(res => {
-                let jsonResponse = res.json();
-                this.single = jsonResponse.data;
-                if (that.globals.debug) {
-                    console.log('model retrieved:', this.single);
-                }
-                resolve(this.single);
-            });
-        });
+        let url = '/list' + (typeof args == 'string' ? args : '');
+        return this.getData(url).then(
+            data => {
+                this.list = data;
+                return this.list;
+            }
+        );
     }
 
-    getSingle(modelId) {
-        return this.loadSingle(modelId).then(data => this.single);
+    getSingle(modelId: number) {
+        return this.getData('/single/' + modelId).then(
+            data => {
+                this.single = data;
+                return this.single;
+            },
+            error => {
+                this.globals.alertError('Error loading ' + this.name + ' data record.');
+            }
+        );
     }
 
-    update(data: any) {
-        console.log('update:', data);
+    getPostData(urlSegment: string, data: any) {
+        let provider = this;
         let body = JSON.stringify({data});
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
-        let url = this.baseUrl + 'update';
-        console.log('update:' + url);
+        let url = this.baseUrl + urlSegment;
+        if (provider.globals.debug) {
+            console.log('postData:' + url);
+        }
+        return new Promise(resolve => {
+            this.http.post(url, body, options).subscribe(
+                result => {
+                    this.checkResult(result, false);
+                    let jsonResponse = result.json();
+                    let data = jsonResponse.data;
+                    if (provider.globals.debug) {
+                        console.log(url + ':post returned:', data);
+                    }
+                    resolve(data);
+                },
+                error => {
+                    this.globals.alertError('There was an error on the server.');
+                }
+            );
+        });
+    }
+
+    update(data: any) {
+        let provider = this;
+        let body = JSON.stringify({data});
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+        let url = this.baseUrl + '/update';
+        if (provider.globals.debug) {
+            console.log('update:' + url);
+        }
         this.http.post(url, body, options).subscribe(res => {
-            console.log(this.name + 'update returns:');
+            if (provider.globals.debug) {
+                console.log(this.name + 'update returns:', res);
+            }
         });
     }
 }

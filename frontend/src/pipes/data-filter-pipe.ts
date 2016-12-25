@@ -44,6 +44,9 @@ export class DataFilterPipe implements PipeTransform {
             if (!match && rec.summary) {
                 match = match || this.match(query, rec.summary);
             }
+            if (!match && rec.description) {
+                match = match || this.match(query, rec.description);
+            }
         }
         return match;
     }
@@ -59,6 +62,19 @@ export class DataFilterPipe implements PipeTransform {
         return match;
     }
 
+    matchAssessment(query, rec) {
+        let match = false;
+        if (rec) {
+            if (rec.instrument) {
+                match = this.match(query, rec.instrument.name);
+            }
+            if (!match) {
+                match = match || this.matchMember(query, rec.assessor);
+            }
+        }
+        return match;
+    }
+
     transform(array: any[], query: string, colName: string): any {
         if (query) {
             query = _.lowerCase(query);
@@ -69,6 +85,7 @@ export class DataFilterPipe implements PipeTransform {
                 match = match || this.matchResource(query, row);
                 match = match || this.matchOrganization(query, row);
                 match = match || this.matchOrganization(query, row.organization);
+                match = match || this.matchAssessment(query, row.lastAssessment);
                 return match;
             });
         }

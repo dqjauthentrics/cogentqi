@@ -17,7 +17,7 @@ export class AssessmentDetailPage {
     instrument: any = {};
     assessment: any = {};
 
-    constructor(private color: ColorProvider, private nav: NavController, private navParams: NavParams, private assessmentData: AssessmentProvider, private instrumentData: InstrumentProvider) {
+    constructor(private color: ColorProvider, private nav: NavController, private navParams: NavParams, private assessmentData: AssessmentProvider, public instrumentData: InstrumentProvider) {
         this.assessment = this.navParams.data;
         assessmentData.getSingle(this.assessment.id).then(assessment => {
             console.log(assessment);

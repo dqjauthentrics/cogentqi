@@ -1,21 +1,19 @@
 import {Injectable} from "@angular/core";
-import {Events, AlertController} from "ionic-angular";
+import {Events, ToastController} from "ionic-angular";
 import {Storage} from "@ionic/storage";
 import {Http} from "@angular/http";
 import {Config} from "./config";
 import {Globals} from "./globals";
-import {DataModel} from "./data-model";
 
 @Injectable()
-export class SessionProvider extends DataModel {
+export class SessionProvider {
     public user: any = null;
     public isLoggedIn: boolean = false;
     private storage = new Storage();
 
     public loginError: string = 'okay';
 
-    constructor(protected alertCtrl: AlertController, protected http: Http, protected globals: Globals, protected config: Config, private events: Events) {
-        super('user', alertCtrl, http, globals, config);
+    constructor(protected toastCtrl: ToastController, protected http: Http, protected globals: Globals, protected config: Config, private events: Events) {
         this.checkLogin();
     }
 
@@ -64,7 +62,7 @@ export class SessionProvider extends DataModel {
             console.log('SessionProvider:refreshUser(entry)');
         }
         return new Promise(resolve => {
-            this.http.post(this.baseUrl + 'refreshUser', null, null).subscribe(res => {
+            this.http.post('/assets/api/session/refreshUser', null, null).subscribe(res => {
                 let jsonResponse = res.json();
                 this.validate(jsonResponse, true);
                 if (this.globals.debug) {
@@ -77,8 +75,9 @@ export class SessionProvider extends DataModel {
 
     login(username, password) {
         return new Promise(resolve => {
+            this.globals.showLoading('Logging in...');
             let data = {username: username, password: password};
-            this.http.post(this.baseUrl + 'login', data, null).subscribe(res => {
+            this.http.post('/assets/api/session/login', data, null).subscribe(res => {
                 let jsonResponse = res.json();
                 this.validate(jsonResponse, false);
                 resolve(jsonResponse);

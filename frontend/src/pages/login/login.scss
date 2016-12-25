@@ -16,8 +16,15 @@ ion-content.login {
     padding: 0.5rem;
   }
 
-  form img {
-    max-height: 100px;
-    margin: 1rem auto;
+  form {
+    img {
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+  }
+
+  h3 {
+    margin: 0;
+    text-align: center;
   }
 }

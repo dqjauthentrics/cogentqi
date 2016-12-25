@@ -1,17 +1,9 @@
 <ion-header>
-    <ion-navbar>
-        <button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>{{'Schedule'|translate}}</ion-title>
-    </ion-navbar>
-    <ion-toolbar no-border-top>
-        <ion-searchbar primary [(ngModel)]="queryText" placeholder="Search"></ion-searchbar>
-    </ion-toolbar>
+    <header-bar [title]="'Schedule'|translate"></header-bar>
 </ion-header>
 
-<ion-content class="outer-content schedule-list">
-    <ion-card *ngFor="let schedule of schedule|filter:queryText" class="schedule">
+<ion-content class="outer-content configuration schedule-list">
+    <ion-card *ngFor="let schedule of schedules|filter:queryText" class="schedule">
 
         <ion-card-header>
             <ion-item>

@@ -47,7 +47,7 @@ class OutcomeController extends ControllerBase {
 	 * @param int $id
 	 * @param int $organizationId
 	 */
-	public function getAction($id, $organizationId) {
+	public function singleAction($id, $organizationId) {
 		$outcome = new Outcome();
 		$outcome = $outcome->get($id, FALSE);
 		/** @var Outcome $outcome */

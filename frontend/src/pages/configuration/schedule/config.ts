@@ -10,9 +10,10 @@ export class ScheduleConfigPage {
     schedule: any;
 
     constructor(private nav: NavController, private navParams: NavParams, scheduleData: ScheduleProvider, http: Http) {
+        let comp = this;
         this.schedule = this.navParams.data;
         scheduleData.getSingle(this.schedule.id).then(schedule => {
-            this.schedule = schedule;
+            comp.schedule = schedule;
         });
     }
 }

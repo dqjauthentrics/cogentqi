@@ -1,21 +1,33 @@
 <ion-header>
-    <ion-navbar>
-        <button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>{{resource.name}}</ion-title>
-    </ion-navbar>
+    <header-bar [title]="'Resource Configuration'|translate"></header-bar>
 </ion-header>
 
-<ion-content class="outer-content resource-list">
+<ion-content class="outer-content configuration resource">
     <ion-card class="resource">
-        <ion-card-header>
+        <form>
             <ion-item>
-                <h1>{{resource?.name}}</h1>
+                <ion-label floating primary>{{'Number'|translate}}</ion-label>
+                <ion-input [(ngModel)]="resource.number" name="number" required></ion-input>
             </ion-item>
-        </ion-card-header>
-        <ion-card-content class="outer-content">
-            {{resource?.summary}}
-        </ion-card-content>
+            <p [hidden]="resource.valid || submitted == false" danger padding-left>
+                {{'Course number is required'}}
+            </p>
+            <ion-item>
+                <ion-label floating primary>{{'Title'|translate}}</ion-label>
+                <ion-input [(ngModel)]="resource.name" name="name" required></ion-input>
+            </ion-item>
+            <p [hidden]="resource.valid || submitted == false" danger padding-left>
+                {{'Title is required'}}
+            </p>
+            <div class="editor">
+                <label for="resSummaryEditor" floating primary>{{'Summary'|translate}}</label>
+                <div id="resSummaryEditor" [innerHTML]="resource.summary"></div>
+            </div>
+           <div class="editor">
+                <label for="resContentEditor" floating primary>{{'Content'|translate}}</label>
+                <div id="resContentEditor" [innerHTML]="resource.content"></div>
+            </div>
+            <editor-button-bar (onSave)="save(resource)" (onRemove)="remove(resource)"></editor-button-bar>
+        </form>
     </ion-card>
 </ion-content>

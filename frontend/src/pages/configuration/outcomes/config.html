@@ -1,21 +1,26 @@
 <ion-header>
-    <ion-navbar>
-        <button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>{{outcome.name}}</ion-title>
-    </ion-navbar>
+    <header-bar [title]="'Outcome Configuration'|translate"></header-bar>
 </ion-header>
 
-<ion-content class="outer-content outcome-list">
+<ion-content class="outer-content configuration outcome">
     <ion-card class="outcome">
-        <ion-card-header>
+        <form *ngIf="outcome">
             <ion-item>
-                <h1>{{outcome?.name}}</h1>
+                <ion-label floating primary>{{'Number'|translate}}</ion-label>
+                <ion-input [(ngModel)]="outcome.number" name="number" required></ion-input>
             </ion-item>
-        </ion-card-header>
-        <ion-card-content class="outer-content">
-            {{outcome?.summary}}
-        </ion-card-content>
+            <ion-item>
+                <ion-label floating primary>{{'Name'|translate}}</ion-label>
+                <ion-input [(ngModel)]="outcome.name" name="name" required></ion-input>
+            </ion-item>
+            <p [hidden]="outcome.valid || submitted == false" danger padding-left>
+                {{'Name is required'}}
+            </p>
+            <div class="editor">
+                <label for="outDescripEditor" floating primary>{{'Summary'|translate}}</label>
+                <div id="outDescripEditor" [innerHTML]="outcome.summary"></div>
+            </div>
+            <editor-button-bar (onSave)="save(outcome)" (onRemove)="remove(outcome)"></editor-button-bar>
+        </form>
     </ion-card>
 </ion-content>

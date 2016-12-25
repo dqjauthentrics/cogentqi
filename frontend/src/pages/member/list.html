@@ -1,5 +1,5 @@
 <ion-header>
-    <header-bar title="Members"></header-bar>
+    <header-bar [title]="'Members'|translate"></header-bar>
 </ion-header>
 
 <ion-content class="dashboard member-list">
@@ -47,7 +47,7 @@
                 {{member.roleName}}
             </td>
             <td>
-                <micro-badge-count [n]="member.badges.length"></micro-badge-count>
+                <micro-badge-count [n]="member.badges ? member.badges.length : 0"></micro-badge-count>
             </td>
             <td>
                 <assessment-item [assessment]="member.lastAssessment" [showMember]="false" [showIcon]="false"></assessment-item>

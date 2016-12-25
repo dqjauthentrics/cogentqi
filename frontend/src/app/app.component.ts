@@ -57,7 +57,7 @@ export class CogicApp {
 
     rootPage: any = LoginPage;
 
-    constructor(private events: Events, private globals: Globals, private session: SessionProvider, platform: Platform, private config: Config, private instrumentData: InstrumentProvider) {
+    constructor(private events: Events, private globals: Globals, private session: SessionProvider, platform: Platform, private config: Config, public instrumentData: InstrumentProvider) {
         // Call any initial plugins when ready
         platform.ready().then(() => {
             StatusBar.styleDefault();
@@ -102,7 +102,7 @@ export class CogicApp {
         this.events.subscribe('session:login', () => {
             this.rootPage = TabsPage;
             this.setPages(true);
-            this.instrumentData.loadAll(null);
+            this.instrumentData.getAll(null, false);
         });
         this.events.subscribe('session:logout', () => {
             this.rootPage = LoginPage;

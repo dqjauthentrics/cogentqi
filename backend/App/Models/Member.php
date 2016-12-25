@@ -220,37 +220,27 @@ class Member extends AppModel {
 	 *
 	 * @return array
 	 */
-	public function map($options = [
-		'lastAssessment' => TRUE,
-		'badges'         => TRUE,
-		'assessments'    => FALSE,
-		'notes'          => FALSE,
-		'events'         => FALSE,
-		'minimal'        => FALSE,
-	]
-	) {
+	public function map($options = ['lastAssessment' => TRUE, 'badges' => TRUE, 'assessments' => TRUE, 'notes' => FALSE, 'events' => FALSE, 'minimal' => FALSE]) {
 		$map = parent::map($options);
 		$map['appRoleId'] = $this->role->app_role_id;
 		$map['roleName'] = $this->role->name;
 		unset($map['password']);
-		if (empty($options['minimal'])) {
-			if (!empty($options['badges'])) {
-				$map["badges"] = $this->mapChildren('\App\Models\MemberBadge', 'member_id', 'earned DESC');
-			}
-			if (!empty($options['notes'])) {
-				$map["notes"] = $this->mapChildren('\App\Models\MemberNote', 'member_id', 'last_modified DESC');
-			}
-			if (!empty($options['events'])) {
-				$map['events'] = $this->mapChildren('\App\Models\MemberEvent', 'member_id', 'occurred DESC');
-			}
-			if (!empty($options['assessments'])) {
-				$map["assessments"] = $this->mapChildren('\App\Models\Assessment', 'member_id', 'last_modified DESC');
-			}
-			if (!empty($options['lastAssessment'])) {
-				$map["lastAssessment"] = $this->mapLastAssessment();
-			}
+		if (!empty($options['badges'])) {
+			$map["badges"] = $this->mapChildren('\App\Models\MemberBadge', 'member_id', 'earned DESC', ['minimal' => TRUE]);
 		}
-		else {
+		if (!empty($options['notes'])) {
+			$map["notes"] = $this->mapChildren('\App\Models\MemberNote', 'member_id', 'last_modified DESC', ['minimal' => TRUE]);
+		}
+		if (!empty($options['events'])) {
+			$map['events'] = $this->mapChildren('\App\Models\MemberEvent', 'member_id', 'occurred DESC', ['minimal' => TRUE]);
+		}
+		if (!empty($options['assessments'])) {
+			$map["assessments"] = $this->mapChildren('\App\Models\Assessment', 'member_id', 'last_modified DESC', ['minimal' => TRUE]);
+		}
+		if (!empty($options['lastAssessment'])) {
+			$map["lastAssessment"] = $this->mapLastAssessment();
+		}
+		if (!empty($options['minimal'])) {
 			$map['minimal'] = 1; // flag to indicate we're returning minimal info, in case of permission checking
 			$map = Utility::arrayRemoveByKey('address', $map);
 			$map = Utility::arrayRemoveByKey('city', $map);
@@ -272,8 +262,8 @@ class Member extends AppModel {
 		/** @var Assessment $lastAssessment */
 		if (!empty($lastAssessment)) {
 			$mapped = $lastAssessment->map([]);
-			$mapped['instrument'] = $lastAssessment->getInstrument()->map([]);
-			$mapped['schedule'] = $lastAssessment->getSchedule()->map([]);
+			$mapped['instrument'] = $lastAssessment->getInstrument()->map(['minimal' => TRUE]);
+			$mapped['schedule'] = $lastAssessment->getSchedule()->map(['minimal' => TRUE]);
 		}
 		return $mapped;
 	}

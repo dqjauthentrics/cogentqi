@@ -168,58 +168,6 @@ class Assessment extends AppModel {
 	}
 
 	/**
-	 * @param array $options
-	 *
-	 * @return array
-	 */
-	public function map($options = ['instrument' => FALSE, 'schedule' => FALSE, 'responses' => FALSE, 'verbose' => FALSE]) {
-		$map = parent::map();
-		if (empty($options['verbose'])) {
-			$map = Utility::arrayRemoveByKey("assessorComments", $map);
-			$map = Utility::arrayRemoveByKey("memberComments", $map);
-		}
-		if (!empty($options['instrument'])) {
-			$map['instrument'] = $this->instrument->map(['questions' => FALSE]);
-		}
-		else {
-			$map['instrument'] = ['name' => $this->instrument->name];
-		}
-		if (!empty($options['schedule'])) {
-			$schedule = $this->getInstrument()->getSchedule();
-			if (!empty($schedule)) {
-				$map['schedule'] = [];
-				foreach ($schedule as $item) {
-					/** @var InstrumentSchedule $item */
-					$map['schedule'][] = $item->map();
-				}
-			}
-		}
-		else {
-			$map['schedule'] = ['n' => $this->schedule->name];
-		}
-
-		$map['responses'] = [];
-		if (!empty($options['responses'])) {
-			$responses = $this->getResponses(['order' => 'question_id']);
-			$keyedResponses = $this->recordsKeyed($responses, 'question_id');
-			$fixCnt = $this->checkFullResponseSet($keyedResponses);
-			if ($fixCnt > 0) {
-				$responses = $this->getResponses(['order' => 'question_id']);
-			}
-			foreach ($responses as $response) { // order needed on question order
-				$map['responses'][$response->question_id] = $response->map();
-				if (empty($map['responses'][$response->question_id]['responseIndex'])) {
-					$map['responses'][$response->question_id]['responseIndex'] = 0;
-				}
-			}
-		}
-		$map['typ'] = $this->getInstrument()->getQuestionType()->name;
-		$map['member'] = $this->getAssessee()->map(['minimal' => TRUE]);
-		$map['assessor'] = $this->getAssessor()->map(['minimal' => TRUE]);
-		return $map;
-	}
-
-	/**
 	 * @param ControllerBase $controller
 	 * @param array          $formAssessment
 	 *
@@ -823,4 +771,59 @@ class Assessment extends AppModel {
             ";
 		return $this->getDBIF()->query($sql)->fetch();
 	}
+
+	/**
+	 * @param array $options
+	 *
+	 * @return array
+	 */
+	public function map($options = ['instrument' => FALSE, 'schedule' => FALSE, 'responses' => FALSE, 'verbose' => FALSE, 'minimal' => FALSE]) {
+		$map = parent::map();
+		if (empty($options['verbose'])) {
+			$map = Utility::arrayRemoveByKey("assessorComments", $map);
+			$map = Utility::arrayRemoveByKey("memberComments", $map);
+		}
+		if (!empty($options['instrument'])) {
+			$map['instrument'] = $this->instrument->map(['questions' => FALSE, 'minimal' => TRUE]);
+		}
+		else {
+			$map['instrument'] = ['name' => $this->instrument->name];
+		}
+		if (!empty($options['schedule'])) {
+			$schedule = $this->getInstrument()->getSchedule();
+			if (!empty($schedule)) {
+				$map['schedule'] = [];
+				foreach ($schedule as $item) {
+					/** @var InstrumentSchedule $item */
+					$map['schedule'][] = $item->map();
+				}
+			}
+		}
+		else {
+			$map['schedule'] = ['n' => $this->schedule->name];
+		}
+
+		if (empty($options['minimal'])) {
+			$map['responses'] = [];
+			if (!empty($options['responses'])) {
+				$responses = $this->getResponses(['order' => 'question_id']);
+				$keyedResponses = $this->recordsKeyed($responses, 'question_id');
+				$fixCnt = $this->checkFullResponseSet($keyedResponses);
+				if ($fixCnt > 0) {
+					$responses = $this->getResponses(['order' => 'question_id']);
+				}
+				foreach ($responses as $response) { // order needed on question order
+					$map['responses'][$response->question_id] = $response->map();
+					if (empty($map['responses'][$response->question_id]['responseIndex'])) {
+						$map['responses'][$response->question_id]['responseIndex'] = 0;
+					}
+				}
+			}
+		}
+		$map['typ'] = $this->getInstrument()->getQuestionType()->name;
+		$map['member'] = $this->getAssessee()->map(['minimal' => TRUE]);
+		$map['assessor'] = $this->getAssessor()->map(['minimal' => TRUE]);
+		return $map;
+	}
+
 }

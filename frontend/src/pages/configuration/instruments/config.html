@@ -1,21 +1,26 @@
 <ion-header>
-    <ion-navbar>
-        <button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>{{instrument.name}}</ion-title>
-    </ion-navbar>
+    <header-bar [title]="'Instrument Configuration'|translate"></header-bar>
 </ion-header>
 
-<ion-content class="outer-content instrument-list">
+<ion-content class="inster-content configuration instrument">
     <ion-card class="instrument">
-        <ion-card-header>
+        <form *ngIf="instrument">
             <ion-item>
-                <h1>{{instrument?.name}}</h1>
+                <ion-label floating primary>{{'Number'|translate}}</ion-label>
+                <ion-input [(ngModel)]="instrument.number" name="number" required></ion-input>
             </ion-item>
-        </ion-card-header>
-        <ion-card-content class="outer-content">
-            {{instrument?.summary}}
-        </ion-card-content>
+            <ion-item>
+                <ion-label floating primary>{{'Name'|translate}}</ion-label>
+                <ion-input [(ngModel)]="instrument.name" name="name" required></ion-input>
+            </ion-item>
+            <p [hidden]="instrument.valid || submitted == false" danger padding-left>
+                {{'Name is required'}}
+            </p>
+            <div class="editor">
+                <label for="instDescripEditor" floating primary>{{'Summary'|translate}}</label>
+                <div id="instDescripEditor" [innerHTML]="instrument.summary"></div>
+            </div>
+            <editor-button-bar (onSave)="save(instrument)" (onRemove)="remove(instrument)"></editor-button-bar>
+        </form>
     </ion-card>
 </ion-content>

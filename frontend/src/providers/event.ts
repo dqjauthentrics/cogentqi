@@ -1,15 +1,16 @@
 import {Injectable} from "@angular/core";
-import {Events, AlertController} from "ionic-angular";
+import {ToastController} from "ionic-angular";
 import {Http} from "@angular/http";
 import {DataModel} from "./data-model";
 import {Globals} from "./globals";
 import {Config} from "./config";
+import {SessionProvider} from "./session";
 
 @Injectable()
 export class EventProvider extends DataModel {
 
-    constructor(protected alertCtrl: AlertController, protected http: Http, protected globals: Globals, protected config: Config, private events: Events) {
-        super('event', alertCtrl, http, globals, config);
+    constructor(protected toastCtrl: ToastController, protected http: Http, protected globals: Globals, protected config: Config, protected session: SessionProvider) {
+        super('event', toastCtrl, http, globals, config, session);
     }
 
 }

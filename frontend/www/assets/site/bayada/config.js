@@ -3,7 +3,7 @@ var configuration = {
     "copyright": "Copyright \u00a9 2015, CogentQI.com.  All rights reserved.",
     "trademarkName": "CogentQI&#8482;",
     "name": "Bayada",
-    "logo": "<img src=\"\/assets\/site\/bayada\/images\/hdrLogo.png\" alt=\"\"\/>",
+    "logo": "<img src=\"\/assets\/site\/bayada\/images\/headerLogo.png\" alt=\"\"\/>",
     "components": {
         "login": {
             "social": false,
