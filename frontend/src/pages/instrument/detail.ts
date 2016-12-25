@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
-import {NavController, NavParams} from "ionic-angular";
+import {NavParams} from "ionic-angular";
 import {InstrumentProvider} from "../../providers/instrument";
+import {Config} from "../../providers/config";
 
 @Component({
     templateUrl: 'detail.html'
@@ -8,7 +9,7 @@ import {InstrumentProvider} from "../../providers/instrument";
 export class InstrumentDetailPage {
     instrument: any;
 
-    constructor(private nav: NavController, private navParams: NavParams, instrumentData: InstrumentProvider) {
+    constructor(private navParams: NavParams, public config: Config, public instrumentData: InstrumentProvider) {
         this.instrument = this.navParams.data;
         instrumentData.getSingle(this.instrument.id).then(instrument => {
             this.instrument = instrument;

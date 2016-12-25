@@ -1,25 +1,42 @@
 <ion-header>
-    <ion-navbar>
-        <button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>{{'Resources'|translate}}</ion-title>
-    </ion-navbar>
-    <ion-toolbar no-border-top>
-        <ion-searchbar primary [(ngModel)]="queryText" placeholder="Search"></ion-searchbar>
-    </ion-toolbar>
+    <header-bar [title]="'Resources Configuration'|translate"></header-bar>
 </ion-header>
 
-<ion-content class="outer-content resource-list">
-    <ion-list>
-        <ion-item *ngFor="let resource of resources|filter:queryText" class="resource" (click)="configureResource(resource)">
-            <div style="vertical-align: top;">
-                <app-icon [name]="resource"></app-icon>
-                <div class="name">{{resource.name|translate}}</div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="description">{{resource.description|translate}}</div>
-            <div class="forward"><ion-icon name="arrow-forward"></ion-icon></div>
-        </ion-item>
-    </ion-list>
+<ion-content class="outer-content configuration resources">
+    <table class="table table-striped" [mfData]="resources | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
+           [(mfSortOrder)]="sortOrder">
+        <thead>
+        <tr>
+            <th colspan="7">
+                <ion-searchbar [(ngModel)]="filterQuery" placeholder="filter"></ion-searchbar>
+            </th>
+        </tr>
+        <tr [hidden]="!loading">
+            <td colspan="4">
+                <loading-indicator [loading]="loading"></loading-indicator>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let resource of mf.data" class="order" (click)="configureResource(resource)">
+            <td class="icon">
+                <app-icon name="resource"></app-icon>
+            </td>
+            <td>
+                <div class="name">{{resource.name}}</div>
+                <div class="description" [innerHTML]="resource.summary"></div>
+            </td>
+            <td>
+                <ion-icon name="arrow-forward"></ion-icon>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
 </ion-content>

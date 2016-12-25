@@ -14,6 +14,6 @@ export class Avatar {
     }
 
     src(id) {
-        return '/assets/site/' + this.config.siteDir + '/avatars/' + id + '.png';
+        return this.config.site + '/avatars/' + id + '.png';
     }
 }

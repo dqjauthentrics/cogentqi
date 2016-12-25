@@ -1,27 +1,42 @@
 <ion-header>
-    <ion-navbar>
-        <button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>{{'Outcomes'|translate}}</ion-title>
-    </ion-navbar>
-    <ion-toolbar no-border-top>
-        <ion-searchbar primary [(ngModel)]="queryText" placeholder="Search"></ion-searchbar>
-    </ion-toolbar>
+    <header-bar [title]="'Outcomes Configuration'|translate"></header-bar>
 </ion-header>
 
-<ion-content class="outer-content outcome-list">
-    <ion-card *ngFor="let outcome of outcomes|filter:queryText" class="outcome">
-
-        <ion-card-header>
-            <ion-item>
-                <app-icon [name]="'outcome'"></app-icon>
-                <a (click)="configureOutcome(outcome)">{{outcome.name}}</a>
-            </ion-item>
-        </ion-card-header>
-
-        <ion-card-content class="outer-content">
-        </ion-card-content>
-
-    </ion-card>
+<ion-content class="outer-content configuration resources">
+    <table class="table table-striped" [mfData]="outcomes | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
+           [(mfSortOrder)]="sortOrder">
+        <thead>
+        <tr>
+            <th colspan="7">
+                <ion-searchbar [(ngModel)]="filterQuery" placeholder="filter"></ion-searchbar>
+            </th>
+        </tr>
+        <tr [hidden]="!loading">
+            <td colspan="4">
+                <loading-indicator [loading]="loading"></loading-indicator>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let outcome of mf.data" class="order" (click)="configureOutcome(outcome)">
+            <td class="icon">
+                <app-icon name="outcome"></app-icon>
+            </td>
+            <td>
+                <div class="name">{{outcome.name}}</div>
+                <div class="description" [innerHTML]="outcome.description"></div>
+            </td>
+            <td>
+                <ion-icon name="arrow-forward"></ion-icon>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
 </ion-content>

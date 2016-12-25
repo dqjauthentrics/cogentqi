@@ -35,7 +35,7 @@
                         {{assessment.instrument.name}} {{assessment.lastModified|date}}
                         by {{assessment.assessor.firstName}} {{assessment.assessor.lastName}}
                         <img class="avatar border border{{assessment.assessor.level}} avatar-tiny"
-                             src="/assets/site/pharmacy/avatars/{{assessment.assessor.id}}.png"
+                             [src]="config.site + '/avatars/' + assessment.assessor.id + '.png'"
                              alt="{{assessment.assessor.firstName}} {{assessment.assessor.lastName}}"/>
                     </ion-item>
                 </ion-list>

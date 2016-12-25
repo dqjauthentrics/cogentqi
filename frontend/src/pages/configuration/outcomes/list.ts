@@ -7,12 +7,18 @@ import {OutcomeConfigPage} from "./config";
     templateUrl: 'list.html'
 })
 export class CfgOutcomesListPage {
-    outcomes = [];
-    queryText: string;
+    public outcomes = [];
+    public loading: boolean = false;
+    public filterQuery = "";
+    public rowsOnPage = 5;
+    public sortBy = "orderedOn";
+    public sortOrder = "desc";
 
     constructor(private nav: NavController, outcomeData: OutcomeProvider) {
+        this.loading = true;
         outcomeData.getAll(null, false).then(outcomes => {
             this.outcomes = outcomes;
+            this.loading = false;
         });
     }
 

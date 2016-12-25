@@ -40,6 +40,17 @@ h4 {
   margin-bottom: 0;
 }
 
+ion-input {
+  background: #FFF;
+  border: 1px solid #DDD;
+  border-radius: 3px;
+  padding: 0.5rem;
+
+  .text-input {
+    margin: 0;
+  }
+}
+
 ion-footer, ion-footer:before, ion-footer .toolbar-background {
   background: #f8f8f8;
   background-image: none;
@@ -90,6 +101,13 @@ ion-footer ion-toolbar ion-col {
 
 .yellow {
   color: gold;
+}
+
+button.save {
+  background: green;
+}
+button.delete {
+  background: red;
 }
 
 .badge {
@@ -254,6 +272,8 @@ img.avatar-full {
 img.avatar-list {
   width: 48px;
   height: 48px;
+  min-width: 48px;
+  min-height: 48px;
   border-radius: 8px;
   vertical-align: middle;
 }
@@ -368,20 +388,25 @@ ion-navbar {
   }
 }
 
-ion-list {
-  div.name {
-    float: left;
-    margin: 1rem;
+button ion-icon {
+  padding-right: 10px;
+}
+
+table.table {
+  td.avatar {
+    width: 52px;
+  }
+  td.icon {
+    width: 40px;
+  }
+  .name {
     font-weight: bold;
   }
-  app-icon {
-    float: left;
-  }
-  div.description {
+  .description {
     font-style: italic;
     color: #666;
   }
-  div.forward {
+  .forward {
     float: right;
     color: #999;
   }
@@ -447,6 +472,12 @@ table.micro-badge {
   div {
     text-align: center;
   }
+  td {
+    vertical-align: middle;
+    text-align: center;
+    width: 40px;
+    height: 22px;
+  }
 }
 
 .micro-badge.small img {
@@ -464,13 +495,13 @@ table.micro-badge {
   width: 12rem;
 }
 
-.levelBadge i, .outcomeLevel i {
+.level-badbe i, .outcomeLevel i {
   font-size: 1.5em;
   font-weight: bold;
   width: 3em;
 }
 
-.levelBadge {
+.level-badbe {
   padding: 0.4em;
   border-radius: 0.3em;
   font-size: 0.8em !important;
@@ -489,7 +520,7 @@ table.micro-badge {
   font-weight: bold;
 }
 
-.levelName {
+.level-name {
   padding: 0.4em 0.4em;
   border-radius: 1em;
   margin: 0.1em;
@@ -656,4 +687,64 @@ table.form {
   td {
     text-align: left;
   }
+}
+
+.progressBar {
+  position: relative;
+  border: 1em solid white;
+  padding: 1em;
+  background: gray;
+  vertical-align: middle;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+
+.progressBar.selected:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -10px;
+  width: 0;
+  height: 0;
+  border-top: solid 10px gray;
+  border-left: solid 10px transparent;
+  border-right: solid 10px transparent;
+}
+
+.topBar {
+  background: #DDD;
+  color: #444;
+  padding: 1rem;
+}
+
+form {
+  .label {
+    text-align: left;
+  }
+  ion-textarea {
+    background: #FFF;
+  }
+
+  .editor {
+    padding-left: 16px;
+    padding-right: 8px;
+  }
+  label, .label {
+    color: #666 !important;
+    opacity: 1;
+    margin-top: 8px;
+    font-size: 0.9em;
+    font-style: italic;
+  }
+}
+.ql-container {
+  background: #FFF;
+  padding: 4px;
+}
+
+.pull-right {
+  float: right;
 }

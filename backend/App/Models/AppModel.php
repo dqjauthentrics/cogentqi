@@ -291,10 +291,11 @@ class AppModel extends \Phalcon\Mvc\Model {
 	 * @param string $childTable
 	 * @param string $foreignKeyName
 	 * @param string $orderBy
+	 * @param array  $options
 	 *
 	 * @return array
 	 */
-	public function mapChildren($childTable, $foreignKeyName, $orderBy='id DESC') {
+	public function mapChildren($childTable, $foreignKeyName, $orderBy = 'id DESC', $options = []) {
 		$children = [];
 		/**
 		 * @var AppModel   $childTable
@@ -303,7 +304,7 @@ class AppModel extends \Phalcon\Mvc\Model {
 		$records = $childTable::query()->where("$foreignKeyName = :id:")->bind(['id' => $this->id])->orderBy($orderBy)->execute();
 		if (!empty($records)) {
 			foreach ($records as $record) {
-				$children[] = $record->map();
+				$children[] = $record->map($options);
 			}
 		}
 		return $children;

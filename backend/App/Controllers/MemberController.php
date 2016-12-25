@@ -7,6 +7,7 @@ use App\Models\Role;
 
 
 class MemberController extends ControllerBase {
+
 	public function listAction($organizationId = NULL, $drilldown = 0, $includeInactive = 0) {
 		$result = new Result($this);
 		$data = [];
@@ -18,7 +19,7 @@ class MemberController extends ControllerBase {
 				$row = $member->getReadConnection()->query("SELECT retrieveOrgDescendantIds($organizationId) AS orgIds")->fetch();
 				$orgIds = $row["orgIds"];
 				if (!empty($orgIds)) {
-					$where .= ' OR organization_id IN (' . $orgIds . ')';
+					$where = "(organization_id=:id: OR organization_id IN ($orgIds)";
 				}
 			}
 			$where .= ')';
@@ -33,12 +34,7 @@ class MemberController extends ControllerBase {
 			}
 			/** @var Member $member */
 			foreach ($members as $member) {
-				if ($user->appRoleId == Role::PROFESSIONAL) {
-					$data[] = $member->map(['minimal']);
-				}
-				else {
-					$data[] = $member->map();
-				}
+				$data[] = $member->map(['lastAssessment' => TRUE, 'badges' => TRUE, 'assessments' => TRUE, 'notes' => FALSE, 'events' => FALSE, 'minimal' => TRUE]);
 			}
 		}
 		catch (\Exception $exception) {

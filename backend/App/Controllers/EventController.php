@@ -23,7 +23,7 @@ class EventController extends ControllerBase {
 	 *
 	 * @param string $id
 	 */
-	public function getAction($id) {
+	public function singleAction($id) {
 		$result = new Result($this);
 		$event = new Event();
 		$event = $event->get($id, FALSE);

@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {MemberProvider} from "../../providers/member";
+import {SessionProvider} from "../../providers/session";
 import {MemberDetailPage} from "./detail";
 import {DataModel} from "../../providers/data-model";
 
@@ -15,10 +16,9 @@ export class MemberListPage {
     public sortBy = "orderedOn";
     public sortOrder = "desc";
 
-    constructor(private nav: NavController, memberData: MemberProvider) {
-        console.log('member constructor', this.members);
+    constructor(private nav: NavController, private session: SessionProvider, memberData: MemberProvider) {
         this.loading = true;
-        let organizationId = 2;
+        let organizationId = this.session.user.organizationId;
         let drilldown = 1;
         let includeInactive = 0;
         let args = [organizationId, drilldown, includeInactive];

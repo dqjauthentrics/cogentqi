@@ -2,19 +2,41 @@
     <header-bar [title]="'Resources'|translate"></header-bar>
 </ion-header>
 
-<ion-content class="outer-content resource-list">
-    <loading-indicator [hidden]="resources?.length"></loading-indicator>
-    <ion-list>
-        <ion-item *ngFor="let resource of resources|filter:queryText" class="resource" (click)="goToResourceDetail(resource)">
-            <div style="vertical-align: top;">
+<ion-content class="dashboard member-list">
+    <table class="table table-striped" [mfData]="resources | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
+           [(mfSortOrder)]="sortOrder">
+        <thead>
+        <tr>
+            <th colspan="7">
+                <ion-searchbar [(ngModel)]="filterQuery" placeholder="filter"></ion-searchbar>
+            </th>
+        </tr>
+        <tr [hidden]="!loading">
+            <td colspan="4">
+                <loading-indicator [loading]="loading"></loading-indicator>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let resource of mf.data" class="order" (click)="goToResourceDetail(resource)">
+            <td class="icon">
                 <app-icon name="resource"></app-icon>
-                <div class="name">{{resource.name|translate}}</div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="description" [innerHTML]="resource.summary"></div>
-            <div class="forward">
+            </td>
+            <td>
+                <div class="name">{{resource.name}}</div>
+                <div class="description" [innerHTML]="resource.summary"></div>
+            </td>
+            <td>
                 <ion-icon name="arrow-forward"></ion-icon>
-            </div>
-        </ion-item>
-    </ion-list>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
 </ion-content>

@@ -1,21 +1,26 @@
 <ion-header>
-    <ion-navbar>
-        <button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>{{event.name}}</ion-title>
-    </ion-navbar>
+    <header-bar [title]="'Event Configuration'|translate"></header-bar>
 </ion-header>
 
-<ion-content class="outer-content event-list">
+<ion-content class="outer-content configuration event">
     <ion-card class="event">
-        <ion-card-header>
+        <form *ngIf="event">
             <ion-item>
-                <h1>{{event?.name}}</h1>
+                <ion-label floating primary>{{'Title'|translate}}</ion-label>
+                <ion-input [(ngModel)]="event.name" name="name" required></ion-input>
             </ion-item>
-        </ion-card-header>
-        <ion-card-content class="outer-content">
-            {{event?.summary}}
-        </ion-card-content>
+            <p [hidden]="event.valid || submitted == false" danger padding-left>
+                {{'Title is required'}}
+            </p>
+           <ion-item>
+                <ion-label floating primary>{{'Category'|translate}}</ion-label>
+                <ion-input [(ngModel)]="event.category" name="category" required></ion-input>
+            </ion-item>
+            <div class="editor">
+                <label for="evtDescripEditor" floating primary>{{'Description'|translate}}</label>
+                <div id="evtDescripEditor" [innerHTML]="event.description"></div>
+            </div>
+            <editor-button-bar (onSave)="save(resource)" (onRemove)="remove(event)"></editor-button-bar>
+        </form>
     </ion-card>
 </ion-content>

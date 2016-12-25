@@ -2,6 +2,10 @@ import {CogicApp} from "./app.component";
 import {NgModule} from "@angular/core";
 import {APP_BASE_HREF} from "@angular/common";
 import {IonicApp, IonicModule} from "ionic-angular";
+
+/**
+ * Modules
+ */
 import {ChartModule} from "ng2-chartjs2";
 import {DataTableModule} from "angular2-datatable";
 import {InlineEditorModule} from "ng2-inline-editor";
@@ -24,6 +28,7 @@ import {Translate} from "../pipes/translate";
 import {AppIconButton} from "../components/app-icon-button";
 import {AppIcon} from "../components/app-icon";
 import {Avatar} from "../components/avatar";
+import {EditorButtonBar} from "../components/editor-button-bar";
 import {HeaderBar} from "../components/header-bar";
 import {InfoBadge} from "../components/info-badge";
 import {LoadingIndicator} from "../components/loading-indicator";
@@ -102,6 +107,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         AssessmentListPage,
         AssessmentItem,
         Avatar,
+        EditorButtonBar,
         CfgEventsListPage,
         CfgScheduleListPage,
         CfgInstrumentsListPage,
@@ -162,6 +168,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         AssessmentListPage,
         AssessmentItem,
         Avatar,
+        EditorButtonBar,
         CfgEventsListPage,
         CfgScheduleListPage,
         CfgInstrumentsListPage,

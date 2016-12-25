@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
+import {Globals} from "../../providers/globals";
 import {AssessmentProvider} from "../../providers/assessment";
 import {SessionProvider} from "../../providers/session";
 import {InstrumentProvider} from "../../providers/instrument";
@@ -17,26 +18,41 @@ export class MatrixPage {
     public organizationId: number;
     public instrumentId: number;
 
-    constructor(private nav: NavController, public session: SessionProvider, private assessmentData: AssessmentProvider,
+    public segments = [];
+
+    constructor(private nav: NavController, private globals: Globals, public session: SessionProvider, private assessmentData: AssessmentProvider,
                 public instrumentData: InstrumentProvider, private memberData: MemberProvider) {
-        this.user = session.user;
-        this.organizationId = session.user.organizationId;
+
+        this.organizationId = this.session.user.organizationId;
+    }
+
+    ngOnInit() {
         this.checkInstruments();
     }
 
     checkInstruments() {
-        if (this.instrumentData.list) {
-            this.instrument = this.instrumentData.list[0];
-            this.loadMatrix(this.instrument.id);
-        }
+        let comp = this;
+        this.instrumentData.getAll(null, false).then(() => {
+            if (comp.instrumentData.list) {
+                comp.instrument = comp.instrumentData.list[0];
+                comp.loadMatrix(comp.instrument.id);
+            }
+        });
     }
 
     loadMatrix(instrumentId) {
-        if (this.instrument && this.instrument.id != this.instrumentId) {
+        if (!this.instrument || this.instrument.id != this.instrumentId) {
             this.assessmentData.loadMatrix(this.organizationId, this.instrument.id).then(matrix => {
                 this.matrix = matrix;
                 this.instrumentId = this.instrument.id;
                 this.instrumentData.currentSectionIdx = this.instrumentData.SECTION_ALL;
+                this.segments = [{text: 'All', value: this.instrumentData.SECTION_ALL}];
+                let idx = 0;
+                for (let questionGroup of this.instrument.questionGroups) {
+                    this.segments.push({text: questionGroup.tag, value: idx});
+                    idx++
+                }
+                this.segments.push({text: 'Summary', value: this.instrumentData.SECTION_SUMMARY});
             });
         }
     }

@@ -4744,6 +4744,17 @@ h4 {
   margin-bottom: 0;
 }
 
+ion-input {
+  background: #FFF;
+  border: 1px solid #DDD;
+  border-radius: 3px;
+  padding: 0.5rem;
+}
+
+ion-input .text-input {
+  margin: 0;
+}
+
 ion-footer, ion-footer:before, ion-footer .toolbar-background {
   background: #f8f8f8;
   background-image: none;
@@ -4794,6 +4805,14 @@ ion-footer ion-toolbar ion-col {
 
 .yellow {
   color: gold;
+}
+
+button.save {
+  background: green;
+}
+
+button.delete {
+  background: red;
 }
 
 .badge {
@@ -4958,6 +4977,8 @@ img.avatar-full {
 img.avatar-list {
   width: 48px;
   height: 48px;
+  min-width: 48px;
+  min-height: 48px;
   border-radius: 8px;
   vertical-align: middle;
 }
@@ -5071,22 +5092,28 @@ ion-navbar button ion-icon:after {
   color: #FFF;
 }
 
-ion-list div.name {
-  float: left;
-  margin: 1rem;
+button ion-icon {
+  padding-right: 10px;
+}
+
+table.table td.avatar {
+  width: 52px;
+}
+
+table.table td.icon {
+  width: 40px;
+}
+
+table.table .name {
   font-weight: bold;
 }
 
-ion-list app-icon {
-  float: left;
-}
-
-ion-list div.description {
+table.table .description {
   font-style: italic;
   color: #666;
 }
 
-ion-list div.forward {
+table.table .forward {
   float: right;
   color: #999;
 }
@@ -5152,6 +5179,13 @@ table.micro-badge {
   text-align: center;
 }
 
+.micro-badge td {
+  vertical-align: middle;
+  text-align: center;
+  width: 40px;
+  height: 22px;
+}
+
 .micro-badge.small img {
   height: 5rem;
   width: 5rem;
@@ -5167,13 +5201,13 @@ table.micro-badge {
   width: 12rem;
 }
 
-.levelBadge i, .outcomeLevel i {
+.level-badbe i, .outcomeLevel i {
   font-size: 1.5em;
   font-weight: bold;
   width: 3em;
 }
 
-.levelBadge {
+.level-badbe {
   padding: 0.4em;
   border-radius: 0.3em;
   font-size: 0.8em !important;
@@ -5192,7 +5226,7 @@ table.micro-badge {
   font-weight: bold;
 }
 
-.levelName {
+.level-name {
   padding: 0.4em 0.4em;
   border-radius: 1em;
   margin: 0.1em;
@@ -5359,6 +5393,67 @@ table.form th {
 
 table.form td {
   text-align: left;
+}
+
+.progressBar {
+  position: relative;
+  border: 1em solid white;
+  padding: 1em;
+  background: gray;
+  vertical-align: middle;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+
+.progressBar.selected:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -10px;
+  width: 0;
+  height: 0;
+  border-top: solid 10px gray;
+  border-left: solid 10px transparent;
+  border-right: solid 10px transparent;
+}
+
+.topBar {
+  background: #DDD;
+  color: #444;
+  padding: 1rem;
+}
+
+form .label {
+  text-align: left;
+}
+
+form ion-textarea {
+  background: #FFF;
+}
+
+form .editor {
+  padding-left: 16px;
+  padding-right: 8px;
+}
+
+form label, form .label {
+  color: #666 !important;
+  opacity: 1;
+  margin-top: 8px;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+.ql-container {
+  background: #FFF;
+  padding: 4px;
+}
+
+.pull-right {
+  float: right;
 }
 
 ion-action-sheet {
@@ -27313,6 +27408,10 @@ assessment-item {
   font-weight: bold;
 }
 
+.configuration tr {
+  cursor: pointer;
+}
+
 #setting_distribution {
   display: block !important;
   width: 100% !important;
@@ -27425,8 +27524,13 @@ ion-content.login .error {
 }
 
 ion-content.login form img {
-  max-height: 100px;
-  margin: 1rem auto;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+ion-content.login h3 {
+  margin: 0;
+  text-align: center;
 }
 
 .matrix-page .ion-input-select--large, .matrix-page .ion-input-select, .matrix-page select {
@@ -27458,6 +27562,11 @@ ion-content.login form img {
 
 .matrix-page option {
   background: #444;
+}
+
+.matrix-page table thead tr th {
+  background: #FFF;
+  color: #444;
 }
 
 .matrix-page th.rotate {

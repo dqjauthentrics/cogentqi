@@ -3,7 +3,7 @@ import {IconProvider} from "../providers/icon";
 
 @Component({
     selector: 'info-badge',
-    template: `<span class="infoBadge" [innerHTML]="n"></span>`
+    template: `<span [innerHTML]="n"></span>`
 })
 
 export class InfoBadge {
