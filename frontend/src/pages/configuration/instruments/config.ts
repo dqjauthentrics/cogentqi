@@ -1,5 +1,4 @@
 import {Component} from "@angular/core";
-import {Http} from "@angular/http";
 import {NavController, NavParams} from "ionic-angular";
 import {Globals} from "../../../providers/globals";
 import {InstrumentProvider} from "../../../providers/instrument";

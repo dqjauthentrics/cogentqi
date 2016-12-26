@@ -3,7 +3,7 @@
 </ion-header>
 
 <ion-content class="dashboard member-list">
-    <table class="table table-striped" [mfData]="resources | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
+    <table class="table table-striped listing" [mfData]="resources | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
            [(mfSortOrder)]="sortOrder">
         <thead>
         <tr>
@@ -23,11 +23,11 @@
                 <app-icon name="resource"></app-icon>
             </td>
             <td>
-                <div class="name">{{resource.name}}</div>
+                <div class="name">{{resource.number}}: {{resource.name}}</div>
                 <div class="description" [innerHTML]="resource.summary"></div>
             </td>
-            <td>
-                <ion-icon name="arrow-forward"></ion-icon>
+            <td class="list-drilldown">
+                <i [class]="icon.getClass('drilldown')"></i>
             </td>
         </tr>
         </tbody>

@@ -25,7 +25,6 @@ import {Translate} from "../pipes/translate";
 /**
  * Components
  **/
-import {AppIconButton} from "../components/app-icon-button";
 import {AppIcon} from "../components/app-icon";
 import {Avatar} from "../components/avatar";
 import {EditorButtonBar} from "../components/editor-button-bar";
@@ -47,7 +46,9 @@ import {IconProvider} from "../providers/icon";
 import {InstrumentProvider} from "../providers/instrument";
 import {MemberProvider} from "../providers/member";
 import {MessageProvider} from "../providers/message";
+import {OrganizationProvider} from "../providers/organization";
 import {OutcomeProvider} from "../providers/outcome";
+import {PDF} from "../providers/pdf";
 import {ResourceProvider} from "../providers/resource";
 import {ScheduleProvider} from "../providers/schedule";
 import {SessionProvider} from "../providers/session";
@@ -77,6 +78,9 @@ import {MemberContactCard} from "../pages/member/_contact";
 import {MemberDetailPage} from "../pages/member/detail";
 import {MemberEventsCard} from "../pages/member/_events";
 import {MemberListPage} from "../pages/member/list";
+import {OrganizationAssessments} from "../pages/assessment/_organization-assessments";
+import {OrganizationDetailPage} from "../pages/organization/detail";
+import {OrganizationListPage} from "../pages/organization/list";
 import {OutcomeConfigPage} from "../pages/configuration/outcomes/config";
 import {ResourceConfigPage} from "../pages/configuration/resources/config";
 import {ResourceDetailPage} from "../pages/resource/detail";
@@ -102,7 +106,6 @@ import {TabsPage} from "../pages/tabs/tabs";
         CogicApp,
         AccountPage,
         AppIcon,
-        AppIconButton,
         AssessmentDetailPage,
         AssessmentListPage,
         AssessmentItem,
@@ -135,6 +138,9 @@ import {TabsPage} from "../pages/tabs/tabs";
         MemberAssessmentsCard,
         MicroBadge,
         MicroBadgeCount,
+        OrganizationAssessments,
+        OrganizationDetailPage,
+        OrganizationListPage,
         InfoBadge,
         Namify,
         DataFilterPipe,
@@ -163,7 +169,6 @@ import {TabsPage} from "../pages/tabs/tabs";
         CogicApp,
         AccountPage,
         AppIcon,
-        AppIconButton,
         AssessmentDetailPage,
         AssessmentListPage,
         AssessmentItem,
@@ -193,6 +198,9 @@ import {TabsPage} from "../pages/tabs/tabs";
         MemberEventsCard,
         MemberAssessmentsCard,
         MemberListPage,
+        OrganizationAssessments,
+        OrganizationDetailPage,
+        OrganizationListPage,
         OutcomeConfigPage,
         ResourceConfigPage,
         ResourceDetailPage,
@@ -205,7 +213,6 @@ import {TabsPage} from "../pages/tabs/tabs";
     providers: [
         {provide: APP_BASE_HREF, useValue: '/'},
         AppIcon,
-        AppIconButton,
         AssessmentProvider,
         Avatar,
         ColorProvider,
@@ -218,7 +225,9 @@ import {TabsPage} from "../pages/tabs/tabs";
         MemberProvider,
         MessageProvider,
         Namify,
+        OrganizationProvider,
         OutcomeProvider,
+        PDF,
         Phone,
         ResourceProvider,
         ScheduleProvider,

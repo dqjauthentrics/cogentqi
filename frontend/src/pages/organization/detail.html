@@ -1,0 +1,24 @@
+<ion-header>
+    <header-bar [title]="organization.name"></header-bar>
+</ion-header>
+
+<ion-content class="outer-content organization-list">
+    <ion-grid>
+        <ion-row responsive-md>
+            <ion-col width-33>
+                <ion-card class="organization">
+                    <ion-row responsive-sm>
+                        <ion-col>
+                            <h4>{{organization.name}}</h4>
+                        </ion-col>
+                    </ion-row>
+                </ion-card>
+            </ion-col>
+            <ion-col width-67>
+                <ion-card>
+                    <organization-assessments [organizationId]="organization.id"></organization-assessments>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

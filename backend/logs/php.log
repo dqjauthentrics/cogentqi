@@ -2649,3 +2649,795 @@
 [24-Dec-2016 23:21:30 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
 [24-Dec-2016 23:21:30 America/New_York] PHP   6. App\Controllers\OutcomeController->singleAction($id = *uninitialized*, $organizationId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
 [24-Dec-2016 23:21:30 America/New_York] PHP   7. App\Models\Outcome->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/OutcomeController.php:54
+[25-Dec-2016 00:08:47 America/New_York] PHP Notice:  Undefined variable: this in /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php on line 70
+[25-Dec-2016 00:08:47 America/New_York] PHP Stack trace:
+[25-Dec-2016 00:08:47 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 14:51:51 America/New_York] PHP Notice:  Undefined variable: this in /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php on line 70
+[25-Dec-2016 14:51:51 America/New_York] PHP Stack trace:
+[25-Dec-2016 14:51:51 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 14:53:03 America/New_York] PHP Notice:  Undefined variable: this in /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php on line 70
+[25-Dec-2016 14:53:03 America/New_York] PHP Stack trace:
+[25-Dec-2016 14:53:03 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 14:54:59 America/New_York] PHP Notice:  Undefined variable: this in /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php on line 70
+[25-Dec-2016 14:54:59 America/New_York] PHP Stack trace:
+[25-Dec-2016 14:54:59 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 14:56:09 America/New_York] PHP Notice:  Undefined variable: this in /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php on line 70
+[25-Dec-2016 14:56:09 America/New_York] PHP Stack trace:
+[25-Dec-2016 14:56:09 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 15:50:47 America/New_York] PHP Notice:  Undefined variable: this in /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php on line 70
+[25-Dec-2016 15:50:47 America/New_York] PHP Stack trace:
+[25-Dec-2016 15:50:47 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 15:51:15 America/New_York] PHP Notice:  Undefined variable: this in /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php on line 70
+[25-Dec-2016 15:51:15 America/New_York] PHP Stack trace:
+[25-Dec-2016 15:51:15 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 17:53:10 America/New_York] PHP Warning:  Missing argument 1 for App\Controllers\AssessmentController::updateAction() in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 114
+[25-Dec-2016 17:53:10 America/New_York] PHP Stack trace:
+[25-Dec-2016 17:53:10 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 17:53:10 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:10 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:10 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:10 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:10 America/New_York] PHP   6. App\Controllers\AssessmentController->updateAction($memberId = *uninitialized*, $assessorId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:10 America/New_York] PHP Warning:  Missing argument 2 for App\Controllers\AssessmentController::updateAction() in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 114
+[25-Dec-2016 17:53:10 America/New_York] PHP Stack trace:
+[25-Dec-2016 17:53:10 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 17:53:10 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:10 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:10 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:10 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:10 America/New_York] PHP   6. App\Controllers\AssessmentController->updateAction($memberId = *uninitialized*, $assessorId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:21 America/New_York] PHP Warning:  Missing argument 1 for App\Controllers\AssessmentController::updateAction() in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 114
+[25-Dec-2016 17:53:21 America/New_York] PHP Stack trace:
+[25-Dec-2016 17:53:21 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 17:53:21 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:21 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:21 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:21 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:21 America/New_York] PHP   6. App\Controllers\AssessmentController->updateAction($memberId = *uninitialized*, $assessorId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:21 America/New_York] PHP Warning:  Missing argument 2 for App\Controllers\AssessmentController::updateAction() in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 114
+[25-Dec-2016 17:53:21 America/New_York] PHP Stack trace:
+[25-Dec-2016 17:53:21 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 17:53:21 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:21 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:21 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:21 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:53:21 America/New_York] PHP   6. App\Controllers\AssessmentController->updateAction($memberId = *uninitialized*, $assessorId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 17:58:05 America/New_York] PHP Notice:  Undefined variable: this in /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php on line 70
+[25-Dec-2016 17:58:05 America/New_York] PHP Stack trace:
+[25-Dec-2016 17:58:05 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 18:00:35 America/New_York] PHP Warning:  Missing argument 1 for App\Controllers\AssessmentController::updateAction() in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 114
+[25-Dec-2016 18:00:35 America/New_York] PHP Stack trace:
+[25-Dec-2016 18:00:35 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 18:00:35 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:00:35 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:00:35 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:00:35 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:00:35 America/New_York] PHP   6. App\Controllers\AssessmentController->updateAction($memberId = *uninitialized*, $assessorId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:00:35 America/New_York] PHP Warning:  Missing argument 2 for App\Controllers\AssessmentController::updateAction() in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 114
+[25-Dec-2016 18:00:35 America/New_York] PHP Stack trace:
+[25-Dec-2016 18:00:35 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 18:00:35 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:00:35 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:00:35 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:00:35 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:00:35 America/New_York] PHP   6. App\Controllers\AssessmentController->updateAction($memberId = *uninitialized*, $assessorId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:27:14 America/New_York] PHP Warning:  Missing argument 1 for App\Controllers\AssessmentController::updateAction() in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 114
+[25-Dec-2016 18:27:14 America/New_York] PHP Stack trace:
+[25-Dec-2016 18:27:14 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 18:27:14 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:27:14 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:27:14 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:27:14 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:27:14 America/New_York] PHP   6. App\Controllers\AssessmentController->updateAction($memberId = *uninitialized*, $assessorId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:27:14 America/New_York] PHP Warning:  Missing argument 2 for App\Controllers\AssessmentController::updateAction() in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 114
+[25-Dec-2016 18:27:14 America/New_York] PHP Stack trace:
+[25-Dec-2016 18:27:14 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 18:27:14 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:27:14 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:27:14 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:27:14 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 18:27:14 America/New_York] PHP   6. App\Controllers\AssessmentController->updateAction($memberId = *uninitialized*, $assessorId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:02:30 America/New_York] PHP Warning:  Missing argument 1 for App\Controllers\AssessmentController::updateAction() in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 114
+[25-Dec-2016 19:02:30 America/New_York] PHP Stack trace:
+[25-Dec-2016 19:02:30 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 19:02:30 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:02:30 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:02:30 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:02:30 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:02:30 America/New_York] PHP   6. App\Controllers\AssessmentController->updateAction($memberId = *uninitialized*, $assessorId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:02:30 America/New_York] PHP Warning:  Missing argument 2 for App\Controllers\AssessmentController::updateAction() in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 114
+[25-Dec-2016 19:02:30 America/New_York] PHP Stack trace:
+[25-Dec-2016 19:02:30 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 19:02:30 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:02:30 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:02:30 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:02:30 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:02:30 America/New_York] PHP   6. App\Controllers\AssessmentController->updateAction($memberId = *uninitialized*, $assessorId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:04:38 America/New_York] PHP Warning:  Missing argument 1 for App\Controllers\AssessmentController::updateAction() in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 114
+[25-Dec-2016 19:04:38 America/New_York] PHP Stack trace:
+[25-Dec-2016 19:04:38 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 19:04:38 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:04:38 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:04:38 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:04:38 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:04:38 America/New_York] PHP   6. App\Controllers\AssessmentController->updateAction($memberId = *uninitialized*, $assessorId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:04:38 America/New_York] PHP Warning:  Missing argument 2 for App\Controllers\AssessmentController::updateAction() in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 114
+[25-Dec-2016 19:04:38 America/New_York] PHP Stack trace:
+[25-Dec-2016 19:04:38 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 19:04:38 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:04:38 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:04:38 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:04:38 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:04:38 America/New_York] PHP   6. App\Controllers\AssessmentController->updateAction($memberId = *uninitialized*, $assessorId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:09:46 America/New_York] PHP Warning:  Missing argument 1 for App\Controllers\AssessmentController::updateAction() in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 114
+[25-Dec-2016 19:09:46 America/New_York] PHP Stack trace:
+[25-Dec-2016 19:09:46 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 19:09:46 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:09:46 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:09:46 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:09:46 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:09:46 America/New_York] PHP   6. App\Controllers\AssessmentController->updateAction($memberId = *uninitialized*, $assessorId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:09:46 America/New_York] PHP Warning:  Missing argument 2 for App\Controllers\AssessmentController::updateAction() in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 114
+[25-Dec-2016 19:09:46 America/New_York] PHP Stack trace:
+[25-Dec-2016 19:09:46 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 19:09:46 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:09:46 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:09:46 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:09:46 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:09:46 America/New_York] PHP   6. App\Controllers\AssessmentController->updateAction($memberId = *uninitialized*, $assessorId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:22:02 America/New_York] PHP Warning:  Missing argument 1 for App\Controllers\AssessmentController::updateAction() in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 114
+[25-Dec-2016 19:22:02 America/New_York] PHP Stack trace:
+[25-Dec-2016 19:22:02 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 19:22:02 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:22:02 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:22:02 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:22:02 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:22:02 America/New_York] PHP   6. App\Controllers\AssessmentController->updateAction($memberId = *uninitialized*, $assessorId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:22:02 America/New_York] PHP Warning:  Missing argument 2 for App\Controllers\AssessmentController::updateAction() in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 114
+[25-Dec-2016 19:22:02 America/New_York] PHP Stack trace:
+[25-Dec-2016 19:22:02 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 19:22:02 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:22:02 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:22:02 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:22:02 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:22:02 America/New_York] PHP   6. App\Controllers\AssessmentController->updateAction($memberId = *uninitialized*, $assessorId = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:48:29 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 19:48:29 America/New_York] PHP Stack trace:
+[25-Dec-2016 19:48:29 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 19:48:29 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:48:29 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:48:29 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:48:29 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:48:29 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:52:51 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 19:52:51 America/New_York] PHP Stack trace:
+[25-Dec-2016 19:52:51 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 19:52:51 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:52:51 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:52:51 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:52:51 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:52:51 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:54:32 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 19:54:32 America/New_York] PHP Stack trace:
+[25-Dec-2016 19:54:32 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 19:54:32 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:54:32 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:54:32 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:54:32 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:54:32 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:57:51 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 19:57:51 America/New_York] PHP Stack trace:
+[25-Dec-2016 19:57:51 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 19:57:51 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:57:51 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:57:51 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:57:51 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:57:51 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:58:37 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 19:58:37 America/New_York] PHP Stack trace:
+[25-Dec-2016 19:58:37 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 19:58:37 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:58:37 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:58:37 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:58:37 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:58:37 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:59:42 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 19:59:42 America/New_York] PHP Stack trace:
+[25-Dec-2016 19:59:42 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 19:59:42 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:59:42 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:59:42 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:59:42 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 19:59:42 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:00:42 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 20:00:42 America/New_York] PHP Stack trace:
+[25-Dec-2016 20:00:42 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 20:00:42 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:00:42 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:00:42 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:00:42 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:00:42 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:04:50 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 20:04:50 America/New_York] PHP Stack trace:
+[25-Dec-2016 20:04:50 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 20:04:50 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:04:50 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:04:50 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:04:50 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:04:50 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:09:14 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 20:09:14 America/New_York] PHP Stack trace:
+[25-Dec-2016 20:09:14 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 20:09:14 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:09:14 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:09:14 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:09:14 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:09:14 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:10:47 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 20:10:47 America/New_York] PHP Stack trace:
+[25-Dec-2016 20:10:47 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 20:10:47 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:10:47 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:10:47 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:10:47 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:10:47 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:11:53 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 20:11:53 America/New_York] PHP Stack trace:
+[25-Dec-2016 20:11:53 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 20:11:53 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:11:53 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:11:53 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:11:53 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:11:53 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:15:50 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 20:15:50 America/New_York] PHP Stack trace:
+[25-Dec-2016 20:15:50 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 20:15:50 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:15:50 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:15:50 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:15:50 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:15:50 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:17:30 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 20:17:30 America/New_York] PHP Stack trace:
+[25-Dec-2016 20:17:30 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 20:17:30 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:17:30 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:17:30 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:17:30 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:17:30 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:18:41 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 20:18:41 America/New_York] PHP Stack trace:
+[25-Dec-2016 20:18:41 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 20:18:41 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:18:41 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:18:41 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:18:41 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:18:41 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:24:20 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 20:24:20 America/New_York] PHP Stack trace:
+[25-Dec-2016 20:24:20 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 20:24:20 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:24:20 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:24:20 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:24:20 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:24:20 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:26:32 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 20:26:32 America/New_York] PHP Stack trace:
+[25-Dec-2016 20:26:32 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 20:26:32 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:26:32 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:26:32 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:26:32 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:26:32 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:27:45 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 20:27:45 America/New_York] PHP Stack trace:
+[25-Dec-2016 20:27:45 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 20:27:45 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:27:45 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:27:45 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:27:45 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 20:27:45 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:43:55 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 21:43:55 America/New_York] PHP Stack trace:
+[25-Dec-2016 21:43:55 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 21:43:55 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:43:55 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:43:55 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:43:55 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:43:55 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:48:57 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 21:48:57 America/New_York] PHP Stack trace:
+[25-Dec-2016 21:48:57 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 21:48:57 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:48:57 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:48:57 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:48:57 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:48:57 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:51:11 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 21:51:11 America/New_York] PHP Stack trace:
+[25-Dec-2016 21:51:11 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 21:51:11 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:51:11 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:51:11 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:51:11 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:51:11 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:54:02 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 21:54:02 America/New_York] PHP Stack trace:
+[25-Dec-2016 21:54:02 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 21:54:02 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:54:02 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:54:02 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:54:02 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:54:02 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:54:40 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 21:54:40 America/New_York] PHP Stack trace:
+[25-Dec-2016 21:54:40 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 21:54:40 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:54:40 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:54:40 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:54:40 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:54:40 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:56:18 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 21:56:18 America/New_York] PHP Stack trace:
+[25-Dec-2016 21:56:18 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 21:56:18 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:56:18 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:56:18 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:56:18 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:56:18 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:58:20 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 21:58:20 America/New_York] PHP Stack trace:
+[25-Dec-2016 21:58:20 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 21:58:20 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:58:20 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:58:20 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:58:20 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:58:20 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:58:51 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 21:58:51 America/New_York] PHP Stack trace:
+[25-Dec-2016 21:58:51 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 21:58:51 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:58:51 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:58:51 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:58:51 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:58:51 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:59:34 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 21:59:34 America/New_York] PHP Stack trace:
+[25-Dec-2016 21:59:34 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 21:59:34 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:59:34 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:59:34 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:59:34 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 21:59:34 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:07:03 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:07:03 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:07:03 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:07:03 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:07:03 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:07:03 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:07:03 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:07:03 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:08:24 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:08:24 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:08:24 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:08:24 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:08:24 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:08:24 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:08:24 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:08:24 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:09:34 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:09:34 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:09:34 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:09:34 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:09:34 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:09:34 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:09:34 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:09:34 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:22:55 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:22:55 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:22:55 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:22:55 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:22:55 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:22:55 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:22:55 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:22:55 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:24:00 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:24:00 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:24:00 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:24:00 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:24:00 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:24:00 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:24:00 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:24:00 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:32:36 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:32:36 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:32:36 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:32:36 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:32:36 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:32:36 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:32:36 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:32:36 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:34:51 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:34:51 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:34:51 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:34:51 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:34:51 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:34:51 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:34:51 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:34:51 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:36:06 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:36:06 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:36:06 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:36:06 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:36:06 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:36:06 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:36:06 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:36:06 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:37:07 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:37:07 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:37:07 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:37:07 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:37:07 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:37:07 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:37:07 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:37:07 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:44:00 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:44:00 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:44:00 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:44:00 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:44:00 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:44:00 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:44:00 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:44:00 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:45:32 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:45:32 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:45:32 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:45:32 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:45:32 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:45:32 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:45:32 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:45:32 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:47:14 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:47:14 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:47:14 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:47:14 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:47:14 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:47:14 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:47:14 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:47:14 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:48:10 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:48:10 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:48:10 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:48:10 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:48:10 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:48:10 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:48:10 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:48:10 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:49:07 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:49:07 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:49:07 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:49:07 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:49:07 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:49:07 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:49:07 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:49:07 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:52:36 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:52:36 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:52:36 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:52:36 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:52:36 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:52:36 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:52:36 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:52:36 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:56:46 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:56:46 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:56:46 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:56:46 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:56:46 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:56:46 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:56:46 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:56:46 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:58:17 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:58:17 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:58:17 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:58:17 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:58:17 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:58:17 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:58:17 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:58:17 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:59:27 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 22:59:27 America/New_York] PHP Stack trace:
+[25-Dec-2016 22:59:27 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 22:59:27 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:59:27 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:59:27 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:59:27 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 22:59:27 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:02:03 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:02:03 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:02:03 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:02:03 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:02:03 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:02:03 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:02:03 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:02:03 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:04:00 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:04:00 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:04:00 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:04:00 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:04:00 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:04:00 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:04:00 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:04:00 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:06:52 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:06:52 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:06:52 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:06:52 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:06:52 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:06:52 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:06:52 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:06:52 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:08:24 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:08:24 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:08:24 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:08:24 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:08:24 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:08:24 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:08:24 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:08:24 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:10:17 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:10:17 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:10:17 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:10:17 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:10:17 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:10:17 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:10:17 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:10:17 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:13:16 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:13:16 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:13:16 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:13:16 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:13:16 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:13:16 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:13:16 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:13:16 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:16:52 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:16:52 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:16:52 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:16:52 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:16:52 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:16:52 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:16:52 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:16:52 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:18:49 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:18:49 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:18:49 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:18:49 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:18:49 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:18:49 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:18:49 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:18:49 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:26:03 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:26:03 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:26:03 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:26:03 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:26:03 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:26:03 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:26:03 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:26:03 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:27:49 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:27:49 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:27:49 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:27:49 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:27:49 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:27:49 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:27:49 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:27:49 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:29:36 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:29:36 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:29:36 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:29:36 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:29:36 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:29:36 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:29:36 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:29:36 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:30:54 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:30:54 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:30:54 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:30:54 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:30:54 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:30:54 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:30:54 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:30:54 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:33:48 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:33:48 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:33:48 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:33:48 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:33:48 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:33:48 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:33:48 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:33:48 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:35:56 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:35:56 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:35:56 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:35:56 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:35:56 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:35:56 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:35:56 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:35:56 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:36:53 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:36:53 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:36:53 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:36:53 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:36:53 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:36:53 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:36:53 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:36:53 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:37:25 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:37:25 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:37:25 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:37:25 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:37:25 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:37:25 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:37:25 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:37:25 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:38:43 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:38:43 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:38:43 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:38:43 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:38:43 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:38:43 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:38:43 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:38:43 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:41:20 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:41:20 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:41:20 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:41:20 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:41:20 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:41:20 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:41:20 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:41:20 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:43:07 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:43:07 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:43:07 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:43:07 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:43:07 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:43:07 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:43:07 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:43:07 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:44:43 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:44:43 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:44:43 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:44:43 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:44:43 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:44:43 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:44:43 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:44:43 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:47:04 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:47:04 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:47:04 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:47:04 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:47:04 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:47:04 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:47:04 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:47:04 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:48:16 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:48:16 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:48:16 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:48:16 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:48:16 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:48:16 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:48:16 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:48:16 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:51:33 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:51:33 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:51:33 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:51:33 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:51:33 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:51:33 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:51:33 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:51:33 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:52:32 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:52:32 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:52:32 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:52:32 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:52:32 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:52:32 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:52:32 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:52:32 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:55:43 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:55:43 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:55:43 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:55:43 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:55:43 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:55:43 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:55:43 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:55:43 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:59:26 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[25-Dec-2016 23:59:26 America/New_York] PHP Stack trace:
+[25-Dec-2016 23:59:26 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[25-Dec-2016 23:59:26 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:59:26 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:59:26 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:59:26 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[25-Dec-2016 23:59:26 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:00:52 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[26-Dec-2016 00:00:52 America/New_York] PHP Stack trace:
+[26-Dec-2016 00:00:52 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[26-Dec-2016 00:00:52 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:00:52 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:00:52 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:00:52 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:00:52 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:05:26 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[26-Dec-2016 00:05:26 America/New_York] PHP Stack trace:
+[26-Dec-2016 00:05:26 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[26-Dec-2016 00:05:26 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:05:26 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:05:26 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:05:26 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:05:26 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:09:23 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[26-Dec-2016 00:09:23 America/New_York] PHP Stack trace:
+[26-Dec-2016 00:09:23 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[26-Dec-2016 00:09:23 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:09:23 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:09:23 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:09:23 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:09:23 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:10:49 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[26-Dec-2016 00:10:49 America/New_York] PHP Stack trace:
+[26-Dec-2016 00:10:49 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[26-Dec-2016 00:10:49 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:10:49 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:10:49 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:10:49 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:10:49 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:12:56 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[26-Dec-2016 00:12:56 America/New_York] PHP Stack trace:
+[26-Dec-2016 00:12:56 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[26-Dec-2016 00:12:56 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:12:56 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:12:56 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:12:56 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:12:56 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:16:17 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[26-Dec-2016 00:16:17 America/New_York] PHP Stack trace:
+[26-Dec-2016 00:16:17 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[26-Dec-2016 00:16:17 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:16:17 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:16:17 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:16:17 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:16:17 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:19:02 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[26-Dec-2016 00:19:02 America/New_York] PHP Stack trace:
+[26-Dec-2016 00:19:02 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[26-Dec-2016 00:19:02 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:19:02 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:19:02 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:19:02 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:19:02 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:20:20 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[26-Dec-2016 00:20:20 America/New_York] PHP Stack trace:
+[26-Dec-2016 00:20:20 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[26-Dec-2016 00:20:20 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:20:20 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:20:20 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:20:20 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:20:20 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:21:15 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[26-Dec-2016 00:21:15 America/New_York] PHP Stack trace:
+[26-Dec-2016 00:21:15 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[26-Dec-2016 00:21:15 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:21:15 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:21:15 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:21:15 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:21:15 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:23:35 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/AssessmentController.php on line 63
+[26-Dec-2016 00:23:35 America/New_York] PHP Stack trace:
+[26-Dec-2016 00:23:35 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[26-Dec-2016 00:23:35 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:23:35 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:23:35 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:23:35 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[26-Dec-2016 00:23:35 America/New_York] PHP   6. App\Controllers\AssessmentController->listAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67

@@ -3,6 +3,7 @@ import {NavController} from "ionic-angular";
 import {InstrumentProvider} from "../../providers/instrument";
 import {InstrumentDetailPage} from "./detail";
 import {DataModel} from "../../providers/data-model";
+import {IconProvider} from "../../providers/icon";
 
 @Component({
     templateUrl: 'list.html'
@@ -11,12 +12,12 @@ export class InstrumentListPage {
     instruments = [];
     queryText: string = '';
 
-    constructor(private nav: NavController, instrumentData: InstrumentProvider) {
-        var organizationId = 2;
-        var args = [organizationId];
+    constructor(private nav: NavController, instrumentData: InstrumentProvider, public icon: IconProvider) {
+        let organizationId = 2;
+        let args = [organizationId];
         instrumentData.getAll(DataModel.buildArgs(args), false).then(instruments => {
             this.instruments = instruments;
-            for (var instrument of this.instruments) {
+            for (let instrument of this.instruments) {
                 instrument.visible = true;
             }
         });

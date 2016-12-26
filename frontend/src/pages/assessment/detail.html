@@ -1,10 +1,5 @@
 <ion-header>
-    <ion-navbar>
-        <button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>{{instrument.n}}: {{assessment.member|namify:false}} {{assessment.lm|date}}</ion-title>
-    </ion-navbar>
+    <header-bar title="{{assessment.instrument.name}}: {{assessment.member|namify:false}} {{assessment.lastModified|date:'short'}}"></header-bar>
 </ion-header>
 
 <ion-content class="outer-content assessment-detail" padding="true">
@@ -22,19 +17,18 @@
                 <avatar [id]="assessment.assessor.id" [size]="'tiny'"></avatar>
             </ion-col>
             <ion-col class="button-bar">
-                <app-icon-button (click)="save()" name="save"></app-icon-button>
-                <app-icon-button (click)="lock()" name="lock"></app-icon-button>
-                <app-icon-button (click)="pdf()" name="pdf"></app-icon-button>
+                <app-icon (click)="save()" name="save" [dirty]="dirty"></app-icon>
+                <app-icon (click)="lock()" name="lock"></app-icon>
+                <app-icon (click)="generatePDF(instrument, assessment)" name="pdf"></app-icon>
             </ion-col>
         </ion-row>
     </ion-grid>
     <loading-indicator [hidden]="instrument?.questions?.length"></loading-indicator>
     <ion-segment>
-        <ion-segment-button *ngFor="let questionGroup of instrument.questionGroups; let groupIndex = index"
-                            value="questionGroup.tag" (click)="goTo(groupIndex)"
-                            ngClass="{{(groupIndex == slideIndex? 'active' : 'inactive')}}">
-            <div>{{questionGroup.tag}}</div>
-        </ion-segment-button>
+        <ion-col *ngFor="let questionGroup of instrument.questionGroups; let groupIndex = index" (click)="goTo(groupIndex)"
+                 [class]="'progressBar' + (groupIndex == slideIndex? ' selected' : '')">
+            <div>{{questionGroup.tag|ellipsify:14}}</div>
+        </ion-col>
     </ion-segment>
     <ion-slides #assessmentSlider [options]="{loop:false, effect:'slide', autoHeight:true, onlyExternal:true}">
         <ion-slide *ngFor="let questionGroup of instrument.questionGroups; let groupIndex = index" (swipe)="swipeEvent($event)">
@@ -48,10 +42,15 @@
                                 <div class="text" [innerHtml]="question.summary"></div>
                             </ion-card-header>
                             <ion-card-content>
-                                <div class="slide-width-{{question.type.choices.length}}">
-                                    <ion-range min="0" [max]="(question.type.choices.length-1)" step="1" snaps="true"
-                                               [(ngModel)]="question.response"></ion-range>
-                                </div>
+                                <ion-row #sliderRow [style.padding-right]="sliderPadding(question,sliderRow)+'px'"
+                                         [style.padding-left]="sliderPadding(question,sliderRow)+'px'">
+                                    <ion-col>
+                                        <ion-range min="0" [max]="(question.type.choices.length-1)" step="1" snaps="true"
+                                                   [(ngModel)]="question.response"
+                                                   (ionChange)="setDirty()">
+                                        </ion-range>
+                                    </ion-col>
+                                </ion-row>
                                 <rubric [question]="question"></rubric>
                             </ion-card-content>
                         </ion-card>
@@ -60,5 +59,6 @@
             </ion-card>
         </ion-slide>
     </ion-slides>
+    <canvas id="assessmentPdf" [hidden]="true"></canvas>
 </ion-content>
 

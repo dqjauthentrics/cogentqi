@@ -38,8 +38,11 @@ export class DataFilterPipe implements PipeTransform {
     matchResource(query, rec) {
         let match = false;
         if (rec) {
-            if (rec.title) {
-                match = match || this.match(query, rec.title);
+            if (rec.name) {
+                match = match || this.match(query, rec.name);
+            }
+            if (rec.number) {
+                match = match || this.match(query, rec.number);
             }
             if (!match && rec.summary) {
                 match = match || this.match(query, rec.summary);
@@ -57,6 +60,18 @@ export class DataFilterPipe implements PipeTransform {
             match = this.match(query, rec.name);
             if (!match && rec.code) {
                 match = this.match(query, rec.code);
+            }
+            if (!match && rec.address) {
+                match = this.match(query, rec.address);
+            }
+            if (!match && rec.city) {
+                match = this.match(query, rec.city);
+            }
+            if (!match && rec.state) {
+                match = this.match(query, rec.state);
+            }
+            if (!match && rec.postal) {
+                match = this.match(query, rec.postal);
             }
         }
         return match;
@@ -81,7 +96,10 @@ export class DataFilterPipe implements PipeTransform {
             return _.filter(array, row => {
                 //console.log('row', row);
                 let match = this.matchMember(query, row);
+                match = match || this.matchAssessment(query, row);
                 match = match || this.matchMember(query, row.administrator);
+                match = match || this.matchMember(query, row.member);
+                match = match || this.matchMember(query, row.assessor);
                 match = match || this.matchResource(query, row);
                 match = match || this.matchOrganization(query, row);
                 match = match || this.matchOrganization(query, row.organization);

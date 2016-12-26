@@ -10,12 +10,13 @@ export class Config {
     public copyright = "Copyright \u00a9 2015, PLS 3rd Learning.com.  All rights reserved.";
     public trademarkName = "PLS 3rd Learning&#8482;";
     public name = "Demonstration";
-    public logo = '/assets/site/default/images/headerLogo.png';
     public site = '/assets/site/default';
     public siteDir: string = 'default';
     public css: string = this.site + '/theme.css';
     public translations: string = this.site + '/translations';
-    public fullLogo: string = '/assets/site/default/images/banner.png';
+    public logoFull: string = '/assets/site/default/images/logoFull.png';
+    public logoHeader: string = '/assets/site/default/images/logoHeader.png';
+    public logoPrint: string = '/assets/site/default/images/logoPrint.png';
     public isAdmin: boolean = false;
 
     constructor(private http: Http) {
@@ -33,6 +34,9 @@ export class Config {
                 this.site = '/assets/site/' + this.siteDir;
                 this.css = this.site + '/theme.css';
                 this.translations = this.site + '/translations';
+                this.logoFull = '/assets/site/' + this.siteDir + '/images/logoFull.png';
+                this.logoHeader = '/assets/site/' + this.siteDir + '/images/logoHeader.png';
+                this.logoPrint = '/assets/site/' + this.siteDir + '/images/logoPrint.png';
                 let themeEl = window.document.getElementById('theme');
                 if (themeEl) {
                     themeEl.setAttribute('href', this.css);
@@ -62,12 +66,6 @@ export class Config {
     }
 
     processData(jsonObject) {
-        if (jsonObject.logo) {
-            this.logo = jsonObject.logo;
-        }
-        if (jsonObject.fullLogo) {
-            this.fullLogo = jsonObject.fullLogo;
-        }
         if (jsonObject.copyright) {
             this.copyright = jsonObject.copyright;
         }

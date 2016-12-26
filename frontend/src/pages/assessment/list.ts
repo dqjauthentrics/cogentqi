@@ -2,24 +2,26 @@ import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {AssessmentProvider} from "../../providers/assessment";
 import {SessionProvider} from "../../providers/session";
-import {AssessmentDetailPage} from "./detail";
+import {IconProvider} from "../../providers/icon";
 
 @Component({
     templateUrl: 'list.html',
 })
 
 export class AssessmentListPage {
-    assessments = [];
+    public loading: boolean = false;
+    public assessments = [];
+    public filterQuery = "";
+    public rowsOnPage = 5;
+    public sortBy = "orderedOn";
+    public sortOrder = "desc";
 
-    constructor(private nav: NavController, private session: SessionProvider, assessmentData: AssessmentProvider) {
-        var organizationId = session.user.organizationId;
-        assessmentData.getAll('/' + organizationId, false).then(assessments => {
+    constructor(private nav: NavController, private session: SessionProvider, assessmentData: AssessmentProvider, public icon: IconProvider) {
+        this.loading = true;
+        assessmentData.getAll('/' + session.user.organizationId, false).then(assessments => {
             this.assessments = assessments;
+            this.loading = false;
         });
-    }
-
-    goToDetail(assessment) {
-        this.nav.push(AssessmentDetailPage, assessment);
     }
 
 }

@@ -12,6 +12,7 @@ export class LoginPage {
     submitted = false;
 
     constructor(private nav: NavController, public session: SessionProvider, public config: Config) {
+        console.log('config:', config);
     }
 
     onLogin(form) {

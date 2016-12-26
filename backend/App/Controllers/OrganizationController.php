@@ -14,7 +14,7 @@ class OrganizationController extends ControllerBase {
 	 * @param int $id
 	 * @param int $drilldown
 	 */
-	public function indexAction($id = NULL, $drilldown = self::DRILL_NONE) {
+	public function listAction($id = NULL, $drilldown = self::DRILL_NONE) {
 		$result = new Result($this);
 		$data = [];
 		try {
@@ -40,6 +40,33 @@ class OrganizationController extends ControllerBase {
 			$result->setError(Result::CODE_EXCEPTION, $exception->getMessage());
 		}
 		$result->sendNormal($data);
+	}
+
+	/**
+	 * @param null $id
+	 */
+	public function singleAction($id = NULL) {
+		$result = new Result($this);
+		try {
+			$user = $this->currentUser();
+			$organization = Organization::findFirst($id);
+			if (!empty($organization)) {
+				$data = $organization->map();
+				if (!empty($data)) {
+					$result->setNormal($data);
+				}
+				else {
+					$result->setError(Result::CODE_EXCEPTION, 'Unable to map data properly.');
+				}
+			}
+			else {
+				$result->setError(Result::CODE_NOT_FOUND);
+			}
+		}
+		catch (\Exception $exception) {
+			$result->setException($exception);
+		}
+		$result->sendNormal();
 	}
 
 	/**

@@ -1,4 +1,4 @@
-<table class="table table-striped" [mfData]="assessments" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
+<table class="table table-striped listing" [mfData]="assessments" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
        [(mfSortOrder)]="sortOrder">
     <tbody>
     <tr *ngFor="let assessment of mf.data" (click)="goToAssessment(assessment)">

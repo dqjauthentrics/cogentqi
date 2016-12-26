@@ -1,0 +1,12 @@
+
+.organization-list {
+
+  ion-avatar img {
+    width: 48px;
+    height: 48px;
+  }
+
+  ion-content > div > table > thead > tr > th:nth-child(4), ion-content > div > table > tbody > tr > td:nth-child(4) {
+    max-width: 2rem;
+  }
+}

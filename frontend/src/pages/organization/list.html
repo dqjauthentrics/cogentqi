@@ -1,0 +1,57 @@
+<ion-header>
+    <header-bar [title]="'Organizations'|translate"></header-bar>
+</ion-header>
+
+<ion-content class="dashboard organization-list">
+    <table class="table table-striped listing" [mfData]="organizations | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
+           [(mfSortOrder)]="sortOrder">
+        <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>
+                <mfDefaultSorter [by]="sortNameSummary">Name</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter [by]="sortAddress">Address</mfDefaultSorter>
+            </th>
+            <th>
+                Summary
+            </th>
+        </tr>
+        <tr>
+            <th colspan="7">
+                <ion-searchbar [(ngModel)]="filterQuery" placeholder="filter"></ion-searchbar>
+            </th>
+        </tr>
+        <tr [hidden]="!loading">
+            <td colspan="4">
+                <loading-indicator [loading]="loading"></loading-indicator>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let organization of mf.data" class="order" (click)="goToOrganization(organization)">
+            <td>
+                <app-icon name="organization"></app-icon>
+            </td>
+            <td>
+                <div class="name">{{organization.name}}</div>
+                <div class="description">{{organization.summary}}</div>
+            </td>
+            <td>
+                {{organization.address}} {{organization.city}} {{organization.state}} {{organization.postal}}
+            </td>
+             <td class="list-drilldown">
+                <i [class]="icon.getClass('drilldown')"></i>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</ion-content>

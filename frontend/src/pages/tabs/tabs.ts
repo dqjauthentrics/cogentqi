@@ -5,6 +5,8 @@ import {DashboardPage} from "../dashboard/dashboard";
 import {HelpPage} from "../help/help";
 import {ResourceListPage} from "../resource/list";
 import {MemberListPage} from "../member/list";
+import {AssessmentListPage} from "../assessment/list";
+import {OrganizationListPage} from "../organization/list";
 import {ConfigHelpIndex} from "../configuration/help/index";
 import {CfgScheduleListPage} from "../configuration/schedule/list";
 import {CfgResourcesListPage} from "../configuration/resources/list";
@@ -30,6 +32,8 @@ export class TabsPage {
     mainPages: TabPageObj[] = [
         {title: 'Dashboard', page: DashboardPage, icon: 'dashboard'},
         {title: 'Members', page: MemberListPage, icon: 'members'},
+        {title: 'Assessments', page: AssessmentListPage, icon: 'assessments'},
+        {title: 'Organizations', page: OrganizationListPage, icon: 'organizations'},
         {title: 'Resources', page: ResourceListPage, icon: 'resources'},
         {title: 'Configuration', page: ConfigurationPage, icon: 'configuration'},
         {title: 'Help', page: HelpPage, icon: 'help'}

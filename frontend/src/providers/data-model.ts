@@ -37,6 +37,9 @@ export class DataModel {
     }
 
     checkResult(result, notify: boolean) {
+        if (result.code !== 200) {
+            console.error('SERVER ERROR: ' + result.message);
+        }
         if (notify) {
             let toast = this.toastCtrl.create({
                 message: result && result.code != 200 ? result.message : 'Okay!',
@@ -66,7 +69,10 @@ export class DataModel {
                 res => {
                     try {
                         let jsonResponse = res.json();
-                        provider.checkResult(jsonResponse, false);
+                        if (jsonResponse.code !== 200) {
+                            provider.globals.alertError('Sorry.  There was an error loading data from the server.  Please try again.');
+                            console.error('ERROR FOR:' + url + '::RESULT=' + jsonResponse.message);
+                        }
                         let data = jsonResponse.data;
                         if (this.globals.debug) {
                             console.log('jsonResponse: ', jsonResponse);
@@ -137,20 +143,20 @@ export class DataModel {
         );
     }
 
-    getPostData(urlSegment: string, data: any) {
+    getPostData(urlSegment: string, data: any, notify: boolean) {
         let provider = this;
         let body = JSON.stringify({data});
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
         let url = this.baseUrl + urlSegment;
         if (provider.globals.debug) {
-            console.log('postData:' + url);
+            console.log('postData:' + url, data);
         }
         return new Promise(resolve => {
             this.http.post(url, body, options).subscribe(
                 result => {
-                    this.checkResult(result, false);
                     let jsonResponse = result.json();
+                    this.checkResult(jsonResponse, notify);
                     let data = jsonResponse.data;
                     if (provider.globals.debug) {
                         console.log(url + ':post returned:', data);
@@ -164,19 +170,7 @@ export class DataModel {
         });
     }
 
-    update(data: any) {
-        let provider = this;
-        let body = JSON.stringify({data});
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-        let url = this.baseUrl + '/update';
-        if (provider.globals.debug) {
-            console.log('update:' + url);
-        }
-        this.http.post(url, body, options).subscribe(res => {
-            if (provider.globals.debug) {
-                console.log(this.name + 'update returns:', res);
-            }
-        });
+    update(data: any, notify: boolean) {
+        return this.getPostData('/update', data, notify);
     }
 }

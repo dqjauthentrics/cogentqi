@@ -1,7 +1,5 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title>{{resource.npm}} {{resource.n}}</ion-title>
-    </ion-navbar>
+    <header-bar [title]="resource.number + ': ' + resource.name"></header-bar>
 </ion-header>
 
 <ion-content padding class="resource-detail">

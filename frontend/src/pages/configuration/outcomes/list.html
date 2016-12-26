@@ -3,7 +3,7 @@
 </ion-header>
 
 <ion-content class="outer-content configuration resources">
-    <table class="table table-striped" [mfData]="outcomes | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
+    <table class="table table-striped listing" [mfData]="outcomes | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
            [(mfSortOrder)]="sortOrder">
         <thead>
         <tr>
@@ -26,8 +26,8 @@
                 <div class="name">{{outcome.name}}</div>
                 <div class="description" [innerHTML]="outcome.description"></div>
             </td>
-            <td>
-                <ion-icon name="arrow-forward"></ion-icon>
+            <td class="list-drilldown">
+                <i [class]="icon.getClass('drilldown')"></i>
             </td>
         </tr>
         </tbody>

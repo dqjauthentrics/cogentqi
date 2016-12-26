@@ -31,8 +31,12 @@ export class IconProvider {
             case 'level-up':
                 isAwesome = true;
                 break;
+            case 'drilldown':
+                className = 'chevron-right';
+                isAwesome = true;
+                break;
             case 'logout':
-                className = 'power';
+                className = 'power-off';
                 break;
             case 'member':
             case 'members':
@@ -40,8 +44,7 @@ export class IconProvider {
                 break;
             case 'organization':
             case 'organizations':
-                className = 'sitemap';
-                isAwesome = true;
+                className = 'git-network';
                 break;
             case 'people':
                 className = 'people';

@@ -106,8 +106,17 @@ ion-footer ion-toolbar ion-col {
 button.save {
   background: green;
 }
+
 button.delete {
   background: red;
+}
+
+.dirty:before {
+  color: gold;
+}
+
+.locked:before {
+  color: red;
 }
 
 .badge {
@@ -355,26 +364,27 @@ ion-footer .tabs ion-col.selected ion-icon, .tabs ion-col.selected ion-icon:befo
 }
 
 app-icon {
-  height: 4.25rem;
-  width: 4.25rem;
+  height: 32px;
+  width: 32px;
   text-align: center;
   vertical-align: center;
   color: #95989a;
   display: inline-block;
   margin: 0.5rem;
+  cursor: pointer;
 }
 
-app-icon ion-icon:before {
-  font-size: 4.0rem;
+app-icon i:before {
+  font-size: 32px;
 }
 
 app-icon[size="small"] {
-  height: 2.5rem;
-  width: 2.5rem;
+  height: 24px;
+  width: 24px;
 }
 
-app-icon[size="small"] ion-icon:before {
-  font-size: 2.25rem;
+app-icon[size="small"] i:before {
+  font-size: 24px;
 }
 
 ion-navbar {
@@ -430,6 +440,17 @@ table.table {
 
 .pagination > li > a, .pagination > li > span {
   color: color($colors, secondary);
+}
+
+.listing {
+  cursor: pointer;
+}
+
+.list-drilldown {
+  text-align: right;
+  color: #AAA;
+  font-size: 1.4em;
+  font-weight: normal;
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) {
@@ -740,6 +761,7 @@ form {
     font-style: italic;
   }
 }
+
 .ql-container {
   background: #FFF;
   padding: 4px;

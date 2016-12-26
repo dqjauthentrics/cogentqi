@@ -1,0 +1,68 @@
+<table class="table table-striped listing" [mfData]="assessments | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
+       [(mfSortOrder)]="sortOrder">
+    <thead>
+    <tr>
+        <th>
+            <mfDefaultSorter [by]="sortName">Instrument</mfDefaultSorter>
+        </th>
+        <th>
+            <mfDefaultSorter by="roleName">Member</mfDefaultSorter>
+        </th>
+        <th>
+            <mfDefaultSorter by="roleName">Assessor</mfDefaultSorter>
+        </th>
+        <th>
+            <mfDefaultSorter [by]="sortBadges">Last Modified</mfDefaultSorter>
+        </th>
+        <th>
+            <mfDefaultSorter [by]="sortLastAssessment">Score</mfDefaultSorter>
+        </th>
+    </tr>
+    <tr>
+        <th colspan="7">
+            <ion-searchbar [(ngModel)]="filterQuery" placeholder="filter"></ion-searchbar>
+        </th>
+    </tr>
+    <tr [hidden]="!loading">
+        <td colspan="4">
+            <loading-indicator [loading]="loading"></loading-indicator>
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let assessment of mf.data" class="order" (click)="goToAssessment(assessment)">
+        <td>
+            {{assessment.instrument.name}}
+        </td>
+        <td>
+            <avatar *ngIf="assessment.member.avatar" [id]="assessment.member.id" [size]="'list'"></avatar>
+            {{assessment.member|namify:false}}
+        </td>
+        <td clas="assessor">
+            <div *ngIf="assessment.assessor.id != assessment.member.id">
+                <avatar *ngIf="assessment.assessor.avatar" [id]="assessment.member.id" [size]="'list'"></avatar>
+                {{assessment.assessor|namify:false}}
+            </div>
+            <div *ngIf="assessment.assessor.id == assessment.member.id">
+                (self-assessment)
+            </div>
+        </td>
+        <td>
+            {{assessment.lastModified|date:'short'}}
+        </td>
+        <td>
+            {{assessment.score}}
+        </td>
+        <td class="list-drilldown">
+            <i [class]="icon.getClass('drilldown')"></i>
+        </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+    </tr>
+    </tfoot>
+</table>
