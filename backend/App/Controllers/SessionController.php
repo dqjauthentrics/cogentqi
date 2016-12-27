@@ -12,6 +12,8 @@ class SessionController extends \App\Controllers\ControllerBase {
 	private function _setSession($member) {
 		$memberRec = $member->map();
 		$memberRec['organizationName'] = $member->organization->name;
+		$memberRec['nChildOrgs'] = $member->getSingleValue('SELECT COUNT(id) FROM organization WHERE parent_id='.$member->organization_id);
+		$memberRec['nMembers'] = $member->getSingleValue('SELECT COUNT(id) FROM member WHERE organization_id='.$member->organization_id);
 		unset($memberRec['password']);
 		$this->session->set('auth', $memberRec);
 	}
@@ -21,19 +23,9 @@ class SessionController extends \App\Controllers\ControllerBase {
 	 */
 	public function loginAction() {
 		$result = new Result($this);
-		if ($this->request->isPost()) {
-			$username = $this->request->getPost('username');
-			$password = $this->request->getPost('password');
-			if (empty($username)) { //@todo This is how it works for Angular 2.  I do not understand how to get it to work as a 'regular' PHP post.
-				$postData = json_decode(file_get_contents("php://input"));
-				$username = $postData->username;
-				$password = $postData->password;
-			}
-		}
-		else {
-			$username = @$_REQUEST["username"];
-			$password = @$_REQUEST["password"];
-		}
+		$postData = json_decode(file_get_contents("php://input"));
+		$username = $postData->username;
+		$password = $postData->password;
 		$member = Member::findFirst([
 				'conditions' => "(email = :username: OR username = :username:) AND password = :password:",
 				'bind'       => ['username' => $username, 'password' => md5($password)]
@@ -42,7 +34,6 @@ class SessionController extends \App\Controllers\ControllerBase {
 		if ($member != FALSE) {
 			$this->_setSession($member);
 			$data = $this->session->get('auth');
-			file_put_contents('/tmp/dqj.dbg', 'LOGIN GET:'.$this->dumpToStr($data).PHP_EOL, FILE_APPEND);
 			$result->setNormal($data);
 		}
 		else {

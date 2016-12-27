@@ -4,6 +4,7 @@ import {AssessmentProvider} from "../../providers/assessment";
 import {SessionProvider} from "../../providers/session";
 import {AssessmentDetailPage} from "./detail";
 import {IconProvider} from "../../providers/icon";
+import {Namify} from "../../pipes/namify";
 
 @Component({
     selector: 'organization-assessments',
@@ -36,6 +37,28 @@ export class OrganizationAssessments {
 
     goToAssessment(assessment) {
         this.nav.push(AssessmentDetailPage, assessment);
+    }
+
+    sortName(assessment) {
+        return assessment.instrument.name;
+    }
+
+    sortModified(assessment) {
+        return assessment.lastModified;
+    }
+
+    sortScore(assessment) {
+        return assessment.score;
+    }
+
+    sortMember(assessment) {
+        let namifier = new Namify();
+        return namifier.transform(assessment.member,false);
+    }
+
+    sortAssessor(assessment) {
+        let namifier = new Namify();
+        return namifier.transform(assessment.assessor,false);
     }
 
 }

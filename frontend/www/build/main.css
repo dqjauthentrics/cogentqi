@@ -4819,7 +4819,7 @@ button.delete {
   color: gold;
 }
 
-.locked:before {
+.locked i:before {
   color: red;
 }
 
@@ -5474,6 +5474,22 @@ form label, form .label {
 
 .pull-right {
   float: right;
+}
+
+.searchbar, .searchbar-md {
+  padding: 0 !important;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+loading-indicator > div, loading-indicator > div ion-spinner {
+  font-size: 1.2em;
+  line-height: 1.2em;
+  vertical-align: middle;
+  color: #AAA;
+  font-weight: 300;
 }
 
 ion-action-sheet {
@@ -27412,6 +27428,7 @@ assessment-item {
 
 .rubric ion-col {
   border: 1px transparent;
+  cursor: pointer;
 }
 
 .rubric ion-row .header {
@@ -27426,6 +27443,10 @@ assessment-item {
 
 .rubric ion-col.active {
   font-weight: bold;
+}
+
+.rubric ion-col.disabled {
+  cursor: not-allowed;
 }
 
 .configuration tr {
@@ -27615,6 +27636,18 @@ ion-content.login h3 {
   border-collapse: collapse;
 }
 
+.matrix-page #matrix tbody tr {
+  cursor: pointer;
+}
+
+.matrix-page #matrix tbody tr.clickable:hover, .matrix-page #matrix tbody tr.clickable:hover td {
+  background: #EEE !important;
+}
+
+.matrix-page #matrix tbody tr.average:hover, .matrix-page #matrix tbody tr.average:hover td {
+  cursor: not-allowed;
+}
+
 .matrix-page #matrix td {
   border: 1px solid gray;
   padding: 0.4em;
@@ -27724,6 +27757,64 @@ ion-content.login h3 {
 
 .organization-list ion-content > div > table > thead > tr > th:nth-child(4), .organization-list ion-content > div > table > tbody > tr > td:nth-child(4) {
   max-width: 2rem;
+}
+
+.reports.menu ion-card {
+  min-height: 100px;
+  vertical-align: middle;
+  font-size: 1.2em;
+  color: #666;
+  cursor: pointer;
+  height: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 24px;
+}
+
+.reports.menu ion-card .name {
+  font-weight: bold;
+}
+
+.reports.menu ion-card .description {
+  font-weight: 100;
+  font-style: italic;
+  font-size: 0.8em;
+}
+
+@media (max-width: 567px) {
+  .reports.menu ion-card {
+    height: 160px;
+  }
+}
+
+.reports .graph-col-wrap {
+  width: 94%;
+  margin: 10px auto;
+}
+
+.graph {
+  background: #EEE;
+  padding: 10px;
+}
+
+.graph-col {
+  float: left;
+  width: 48%;
+  margin: 1%;
+}
+
+@media (min-width: 1048px) {
+  .graph-col {
+    width: 32.6%;
+    margin: 0.3%;
+  }
+}
+
+@media (min-width: 1500px) {
+  .graph-col {
+    width: 24.6%;
+    margin: 0.2%;
+  }
 }
 
 .resource-detail .video-embed {

@@ -1,0 +1,63 @@
+.reports.menu {
+  ion-card {
+    min-height: 100px;
+    vertical-align: middle;
+    font-size: 1.2em;
+    color: #666;
+    cursor: pointer;
+    height: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 24px;
+
+    .name {
+      font-weight: bold;
+    }
+    .description {
+      font-weight: 100;
+      font-style: italic;
+      font-size: 0.8em;
+    }
+  }
+}
+
+@media (max-width: 567px) {
+  .reports.menu {
+    ion-card {
+      height: 160px;
+    }
+  }
+}
+
+.reports {
+  .graph-col-wrap {
+    width: 94%;
+    margin: 10px auto;
+  }
+}
+
+.graph {
+  background: #EEE;
+  padding: 10px;
+}
+
+.graph-col {
+  float: left;
+  width: 48%;
+  margin: 1%;
+}
+
+@media (min-width: 1048px) {
+  .graph-col {
+    width: 32.6%;
+    margin: 0.3%;
+  }
+}
+
+@media (min-width: 1500px) {
+  .graph-col {
+    width: 24.6%;
+    margin: 0.2%;
+  }
+}
+

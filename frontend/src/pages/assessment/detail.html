@@ -7,10 +7,10 @@
     <ion-grid class="header">
         <ion-row>
             <ion-col>
-                <div class="pull-left">
-                    <avatar [id]="assessment.member.id" [size]="'full'"></avatar>
+                <div class="pull-left clickable">
+                    <avatar (click)="goToMember(assessment.member)" [id]="assessment.member.id" [size]="'full'"></avatar>
                 </div>
-                <div class="pull-left"><h3>{{assessment.member|namify:false}}</h3></div>
+                <div class="pull-left clickable"><h3 (click)="goToMember(assessment.member)">{{assessment.member|namify:false}}</h3></div>
             </ion-col>
             <ion-col>
                 Last modified {{assessment.lastModfied|date:'M/d/yyyy @ h:mm'}} by {{assessment.assessor|namify:false}}
@@ -18,7 +18,7 @@
             </ion-col>
             <ion-col class="button-bar">
                 <app-icon (click)="save()" name="save" [dirty]="dirty"></app-icon>
-                <app-icon (click)="lock()" name="lock"></app-icon>
+                <app-icon (click)="lock()" name="lock" [class]="assessment.locked? 'locked':''"></app-icon>
                 <app-icon (click)="generatePDF(instrument, assessment)" name="pdf"></app-icon>
             </ion-col>
         </ion-row>
@@ -47,11 +47,11 @@
                                     <ion-col>
                                         <ion-range min="0" [max]="(question.type.choices.length-1)" step="1" snaps="true"
                                                    [(ngModel)]="question.response"
-                                                   (ionChange)="setDirty()">
+                                                   (ionChange)="setDirty()" [disabled]="assessment.locked">
                                         </ion-range>
                                     </ion-col>
                                 </ion-row>
-                                <rubric [question]="question"></rubric>
+                                <rubric (onChange)="setDirty()" [question]="question" [enabled]="!assessment.locked"></rubric>
                             </ion-card-content>
                         </ion-card>
                     </div>

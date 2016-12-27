@@ -7,6 +7,7 @@ import {ColorProvider} from "../../providers/color";
 import {IconProvider} from "../../providers/icon";
 import {Config} from "../../providers/config";
 import {PDF} from "../../providers/pdf";
+import {MemberDetailPage} from "../member/detail";
 
 @Component({
     templateUrl: 'detail.html',
@@ -33,6 +34,10 @@ export class AssessmentDetailPage {
             }
         });
 
+    }
+
+    goToMember(member) {
+        this.nav.push(MemberDetailPage, member);
     }
 
     setDirty() {
@@ -180,7 +185,8 @@ export class AssessmentDetailPage {
         }
     }
 
-    genAutoTablePdf(instrument, assessment) {
+    /*****
+     genAutoTablePdf(instrument, assessment) {
         let columns = ["ID", "Name", "Country"];
         let rows = [
             [1, "Shaw", "Tanzania this is\nsome really very long text that should wrap around nicely if this thing works as it shoud."],
@@ -209,7 +215,7 @@ export class AssessmentDetailPage {
         doc.save('table.pdf');
     }
 
-    generatePdfFromHtml(instrument, assessment) {
+     generatePdfFromHtml(instrument, assessment) {
         let doc = this.pdf.doc;
         let html = '<html><body><h1>Assessment</h1><table><tbody>';
         let nGroups = instrument.questionGroups.length;
@@ -234,5 +240,5 @@ export class AssessmentDetailPage {
         //assessmentFileName = this.globals.safeName(assessmentFileName);
         //doc.save(assessmentFileName);
     }
-
+     ****/
 }

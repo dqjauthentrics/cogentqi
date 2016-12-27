@@ -3,23 +3,24 @@
 </ion-header>
 
 <ion-content padding class="matrix-page">
-    <ion-row *ngIf="matrix && session.user" responsive-md class="topBar">
+    <ion-row *ngIf="instrument && session.user" responsive-md class="topBar">
         <div>
-            <a (click)="goToOrganization(matrix.org?.parent_id)" *ngIf="matrix.org?.id != session.user.organizationId">
+            <a (click)="goToOrganization(matrix?.org.parent_id)" *ngIf="matrix?.org.id != session.user.organizationId">
                 <app-icon name="level-up"></app-icon>
             </a>
-            {{matrix.org?.name}}
+            {{matrix?.org.name}}
             <select class="ion-input-select--large" [(ngModel)]="instrument.id" (change)="changeInstrument($event.target.value)">
                 <option *ngFor="let instr of instrumentData.list" [value]="instr.id">{{instr.name}}</option>
             </select>
         </div>
     </ion-row>
-    <ion-row *ngIf="matrix && session.user" responsive-sm>
+    <ion-row *ngIf="segments" responsive-sm>
         <ion-col *ngFor="let segment of segments; let i=index;" [class]="'progressBar' + (segment.value == instrumentData.currentSectionIdx? ' selected':'')"
                  (click)="goToGroup(segment.value)">
             {{segment.text|ellipsify:14}}
         </ion-col>
     </ion-row>
+    <loading-indicator [loading]="loading"></loading-indicator>
     <ion-row *ngIf="matrix" responsive-md>
         <table id="matrix" class="matrix">
             <thead>
@@ -31,7 +32,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let row of matrix.rows">
+            <tr *ngFor="let row of matrix.rows; let i=index;" (click)="goToRow(matrix.mType, row)" [class]="(i==matrix.rows.length-1?'average':'clickable')">
                 <td [class]="'leftHeader' + (row.mid == -1 || row.oid == -1? 'average':'')">
                     <div [ngSwitch]="(matrix.mType == 'M' ? row.mid : row.oid)">
                         <div *ngSwitchCase="'-1'" style="text-align: right;">
@@ -42,18 +43,14 @@
                                 <div *ngSwitchCase="'M'">
                                     <div *ngIf="row.mid > 0">
                                         <avatar [id]="row.mid" [size]="'tiny'"></avatar>
-                                        <ion-icon name="{{'assessment'|icon}}" (click)="goToAssessment(row.aid)"></ion-icon>
-                                        <a (click)="goToMember(row.mid)">{{row.n}}</a>
+                                        {{row.n}}
                                     </div>
                                     <div *ngIf="row.mid < 0">
                                         {{row.n}}
                                     </div>
                                 </div>
                                 <div *ngSwitchCase="'O'">
-                                    <a (click)="goToOrganization(row.oid)">
-                                        <app-icon name="organization"></app-icon>
-                                    </a>
-                                    <a (click)="goToOrganization(row.oid)">{{row.n}}</a>
+                                    {{row.n}}
                                 </div>
                             </div>
                         </div>

@@ -75,6 +75,7 @@ assessment-item {
 .rubric {
   ion-col {
     border: 1px transparent;
+    cursor: pointer;
   }
   ion-row .header {
     text-align: center;
@@ -87,4 +88,8 @@ assessment-item {
   ion-col.active {
     font-weight: bold;
   }
+  ion-col.disabled {
+      cursor: not-allowed;
+  }
 }
+

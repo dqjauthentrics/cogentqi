@@ -1,13 +1,12 @@
 import {Component} from "@angular/core";
 import {NavParams, NavController} from "ionic-angular";
 import {Globals} from "../../providers/globals";
+import {SessionProvider} from "../../providers/session";
 import {DashboardPage} from "../dashboard/dashboard";
-import {HelpPage} from "../help/help";
 import {ResourceListPage} from "../resource/list";
 import {MemberListPage} from "../member/list";
 import {AssessmentListPage} from "../assessment/list";
 import {OrganizationListPage} from "../organization/list";
-import {ConfigHelpIndex} from "../configuration/help/index";
 import {CfgScheduleListPage} from "../configuration/schedule/list";
 import {CfgResourcesListPage} from "../configuration/resources/list";
 import {CfgInstrumentsListPage} from "../configuration/instruments/list";
@@ -15,11 +14,13 @@ import {CfgEventsListPage} from "../configuration/events/list";
 import {CfgOutcomesListPage} from "../configuration/outcomes/list";
 import {SettingsConfigPage} from "../configuration/settings/config";
 import {ConfigurationPage} from "../configuration/configuration";
+import {ReportsPage} from "../report/index";
 
 export interface TabPageObj {
     title: string;
     page: any;
     icon: string;
+    show: boolean;
 }
 
 @Component({
@@ -30,35 +31,37 @@ export class TabsPage {
     pages: TabPageObj[] = [];
 
     mainPages: TabPageObj[] = [
-        {title: 'Dashboard', page: DashboardPage, icon: 'dashboard'},
-        {title: 'Members', page: MemberListPage, icon: 'members'},
-        {title: 'Assessments', page: AssessmentListPage, icon: 'assessments'},
-        {title: 'Organizations', page: OrganizationListPage, icon: 'organizations'},
-        {title: 'Resources', page: ResourceListPage, icon: 'resources'},
-        {title: 'Configuration', page: ConfigurationPage, icon: 'configuration'},
-        {title: 'Help', page: HelpPage, icon: 'help'}
+        {title: 'Dashboard', page: DashboardPage, icon: 'dashboard', show: true},
+        {title: 'Members', page: MemberListPage, icon: 'members', show: this.session.user.nMembers > 1},
+        {title: 'Assessments', page: AssessmentListPage, icon: 'assessments', show: this.session.user.nMembers > 1},
+        {title: 'Organizations', page: OrganizationListPage, icon: 'organizations', show: this.session.user.nChildOrgs > 0},
+        {title: 'Resources', page: ResourceListPage, icon: 'resources', show: true},
+        {title: 'Reports', page: ReportsPage, icon: 'trending-up', show: true},
+        {title: 'Configuration', page: ConfigurationPage, icon: 'configuration', show: true},
     ];
     cfgPages: TabPageObj[] = [
-        {title: 'Dashboard', page: DashboardPage, icon: 'dashboard'},
-        {title: 'Schedule', page: CfgScheduleListPage, icon: 'schedule'},
-        {title: 'Resources', page: CfgResourcesListPage, icon: 'resources'},
-        {title: 'Events', page: CfgEventsListPage, icon: 'events'},
-        {title: 'Outcomes', page: CfgOutcomesListPage, icon: 'outcomes'},
-        {title: 'Instruments', page: CfgInstrumentsListPage, icon: 'instruments'},
-        {title: 'Settings', page: SettingsConfigPage, icon: 'settings'},
-        {title: 'Help', page: ConfigHelpIndex, icon: 'help'}
+        {title: 'Dashboard', page: DashboardPage, icon: 'dashboard', show: true},
+        {title: 'Schedule', page: CfgScheduleListPage, icon: 'schedule', show: true},
+        {title: 'Resources', page: CfgResourcesListPage, icon: 'resources', show: true},
+        {title: 'Events', page: CfgEventsListPage, icon: 'events', show: true},
+        {title: 'Outcomes', page: CfgOutcomesListPage, icon: 'outcomes', show: true},
+        {title: 'Instruments', page: CfgInstrumentsListPage, icon: 'instruments', show: true},
+        {title: 'Settings', page: SettingsConfigPage, icon: 'settings', show: true},
     ];
 
     selectedIndex: number;
 
     /**
-     * TabsPage constructor.
-     * @param navParams
-     * @param nav
-     * @param globals
      */
-    constructor(private navParams: NavParams, private nav: NavController, private globals: Globals) {
-        this.pages = globals.tabMode == 'normal' ? this.mainPages : this.cfgPages;
+    constructor(private navParams: NavParams, private nav: NavController, private globals: Globals, private session: SessionProvider) {
+        let pageSet = globals.tabMode == 'normal' ? this.mainPages : this.cfgPages;
+        for (let i = 0; i < pageSet.length; i++) {
+            if (!pageSet[i].show) {
+                pageSet.splice(i, 1);
+                i--;
+            }
+        }
+        this.pages = pageSet;
         this.selectedIndex = navParams.data.tabIndex || 0;
     }
 

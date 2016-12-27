@@ -7,9 +7,8 @@
            [(mfSortOrder)]="sortOrder">
         <thead>
         <tr>
-            <th>&nbsp;</th>
-            <th>
-                <mfDefaultSorter [by]="sortName">Name</mfDefaultSorter>
+            <th colspan="3">
+                <mfDefaultSorter [by]="sortName">Member</mfDefaultSorter>
             </th>
             <th>
                 <mfDefaultSorter by="roleName">Role</mfDefaultSorter>
@@ -37,10 +36,12 @@
             <td>
                 <avatar *ngIf="member.avatar" [id]="member.id" [size]="'list'"></avatar>
             </td>
-            <td>
+            <td style="width:20px;">
                 <a [href]="'mailto:' + (member && member.email? member.email : '')">
-                    <app-icon name="members"></app-icon>
+                    <app-icon name="mail"></app-icon>
                 </a>
+            </td>
+            <td>
                 <a (click)="goToDetail(member)">{{member|namify:false}}</a>
             </td>
             <td>
@@ -51,9 +52,6 @@
             </td>
             <td>
                 <assessment-item [assessment]="member.lastAssessment" [showMember]="false" [showIcon]="false"></assessment-item>
-            </td>
-            <td class="list-drilldown">
-                <i [class]="icon.getClass('drilldown')"></i>
             </td>
         </tr>
         </tbody>

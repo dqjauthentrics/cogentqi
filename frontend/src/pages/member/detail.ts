@@ -11,10 +11,13 @@ export class MemberDetailPage {
 
     constructor(private nav: NavController, private navParams: NavParams, memberData: MemberProvider) {
         this.member = this.navParams.data;
-        memberData.getSingle(this.member.id).then(member => {
-            this.member = member;
-            console.log('member', member);
-        });
+        console.log('member entry:', this.member);
+        if (this.member) {
+            memberData.getSingle(this.member.id).then(member => {
+                this.member = member;
+                console.log('member', member);
+            });
+        }
     }
 
     goToAssessment(assessment) {

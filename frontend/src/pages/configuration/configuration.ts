@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
 import {Config} from "../../providers/config";
+import {IconProvider} from "../../providers/icon";
 import {SessionProvider} from "../../providers/session";
 import {ScheduleConfigPage} from "./schedule/config";
 import {CfgScheduleListPage} from "./schedule/list";
@@ -65,7 +66,7 @@ export class ConfigurationPage {
         }
     ];
 
-    constructor(private nav: NavController, private navParams: NavParams, config: Config, session: SessionProvider) {
+    constructor(private nav: NavController, private navParams: NavParams, config: Config, session: SessionProvider, public icon: IconProvider) {
     }
 
     goToPage(item) {

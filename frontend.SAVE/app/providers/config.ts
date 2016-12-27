@@ -9,12 +9,12 @@ export class Config {
     copyright = "Copyright \u00a9 2015, CogentQI.com.  All rights reserved.";
     trademarkName = "CogentQI&#8482;";
     name = "Demonstration";
-    logo = '<img src="/site/default/images/hdrLogo.png" alt=""/>';
+    logo = '<img src="/frontend/site/default/images/hdrLogo.png" alt=""/>';
     site = '/site/default';
     siteDir: string = 'default';
     css: string = this.site + '/theme.css';
     translations: string = this.site + '/translations';
-    fullLogo: string = '<img src="/site/default/images/hdrLogo.png" alt=""/>';
+    fullLogo: string = '<img src="/frontend/site/default/images/hdrLogo.png" alt=""/>';
 
     constructor(private window: Window, private translate: TranslateService, protected http: Http) {
         try {

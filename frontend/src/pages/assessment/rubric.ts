@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 
 @Component({
     selector: '<rubric [question]="question"></rubric>',
@@ -6,7 +6,9 @@ import {Component, Input} from "@angular/core";
 })
 
 export class Rubric {
+    @Output() onChange: EventEmitter<any> = new EventEmitter();
     @Input() question;
+    @Input() enabled = true;
 
     cellWidth() {
         if (this.question && this.question.choices) {
@@ -16,7 +18,10 @@ export class Rubric {
     }
 
     setResponse(value) {
-        this.question.response = value;
+        if (this.enabled) {
+            this.question.response = value;
+            this.onChange.emit();
+        }
     }
 
 }

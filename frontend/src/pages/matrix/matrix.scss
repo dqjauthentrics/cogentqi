@@ -60,6 +60,15 @@
     border-collapse: collapse;
   }
 
+  #matrix tbody tr {
+    cursor: pointer;
+  }
+  #matrix tbody tr.clickable:hover, #matrix tbody tr.clickable:hover td {
+    background: #EEE !important;
+  }
+  #matrix tbody tr.average:hover, #matrix tbody tr.average:hover td {
+    cursor: not-allowed;
+  }
   #matrix td {
     border: 1px solid gray;
     padding: 0.4em;

@@ -2,7 +2,7 @@ import {Component, Input} from "@angular/core";
 
 @Component({
     selector: 'loading-indicator',
-    template: `<ion-spinner [hidden]="!loading" name="dots"></ion-spinner>`
+    template: `<div [hidden]="!loading"><ion-spinner name="circles"></ion-spinner> Loading data...</div>`
 })
 
 export class LoadingIndicator {

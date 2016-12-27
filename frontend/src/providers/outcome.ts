@@ -13,4 +13,8 @@ export class OutcomeProvider extends DataModel {
         super('outcome', toastCtrl, http, globals, config, session);
     }
 
+    getTrends(organizationId) {
+        return this.getData('/trends/' + organizationId);
+    }
+
 }

@@ -6,7 +6,6 @@ import {IonicApp, IonicModule} from "ionic-angular";
 /**
  * Modules
  */
-import {ChartModule} from "ng2-chartjs2";
 import {DataTableModule} from "angular2-datatable";
 import {InlineEditorModule} from "ng2-inline-editor";
 /**
@@ -42,6 +41,7 @@ import {Config} from "../providers/config";
 import {EventConfigPage} from "../pages/configuration/events/config";
 import {EventProvider} from "../providers/event";
 import {Globals} from "../providers/globals";
+import {Graphs} from "../providers/graph";
 import {IconProvider} from "../providers/icon";
 import {InstrumentProvider} from "../providers/instrument";
 import {MemberProvider} from "../providers/member";
@@ -82,6 +82,10 @@ import {OrganizationAssessments} from "../pages/assessment/_organization-assessm
 import {OrganizationDetailPage} from "../pages/organization/detail";
 import {OrganizationListPage} from "../pages/organization/list";
 import {OutcomeConfigPage} from "../pages/configuration/outcomes/config";
+import {ReportsPage} from "../pages/report/index";
+import {ReportOutcomeTrends} from "../pages/report/outcome-trends";
+import {ReportResourceAnalysis} from "../pages/report/resource-analysis";
+import {ReportResourceEfficacy} from "../pages/report/resource-efficacy";
 import {ResourceConfigPage} from "../pages/configuration/resources/config";
 import {ResourceDetailPage} from "../pages/resource/detail";
 import {ResourceListPage} from "../pages/resource/list";
@@ -141,6 +145,10 @@ import {TabsPage} from "../pages/tabs/tabs";
         OrganizationAssessments,
         OrganizationDetailPage,
         OrganizationListPage,
+        ReportsPage,
+        ReportOutcomeTrends,
+        ReportResourceAnalysis,
+        ReportResourceEfficacy,
         InfoBadge,
         Namify,
         DataFilterPipe,
@@ -160,7 +168,6 @@ import {TabsPage} from "../pages/tabs/tabs";
     ],
     imports: [
         IonicModule.forRoot(CogicApp),
-        ChartModule,
         DataTableModule,
         InlineEditorModule,
     ],
@@ -202,6 +209,10 @@ import {TabsPage} from "../pages/tabs/tabs";
         OrganizationDetailPage,
         OrganizationListPage,
         OutcomeConfigPage,
+        ReportsPage,
+        ReportOutcomeTrends,
+        ReportResourceAnalysis,
+        ReportResourceEfficacy,
         ResourceConfigPage,
         ResourceDetailPage,
         ResourceListPage,
@@ -219,6 +230,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         Config,
         EventProvider,
         Globals,
+        Graphs,
         IconProvider,
         InstrumentProvider,
         LoadingIndicator,

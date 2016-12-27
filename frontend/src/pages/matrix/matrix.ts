@@ -17,7 +17,7 @@ export class MatrixPage {
     public instrument = {id: null, n: '', questionGroups: []};
     public organizationId: number;
     public instrumentId: number;
-
+    public loading: boolean = true;
     public segments = [];
 
     constructor(private nav: NavController, private globals: Globals, public session: SessionProvider, private assessmentData: AssessmentProvider,
@@ -41,18 +41,20 @@ export class MatrixPage {
     }
 
     loadMatrix(instrumentId) {
-        if (!this.instrument || this.instrument.id != this.instrumentId) {
-            this.assessmentData.loadMatrix(this.organizationId, this.instrument.id).then(matrix => {
-                this.matrix = matrix;
-                this.instrumentId = this.instrument.id;
-                this.instrumentData.currentSectionIdx = this.instrumentData.SECTION_ALL;
-                this.segments = [{text: 'All', value: this.instrumentData.SECTION_ALL}];
+        let comp = this;
+        if (!comp.instrument || comp.instrument.id != comp.instrumentId) {
+            comp.assessmentData.loadMatrix(comp.organizationId, comp.instrument.id).then(matrix => {
+                comp.matrix = matrix;
+                comp.instrumentId = comp.instrument.id;
+                comp.instrumentData.currentSectionIdx = comp.instrumentData.SECTION_ALL;
+                comp.segments = [{text: 'All', value: comp.instrumentData.SECTION_ALL}];
                 let idx = 0;
-                for (let questionGroup of this.instrument.questionGroups) {
-                    this.segments.push({text: questionGroup.tag, value: idx});
+                for (let questionGroup of comp.instrument.questionGroups) {
+                    comp.segments.push({text: questionGroup.tag, value: idx});
                     idx++
                 }
-                this.segments.push({text: 'Summary', value: this.instrumentData.SECTION_SUMMARY});
+                comp.segments.push({text: 'Summary', value: comp.instrumentData.SECTION_SUMMARY});
+                comp.loading = false;
             });
         }
     }
@@ -101,6 +103,15 @@ export class MatrixPage {
         this.organizationId = id;
         this.instrumentId = null;
         this.loadMatrix(this.instrument.id);
+    }
+
+    goToRow(mType, row) {
+        if (mType == 'M' && row.aid && row.aid > 0) {
+            this.goToAssessment(row.aid);
+        }
+        else if (mType == 'O' && row.oid && row.oid > 0) {
+            this.goToOrganization(row.oid);
+        }
     }
 
     getScoreClass(response) {

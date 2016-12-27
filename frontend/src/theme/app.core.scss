@@ -115,7 +115,7 @@ button.delete {
   color: gold;
 }
 
-.locked:before {
+.locked i:before {
   color: red;
 }
 
@@ -769,4 +769,20 @@ form {
 
 .pull-right {
   float: right;
+}
+
+.searchbar, .searchbar-md {
+  padding: 0 !important;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+loading-indicator > div, loading-indicator > div ion-spinner {
+  font-size: 1.2em;
+  line-height: 1.2em;
+  vertical-align: middle;
+  color: #AAA;
+  font-weight: 300;
 }

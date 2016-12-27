@@ -248,6 +248,12 @@ class Outcome extends AppModel {
 				}
 			}
 		}
+		for ($i=0; $i < count($graphData['series']); $i++ ) {
+			if (empty($graphData['series'][$i])) {
+				array_splice($graphData['series'], $i, 1);
+				$i--;
+			}
+		}
 		$result->setNormal($graphData);
 		return $result;
 	}

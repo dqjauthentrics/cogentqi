@@ -218,7 +218,7 @@ class AppModel extends \Phalcon\Mvc\Model {
 	/**
 	 * @param string $jsonColName
 	 *
-	 * @return array
+	 * @return string
 	 */
 	public function unJsonifyName($jsonColName) {
 		$unJson = '';
@@ -285,6 +285,14 @@ class AppModel extends \Phalcon\Mvc\Model {
 			}
 		}
 		return $jsonRecords;
+	}
+
+	public function getSingleValue($queryStr) {
+		$row = $this->getReadConnection()->query($queryStr)->fetch();
+		if ($row) {
+			return $row[0];
+		}
+		return null;
 	}
 
 	/**

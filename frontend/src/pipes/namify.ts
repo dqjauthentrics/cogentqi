@@ -5,7 +5,18 @@ import {Pipe, PipeTransform} from "@angular/core";
 export class Namify implements PipeTransform {
     transform(member: any, firstIsFirst: boolean): string {
         if (member && member.firstName) {
-            return firstIsFirst ? member.firstName + ' ' + member.lastName : member.lastName + ', ' + member.firstName;
+            let name = '';
+            if (firstIsFirst) {
+                name = member.firstName ? member.firstName : '';
+                name += member.midddleName ? ' ' + member.middleName : '';
+                name += member.lastName ? ' ' + member.lastName : '';
+            }
+            else {
+                name = member.lastName ? member.lastName : '';
+                name += member.firstName ? ', ' + member.firstName : '';
+                name += member.midddleName ? ' ' + member.middleName : '';
+            }
+            return name;
         }
         return '';
     }

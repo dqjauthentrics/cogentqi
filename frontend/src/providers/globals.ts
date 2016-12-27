@@ -5,7 +5,7 @@ import {LoadingController, AlertController, Events} from "ionic-angular";
 export class Globals {
     public tabMode: string = 'normal';
     public static isProduction: boolean = true;
-    public debug: boolean = true;
+    public debug: boolean = false;
     public loadingObject: any = null;
 
     public readonly STATUS_ERROR = 'error';

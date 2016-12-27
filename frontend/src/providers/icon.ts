@@ -53,6 +53,14 @@ export class IconProvider {
                 isAwesome = true;
                 className = 'file-pdf-o';
                 break;
+            case 'bar-chart':
+            case 'line-chart':
+                isAwesome = true;
+                break;
+            case 'report':
+            case 'reports':
+                className = 'trending-up';
+                break;
             case 'resources':
             case 'resource':
                 className = 'school';

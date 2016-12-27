@@ -44,7 +44,7 @@ a, a:visited {
 }
 
 ion-content.dashboard, ion-content.login {
-    background: url("/site/bayada/images/bg.png") top left no-repeat;
+    background: url("/frontend/site/bayada/images/bg.png") top left no-repeat;
     background-size: cover;
 }
 

@@ -1,0 +1,9 @@
+<ion-header>
+    <header-bar [title]="'Resource Efficacy'|translate"></header-bar>
+</ion-header>
+
+<ion-content class="dashboard reports resource-efficacy">
+    <div class="graph-col-wrap">
+        <div class="graph graph-col" [id]="'resourceEfficacy'+i" *ngFor="let item of data; let i=index;"></div>
+    </div>
+</ion-content>

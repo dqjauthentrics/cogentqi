@@ -6,16 +6,16 @@
             <mfDefaultSorter [by]="sortName">Instrument</mfDefaultSorter>
         </th>
         <th>
-            <mfDefaultSorter by="roleName">Member</mfDefaultSorter>
+            <mfDefaultSorter [by]="sortMember">Member</mfDefaultSorter>
         </th>
         <th>
-            <mfDefaultSorter by="roleName">Assessor</mfDefaultSorter>
+            <mfDefaultSorter [by]="sortAssessor">Assessor</mfDefaultSorter>
         </th>
         <th>
-            <mfDefaultSorter [by]="sortBadges">Last Modified</mfDefaultSorter>
+            <mfDefaultSorter [by]="sortModified">Last Modified</mfDefaultSorter>
         </th>
-        <th>
-            <mfDefaultSorter [by]="sortLastAssessment">Score</mfDefaultSorter>
+        <th colspan="2">
+            <mfDefaultSorter [by]="sortScore">Score</mfDefaultSorter>
         </th>
     </tr>
     <tr>
@@ -40,7 +40,7 @@
         </td>
         <td clas="assessor">
             <div *ngIf="assessment.assessor.id != assessment.member.id">
-                <avatar *ngIf="assessment.assessor.avatar" [id]="assessment.member.id" [size]="'list'"></avatar>
+                <avatar *ngIf="assessment.assessor.avatar" [id]="assessment.assessor.id" [size]="'list'"></avatar>
                 {{assessment.assessor|namify:false}}
             </div>
             <div *ngIf="assessment.assessor.id == assessment.member.id">
