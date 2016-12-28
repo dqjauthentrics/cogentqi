@@ -1,0 +1,9 @@
+<ion-header>
+    <header-bar class="clickable" (click)="goToMember(member)" [title]="member|namify:true + ': Competency History'"></header-bar>
+</ion-header>
+
+<ion-content class="dashboard member">
+    <div class="graph-col-wrap">
+        <div class="graph" [id]="'competency-hx-'+i" *ngFor="let questionGroup of instrument.questionGroups; let i=index;"></div>
+    </div>
+</ion-content>

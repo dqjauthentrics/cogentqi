@@ -9,7 +9,7 @@ class ConfigurationController extends ControllerBase {
 	/**
 	 * Return the configuration record.
 	 */
-	public function getAction() {
+	public function singleAction($id) {
 		$result = new Result($this);
 		$cfg = Configuration::findFirst();
 		$cfg = $cfg->map();
@@ -19,15 +19,15 @@ class ConfigurationController extends ControllerBase {
 	/**
 	 * Save the configuration record.
 	 */
-	public function saveAction() {
+	public function updateAction() {
 		$result = new Result($this);
 		$transaction = $this->transactionManager->getOrCreateTransaction();
 		try {
-			$data = @$this->getInputData();
-			if (!empty($data["configuration"])) {
-				$formCfg = $data["configuration"];
+			$formCfg = @$this->getInputData("data");
+			if (!empty($formCfg)) {
 				$cfg = Configuration::findFirst();
-				$cfg->save($cfg->unmap($formCfg));
+				$unmapped = $cfg->unmap($formCfg, $cfg);
+				$cfg->save($unmapped);
 			}
 			$transaction->commit();
 			$result->setNormal();

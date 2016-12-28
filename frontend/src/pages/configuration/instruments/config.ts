@@ -9,7 +9,7 @@ declare let Quill: any;
     templateUrl: 'config.html'
 })
 
-export class InstrumentConfigPage {
+export class ConfigInstrumentsPage {
     public instrument: any;
     public instDescripEditor: any;
 

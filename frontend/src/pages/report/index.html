@@ -3,13 +3,7 @@
 </ion-header>
 
 <ion-content class="dashboard reports menu">
-    <ion-row responsive-sm>
-        <ion-col *ngFor="let item of items">
-            <ion-card (click)="goToReport(item)">
-                <app-icon [name]="item.icon"></app-icon>
-                <div class="name">{{item.title}}</div>
-                <div class="description">{{item.description}}</div>
-            </ion-card>
-        </ion-col>
-    </ion-row>
+    <ion-card>
+        <page-menu [items]="items"></page-menu>
+    </ion-card>
 </ion-content>

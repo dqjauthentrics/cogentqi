@@ -9,7 +9,7 @@ declare let Quill: any;
 @Component({
     templateUrl: 'config.html',
 })
-export class EventConfigPage {
+export class ConfigEventsPage {
     public event: any;
     public evtDescripEditor: any;
 

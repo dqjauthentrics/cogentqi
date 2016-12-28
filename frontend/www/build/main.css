@@ -5091,6 +5091,15 @@ app-icon[size="small"] i:before {
   font-size: 24px;
 }
 
+app-icon[size="tiny"] {
+  height: 16px;
+  width: 16px;
+}
+
+app-icon[size="tiny"] i:before {
+  font-size: 16px;
+}
+
 ion-navbar button {
   background: transparent;
   color: #FFF;
@@ -27449,13 +27458,28 @@ assessment-item {
   cursor: not-allowed;
 }
 
-.configuration tr {
-  cursor: pointer;
+.configuration .instructions {
+  font-weight: bold;
+  margin: 2em;
+  text-align: center;
 }
 
-#setting_distribution {
-  display: block !important;
-  width: 100% !important;
+.configuration .weight-bar {
+  font-size: 1.4em;
+}
+
+.configuration .large-badge {
+  padding: 0.3em 0.8em;
+  font-size: 1.2em;
+  color: #FFF;
+  background: #455;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.configuration tr {
+  cursor: pointer;
 }
 
 .dashboard .logo img {
@@ -27484,7 +27508,8 @@ assessment-item {
 }
 
 .dashboard table.cycle {
-  margin: 0 auto 1em auto;
+  z-index: 1;
+  margin: -5vmin auto 1em auto;
   width: 80vmin;
   height: 80vmin;
   max-width: 80vmin;
@@ -27501,6 +27526,21 @@ assessment-item {
   text-align: center;
   vertical-align: middle;
   color: #336699;
+}
+
+.dashboard .info {
+  float: left;
+  padding: 10px;
+  color: #666;
+  z-index: 99;
+}
+
+.dashboard .info .name {
+  font-weight: bold;
+}
+
+.dashboard .info .role {
+  font-style: italic;
 }
 
 .help-header {
@@ -27750,6 +27790,74 @@ ion-content.login h3 {
   max-width: 2rem;
 }
 
+.note {
+  position: relative;
+  padding: 1em 1.5em;
+  margin: 4px auto;
+  color: #444;
+  background: #FFEF00 !important;
+  overflow: hidden;
+  text-align: left;
+}
+
+.note .content {
+  margin: 8px;
+}
+
+.note .author {
+  margin: 8px 8px 8px 20px;
+}
+
+.note-tools {
+  float: right;
+}
+
+.note textarea {
+  background: transparent;
+  border: none;
+}
+
+.notes .label, .notes .label-md, .notes .item-inner {
+  margin: 0 !important;
+  border: none !important;
+}
+
+div.note:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-width: 0 16px 16px 0;
+  border-style: solid;
+  border-color: #EFEFEF #EFEFEF #E9BF00 #E9BF00;
+  background: #E9BF00;
+  /* Firefox 3.0 damage limitation */
+  display: block;
+  width: 0;
+}
+
+div.note.important {
+  background: lightpink !important;
+  border-color: #EFEFEF #EFEFEF pink pink;
+}
+
+div.note.important:before {
+  border-color: #EFEFEF #EFEFEF pink pink;
+}
+
+div.note.okay {
+  background: #CFC !important;
+  border-color: #EFEFEF #EFEFEF #6A6 #6A6;
+}
+
+div.note.okay:before {
+  border-color: #EFEFEF #EFEFEF #6A6 #6A6;
+}
+
+div.note:before {
+  border-color: #EFEFEF #EFEFEF #E9BF00 #E9BF00;
+}
+
 .organization-list ion-avatar img {
   width: 48px;
   height: 48px;
@@ -27787,7 +27895,7 @@ ion-content.login h3 {
   }
 }
 
-.reports .graph-col-wrap {
+.graph-col-wrap {
   width: 94%;
   margin: 10px auto;
 }

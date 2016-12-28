@@ -1,0 +1,9 @@
+<ion-header>
+    <header-bar  class="clickable" (click)="goToMember(member)" [title]="member|namify:true + ': Progress'"></header-bar>
+</ion-header>
+
+<ion-content class="dashboard member">
+    <div class="graph-col-wrap">
+        <div class="graph" [id]="'progress'+i" *ngFor="let config of configs; let i=index;"></div>
+    </div>
+</ion-content>

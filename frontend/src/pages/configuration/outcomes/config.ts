@@ -8,7 +8,7 @@ declare let Quill: any;
 @Component({
     templateUrl: 'config.html',
 })
-export class OutcomeConfigPage {
+export class ConfigOutcomesPage {
     public outcome: any;
     public outDescripEditor: any;
 

@@ -23,4 +23,25 @@ export class AssessmentProvider extends DataModel {
         });
     }
 
+    retrieveProgressByMonth(instrumentId, isRollUp) {
+        if (instrumentId) {
+            return this.getData('/organizationProgressByMonth/' + this.session.user.organizationId + '/' + instrumentId);
+        }
+        return null;
+    };
+
+    retrieveIndividualProgressByMonth(memberId) {
+        if (memberId) {
+            return this.getData('/memberProgressByMonth/' + memberId,);
+        }
+        return null;
+    };
+
+    retrieveByMember(memberId, lastN) {
+        if (memberId) {
+            return this.getData('/byMember/' + memberId);
+        }
+        return null;
+    };
+
 }

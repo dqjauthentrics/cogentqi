@@ -1,13 +1,13 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {OutcomeProvider} from "../../../providers/outcome";
-import {OutcomeConfigPage} from "./config";
+import {ConfigOutcomesPage} from "./config";
 import {IconProvider} from "../../../providers/icon";
 
 @Component({
     templateUrl: 'list.html'
 })
-export class CfgOutcomesListPage {
+export class ConfigOutcomesListPage {
     public outcomes = [];
     public loading: boolean = false;
     public filterQuery = "";
@@ -24,7 +24,7 @@ export class CfgOutcomesListPage {
     }
 
     configureOutcome(outcome) {
-        this.nav.push(OutcomeConfigPage, outcome);
+        this.nav.push(ConfigOutcomesPage, outcome);
     }
 }
 

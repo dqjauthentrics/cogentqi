@@ -9,7 +9,7 @@ declare let Quill: any;
 @Component({
     templateUrl: 'config.html',
 })
-export class ResourceConfigPage {
+export class ConfigResourcesPage {
     resource: any;
     private resContentEditor: any = null;
     private resSummaryEditor: any = null;

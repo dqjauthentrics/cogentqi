@@ -3,15 +3,21 @@ import {IconProvider} from "../providers/icon";
 
 @Component({
     selector: 'app-icon',
-    template: `<i role="img" [class]="icon.getClass(name) + (dirty? ' dirty':'')"></i>`
+    template: `<i role="img" [class]="getIconClass() + (dirty? ' dirty':'') + ' '+color"></i>`
 })
 
 export class AppIcon {
     @Input() name: string = "cog";
     @Input() size: string = "";
     @Input() dirty: boolean = false;
+    @Input() spinning: boolean = false;
+    @Input() color: string = "";
 
     constructor(public icon: IconProvider) {
     }
 
- }
+    getIconClass() {
+        let icon = (this.spinning ? this.icon.getClass('spinner') : this.icon.getClass(this.name));
+        return icon;
+    }
+}

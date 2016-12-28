@@ -1,13 +1,13 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {InstrumentProvider} from "../../../providers/instrument";
-import {InstrumentConfigPage} from "./config";
+import {ConfigInstrumentsPage} from "./config";
 import {IconProvider} from "../../../providers/icon";
 
 @Component({
     templateUrl: 'list.html'
 })
-export class CfgInstrumentsListPage {
+export class ConfigInstrumentsListPage {
     public instruments = [];
     public loading: boolean = false;
     public filterQuery = "";
@@ -25,7 +25,7 @@ export class CfgInstrumentsListPage {
     }
 
     configureInstrument(instrument) {
-        this.nav.push(InstrumentConfigPage, instrument);
+        this.nav.push(ConfigInstrumentsPage, instrument);
     }
 }
 

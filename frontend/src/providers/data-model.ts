@@ -173,4 +173,12 @@ export class DataModel {
     update(data: any, notify: boolean) {
         return this.getPostData('/update', data, notify);
     }
+
+    remove(id: number, notify: boolean) {
+        return this.getData('/delete/' + id);
+    }
+
+    add(data: any, notify: boolean) {
+        return this.getPostData('/add', data, notify);
+    }
 }

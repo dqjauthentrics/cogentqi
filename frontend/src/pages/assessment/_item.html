@@ -21,10 +21,11 @@
                     </div>
                 </td>
                 <td>
-                    <a href="#/assessment/view/{{assessment.id}}">
+                    <div (click)="goToAssessment(assessment)">
                         <span [hidden]="!prefix">{{prefix}}, </span>
                         <span class="name">{{assessment.instrument.name}}, {{assessment.schedule.name}}</span>
-                        {{assessment.lastModified|date:'EEE'}}, {{assessment.lastModified|date:'short'}}</a>
+                        {{assessment.lastModified|date:'EEE'}}, {{assessment.lastModified|date:'short'}}
+                    </div>
                 </td>
             </tr>
         </table>

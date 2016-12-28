@@ -37,15 +37,9 @@ export class ReportResourceEfficacy {
         console.log('plotting:', resource);
         let ellipse = new Ellipsify();
         let graph = Highcharts.chart(el, {
-                title: {
-                    text: resource.name
-                },
-                subtitle: {
-                    text: ellipse.transform(resource.summary, 120)
-                },
-                chart: {
-                    type: 'column'
-                },
+                title: {text: resource.name},
+                subtitle: {text: ellipse.transform(resource.summary, 120)},
+                chart: {type: 'column'},
                 credits: {enabled: false},
                 legend: {},
                 tooltip: {
@@ -61,10 +55,7 @@ export class ReportResourceEfficacy {
                         }
                     }
                 },
-                xAxis: {
-                    // these are questions
-                    categories: resource.questionLabels
-                },
+                xAxis: {categories: resource.questionLabels},
                 yAxis: {
                     min: 0,
                     title: {

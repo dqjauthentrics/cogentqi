@@ -6,7 +6,7 @@ import {ScheduleProvider} from "../../../providers/schedule";
 @Component({
     templateUrl: 'config.html',
 })
-export class ScheduleConfigPage {
+export class ConfigSchedulesPage {
     schedule: any;
 
     constructor(private nav: NavController, private navParams: NavParams, scheduleData: ScheduleProvider, http: Http) {

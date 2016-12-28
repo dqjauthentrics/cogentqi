@@ -31,6 +31,17 @@ export class Globals {
         return str;
     }
 
+    public findObjectById(items:Array<any>, id) {
+        if (items && items.length > 0) {
+            for (let item of items) {
+                if (item.id && item.id == id) {
+                    return item;
+                }
+            }
+        }
+        return null;
+    }
+
     public showLoading(message) {
         this.loadingObject = this.loading.create({content: message, dismissOnPageChange: true});
         this.loadingObject.present();

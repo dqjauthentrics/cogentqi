@@ -1,13 +1,13 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {EventProvider} from "../../../providers/event";
-import {EventConfigPage} from "./config";
+import {ConfigEventsPage} from "./config";
 import {IconProvider} from "../../../providers/icon";
 
 @Component({
     templateUrl: 'list.html'
 })
-export class CfgEventsListPage {
+export class ConfigEventsListPage {
     public events = [];
     public loading: boolean = false;
     public filterQuery = "";
@@ -24,7 +24,7 @@ export class CfgEventsListPage {
     }
 
     configureEvent(event) {
-        this.nav.push(EventConfigPage, event);
+        this.nav.push(ConfigEventsPage, event);
     }
 }
 

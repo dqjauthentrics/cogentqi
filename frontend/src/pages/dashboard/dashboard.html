@@ -3,17 +3,17 @@
 </ion-header>
 
 <ion-content class="outer-content dashboard">
+    <div class="info">
+        <div class="name">{{user?.firstName}} {{user?.lastName}}</div>
+        <div class="job">{{user?.jobTitle}}</div>
+        <div class="role">{{user?.roleName}}</div>
+        <div class="org">{{user?.organizationName}}</div>
+    </div>
     <div class="logo"><img [src]="config.logoFull" alt=""></div>
     <div class="clearfix"></div>
     <table class="cycle">
         <tr>
             <td style="text-align:left; vertical-align: middle !important; padding-top:2rem;">
-                <div style="float:left; margin-top:-5.6rem; font-size: 1.4rem; line-height:1.6rem; text-align: left;">
-                    <div class="dashName">{{user?.firstName}} {{user?.lastName}}</div>
-                    <div class="dashJob">{{user?.jobTitle}}</div>
-                    <div class="dashRole">{{user?.roleName}}</div>
-                    <div class="dashOrg">{{user?.organizationName}}</div>
-                </div>
                 <a style="margin-left:1.5rem;" (click)="goToPage('matrix')">{{'Assessment'|translate}}</a>
             </td>
             <td style="text-align:center; vertical-align: bottom !important;">

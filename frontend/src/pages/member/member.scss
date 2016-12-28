@@ -1,6 +1,4 @@
-
 .member-list {
-
   ion-avatar img {
     width: 48px;
     height: 48px;
@@ -10,3 +8,73 @@
     max-width: 2rem;
   }
 }
+
+.note {
+  position: relative;
+  padding: 1em 1.5em;
+  margin: 4px auto;
+  color: #444;
+  background: #FFEF00 !important;
+  overflow: hidden;
+  text-align: left;
+}
+
+.note .content {
+  margin: 8px;
+}
+
+.note .author {
+  margin: 8px 8px 8px 20px;
+}
+
+.note-tools {
+  float: right;
+}
+
+.note textarea {
+  background: transparent;
+  border: none;
+}
+
+.notes .label, .notes .label-md, .notes .item-inner {
+  margin: 0 !important;
+  border: none !important;
+}
+
+
+div.note:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-width: 0 16px 16px 0;
+  border-style: solid;
+  border-color: #EFEFEF #EFEFEF #E9BF00 #E9BF00;
+  background: #E9BF00;
+  /* Firefox 3.0 damage limitation */
+  display: block;
+  width: 0;
+}
+
+div.note.important {
+  background: lightpink !important;
+  border-color: #EFEFEF #EFEFEF pink pink;
+}
+
+div.note.important:before {
+  border-color: #EFEFEF #EFEFEF pink pink;
+}
+
+div.note.okay {
+  background: #CFC !important;
+  border-color: #EFEFEF #EFEFEF #6A6 #6A6;
+}
+
+div.note.okay:before {
+  border-color: #EFEFEF #EFEFEF #6A6 #6A6;
+}
+
+div.note:before {
+  border-color: #EFEFEF #EFEFEF #E9BF00 #E9BF00;
+}
+

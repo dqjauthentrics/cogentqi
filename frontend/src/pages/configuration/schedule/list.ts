@@ -1,13 +1,13 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {ScheduleProvider} from "../../../providers/schedule";
-import {ScheduleConfigPage} from "./config";
+import {ConfigSchedulesPage} from "./config";
 import {IconProvider} from "../../../providers/icon";
 
 @Component({
     templateUrl: 'list.html'
 })
-export class CfgScheduleListPage {
+export class ConfigScheduleListPage {
     schedule = [];
     queryText: string;
 
@@ -19,7 +19,7 @@ export class CfgScheduleListPage {
     }
 
     configureSchedule(schedule) {
-        this.nav.push(ScheduleConfigPage, schedule);
+        this.nav.push(ConfigSchedulesPage, schedule);
     }
 }
 

@@ -1,13 +1,13 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {ResourceProvider} from "../../../providers/resource";
-import {ResourceConfigPage} from "./config";
+import {ConfigResourcesPage} from "./config";
 import {IconProvider} from "../../../providers/icon";
 
 @Component({
     templateUrl: 'list.html'
 })
-export class CfgResourcesListPage {
+export class ConfigResourcesListPage {
     public resources = [];
     public loading: boolean = false;
     public filterQuery = "";
@@ -25,6 +25,6 @@ export class CfgResourcesListPage {
     }
 
     configureResource(resource) {
-        this.nav.push(ResourceConfigPage, resource);
+        this.nav.push(ConfigResourcesPage, resource);
     }
 }

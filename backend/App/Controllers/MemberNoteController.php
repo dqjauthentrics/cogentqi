@@ -8,9 +8,9 @@ class MemberNoteController extends ControllerBase {
 	/**
 	 * Return a list.
 	 */
-	public function indexAction() {
-		$role = new MemberNote();
-		$data = $role->get();
+	public function listAction() {
+		$note = new MemberNote();
+		$data = $note->get();
 		$result = new Result($this);
 		$result->sendNormal($data);
 	}
@@ -20,11 +20,11 @@ class MemberNoteController extends ControllerBase {
 	 *
 	 * @param string $id
 	 */
-	public function getAction($id) {
+	public function singleAction($id) {
 		$result = new Result($this);
-		$role = new MemberNote();
-		$role = $role->get($id, FALSE);
-		$role = $role->map();
+		$note = new MemberNote();
+		$note = $note->get($id, FALSE);
+		$note = $note->map();
 		$result->sendNormal($role);
 	}
 

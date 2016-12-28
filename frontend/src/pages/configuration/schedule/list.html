@@ -4,16 +4,13 @@
 
 <ion-content class="outer-content configuration schedule-list">
     <ion-card *ngFor="let schedule of schedules|filter:queryText" class="schedule">
-
         <ion-card-header>
             <ion-item>
                 <app-icon [name]="'schedule'"></app-icon>
                 <a (click)="configureSchedule(schedule)">{{schedule.name}} {{schedule.name}} {{schedule.starts|date}} - {{schedule.ends|date}}</a>
             </ion-item>
         </ion-card-header>
-
         <ion-card-content class="outer-content">
         </ion-card-content>
-
     </ion-card>
 </ion-content>

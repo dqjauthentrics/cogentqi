@@ -1,5 +1,5 @@
 <ion-header>
-    <header-bar [title]="member|namify"></header-bar>
+    <header-bar [title]="member|namify:true"></header-bar>
 </ion-header>
 
 <ion-content class="outer-content member-list">
@@ -14,6 +14,7 @@
                         <ion-col>
                             <h4>{{member|namify:false}}</h4>
                             <div>{{member.roleName}}</div>
+                            <div><app-icon (click)="goToNotes(member)" name="note"></app-icon></div>
                         </ion-col>
                     </ion-row>
                     <h3>{{'Badges'|translate}}</h3>
@@ -24,6 +25,24 @@
             </ion-col>
             <ion-col width-67>
                 <ion-card>
+                    <h3>{{'Reports'|translate}}</h3>
+                    <ion-row responsive-md>
+                        <ion-col width-10></ion-col>
+                        <ion-col width-90>
+                            <ion-row>
+                                <ion-col>
+                                    <app-icon (click)="goToProgress(member)" name="line-chart"></app-icon>
+                                    <br/>
+                                    Progress
+                                </ion-col>
+                                <ion-col>
+                                    <app-icon (click)="goToCompetencyHistory(member)" name="bar-chart"></app-icon>
+                                    <br/>
+                                    Competency History
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
                     <h3>{{'Assessments'|translate}}</h3>
                     <member-assessments-card [assessments]="member.assessments"></member-assessments-card>
                     <h3>{{'Events'|translate}}</h3>

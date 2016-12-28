@@ -805,21 +805,20 @@ class Assessment extends AppModel {
 
 		if (empty($options['minimal'])) {
 			$map['responses'] = [];
-			if (!empty($options['responses'])) {
+			$responses = $this->getResponses(['order' => 'question_id']);
+			$keyedResponses = $this->recordsKeyed($responses, 'question_id');
+			$fixCnt = $this->checkFullResponseSet($keyedResponses);
+			if ($fixCnt > 0) {
 				$responses = $this->getResponses(['order' => 'question_id']);
-				$keyedResponses = $this->recordsKeyed($responses, 'question_id');
-				$fixCnt = $this->checkFullResponseSet($keyedResponses);
-				if ($fixCnt > 0) {
-					$responses = $this->getResponses(['order' => 'question_id']);
-				}
-				foreach ($responses as $response) { // order needed on question order
-					$map['responses'][$response->question_id] = $response->map();
-					if (empty($map['responses'][$response->question_id]['responseIndex'])) {
-						$map['responses'][$response->question_id]['responseIndex'] = 0;
-					}
+			}
+			foreach ($responses as $response) { // order needed on question order
+				$map['responses'][$response->question_id] = $response->map();
+				if (empty($map['responses'][$response->question_id]['responseIndex'])) {
+					$map['responses'][$response->question_id]['responseIndex'] = 0;
 				}
 			}
 		}
+
 		$map['typ'] = $this->getInstrument()->getQuestionType()->name;
 		$map['member'] = $this->getAssessee()->map(['minimal' => TRUE]);
 		$map['assessor'] = $this->getAssessor()->map(['minimal' => TRUE]);

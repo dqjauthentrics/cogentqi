@@ -2,7 +2,6 @@ import {CogicApp} from "./app.component";
 import {NgModule} from "@angular/core";
 import {APP_BASE_HREF} from "@angular/common";
 import {IonicApp, IonicModule} from "ionic-angular";
-
 /**
  * Modules
  */
@@ -32,19 +31,21 @@ import {InfoBadge} from "../components/info-badge";
 import {LoadingIndicator} from "../components/loading-indicator";
 import {MicroBadgeCount} from "../components/micro-badge-count";
 import {MicroBadge} from "../components/micro-badge";
+import {PageMenu} from "../components/page-menu";
 /**
  * Providers
  **/
 import {AssessmentProvider} from "../providers/assessment";
 import {ColorProvider} from "../providers/color";
+import {ConfigurationProvider} from "../providers/configuration";
 import {Config} from "../providers/config";
-import {EventConfigPage} from "../pages/configuration/events/config";
 import {EventProvider} from "../providers/event";
 import {Globals} from "../providers/globals";
 import {Graphs} from "../providers/graph";
 import {IconProvider} from "../providers/icon";
 import {InstrumentProvider} from "../providers/instrument";
 import {MemberProvider} from "../providers/member";
+import {MemberNoteProvider} from "../providers/member-note";
 import {MessageProvider} from "../providers/message";
 import {OrganizationProvider} from "../providers/organization";
 import {OutcomeProvider} from "../providers/outcome";
@@ -59,39 +60,42 @@ import {AccountPage} from "../pages/account/account";
 import {AssessmentDetailPage} from "../pages/assessment/detail";
 import {AssessmentItem} from "../pages/assessment/_item";
 import {AssessmentListPage} from "../pages/assessment/list";
-import {CfgEventsListPage} from "../pages/configuration/events/list";
-import {CfgInstrumentsListPage} from "../pages/configuration/instruments/list";
-import {CfgOutcomesListPage} from "../pages/configuration/outcomes/list";
-import {CfgResourcesListPage} from "../pages/configuration/resources/list";
-import {CfgScheduleListPage} from "../pages/configuration/schedule/list";
-import {ConfigHelpIndex} from "../pages/configuration/help";
-import {ConfigurationPage} from "../pages/configuration/configuration";
+import {ConfigEventsListPage} from "../pages/configuration/events/list";
+import {ConfigEventsPage} from "../pages/configuration/events/config";
+import {ConfigInstrumentsListPage} from "../pages/configuration/instruments/list";
+import {ConfigInstrumentsPage} from "../pages/configuration/instruments/config";
+import {ConfigOutcomesListPage} from "../pages/configuration/outcomes/list";
+import {ConfigOutcomesPage} from "../pages/configuration/outcomes/config";
+import {ConfigResourcesListPage} from "../pages/configuration/resources/list";
+import {ConfigResourcesPage} from "../pages/configuration/resources/config";
+import {ConfigScheduleListPage} from "../pages/configuration/schedule/list";
+import {ConfigSchedulesPage} from "../pages/configuration/schedule/config";
+import {ConfigSettingsPage} from "../pages/configuration/settings/config";
+import {ConfigurationPage} from "../pages/configuration/index";
 import {DashboardPage} from "../pages/dashboard/dashboard";
 import {HelpPage} from "../pages/help/help";
-import {InstrumentConfigPage} from "../pages/configuration/instruments/config";
 import {InstrumentDetailPage} from "../pages/instrument/detail";
 import {InstrumentListPage} from "../pages/instrument/list";
 import {LoginPage} from "../pages/login/login";
 import {MatrixPage} from "../pages/matrix/matrix";
 import {MemberAssessmentsCard} from "../pages/member/_assessments";
+import {MemberCompetencyHistoryPage} from "../pages/member/competency-history";
 import {MemberContactCard} from "../pages/member/_contact";
 import {MemberDetailPage} from "../pages/member/detail";
 import {MemberEventsCard} from "../pages/member/_events";
 import {MemberListPage} from "../pages/member/list";
+import {MemberNotesPage} from "../pages/member/notes";
+import {MemberProgressPage} from "../pages/member/progress";
 import {OrganizationAssessments} from "../pages/assessment/_organization-assessments";
 import {OrganizationDetailPage} from "../pages/organization/detail";
 import {OrganizationListPage} from "../pages/organization/list";
-import {OutcomeConfigPage} from "../pages/configuration/outcomes/config";
-import {ReportsPage} from "../pages/report/index";
 import {ReportOutcomeTrends} from "../pages/report/outcome-trends";
 import {ReportResourceAnalysis} from "../pages/report/resource-analysis";
 import {ReportResourceEfficacy} from "../pages/report/resource-efficacy";
-import {ResourceConfigPage} from "../pages/configuration/resources/config";
+import {ReportsPage} from "../pages/report/index";
 import {ResourceDetailPage} from "../pages/resource/detail";
 import {ResourceListPage} from "../pages/resource/list";
 import {Rubric} from "../pages/assessment/rubric";
-import {ScheduleConfigPage} from "../pages/configuration/schedule/config";
-import {SettingsConfigPage} from "../pages/configuration/settings/config";
 import {TabsPage} from "../pages/tabs/tabs";
 
 /**
@@ -111,60 +115,63 @@ import {TabsPage} from "../pages/tabs/tabs";
         AccountPage,
         AppIcon,
         AssessmentDetailPage,
-        AssessmentListPage,
         AssessmentItem,
+        AssessmentListPage,
         Avatar,
-        EditorButtonBar,
-        CfgEventsListPage,
-        CfgScheduleListPage,
-        CfgInstrumentsListPage,
-        CfgOutcomesListPage,
-        CfgResourcesListPage,
-        ConfigHelpIndex,
+        ConfigEventsListPage,
+        ConfigEventsPage,
+        ConfigInstrumentsListPage,
+        ConfigInstrumentsPage,
+        ConfigOutcomesListPage,
+        ConfigOutcomesPage,
+        ConfigResourcesListPage,
+        ConfigResourcesPage,
+        ConfigScheduleListPage,
+        ConfigSchedulesPage,
+        ConfigSettingsPage,
         ConfigurationPage,
         DashboardPage,
+        DataFilterPipe,
+        EditorButtonBar,
         Ellipsify,
-        EventConfigPage,
         FilterArrayPipe,
         HeaderBar,
         HelpPage,
         Icon,
-        InstrumentConfigPage,
+        InfoBadge,
         InstrumentDetailPage,
         InstrumentListPage,
         LoadingIndicator,
         LoginPage,
         MatrixPage,
-        MemberDetailPage,
-        MemberContactCard,
-        MemberListPage,
-        MemberEventsCard,
         MemberAssessmentsCard,
+        MemberCompetencyHistoryPage,
+        MemberContactCard,
+        MemberDetailPage,
+        MemberEventsCard,
+        MemberListPage,
+        MemberNotesPage,
+        MemberProgressPage,
         MicroBadge,
         MicroBadgeCount,
+        Namify,
         OrganizationAssessments,
         OrganizationDetailPage,
         OrganizationListPage,
-        ReportsPage,
+        PageMenu,
+        Phone,
+        Replace,
         ReportOutcomeTrends,
         ReportResourceAnalysis,
         ReportResourceEfficacy,
-        InfoBadge,
-        Namify,
-        DataFilterPipe,
-        OutcomeConfigPage,
-        Replace,
-        ResourceConfigPage,
+        ReportsPage,
         ResourceDetailPage,
         ResourceListPage,
         Round,
         Rubric,
-        ScheduleConfigPage,
-        SettingsConfigPage,
         Space2break,
         TabsPage,
         Translate,
-        Phone,
     ],
     imports: [
         IonicModule.forRoot(CogicApp),
@@ -175,50 +182,45 @@ import {TabsPage} from "../pages/tabs/tabs";
     entryComponents: [
         CogicApp,
         AccountPage,
-        AppIcon,
         AssessmentDetailPage,
-        AssessmentListPage,
         AssessmentItem,
-        Avatar,
-        EditorButtonBar,
-        CfgEventsListPage,
-        CfgScheduleListPage,
-        CfgInstrumentsListPage,
-        CfgOutcomesListPage,
-        CfgResourcesListPage,
-        ConfigHelpIndex,
+        AssessmentListPage,
+        ConfigEventsListPage,
+        ConfigEventsPage,
+        ConfigInstrumentsListPage,
+        ConfigInstrumentsPage,
+        ConfigOutcomesListPage,
+        ConfigOutcomesPage,
+        ConfigResourcesListPage,
+        ConfigResourcesPage,
+        ConfigScheduleListPage,
+        ConfigSchedulesPage,
+        ConfigSettingsPage,
         ConfigurationPage,
         DashboardPage,
-        EventConfigPage,
-        HeaderBar,
         HelpPage,
-        InstrumentConfigPage,
         InstrumentDetailPage,
         InstrumentListPage,
         LoginPage,
-        MicroBadge,
-        MicroBadgeCount,
-        InfoBadge,
         MatrixPage,
-        MemberDetailPage,
-        MemberContactCard,
-        MemberEventsCard,
         MemberAssessmentsCard,
+        MemberCompetencyHistoryPage,
+        MemberContactCard,
+        MemberDetailPage,
+        MemberEventsCard,
         MemberListPage,
+        MemberNotesPage,
+        MemberProgressPage,
         OrganizationAssessments,
         OrganizationDetailPage,
         OrganizationListPage,
-        OutcomeConfigPage,
-        ReportsPage,
         ReportOutcomeTrends,
         ReportResourceAnalysis,
         ReportResourceEfficacy,
-        ResourceConfigPage,
+        ReportsPage,
         ResourceDetailPage,
         ResourceListPage,
         Rubric,
-        ScheduleConfigPage,
-        SettingsConfigPage,
         TabsPage,
     ],
     providers: [
@@ -228,6 +230,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         Avatar,
         ColorProvider,
         Config,
+        ConfigurationProvider,
         EventProvider,
         Globals,
         Graphs,
@@ -235,6 +238,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         InstrumentProvider,
         LoadingIndicator,
         MemberProvider,
+        MemberNoteProvider,
         MessageProvider,
         Namify,
         OrganizationProvider,

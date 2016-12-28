@@ -2,6 +2,9 @@ import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
 import {MemberProvider} from "../../providers/member";
 import {AssessmentDetailPage} from "../assessment/detail";
+import {MemberProgressPage} from "./progress";
+import {MemberCompetencyHistoryPage} from "./competency-history";
+import {MemberNotesPage} from "./notes";
 
 @Component({
     templateUrl: 'detail.html'
@@ -21,6 +24,18 @@ export class MemberDetailPage {
     }
 
     goToAssessment(assessment) {
-        this.nav.push(AssessmentDetailPage, {assessment: assessment});
+        this.nav.push(AssessmentDetailPage, assessment);
+    }
+
+    goToProgress(member) {
+        this.nav.push(MemberProgressPage, member);
+    }
+
+    goToCompetencyHistory(member) {
+        this.nav.push(MemberCompetencyHistoryPage, member);
+    }
+
+    goToNotes(member) {
+        this.nav.push(MemberNotesPage, member);
     }
 }

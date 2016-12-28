@@ -387,6 +387,15 @@ app-icon[size="small"] i:before {
   font-size: 24px;
 }
 
+app-icon[size="tiny"] {
+  height: 16px;
+  width: 16px;
+}
+
+app-icon[size="tiny"] i:before {
+  font-size: 16px;
+}
+
 ion-navbar {
   button {
     background: transparent;

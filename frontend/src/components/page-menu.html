@@ -1,0 +1,16 @@
+<table class="table table-striped">
+    <tbody>
+    <tr *ngFor="let item of items" class="order" (click)="goToPage(item)">
+        <td class="icon">
+            <app-icon [name]="item.icon"></app-icon>
+        </td>
+        <td>
+            <div class="name">{{item.name}}</div>
+            <div class="description" [innerHTML]="item.description"></div>
+        </td>
+        <td class="list-drilldown">
+            <i [class]="icon.getClass('drilldown')"></i>
+        </td>
+    </tr>
+    </tbody>
+</table>

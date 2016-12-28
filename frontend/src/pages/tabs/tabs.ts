@@ -7,13 +7,13 @@ import {ResourceListPage} from "../resource/list";
 import {MemberListPage} from "../member/list";
 import {AssessmentListPage} from "../assessment/list";
 import {OrganizationListPage} from "../organization/list";
-import {CfgScheduleListPage} from "../configuration/schedule/list";
-import {CfgResourcesListPage} from "../configuration/resources/list";
-import {CfgInstrumentsListPage} from "../configuration/instruments/list";
-import {CfgEventsListPage} from "../configuration/events/list";
-import {CfgOutcomesListPage} from "../configuration/outcomes/list";
-import {SettingsConfigPage} from "../configuration/settings/config";
-import {ConfigurationPage} from "../configuration/configuration";
+import {ConfigScheduleListPage} from "../configuration/schedule/list";
+import {ConfigResourcesListPage} from "../configuration/resources/list";
+import {ConfigInstrumentsListPage} from "../configuration/instruments/list";
+import {ConfigEventsListPage} from "../configuration/events/list";
+import {ConfigOutcomesListPage} from "../configuration/outcomes/list";
+import {ConfigSettingsPage} from "../configuration/settings/config";
+import {ConfigurationPage} from "../configuration/index";
 import {ReportsPage} from "../report/index";
 
 export interface TabPageObj {
@@ -41,12 +41,12 @@ export class TabsPage {
     ];
     cfgPages: TabPageObj[] = [
         {title: 'Dashboard', page: DashboardPage, icon: 'dashboard', show: true},
-        {title: 'Schedule', page: CfgScheduleListPage, icon: 'schedule', show: true},
-        {title: 'Resources', page: CfgResourcesListPage, icon: 'resources', show: true},
-        {title: 'Events', page: CfgEventsListPage, icon: 'events', show: true},
-        {title: 'Outcomes', page: CfgOutcomesListPage, icon: 'outcomes', show: true},
-        {title: 'Instruments', page: CfgInstrumentsListPage, icon: 'instruments', show: true},
-        {title: 'Settings', page: SettingsConfigPage, icon: 'settings', show: true},
+        {title: 'Schedule', page: ConfigScheduleListPage, icon: 'schedule', show: true},
+        {title: 'Resources', page: ConfigResourcesListPage, icon: 'resources', show: true},
+        {title: 'Events', page: ConfigEventsListPage, icon: 'events', show: true},
+        {title: 'Outcomes', page: ConfigOutcomesListPage, icon: 'outcomes', show: true},
+        {title: 'Instruments', page: ConfigInstrumentsListPage, icon: 'instruments', show: true},
+        {title: 'Settings', page: ConfigSettingsPage, icon: 'settings', show: true},
     ];
 
     selectedIndex: number;

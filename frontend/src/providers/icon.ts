@@ -7,12 +7,21 @@ export class IconProvider {
         let className: string = name;
         let isAwesome = false;
         switch (name) {
+            case 'add':
+                isAwesome = true;
+                className = 'plus-circle';
+                break;
             case 'assessments':
             case 'assessment':
                 className = 'options';
                 break;
             case 'dashboard':
                 className = 'pulse';
+                break;
+            case 'delete':
+            case 'remove':
+                isAwesome = true;
+                className = 'minus-circle';
                 break;
             case 'event':
             case 'events':
@@ -31,6 +40,9 @@ export class IconProvider {
             case 'level-up':
                 isAwesome = true;
                 break;
+            case 'flag':
+                isAwesome = true;
+                break;
             case 'drilldown':
                 className = 'chevron-right';
                 isAwesome = true;
@@ -41,6 +53,14 @@ export class IconProvider {
             case 'member':
             case 'members':
                 className = 'person';
+                break;
+            case 'okay':
+                isAwesome = true;
+                className = 'thumbs-up';
+                break;
+            case 'not-okay':
+                isAwesome = true;
+                className = 'thumbs-down';
                 break;
             case 'organization':
             case 'organizations':
@@ -57,7 +77,17 @@ export class IconProvider {
             case 'line-chart':
                 isAwesome = true;
                 break;
-            case 'report':
+            case 'note':
+            case 'notes':
+                isAwesome = true;
+                className = 'sticky-note';
+                break;
+            case 'spinner':
+            case 'loading':
+                isAwesome = true;
+                className = 'refresh fa-spin';
+                break;
+           case 'report':
             case 'reports':
                 className = 'trending-up';
                 break;

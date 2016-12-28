@@ -3,40 +3,43 @@
 </ion-header>
 
 <ion-content class="outer-content configuration resources">
-    <table class="table table-striped listing" [mfData]="instruments | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
-           [(mfSortOrder)]="sortOrder">
-        <thead>
-        <tr>
-            <th colspan="7">
-                <ion-searchbar [(ngModel)]="filterQuery" placeholder="filter"></ion-searchbar>
-            </th>
-        </tr>
-        <tr [hidden]="!loading">
-            <td colspan="4">
-                <loading-indicator [loading]="loading"></loading-indicator>
-            </td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let instrument of mf.data" class="order" (click)="configureInstrument(instrument)">
-            <td class="icon">
-                <app-icon name="instrument"></app-icon>
-            </td>
-            <td>
-                <div class="name">{{instrument.name}}</div>
-                <div class="description" [innerHTML]="instrument.summary"></div>
-            </td>
-            <td class="list-drilldown">
-                <i [class]="icon.getClass('drilldown')"></i>
-            </td>
-        </tr>
-        </tbody>
-        <tfoot>
-        <tr>
-            <td colspan="4">
-                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
-            </td>
-        </tr>
-        </tfoot>
-    </table>
+    <ion-card>
+        <table class="table table-striped listing" [mfData]="instruments | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+               [(mfSortBy)]="sortBy"
+               [(mfSortOrder)]="sortOrder">
+            <thead>
+            <tr>
+                <th colspan="7">
+                    <ion-searchbar [(ngModel)]="filterQuery" placeholder="filter"></ion-searchbar>
+                </th>
+            </tr>
+            <tr [hidden]="!loading">
+                <td colspan="4">
+                    <loading-indicator [loading]="loading"></loading-indicator>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let instrument of mf.data" class="order" (click)="configureInstrument(instrument)">
+                <td class="icon">
+                    <app-icon name="instrument"></app-icon>
+                </td>
+                <td>
+                    <div class="name">{{instrument.name}}</div>
+                    <div class="description" [innerHTML]="instrument.summary"></div>
+                </td>
+                <td class="list-drilldown">
+                    <i [class]="icon.getClass('drilldown')"></i>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </ion-card>
 </ion-content>
