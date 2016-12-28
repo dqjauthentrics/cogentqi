@@ -4804,7 +4804,7 @@ ion-footer ion-toolbar ion-col {
 }
 
 .yellow {
-  color: gold;
+  color: #FCE016;
 }
 
 button.save {
@@ -4816,7 +4816,7 @@ button.delete {
 }
 
 .dirty:before {
-  color: gold;
+  color: #FCE016;
 }
 
 .locked i:before {

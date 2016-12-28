@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {NavController, AlertController} from "ionic-angular";
 import {MessageProvider} from "../../providers/message";
 import {AssessmentDetailPage} from "../../pages/assessment/detail";
@@ -9,9 +9,8 @@ import {AssessmentDetailPage} from "../../pages/assessment/detail";
 })
 
 export class MemberContactCard {
+    @Output() dirty: EventEmitter<any> = new EventEmitter;
     @Input() member: any;
-
-    public dirty: boolean = false;
 
     constructor(private nav: NavController, private alertCtrl: AlertController, private message: MessageProvider) {
 
@@ -50,8 +49,8 @@ export class MemberContactCard {
         prompt.present();
     }
 
-    setItem() {
-        this.dirty = true;
+    setDirty() {
+        this.dirty.emit(true);
     }
 }
 

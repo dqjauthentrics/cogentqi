@@ -4,11 +4,12 @@ namespace App\Models;
 class AppModel extends \Phalcon\Mvc\Model {
 	public $id = NULL; // syntactic sugar
 
-	const TYPE_STRING = 0;
-	const TYPE_DATE = 1;
-	const TYPE_DATETIME = 2;
-	const TYPE_INT = 3;
-	const TYPE_REAL = 4;
+	const TYPE_STRING = 2;
+	const TYPE_DATE = 4;
+	const TYPE_DATETIME = 4;
+	const TYPE_INT = 0;
+	const TYPE_CHAR = 5;
+	const TYPE_REAL = 99; //@todo TBD
 
 	/** @var \Phalcon\Db\AdapterInterface $dbif */
 	private $dbif = NULL;
@@ -326,11 +327,12 @@ class AppModel extends \Phalcon\Mvc\Model {
 	public function map($options = []) {
 		$jsonRecord = [];
 		$metaData = $this->getModelsMetaData();
+		$dataTypes = $metaData->getDataTypes($this);
 		$columnNames = $metaData->getAttributes($this);
 		for ($i = 0; $i < count($columnNames); $i++) {
 			$colName = strtolower(trim($columnNames[$i]));
 			$jsonColName = $this->jsonifyName($colName);
-			$jsonRecord[$jsonColName] = self::value($this->{$colName});
+			$jsonRecord[$jsonColName] = self::value($this->{$colName}, $dataTypes[$colName]);
 		}
 		return $jsonRecord;
 	}

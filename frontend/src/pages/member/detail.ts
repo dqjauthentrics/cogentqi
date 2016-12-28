@@ -11,16 +11,29 @@ import {MemberNotesPage} from "./notes";
 })
 export class MemberDetailPage {
     public member: any;
+    public dirty: boolean = false;
+    public saving: boolean = false;
 
-    constructor(private nav: NavController, private navParams: NavParams, memberData: MemberProvider) {
+    constructor(private nav: NavController, private navParams: NavParams, private memberData: MemberProvider) {
         this.member = this.navParams.data;
-        console.log('member entry:', this.member);
         if (this.member) {
             memberData.getSingle(this.member.id).then(member => {
                 this.member = member;
-                console.log('member', member);
             });
         }
+    }
+
+    save(member) {
+        this.saving = true;
+        this.memberData.update(this.member, false).then(
+            (success) => {
+                this.saving = false;
+                console.log('OKAY:', success);
+            },
+            (error) => {
+                console.log('ERRRRRR');
+                this.saving = false;
+            });
     }
 
     goToAssessment(assessment) {
@@ -37,5 +50,13 @@ export class MemberDetailPage {
 
     goToNotes(member) {
         this.nav.push(MemberNotesPage, member);
+    }
+
+    setDirty() {
+        this.dirty = true;
+    }
+
+    canEdit() {
+        return true;
     }
 }

@@ -4579,3 +4579,405 @@
 [27-Dec-2016 21:18:31 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
 [27-Dec-2016 21:18:31 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
 [27-Dec-2016 21:18:31 America/New_York] PHP   6. App\Controllers\ConfigurationController->updateAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:46:18 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 21:46:18 America/New_York] PHP Stack trace:
+[27-Dec-2016 21:46:18 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 21:46:18 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:46:18 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:46:18 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:46:18 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:46:18 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:49:22 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 21:49:22 America/New_York] PHP Stack trace:
+[27-Dec-2016 21:49:22 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 21:49:22 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:49:22 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:49:22 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:49:22 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:49:22 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:50:45 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 21:50:45 America/New_York] PHP Stack trace:
+[27-Dec-2016 21:50:45 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 21:50:45 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:50:45 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:50:45 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:50:45 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:50:45 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:52:56 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 21:52:56 America/New_York] PHP Stack trace:
+[27-Dec-2016 21:52:56 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 21:52:56 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:52:56 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:52:56 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:52:56 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:52:56 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:53:50 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 21:53:50 America/New_York] PHP Stack trace:
+[27-Dec-2016 21:53:50 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 21:53:50 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:53:50 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:53:50 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:53:50 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:53:50 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:54:51 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 21:54:51 America/New_York] PHP Stack trace:
+[27-Dec-2016 21:54:51 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 21:54:51 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:54:51 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:54:51 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:54:51 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:54:51 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:55:59 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 21:55:59 America/New_York] PHP Stack trace:
+[27-Dec-2016 21:55:59 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 21:55:59 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:55:59 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:55:59 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:55:59 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 21:55:59 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:01:29 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 22:01:29 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:01:29 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:01:29 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:01:29 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:01:29 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:01:29 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:01:29 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:07:26 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 22:07:26 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:07:26 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:07:26 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:07:26 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:07:26 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:07:26 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:07:26 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:13:58 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 22:13:58 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:13:58 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:13:58 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:13:58 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:13:58 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:13:58 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:13:58 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:16:48 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 22:16:48 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:16:48 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:16:48 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:16:48 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:16:48 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:16:48 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:16:48 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:18:19 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 22:18:19 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:18:19 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:18:19 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:18:19 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:18:19 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:18:19 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:18:19 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:18:48 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 22:18:48 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:18:48 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:18:48 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:18:48 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:18:48 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:18:48 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:18:48 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:19:07 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 22:19:07 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:19:07 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:19:07 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:19:07 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:19:07 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:19:07 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:19:07 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:19:48 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 22:19:48 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:19:48 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:19:48 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:19:48 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:19:48 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:19:48 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:19:48 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:23:19 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 22:23:19 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:23:19 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:23:19 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:23:19 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:23:19 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:23:19 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:23:19 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:23:30 America/New_York] PHP Notice:  Undefined property: stdClass::$appRoleId in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 55
+[27-Dec-2016 22:23:30 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:23:30 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:23:30 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:23:30 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:23:30 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:23:30 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:23:30 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:49:52 America/New_York] PHP Notice:  Undefined index: id in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 87
+[27-Dec-2016 22:49:52 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:49:52 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:49:52 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:49:52 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:49:52 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:49:52 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:49:52 America/New_York] PHP   6. App\Controllers\MemberController->updateAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:49:52 America/New_York] PHP Catchable fatal error:  Argument 1 passed to Phalcon\Mvc\Model::validate() must implement interface Phalcon\ValidationInterface, instance of Phalcon\Mvc\Model\Validator\Email given in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php on line 195
+[27-Dec-2016 22:49:52 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:49:52 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:49:52 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:49:52 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:49:52 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:49:52 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:49:52 America/New_York] PHP   6. App\Controllers\MemberController->updateAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:49:52 America/New_York] PHP   7. Phalcon\Mvc\Model->update(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:49:52 America/New_York] PHP   8. Phalcon\Mvc\Model->save(*uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:49:52 America/New_York] PHP   9. Phalcon\Mvc\Model->_preSave(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:49:52 America/New_York] PHP  10. Phalcon\Mvc\Model->fireEventCancel(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:49:52 America/New_York] PHP  11. App\Models\Member->validation() /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:51:17 America/New_York] PHP Notice:  Undefined index: id in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 87
+[27-Dec-2016 22:51:17 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:51:17 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:51:17 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:51:17 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:51:17 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:51:17 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:51:17 America/New_York] PHP   6. App\Controllers\MemberController->updateAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:51:17 America/New_York] PHP Catchable fatal error:  Argument 1 passed to Phalcon\Mvc\Model::validate() must implement interface Phalcon\ValidationInterface, instance of Phalcon\Mvc\Model\Validator\Email given in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php on line 195
+[27-Dec-2016 22:51:17 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:51:17 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:51:17 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:51:17 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:51:17 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:51:17 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:51:17 America/New_York] PHP   6. App\Controllers\MemberController->updateAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:51:17 America/New_York] PHP   7. Phalcon\Mvc\Model->update(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:51:17 America/New_York] PHP   8. Phalcon\Mvc\Model->save(*uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:51:17 America/New_York] PHP   9. Phalcon\Mvc\Model->_preSave(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:51:17 America/New_York] PHP  10. Phalcon\Mvc\Model->fireEventCancel(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:51:17 America/New_York] PHP  11. App\Models\Member->validation() /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:53:08 America/New_York] PHP Notice:  Undefined index: id in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php on line 87
+[27-Dec-2016 22:53:08 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:53:08 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:53:08 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:53:08 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:53:08 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:53:08 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:53:08 America/New_York] PHP   6. App\Controllers\MemberController->updateAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:53:08 America/New_York] PHP Catchable fatal error:  Argument 1 passed to Phalcon\Mvc\Model::validate() must implement interface Phalcon\ValidationInterface, instance of Phalcon\Mvc\Model\Validator\Email given in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php on line 195
+[27-Dec-2016 22:53:08 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:53:08 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:53:08 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:53:08 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:53:08 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:53:08 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:53:08 America/New_York] PHP   6. App\Controllers\MemberController->updateAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:53:08 America/New_York] PHP   7. Phalcon\Mvc\Model->update(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:53:08 America/New_York] PHP   8. Phalcon\Mvc\Model->save(*uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:53:08 America/New_York] PHP   9. Phalcon\Mvc\Model->_preSave(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:53:08 America/New_York] PHP  10. Phalcon\Mvc\Model->fireEventCancel(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:53:08 America/New_York] PHP  11. App\Models\Member->validation() /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:54:50 America/New_York] PHP Catchable fatal error:  Argument 1 passed to Phalcon\Mvc\Model::validate() must implement interface Phalcon\ValidationInterface, instance of Phalcon\Mvc\Model\Validator\Email given in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php on line 195
+[27-Dec-2016 22:54:50 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:54:50 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:54:50 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:54:50 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:54:50 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:54:50 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:54:50 America/New_York] PHP   6. App\Controllers\MemberController->updateAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:54:50 America/New_York] PHP   7. Phalcon\Mvc\Model->update(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:54:50 America/New_York] PHP   8. Phalcon\Mvc\Model->save(*uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:54:50 America/New_York] PHP   9. Phalcon\Mvc\Model->_preSave(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:54:50 America/New_York] PHP  10. Phalcon\Mvc\Model->fireEventCancel(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:54:50 America/New_York] PHP  11. App\Models\Member->validation() /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:54:58 America/New_York] PHP Catchable fatal error:  Argument 1 passed to Phalcon\Mvc\Model::validate() must implement interface Phalcon\ValidationInterface, instance of Phalcon\Mvc\Model\Validator\Email given in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php on line 195
+[27-Dec-2016 22:54:58 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:54:58 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:54:58 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:54:58 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:54:58 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:54:58 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:54:58 America/New_York] PHP   6. App\Controllers\MemberController->updateAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:54:58 America/New_York] PHP   7. Phalcon\Mvc\Model->update(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:54:58 America/New_York] PHP   8. Phalcon\Mvc\Model->save(*uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:54:58 America/New_York] PHP   9. Phalcon\Mvc\Model->_preSave(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:54:58 America/New_York] PHP  10. Phalcon\Mvc\Model->fireEventCancel(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:54:58 America/New_York] PHP  11. App\Models\Member->validation() /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:55:37 America/New_York] PHP Catchable fatal error:  Argument 1 passed to Phalcon\Mvc\Model::validate() must implement interface Phalcon\ValidationInterface, instance of Phalcon\Mvc\Model\Validator\Email given in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php on line 195
+[27-Dec-2016 22:55:37 America/New_York] PHP Stack trace:
+[27-Dec-2016 22:55:37 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 22:55:37 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:55:37 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:55:37 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:55:37 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:55:37 America/New_York] PHP   6. App\Controllers\MemberController->updateAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 22:55:37 America/New_York] PHP   7. Phalcon\Mvc\Model->update(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:55:37 America/New_York] PHP   8. Phalcon\Mvc\Model->save(*uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:55:37 America/New_York] PHP   9. Phalcon\Mvc\Model->_preSave(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:55:37 America/New_York] PHP  10. Phalcon\Mvc\Model->fireEventCancel(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 22:55:37 America/New_York] PHP  11. App\Models\Member->validation() /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:89
+[27-Dec-2016 23:06:00 America/New_York] PHP Fatal error:  Undefined class constant 'TYPE_REAL' in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php on line 268
+[27-Dec-2016 23:06:00 America/New_York] PHP Stack trace:
+[27-Dec-2016 23:06:00 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 23:06:00 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:06:00 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:06:00 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:06:00 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:06:00 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:06:00 America/New_York] PHP   7. App\Models\Member->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:59
+[27-Dec-2016 23:06:00 America/New_York] PHP   8. App\Models\AppModel->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php:224
+[27-Dec-2016 23:06:00 America/New_York] PHP   9. App\Models\AppModel::value($value = *uninitialized*, $dataType = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php:337
+[27-Dec-2016 23:06:21 America/New_York] PHP Fatal error:  Undefined class constant 'TYPE_REAL' in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php on line 268
+[27-Dec-2016 23:06:21 America/New_York] PHP Stack trace:
+[27-Dec-2016 23:06:21 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 23:06:21 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:06:21 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:06:21 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:06:21 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:06:21 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:06:21 America/New_York] PHP   7. App\Models\Member->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:59
+[27-Dec-2016 23:06:21 America/New_York] PHP   8. App\Models\AppModel->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php:224
+[27-Dec-2016 23:06:21 America/New_York] PHP   9. App\Models\AppModel::value($value = *uninitialized*, $dataType = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php:337
+[27-Dec-2016 23:06:40 America/New_York] PHP Fatal error:  Undefined class constant 'TYPE_REAL' in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php on line 268
+[27-Dec-2016 23:06:40 America/New_York] PHP Stack trace:
+[27-Dec-2016 23:06:40 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 23:06:40 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:06:40 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:06:40 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:06:40 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:06:40 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:06:40 America/New_York] PHP   7. App\Models\Member->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:59
+[27-Dec-2016 23:06:40 America/New_York] PHP   8. App\Models\AppModel->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php:224
+[27-Dec-2016 23:06:40 America/New_York] PHP   9. App\Models\AppModel::value($value = *uninitialized*, $dataType = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php:337
+[27-Dec-2016 23:07:00 America/New_York] PHP Fatal error:  Undefined class constant 'TYPE_REAL' in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php on line 268
+[27-Dec-2016 23:07:00 America/New_York] PHP Stack trace:
+[27-Dec-2016 23:07:00 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 23:07:00 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:00 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:00 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:00 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:00 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:00 America/New_York] PHP   7. App\Models\Member->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:59
+[27-Dec-2016 23:07:00 America/New_York] PHP   8. App\Models\AppModel->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php:224
+[27-Dec-2016 23:07:00 America/New_York] PHP   9. App\Models\AppModel::value($value = *uninitialized*, $dataType = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php:337
+[27-Dec-2016 23:07:04 America/New_York] PHP Fatal error:  Undefined class constant 'TYPE_REAL' in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php on line 268
+[27-Dec-2016 23:07:04 America/New_York] PHP Stack trace:
+[27-Dec-2016 23:07:04 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 23:07:04 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:04 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:04 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:04 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:04 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:04 America/New_York] PHP   7. App\Models\Member->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:59
+[27-Dec-2016 23:07:04 America/New_York] PHP   8. App\Models\AppModel->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php:224
+[27-Dec-2016 23:07:04 America/New_York] PHP   9. App\Models\AppModel::value($value = *uninitialized*, $dataType = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php:337
+[27-Dec-2016 23:07:20 America/New_York] PHP Fatal error:  Undefined class constant 'TYPE_REAL' in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php on line 268
+[27-Dec-2016 23:07:20 America/New_York] PHP Stack trace:
+[27-Dec-2016 23:07:20 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 23:07:20 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:20 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:20 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:20 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:20 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:20 America/New_York] PHP   7. App\Models\Member->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:59
+[27-Dec-2016 23:07:20 America/New_York] PHP   8. App\Models\AppModel->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php:224
+[27-Dec-2016 23:07:20 America/New_York] PHP   9. App\Models\AppModel::value($value = *uninitialized*, $dataType = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php:337
+[27-Dec-2016 23:07:46 America/New_York] PHP Fatal error:  Undefined class constant 'TYPE_REAL' in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php on line 268
+[27-Dec-2016 23:07:46 America/New_York] PHP Stack trace:
+[27-Dec-2016 23:07:46 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 23:07:46 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:46 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:46 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:46 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:46 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:07:46 America/New_York] PHP   7. App\Models\Member->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:59
+[27-Dec-2016 23:07:46 America/New_York] PHP   8. App\Models\AppModel->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php:224
+[27-Dec-2016 23:07:46 America/New_York] PHP   9. App\Models\AppModel::value($value = *uninitialized*, $dataType = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php:334
+[27-Dec-2016 23:08:01 America/New_York] PHP Fatal error:  Undefined class constant 'TYPE_REAL' in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php on line 268
+[27-Dec-2016 23:08:01 America/New_York] PHP Stack trace:
+[27-Dec-2016 23:08:01 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 23:08:01 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:08:01 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:08:01 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:08:01 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:08:01 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:08:01 America/New_York] PHP   7. App\Models\Member->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:59
+[27-Dec-2016 23:08:01 America/New_York] PHP   8. App\Models\AppModel->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php:224
+[27-Dec-2016 23:08:01 America/New_York] PHP   9. App\Models\AppModel::value($value = *uninitialized*, $dataType = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php:334
+[27-Dec-2016 23:08:32 America/New_York] PHP Fatal error:  Undefined class constant 'TYPE_REAL' in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php on line 268
+[27-Dec-2016 23:08:32 America/New_York] PHP Stack trace:
+[27-Dec-2016 23:08:32 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 23:08:32 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:08:32 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:08:32 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:08:32 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:08:32 America/New_York] PHP   6. App\Controllers\MemberController->singleAction($id = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:08:32 America/New_York] PHP   7. App\Models\Member->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:59
+[27-Dec-2016 23:08:32 America/New_York] PHP   8. App\Models\AppModel->map($options = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php:224
+[27-Dec-2016 23:08:32 America/New_York] PHP   9. App\Models\AppModel::value($value = *uninitialized*, $dataType = *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/AppModel.php:334
+[27-Dec-2016 23:09:31 America/New_York] PHP Catchable fatal error:  Argument 1 passed to Phalcon\Mvc\Model::validate() must implement interface Phalcon\ValidationInterface, instance of Phalcon\Mvc\Model\Validator\Email given in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php on line 195
+[27-Dec-2016 23:09:31 America/New_York] PHP Stack trace:
+[27-Dec-2016 23:09:31 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 23:09:31 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:09:31 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:09:31 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:09:31 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:09:31 America/New_York] PHP   6. App\Controllers\MemberController->updateAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:09:31 America/New_York] PHP   7. Phalcon\Mvc\Model->update() /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:09:31 America/New_York] PHP   8. Phalcon\Mvc\Model->save(*uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:09:31 America/New_York] PHP   9. Phalcon\Mvc\Model->_preSave(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:09:31 America/New_York] PHP  10. Phalcon\Mvc\Model->fireEventCancel(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:09:31 America/New_York] PHP  11. App\Models\Member->validation() /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:10:20 America/New_York] PHP Catchable fatal error:  Argument 1 passed to Phalcon\Mvc\Model::validate() must implement interface Phalcon\ValidationInterface, instance of Phalcon\Mvc\Model\Validator\Email given in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php on line 195
+[27-Dec-2016 23:10:20 America/New_York] PHP Stack trace:
+[27-Dec-2016 23:10:20 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 23:10:20 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:10:20 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:10:20 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:10:20 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:10:20 America/New_York] PHP   6. App\Controllers\MemberController->updateAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:10:20 America/New_York] PHP   7. Phalcon\Mvc\Model->update() /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:10:20 America/New_York] PHP   8. Phalcon\Mvc\Model->save(*uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:10:20 America/New_York] PHP   9. Phalcon\Mvc\Model->_preSave(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:10:20 America/New_York] PHP  10. Phalcon\Mvc\Model->fireEventCancel(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:10:20 America/New_York] PHP  11. App\Models\Member->validation() /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:12:24 America/New_York] PHP Catchable fatal error:  Argument 1 passed to Phalcon\Mvc\Model::validate() must implement interface Phalcon\ValidationInterface, instance of Phalcon\Mvc\Model\Validator\Email given in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php on line 195
+[27-Dec-2016 23:12:24 America/New_York] PHP Stack trace:
+[27-Dec-2016 23:12:24 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 23:12:24 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:12:24 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:12:24 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:12:24 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:12:24 America/New_York] PHP   6. App\Controllers\MemberController->updateAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:12:24 America/New_York] PHP   7. Phalcon\Mvc\Model->update() /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:12:24 America/New_York] PHP   8. Phalcon\Mvc\Model->save(*uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:12:24 America/New_York] PHP   9. Phalcon\Mvc\Model->_preSave(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:12:24 America/New_York] PHP  10. Phalcon\Mvc\Model->fireEventCancel(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:12:24 America/New_York] PHP  11. App\Models\Member->validation() /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:12:40 America/New_York] PHP Catchable fatal error:  Argument 1 passed to Phalcon\Mvc\Model::validate() must implement interface Phalcon\ValidationInterface, instance of Phalcon\Mvc\Model\Validator\Email given in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php on line 195
+[27-Dec-2016 23:12:40 America/New_York] PHP Stack trace:
+[27-Dec-2016 23:12:40 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 23:12:40 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:12:40 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:12:40 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:12:40 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:12:40 America/New_York] PHP   6. App\Controllers\MemberController->updateAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:12:40 America/New_York] PHP   7. Phalcon\Mvc\Model->update() /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:12:40 America/New_York] PHP   8. Phalcon\Mvc\Model->save(*uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:12:40 America/New_York] PHP   9. Phalcon\Mvc\Model->_preSave(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:12:40 America/New_York] PHP  10. Phalcon\Mvc\Model->fireEventCancel(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:12:40 America/New_York] PHP  11. App\Models\Member->validation() /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:13:18 America/New_York] PHP Catchable fatal error:  Argument 1 passed to Phalcon\Mvc\Model::validate() must implement interface Phalcon\ValidationInterface, instance of Phalcon\Mvc\Model\Validator\Email given in /Users/dqj/Local/dev/apps/cogentqi/backend/App/Models/Member.php on line 195
+[27-Dec-2016 23:13:18 America/New_York] PHP Stack trace:
+[27-Dec-2016 23:13:18 America/New_York] PHP   1. {main}() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:0
+[27-Dec-2016 23:13:18 America/New_York] PHP   2. Phalcon\Mvc\Application->handle() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:13:18 America/New_York] PHP   3. Phalcon\Dispatcher->dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:13:18 America/New_York] PHP   4. Phalcon\Dispatcher->_dispatch() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:13:18 America/New_York] PHP   5. Phalcon\Dispatcher->callActionMethod(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:13:18 America/New_York] PHP   6. App\Controllers\MemberController->updateAction() /Users/dqj/Local/dev/apps/cogentqi/frontend/www/assets/api/index.php:67
+[27-Dec-2016 23:13:18 America/New_York] PHP   7. Phalcon\Mvc\Model->update() /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:13:18 America/New_York] PHP   8. Phalcon\Mvc\Model->save(*uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:13:18 America/New_York] PHP   9. Phalcon\Mvc\Model->_preSave(*uninitialized*, *uninitialized*, *uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:13:18 America/New_York] PHP  10. Phalcon\Mvc\Model->fireEventCancel(*uninitialized*) /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90
+[27-Dec-2016 23:13:18 America/New_York] PHP  11. App\Models\Member->validation() /Users/dqj/Local/dev/apps/cogentqi/backend/App/Controllers/MemberController.php:90

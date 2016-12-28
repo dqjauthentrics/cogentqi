@@ -26,8 +26,8 @@ class ConfigurationController extends ControllerBase {
 			$formCfg = @$this->getInputData("data");
 			if (!empty($formCfg)) {
 				$cfg = Configuration::findFirst();
-				$unmapped = $cfg->unmap($formCfg, $cfg);
-				$cfg->save($unmapped);
+				$cfg->unmap($formCfg, $cfg);
+				$cfg->save();
 			}
 			$transaction->commit();
 			$result->setNormal();

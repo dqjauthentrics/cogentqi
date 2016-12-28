@@ -83,10 +83,11 @@ class MemberController extends ControllerBase {
 		$memberModel = new Member();
 		$this->beginTransaction($memberModel);
 		try {
-			$memberForm = @$this->getInputData();
+			$memberForm = @$this->getInputData('data');
 			$member = Member::findFirst($memberForm["id"]);
 			if (!empty($member)) {
-				if (!$member->update($memberForm)) {
+				$member->unmap($memberForm, $member);
+				if (!$member->update()) {
 					throw new \Exception($member->errorMessagesAsString());
 				}
 				$this->commitTransaction();

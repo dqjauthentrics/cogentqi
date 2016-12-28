@@ -2,7 +2,7 @@
     <tr>
         <th>{{'email'|translate}}</th>
         <td>
-            <inline-editor type="text" (onSave)="saveItem()" [disabled]="!canEdit()" [(ngModel)]="member.email" size="40"></inline-editor>
+            <inline-editor type="text" (onSave)="setDirty()" [disabled]="!canEdit()" [(ngModel)]="member.email" size="40"></inline-editor>
             <span><a (click)="sendEmail(member)"><i class="fa fa-envelope fa-lg"></i></a></span>
         </td>
     </tr>
@@ -10,35 +10,35 @@
     <tr>
         <th>{{'address'|translate}}</th>
         <td>
-            <inline-editor id="address" type="text" (onSave)="saveItem()" [disabled]="!canEdit()" [(ngModel)]="member.address" size="40"></inline-editor>
+            <inline-editor id="address" type="text" (onSave)="setDirty()" [disabled]="!canEdit()" [(ngModel)]="member.address" size="40"></inline-editor>
         </td>
     </tr>
 
     <tr>
         <th>{{'city'|translate}}</th>
         <td>
-            <inline-editor id="city" type="text" (onSave)="saveItem()" [disabled]="!canEdit()" [(ngModel)]="member.city" size="40"></inline-editor>
+            <inline-editor id="city" type="text" (onSave)="setDirty()" [disabled]="!canEdit()" [(ngModel)]="member.city" size="40"></inline-editor>
         </td>
     </tr>
 
     <tr>
         <th>{{'state'|translate}}</th>
         <td>
-            <inline-editor id="state" type="text" (onSave)="saveItem()" [disabled]="!canEdit()" [(ngModel)]="member.state" size="2"></inline-editor>
+            <inline-editor id="state" type="text" (onSave)="setDirty()" [disabled]="!canEdit()" [(ngModel)]="member.state" size="2"></inline-editor>
         </td>
     </tr>
 
     <tr>
         <th>{{'postal code'|translate}}</th>
         <td>
-            <inline-editor id="postal" type="text" (onSave)="saveItem()" [disabled]="!canEdit()" [(ngModel)]="member.postal" size="10"></inline-editor>
+            <inline-editor id="postal" type="text" (onSave)="setDirty()" [disabled]="!canEdit()" [(ngModel)]="member.postal" size="10"></inline-editor>
         </td>
     </tr>
 
     <tr>
         <th>{{'mobile'|translate}}</th>
         <td>
-            <inline-editor type="text" (onSave)="saveItem()" [disabled]="!canEdit()" [(ngModel)]="member.mobile" size="20"></inline-editor>
+            <inline-editor type="text" (onSave)="setDirty()" [disabled]="!canEdit()" [(ngModel)]="member.mobile" size="20"></inline-editor>
             <span><a (click)="sendTextPrompt(member)"><i class="fa fa-mobile fa-2x"></i></a></span>
         </td>
     </tr>
@@ -63,7 +63,7 @@
     <tr>
         <th>{{'home phone'|translate}}</th>
         <td>
-            <inline-editor id="phone" type="text" (onSave)="saveItem()" [disabled]="!canEdit()" [(ngModel)]="member.phone" size="20"></inline-editor>
+            <inline-editor id="phone" type="text" (onSave)="setDirty()" [disabled]="!canEdit()" [(ngModel)]="member.phone" size="20"></inline-editor>
         </td>
     </tr>
 </table>

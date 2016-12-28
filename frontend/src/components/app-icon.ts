@@ -17,7 +17,6 @@ export class AppIcon {
     }
 
     getIconClass() {
-        let icon = (this.spinning ? this.icon.getClass('spinner') : this.icon.getClass(this.name));
-        return icon;
+        return (this.spinning ? this.icon.getClass('spinner') : this.icon.getClass(this.name));
     }
 }

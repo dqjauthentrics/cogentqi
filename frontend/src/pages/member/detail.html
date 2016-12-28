@@ -5,14 +5,25 @@
 <ion-content class="outer-content member-list">
     <ion-grid>
         <ion-row responsive-md>
+            <ion-col>
+                <div class="pull-right">
+                    <app-icon (click)="save()" [dirty]="dirty" [spinning]="saving" name="save"></app-icon>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row responsive-md>
             <ion-col width-33>
                 <ion-card class="member">
                     <ion-row responsive-sm>
-                        <ion-col>
+                        <ion-col width-33>
                             <avatar [id]="member.id" [size]="'full'"></avatar>
                         </ion-col>
-                        <ion-col>
-                            <h4>{{member|namify:false}}</h4>
+                        <ion-col width-67>
+                            <h4>
+                                <inline-editor empty="-" type="text" (onSave)="setDirty()" [disabled]="!canEdit()" [(ngModel)]="member.firstName" size="10"></inline-editor>
+                                <inline-editor empty="-" type="text" (onSave)="setDirty()" [disabled]="!canEdit()" [(ngModel)]="member.middleName" size="2" min="0"></inline-editor>
+                                <inline-editor empty="-" type="text" (onSave)="setDirty()" [disabled]="!canEdit()" [(ngModel)]="member.lastName" size="10"></inline-editor>
+                            </h4>
                             <div>{{member.roleName}}</div>
                             <div><app-icon (click)="goToNotes(member)" name="note"></app-icon></div>
                         </ion-col>
@@ -20,7 +31,7 @@
                     <h3>{{'Badges'|translate}}</h3>
                     <span *ngFor="let badge of member.badges"><micro-badge [name]="badge.name" [src]="badge.image"></micro-badge></span>
                     <h3>{{'Contact'|translate}}</h3>
-                    <member-contact-card [member]="member"></member-contact-card>
+                    <member-contact-card [member]="member" (dirty)="setDirty()"></member-contact-card>
                 </ion-card>
             </ion-col>
             <ion-col width-67>

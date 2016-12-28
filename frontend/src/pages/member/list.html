@@ -34,7 +34,7 @@
         <tbody>
         <tr *ngFor="let member of mf.data" class="order">
             <td>
-                <avatar *ngIf="member.avatar" [id]="member.id" [size]="'list'"></avatar>
+                <avatar (click)="goToDetail(member)" *ngIf="member.avatar" [id]="member.id" [size]="'list'"></avatar>
             </td>
             <td style="width:20px;">
                 <a [href]="'mailto:' + (member && member.email? member.email : '')">
