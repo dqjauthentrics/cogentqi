@@ -13,18 +13,20 @@ export class Config {
     public site = '/assets/site/default';
     public siteDir: string = 'default';
     public css: string = this.site + '/theme.css';
-    public translations: string = this.site + '/translations';
     public logoFull: string = '/assets/site/default/images/logoFull.png';
     public logoHeader: string = '/assets/site/default/images/logoHeader.png';
     public logoPrint: string = '/assets/site/default/images/logoPrint.png';
     public isAdmin: boolean = false;
+    public translations: Object;
+    public roles: Object;
+    public language: string = "us-en";
 
     constructor(private http: Http) {
         try {
             let hostname = window.location.hostname;
             let parts = hostname.split('.');
             if (parts.length >= 2 && parts[0]) {
-                if (parts[0] == 'admin') {
+                if (parts[0] === 'admin') {
                     this.siteDir = parts[1];
                     this.isAdmin = true;
                 }
@@ -33,24 +35,31 @@ export class Config {
                 }
                 this.site = '/assets/site/' + this.siteDir;
                 this.css = this.site + '/theme.css';
-                this.translations = this.site + '/translations';
                 this.logoFull = '/assets/site/' + this.siteDir + '/images/logoFull.png';
                 this.logoHeader = '/assets/site/' + this.siteDir + '/images/logoHeader.png';
                 this.logoPrint = '/assets/site/' + this.siteDir + '/images/logoPrint.png';
-                let themeEl = window.document.getElementById('theme');
-                if (themeEl) {
-                    themeEl.setAttribute('href', this.css);
-                }
                 this.load();
             }
         }
         catch (exception) {
-            console.log("ERROR:", exception);
+            console.error("CONFIGURATION ERROR:", exception);
         }
     }
 
     static checkProduction() {
         return window && window.location && window.location.hostname && window.location.hostname.indexOf('.com') > 0;
+    }
+
+    roleName(roleId) {
+        try {
+            if (roleId && this.roles[roleId]) {
+                return this.roles[roleId];
+            }
+        }
+        catch (exception) {
+            console.error("CONFIGURATION ROLE ERROR:", exception);
+        }
+        return roleId;
     }
 
     load() {
@@ -59,21 +68,25 @@ export class Config {
         }
         return new Promise(resolve => {
             this.http.get(this.site + '/config.json').subscribe(res => {
-                this.data = this.processData(res.json());
+                let jsonObject = res.json();
+                if (jsonObject.copyright) {
+                    this.copyright = jsonObject.copyright;
+                }
+                if (jsonObject.trademarkName) {
+                    this.trademarkName = jsonObject.trademarkName;
+                }
+                if (jsonObject.appName) {
+                    this.appName = jsonObject.appName;
+                }
+                if (jsonObject.translations) {
+                    this.translations = jsonObject.translations;
+                }
+                if (jsonObject.roles) {
+                    this.roles = jsonObject.roles;
+                }
                 resolve(this.data);
             });
         });
     }
 
-    processData(jsonObject) {
-        if (jsonObject.copyright) {
-            this.copyright = jsonObject.copyright;
-        }
-        if (jsonObject.trademarkName) {
-            this.trademarkName = jsonObject.trademarkName;
-        }
-        if (jsonObject.appName) {
-            this.appName = jsonObject.appName;
-        }
-    }
 }

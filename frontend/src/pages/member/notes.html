@@ -1,5 +1,5 @@
 <ion-header>
-    <header-bar class="clickable" (click)="goToMember(member)" [title]="member|namify:true + ': Notes'"></header-bar>
+    <header-bar class="clickable" (click)="goToMember(member)" title="{{member|namify:true}}: {{'Notes'|translate}}"></header-bar>
 </ion-header>
 
 <ion-content class="outer-content member-notes">

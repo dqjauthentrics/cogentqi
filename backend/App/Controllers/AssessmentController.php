@@ -220,4 +220,13 @@ class AssessmentController extends ControllerBase {
 		$result = $assessmentModel->memberProgressByMonthAction($memberId);
 		$result->sendNormal();
 	}
+
+	/**
+	 * @param int $organizationId
+	 */
+	public function yearAction($organizationId) {
+		$assessmentModel = new Assessment();
+		$result = $assessmentModel->getYear($organizationId);
+		$result->sendNormal();
+	}
 }

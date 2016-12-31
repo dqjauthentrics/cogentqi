@@ -3,7 +3,7 @@ import {NavController, NavParams, Slides} from "ionic-angular";
 import {AssessmentProvider} from "../../providers/assessment";
 import {InstrumentProvider} from "../../providers/instrument";
 import {Globals} from "../../providers/globals";
-import {ColorProvider} from "../../providers/color";
+import {Color} from "../../providers/color";
 import {IconProvider} from "../../providers/icon";
 import {Config} from "../../providers/config";
 import {PDF} from "../../providers/pdf";
@@ -20,7 +20,7 @@ export class AssessmentDetailPage {
     public assessment: any = {};
     public dirty: boolean = false;
 
-    constructor(private color: ColorProvider, private nav: NavController, private navParams: NavParams, private config: Config,
+    constructor(private color: Color, private nav: NavController, private navParams: NavParams, private config: Config,
                 private assessmentData: AssessmentProvider, public icon: IconProvider, public instrumentData: InstrumentProvider, public pdf: PDF, public globals: Globals) {
         this.assessment = this.navParams.data;
         assessmentData.getSingle(this.assessment.id).then(assessment => {
@@ -42,7 +42,6 @@ export class AssessmentDetailPage {
 
     setDirty() {
         this.dirty = true;
-        console.log('dirty!');
     }
 
     sliderPadding(question, obj) {

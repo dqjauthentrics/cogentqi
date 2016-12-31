@@ -222,8 +222,6 @@ class Member extends AppModel {
 	 */
 	public function map($options = ['lastAssessment' => TRUE, 'badges' => TRUE, 'assessments' => TRUE, 'notes' => FALSE, 'events' => FALSE, 'minimal' => FALSE]) {
 		$map = parent::map($options);
-		$map['appRoleId'] = $this->role->app_role_id;
-		$map['roleName'] = $this->role->name;
 		unset($map['password']);
 		if (!empty($options['badges'])) {
 			$map["badges"] = $this->mapChildren('\App\Models\MemberBadge', 'member_id', 'earned DESC', ['minimal' => TRUE]);

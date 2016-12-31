@@ -32,16 +32,18 @@ import {LoadingIndicator} from "../components/loading-indicator";
 import {MicroBadgeCount} from "../components/micro-badge-count";
 import {MicroBadge} from "../components/micro-badge";
 import {PageMenu} from "../components/page-menu";
+import {PlanItemList} from "../pages/professional/_plan-item-list";
+
 /**
  * Providers
  **/
 import {AssessmentProvider} from "../providers/assessment";
-import {ColorProvider} from "../providers/color";
+import {Color} from "../providers/color";
 import {ConfigurationProvider} from "../providers/configuration";
 import {Config} from "../providers/config";
 import {EventProvider} from "../providers/event";
 import {Globals} from "../providers/globals";
-import {Graphs} from "../providers/graph";
+import {Graph} from "../providers/graph";
 import {IconProvider} from "../providers/icon";
 import {InstrumentProvider} from "../providers/instrument";
 import {MemberProvider} from "../providers/member";
@@ -50,12 +52,14 @@ import {MessageProvider} from "../providers/message";
 import {OrganizationProvider} from "../providers/organization";
 import {OutcomeProvider} from "../providers/outcome";
 import {PDF} from "../providers/pdf";
+import {PlanItemProvider} from "../providers/plan-item";
 import {ResourceProvider} from "../providers/resource";
 import {ScheduleProvider} from "../providers/schedule";
 import {SessionProvider} from "../providers/session";
 /**
  * Pages
  **/
+import {AppPage} from "../pages/app-page";
 import {AccountPage} from "../pages/account/account";
 import {AssessmentDetailPage} from "../pages/assessment/detail";
 import {AssessmentItem} from "../pages/assessment/_item";
@@ -74,8 +78,7 @@ import {ConfigSettingsPage} from "../pages/configuration/settings/config";
 import {ConfigurationPage} from "../pages/configuration/index";
 import {DashboardPage} from "../pages/dashboard/dashboard";
 import {HelpPage} from "../pages/help/help";
-import {InstrumentDetailPage} from "../pages/instrument/detail";
-import {InstrumentListPage} from "../pages/instrument/list";
+import {InstrumentViewPage} from "../pages/instrument/view";
 import {LoginPage} from "../pages/login/login";
 import {MatrixPage} from "../pages/matrix/matrix";
 import {MemberAssessmentsCard} from "../pages/member/_assessments";
@@ -89,6 +92,7 @@ import {MemberProgressPage} from "../pages/member/progress";
 import {OrganizationAssessments} from "../pages/assessment/_organization-assessments";
 import {OrganizationDetailPage} from "../pages/organization/detail";
 import {OrganizationListPage} from "../pages/organization/list";
+import {ProfessionalPage} from "../pages/professional/index";
 import {ReportOutcomeTrends} from "../pages/report/outcome-trends";
 import {ReportResourceAnalysis} from "../pages/report/resource-analysis";
 import {ReportResourceEfficacy} from "../pages/report/resource-efficacy";
@@ -112,6 +116,7 @@ import {TabsPage} from "../pages/tabs/tabs";
 @NgModule({
     declarations: [
         CogicApp,
+        AppPage,
         AccountPage,
         AppIcon,
         AssessmentDetailPage,
@@ -139,8 +144,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         HelpPage,
         Icon,
         InfoBadge,
-        InstrumentDetailPage,
-        InstrumentListPage,
+        InstrumentViewPage,
         LoadingIndicator,
         LoginPage,
         MatrixPage,
@@ -158,8 +162,10 @@ import {TabsPage} from "../pages/tabs/tabs";
         OrganizationAssessments,
         OrganizationDetailPage,
         OrganizationListPage,
+        ProfessionalPage,
         PageMenu,
         Phone,
+        PlanItemList,
         Replace,
         ReportOutcomeTrends,
         ReportResourceAnalysis,
@@ -199,8 +205,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         ConfigurationPage,
         DashboardPage,
         HelpPage,
-        InstrumentDetailPage,
-        InstrumentListPage,
+        InstrumentViewPage,
         LoginPage,
         MatrixPage,
         MemberAssessmentsCard,
@@ -214,6 +219,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         OrganizationAssessments,
         OrganizationDetailPage,
         OrganizationListPage,
+        ProfessionalPage,
         ReportOutcomeTrends,
         ReportResourceAnalysis,
         ReportResourceEfficacy,
@@ -228,12 +234,12 @@ import {TabsPage} from "../pages/tabs/tabs";
         AppIcon,
         AssessmentProvider,
         Avatar,
-        ColorProvider,
+        Color,
         Config,
         ConfigurationProvider,
         EventProvider,
         Globals,
-        Graphs,
+        Graph,
         IconProvider,
         InstrumentProvider,
         LoadingIndicator,
@@ -245,6 +251,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         OutcomeProvider,
         PDF,
         Phone,
+        PlanItemProvider,
         ResourceProvider,
         ScheduleProvider,
         SessionProvider,

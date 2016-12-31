@@ -1,0 +1,3033 @@
+{
+  "status": 1,
+  "code": 200,
+  "duration": 1.52142,
+  "message": null,
+  "data": [
+    {
+      "id": 568,
+      "moduleId": 65,
+      "planItemStatusId": "C",
+      "statusStamp": "2016-02-13 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 65,
+        "resourceId": 3,
+        "ends": "2017-02-17T19:00:22-05:00",
+        "schedType": "C",
+        "starts": "2017-02-12T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 32,
+            "name": "CSS3",
+            "description": "CSS3 mastery module.",
+            "image": "css3.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 3,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT003",
+          "name": "Assessing Patients",
+          "location": null,
+          "summary": "This module provides a general overview.",
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 3,
+              "resourceId": 3,
+              "questionId": 3,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                },
+                {
+                  "response": 3,
+                  "utility": 3
+                },
+                {
+                  "response": 4,
+                  "utility": 2
+                },
+                {
+                  "response": 5,
+                  "utility": 4
+                }
+              ]
+            },
+            {
+              "id": 6,
+              "resourceId": 3,
+              "questionId": 2,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 4
+                },
+                {
+                  "response": 5,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 49,
+              "resourceId": 3,
+              "questionId": 25,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 1
+                }
+              ]
+            },
+            {
+              "id": 92,
+              "resourceId": 3,
+              "questionId": 1,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                },
+                {
+                  "response": 3,
+                  "utility": 3
+                },
+                {
+                  "response": 4,
+                  "utility": 3
+                },
+                {
+                  "response": 5,
+                  "utility": 3
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 3,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT003",
+        "name": "Assessing Patients",
+        "location": null,
+        "summary": "This module provides a general overview.",
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 1084,
+      "moduleId": 64,
+      "planItemStatusId": "C",
+      "statusStamp": "2016-03-02 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 64,
+        "resourceId": 10,
+        "ends": "2017-01-13T19:00:22-05:00",
+        "schedType": "C",
+        "starts": "2017-01-13T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 36,
+            "name": "Team Participation",
+            "description": "Working as a member of a professional team.",
+            "image": "participation.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 10,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT010",
+          "name": "Preventing Errors with Look-Alike and Sound-Alike Drug Names",
+          "location": null,
+          "summary": "Drug names can often sound similar or appear similar. In addition the appearance of the products can look similar enough to cause confusion. These can easily be confused contributing to adverse medication events.",
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 64,
+              "resourceId": 10,
+              "questionId": 19,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 5
+                }
+              ]
+            },
+            {
+              "id": 65,
+              "resourceId": 10,
+              "questionId": 28,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 10,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT010",
+        "name": "Preventing Errors with Look-Alike and Sound-Alike Drug Names",
+        "location": null,
+        "summary": "Drug names can often sound similar or appear similar. In addition the appearance of the products can look similar enough to cause confusion. These can easily be confused contributing to adverse medication events.",
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 1082,
+      "moduleId": 60,
+      "planItemStatusId": "C",
+      "statusStamp": "2016-03-13 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 60,
+        "resourceId": 4,
+        "ends": "2017-03-12T19:00:22-04:00",
+        "schedType": "C",
+        "starts": "2017-03-11T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 34,
+            "name": "Legal Issues",
+            "description": "Legal issues in our profession.",
+            "image": "gavel.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 4,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT004",
+          "name": "Adherence Assessment",
+          "location": null,
+          "summary": "This module provides a general overview.",
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 7,
+              "resourceId": 4,
+              "questionId": 5,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 5
+                },
+                {
+                  "response": 5,
+                  "utility": 5
+                }
+              ]
+            },
+            {
+              "id": 20,
+              "resourceId": 4,
+              "questionId": 1,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 5
+                },
+                {
+                  "response": 3,
+                  "utility": 2
+                },
+                {
+                  "response": 4,
+                  "utility": 1
+                },
+                {
+                  "response": 5,
+                  "utility": 1
+                }
+              ]
+            },
+            {
+              "id": 21,
+              "resourceId": 4,
+              "questionId": 2,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                },
+                {
+                  "response": 3,
+                  "utility": 3
+                },
+                {
+                  "response": 4,
+                  "utility": 2
+                },
+                {
+                  "response": 5,
+                  "utility": 3
+                }
+              ]
+            },
+            {
+              "id": 22,
+              "resourceId": 4,
+              "questionId": 3,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 1
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                },
+                {
+                  "response": 3,
+                  "utility": 1
+                },
+                {
+                  "response": 4,
+                  "utility": 1
+                },
+                {
+                  "response": 5,
+                  "utility": 1
+                }
+              ]
+            },
+            {
+              "id": 23,
+              "resourceId": 4,
+              "questionId": 4,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 5
+                },
+                {
+                  "response": 3,
+                  "utility": 2
+                },
+                {
+                  "response": 4,
+                  "utility": 5
+                },
+                {
+                  "response": 5,
+                  "utility": 1
+                }
+              ]
+            },
+            {
+              "id": 24,
+              "resourceId": 4,
+              "questionId": 6,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 3
+                },
+                {
+                  "response": 5,
+                  "utility": 4
+                }
+              ]
+            },
+            {
+              "id": 25,
+              "resourceId": 4,
+              "questionId": 8,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 1
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                },
+                {
+                  "response": 3,
+                  "utility": 2
+                },
+                {
+                  "response": 4,
+                  "utility": 3
+                },
+                {
+                  "response": 5,
+                  "utility": 5
+                }
+              ]
+            },
+            {
+              "id": 26,
+              "resourceId": 4,
+              "questionId": 9,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 3
+                },
+                {
+                  "response": 5,
+                  "utility": 5
+                }
+              ]
+            },
+            {
+              "id": 27,
+              "resourceId": 4,
+              "questionId": 10,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 5
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 4
+                },
+                {
+                  "response": 5,
+                  "utility": 4
+                }
+              ]
+            },
+            {
+              "id": 28,
+              "resourceId": 4,
+              "questionId": 11,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 4
+                },
+                {
+                  "response": 5,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 29,
+              "resourceId": 4,
+              "questionId": 12,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 1
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                },
+                {
+                  "response": 3,
+                  "utility": 2
+                },
+                {
+                  "response": 4,
+                  "utility": 2
+                },
+                {
+                  "response": 5,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 30,
+              "resourceId": 4,
+              "questionId": 13,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 5
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 5
+                },
+                {
+                  "response": 5,
+                  "utility": 4
+                }
+              ]
+            },
+            {
+              "id": 31,
+              "resourceId": 4,
+              "questionId": 59,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            },
+            {
+              "id": 32,
+              "resourceId": 4,
+              "questionId": 60,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 47,
+              "resourceId": 4,
+              "questionId": 20,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 54,
+              "resourceId": 4,
+              "questionId": 29,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            },
+            {
+              "id": 59,
+              "resourceId": 4,
+              "questionId": 22,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 1
+                }
+              ]
+            },
+            {
+              "id": 61,
+              "resourceId": 4,
+              "questionId": 24,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                }
+              ]
+            },
+            {
+              "id": 66,
+              "resourceId": 4,
+              "questionId": 53,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 5
+                },
+                {
+                  "response": 2,
+                  "utility": 1
+                }
+              ]
+            },
+            {
+              "id": 70,
+              "resourceId": 4,
+              "questionId": 16,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 4,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT004",
+        "name": "Adherence Assessment",
+        "location": null,
+        "summary": "This module provides a general overview.",
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 560,
+      "moduleId": 54,
+      "planItemStatusId": "C",
+      "statusStamp": "2016-03-14 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 54,
+        "resourceId": 12,
+        "ends": "2017-04-01T19:00:22-04:00",
+        "schedType": "C",
+        "starts": "2017-04-01T19:00:22-04:00",
+        "badges": [
+          {
+            "id": 36,
+            "name": "Team Participation",
+            "description": "Working as a member of a professional team.",
+            "image": "participation.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 12,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT012",
+          "name": "High Risk High Alert Medication Review (Case Studies)",
+          "location": null,
+          "summary": null,
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 52,
+              "resourceId": 12,
+              "questionId": 24,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 60,
+              "resourceId": 12,
+              "questionId": 17,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 1
+                }
+              ]
+            },
+            {
+              "id": 69,
+              "resourceId": 12,
+              "questionId": 27,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 5
+                }
+              ]
+            },
+            {
+              "id": 75,
+              "resourceId": 12,
+              "questionId": 55,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 12,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT012",
+        "name": "High Risk High Alert Medication Review (Case Studies)",
+        "location": null,
+        "summary": null,
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 555,
+      "moduleId": 49,
+      "planItemStatusId": "R",
+      "statusStamp": "2016-03-26 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 49,
+        "resourceId": 7,
+        "ends": "2017-01-04T19:00:22-05:00",
+        "schedType": "C",
+        "starts": "2016-12-31T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 39,
+            "name": "Support Technologies",
+            "description": "Technologies that can help you do your job better.",
+            "image": "technology.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 7,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT007",
+          "name": "Drug Interactions",
+          "location": null,
+          "summary": "This module provides a general overview.",
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 13,
+              "resourceId": 7,
+              "questionId": 8,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 5
+                },
+                {
+                  "response": 2,
+                  "utility": 5
+                },
+                {
+                  "response": 3,
+                  "utility": 1
+                },
+                {
+                  "response": 4,
+                  "utility": 3
+                },
+                {
+                  "response": 5,
+                  "utility": 3
+                }
+              ]
+            },
+            {
+              "id": 14,
+              "resourceId": 7,
+              "questionId": 32,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 1
+                }
+              ]
+            },
+            {
+              "id": 15,
+              "resourceId": 7,
+              "questionId": 35,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            },
+            {
+              "id": 16,
+              "resourceId": 7,
+              "questionId": 49,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            },
+            {
+              "id": 17,
+              "resourceId": 7,
+              "questionId": 50,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 5
+                }
+              ]
+            },
+            {
+              "id": 50,
+              "resourceId": 7,
+              "questionId": 18,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                }
+              ]
+            },
+            {
+              "id": 55,
+              "resourceId": 7,
+              "questionId": 14,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                },
+                {
+                  "response": 3,
+                  "utility": 2
+                },
+                {
+                  "response": 4,
+                  "utility": 5
+                },
+                {
+                  "response": 5,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 56,
+              "resourceId": 7,
+              "questionId": 34,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            },
+            {
+              "id": 68,
+              "resourceId": 7,
+              "questionId": 23,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 7,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT007",
+        "name": "Drug Interactions",
+        "location": null,
+        "summary": "This module provides a general overview.",
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 1073,
+      "moduleId": 43,
+      "planItemStatusId": "C",
+      "statusStamp": "2016-04-01 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 43,
+        "resourceId": 1,
+        "ends": "2017-04-08T19:00:22-04:00",
+        "schedType": "C",
+        "starts": "2017-04-03T19:00:22-04:00",
+        "badges": [
+          {
+            "id": 39,
+            "name": "Support Technologies",
+            "description": "Technologies that can help you do your job better.",
+            "image": "technology.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 1,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT001",
+          "name": "Introduction to the Pharmacy, for Technicians",
+          "location": null,
+          "summary": "Important characteristics of current and evolving advanced technician practice models\n            include training through an ASHP accredited training program, PTCB certification, and licensure with a Board of Pharmacy.",
+          "description": "<p>a2aq2<\/p>",
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 1,
+              "resourceId": 1,
+              "questionId": 1,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 4
+                },
+                {
+                  "response": 5,
+                  "utility": 4
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 1,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT001",
+        "name": "Introduction to the Pharmacy, for Technicians",
+        "location": null,
+        "summary": "Important characteristics of current and evolving advanced technician practice models\n            include training through an ASHP accredited training program, PTCB certification, and licensure with a Board of Pharmacy.",
+        "description": "<p>a2aq2<\/p>",
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 1076,
+      "moduleId": 48,
+      "planItemStatusId": "C",
+      "statusStamp": "2016-04-06 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 48,
+        "resourceId": 6,
+        "ends": "2017-01-20T19:00:22-05:00",
+        "schedType": "C",
+        "starts": "2017-01-19T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 37,
+            "name": "Prescription Management",
+            "description": "Managing prescriptions safely, optimally and accurately.",
+            "image": "prescriptions.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 6,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT006",
+          "name": "Code of Conduct",
+          "location": null,
+          "summary": "This module provides a general overview.",
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 11,
+              "resourceId": 6,
+              "questionId": 5,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 1
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                },
+                {
+                  "response": 3,
+                  "utility": 3
+                },
+                {
+                  "response": 4,
+                  "utility": 4
+                },
+                {
+                  "response": 5,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 12,
+              "resourceId": 6,
+              "questionId": 60,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 57,
+              "resourceId": 6,
+              "questionId": 58,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 1
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 6,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT006",
+        "name": "Code of Conduct",
+        "location": null,
+        "summary": "This module provides a general overview.",
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 1075,
+      "moduleId": 47,
+      "planItemStatusId": "E",
+      "statusStamp": "2016-04-18 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 47,
+        "resourceId": 5,
+        "ends": "2017-02-04T19:00:22-05:00",
+        "schedType": "C",
+        "starts": "2017-02-03T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 35,
+            "name": "Internet Technology",
+            "description": "How the Internet affects our workplace.",
+            "image": "ipv6.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 5,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT005",
+          "name": "Prescription Labeling",
+          "location": null,
+          "summary": "This module provides a general overview.",
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 8,
+              "resourceId": 5,
+              "questionId": 40,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 9,
+              "resourceId": 5,
+              "questionId": 42,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 10,
+              "resourceId": 5,
+              "questionId": 46,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                }
+              ]
+            },
+            {
+              "id": 48,
+              "resourceId": 5,
+              "questionId": 39,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 5
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                }
+              ]
+            },
+            {
+              "id": 63,
+              "resourceId": 5,
+              "questionId": 31,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            },
+            {
+              "id": 73,
+              "resourceId": 5,
+              "questionId": 27,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 5,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT005",
+        "name": "Prescription Labeling",
+        "location": null,
+        "summary": "This module provides a general overview.",
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 1081,
+      "moduleId": 59,
+      "planItemStatusId": "R",
+      "statusStamp": "2016-05-07 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 59,
+        "resourceId": 8,
+        "ends": "2017-01-12T19:00:22-05:00",
+        "schedType": "C",
+        "starts": "2017-01-11T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 37,
+            "name": "Prescription Management",
+            "description": "Managing prescriptions safely, optimally and accurately.",
+            "image": "prescriptions.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 8,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT008",
+          "name": "Preventive Care",
+          "location": null,
+          "summary": "This module provides a general overview.",
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 18,
+              "resourceId": 8,
+              "questionId": 15,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 5
+                },
+                {
+                  "response": 5,
+                  "utility": 5
+                }
+              ]
+            },
+            {
+              "id": 62,
+              "resourceId": 8,
+              "questionId": 17,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            },
+            {
+              "id": 67,
+              "resourceId": 8,
+              "questionId": 31,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 71,
+              "resourceId": 8,
+              "questionId": 53,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 5
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            },
+            {
+              "id": 72,
+              "resourceId": 8,
+              "questionId": 39,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 8,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT008",
+        "name": "Preventive Care",
+        "location": null,
+        "summary": "This module provides a general overview.",
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 556,
+      "moduleId": 50,
+      "planItemStatusId": "C",
+      "statusStamp": "2016-05-18 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 50,
+        "resourceId": 8,
+        "ends": "2017-02-18T19:00:22-05:00",
+        "schedType": "C",
+        "starts": "2017-02-14T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 35,
+            "name": "Internet Technology",
+            "description": "How the Internet affects our workplace.",
+            "image": "ipv6.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 8,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT008",
+          "name": "Preventive Care",
+          "location": null,
+          "summary": "This module provides a general overview.",
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 18,
+              "resourceId": 8,
+              "questionId": 15,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 5
+                },
+                {
+                  "response": 5,
+                  "utility": 5
+                }
+              ]
+            },
+            {
+              "id": 62,
+              "resourceId": 8,
+              "questionId": 17,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            },
+            {
+              "id": 67,
+              "resourceId": 8,
+              "questionId": 31,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 71,
+              "resourceId": 8,
+              "questionId": 53,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 5
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            },
+            {
+              "id": 72,
+              "resourceId": 8,
+              "questionId": 39,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 8,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT008",
+        "name": "Preventive Care",
+        "location": null,
+        "summary": "This module provides a general overview.",
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 1074,
+      "moduleId": 45,
+      "planItemStatusId": "C",
+      "statusStamp": "2016-05-29 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 45,
+        "resourceId": 3,
+        "ends": "2017-03-11T19:00:22-05:00",
+        "schedType": "C",
+        "starts": "2017-03-06T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 35,
+            "name": "Internet Technology",
+            "description": "How the Internet affects our workplace.",
+            "image": "ipv6.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 3,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT003",
+          "name": "Assessing Patients",
+          "location": null,
+          "summary": "This module provides a general overview.",
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 3,
+              "resourceId": 3,
+              "questionId": 3,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                },
+                {
+                  "response": 3,
+                  "utility": 3
+                },
+                {
+                  "response": 4,
+                  "utility": 2
+                },
+                {
+                  "response": 5,
+                  "utility": 4
+                }
+              ]
+            },
+            {
+              "id": 6,
+              "resourceId": 3,
+              "questionId": 2,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 4
+                },
+                {
+                  "response": 5,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 49,
+              "resourceId": 3,
+              "questionId": 25,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 1
+                }
+              ]
+            },
+            {
+              "id": 92,
+              "resourceId": 3,
+              "questionId": 1,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                },
+                {
+                  "response": 3,
+                  "utility": 3
+                },
+                {
+                  "response": 4,
+                  "utility": 3
+                },
+                {
+                  "response": 5,
+                  "utility": 3
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 3,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT003",
+        "name": "Assessing Patients",
+        "location": null,
+        "summary": "This module provides a general overview.",
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 1078,
+      "moduleId": 52,
+      "planItemStatusId": "C",
+      "statusStamp": "2016-05-30 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 52,
+        "resourceId": 10,
+        "ends": "2017-01-30T19:00:22-05:00",
+        "schedType": "C",
+        "starts": "2017-01-29T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 40,
+            "name": "Communication",
+            "description": "Basic communications skills.",
+            "image": "telegraph.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 10,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT010",
+          "name": "Preventing Errors with Look-Alike and Sound-Alike Drug Names",
+          "location": null,
+          "summary": "Drug names can often sound similar or appear similar. In addition the appearance of the products can look similar enough to cause confusion. These can easily be confused contributing to adverse medication events.",
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 64,
+              "resourceId": 10,
+              "questionId": 19,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 5
+                }
+              ]
+            },
+            {
+              "id": 65,
+              "resourceId": 10,
+              "questionId": 28,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 10,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT010",
+        "name": "Preventing Errors with Look-Alike and Sound-Alike Drug Names",
+        "location": null,
+        "summary": "Drug names can often sound similar or appear similar. In addition the appearance of the products can look similar enough to cause confusion. These can easily be confused contributing to adverse medication events.",
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 1077,
+      "moduleId": 51,
+      "planItemStatusId": "R",
+      "statusStamp": "2016-06-09 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 51,
+        "resourceId": 9,
+        "ends": "2017-02-03T19:00:22-05:00",
+        "schedType": "C",
+        "starts": "2017-02-01T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 39,
+            "name": "Support Technologies",
+            "description": "Technologies that can help you do your job better.",
+            "image": "technology.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 9,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT009",
+          "name": "Calculations",
+          "location": null,
+          "summary": "Pharmacy Calculations: An Introduction for Pharmacy Technicians, is designed for pharmacy technician students enrolled in a training program, technicians preparing for the certification exam, and for on-site training. As the role for pharmacy technicians continues to evolve and expand one thing remains constant. The safety of patients is the highest priority for anyone working in pharmacy, whether in hospital, retail, or institutional practices. With a thorough understanding of pharmacy math comes accuracy in computations and safety and quality in practice.",
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 19,
+              "resourceId": 9,
+              "questionId": 4,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                },
+                {
+                  "response": 3,
+                  "utility": 5
+                },
+                {
+                  "response": 4,
+                  "utility": 4
+                },
+                {
+                  "response": 5,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 51,
+              "resourceId": 9,
+              "questionId": 27,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 5
+                }
+              ]
+            },
+            {
+              "id": 53,
+              "resourceId": 9,
+              "questionId": 22,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 1
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 9,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT009",
+        "name": "Calculations",
+        "location": null,
+        "summary": "Pharmacy Calculations: An Introduction for Pharmacy Technicians, is designed for pharmacy technician students enrolled in a training program, technicians preparing for the certification exam, and for on-site training. As the role for pharmacy technicians continues to evolve and expand one thing remains constant. The safety of patients is the highest priority for anyone working in pharmacy, whether in hospital, retail, or institutional practices. With a thorough understanding of pharmacy math comes accuracy in computations and safety and quality in practice.",
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 1080,
+      "moduleId": 58,
+      "planItemStatusId": "C",
+      "statusStamp": "2016-07-08 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 58,
+        "resourceId": 9,
+        "ends": "2017-01-01T19:00:22-05:00",
+        "schedType": "C",
+        "starts": "2016-12-27T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 40,
+            "name": "Communication",
+            "description": "Basic communications skills.",
+            "image": "telegraph.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 9,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT009",
+          "name": "Calculations",
+          "location": null,
+          "summary": "Pharmacy Calculations: An Introduction for Pharmacy Technicians, is designed for pharmacy technician students enrolled in a training program, technicians preparing for the certification exam, and for on-site training. As the role for pharmacy technicians continues to evolve and expand one thing remains constant. The safety of patients is the highest priority for anyone working in pharmacy, whether in hospital, retail, or institutional practices. With a thorough understanding of pharmacy math comes accuracy in computations and safety and quality in practice.",
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 19,
+              "resourceId": 9,
+              "questionId": 4,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                },
+                {
+                  "response": 3,
+                  "utility": 5
+                },
+                {
+                  "response": 4,
+                  "utility": 4
+                },
+                {
+                  "response": 5,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 51,
+              "resourceId": 9,
+              "questionId": 27,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 5
+                }
+              ]
+            },
+            {
+              "id": 53,
+              "resourceId": 9,
+              "questionId": 22,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 1
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 9,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT009",
+        "name": "Calculations",
+        "location": null,
+        "summary": "Pharmacy Calculations: An Introduction for Pharmacy Technicians, is designed for pharmacy technician students enrolled in a training program, technicians preparing for the certification exam, and for on-site training. As the role for pharmacy technicians continues to evolve and expand one thing remains constant. The safety of patients is the highest priority for anyone working in pharmacy, whether in hospital, retail, or institutional practices. With a thorough understanding of pharmacy math comes accuracy in computations and safety and quality in practice.",
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 552,
+      "moduleId": 46,
+      "planItemStatusId": "C",
+      "statusStamp": "2016-08-07 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 46,
+        "resourceId": 4,
+        "ends": "2017-03-29T19:00:22-04:00",
+        "schedType": "C",
+        "starts": "2017-03-26T19:00:22-04:00",
+        "badges": [
+          {
+            "id": 37,
+            "name": "Prescription Management",
+            "description": "Managing prescriptions safely, optimally and accurately.",
+            "image": "prescriptions.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 4,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT004",
+          "name": "Adherence Assessment",
+          "location": null,
+          "summary": "This module provides a general overview.",
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 7,
+              "resourceId": 4,
+              "questionId": 5,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 5
+                },
+                {
+                  "response": 5,
+                  "utility": 5
+                }
+              ]
+            },
+            {
+              "id": 20,
+              "resourceId": 4,
+              "questionId": 1,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 5
+                },
+                {
+                  "response": 3,
+                  "utility": 2
+                },
+                {
+                  "response": 4,
+                  "utility": 1
+                },
+                {
+                  "response": 5,
+                  "utility": 1
+                }
+              ]
+            },
+            {
+              "id": 21,
+              "resourceId": 4,
+              "questionId": 2,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                },
+                {
+                  "response": 3,
+                  "utility": 3
+                },
+                {
+                  "response": 4,
+                  "utility": 2
+                },
+                {
+                  "response": 5,
+                  "utility": 3
+                }
+              ]
+            },
+            {
+              "id": 22,
+              "resourceId": 4,
+              "questionId": 3,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 1
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                },
+                {
+                  "response": 3,
+                  "utility": 1
+                },
+                {
+                  "response": 4,
+                  "utility": 1
+                },
+                {
+                  "response": 5,
+                  "utility": 1
+                }
+              ]
+            },
+            {
+              "id": 23,
+              "resourceId": 4,
+              "questionId": 4,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 5
+                },
+                {
+                  "response": 3,
+                  "utility": 2
+                },
+                {
+                  "response": 4,
+                  "utility": 5
+                },
+                {
+                  "response": 5,
+                  "utility": 1
+                }
+              ]
+            },
+            {
+              "id": 24,
+              "resourceId": 4,
+              "questionId": 6,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 3
+                },
+                {
+                  "response": 5,
+                  "utility": 4
+                }
+              ]
+            },
+            {
+              "id": 25,
+              "resourceId": 4,
+              "questionId": 8,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 1
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                },
+                {
+                  "response": 3,
+                  "utility": 2
+                },
+                {
+                  "response": 4,
+                  "utility": 3
+                },
+                {
+                  "response": 5,
+                  "utility": 5
+                }
+              ]
+            },
+            {
+              "id": 26,
+              "resourceId": 4,
+              "questionId": 9,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 3
+                },
+                {
+                  "response": 5,
+                  "utility": 5
+                }
+              ]
+            },
+            {
+              "id": 27,
+              "resourceId": 4,
+              "questionId": 10,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 5
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 4
+                },
+                {
+                  "response": 5,
+                  "utility": 4
+                }
+              ]
+            },
+            {
+              "id": 28,
+              "resourceId": 4,
+              "questionId": 11,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 4
+                },
+                {
+                  "response": 5,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 29,
+              "resourceId": 4,
+              "questionId": 12,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 1
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                },
+                {
+                  "response": 3,
+                  "utility": 2
+                },
+                {
+                  "response": 4,
+                  "utility": 2
+                },
+                {
+                  "response": 5,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 30,
+              "resourceId": 4,
+              "questionId": 13,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 5
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 5
+                },
+                {
+                  "response": 5,
+                  "utility": 4
+                }
+              ]
+            },
+            {
+              "id": 31,
+              "resourceId": 4,
+              "questionId": 59,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            },
+            {
+              "id": 32,
+              "resourceId": 4,
+              "questionId": 60,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 47,
+              "resourceId": 4,
+              "questionId": 20,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 54,
+              "resourceId": 4,
+              "questionId": 29,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            },
+            {
+              "id": 59,
+              "resourceId": 4,
+              "questionId": 22,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 1
+                }
+              ]
+            },
+            {
+              "id": 61,
+              "resourceId": 4,
+              "questionId": 24,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                }
+              ]
+            },
+            {
+              "id": 66,
+              "resourceId": 4,
+              "questionId": 53,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 5
+                },
+                {
+                  "response": 2,
+                  "utility": 1
+                }
+              ]
+            },
+            {
+              "id": 70,
+              "resourceId": 4,
+              "questionId": 16,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 4
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 4,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT004",
+        "name": "Adherence Assessment",
+        "location": null,
+        "summary": "This module provides a general overview.",
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 565,
+      "moduleId": 62,
+      "planItemStatusId": "E",
+      "statusStamp": "2016-09-28 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 62,
+        "resourceId": 2,
+        "ends": "2017-01-02T19:00:22-05:00",
+        "schedType": "C",
+        "starts": "2016-12-31T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 35,
+            "name": "Internet Technology",
+            "description": "How the Internet affects our workplace.",
+            "image": "ipv6.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 2,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT002",
+          "name": "Allergy Identification",
+          "location": null,
+          "summary": "<p>Important characteristics of current and evolving advanced technician practice models&nbsp;include training through an ASHP accredited training program, PTCB certification, and licensure with a Board of Pharmacy.<\/p>",
+          "description": "<p>a2aq2<\/p>",
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 90,
+              "resourceId": 2,
+              "questionId": 1,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 5
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 2,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT002",
+        "name": "Allergy Identification",
+        "location": null,
+        "summary": "<p>Important characteristics of current and evolving advanced technician practice models&nbsp;include training through an ASHP accredited training program, PTCB certification, and licensure with a Board of Pharmacy.<\/p>",
+        "description": "<p>a2aq2<\/p>",
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 1079,
+      "moduleId": 53,
+      "planItemStatusId": "R",
+      "statusStamp": "2016-10-01 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 53,
+        "resourceId": 11,
+        "ends": "2017-02-27T19:00:22-05:00",
+        "schedType": "C",
+        "starts": "2017-02-24T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 40,
+            "name": "Communication",
+            "description": "Basic communications skills.",
+            "image": "telegraph.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 11,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT011",
+          "name": "Confusion Pairs and Confusion Categories",
+          "location": null,
+          "summary": null,
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": []
+        }
+      },
+      "resource": {
+        "id": 11,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT011",
+        "name": "Confusion Pairs and Confusion Categories",
+        "location": null,
+        "summary": null,
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 564,
+      "moduleId": 61,
+      "planItemStatusId": "C",
+      "statusStamp": "2016-11-12 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 61,
+        "resourceId": 11,
+        "ends": "2017-01-24T19:00:22-05:00",
+        "schedType": "C",
+        "starts": "2017-01-21T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 34,
+            "name": "Legal Issues",
+            "description": "Legal issues in our profession.",
+            "image": "gavel.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 11,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT011",
+          "name": "Confusion Pairs and Confusion Categories",
+          "location": null,
+          "summary": null,
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": []
+        }
+      },
+      "resource": {
+        "id": 11,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT011",
+        "name": "Confusion Pairs and Confusion Categories",
+        "location": null,
+        "summary": null,
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 550,
+      "moduleId": 44,
+      "planItemStatusId": "C",
+      "statusStamp": "2016-12-03 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 44,
+        "resourceId": 2,
+        "ends": "2017-02-22T19:00:22-05:00",
+        "schedType": "C",
+        "starts": "2017-02-17T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 39,
+            "name": "Support Technologies",
+            "description": "Technologies that can help you do your job better.",
+            "image": "technology.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 2,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT002",
+          "name": "Allergy Identification",
+          "location": null,
+          "summary": "<p>Important characteristics of current and evolving advanced technician practice models&nbsp;include training through an ASHP accredited training program, PTCB certification, and licensure with a Board of Pharmacy.<\/p>",
+          "description": "<p>a2aq2<\/p>",
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 90,
+              "resourceId": 2,
+              "questionId": 1,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                },
+                {
+                  "response": 3,
+                  "utility": 4
+                },
+                {
+                  "response": 4,
+                  "utility": 5
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 2,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT002",
+        "name": "Allergy Identification",
+        "location": null,
+        "summary": "<p>Important characteristics of current and evolving advanced technician practice models&nbsp;include training through an ASHP accredited training program, PTCB certification, and licensure with a Board of Pharmacy.<\/p>",
+        "description": "<p>a2aq2<\/p>",
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    },
+    {
+      "id": 1083,
+      "moduleId": 63,
+      "planItemStatusId": "R",
+      "statusStamp": "2016-12-13 15:39:03",
+      "memberId": 7,
+      "recommendationId": 0,
+      "score": 4,
+      "rank": 4,
+      "module": {
+        "id": 63,
+        "resourceId": 12,
+        "ends": "2017-02-12T19:00:22-05:00",
+        "schedType": "C",
+        "starts": "2017-02-11T19:00:22-05:00",
+        "badges": [
+          {
+            "id": 32,
+            "name": "CSS3",
+            "description": "CSS3 mastery module.",
+            "image": "css3.png",
+            "issuer": "CogentQI.com",
+            "tags": null
+          }
+        ],
+        "resource": {
+          "id": 12,
+          "resourceTypeId": "T",
+          "roleIds": "PM",
+          "number": "PHT012",
+          "name": "High Risk High Alert Medication Review (Case Studies)",
+          "location": null,
+          "summary": null,
+          "description": null,
+          "creatorId": 0,
+          "createOn": "2015-10-26 15:53:38",
+          "lastModified": "2015-10-26 15:53:38",
+          "alignments": [
+            {
+              "id": 52,
+              "resourceId": 12,
+              "questionId": 24,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 4
+                },
+                {
+                  "response": 2,
+                  "utility": 2
+                }
+              ]
+            },
+            {
+              "id": 60,
+              "resourceId": 12,
+              "questionId": 17,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 1
+                }
+              ]
+            },
+            {
+              "id": 69,
+              "resourceId": 12,
+              "questionId": 27,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 2
+                },
+                {
+                  "response": 2,
+                  "utility": 5
+                }
+              ]
+            },
+            {
+              "id": 75,
+              "resourceId": 12,
+              "questionId": 55,
+              "mapping": [
+                {
+                  "response": 1,
+                  "utility": 3
+                },
+                {
+                  "response": 2,
+                  "utility": 3
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "resource": {
+        "id": 12,
+        "resourceTypeId": "T",
+        "roleIds": "PM",
+        "number": "PHT012",
+        "name": "High Risk High Alert Medication Review (Case Studies)",
+        "location": null,
+        "summary": null,
+        "description": null,
+        "creatorId": 0,
+        "createOn": "2015-10-26 15:53:38",
+        "lastModified": "2015-10-26 15:53:38"
+      }
+    }
+  ]
+}

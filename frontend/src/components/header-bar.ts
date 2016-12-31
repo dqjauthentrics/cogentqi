@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
-import {SessionProvider} from "../providers/session";
 import {AlertController, NavController} from "ionic-angular";
+import {SessionProvider} from "../providers/session";
 
 @Component({
     selector: 'header-bar',
@@ -34,4 +34,5 @@ export class HeaderBar {
         });
         confirm.present();
     }
+
 }

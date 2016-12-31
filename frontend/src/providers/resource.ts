@@ -14,4 +14,7 @@ export class ResourceProvider extends DataModel {
         super('resource', toastCtrl, http, globals, config, session);
     }
 
+    getContent(resource) {
+        return this.getData('/content/' + this.config.siteDir + '/' + resource.number);
+    }
 }

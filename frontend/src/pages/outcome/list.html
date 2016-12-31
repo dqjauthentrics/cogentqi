@@ -1,0 +1,45 @@
+<ion-header>
+    <header-bar [title]="'Outcomes'|translate"></header-bar>
+</ion-header>
+
+<ion-content class="dashboard member-list">
+    <ion-card>
+        <table class="table table-striped listing" [mfData]="outcomes | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+               [(mfSortBy)]="sortBy"
+               [(mfSortOrder)]="sortOrder">
+            <thead>
+            <tr>
+                <th colspan="7">
+                    <ion-searchbar [(ngModel)]="filterQuery" placeholder="filter"></ion-searchbar>
+                </th>
+            </tr>
+            <tr [hidden]="!loading">
+                <td colspan="4">
+                    <loading-indicator [loading]="loading"></loading-indicator>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let outcome of mf.data" class="order" (click)="goToOutcomeDetail(outcome)">
+                <td class="icon">
+                    <app-icon name="outcome"></app-icon>
+                </td>
+                <td>
+                    <div class="name">{{outcome.number}}: {{outcome.name}}</div>
+                    <div class="description" [innerHTML]="outcome.summary"></div>
+                </td>
+                <td class="list-drilldown">
+                    <i [class]="icon.getClass('drilldown')"></i>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </ion-card>
+</ion-content>

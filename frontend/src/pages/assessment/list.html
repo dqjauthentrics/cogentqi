@@ -3,5 +3,7 @@
 </ion-header>
 
 <ion-content class="dashboard assessment-list">
-    <organization-assessments [organizationId]="session.user.organizationId"></organization-assessments>
+    <ion-card>
+        <organization-assessments [organizationId]="session.user.organizationId"></organization-assessments>
+    </ion-card>
 </ion-content>

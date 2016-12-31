@@ -25,7 +25,6 @@ export class ConfigResourcesPage {
                     res => {
                         let data: any = res.json();
                         comp.resource.content = data.data;
-                        console.log('retrieved content ', comp.resource.content);
                     }
                 );
         });
@@ -42,7 +41,6 @@ export class ConfigResourcesPage {
 
     save(resource) {
         this.globals.alertWarning('TODO: Save Resource');
-        console.log(resource);
     }
 
     remove(resource) {
@@ -50,6 +48,5 @@ export class ConfigResourcesPage {
         this.globals.confirm('Are you sure you wish to remove this resource permanently?', function () {
             comp.globals.alertWarning('TODO: Remove Resource');
         });
-        console.log(resource);
     }
 }

@@ -17,4 +17,8 @@ export class OutcomeProvider extends DataModel {
         return this.getData('/trends/' + organizationId);
     }
 
+    byOrganization(organizationId) {
+        return this.getData('/byOrganization/' + organizationId + '/1');
+    }
+
 }

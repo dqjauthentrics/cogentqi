@@ -44,4 +44,7 @@ export class AssessmentProvider extends DataModel {
         return null;
     };
 
+    retrieveYear(organizationId) {
+        return this.getData('/year/' + organizationId);
+    }
 }

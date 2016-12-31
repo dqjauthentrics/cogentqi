@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {Globals} from "../../providers/globals";
+import {Graph} from "../../providers/graph";
 import {SessionProvider} from "../../providers/session";
 import {IconProvider} from "../../providers/icon";
 import {ResourceProvider} from "../../providers/resource";
@@ -21,63 +22,32 @@ export class ReportResourceEfficacy {
     graphs = [];
     readyCount: number = 0;
 
-    constructor(private nav: NavController, private globals: Globals, private session: SessionProvider, public icon: IconProvider, public resourceProvider: ResourceProvider) {
+    constructor(private nav: NavController, private globals: Globals, private session: SessionProvider, public icon: IconProvider,
+                public resourceProvider: ResourceProvider, public graph: Graph) {
     }
 
     ngOnInit() {
         let comp = this;
         this.resourceProvider.getData('/efficacy').then((data: any) => {
             comp.data = data;
-            console.log('data', data);
             comp.renderCharts();
         });
     }
 
     renderChart(el, resource) {
-        console.log('plotting:', resource);
         let ellipse = new Ellipsify();
-        let graph = Highcharts.chart(el, {
-                title: {text: resource.name},
-                subtitle: {text: ellipse.transform(resource.summary, 120)},
-                chart: {type: 'column'},
-                credits: {enabled: false},
-                legend: {},
-                tooltip: {
-                    formatter: function () {
-                        return '<b>' + this.x + '</b><br/>' +
-                            this.series.name + ': ' + this.y + '<br/>';
-                    }
-                },
-                plotOptions: {
-                    column: {
-                        dataLabels: {
-                            enabled: false
-                        }
-                    }
-                },
-                xAxis: {categories: resource.questionLabels},
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: 'Average Score'
-                    },
-                    stackLabels: {
-                        enabled: false
-                    }
-                },
-                series: [
-                    {
-                        name: 'Related Competencies Avg Before',
-                        data: resource.priorResponseAverages
-                    },
-                    {
-                        name: 'Related Competencies Avg After',
-                        data: resource.subsequentResponseAverages
-                    }
-                ]
+        let series = [
+            {
+                name: 'Average Before',
+                data: resource.priorResponseAverages
+            },
+            {
+                name: 'Average After',
+                data: resource.subsequentResponseAverages
             }
-        );
-        return graph;
+        ];
+        let options = this.graph.columnGraphConfig(resource.name, ellipse.transform(resource.summary, 120), '', 'Average Score', 5, resource.questionLabels, series);
+        return Highcharts.chart(el, options);
     }
 
     divsReady() {

@@ -46,28 +46,6 @@ class Module extends AppModel {
 	public $starts;
 
 	/**
-	 * Allows to query a set of records that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return Module[]
-	 */
-	public static function find($parameters = NULL) {
-		return parent::find($parameters);
-	}
-
-	/**
-	 * Allows to query the first record that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return Module
-	 */
-	public static function findFirst($parameters = NULL) {
-		return parent::findFirst($parameters);
-	}
-
-	/**
 	 * Initialize method for model.
 	 */
 	public function initialize() {
@@ -90,7 +68,7 @@ class Module extends AppModel {
 	 *
 	 * @return array
 	 */
-	public function map($options = ['minimal' => FALSE]) {
+	public function map($options = ['minimal' => FALSE, 'resource' => TRUE]) {
 		$map = parent::map();
 		$map['badges'] = [];
 		if (!empty($this->moduleBadges)) {
@@ -100,7 +78,7 @@ class Module extends AppModel {
 				$badgeIdx++;
 			}
 		}
-		if (empty($options['minimal'])) {
+		if (!empty($options['resource'])) {
 			$map['resource'] = $this->resource->map();
 		}
 		return $map;

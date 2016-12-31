@@ -17,6 +17,10 @@ assessment-item {
 }
 
 .assessment-detail {
+  .range-md .range-knob {
+    width: 42px;
+    height: 42px;
+  }
   ion-grid.header ion-col:nth-child(2) {
     text-align: center;
   }

@@ -2,40 +2,57 @@
     <header-bar [title]="'Dashboard'"></header-bar>
 </ion-header>
 
-<ion-content class="outer-content dashboard">
+<ion-content class="outer-content dashboard main">
     <div class="info">
         <div class="name">{{user?.firstName}} {{user?.lastName}}</div>
         <div class="job">{{user?.jobTitle}}</div>
-        <div class="role">{{user?.roleName}}</div>
+        <div class="role">{{config.roleName(user?.roleId)}}</div>
         <div class="org">{{user?.organizationName}}</div>
     </div>
     <div class="logo"><img [src]="config.logoFull" alt=""></div>
     <div class="clearfix"></div>
-    <table class="cycle">
-        <tr>
-            <td style="text-align:left; vertical-align: middle !important; padding-top:2rem;">
-                <a style="margin-left:1.5rem;" (click)="goToPage('matrix')">{{'Assessment'|translate}}</a>
-            </td>
-            <td style="text-align:center; vertical-align: bottom !important;">
-                <a style="margin-left:-1rem;" (click)="goToPage('resources')">{{'Outcomes'|translate}}</a>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <div class="poweredBy">
-                    <a href="//cogentQI.com">Powered by <img src="/assets/img/logo_272x60.png" alt="" style="width: 15vmin;"/></a>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align:left; vertical-align: top !important;">
-                <div style="margin-left:1.0em;">
-                    <a href="/resources" [innerHTML]="'Professional Development'|translate|replace:' ':'<br/>'"></a>
-                </div>
-            </td>
-            <td style="text-align:left; vertical-align: top !important; padding-top:1.4rem;">
-                <a href="/calendar" style="margin-left:-1.6em;">{{'Planning'|translate}}</a>
-            </td>
-        </tr>
-    </table>
+    <div class="watermark">
+        <ion-row responsive-sm>
+            <ion-col width-67>
+                <ion-card>
+                    <h1>{{'Assessments'|translate}}</h1>
+                    <div class="dash-graph" id="assessmentsChart"></div>
+                </ion-card>
+            </ion-col>
+            <ion-col width-33>
+                <ion-card>
+                    <h1>{{'Competency Levels'|translate}}</h1>
+                    <div class="dash-graph" id="assessmentsGauge"></div>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row responsive-sm>
+            <ion-col width-67>
+                <ion-card>
+                    <h1>{{'Events'|translate}}</h1>
+                    <div class="dash-graph" id="eventsChart"></div>
+                </ion-card>
+            </ion-col>
+            <ion-col width-33>
+                <ion-card>
+                    <h1>{{'Events Breakdown'|translate}}</h1>
+                    <div class="dash-graph" id="eventTypesPie"></div>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row responsive-sm>
+            <ion-col width-67>
+                <ion-card>
+                    <h1>{{'Resource Completions'|translate}}</h1>
+                    <div class="dash-graph" id="planItemsChart"></div>
+                </ion-card>
+            </ion-col>
+            <ion-col width-33>
+                <ion-card>
+                    <h1>{{'Current Outcome Levels'|translate}}</h1>
+                    <div class="dash-graph" id="outcomesGauge"></div>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </div>
 </ion-content>

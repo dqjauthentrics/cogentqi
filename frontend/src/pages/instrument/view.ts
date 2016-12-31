@@ -4,9 +4,9 @@ import {InstrumentProvider} from "../../providers/instrument";
 import {Config} from "../../providers/config";
 
 @Component({
-    templateUrl: 'detail.html'
+    templateUrl: 'view.html'
 })
-export class InstrumentDetailPage {
+export class InstrumentViewPage {
     instrument: any;
 
     constructor(private navParams: NavParams, public config: Config, public instrumentData: InstrumentProvider) {
@@ -14,9 +14,5 @@ export class InstrumentDetailPage {
         instrumentData.getSingle(this.instrument.id).then(instrument => {
             this.instrument = instrument;
         });
-    }
-
-    goToAssessment(assessment) {
-        alert(assessment.instrument.name);
     }
 }

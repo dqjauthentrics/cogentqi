@@ -1,4 +1,28 @@
+ion-content.dashboard.main {
+  background-image: url(/assets/img/cycleWatermark.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  h1 {
+    font-size: 1.1em;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: center !important;
+  }
+
+  ion-card {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .dash-graph {
+    height: 20vh;
+  }
+
+}
+
 .dashboard {
+
   .logo img {
     width: auto;
     height: 5vh;

@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
 import {Globals} from "../../providers/globals";
 import {MemberProvider} from "../../providers/member";
+import {Graph} from "../../providers/graph";
 import {InstrumentProvider} from "../../providers/instrument";
 import {AssessmentProvider} from "../../providers/assessment";
 
@@ -16,10 +17,9 @@ export class MemberCompetencyHistoryPage {
     public instrument: any;
 
     constructor(private nav: NavController, private navParams: NavParams, private memberData: MemberProvider,
-                public globals: Globals, public instrumentData: InstrumentProvider, public assessmentProvider: AssessmentProvider) {
+                public globals: Globals, public instrumentData: InstrumentProvider, public assessmentProvider: AssessmentProvider, private graph: Graph) {
         this.member = this.navParams.data;
 
-        console.log('instruments:', this.instrumentData.list);
         if (this.instrumentData.list) {
             this.setCurrentInstrument(this.instrumentData.list[0].id);
         }
@@ -31,7 +31,6 @@ export class MemberCompetencyHistoryPage {
             comp.instrument = this.globals.findObjectById(this.instrumentData.list, instrumentId);
             this.assessmentProvider.retrieveByMember(this.member.id, 3).then(
                 (assessments: any) => {
-                    console.log('assessments', assessments);
                     if (assessments) {
                         let maxY = comp.instrument.max_range;
                         if (!maxY) {
@@ -55,28 +54,9 @@ export class MemberCompetencyHistoryPage {
                                 }
                                 series.push({id: i, type: 'column', name: assessment.lastModified.substr(0, 10), data: dataSet});
                             }
-                            let config = {
-                                chart: {type: 'column'},
-                                credits: {enabled: false},
-                                title: {text: questionGroup.tag},
-                                subtitle: {text: 'None'},
-                                xAxis: {
-                                    categories: xLabels,
-                                    crosshair: true
-                                },
-                                yAxis: {
-                                    min: 0,
-                                    allowDecimals: false,
-                                    max: maxY,
-                                    title: {
-                                        text: 'Ranking'
-                                    }
-                                },
-                                series: series
-                            };
-                            console.log('config', config);
+                            let options = this.graph.columnGraphConfig(questionGroup.tag, '', '', 'Ranking', maxY, xLabels, series);
                             let el = document.getElementById('competency-hx-' + z);
-                            Highcharts.chart(el, config);
+                            Highcharts.chart(el, options);
                         }
                     }
                 });

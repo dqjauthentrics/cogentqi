@@ -196,11 +196,6 @@ table thead tr th {
   color: #FFF;
 }
 
-.avatar-tiny {
-  width: 4em;
-  height: auto;
-}
-
 .clearfix {
   *zoom: 1;
 }
@@ -264,7 +259,7 @@ ion-icon {
   vertical-align: middle !important;
 }
 
-img.avatar-tiny {
+.img.avatar-tiny {
   width: 24px;
   height: 24px;
   border-radius: 24px;
@@ -272,8 +267,8 @@ img.avatar-tiny {
 }
 
 img.avatar-full {
-  width: 88px;
-  height: 88px;
+  width: 48px;
+  height: 48px;
   border-radius: 64px;
   vertical-align: middle;
 }
@@ -495,6 +490,8 @@ table.micro-badge {
   line-height: 1.1rem;
   display: inline-block;
   margin: 1rem;
+  width: 36px;
+  height: 36px;
 
   img {
     width: auto;
@@ -510,19 +507,19 @@ table.micro-badge {
   }
 }
 
-.micro-badge.small img {
-  height: 5rem;
-  width: 5rem;
+.micro-badge.small {
+  width: 36px;
+  height: 36px;
 }
 
-.micro-badge.medium img {
-  height: 8rem;
-  width: 8rem;
+.micro-badge.medium {
+  width: 48px;
+  height: 48px;
 }
 
-.micro-badge.large img {
-  height: 12rem;
-  width: 12rem;
+.micro-badge.large {
+  width: 64px;
+  height: 64px;
 }
 
 .level-badbe i, .outcomeLevel i {

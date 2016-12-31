@@ -825,4 +825,45 @@ class Assessment extends AppModel {
 		return $map;
 	}
 
+	public function getYear($organizationId) {
+		$result = new Result();
+		$seriesNames = [];
+		$graphData = $this->initializeYearGraphData();
+
+		/** Get series names for events.
+		 */
+		$eSql = "SELECT i.name, YEAR(a.last_saved) AS yr, DATE_FORMAT(a.last_saved, '%m') AS mo, COUNT(a.id) AS nAssessments
+					FROM assessment AS a, instrument AS i
+					WHERE a.instrument_id=i.id AND a.member_id IN (SELECT id FROM member WHERE organization_id=$organizationId)
+					GROUP BY i.name, YEAR(a.last_saved), DATE_FORMAT(a.last_saved, '%m')
+					ORDER BY i.name, YEAR(a.last_saved), DATE_FORMAT(a.last_saved, '%m');";
+		$dbRecords = $this->getDBIF()->query($eSql, ['oid' => $organizationId])->fetchAll();
+		$colorIdx = 0;
+		foreach ($dbRecords as $rec) {
+			$yrMo = $rec["yr"] . '-' . $rec["mo"];
+			if (!in_array($rec["name"], $seriesNames)) {
+				$seriesNames[] = $rec["name"];
+			}
+			$seriesPos = array_search($rec["name"], $seriesNames);
+			$dataPos = array_search($yrMo, $graphData["labels"]);
+			if ($seriesPos !== FALSE && $dataPos !== FALSE) {
+				$seriesPos = (int)$seriesPos;
+				$dataPos = (int)$dataPos;
+				if (empty($graphData['series'][$seriesPos])) {
+					$graphData['series'][$seriesPos] = [
+						'name'     => $rec["name"],
+						'yAxis'    => 0,
+						'class'    => 'assessments',
+						"grouping" => 1,
+						'visible'  => TRUE,
+						'data'     => array_fill(0, count($graphData["labels"]), NULL),
+					];
+					$colorIdx++;
+				}
+				$graphData['series'][$seriesPos]['data'][$dataPos] = (int)$rec["nAssessments"];
+			}
+		}
+		$result->setNormal($graphData);
+		return $result;
+	}
 }

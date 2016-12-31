@@ -1,0 +1,31 @@
+<table class="table table-striped listing" [mfData]="items" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+       [(mfSortBy)]="sortBy"
+       [(mfSortOrder)]="sortOrder">
+    <thead>
+    <tr [hidden]="!loading">
+        <td colspan="4">
+            <loading-indicator [loading]="loading"></loading-indicator>
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let planItem of mf.data" class="order" (click)="goToResource(planItem?.module.resource)">
+        <td class="icon">
+            <micro-badge *ngFor="let badge of planItem?.module.badges" [src]="badge.image"></micro-badge>
+        </td>
+        <td>
+            <div class="name">{{planItem?.module.resource.number}} {{planItem?.module.resource.name}}</div>
+        </td>
+        <td class="list-drilldown">
+            <i [class]="icon.getClass('drilldown')"></i>
+        </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+    </tr>
+    </tfoot>
+</table>

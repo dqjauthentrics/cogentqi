@@ -32,9 +32,18 @@ class PlanItemController extends ControllerBase {
 	/**
 	 * @param int $memberId
 	 */
-	public function byMemberAction($memberId) {
+	public function forMemberAction($memberId) {
 		$result = new Result($this);
 		$data = $this->mapRecords(PlanItem::query()->where('member_id = :id:', ["id" => $memberId])->orderBy("status_stamp")->execute());
 		$result->sendNormal($data);
+	}
+
+	/**
+	 * @param int $organizationId
+	 */
+	public function yearAction($organizationId, $status = PlanItem::STATUS_COMPLETED) {
+		$planItemModel = new PlanItem();
+		$result = $planItemModel->getYear($organizationId, $status);
+		$result->sendNormal();
 	}
 }

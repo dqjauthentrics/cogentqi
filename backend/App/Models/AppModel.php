@@ -293,7 +293,7 @@ class AppModel extends \Phalcon\Mvc\Model {
 		if ($row) {
 			return $row[0];
 		}
-		return null;
+		return NULL;
 	}
 
 	/**
@@ -335,5 +335,17 @@ class AppModel extends \Phalcon\Mvc\Model {
 			$jsonRecord[$jsonColName] = self::value($this->{$colName}, $dataTypes[$colName]);
 		}
 		return $jsonRecord;
+	}
+
+	protected function initializeYearGraphData() {
+		$graphData = ['labels' => [], 'series' => [[], [], [], [], [], [], [], [], [], [], [], []]];
+		$now = time();
+		$yearAgo = strtotime("-1 year", $now);
+		for ($i = 1; $i <= 12; $i++) {
+			$time = strtotime(date('Y-M-d', $yearAgo) . ' +' . $i . ' month');
+			$yrMo = date("Y", $time) . '-' . date("m", $time);
+			$graphData["labels"][] = $yrMo;
+		}
+		return $graphData;
 	}
 }

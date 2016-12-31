@@ -24,7 +24,7 @@
                                 <inline-editor empty="-" type="text" (onSave)="setDirty()" [disabled]="!canEdit()" [(ngModel)]="member.middleName" size="2" min="0"></inline-editor>
                                 <inline-editor empty="-" type="text" (onSave)="setDirty()" [disabled]="!canEdit()" [(ngModel)]="member.lastName" size="10"></inline-editor>
                             </h4>
-                            <div>{{member.roleName}}</div>
+                            <div>{{config.roleName(member.roleId)}}</div>
                             <div><app-icon (click)="goToNotes(member)" name="note"></app-icon></div>
                         </ion-col>
                     </ion-row>

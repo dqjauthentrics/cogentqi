@@ -53,11 +53,11 @@ class ResourceController extends ControllerBase {
 		$this->getAction($id);
 	}
 
-	public function contentAction($path) {
+	public function contentAction($siteDir, $number) {
 		$result = new Result($this);
-		$path = str_replace(':', '/', $path);
-		$path = dirname(dirname(dirname(__DIR__))) . '/learning/' . $path . '.html';
-		$content = file_get_contents($path);
+		$number = strtolower($number);
+		$path = dirname(dirname(dirname(__DIR__))) . "/learning/$siteDir/$number.html";
+		$content = @file_get_contents($path);
 		$result->setNormal($content);
 		$result->send();
 	}

@@ -3,10 +3,14 @@ import {LoadingController, AlertController, Events} from "ionic-angular";
 
 @Injectable()
 export class Globals {
-    public tabMode: string = 'normal';
+    public tabMode: string = 'professional';
     public static isProduction: boolean = true;
     public debug: boolean = false;
     public loadingObject: any = null;
+
+    public readonly APP_ROLE_PROFESSIONAL = 'P';
+    public readonly APP_ROLE_MANAGER = 'M';
+    public readonly APP_ROLE_ADMINISTRATOR = 'A';
 
     public readonly STATUS_ERROR = 'error';
     public readonly STATUS_SUCCESS = 'success';
@@ -17,7 +21,6 @@ export class Globals {
     public readonly MESSAGE_DURATION = 14000;
 
     public alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-
 
     constructor(private loading: LoadingController, private alerts: AlertController, private events: Events) {
     }

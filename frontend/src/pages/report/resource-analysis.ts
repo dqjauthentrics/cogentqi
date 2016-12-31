@@ -5,6 +5,7 @@ import {SessionProvider} from "../../providers/session";
 import {IconProvider} from "../../providers/icon";
 import {InstrumentProvider} from "../../providers/instrument";
 import {ResourceProvider} from "../../providers/resource";
+import {Graph} from "../../providers/graph";
 
 declare let Highcharts;
 
@@ -18,12 +19,11 @@ export class ReportResourceAnalysis {
     data: any;
 
     constructor(private nav: NavController, private globals: Globals, private session: SessionProvider, public icon: IconProvider,
-                public resourceProvider: ResourceProvider, public instrumentProvider: InstrumentProvider) {
+                public resourceProvider: ResourceProvider, public instrumentProvider: InstrumentProvider, public graph: Graph) {
         let comp = this;
         let resources = [];
         let questionNames = [];
         this.resourceProvider.getAll(null, false).then((data: any) => {
-            console.log('resource data', data);
             let questionGroups = this.instrumentProvider.list[0].questionGroups;
             let resourceData = data;
             let questionCount = 0;
@@ -55,14 +55,13 @@ export class ReportResourceAnalysis {
     }
 
     renderChart() {
-        console.log('data', this.data);
         if (this.data) {
-            this.chart = Highcharts.chart(this.canvas.nativeElement, {
+            let options = {
                 title: {
                     text: 'Resource Competency Coverage Analysis'
                 },
                 subtitle: {
-                    text: 'resources available for each competency.'
+                    text: 'resources available for each competency'
                 },
                 chart: {
                     type: 'column'
@@ -75,6 +74,7 @@ export class ReportResourceAnalysis {
                         }
                     }
                 },
+                colors: this.graph.regularColors,
                 credits: {enabled: false},
                 legend: {},
                 tooltip: {
@@ -85,7 +85,6 @@ export class ReportResourceAnalysis {
                     }
                 },
                 xAxis: {
-                    // these are questions
                     categories: this.data.questionNames
                 },
                 yAxis: {
@@ -98,7 +97,8 @@ export class ReportResourceAnalysis {
                     }
                 },
                 series: this.data.resources
-            });
+            };
+            this.chart = Highcharts.chart(this.canvas.nativeElement, options);
         }
     }
 }

@@ -33,11 +33,11 @@
     <ion-col *ngIf="showMember">
         <avatar [id]="assessment.member.id"></avatar>
         {{assessment.member|namify:false}},
-        <span class="role">{{assessment.member.roleName}}</span>
+        <span class="role">{{config.roleName(assessment.member.roleId)}}</span>
     </ion-col>
     <ion-col *ngIf="assessment.assessor">
         by {{assessment.assessor|namify:false}},
         <avatar [id]="assessment.assessor.id"></avatar>
-        <span class="role">{{assessment.assessor.roleName}}</span>
+        <span class="role">{{config.roleName(assessment.assessor.roleId)}}</span>
     </ion-col>
 </ion-row>

@@ -210,11 +210,11 @@ angular.module('ReportsControllers', [])
 									  },
 									  series: [
 										  {
-											  name: 'Related Competencies Avg Before',
+											  name: 'Average Before',
 											  data: resource.priorResponseAverages
 										  },
 										  {
-											  name: 'Related Competencies Avg After',
+											  name: 'Average After',
 											  data: resource.subsequentResponseAverages
 										  }
 									  ]

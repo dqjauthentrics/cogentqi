@@ -1,0 +1,22 @@
+.toolbar-background-md {
+    border-color: #168FBE;
+    background: #168FBE;
+}
+
+a, .dashboard .cycle a, .tabs-md .tab-button[aria-selected=true] {
+    color: #067FAE !important;
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    background-color: #56CFFE;
+    border-color: #56CFFE;
+    color: #FFF;
+}
+
+.pagination > li > a, .pagination > li > span {
+    color: #56CFFE;
+}
+.range-md .range-knob {
+    top: 0;
+    background: #067FAE;
+}

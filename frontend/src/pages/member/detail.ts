@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
+import {Config} from "../../providers/config";
 import {MemberProvider} from "../../providers/member";
 import {AssessmentDetailPage} from "../assessment/detail";
 import {MemberProgressPage} from "./progress";
@@ -14,7 +15,7 @@ export class MemberDetailPage {
     public dirty: boolean = false;
     public saving: boolean = false;
 
-    constructor(private nav: NavController, private navParams: NavParams, private memberData: MemberProvider) {
+    constructor(private nav: NavController, private navParams: NavParams, private memberData: MemberProvider, public config: Config) {
         this.member = this.navParams.data;
         if (this.member) {
             memberData.getSingle(this.member.id).then(member => {
@@ -28,10 +29,8 @@ export class MemberDetailPage {
         this.memberData.update(this.member, false).then(
             (success) => {
                 this.saving = false;
-                console.log('OKAY:', success);
             },
             (error) => {
-                console.log('ERRRRRR');
                 this.saving = false;
             });
     }

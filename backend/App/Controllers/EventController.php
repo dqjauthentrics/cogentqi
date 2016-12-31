@@ -167,4 +167,31 @@ class EventController extends ControllerBase {
 		}
 		$result->sendNormal();
 	}
+
+	/**
+	 * @param int $organizationId
+	 */
+	public function yearAction($organizationId) {
+		$eventModel = new Event();
+		$result = $eventModel->getYear($organizationId);
+		$result->sendNormal();
+	}
+
+	/**
+	 * @param int $organizationId
+	 */
+	public function yearAverageAction($organizationId) {
+		$eventModel = new Event();
+		$result = $eventModel->getYearAverage($organizationId);
+		$result->sendNormal();
+	}
+
+	/**
+	 * @param int $organizationId
+	 */
+	public function typesAction($organizationId) {
+		$eventModel = new Event();
+		$result = $eventModel->getTypes($organizationId);
+		$result->sendNormal();
+	}
 }

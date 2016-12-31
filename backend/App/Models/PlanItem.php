@@ -1,6 +1,8 @@
 <?php
 namespace App\Models;
 
+use App\Components\Result;
+
 /**
  * Class PlanItem
  * @package App\Models
@@ -10,8 +12,8 @@ namespace App\Models;
  * @method Recommendation getRecommendation()
  * @method PlanItemStatus getStatus()
  *
- * @property Member $member
- * @property Module $module
+ * @property Member         $member
+ * @property Module         $module
  * @property Recommendation $recommendation
  * @property PlanItemStatus $status
  *
@@ -71,28 +73,6 @@ class PlanItem extends AppModel {
 	public $rank;
 
 	/**
-	 * Allows to query a set of records that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return PlanItem[]
-	 */
-	public static function find($parameters = NULL) {
-		return parent::find($parameters);
-	}
-
-	/**
-	 * Allows to query the first record that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return PlanItem
-	 */
-	public static function findFirst($parameters = NULL) {
-		return parent::findFirst($parameters);
-	}
-
-	/**
 	 * Initialize method for model.
 	 */
 	public function initialize() {
@@ -111,6 +91,49 @@ class PlanItem extends AppModel {
 		return 'plan_item';
 	}
 
+	public function getYear($organizationId, $status = PlanItem::STATUS_COMPLETED) {
+		$result = new Result();
+		$seriesNames = [];
+		$graphData = $this->initializeYearGraphData();
+
+		/** Get series names for events.
+		 */
+		$eSql = "SELECT r.name, YEAR(pi.status_stamp) AS yr, DATE_FORMAT(pi.status_stamp, '%m') AS mo, COUNT(pi.id) AS nItems
+					FROM resource AS r, plan_item AS pi, module AS m
+					WHERE r.id=m.resource_id AND m.id=pi.module_id AND pi.plan_item_status_id = '$status' AND
+						pi.member_id IN (SELECT id FROM member WHERE organization_id=$organizationId)
+					GROUP BY r.name, YEAR(pi.status_stamp), DATE_FORMAT(pi.status_stamp, '%m')
+					ORDER BY r.name, YEAR(pi.status_stamp), DATE_FORMAT(pi.status_stamp, '%m');";
+		$dbRecords = $this->getDBIF()->query($eSql, ['oid' => $organizationId])->fetchAll();
+		$colorIdx = 0;
+		foreach ($dbRecords as $rec) {
+			$yrMo = $rec["yr"] . '-' . $rec["mo"];
+			if (!in_array($rec["name"], $seriesNames)) {
+				$seriesNames[] = $rec["name"];
+			}
+			$seriesPos = array_search($rec["name"], $seriesNames);
+			$dataPos = array_search($yrMo, $graphData["labels"]);
+			if ($seriesPos !== FALSE && $dataPos !== FALSE) {
+				$seriesPos = (int)$seriesPos;
+				$dataPos = (int)$dataPos;
+				if (empty($graphData['series'][$seriesPos])) {
+					$graphData['series'][$seriesPos] = [
+						'name'     => $rec["name"],
+						'yAxis'    => 0,
+						'class'    => 'modules',
+						"grouping" => 1,
+						'visible'  => TRUE,
+						'data'     => array_fill(0, count($graphData["labels"]), NULL),
+					];
+					$colorIdx++;
+				}
+				$graphData['series'][$seriesPos]['data'][$dataPos] = (int)$rec["nItems"];
+			}
+		}
+		$result->setNormal($graphData);
+		return $result;
+	}
+
 
 	/**
 	 * @param array $options
@@ -118,21 +141,9 @@ class PlanItem extends AppModel {
 	 * @return array|null
 	 */
 	public function map($options = []) {
-		$map = NULL;
-		/** @var Module $module */
-		$module = $this->module;
-		$resourceId = !empty($module) ? $module->resource_id : NULL;
-		$resource = !empty($module) ? $module->resource : NULL;
-		/** @var \App\Models\Resource $resource */
-		$resourceName = !empty($resource) ? $resource->name : NULL;
-		$map = [
-			'm'      => $this->module_id,
-			's'      => $this->plan_item_status_id,
-			'dt'     => $this->presentationDateTime($this->status_stamp),
-			'n'      => $resourceName,
-			'r'      => $resourceId,
-			'module' => $this->module->map(['minimal' => TRUE])
-		];
+		$map = parent::map();
+		$map['module'] = $this->module->map(['minimal' => TRUE, 'resource' => TRUE]);
+		$map['resource'] = $this->module->resource->map(['minimal' => TRUE]);
 		return $map;
 	}
 

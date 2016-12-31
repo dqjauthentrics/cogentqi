@@ -1,10 +1,14 @@
 import * as _ from "lodash";
 import {Pipe, PipeTransform} from "@angular/core";
+import {Config} from "../providers/config";
 
 @Pipe({
     name: "dataFilter"
 })
 export class DataFilterPipe implements PipeTransform {
+
+    constructor(private config: Config) {
+    }
 
     match(query, val) {
         if (val) {
@@ -28,8 +32,8 @@ export class DataFilterPipe implements PipeTransform {
             if (!match && rec.email) {
                 match = match || this.match(query, rec.email);
             }
-            if (!match && rec.roleName) {
-                match = match || this.match(query, rec.roleName);
+            if (!match && rec.roleId) {
+                match = match || this.match(query, this.config.roleName(rec.roleId));
             }
         }
         return match;
@@ -94,7 +98,6 @@ export class DataFilterPipe implements PipeTransform {
         if (query) {
             query = _.lowerCase(query);
             return _.filter(array, row => {
-                //console.log('row', row);
                 let match = this.matchMember(query, row);
                 match = match || this.matchAssessment(query, row);
                 match = match || this.matchMember(query, row.administrator);

@@ -4900,11 +4900,6 @@ table thead tr th {
   color: #FFF;
 }
 
-.avatar-tiny {
-  width: 4em;
-  height: auto;
-}
-
 .clearfix {
   *zoom: 1;
 }
@@ -4968,7 +4963,7 @@ ion-icon {
   vertical-align: middle !important;
 }
 
-img.avatar-tiny {
+.img.avatar-tiny {
   width: 24px;
   height: 24px;
   border-radius: 24px;
@@ -4976,8 +4971,8 @@ img.avatar-tiny {
 }
 
 img.avatar-full {
-  width: 88px;
-  height: 88px;
+  width: 48px;
+  height: 48px;
   border-radius: 64px;
   vertical-align: middle;
 }
@@ -5198,6 +5193,8 @@ table.micro-badge {
   line-height: 1.1rem;
   display: inline-block;
   margin: 1rem;
+  width: 36px;
+  height: 36px;
 }
 
 .micro-badge img {
@@ -5215,19 +5212,19 @@ table.micro-badge {
   height: 22px;
 }
 
-.micro-badge.small img {
-  height: 5rem;
-  width: 5rem;
+.micro-badge.small {
+  width: 36px;
+  height: 36px;
 }
 
-.micro-badge.medium img {
-  height: 8rem;
-  width: 8rem;
+.micro-badge.medium {
+  width: 48px;
+  height: 48px;
 }
 
-.micro-badge.large img {
-  height: 12rem;
-  width: 12rem;
+.micro-badge.large {
+  width: 64px;
+  height: 64px;
 }
 
 .level-badbe i, .outcomeLevel i {
@@ -27372,6 +27369,11 @@ assessment-item {
   color: #444;
 }
 
+.assessment-detail .range-md .range-knob {
+  width: 42px;
+  height: 42px;
+}
+
 .assessment-detail ion-grid.header ion-col:nth-child(2) {
   text-align: center;
 }
@@ -27482,6 +27484,28 @@ assessment-item {
   cursor: pointer;
 }
 
+ion-content.dashboard.main {
+  background-image: url(/assets/img/cycleWatermark.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+ion-content.dashboard.main h1 {
+  font-size: 1.1em;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: center !important;
+}
+
+ion-content.dashboard.main ion-card {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+ion-content.dashboard.main .dash-graph {
+  height: 20vh;
+}
+
 .dashboard .logo img {
   width: auto;
   height: 5vh;
@@ -27580,11 +27604,6 @@ assessment-item {
 .ios .help-info ion-icon {
   width: auto;
   margin-right: 10px;
-}
-
-.instrument-list ion-avatar img {
-  width: 48px;
-  height: 48px;
 }
 
 ion-content.login ion-card {
@@ -27867,6 +27886,12 @@ div.note:before {
   max-width: 2rem;
 }
 
+.dashboard.main.professional h1 {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: gray;
+}
+
 .reports.menu ion-card {
   min-height: 100px;
   vertical-align: middle;
@@ -27927,4 +27952,8 @@ div.note:before {
 
 .resource-detail .video-embed {
   margin: 1em;
+}
+
+a, .dashboard .cycle a, .tabs-md .tab-button[aria-selected=false] {
+  color: #AAA !important;
 }

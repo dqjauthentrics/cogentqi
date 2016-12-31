@@ -5,6 +5,7 @@ import {SessionProvider} from "../../providers/session";
 import {MemberDetailPage} from "./detail";
 import {DataModel} from "../../providers/data-model";
 import {IconProvider} from "../../providers/icon";
+import {Config} from "../../providers/config";
 
 @Component({
     templateUrl: 'list.html'
@@ -17,7 +18,7 @@ export class MemberListPage {
     public sortBy = "orderedOn";
     public sortOrder = "desc";
 
-    constructor(private nav: NavController, private session: SessionProvider, memberData: MemberProvider, public icon: IconProvider) {
+    constructor(private nav: NavController, private session: SessionProvider, public config: Config, public memberData: MemberProvider, public icon: IconProvider) {
         this.loading = true;
         let organizationId = this.session.user.organizationId;
         let drilldown = 1;

@@ -13,4 +13,12 @@ export class EventProvider extends DataModel {
         super('event', toastCtrl, http, globals, config, session);
     }
 
+    retrieveYear(organizationId) {
+        return this.getData('/year/' + organizationId);
+    }
+
+    retrieveTypes(organizationId) {
+        return this.getData('/types/' + organizationId);
+    }
+
 }

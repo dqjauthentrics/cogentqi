@@ -17,7 +17,6 @@ export class ConfigEventsPage {
         this.event = this.navParams.data;
         eventData.getSingle(this.event.id).then(event => {
             this.event = event;
-            console.log('events/config constructor:', event);
             if (this.event) {
                 this.event.valid = true;
             }

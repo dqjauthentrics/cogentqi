@@ -1,5 +1,5 @@
 <ion-header>
-    <header-bar class="clickable" (click)="goToMember(member)" [title]="member|namify:true + ': Competency History'"></header-bar>
+    <header-bar class="clickable" (click)="goToMember(member)" title="{{member|namify:true}}: {{'Competency History'|translate}}"></header-bar>
 </ion-header>
 
 <ion-content class="dashboard member">

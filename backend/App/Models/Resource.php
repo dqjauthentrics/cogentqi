@@ -85,28 +85,6 @@ class Resource extends AppModel {
 	public $external_id;
 
 	/**
-	 * Allows to query a set of records that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return Resource[]
-	 */
-	public static function find($parameters = NULL) {
-		return parent::find($parameters);
-	}
-
-	/**
-	 * Allows to query the first record that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return Resource
-	 */
-	public static function findFirst($parameters = NULL) {
-		return parent::findFirst($parameters);
-	}
-
-	/**
 	 * Initialize method for model.
 	 */
 	public function initialize() {
@@ -132,8 +110,6 @@ class Resource extends AppModel {
 	 */
 	public function map($options = ['alignments' => TRUE]) {
 		$map = parent::map();
-		$map["rsc"] = 0;
-		$map["sc"] = 0;
 		if (!empty($options['alignments'])) {
 			$alignments = $this->getAlignments();
 			$jsonAlignments = [];

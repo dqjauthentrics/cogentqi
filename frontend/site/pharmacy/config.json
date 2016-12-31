@@ -2,5 +2,22 @@
   "name": "Caralot Pharmacy",
   "appName": "CogentQI",
   "copyright": "Copyright \u00a9 2015, CogentQI.com.  All rights reserved.",
-  "trademarkName": "CogentQI&#8482;"
+  "trademarkName": "CogentQI&#8482;",
+  "roles": {
+    "S": "Sysadmin",
+    "M": "Pharmacy Manager",
+    "A": "Administrator",
+    "P": "Pharmacist",
+    "T": "Pharmacy Technician"
+  },
+  "translations" : {
+    "us-en": {
+      "Assessment": "Evaluation",
+      "Assessments": "Evaluations",
+      "Assessments to Date": "Evaluations to Date",
+      "Assessment Deletion Confirmation": "Evaluation Deletion Confirmation",
+      "Are you sure you wish to PERMANENTLY remove this assessment?": "Are you sure you wish to PERMANENTLY remove this evaluation?",
+      "Partially Aligned": "Somewhat Aligned"
+    }
+  }
 }
