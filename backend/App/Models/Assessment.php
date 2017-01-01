@@ -823,6 +823,22 @@ class Assessment extends AppModel {
 		return $map;
 	}
 
+	public function getYearAverage($organizationId) {
+		$result = new Result();
+		$model = new Organization();
+		$orgIds = $model->getDescendantIds($organizationId);
+
+		$sql = "SELECT AVG(score) AS average FROM assessment 
+					WHERE member_id IN (SELECT id FROM member WHERE organization_id IN ($orgIds))
+						AND last_saved >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)";
+
+		$row = $this->getReadConnection()->query($sql)->fetch();
+		$average = $row['average'];
+		//@todo: Map to 1 to 5 scale
+		$result->setNormal(['score' => round($average,2), 'rank' => round($average)]);
+		return $result;
+	}
+
 	public function getYear($organizationId) {
 		$result = new Result();
 		$model = new Organization();
@@ -830,11 +846,10 @@ class Assessment extends AppModel {
 		$seriesNames = [];
 		$graphData = $this->initializeYearGraphData();
 
-		/** Get series names for events.
-		 */
 		$eSql = "SELECT i.id AS instrumentId, i.name, YEAR(a.last_saved) AS yr, DATE_FORMAT(a.last_saved, '%m') AS mo, COUNT(a.id) AS nAssessments
 					FROM assessment AS a, instrument AS i
 					WHERE a.instrument_id=i.id AND a.member_id IN (SELECT id FROM member WHERE organization_id IN ($orgIds))
+						AND a.last_saved >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
 					GROUP BY i.id, i.name, YEAR(a.last_saved), DATE_FORMAT(a.last_saved, '%m')
 					ORDER BY i.name, YEAR(a.last_saved), DATE_FORMAT(a.last_saved, '%m');";
 		$dbRecords = $this->getDBIF()->query($eSql, ['oid' => $organizationId])->fetchAll();

@@ -34,34 +34,43 @@ export class DashboardPage {
     assessmentsData: any;
     planItemData: any;
     eventTypesData: any;
+    charts: Array<any> = [];
 
     constructor(public config: Config, private nav: NavController, private navParams: NavParams,
                 private outcomeProvider: OutcomeProvider, private graph: Graph, public session: SessionProvider,
                 public memberEventProvider: MemberEventProvider, public assessmentProvider: AssessmentProvider,
                 private globals: Globals, private planItemProvider: PlanItemProvider) {
 
-        if (session.user) {
-            this.user = session.user;
+        let comp = this;
+        if (comp.session.user) {
+            comp.loadingEvents = true;
+            comp.loadingAssessments = true;
+            comp.loadingPlanItems = true;
+            comp.loadingEventTypes = true;
+            this.user = comp.session.user;
             this.translator = new Translate(this.config);
-            outcomeProvider.init().then(() => {
-                this.renderOutcomesGauge();
+            comp.assessmentProvider.retrieveYearAverage(this.user.organizationId).then((data:any) => {;
+                this.renderAssessmentsGauge(data.score);
+            });
+            comp.outcomeProvider.init().then(() => {
+                comp.renderOutcomesGauge();
 
             });
-            memberEventProvider.retrieveYear(this.user.organizationId).then((data) => {
-                this.eventsData = data;
-                this.renderEventsChart();
+            comp.memberEventProvider.retrieveYear(this.user.organizationId).then((data) => {
+                comp.eventsData = data;
+                comp.renderEventsChart();
             });
-            assessmentProvider.retrieveYear(this.user.organizationId).then((data) => {
-                this.assessmentsData = data;
-                this.renderAssessmentsChart();
+            comp.assessmentProvider.retrieveYear(this.user.organizationId).then((data) => {
+                comp.assessmentsData = data;
+                comp.renderAssessmentsChart();
             });
-            planItemProvider.retrieveYear(this.user.organizationId, planItemProvider.STATUS_COMPLETED).then((data) => {
-                this.planItemData = data;
-                this.renderPlanItemsChart();
+            comp.planItemProvider.retrieveYear(this.user.organizationId, comp.planItemProvider.STATUS_COMPLETED).then((data) => {
+                comp.planItemData = data;
+                comp.renderPlanItemsChart();
             });
-            memberEventProvider.retrieveTypes(this.user.organizationId).then((data) => {
-                this.eventTypesData = data;
-                this.renderEventTypesPie();
+            comp.memberEventProvider.retrieveTypes(this.user.organizationId).then((data) => {
+                comp.eventTypesData = data;
+                comp.renderEventTypesPie();
             });
         }
     }
@@ -86,15 +95,10 @@ export class DashboardPage {
         this.nav.push(PlanItemsListPage);
     }
 
-
-    ngOnInit() {
-        this.renderAssessmentsGauge();
-    }
-
     renderGauge(id, value, min, max, lbl) {
         let stop1 = max / 3;
         let stop2 = stop1 * 2;
-        Highcharts.chart(document.getElementById(id), {
+        return Highcharts.chart(document.getElementById(id), {
             chart: {
                 type: 'gauge',
                 plotBorderWidth: 0,
@@ -181,7 +185,7 @@ export class DashboardPage {
         if (this.eventsData) {
             let comp = this;
             let series = this.eventsData.series;
-            for (let i=0; i<series.length; i++) {
+            for (let i = 0; i < series.length; i++) {
                 series[i].events = {
                     click: function (event) {
                         comp.eventTypeSelected(this, event);
@@ -215,7 +219,7 @@ export class DashboardPage {
                 },
                 series: series
             };
-            Highcharts.chart(document.getElementById('eventsChart'), options);
+            this.charts.push(Highcharts.chart(document.getElementById('eventsChart'), options));
             this.loadingEvents = false;
         }
     }
@@ -249,7 +253,7 @@ export class DashboardPage {
                 },
                 series: this.planItemData.series
             };
-            Highcharts.chart(document.getElementById('planItemsChart'), options);
+            this.charts.push(Highcharts.chart(document.getElementById('planItemsChart'), options));
             this.loadingPlanItems = false;
         }
     }
@@ -287,7 +291,7 @@ export class DashboardPage {
                     comp.eventTypeSelected(this, event);
                 }
             };
-            Highcharts.chart(document.getElementById('eventTypesPie'), options);
+            this.charts.push(Highcharts.chart(document.getElementById('eventTypesPie'), options));
             this.loadingEventTypes = false;
         }
     }
@@ -296,7 +300,7 @@ export class DashboardPage {
         if (this.assessmentsData) {
             let comp = this;
             let series = this.assessmentsData.series;
-            for (let i=0; i<series.length; i++) {
+            for (let i = 0; i < series.length; i++) {
                 series[i].events = {
                     click: function (event) {
                         comp.assessmentTypeSelected(this, event);
@@ -330,25 +334,16 @@ export class DashboardPage {
                 },
                 series: series
             };
-            Highcharts.chart(document.getElementById('assessmentsChart'), options);
+            this.charts.push(Highcharts.chart(document.getElementById('assessmentsChart'), options));
             this.loadingAssessments = false;
         }
     }
 
-    renderAssessmentsGauge() {
-        this.renderGauge('assessmentsGauge', 2.5, 0, 5, '');
+    renderAssessmentsGauge(avg) {
+        this.charts.push(this.renderGauge('assessmentsGauge', avg, 0, 5, ''));
     }
 
     renderOutcomesGauge() {
-        this.renderGauge('outcomesGauge', this.outcomeProvider.averageLevel(), 0, 100, '');
-    }
-
-    goToPage(pageName) {
-        let page: any = MatrixPage;
-        switch (pageName) {
-            case 'resources':
-                page = ResourceListPage;
-        }
-        this.nav.push(page);
+        this.charts.push(this.renderGauge('outcomesGauge', this.outcomeProvider.averageLevel(), 0, 100, ''));
     }
 }

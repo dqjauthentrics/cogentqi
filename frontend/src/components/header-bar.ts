@@ -1,6 +1,8 @@
 import {Component, Input} from "@angular/core";
 import {AlertController, NavController} from "ionic-angular";
 import {SessionProvider} from "../providers/session";
+import {Globals} from "../providers/globals";
+import {Config} from "../providers/config";
 
 @Component({
     selector: 'header-bar',
@@ -10,7 +12,7 @@ import {SessionProvider} from "../providers/session";
 export class HeaderBar {
     @Input() title: string = "Cogic";
 
-    constructor(private alertCtrl: AlertController, private nav: NavController, private session: SessionProvider) {
+    constructor(private alertCtrl: AlertController, private nav: NavController, public globals: Globals, public config: Config, private session: SessionProvider) {
     }
 
     logOut() {

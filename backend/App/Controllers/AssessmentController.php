@@ -241,4 +241,12 @@ class AssessmentController extends ControllerBase {
 		$result = $assessmentModel->getYear($organizationId);
 		$result->sendNormal();
 	}
+	/**
+	 * @param int $organizationId
+	 */
+	public function yearAverageAction($organizationId) {
+		$assessmentModel = new Assessment();
+		$result = $assessmentModel->getYearAverage($organizationId);
+		$result->sendNormal();
+	}
 }

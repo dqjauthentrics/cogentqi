@@ -9,13 +9,20 @@
                 <ion-card class="organization">
                     <ion-row responsive-sm>
                         <ion-col>
-                            <h4>{{organization.name}}</h4>
+                            <h1>{{organization.name}}</h1>
+                            <div class="address">
+                                {{organization.address}}, {{organization.city}} {{organization.state}} {{organization.postal}}
+                            </div>
+                            <div>
+                                {{organization.phone}}
+                            </div>
                         </ion-col>
                     </ion-row>
                 </ion-card>
             </ion-col>
             <ion-col width-67>
                 <ion-card>
+                    <h1>{{'Assessments'|translate}}</h1>
                     <organization-assessments [organizationId]="organization.id"></organization-assessments>
                 </ion-card>
             </ion-col>

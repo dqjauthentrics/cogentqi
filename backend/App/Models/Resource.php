@@ -6,7 +6,6 @@ namespace App\Models;
  * @package App\Models
  *
  * @method \Phalcon\Mvc\Model\Resultset\Simple getAlignments()
- * @method \App\Models\OutcomeAlignment[]|\App\Models\OutcomeAlignment get($id = NULL, $mapIt = TRUE)
  */
 class Resource extends AppModel {
 	const STATUS_ACTIVE = 'A';

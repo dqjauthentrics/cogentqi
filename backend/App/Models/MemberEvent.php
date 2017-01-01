@@ -95,7 +95,8 @@ class MemberEvent extends AppModel {
 		 */
 		$eSql = "SELECT evt.id, evt.name, YEAR(me.occurred) AS yr, DATE_FORMAT(me.occurred, '%m') AS mo, COUNT(me.id) AS nEvents
 					FROM event AS evt, member_event AS me
-					WHERE me.event_id=evt.id AND me.member_id IN (SELECT id FROM member WHERE organization_id IN ($orgIds))
+					WHERE me.event_id=evt.id AND me.member_id IN (SELECT id FROM member WHERE organization_id IN ($orgIds)) 
+						AND me.occurred >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
 					GROUP BY evt.id, evt.name, YEAR(me.occurred), DATE_FORMAT(me.occurred, '%m')
 					ORDER BY evt.name, YEAR(me.occurred), DATE_FORMAT(me.occurred, '%m');";
 		$dbRecords = $this->getDBIF()->query($eSql, ['oid' => $organizationId])->fetchAll();

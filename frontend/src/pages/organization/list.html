@@ -7,24 +7,23 @@
            [(mfSortOrder)]="sortOrder">
         <thead>
         <tr>
-            <th>&nbsp;</th>
-            <th>
-                <mfDefaultSorter [by]="sortNameSummary">Name</mfDefaultSorter>
+            <th colspan="2">
+                <mfDefaultSorter [by]="sortNameSummary">{{'Name'|translate}}</mfDefaultSorter>
             </th>
             <th>
-                <mfDefaultSorter [by]="sortAddress">Address</mfDefaultSorter>
+                <mfDefaultSorter [by]="sortAddress">{{'Address'|translate}}</mfDefaultSorter>
             </th>
-            <th>
-                Summary
+            <th colspan="2">
+                <mfDefaultSorter by="phone">{{'Phone'|translate}}</mfDefaultSorter>
             </th>
         </tr>
         <tr>
-            <th colspan="7">
+            <th colspan="5">
                 <ion-searchbar [(ngModel)]="filterQuery" placeholder="filter"></ion-searchbar>
             </th>
         </tr>
         <tr [hidden]="!loading">
-            <td colspan="4">
+            <td colspan="5">
                 <loading-indicator [loading]="loading"></loading-indicator>
             </td>
         </tr>
@@ -40,6 +39,9 @@
             </td>
             <td>
                 {{organization.address}} {{organization.city}} {{organization.state}} {{organization.postal}}
+            </td>
+            <td>
+                {{organization.phone}}
             </td>
              <td class="list-drilldown">
                 <i [class]="icon.getClass('drilldown')"></i>

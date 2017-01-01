@@ -30,7 +30,7 @@ class ResourceController extends ControllerBase {
 	 */
 	public function listAction() {
 		$resource = new Resource();
-		$data = $resource->get();
+		$data = $resource->get(NULL, TRUE, 'id', '1=1', [], ['alignments' => TRUE]);
 		$result = new Result($this);
 		$result->sendNormal($data);
 	}
@@ -212,15 +212,14 @@ class ResourceController extends ControllerBase {
 			$resources = Resource::find(['order' => 'name DESC']);
 			$result = new Result($this);
 			$data = [];
-			foreach ($resources as $r) {
+			foreach ($resources as $resource) {
 				$priorResponseAverages = [];
 				$subsequentResponseAverages = [];
 				$questionLabels = [];
-				$this->singleResourceEfficacy($r, $priorResponseAverages,
-					$subsequentResponseAverages, $questionLabels);
+				$this->singleResourceEfficacy($resource, $priorResponseAverages, $subsequentResponseAverages, $questionLabels);
 				$data[] = [
-					'name'                       => $r->name,
-					'summary'                    => $r->summary,
+					'name'                       => $resource->name,
+					'summary'                    => $resource->summary,
 					'priorResponseAverages'      => $priorResponseAverages,
 					'subsequentResponseAverages' => $subsequentResponseAverages,
 					'questionLabels'             => $questionLabels
@@ -237,10 +236,7 @@ class ResourceController extends ControllerBase {
 	/**
 	 * @param $resource \App\Models\Resource
 	 */
-	private function singleResourceEfficacy(
-		$resource, &$priorResponseAverages, &$subsequentResponseAverages, &$questionLabels) {
-
-		// Determine the competencies aligned to this resource
+	private function singleResourceEfficacy($resource, &$priorResponseAverages, &$subsequentResponseAverages, &$questionLabels) {
 		/** @var \App\Models\ResourceAlignment[] $alignments */
 		$alignments = $resource->alignments;
 		$questionIds = [];
@@ -250,15 +246,14 @@ class ResourceController extends ControllerBase {
 		/** @var \App\Models\ResourceAlignment $alignments */
 		foreach ($alignments as $alignment) {
 			$questionIds[] = $alignment->question->id;
-			$questionNames[$alignment->question->id] =
-				$alignment->question->name;
+			$questionNames[$alignment->question->id] = $alignment->question->name;
 			$prior[$alignment->question->id] = [];
 			$subsequent[$alignment->question->id] = [];
 		}
 		if (count($questionIds) === 0) {
 			return;
 		}
-		// Get preceeding and succeeding competency scores
+		// Get preceding and succeeding competency scores
 		$modules = $resource->modules;
 		foreach ($modules as $module) {
 			$planItems = PlanItem::find([
@@ -266,8 +261,7 @@ class ResourceController extends ControllerBase {
 				'bind'       => [1 => $module->id, 2 => PlanItem::STATUS_COMPLETED]
 			]);
 			foreach ($planItems as $planItem) {
-				$this->getResponses($planItem->status_stamp,
-					$planItem->member_id, $questionIds, $prior, $subsequent);
+				$this->getResponses($planItem->status_stamp, $planItem->member_id, $questionIds, $prior, $subsequent);
 			}
 		}
 		$params = [];
@@ -307,11 +301,9 @@ class ResourceController extends ControllerBase {
                   AND assessment_id IN (SELECT id FROM assessment WHERE member_id = $memberId)
                 GROUP BY question_id) AS ar2
               ON ar1.question_id = ar2.question_id AND ar1.time_stamp = ar2.time_stamp
-            WHERE ar1.response IS NOT NULL AND
-                  ar1.assessment_id IN (SELECT id FROM assessment WHERE member_id = $memberId)";
+            WHERE ar1.response IS NOT NULL AND ar1.assessment_id IN (SELECT id FROM assessment WHERE member_id = $memberId)";
 		$pTemp = [];
 		$sTemp = [];
-		$sql = "";
 		try {
 			$sql = str_replace(['?orderOperator', '?minMax'], ['<', 'MAX'], $template);
 			$results = $resource->getDBIF()->fetchAll($sql);

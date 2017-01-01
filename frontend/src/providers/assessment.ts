@@ -47,4 +47,7 @@ export class AssessmentProvider extends DataModel {
     retrieveYear(organizationId) {
         return this.getData('/year/' + organizationId);
     }
+    retrieveYearAverage(organizationId) {
+        return this.getData('/yearAverage/' + organizationId);
+    }
 }

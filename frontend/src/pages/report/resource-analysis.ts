@@ -24,33 +24,43 @@ export class ReportResourceAnalysis {
         let resources = [];
         let questionNames = [];
         this.resourceProvider.getAll(null, false).then((data: any) => {
-            let questionGroups = this.instrumentProvider.list[0].questionGroups;
             let resourceData = data;
-            let questionCount = 0;
-            let questionIdToIndex = {};
-            questionGroups.forEach(function (group) {
-                group.questions.forEach(function (question) {
-                    questionIdToIndex[question.id] = questionCount;
-                    questionCount++;
-                    questionNames.push(question.name);
-                })
-            });
-            resourceData.forEach(function (resource) {
-                let weights = [];
-                for (let i = 0; i < questionCount; i++) {
-                    weights.push(0);
-                }
-                resource.alignments.forEach(function (alignment) {
-                    let totalUtility = 0;
-                    alignment.mapping.forEach(function (map) {
-                        totalUtility += map.utility;
+            if (resourceData) {
+                let questionGroups = this.instrumentProvider.list[0].questionGroups;
+                if (questionGroups) {
+                    let questionCount = 0;
+                    let questionIdToIndex = {};
+                    console.log('resourceData', resourceData, questionGroups);
+                    questionGroups.forEach(function (group) {
+                        group.questions.forEach(function (question) {
+                            questionIdToIndex[question.id] = questionCount;
+                            questionCount++;
+                            questionNames.push(question.name);
+                        })
                     });
-                    weights[questionIdToIndex[alignment.questionId]] = totalUtility;
-                });
-                resources.push({name: resource.name, data: weights});
-            });
-            comp.data = {resources: resources, questionNames: questionNames};
-            comp.renderChart();
+                    resourceData.forEach(function (resource) {
+                        let weights = [];
+                        for (let i = 0; i < questionCount; i++) {
+                            weights.push(0);
+                        }
+                        if (resource.alignments) {
+                            resource.alignments.forEach(function (alignment) {
+                                let totalUtility = 0;
+                                alignment.mapping.forEach(function (map) {
+                                    totalUtility += map.utility;
+                                });
+                                weights[questionIdToIndex[alignment.questionId]] = totalUtility;
+                            });
+                            resources.push({name: resource.name, data: weights});
+                        }
+                    });
+                    comp.data = {resources: resources, questionNames: questionNames};
+                    comp.renderChart();
+                }
+                else {
+                    console.error('INVALID DATA:', this.instrumentProvider.list[0]);
+                }
+            }
         });
     }
 

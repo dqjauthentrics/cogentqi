@@ -103,89 +103,49 @@ class Outcome extends AppModel {
 	 */
 	public function getTrends($organizationId) {
 		$result = new Result();
-		$graphData = ['labels' => [], 'series' => [[], [], [], [], [], [], [], [], [], [], [], [], []]];
-		$now = time();
-		$yearAgo = strtotime("-1 year", $now);
-		$thisYr = (int)date("Y", $now);
-		$thisMo = (int)date("m", $now);
-		$startYr = (int)date("Y", $yearAgo);
-		$startMo = (int)date("m", $yearAgo);
+		$seriesNames = ['Average'];
+		$graphData = $this->initializeYearGraphData();
 
-		$seriesNames = ['Outcomes'];
-
-		/** Get series names for outcomes.
-		 */
-		$oSql = "SELECT name, YEAR(last_updated) AS yr, DATE_FORMAT(last_updated, '%m') AS mo, AVG(level) AS average
-					FROM outcome
-					GROUP BY name, YEAR(last_updated), DATE_FORMAT(last_updated, '%m'), name
-					ORDER BY sort_order, name, YEAR(last_updated), DATE_FORMAT(last_updated, '%m');";
+		$oSql = "SELECT name, YEAR(rpt.evaluated) AS yr, DATE_FORMAT(rpt.evaluated, '%m') AS mo, ROUND(AVG(rpt.level)*100) AS level
+					FROM outcome AS o, outcome_report AS rpt
+					WHERE o.id=rpt.outcome_id AND rpt.evaluated >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+					GROUP BY name, YEAR(rpt.evaluated), DATE_FORMAT(rpt.evaluated, '%m'), name
+					ORDER BY sort_order, name, YEAR(rpt.evaluated), DATE_FORMAT(rpt.evaluated, '%m');";
 		$dbRecords = $this->getDBIF()->query($oSql)->fetchAll();
 		foreach ($dbRecords as $rec) {
-			if ((int)$rec["yr"] < $startYr) {
-				$startYr = (int)$rec["yr"];
-				$startMo = (int)$rec["mo"];
-				if ($startYr == (int)$rec["yr"] && (int)$rec["mo"] < $thisMo) {
-					$startMo = (int)$rec["mo"];
-				}
-			}
+			$colorIdx = 0;
+			$yrMo = $rec["yr"] . '-' . $rec["mo"];
 			if (!in_array($rec["name"], $seriesNames)) {
 				$seriesNames[] = $rec["name"];
 			}
-		}
-
-		/**
-		 * Truncate labels in case data does not go back a full year.
-		 */
-		$mo = $startMo;
-		$done = FALSE;
-		for ($yr = $startYr; (!$done && $yr <= $thisYr); $yr++) {
-			for ($i = $mo; (!$done && $i <= 12); $i++) {
-				if ($yr == $thisYr && $i > $thisMo) {
-					$done = TRUE;
+			$seriesPos = array_search($rec["name"], $seriesNames);
+			$dataPos = array_search($yrMo, $graphData["labels"]);
+			if ($seriesPos !== FALSE && $dataPos !== FALSE) {
+				$seriesPos = (int)$seriesPos;
+				$dataPos = (int)$dataPos;
+				if (empty($graphData['series'][$seriesPos])) {
+					$graphData['series'][$seriesPos] = [
+						'name'     => $rec["name"],
+						'yAxis'    => 0,
+						'class'    => 'outcomes',
+						"grouping" => 1,
+						'visible'  => FALSE,
+						'data'     => array_fill(0, count($graphData["labels"]), NULL),
+					];
+					$colorIdx++;
 				}
-				else {
-					$graphData['labels'][] = $yr . "-" . sprintf("%02d", $i);
-				}
-			}
-			$mo = 1;
-		}
-
-		/**
-		 * Append multiple outcomes.
-		 */
-		$dbRecords = $this->getDBIF()->query($oSql)->fetchAll();
-		if (!empty($dbRecords)) {
-			$colorIdx = 0;
-			foreach ($dbRecords as $rec) {
-				$yrMo = $rec["yr"] . '-' . $rec["mo"];
-				$seriesPos = array_search($rec["name"], $seriesNames);
-				$dataPos = array_search($yrMo, $graphData["labels"]);
-				if ($seriesPos !== FALSE && $dataPos !== FALSE) {
-					$seriesPos = (int)$seriesPos;
-					$dataPos = (int)$dataPos;
-					if (empty($graphData['series'][$seriesPos])) {
-						$graphData['series'][$seriesPos] = [
-							'name'     => $rec["name"],
-							'yAxis'    => 0,
-							'class'    => 'outcomes',
-							"grouping" => 1,
-							'visible'  => FALSE,
-							'data'     => array_fill(0, count($graphData["labels"]), NULL),
-						];
-						$colorIdx++;
-					}
-					$graphData['series'][$seriesPos]['data'][$dataPos] = (double)number_format($rec["average"], 2);
-				}
+				$graphData['series'][$seriesPos]['data'][$dataPos] = (double)number_format($rec["level"], 2);
 			}
 		}
 
 		/**
 		 * Append the single overall outcomes series.
 		 */
-		$sql = "SELECT YEAR(last_updated) AS yr, DATE_FORMAT(last_updated, '%m') AS mo, AVG(oo.level) AS average
-					FROM outcome 
-					GROUP BY YEAR(last_updated), DATE_FORMAT(last_updated, '%m')
-					ORDER BY YEAR(last_updated), DATE_FORMAT(last_updated, '%m');";
+		$sql = "SELECT YEAR(rpt.evaluated) AS yr, DATE_FORMAT(rpt.evaluated, '%m') AS mo, ROUND(AVG(rpt.level)*100) AS level
+					FROM outcome AS o, outcome_report AS rpt
+					WHERE o.id=rpt.outcome_id AND rpt.evaluated >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+					GROUP BY YEAR(rpt.evaluated), DATE_FORMAT(rpt.evaluated, '%m'), name
+					ORDER BY YEAR(rpt.evaluated), DATE_FORMAT(rpt.evaluated, '%m');";
 		$dbRecords = $this->getDBIF()->query($sql)->fetchAll();
 		if (!empty($dbRecords)) {
 			$seriesPos = count($seriesNames);
@@ -209,11 +169,11 @@ class Outcome extends AppModel {
 							'data'      => array_fill(0, count($graphData["labels"]), NULL),
 						];
 					}
-					$graphData['series'][$seriesPos]['data'][$dataPos] = (double)number_format($rec["average"], 2);
+					$graphData['series'][$seriesPos]['data'][$dataPos] = (double)number_format($rec["level"], 2);
 				}
 			}
 		}
-		for ($i=0; $i < count($graphData['series']); $i++ ) {
+		for ($i = 0; $i < count($graphData['series']); $i++) {
 			if (empty($graphData['series'][$i])) {
 				array_splice($graphData['series'], $i, 1);
 				$i--;
