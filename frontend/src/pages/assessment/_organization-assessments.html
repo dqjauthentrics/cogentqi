@@ -2,7 +2,7 @@
        [(mfSortOrder)]="sortOrder">
     <thead>
     <tr>
-        <th>
+        <th *ngIf="!instrument">
             <mfDefaultSorter [by]="sortName">Instrument</mfDefaultSorter>
         </th>
         <th>
@@ -19,19 +19,19 @@
         </th>
     </tr>
     <tr>
-        <th colspan="7">
+        <th [attr.colspan]="instrument? 7 : 6">
             <ion-searchbar [(ngModel)]="filterQuery" placeholder="filter"></ion-searchbar>
         </th>
     </tr>
     <tr [hidden]="!loading">
-        <td colspan="4">
+        <td [attr.colspan]="instrument? 7 : 6">
             <loading-indicator [loading]="loading"></loading-indicator>
         </td>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let assessment of mf.data" class="order" (click)="goToAssessment(assessment)">
-        <td>
+        <td *ngIf="!instrument">
             {{assessment.instrument.name}}
         </td>
         <td>

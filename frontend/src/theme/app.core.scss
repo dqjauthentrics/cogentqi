@@ -792,7 +792,7 @@ form {
 }
 
 .clickable {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 loading-indicator > div, loading-indicator > div ion-spinner {

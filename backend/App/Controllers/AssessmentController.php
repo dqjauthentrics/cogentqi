@@ -14,7 +14,7 @@ class AssessmentController extends ControllerBase {
 	/**
 	 * @param int $organizationId
 	 */
-	public function listAction($organizationId) {
+	public function listAction($organizationId, $instrumentId = 0) {
 		$user = $this->currentUser();
 		$result = new Result($this);
 		$orgModel = new Organization();
@@ -25,10 +25,19 @@ class AssessmentController extends ControllerBase {
 		else {
 			// This took 0.140 seconds. Two queries is slightly faster than one, and many times faster than a Phalcon join().
 			$orgIds = $orgModel->getDescendantIds($organizationId);
-			$assessments = Assessment::query()
-				->where("member_id IN (SELECT App\Models\Member.id FROM App\Models\Member WHERE organization_id IN ($orgIds))")
-				->orderBy('last_saved DESC')
-				->execute();
+			$condition = "member_id IN (SELECT App\Models\Member.id FROM App\Models\Member WHERE organization_id IN ($orgIds))";
+			if (!empty($instrumentId)) {
+				$assessments = Assessment::query()
+					->where("instrument_id=:ii: AND $condition", ['ii' => $instrumentId])
+					->orderBy('last_saved DESC')
+					->execute();
+			}
+			else {
+				$assessments = Assessment::query()
+					->where($condition)
+					->orderBy('last_saved DESC')
+					->execute();
+			}
 
 			// This took 4.6 seconds, vs 0.14 seconds for two queries above!
 			//$assessments = Assessment::query()->join('App\Models\Member','organization_id=4')->orderBy('last_saved DESC')->execute();

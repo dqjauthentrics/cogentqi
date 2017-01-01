@@ -13,9 +13,10 @@ import {Namify} from "../../pipes/namify";
 
 export class OrganizationAssessments {
     @Input() organizationId: number;
+    @Input() assessments: Array<any>;
+    @Input() instrument: any;
 
     public loading: boolean = false;
-    public assessments = [];
     public filterQuery = "";
     public rowsOnPage = 5;
     public sortBy = "orderedOn";
@@ -25,13 +26,15 @@ export class OrganizationAssessments {
     }
 
     ngOnInit() {
-        let comp = this;
-        if (this.organizationId) {
-            this.loading = true;
-            this.assessmentData.getAll('/' + this.organizationId, true).then(assessments => {
-                comp.assessments = assessments;
-                comp.loading = false;
-            });
+        if (!this.assessments) {
+            let comp = this;
+            if (this.organizationId) {
+                this.loading = true;
+                this.assessmentData.getAll('/' + this.organizationId, true).then(assessments => {
+                    comp.assessments = assessments;
+                    comp.loading = false;
+                });
+            }
         }
     }
 

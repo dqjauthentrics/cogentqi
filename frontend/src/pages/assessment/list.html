@@ -1,9 +1,9 @@
 <ion-header>
-    <header-bar [title]="'Assessments'|translate"></header-bar>
+    <header-bar title="{{(instrument? instrument.name + ' ' : '')}} {{'Assessments'|translate}}"></header-bar>
 </ion-header>
 
 <ion-content class="dashboard assessment-list">
     <ion-card *ngIf="session.user">
-        <organization-assessments [organizationId]="session.user.organizationId"></organization-assessments>
+        <organization-assessments [instrument]="instrument" [assessments]="assessments" [organizationId]="session.user.organizationId"></organization-assessments>
     </ion-card>
 </ion-content>

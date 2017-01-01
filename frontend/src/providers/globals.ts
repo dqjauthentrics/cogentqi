@@ -40,7 +40,7 @@ export class Globals {
     public findObjectById(items: Array<any>, id) {
         if (items && items.length > 0) {
             for (let item of items) {
-                if (item.id && item.id == id) {
+                if (item.id && item.id === id) {
                     return item;
                 }
             }

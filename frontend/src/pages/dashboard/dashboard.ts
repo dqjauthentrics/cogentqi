@@ -179,6 +179,15 @@ export class DashboardPage {
 
     renderEventsChart() {
         if (this.eventsData) {
+            let comp = this;
+            let series = this.eventsData.series;
+            for (let i=0; i<series.length; i++) {
+                series[i].events = {
+                    click: function (event) {
+                        comp.eventTypeSelected(this, event);
+                    }
+                };
+            }
             let options = {
                 title: {text: ''},
                 subtitle: {text: ''},
@@ -204,7 +213,7 @@ export class DashboardPage {
                         enabled: false
                     }
                 },
-                series: this.eventsData.series
+                series: series
             };
             Highcharts.chart(document.getElementById('eventsChart'), options);
             this.loadingEvents = false;
@@ -247,13 +256,25 @@ export class DashboardPage {
 
     eventTypeSelected(chart, event) {
         let id = event.point.eventId;
-        let eventData = {
-            id: id,
-            name: this.globals.appEvents[id]['name'],
-            description: this.globals.appEvents[id]['description'],
-            category: this.globals.appEvents[id]['category'],
-        };
-        this.nav.push(EventListPage, eventData);
+        if (id) {
+            let eventData = {
+                id: id,
+                name: this.globals.appEvents[id]['name'],
+                description: this.globals.appEvents[id]['description'],
+                category: this.globals.appEvents[id]['category'],
+            };
+            this.nav.push(EventListPage, eventData);
+        }
+    }
+
+    assessmentTypeSelected(chart, event) {
+        let id = event.point.instrumentId;
+        if (id) {
+            let assessmentData = {
+                instrumentId: id
+            };
+            this.nav.push(AssessmentListPage, assessmentData);
+        }
     }
 
     renderEventTypesPie() {
@@ -273,6 +294,15 @@ export class DashboardPage {
 
     renderAssessmentsChart() {
         if (this.assessmentsData) {
+            let comp = this;
+            let series = this.assessmentsData.series;
+            for (let i=0; i<series.length; i++) {
+                series[i].events = {
+                    click: function (event) {
+                        comp.assessmentTypeSelected(this, event);
+                    }
+                };
+            }
             let options = {
                 title: {text: ''},
                 subtitle: {text: ''},
@@ -298,7 +328,7 @@ export class DashboardPage {
                         enabled: false
                     }
                 },
-                series: this.assessmentsData.series
+                series: series
             };
             Highcharts.chart(document.getElementById('assessmentsChart'), options);
             this.loadingAssessments = false;

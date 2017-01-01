@@ -93,10 +93,10 @@ class MemberEvent extends AppModel {
 
 		/** Get series names for events.
 		 */
-		$eSql = "SELECT evt.name, YEAR(me.occurred) AS yr, DATE_FORMAT(me.occurred, '%m') AS mo, COUNT(me.id) AS nEvents
+		$eSql = "SELECT evt.id, evt.name, YEAR(me.occurred) AS yr, DATE_FORMAT(me.occurred, '%m') AS mo, COUNT(me.id) AS nEvents
 					FROM event AS evt, member_event AS me
 					WHERE me.event_id=evt.id AND me.member_id IN (SELECT id FROM member WHERE organization_id IN ($orgIds))
-					GROUP BY evt.name, YEAR(me.occurred), DATE_FORMAT(me.occurred, '%m')
+					GROUP BY evt.id, evt.name, YEAR(me.occurred), DATE_FORMAT(me.occurred, '%m')
 					ORDER BY evt.name, YEAR(me.occurred), DATE_FORMAT(me.occurred, '%m');";
 		$dbRecords = $this->getDBIF()->query($eSql, ['oid' => $organizationId])->fetchAll();
 		$colorIdx = 0;
@@ -121,7 +121,10 @@ class MemberEvent extends AppModel {
 					];
 					$colorIdx++;
 				}
-				$graphData['series'][$seriesPos]['data'][$dataPos] = (int)$rec["nEvents"];
+				$graphData['series'][$seriesPos]['data'][$dataPos] = [
+					'y'       => (int)$rec["nEvents"],
+					'eventId' => $rec['id']
+				];
 			}
 		}
 		$result->setNormal($graphData);

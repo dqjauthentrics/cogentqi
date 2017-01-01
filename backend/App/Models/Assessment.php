@@ -673,7 +673,7 @@ class Assessment extends AppModel {
 		 * Append the single overall outcomes series.
 		 */
 		$sql = "SELECT YEAR(last_updated) AS yr, DATE_FORMAT(last_updated, '%m') AS mo, AVG(level) AS average
-					FROM outcome AS ot, outcome_report as oo
+					FROM outcome AS ot, outcome_report AS oo
 					WHERE last_updated >= DATE_SUB(NOW(),INTERVAL 1 YEAR)
 					GROUP BY YEAR(last_updated), DATE_FORMAT(last_updated, '%m')
 					ORDER BY YEAR(last_updated), DATE_FORMAT(last_updated, '%m');";
@@ -832,10 +832,10 @@ class Assessment extends AppModel {
 
 		/** Get series names for events.
 		 */
-		$eSql = "SELECT i.name, YEAR(a.last_saved) AS yr, DATE_FORMAT(a.last_saved, '%m') AS mo, COUNT(a.id) AS nAssessments
+		$eSql = "SELECT i.id AS instrumentId, i.name, YEAR(a.last_saved) AS yr, DATE_FORMAT(a.last_saved, '%m') AS mo, COUNT(a.id) AS nAssessments
 					FROM assessment AS a, instrument AS i
 					WHERE a.instrument_id=i.id AND a.member_id IN (SELECT id FROM member WHERE organization_id IN ($orgIds))
-					GROUP BY i.name, YEAR(a.last_saved), DATE_FORMAT(a.last_saved, '%m')
+					GROUP BY i.id, i.name, YEAR(a.last_saved), DATE_FORMAT(a.last_saved, '%m')
 					ORDER BY i.name, YEAR(a.last_saved), DATE_FORMAT(a.last_saved, '%m');";
 		$dbRecords = $this->getDBIF()->query($eSql, ['oid' => $organizationId])->fetchAll();
 		$colorIdx = 0;
@@ -860,7 +860,10 @@ class Assessment extends AppModel {
 					];
 					$colorIdx++;
 				}
-				$graphData['series'][$seriesPos]['data'][$dataPos] = (int)$rec["nAssessments"];
+				$graphData['series'][$seriesPos]['data'][$dataPos] = [
+					'y'            => (int)$rec["nAssessments"],
+					'instrumentId' => $rec['instrumentId']
+				];
 			}
 		}
 		$result->setNormal($graphData);
