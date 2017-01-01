@@ -1,0 +1,28 @@
+.dashboard.event-list {
+
+  .Unacceptable {
+    background: #FFEEEE;
+  }
+  .Acceptable {
+    background: #FFEEAA;
+  }
+  .Good {
+    background: #FFFFDD;
+  }
+  .Excellent {
+    background: #EEFFEE;
+  }
+
+  .Unacceptable td.range-setter > div {
+    color: red;
+  }
+  .Acceptable td.range-setter > div {
+    color: darkorange;
+  }
+  .Good td.range-setter > div {
+    color: darkgoldenrod;
+  }
+  .Excellent td.range-setter > div {
+    color: darkgreen;
+  }
+}

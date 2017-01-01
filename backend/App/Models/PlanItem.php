@@ -140,10 +140,12 @@ class PlanItem extends AppModel {
 	 *
 	 * @return array|null
 	 */
-	public function map($options = []) {
+	public function map($options = ['minimal' => FALSE]) {
 		$map = parent::map();
-		$map['module'] = $this->module->map(['minimal' => TRUE, 'resource' => TRUE]);
-		$map['resource'] = $this->module->resource->map(['minimal' => TRUE]);
+		if (!$options['minimal']) {
+			$map['module'] = $this->module->map(['minimal' => TRUE, 'resource' => FALSE]);
+			$map['resource'] = $this->module->resource->map(['minimal' => TRUE]);
+		}
 		return $map;
 	}
 

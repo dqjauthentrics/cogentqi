@@ -32,7 +32,7 @@ import {LoadingIndicator} from "../components/loading-indicator";
 import {MicroBadgeCount} from "../components/micro-badge-count";
 import {MicroBadge} from "../components/micro-badge";
 import {PageMenu} from "../components/page-menu";
-import {PlanItemList} from "../pages/professional/_plan-item-list";
+import {PlanItemList} from "../pages/plan-items/_plan-item-list";
 
 /**
  * Providers
@@ -47,6 +47,7 @@ import {Graph} from "../providers/graph";
 import {IconProvider} from "../providers/icon";
 import {InstrumentProvider} from "../providers/instrument";
 import {MemberProvider} from "../providers/member";
+import {MemberEventProvider} from "../providers/member-event";
 import {MemberNoteProvider} from "../providers/member-note";
 import {MessageProvider} from "../providers/message";
 import {OrganizationProvider} from "../providers/organization";
@@ -77,6 +78,7 @@ import {ConfigSchedulesPage} from "../pages/configuration/schedule/config";
 import {ConfigSettingsPage} from "../pages/configuration/settings/config";
 import {ConfigurationPage} from "../pages/configuration/index";
 import {DashboardPage} from "../pages/dashboard/dashboard";
+import {EventListPage} from "../pages/event/list";
 import {HelpPage} from "../pages/help/help";
 import {InstrumentViewPage} from "../pages/instrument/view";
 import {LoginPage} from "../pages/login/login";
@@ -92,6 +94,8 @@ import {MemberProgressPage} from "../pages/member/progress";
 import {OrganizationAssessments} from "../pages/assessment/_organization-assessments";
 import {OrganizationDetailPage} from "../pages/organization/detail";
 import {OrganizationListPage} from "../pages/organization/list";
+import {OutcomeListPage} from "../pages/outcome/list";
+import {PlanItemsListPage} from "../pages/plan-items/list";
 import {ProfessionalPage} from "../pages/professional/index";
 import {ReportOutcomeTrends} from "../pages/report/outcome-trends";
 import {ReportResourceAnalysis} from "../pages/report/resource-analysis";
@@ -139,6 +143,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         DataFilterPipe,
         EditorButtonBar,
         Ellipsify,
+        EventListPage,
         FilterArrayPipe,
         HeaderBar,
         HelpPage,
@@ -162,6 +167,8 @@ import {TabsPage} from "../pages/tabs/tabs";
         OrganizationAssessments,
         OrganizationDetailPage,
         OrganizationListPage,
+        OutcomeListPage,
+        PlanItemsListPage,
         ProfessionalPage,
         PageMenu,
         Phone,
@@ -204,6 +211,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         ConfigSettingsPage,
         ConfigurationPage,
         DashboardPage,
+        EventListPage,
         HelpPage,
         InstrumentViewPage,
         LoginPage,
@@ -219,6 +227,8 @@ import {TabsPage} from "../pages/tabs/tabs";
         OrganizationAssessments,
         OrganizationDetailPage,
         OrganizationListPage,
+        OutcomeListPage,
+        PlanItemsListPage,
         ProfessionalPage,
         ReportOutcomeTrends,
         ReportResourceAnalysis,
@@ -244,6 +254,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         InstrumentProvider,
         LoadingIndicator,
         MemberProvider,
+        MemberEventProvider,
         MemberNoteProvider,
         MessageProvider,
         Namify,

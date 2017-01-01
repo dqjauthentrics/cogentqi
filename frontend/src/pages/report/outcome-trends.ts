@@ -17,12 +17,14 @@ export class ReportOutcomeTrends {
     data: any;
 
     constructor(private nav: NavController, private globals: Globals, private session: SessionProvider, public icon: IconProvider, public outcomesProvider: OutcomeProvider) {
-        outcomesProvider.getTrends(session.user.organizationId).then((data: any) => {
-            this.data = data;
-            if (this.data) {
-                this.renderChart();
-            }
-        });
+        if (session.user) {
+            outcomesProvider.getTrends(session.user.organizationId).then((data: any) => {
+                this.data = data;
+                if (this.data) {
+                    this.renderChart();
+                }
+            });
+        }
     }
 
     renderChart() {

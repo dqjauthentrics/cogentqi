@@ -24,7 +24,7 @@ export class AssessmentProvider extends DataModel {
     }
 
     retrieveProgressByMonth(instrumentId, isRollUp) {
-        if (instrumentId) {
+        if (instrumentId && this.session.user) {
             return this.getData('/organizationProgressByMonth/' + this.session.user.organizationId + '/' + instrumentId);
         }
         return null;

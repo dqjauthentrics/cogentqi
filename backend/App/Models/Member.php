@@ -223,6 +223,8 @@ class Member extends AppModel {
 	public function map($options = ['lastAssessment' => TRUE, 'badges' => TRUE, 'assessments' => TRUE, 'notes' => FALSE, 'events' => FALSE, 'minimal' => FALSE]) {
 		$map = parent::map($options);
 		unset($map['password']);
+		unset($map['username']);
+		unset($map['avatar']); // @todo Remove avatars from DB?
 		if (!empty($options['badges'])) {
 			$map["badges"] = $this->mapChildren('\App\Models\MemberBadge', 'member_id', 'earned DESC', ['minimal' => TRUE]);
 		}
@@ -239,6 +241,7 @@ class Member extends AppModel {
 			$map["lastAssessment"] = $this->mapLastAssessment();
 		}
 		if (!empty($options['minimal'])) {
+			$nonMinimalFields = ['address', 'city', 'state', 'phone', 'postal', 'username'];
 			$map['minimal'] = 1; // flag to indicate we're returning minimal info, in case of permission checking
 			$map = Utility::arrayRemoveByKey('address', $map);
 			$map = Utility::arrayRemoveByKey('city', $map);

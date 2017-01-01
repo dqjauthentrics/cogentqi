@@ -4963,16 +4963,24 @@ ion-icon {
   vertical-align: middle !important;
 }
 
-.img.avatar-tiny {
-  width: 24px;
-  height: 24px;
-  border-radius: 24px;
+img.avatar-tiny {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+  border-radius: 32px;
   vertical-align: middle;
 }
 
 img.avatar-full {
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
+  min-width: 64px !important;
+  min-height: 64px !important;
+  max-width: 64px !important;
+  max-height: 64px !important;
   border-radius: 64px;
   vertical-align: middle;
 }
@@ -4980,9 +4988,11 @@ img.avatar-full {
 img.avatar-list {
   width: 48px;
   height: 48px;
-  min-width: 48px;
-  min-height: 48px;
-  border-radius: 8px;
+  min-width: 48px !important;
+  min-height: 48px !important;
+  max-width: 48px !important;
+  max-height: 48px !important;
+  border-radius: 48px;
   vertical-align: middle;
 }
 
@@ -27500,10 +27510,11 @@ ion-content.dashboard.main h1 {
 ion-content.dashboard.main ion-card {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
+  cursor: pointer;
 }
 
 ion-content.dashboard.main .dash-graph {
-  height: 20vh;
+  height: 18vh;
 }
 
 .dashboard .logo img {
@@ -27565,6 +27576,38 @@ ion-content.dashboard.main .dash-graph {
 
 .dashboard .info .role {
   font-style: italic;
+}
+
+.dashboard.event-list .Unacceptable {
+  background: #FFEEEE;
+}
+
+.dashboard.event-list .Acceptable {
+  background: #FFEEAA;
+}
+
+.dashboard.event-list .Good {
+  background: #FFFFDD;
+}
+
+.dashboard.event-list .Excellent {
+  background: #EEFFEE;
+}
+
+.dashboard.event-list .Unacceptable td.range-setter > div {
+  color: red;
+}
+
+.dashboard.event-list .Acceptable td.range-setter > div {
+  color: darkorange;
+}
+
+.dashboard.event-list .Good td.range-setter > div {
+  color: darkgoldenrod;
+}
+
+.dashboard.event-list .Excellent td.range-setter > div {
+  color: darkgreen;
 }
 
 .help-header {
@@ -27884,6 +27927,44 @@ div.note:before {
 
 .organization-list ion-content > div > table > thead > tr > th:nth-child(4), .organization-list ion-content > div > table > tbody > tr > td:nth-child(4) {
   max-width: 2rem;
+}
+
+.dashboard.outcome-list .Unacceptable {
+  background: #FFEEEE;
+}
+
+.dashboard.outcome-list .Acceptable {
+  background: #FFEEAA;
+}
+
+.dashboard.outcome-list .Good {
+  background: #FFFFDD;
+}
+
+.dashboard.outcome-list .Excellent {
+  background: #EEFFEE;
+}
+
+.dashboard.outcome-list .Unacceptable td.range-setter > div {
+  color: red;
+}
+
+.dashboard.outcome-list .Acceptable td.range-setter > div {
+  color: darkorange;
+}
+
+.dashboard.outcome-list .Good td.range-setter > div {
+  color: darkgoldenrod;
+}
+
+.dashboard.outcome-list .Excellent td.range-setter > div {
+  color: darkgreen;
+}
+
+.dashboard.main.professional h1 {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: gray;
 }
 
 .dashboard.main.professional h1 {

@@ -1,9 +1,8 @@
 import {Component} from "@angular/core";
-import {NavController, App} from "ionic-angular";
+import {NavController} from "ionic-angular";
 import {PlanItemProvider} from "../../providers/plan-item";
 import {IconProvider} from "../../providers/icon";
 import {SessionProvider} from "../../providers/session";
-import {AppPage} from "../app-page";
 
 @Component({
     templateUrl: 'index.html'
@@ -19,13 +18,12 @@ export class ProfessionalPage {
     public completedItems: Array<any> = [];
     public inProgressItems: Array<any> = [];
 
-    constructor(protected _app: App, private nav: NavController, private session: SessionProvider, private planItemProvider: PlanItemProvider, public icon: IconProvider) {
-        //super(_app);
+    constructor(private nav: NavController, private session: SessionProvider, private planItemProvider: PlanItemProvider, public icon: IconProvider) {
     }
 
     ngOnInit() {
         if (this.session.user) {
-            this.planItemProvider.forMember(this.session.user.id).then((planItems: any) => {
+            this.planItemProvider.forMember(this.session.user.organizationId, this.session.user.id).then((planItems: any) => {
                 this.loading = true;
                 this.planItems = planItems;
                 this.loading = false;

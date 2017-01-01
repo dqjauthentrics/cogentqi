@@ -1,0 +1,50 @@
+<table class="table table-striped listing" [mfData]="items | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+       [(mfSortBy)]="sortBy"
+       [(mfSortOrder)]="sortOrder">
+    <thead>
+    <tr *ngIf="!memberId">
+        <th colspan="2">
+            <mfDefaultSorter [by]="sortResource">{{'Resource'|translate}}</mfDefaultSorter>
+        </th>
+        <th colspan="2">
+            <mfDefaultSorter [by]="sortMember">{{'Member'|translate}}</mfDefaultSorter>
+        </th>
+    </tr>
+    <tr [hidden]="!loading">
+        <td colspan="4">
+            <loading-indicator [loading]="loading"></loading-indicator>
+        </td>
+    </tr>
+    <tr *ngIf="!memberId">
+        <th colspan="7">
+            <ion-searchbar [(ngModel)]="filterQuery" placeholder="filter"></ion-searchbar>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let planItem of mf.data" class="order" (click)="goToResource(planItem?.resource)">
+        <td class="icon">
+            <micro-badge [src]="planItem.badge?.image"></micro-badge>
+        </td>
+        <td>
+            <div class="name">{{planItem?.resource.number}} {{planItem?.resource.name}}</div>
+        </td>
+        <td *ngIf="!memberId">
+            <div *ngIf="planItem.member">
+                <div><avatar [id]="planItem.member.id" size="list"></avatar></div>
+                <div>{{planItem.member|namify}}</div>
+            </div>
+        </td>
+        <td class="list-drilldown">
+            <i [class]="icon.getClass('drilldown')"></i>
+        </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+    </tr>
+    </tfoot>
+</table>

@@ -1,0 +1,2660 @@
+{
+  "status": 1,
+  "code": 200,
+  "duration": 0.0069,
+  "message": null,
+  "data": [
+    {
+      "id": 3,
+      "eventId": 29,
+      "occurred": "2016-04-29 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 26,
+      "eventId": 38,
+      "occurred": "2016-01-22 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 60,
+      "eventId": 37,
+      "occurred": "2016-01-16 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 84,
+      "eventId": 32,
+      "occurred": "2016-05-13 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 65,
+      "eventId": 36,
+      "occurred": "2016-07-09 19:00:22",
+      "member": {
+        "id": 5,
+        "roleId": "M",
+        "firstName": "Andrea",
+        "lastName": "Franklin",
+        "middleName": null
+      }
+    },
+    {
+      "id": 48,
+      "eventId": 30,
+      "occurred": "2016-12-17 19:00:22",
+      "member": {
+        "id": 6,
+        "roleId": "P",
+        "firstName": "Regina",
+        "lastName": "Shipmans",
+        "middleName": null
+      }
+    },
+    {
+      "id": 31,
+      "eventId": 33,
+      "occurred": "2016-02-19 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 45,
+      "eventId": 31,
+      "occurred": "2016-11-11 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 27,
+      "eventId": 32,
+      "occurred": "2016-08-26 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 54,
+      "eventId": 27,
+      "occurred": "2016-01-05 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 69,
+      "eventId": 34,
+      "occurred": "2016-08-23 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 49,
+      "eventId": 28,
+      "occurred": "2016-06-29 19:00:22",
+      "member": {
+        "id": 14,
+        "roleId": "P",
+        "firstName": "Rachael",
+        "lastName": "Creighton",
+        "middleName": null
+      }
+    },
+    {
+      "id": 25,
+      "eventId": 28,
+      "occurred": "2016-03-20 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 32,
+      "eventId": 30,
+      "occurred": "2015-12-28 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 50,
+      "eventId": 38,
+      "occurred": "2016-08-04 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 74,
+      "eventId": 39,
+      "occurred": "2016-11-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 85,
+      "eventId": 35,
+      "occurred": "2016-07-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 3,
+      "eventId": 29,
+      "occurred": "2016-04-29 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 26,
+      "eventId": 38,
+      "occurred": "2016-01-22 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 60,
+      "eventId": 37,
+      "occurred": "2016-01-16 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 84,
+      "eventId": 32,
+      "occurred": "2016-05-13 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 65,
+      "eventId": 36,
+      "occurred": "2016-07-09 19:00:22",
+      "member": {
+        "id": 5,
+        "roleId": "M",
+        "firstName": "Andrea",
+        "lastName": "Franklin",
+        "middleName": null
+      }
+    },
+    {
+      "id": 48,
+      "eventId": 30,
+      "occurred": "2016-12-17 19:00:22",
+      "member": {
+        "id": 6,
+        "roleId": "P",
+        "firstName": "Regina",
+        "lastName": "Shipmans",
+        "middleName": null
+      }
+    },
+    {
+      "id": 31,
+      "eventId": 33,
+      "occurred": "2016-02-19 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 45,
+      "eventId": 31,
+      "occurred": "2016-11-11 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 27,
+      "eventId": 32,
+      "occurred": "2016-08-26 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 54,
+      "eventId": 27,
+      "occurred": "2016-01-05 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 69,
+      "eventId": 34,
+      "occurred": "2016-08-23 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 49,
+      "eventId": 28,
+      "occurred": "2016-06-29 19:00:22",
+      "member": {
+        "id": 14,
+        "roleId": "P",
+        "firstName": "Rachael",
+        "lastName": "Creighton",
+        "middleName": null
+      }
+    },
+    {
+      "id": 25,
+      "eventId": 28,
+      "occurred": "2016-03-20 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 32,
+      "eventId": 30,
+      "occurred": "2015-12-28 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 50,
+      "eventId": 38,
+      "occurred": "2016-08-04 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 74,
+      "eventId": 39,
+      "occurred": "2016-11-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 85,
+      "eventId": 35,
+      "occurred": "2016-07-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 3,
+      "eventId": 29,
+      "occurred": "2016-04-29 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 26,
+      "eventId": 38,
+      "occurred": "2016-01-22 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 60,
+      "eventId": 37,
+      "occurred": "2016-01-16 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 84,
+      "eventId": 32,
+      "occurred": "2016-05-13 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 65,
+      "eventId": 36,
+      "occurred": "2016-07-09 19:00:22",
+      "member": {
+        "id": 5,
+        "roleId": "M",
+        "firstName": "Andrea",
+        "lastName": "Franklin",
+        "middleName": null
+      }
+    },
+    {
+      "id": 48,
+      "eventId": 30,
+      "occurred": "2016-12-17 19:00:22",
+      "member": {
+        "id": 6,
+        "roleId": "P",
+        "firstName": "Regina",
+        "lastName": "Shipmans",
+        "middleName": null
+      }
+    },
+    {
+      "id": 31,
+      "eventId": 33,
+      "occurred": "2016-02-19 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 45,
+      "eventId": 31,
+      "occurred": "2016-11-11 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 27,
+      "eventId": 32,
+      "occurred": "2016-08-26 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 54,
+      "eventId": 27,
+      "occurred": "2016-01-05 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 69,
+      "eventId": 34,
+      "occurred": "2016-08-23 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 49,
+      "eventId": 28,
+      "occurred": "2016-06-29 19:00:22",
+      "member": {
+        "id": 14,
+        "roleId": "P",
+        "firstName": "Rachael",
+        "lastName": "Creighton",
+        "middleName": null
+      }
+    },
+    {
+      "id": 25,
+      "eventId": 28,
+      "occurred": "2016-03-20 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 32,
+      "eventId": 30,
+      "occurred": "2015-12-28 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 50,
+      "eventId": 38,
+      "occurred": "2016-08-04 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 74,
+      "eventId": 39,
+      "occurred": "2016-11-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 85,
+      "eventId": 35,
+      "occurred": "2016-07-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 3,
+      "eventId": 29,
+      "occurred": "2016-04-29 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 26,
+      "eventId": 38,
+      "occurred": "2016-01-22 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 60,
+      "eventId": 37,
+      "occurred": "2016-01-16 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 84,
+      "eventId": 32,
+      "occurred": "2016-05-13 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 65,
+      "eventId": 36,
+      "occurred": "2016-07-09 19:00:22",
+      "member": {
+        "id": 5,
+        "roleId": "M",
+        "firstName": "Andrea",
+        "lastName": "Franklin",
+        "middleName": null
+      }
+    },
+    {
+      "id": 48,
+      "eventId": 30,
+      "occurred": "2016-12-17 19:00:22",
+      "member": {
+        "id": 6,
+        "roleId": "P",
+        "firstName": "Regina",
+        "lastName": "Shipmans",
+        "middleName": null
+      }
+    },
+    {
+      "id": 31,
+      "eventId": 33,
+      "occurred": "2016-02-19 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 45,
+      "eventId": 31,
+      "occurred": "2016-11-11 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 27,
+      "eventId": 32,
+      "occurred": "2016-08-26 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 54,
+      "eventId": 27,
+      "occurred": "2016-01-05 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 69,
+      "eventId": 34,
+      "occurred": "2016-08-23 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 49,
+      "eventId": 28,
+      "occurred": "2016-06-29 19:00:22",
+      "member": {
+        "id": 14,
+        "roleId": "P",
+        "firstName": "Rachael",
+        "lastName": "Creighton",
+        "middleName": null
+      }
+    },
+    {
+      "id": 25,
+      "eventId": 28,
+      "occurred": "2016-03-20 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 32,
+      "eventId": 30,
+      "occurred": "2015-12-28 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 50,
+      "eventId": 38,
+      "occurred": "2016-08-04 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 74,
+      "eventId": 39,
+      "occurred": "2016-11-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 85,
+      "eventId": 35,
+      "occurred": "2016-07-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 3,
+      "eventId": 29,
+      "occurred": "2016-04-29 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 26,
+      "eventId": 38,
+      "occurred": "2016-01-22 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 60,
+      "eventId": 37,
+      "occurred": "2016-01-16 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 84,
+      "eventId": 32,
+      "occurred": "2016-05-13 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 65,
+      "eventId": 36,
+      "occurred": "2016-07-09 19:00:22",
+      "member": {
+        "id": 5,
+        "roleId": "M",
+        "firstName": "Andrea",
+        "lastName": "Franklin",
+        "middleName": null
+      }
+    },
+    {
+      "id": 48,
+      "eventId": 30,
+      "occurred": "2016-12-17 19:00:22",
+      "member": {
+        "id": 6,
+        "roleId": "P",
+        "firstName": "Regina",
+        "lastName": "Shipmans",
+        "middleName": null
+      }
+    },
+    {
+      "id": 31,
+      "eventId": 33,
+      "occurred": "2016-02-19 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 45,
+      "eventId": 31,
+      "occurred": "2016-11-11 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 27,
+      "eventId": 32,
+      "occurred": "2016-08-26 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 54,
+      "eventId": 27,
+      "occurred": "2016-01-05 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 69,
+      "eventId": 34,
+      "occurred": "2016-08-23 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 49,
+      "eventId": 28,
+      "occurred": "2016-06-29 19:00:22",
+      "member": {
+        "id": 14,
+        "roleId": "P",
+        "firstName": "Rachael",
+        "lastName": "Creighton",
+        "middleName": null
+      }
+    },
+    {
+      "id": 25,
+      "eventId": 28,
+      "occurred": "2016-03-20 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 32,
+      "eventId": 30,
+      "occurred": "2015-12-28 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 50,
+      "eventId": 38,
+      "occurred": "2016-08-04 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 74,
+      "eventId": 39,
+      "occurred": "2016-11-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 85,
+      "eventId": 35,
+      "occurred": "2016-07-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 3,
+      "eventId": 29,
+      "occurred": "2016-04-29 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 26,
+      "eventId": 38,
+      "occurred": "2016-01-22 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 60,
+      "eventId": 37,
+      "occurred": "2016-01-16 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 84,
+      "eventId": 32,
+      "occurred": "2016-05-13 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 65,
+      "eventId": 36,
+      "occurred": "2016-07-09 19:00:22",
+      "member": {
+        "id": 5,
+        "roleId": "M",
+        "firstName": "Andrea",
+        "lastName": "Franklin",
+        "middleName": null
+      }
+    },
+    {
+      "id": 48,
+      "eventId": 30,
+      "occurred": "2016-12-17 19:00:22",
+      "member": {
+        "id": 6,
+        "roleId": "P",
+        "firstName": "Regina",
+        "lastName": "Shipmans",
+        "middleName": null
+      }
+    },
+    {
+      "id": 31,
+      "eventId": 33,
+      "occurred": "2016-02-19 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 45,
+      "eventId": 31,
+      "occurred": "2016-11-11 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 27,
+      "eventId": 32,
+      "occurred": "2016-08-26 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 54,
+      "eventId": 27,
+      "occurred": "2016-01-05 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 69,
+      "eventId": 34,
+      "occurred": "2016-08-23 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 49,
+      "eventId": 28,
+      "occurred": "2016-06-29 19:00:22",
+      "member": {
+        "id": 14,
+        "roleId": "P",
+        "firstName": "Rachael",
+        "lastName": "Creighton",
+        "middleName": null
+      }
+    },
+    {
+      "id": 25,
+      "eventId": 28,
+      "occurred": "2016-03-20 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 32,
+      "eventId": 30,
+      "occurred": "2015-12-28 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 50,
+      "eventId": 38,
+      "occurred": "2016-08-04 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 74,
+      "eventId": 39,
+      "occurred": "2016-11-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 85,
+      "eventId": 35,
+      "occurred": "2016-07-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 3,
+      "eventId": 29,
+      "occurred": "2016-04-29 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 26,
+      "eventId": 38,
+      "occurred": "2016-01-22 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 60,
+      "eventId": 37,
+      "occurred": "2016-01-16 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 84,
+      "eventId": 32,
+      "occurred": "2016-05-13 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 65,
+      "eventId": 36,
+      "occurred": "2016-07-09 19:00:22",
+      "member": {
+        "id": 5,
+        "roleId": "M",
+        "firstName": "Andrea",
+        "lastName": "Franklin",
+        "middleName": null
+      }
+    },
+    {
+      "id": 48,
+      "eventId": 30,
+      "occurred": "2016-12-17 19:00:22",
+      "member": {
+        "id": 6,
+        "roleId": "P",
+        "firstName": "Regina",
+        "lastName": "Shipmans",
+        "middleName": null
+      }
+    },
+    {
+      "id": 31,
+      "eventId": 33,
+      "occurred": "2016-02-19 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 45,
+      "eventId": 31,
+      "occurred": "2016-11-11 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 27,
+      "eventId": 32,
+      "occurred": "2016-08-26 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 54,
+      "eventId": 27,
+      "occurred": "2016-01-05 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 69,
+      "eventId": 34,
+      "occurred": "2016-08-23 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 49,
+      "eventId": 28,
+      "occurred": "2016-06-29 19:00:22",
+      "member": {
+        "id": 14,
+        "roleId": "P",
+        "firstName": "Rachael",
+        "lastName": "Creighton",
+        "middleName": null
+      }
+    },
+    {
+      "id": 25,
+      "eventId": 28,
+      "occurred": "2016-03-20 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 32,
+      "eventId": 30,
+      "occurred": "2015-12-28 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 50,
+      "eventId": 38,
+      "occurred": "2016-08-04 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 74,
+      "eventId": 39,
+      "occurred": "2016-11-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 85,
+      "eventId": 35,
+      "occurred": "2016-07-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 3,
+      "eventId": 29,
+      "occurred": "2016-04-29 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 26,
+      "eventId": 38,
+      "occurred": "2016-01-22 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 60,
+      "eventId": 37,
+      "occurred": "2016-01-16 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 84,
+      "eventId": 32,
+      "occurred": "2016-05-13 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 65,
+      "eventId": 36,
+      "occurred": "2016-07-09 19:00:22",
+      "member": {
+        "id": 5,
+        "roleId": "M",
+        "firstName": "Andrea",
+        "lastName": "Franklin",
+        "middleName": null
+      }
+    },
+    {
+      "id": 48,
+      "eventId": 30,
+      "occurred": "2016-12-17 19:00:22",
+      "member": {
+        "id": 6,
+        "roleId": "P",
+        "firstName": "Regina",
+        "lastName": "Shipmans",
+        "middleName": null
+      }
+    },
+    {
+      "id": 31,
+      "eventId": 33,
+      "occurred": "2016-02-19 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 45,
+      "eventId": 31,
+      "occurred": "2016-11-11 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 27,
+      "eventId": 32,
+      "occurred": "2016-08-26 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 54,
+      "eventId": 27,
+      "occurred": "2016-01-05 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 69,
+      "eventId": 34,
+      "occurred": "2016-08-23 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 49,
+      "eventId": 28,
+      "occurred": "2016-06-29 19:00:22",
+      "member": {
+        "id": 14,
+        "roleId": "P",
+        "firstName": "Rachael",
+        "lastName": "Creighton",
+        "middleName": null
+      }
+    },
+    {
+      "id": 25,
+      "eventId": 28,
+      "occurred": "2016-03-20 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 32,
+      "eventId": 30,
+      "occurred": "2015-12-28 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 50,
+      "eventId": 38,
+      "occurred": "2016-08-04 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 74,
+      "eventId": 39,
+      "occurred": "2016-11-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 85,
+      "eventId": 35,
+      "occurred": "2016-07-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 3,
+      "eventId": 29,
+      "occurred": "2016-04-29 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 26,
+      "eventId": 38,
+      "occurred": "2016-01-22 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 60,
+      "eventId": 37,
+      "occurred": "2016-01-16 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 84,
+      "eventId": 32,
+      "occurred": "2016-05-13 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 65,
+      "eventId": 36,
+      "occurred": "2016-07-09 19:00:22",
+      "member": {
+        "id": 5,
+        "roleId": "M",
+        "firstName": "Andrea",
+        "lastName": "Franklin",
+        "middleName": null
+      }
+    },
+    {
+      "id": 48,
+      "eventId": 30,
+      "occurred": "2016-12-17 19:00:22",
+      "member": {
+        "id": 6,
+        "roleId": "P",
+        "firstName": "Regina",
+        "lastName": "Shipmans",
+        "middleName": null
+      }
+    },
+    {
+      "id": 31,
+      "eventId": 33,
+      "occurred": "2016-02-19 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 45,
+      "eventId": 31,
+      "occurred": "2016-11-11 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 27,
+      "eventId": 32,
+      "occurred": "2016-08-26 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 54,
+      "eventId": 27,
+      "occurred": "2016-01-05 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 69,
+      "eventId": 34,
+      "occurred": "2016-08-23 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 49,
+      "eventId": 28,
+      "occurred": "2016-06-29 19:00:22",
+      "member": {
+        "id": 14,
+        "roleId": "P",
+        "firstName": "Rachael",
+        "lastName": "Creighton",
+        "middleName": null
+      }
+    },
+    {
+      "id": 25,
+      "eventId": 28,
+      "occurred": "2016-03-20 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 32,
+      "eventId": 30,
+      "occurred": "2015-12-28 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 50,
+      "eventId": 38,
+      "occurred": "2016-08-04 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 74,
+      "eventId": 39,
+      "occurred": "2016-11-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 85,
+      "eventId": 35,
+      "occurred": "2016-07-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 3,
+      "eventId": 29,
+      "occurred": "2016-04-29 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 26,
+      "eventId": 38,
+      "occurred": "2016-01-22 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 60,
+      "eventId": 37,
+      "occurred": "2016-01-16 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 84,
+      "eventId": 32,
+      "occurred": "2016-05-13 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 65,
+      "eventId": 36,
+      "occurred": "2016-07-09 19:00:22",
+      "member": {
+        "id": 5,
+        "roleId": "M",
+        "firstName": "Andrea",
+        "lastName": "Franklin",
+        "middleName": null
+      }
+    },
+    {
+      "id": 48,
+      "eventId": 30,
+      "occurred": "2016-12-17 19:00:22",
+      "member": {
+        "id": 6,
+        "roleId": "P",
+        "firstName": "Regina",
+        "lastName": "Shipmans",
+        "middleName": null
+      }
+    },
+    {
+      "id": 31,
+      "eventId": 33,
+      "occurred": "2016-02-19 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 45,
+      "eventId": 31,
+      "occurred": "2016-11-11 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 27,
+      "eventId": 32,
+      "occurred": "2016-08-26 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 54,
+      "eventId": 27,
+      "occurred": "2016-01-05 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 69,
+      "eventId": 34,
+      "occurred": "2016-08-23 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 49,
+      "eventId": 28,
+      "occurred": "2016-06-29 19:00:22",
+      "member": {
+        "id": 14,
+        "roleId": "P",
+        "firstName": "Rachael",
+        "lastName": "Creighton",
+        "middleName": null
+      }
+    },
+    {
+      "id": 25,
+      "eventId": 28,
+      "occurred": "2016-03-20 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 32,
+      "eventId": 30,
+      "occurred": "2015-12-28 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 50,
+      "eventId": 38,
+      "occurred": "2016-08-04 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 74,
+      "eventId": 39,
+      "occurred": "2016-11-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 85,
+      "eventId": 35,
+      "occurred": "2016-07-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 3,
+      "eventId": 29,
+      "occurred": "2016-04-29 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 26,
+      "eventId": 38,
+      "occurred": "2016-01-22 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 60,
+      "eventId": 37,
+      "occurred": "2016-01-16 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 84,
+      "eventId": 32,
+      "occurred": "2016-05-13 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 65,
+      "eventId": 36,
+      "occurred": "2016-07-09 19:00:22",
+      "member": {
+        "id": 5,
+        "roleId": "M",
+        "firstName": "Andrea",
+        "lastName": "Franklin",
+        "middleName": null
+      }
+    },
+    {
+      "id": 48,
+      "eventId": 30,
+      "occurred": "2016-12-17 19:00:22",
+      "member": {
+        "id": 6,
+        "roleId": "P",
+        "firstName": "Regina",
+        "lastName": "Shipmans",
+        "middleName": null
+      }
+    },
+    {
+      "id": 31,
+      "eventId": 33,
+      "occurred": "2016-02-19 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 45,
+      "eventId": 31,
+      "occurred": "2016-11-11 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 27,
+      "eventId": 32,
+      "occurred": "2016-08-26 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 54,
+      "eventId": 27,
+      "occurred": "2016-01-05 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 69,
+      "eventId": 34,
+      "occurred": "2016-08-23 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 49,
+      "eventId": 28,
+      "occurred": "2016-06-29 19:00:22",
+      "member": {
+        "id": 14,
+        "roleId": "P",
+        "firstName": "Rachael",
+        "lastName": "Creighton",
+        "middleName": null
+      }
+    },
+    {
+      "id": 25,
+      "eventId": 28,
+      "occurred": "2016-03-20 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 32,
+      "eventId": 30,
+      "occurred": "2015-12-28 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 50,
+      "eventId": 38,
+      "occurred": "2016-08-04 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 74,
+      "eventId": 39,
+      "occurred": "2016-11-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 85,
+      "eventId": 35,
+      "occurred": "2016-07-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 3,
+      "eventId": 29,
+      "occurred": "2016-04-29 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 26,
+      "eventId": 38,
+      "occurred": "2016-01-22 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 60,
+      "eventId": 37,
+      "occurred": "2016-01-16 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 84,
+      "eventId": 32,
+      "occurred": "2016-05-13 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 65,
+      "eventId": 36,
+      "occurred": "2016-07-09 19:00:22",
+      "member": {
+        "id": 5,
+        "roleId": "M",
+        "firstName": "Andrea",
+        "lastName": "Franklin",
+        "middleName": null
+      }
+    },
+    {
+      "id": 48,
+      "eventId": 30,
+      "occurred": "2016-12-17 19:00:22",
+      "member": {
+        "id": 6,
+        "roleId": "P",
+        "firstName": "Regina",
+        "lastName": "Shipmans",
+        "middleName": null
+      }
+    },
+    {
+      "id": 31,
+      "eventId": 33,
+      "occurred": "2016-02-19 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 45,
+      "eventId": 31,
+      "occurred": "2016-11-11 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 27,
+      "eventId": 32,
+      "occurred": "2016-08-26 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 54,
+      "eventId": 27,
+      "occurred": "2016-01-05 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 69,
+      "eventId": 34,
+      "occurred": "2016-08-23 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 49,
+      "eventId": 28,
+      "occurred": "2016-06-29 19:00:22",
+      "member": {
+        "id": 14,
+        "roleId": "P",
+        "firstName": "Rachael",
+        "lastName": "Creighton",
+        "middleName": null
+      }
+    },
+    {
+      "id": 25,
+      "eventId": 28,
+      "occurred": "2016-03-20 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 32,
+      "eventId": 30,
+      "occurred": "2015-12-28 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 50,
+      "eventId": 38,
+      "occurred": "2016-08-04 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 74,
+      "eventId": 39,
+      "occurred": "2016-11-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 85,
+      "eventId": 35,
+      "occurred": "2016-07-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 3,
+      "eventId": 29,
+      "occurred": "2016-04-29 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 26,
+      "eventId": 38,
+      "occurred": "2016-01-22 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 60,
+      "eventId": 37,
+      "occurred": "2016-01-16 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 84,
+      "eventId": 32,
+      "occurred": "2016-05-13 19:00:22",
+      "member": {
+        "id": 4,
+        "roleId": "M",
+        "firstName": "Benjamin",
+        "lastName": "Foreman",
+        "middleName": null
+      }
+    },
+    {
+      "id": 65,
+      "eventId": 36,
+      "occurred": "2016-07-09 19:00:22",
+      "member": {
+        "id": 5,
+        "roleId": "M",
+        "firstName": "Andrea",
+        "lastName": "Franklin",
+        "middleName": null
+      }
+    },
+    {
+      "id": 48,
+      "eventId": 30,
+      "occurred": "2016-12-17 19:00:22",
+      "member": {
+        "id": 6,
+        "roleId": "P",
+        "firstName": "Regina",
+        "lastName": "Shipmans",
+        "middleName": null
+      }
+    },
+    {
+      "id": 31,
+      "eventId": 33,
+      "occurred": "2016-02-19 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 45,
+      "eventId": 31,
+      "occurred": "2016-11-11 19:00:22",
+      "member": {
+        "id": 11,
+        "roleId": "T",
+        "firstName": "Roger",
+        "lastName": "Bitworthy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 27,
+      "eventId": 32,
+      "occurred": "2016-08-26 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 54,
+      "eventId": 27,
+      "occurred": "2016-01-05 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 69,
+      "eventId": 34,
+      "occurred": "2016-08-23 19:00:22",
+      "member": {
+        "id": 12,
+        "roleId": "T",
+        "firstName": "Greg",
+        "lastName": "Abernathy",
+        "middleName": null
+      }
+    },
+    {
+      "id": 49,
+      "eventId": 28,
+      "occurred": "2016-06-29 19:00:22",
+      "member": {
+        "id": 14,
+        "roleId": "P",
+        "firstName": "Rachael",
+        "lastName": "Creighton",
+        "middleName": null
+      }
+    },
+    {
+      "id": 25,
+      "eventId": 28,
+      "occurred": "2016-03-20 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 32,
+      "eventId": 30,
+      "occurred": "2015-12-28 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 50,
+      "eventId": 38,
+      "occurred": "2016-08-04 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 74,
+      "eventId": 39,
+      "occurred": "2016-11-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    },
+    {
+      "id": 85,
+      "eventId": 35,
+      "occurred": "2016-07-01 19:00:22",
+      "member": {
+        "id": 15,
+        "roleId": "P",
+        "firstName": "Bob",
+        "lastName": "Waters",
+        "middleName": null
+      }
+    }
+  ]
+}

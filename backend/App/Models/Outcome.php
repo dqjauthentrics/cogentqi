@@ -25,6 +25,12 @@ class Outcome extends AppModel {
 
 	/**
 	 *
+	 * @var integer
+	 */
+	public $level;
+
+	/**
+	 *
 	 * @var string
 	 */
 	public $summary;
@@ -39,6 +45,12 @@ class Outcome extends AppModel {
 	 *
 	 * @var string
 	 */
+	public $last_updated;
+
+	/**
+	 *
+	 * @var string
+	 */
 	public $method;
 
 	/**
@@ -48,32 +60,10 @@ class Outcome extends AppModel {
 	public $sort_order;
 
 	/**
-	 * Allows to query a set of records that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return Outcome[]
-	 */
-	public static function find($parameters = NULL) {
-		return parent::find($parameters);
-	}
-
-	/**
-	 * Allows to query the first record that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return Outcome
-	 */
-	public static function findFirst($parameters = NULL) {
-		return parent::findFirst($parameters);
-	}
-
-	/**
 	 * Initialize method for model.
 	 */
 	public function initialize() {
-		$this->hasMany('id', 'App\Models\OrganizationOutcome', 'outcome_id', ['alias' => 'OrganizationOutcomes']);
+		$this->hasMany('id', 'App\Models\OutcomeReport', 'outcome_id', ['alias' => 'OutcomeReports']);
 		$this->hasMany('id', 'App\Models\OutcomeAlignment', 'outcome_id', ['alias' => 'Alignments']);
 		$this->hasMany('id', 'App\Models\OutcomeEvent', 'outcome_id', ['alias' => 'Events']);
 	}
@@ -103,29 +93,6 @@ class Outcome extends AppModel {
 			}
 			$map["alignments"] = $jsonAlignments;
 		}
-		$jsonOutcomeLevels = [];
-		if (!empty($options['singleOrgId'])) {
-			$dbRecords = OrganizationOutcome::query()->where('organization_id=:id:', ['id' => $options['singleOrgId']])->orderBy('outcomeId')->execute();
-			foreach ($this->$dbRecords() as $dbRecord) {
-				$outId = (int)$dbRecord->outcome_id;
-				$jsonOutcomeLevels[$outId] = (int)$dbRecord->level;
-			}
-			$map["levels"] = $jsonOutcomeLevels;
-		}
-		/**
-		 * else {
-		 * $dbRecords = $database->table('organization_outcome')->fetchAll(); //->order('organizationId,outcomeId');
-		 * foreach ($dbRecords as $dbRecord) {
-		 * $organizationId = (int)$dbRecord["organization_id"];
-		 * $outId = (int)$dbRecord["outcome_id"];
-		 * if (empty($jsonOutcomeLevels[$organizationId])) {
-		 * $jsonOutcomeLevels[$organizationId] = [];
-		 * }
-		 * $jsonOutcomeLevels[$organizationId][$outId] = (int)$dbRecord["level"];
-		 * }
-		 * $map["levels"] = $jsonOutcomeLevels;
-		 * }
-		 **/
 		return $map;
 	}
 
@@ -148,11 +115,10 @@ class Outcome extends AppModel {
 
 		/** Get series names for outcomes.
 		 */
-		$oSql = "SELECT ot.name, YEAR(oo.evaluated) AS yr, DATE_FORMAT(oo.evaluated, '%m') AS mo, AVG(oo.level) AS average
-					FROM outcome AS ot, organization_outcome AS oo
-					WHERE oo.organization_id=" . ((int)$organizationId) . " AND ot.id=oo.outcome_id
-					GROUP BY ot.name, YEAR(oo.evaluated), DATE_FORMAT(oo.evaluated, '%m'), ot.name
-					ORDER BY ot.sort_order, ot.name, YEAR(oo.evaluated), DATE_FORMAT(oo.evaluated, '%m');";
+		$oSql = "SELECT name, YEAR(last_updated) AS yr, DATE_FORMAT(last_updated, '%m') AS mo, AVG(level) AS average
+					FROM outcome
+					GROUP BY name, YEAR(last_updated), DATE_FORMAT(last_updated, '%m'), name
+					ORDER BY sort_order, name, YEAR(last_updated), DATE_FORMAT(last_updated, '%m');";
 		$dbRecords = $this->getDBIF()->query($oSql)->fetchAll();
 		foreach ($dbRecords as $rec) {
 			if ((int)$rec["yr"] < $startYr) {
@@ -216,11 +182,10 @@ class Outcome extends AppModel {
 		/**
 		 * Append the single overall outcomes series.
 		 */
-		$sql = "SELECT YEAR(oo.evaluated) AS yr, DATE_FORMAT(oo.evaluated, '%m') AS mo, AVG(oo.level) AS average
-					FROM outcome AS ot, organization_outcome AS oo
-					WHERE oo.organization_id=" . ((int)$organizationId) . " AND oo.evaluated >= DATE_SUB(NOW(),INTERVAL 1 YEAR)
-					GROUP BY YEAR(oo.evaluated), DATE_FORMAT(oo.evaluated, '%m')
-					ORDER BY YEAR(oo.evaluated), DATE_FORMAT(oo.evaluated, '%m');";
+		$sql = "SELECT YEAR(last_updated) AS yr, DATE_FORMAT(last_updated, '%m') AS mo, AVG(oo.level) AS average
+					FROM outcome 
+					GROUP BY YEAR(last_updated), DATE_FORMAT(last_updated, '%m')
+					ORDER BY YEAR(last_updated), DATE_FORMAT(last_updated, '%m');";
 		$dbRecords = $this->getDBIF()->query($sql)->fetchAll();
 		if (!empty($dbRecords)) {
 			$seriesPos = count($seriesNames);

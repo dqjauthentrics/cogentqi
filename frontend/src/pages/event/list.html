@@ -1,0 +1,72 @@
+<ion-header>
+    <header-bar title="{{(event && event.name? event.name+' ':'')}} {{'Events'|translate}}"></header-bar>
+</ion-header>
+
+<ion-content class="dashboard event-list">
+    <ion-card *ngIf="event">
+        <h1>{{event.category}}: {{event.name}}</h1>
+        <div class="description" [innerHTML]="event.description"></div>
+    </ion-card>
+    <ion-card>
+        <table class="table table-striped listing" [mfData]="memberEvents | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+               [(mfSortBy)]="sortBy"
+               [(mfSortOrder)]="sortOrder">
+            <thead>
+            <tr *ngIf="!memberId">
+                <th>
+                    <mfDefaultSorter [by]="sortOccurred">{{'Occurred'|translate}}</mfDefaultSorter>
+                </th>
+                <th colspan="2" *ngIf="!event">
+                    <mfDefaultSorter [by]="sortName">{{'Event'|translate}}</mfDefaultSorter>
+                </th>
+                <th *ngIf="!event">
+                    <mfDefaultSorter [by]="sortCategory">{{'Category'|translate}}</mfDefaultSorter>
+                </th>
+                <th colspan="2">
+                    <mfDefaultSorter [by]="sortMember">{{'Member'|translate}}</mfDefaultSorter>
+                </th>
+            </tr>
+            <tr>
+                <th colspan="7">
+                    <ion-searchbar [(ngModel)]="filterQuery" placeholder="filter"></ion-searchbar>
+                </th>
+            </tr>
+            <tr [hidden]="!loading">
+                <td colspan="4">
+                    <loading-indicator [loading]="loading"></loading-indicator>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let memberEvent of mf.data">
+                <td>
+                    {{memberEvent.occurred|date:'short'}}
+                </td>
+                <td class="icon" *ngIf="!event">
+                    <app-icon name="event"></app-icon>
+                </td>
+                <td *ngIf="!event">
+                    <div class="name">{{eventInfo(memberEvent, 'name')}}</div>
+                    <div class="description" [innerHTML]="eventInfo(memberEvent, 'description')"></div>
+                </td>
+                <td *ngIf="!event">
+                    {{eventInfo(memberEvent, 'category')}}
+                </td>
+                <td>
+                    <div>
+                        <avatar [id]="memberEvent.member.id" size="list"></avatar>
+                    </div>
+                    <div>{{memberEvent.member|namify}}</div>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </ion-card>
+</ion-content>

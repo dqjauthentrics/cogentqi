@@ -1,14 +1,20 @@
 import {SessionProvider} from "../../providers/session";
 import {AssessmentProvider} from "../../providers/assessment";
+import {Globals} from "../../providers/globals";
 import {Config} from "../../providers/config";
 import {Graph} from "../../providers/graph";
-import {EventProvider} from "../../providers/event";
+import {MemberEventProvider} from "../../providers/member-event";
+import {OutcomeProvider} from "../../providers/outcome";
 import {PlanItemProvider} from "../../providers/plan-item";
 import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
 import {ResourceListPage} from "../resource/list";
 import {MatrixPage} from "../matrix/matrix";
 import {Translate} from "../../pipes/translate";
+import {OutcomeListPage} from "../outcome/list";
+import {AssessmentListPage} from "../assessment/list";
+import {PlanItemsListPage} from "../plan-items/list";
+import {EventListPage} from "../event/list";
 
 declare let Highcharts;
 
@@ -16,6 +22,10 @@ declare let Highcharts;
     templateUrl: 'dashboard.html',
 })
 export class DashboardPage {
+    loadingEvents: boolean = true;
+    loadingAssessments: boolean = true;
+    loadingPlanItems: boolean = true;
+    loadingEventTypes: boolean = true;
     user: any = null;
     matrix: MatrixPage;
     resources: ResourceListPage;
@@ -25,31 +35,60 @@ export class DashboardPage {
     planItemData: any;
     eventTypesData: any;
 
-    constructor(public config: Config, private nav: NavController, private navParams: NavParams, private graph: Graph, public session: SessionProvider,
-                public eventProvider: EventProvider, public assessmentProvider: AssessmentProvider, private planItemProvider: PlanItemProvider) {
-        this.user = session.user;
-        this.translator = new Translate(this.config);
-        eventProvider.retrieveYear(this.user.organizationId).then((data) => {
-            this.eventsData = data;
-            this.renderEventsChart();
-        });
-        assessmentProvider.retrieveYear(this.user.organizationId).then((data) => {
-            this.assessmentsData = data;
-            this.renderAssessmentsChart();
-        });
-        planItemProvider.retrieveYear(this.user.organizationId, planItemProvider.STATUS_COMPLETED).then((data) => {
-            this.planItemData = data;
-            this.renderPlanItemsChart();
-        });
-        eventProvider.retrieveTypes(this.user.organizationId).then((data) => {
-            this.eventTypesData = data;
-            this.renderEventTypesPie();
-        });
+    constructor(public config: Config, private nav: NavController, private navParams: NavParams,
+                private outcomeProvider: OutcomeProvider, private graph: Graph, public session: SessionProvider,
+                public memberEventProvider: MemberEventProvider, public assessmentProvider: AssessmentProvider,
+                private globals: Globals, private planItemProvider: PlanItemProvider) {
+
+        if (session.user) {
+            this.user = session.user;
+            this.translator = new Translate(this.config);
+            outcomeProvider.init().then(() => {
+                this.renderOutcomesGauge();
+
+            });
+            memberEventProvider.retrieveYear(this.user.organizationId).then((data) => {
+                this.eventsData = data;
+                this.renderEventsChart();
+            });
+            assessmentProvider.retrieveYear(this.user.organizationId).then((data) => {
+                this.assessmentsData = data;
+                this.renderAssessmentsChart();
+            });
+            planItemProvider.retrieveYear(this.user.organizationId, planItemProvider.STATUS_COMPLETED).then((data) => {
+                this.planItemData = data;
+                this.renderPlanItemsChart();
+            });
+            memberEventProvider.retrieveTypes(this.user.organizationId).then((data) => {
+                this.eventTypesData = data;
+                this.renderEventTypesPie();
+            });
+        }
     }
+
+    goToOutcomes() {
+        this.nav.push(OutcomeListPage);
+    }
+
+    goToAssessments() {
+        this.nav.push(AssessmentListPage);
+    }
+
+    goToEvents() {
+        this.nav.push(EventListPage);
+    }
+
+    goToMatrix() {
+        this.nav.push(MatrixPage);
+    }
+
+    goToPlanItems() {
+        this.nav.push(PlanItemsListPage);
+    }
+
 
     ngOnInit() {
         this.renderAssessmentsGauge();
-        this.renderOutcomesGauge();
     }
 
     renderGauge(id, value, min, max, lbl) {
@@ -159,7 +198,7 @@ export class DashboardPage {
                 yAxis: {
                     min: 0,
                     title: {
-                        text: this.translator.transform('Events')
+                        text: this.translator.transform('No. Events')
                     },
                     stackLabels: {
                         enabled: false
@@ -168,6 +207,7 @@ export class DashboardPage {
                 series: this.eventsData.series
             };
             Highcharts.chart(document.getElementById('eventsChart'), options);
+            this.loadingEvents = false;
         }
     }
 
@@ -192,7 +232,7 @@ export class DashboardPage {
                 yAxis: {
                     min: 0,
                     title: {
-                        text: this.translator.transform('Completions')
+                        text: this.translator.transform('No. Completions')
                     },
                     stackLabels: {
                         enabled: false
@@ -201,15 +241,33 @@ export class DashboardPage {
                 series: this.planItemData.series
             };
             Highcharts.chart(document.getElementById('planItemsChart'), options);
+            this.loadingPlanItems = false;
         }
+    }
+
+    eventTypeSelected(chart, event) {
+        let id = event.point.eventId;
+        let eventData = {
+            id: id,
+            name: this.globals.appEvents[id]['name'],
+            description: this.globals.appEvents[id]['description'],
+            category: this.globals.appEvents[id]['category'],
+        };
+        this.nav.push(EventListPage, eventData);
     }
 
     renderEventTypesPie() {
         if (this.eventTypesData) {
-            console.log('ppp', this.eventTypesData);
-            let options:any = this.graph.pieGraphConfig('', '', this.eventTypesData.series, false);
-            options.plotOptions.pie.dataLabels = {enabled:false};
+            let comp = this;
+            let options: any = this.graph.pieGraphConfig('', '', this.eventTypesData.series, false);
+            options.plotOptions.pie.dataLabels = {enabled: false};
+            options.series[0].events = {
+                click: function (event) {
+                    comp.eventTypeSelected(this, event);
+                }
+            };
             Highcharts.chart(document.getElementById('eventTypesPie'), options);
+            this.loadingEventTypes = false;
         }
     }
 
@@ -234,7 +292,7 @@ export class DashboardPage {
                 yAxis: {
                     min: 0,
                     title: {
-                        text: this.translator.transform('Assessments')
+                        text: this.translator.transform('No. Assessments')
                     },
                     stackLabels: {
                         enabled: false
@@ -243,6 +301,7 @@ export class DashboardPage {
                 series: this.assessmentsData.series
             };
             Highcharts.chart(document.getElementById('assessmentsChart'), options);
+            this.loadingAssessments = false;
         }
     }
 
@@ -251,7 +310,7 @@ export class DashboardPage {
     }
 
     renderOutcomesGauge() {
-        this.renderGauge('outcomesGauge', 4.5, 0, 10, '');
+        this.renderGauge('outcomesGauge', this.outcomeProvider.averageLevel(), 0, 100, '');
     }
 
     goToPage(pageName) {

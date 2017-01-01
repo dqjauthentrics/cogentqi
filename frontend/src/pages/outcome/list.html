@@ -2,7 +2,7 @@
     <header-bar [title]="'Outcomes'|translate"></header-bar>
 </ion-header>
 
-<ion-content class="dashboard member-list">
+<ion-content class="dashboard outcome-list">
     <ion-card>
         <table class="table table-striped listing" [mfData]="outcomes | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
                [(mfSortBy)]="sortBy"
@@ -20,7 +20,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let outcome of mf.data" class="order" (click)="goToOutcomeDetail(outcome)">
+            <tr *ngFor="let outcome of mf.data" [class]="getClass(outcome)">
                 <td class="icon">
                     <app-icon name="outcome"></app-icon>
                 </td>
@@ -28,8 +28,11 @@
                     <div class="name">{{outcome.number}}: {{outcome.name}}</div>
                     <div class="description" [innerHTML]="outcome.summary"></div>
                 </td>
-                <td class="list-drilldown">
-                    <i [class]="icon.getClass('drilldown')"></i>
+                <td class="range-setter" style="min-width:150px; text-align: center;">
+                    <div>{{levelPhrase(outcome)}}</div>
+                    <ion-range min="0.0" [max]="100" step="0.1" pin="true"
+                               [(ngModel)]="outcome.intLevel" (ionChange)="setValue(outcome)" [disabled]="isLocked(outcome)">
+                    </ion-range>
                 </td>
             </tr>
             </tbody>

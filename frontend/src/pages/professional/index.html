@@ -17,23 +17,23 @@
             </ion-card>
         </ion-col>
     </ion-row>
-    <ion-row responsive-md>
+    <ion-row responsive-md *ngIf="session.user">
         <ion-col width-33>
             <ion-card>
                 <h1>{{'Recommendations'|translate}}</h1>
-                <plan-item-list [loading]="loading" [items]="recommendedItems"></plan-item-list>
+                <plan-item-list [loading]="loading" [memberId]="session.user.id" [items]="recommendedItems"></plan-item-list>
             </ion-card>
         </ion-col>
         <ion-col width-33>
             <ion-card>
                 <h1>{{'Current Enrollments'|translate}}</h1>
-                <plan-item-list [loading]="loading" [items]="inProgressItems"></plan-item-list>
+                <plan-item-list [loading]="loading" [memberId]="session.user.id" [items]="inProgressItems"></plan-item-list>
             </ion-card>
         </ion-col>
         <ion-col width-34>
             <ion-card>
                 <h1>{{'Completions'|translate}}</h1>
-                <plan-item-list [loading]="loading" [items]="completedItems"></plan-item-list>
+                <plan-item-list [loading]="loading" [memberId]="session.user.id" [items]="completedItems"></plan-item-list>
             </ion-card>
         </ion-col>
     </ion-row>

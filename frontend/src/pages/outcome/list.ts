@@ -17,9 +17,45 @@ export class OutcomeListPage {
 
     constructor(private nav: NavController, private session: SessionProvider, private outcomeProvider: OutcomeProvider, public icon: IconProvider) {
         this.loading = true;
-        outcomeProvider.byOrganization(session.user.organizationId).then((outcomes:any) => {
+        outcomeProvider.getAll(null, true).then((outcomes: any) => {
+            for (let outcome of outcomes) {
+                outcome.intLevel = outcome.level * 100;
+            }
             this.outcomes = outcomes;
+            console.log(this.outcomes);
             this.loading = false;
         });
+    }
+
+    setValue(outcome) {
+        outcome.dirty = true;
+        outcome.level = outcome.intLevel / 100;
+    }
+
+    getClass(outcome) {
+        if (!outcome || outcome.level <= 0.2) {
+            return 'Unacceptable';
+        }
+        else if (outcome.level <= 0.3) {
+            return 'Acceptable';
+        }
+        else if (outcome.level <= 0.6) {
+            return 'Good';
+        }
+        else {
+            return 'Excellent';
+        }
+    }
+
+    prettyLevel(outcome) {
+        return Math.round(outcome.level * 100);
+    }
+
+    levelPhrase(outcome) {
+        return this.getClass(outcome) + ' (' + this.prettyLevel(outcome) + ')';
+    }
+
+    isLocked(outcome) {
+        return outcome.method === this.outcomeProvider.METHOD_DATA;
     }
 }

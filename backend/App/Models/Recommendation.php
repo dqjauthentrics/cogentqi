@@ -123,7 +123,7 @@ class Recommendation extends AppModel {
 			$member = $assessment->member;
 			$responses = $assessment->responses;
 
-			$organizationOutcomes = OrganizationOutcome::query()->where('organization_id=?', $member['organization_id'])->execute();
+			$organizationOutcomes = OutcomeReport::query()->where('organization_id=?', $member['organization_id'])->execute();
 			$outcomeAlignments = OutcomeAlignment::query()
 					->where(
 							'question_id IN (SELECT id FROM App\Models\Question WHERE question_group_id IN (SELECT id FROM App\Models\QuestionGroup WHERE instrument_id=:id:))',
@@ -287,9 +287,9 @@ class Recommendation extends AppModel {
     }
 
     private static function getOutcomeScores($organizationId) {
-        $orgOutcomes = OrganizationOutcome::getLatestForOrganization(
+        $orgOutcomes = OutcomeReport::getLatestForOrganization(
             $organizationId);
-        /** @var OrganizationOutcome $orgOutcome */
+        /** @var OutcomeReport $orgOutcome */
         $questionStats = [];
         foreach ($orgOutcomes as $orgOutcome) {
             /** @var OutcomeAlignment $alignment */

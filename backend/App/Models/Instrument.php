@@ -164,9 +164,9 @@ class Instrument extends AppModel {
 	/**
 	 * @return array
 	 */
-	public function map($options = ['questions' => TRUE]) {
+	public function map($options = ['minimal' => FALSE]) {
 		$mapped = parent::map();
-		if (!empty($options['questions'])) {
+		if (empty($options['minimal'])) {
 			$choices = QuestionChoice::query()->where('question_type_id=:qtid:', ['qtid' => $this->question_type_id])->orderBy('sort_order')->execute();
 			$jsonQuestionChoices = [];
 			/** @var QuestionChoice $choice */

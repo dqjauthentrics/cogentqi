@@ -4,10 +4,7 @@
 
 <ion-content class="outer-content dashboard main">
     <div class="info">
-        <div class="name">{{user?.firstName}} {{user?.lastName}}</div>
-        <div class="job">{{user?.jobTitle}}</div>
-        <div class="role">{{config.roleName(user?.roleId)}}</div>
-        <div class="org">{{user?.organizationName}}</div>
+        <span class="name">{{user|namify:true}}</span><span class="job" [hidden]="(!user || !user.jobTItle || user.jobTitle.length === 0)">, {{user?.jobTitle}}</span><span class="role">, {{config.roleName(user?.roleId)}}</span><span class="org">, {{user?.organizationName}}</span>
     </div>
     <div class="logo"><img [src]="config.logoFull" alt=""></div>
     <div class="clearfix"></div>
@@ -15,41 +12,41 @@
         <ion-row responsive-sm>
             <ion-col width-67>
                 <ion-card>
-                    <h1>{{'Assessments'|translate}}</h1>
-                    <div class="dash-graph" id="assessmentsChart"></div>
+                    <h1 class="clickable" (click)="goToAssessments()">{{'Assessments'|translate}}</h1>
+                    <div class="dash-graph" id="assessmentsChart"><loading-indicator [loading]="loadingAssessments"></loading-indicator></div>
                 </ion-card>
             </ion-col>
             <ion-col width-33>
                 <ion-card>
-                    <h1>{{'Competency Levels'|translate}}</h1>
-                    <div class="dash-graph" id="assessmentsGauge"></div>
+                    <h1 class="clickable" (click)="goToMatrix()">{{'Competency Levels'|translate}}</h1>
+                    <div class="dash-graph" id="assessmentsGauge"><loading-indicator [loading]="loadingAssessments"></loading-indicator></div>
                 </ion-card>
             </ion-col>
         </ion-row>
         <ion-row responsive-sm>
             <ion-col width-67>
                 <ion-card>
-                    <h1>{{'Events'|translate}}</h1>
-                    <div class="dash-graph" id="eventsChart"></div>
+                    <h1  (click)="goToEvents()">{{'Events'|translate}}</h1>
+                    <div class="dash-graph" id="eventsChart"><loading-indicator [loading]="loadingEvents"></loading-indicator></div>
                 </ion-card>
             </ion-col>
             <ion-col width-33>
                 <ion-card>
-                    <h1>{{'Events Breakdown'|translate}}</h1>
-                    <div class="dash-graph" id="eventTypesPie"></div>
+                    <h1 (click)="goToEvents()">{{'Events Breakdown'|translate}}</h1>
+                    <div class="dash-graph" id="eventTypesPie"><loading-indicator [loading]="loadingEventTypes"></loading-indicator></div>
                 </ion-card>
             </ion-col>
         </ion-row>
         <ion-row responsive-sm>
             <ion-col width-67>
                 <ion-card>
-                    <h1>{{'Resource Completions'|translate}}</h1>
-                    <div class="dash-graph" id="planItemsChart"></div>
+                    <h1 (click)="goToPlanItems()">{{'Resource Completions'|translate}}</h1>
+                    <div class="dash-graph" id="planItemsChart"><loading-indicator [loading]="loadingPlanItems"></loading-indicator></div>
                 </ion-card>
             </ion-col>
             <ion-col width-33>
                 <ion-card>
-                    <h1>{{'Current Outcome Levels'|translate}}</h1>
+                    <h1 (click)="goToOutcomes()">{{'Current Outcome Levels'|translate}}</h1>
                     <div class="dash-graph" id="outcomesGauge"></div>
                 </ion-card>
             </ion-col>

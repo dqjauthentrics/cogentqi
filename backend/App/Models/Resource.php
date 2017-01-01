@@ -20,6 +20,12 @@ class Resource extends AppModel {
 
 	/**
 	 *
+	 * @var integer
+	 */
+	public $badge_id;
+
+	/**
+	 *
 	 * @var string
 	 */
 	public $resource_type_id;
@@ -92,6 +98,7 @@ class Resource extends AppModel {
 		$this->hasMany('id', 'App\Models\ResourceAlignment', 'resource_id', ['alias' => 'Alignments']);
 		$this->belongsTo('resource_type_id', 'App\Models\ResourceType', 'id', ['alias' => 'ResourceType']);
 		$this->belongsTo('creator_id', 'App\Models\Member', 'id', ['alias' => 'Creator']);
+		$this->belongsTo('badge_id', 'App\Models\Badge', 'id', ['alias' => 'Badge']);
 	}
 
 	/**

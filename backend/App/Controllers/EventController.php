@@ -13,7 +13,17 @@ class EventController extends ControllerBase {
 	 */
 	public function listAction() {
 		$event = new Event();
-		$data = $event->get();
+		$data = [];
+		$dbRecords = $event->query()->execute();
+		foreach ($dbRecords as $dbRecord) {
+			$id = $dbRecord->id;
+			$data[$id] = [
+				'name'        => $dbRecord->name,
+				'description' => $dbRecord->description,
+				'category'    => $dbRecord->category,
+				'threshold'   => $dbRecord->threshold,
+			];
+		}
 		$result = new Result($this);
 		$result->sendNormal($data);
 	}
@@ -133,6 +143,7 @@ class EventController extends ControllerBase {
 				'bind' => ['eId' => $eventId]
 			]);
 			$newAlignments = [];
+			/** @var EventAlignment $alignment */
 			foreach ($data['alignments'] as $alignment) {
 				$newAlignments[] = $ea->unmap($alignment);
 			}
@@ -165,33 +176,6 @@ class EventController extends ControllerBase {
 		catch (\Exception $exception) {
 			$result->sendError(Result::CODE_EXCEPTION, $exception->getMessage());
 		}
-		$result->sendNormal();
-	}
-
-	/**
-	 * @param int $organizationId
-	 */
-	public function yearAction($organizationId) {
-		$eventModel = new Event();
-		$result = $eventModel->getYear($organizationId);
-		$result->sendNormal();
-	}
-
-	/**
-	 * @param int $organizationId
-	 */
-	public function yearAverageAction($organizationId) {
-		$eventModel = new Event();
-		$result = $eventModel->getYearAverage($organizationId);
-		$result->sendNormal();
-	}
-
-	/**
-	 * @param int $organizationId
-	 */
-	public function typesAction($organizationId) {
-		$eventModel = new Event();
-		$result = $eventModel->getTypes($organizationId);
 		$result->sendNormal();
 	}
 }

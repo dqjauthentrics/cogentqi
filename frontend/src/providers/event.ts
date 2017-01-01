@@ -11,14 +11,11 @@ export class EventProvider extends DataModel {
 
     constructor(protected toastCtrl: ToastController, protected http: Http, protected globals: Globals, protected config: Config, protected session: SessionProvider) {
         super('event', toastCtrl, http, globals, config, session);
-    }
 
-    retrieveYear(organizationId) {
-        return this.getData('/year/' + organizationId);
+        this.getAll(null, false).then((appEvents) => {
+            if (appEvents) {
+                this.globals.appEvents = appEvents;
+            }
+        });
     }
-
-    retrieveTypes(organizationId) {
-        return this.getData('/types/' + organizationId);
-    }
-
 }

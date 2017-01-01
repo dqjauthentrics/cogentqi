@@ -12,6 +12,38 @@ class AssessmentController extends ControllerBase {
 	public $debug = FALSE;
 
 	/**
+	 * @param int $organizationId
+	 */
+	public function listAction($organizationId) {
+		$user = $this->currentUser();
+		$result = new Result($this);
+		$orgModel = new Organization();
+
+		if ($user->appRoleId == Role::PROFESSIONAL) {
+			$assessments = Assessment::query()->where('member_id=' . $user->id)->orderBy('last_saved DESC')->execute();
+		}
+		else {
+			// This took 0.140 seconds. Two queries is slightly faster than one, and many times faster than a Phalcon join().
+			$orgIds = $orgModel->getDescendantIds($organizationId);
+			$assessments = Assessment::query()
+				->where("member_id IN (SELECT App\Models\Member.id FROM App\Models\Member WHERE organization_id IN ($orgIds))")
+				->orderBy('last_saved DESC')
+				->execute();
+
+			// This took 4.6 seconds, vs 0.14 seconds for two queries above!
+			//$assessments = Assessment::query()->join('App\Models\Member','organization_id=4')->orderBy('last_saved DESC')->execute();
+
+			// This took 0.145 seconds.
+			//$assessments = Assessment::query()->where('member_id IN (SELECT m.id FROM App\Models\Member AS m WHERE organization_id=4)')->orderBy('last_saved DESC')->execute();
+		}
+		if ($assessments === FALSE) {
+			$result->setError(Result::CODE_EXCEPTION);
+		}
+		$data = $this->mapRecords($assessments,['minimal' => TRUE]);
+		$result->sendNormal($data);
+	}
+
+	/**
 	 * @param int $id
 	 */
 	public function getAction($id) {
@@ -49,35 +81,6 @@ class AssessmentController extends ControllerBase {
 	public function byAssessorAction($assessorId) {
 		$result = new Result($this);
 		$data = $this->mapRecords(Assessment::query()->where('assessor_id = :id:', ["id" => $assessorId])->orderBy("last_saved")->execute());
-		$result->sendNormal($data);
-	}
-
-	/**
-	 * @param int $organizationId
-	 */
-	public function listAction($organizationId) {
-		$user = $this->currentUser();
-		$result = new Result($this);
-		$orgModel = new Organization();
-
-		if ($user->appRoleId == Role::PROFESSIONAL) {
-			$assessments = Assessment::query()->where('member_id=' . $user->id)->orderBy('last_saved DESC')->execute();
-		}
-		else {
-			// This took 0.140 seconds. Two queries is slightly faster than one, and many times faster than a Phalcon join().
-			$memberIds = $orgModel->getMemberIds($organizationId);
-			$assessments = Assessment::query()->where('member_id IN (' . $memberIds . ')')->orderBy('last_saved DESC')->execute();
-
-			// This took 4.6 seconds, vs 0.14 seconds for two queries above!
-			//$assessments = Assessment::query()->join('App\Models\Member','organization_id=4')->orderBy('last_saved DESC')->execute();
-
-			// This took 0.145 seconds.
-			//$assessments = Assessment::query()->where('member_id IN (SELECT m.id FROM App\Models\Member AS m WHERE organization_id=4)')->orderBy('last_saved DESC')->execute();
-		}
-		if ($assessments === FALSE) {
-			$result->setError(Result::CODE_EXCEPTION);
-		}
-		$data = $this->mapRecords($assessments);
 		$result->sendNormal($data);
 	}
 

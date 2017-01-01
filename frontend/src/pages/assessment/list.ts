@@ -18,10 +18,12 @@ export class AssessmentListPage {
 
     constructor(private nav: NavController, private session: SessionProvider, assessmentData: AssessmentProvider, public icon: IconProvider) {
         this.loading = true;
-        assessmentData.getAll('/' + session.user.organizationId, false).then(assessments => {
-            this.assessments = assessments;
-            this.loading = false;
-        });
+        if (session.user) {
+            assessmentData.getAll('/' + session.user.organizationId, false).then(assessments => {
+                this.assessments = assessments;
+                this.loading = false;
+            });
+        }
     }
 
 }

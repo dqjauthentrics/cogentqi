@@ -330,11 +330,10 @@ class Assessment extends AppModel {
 			}
 			$graphData['series'][$i] = [];
 		}
-		$oSql = "SELECT ot.name, YEAR(oo.evaluated) AS yr, DATE_FORMAT(oo.evaluated, '%m') AS mo, AVG(oo.level) AS average
-					FROM outcome AS ot, organization_outcome as oo
-					WHERE oo.organization_id IN ($orgIds) AND oo.evaluated >= DATE_SUB(NOW(),INTERVAL 1 YEAR) AND ot.id=oo.outcome_id
-					GROUP BY ot.name, YEAR(oo.evaluated), DATE_FORMAT(oo.evaluated, '%m'), ot.name
-					ORDER BY ot.sort_order, ot.name, YEAR(oo.evaluated), DATE_FORMAT(oo.evaluated, '%m');";
+		$oSql = "SELECT name, YEAR(last_updated) AS yr, DATE_FORMAT(last_updated, '%m') AS mo, AVG(level) AS average
+					FROM outcome WHERE last_updated >= DATE_SUB(NOW(),INTERVAL 1 YEAR)
+					GROUP BY name, YEAR(last_updated), DATE_FORMAT(last_updated, '%m'), name
+					ORDER BY sort_order, name, YEAR(last_updated), DATE_FORMAT(last_updated, '%m');";
 		$dbRecords = $this->getDBIF()->query($oSql)->fetchAll();
 		$idx = 0;
 		foreach ($dbRecords as $rec) {
@@ -462,11 +461,11 @@ class Assessment extends AppModel {
 		/**
 		 * Append the single overall outcomes series.
 		 */
-		$sql = "SELECT YEAR(oo.evaluated) AS yr, DATE_FORMAT(oo.evaluated, '%m') AS mo, AVG(oo.level) AS average
-					FROM outcome AS ot, organization_outcome as oo
-					WHERE oo.organization_id IN ($orgIds) AND oo.evaluated >= DATE_SUB(NOW(),INTERVAL 1 YEAR)
-					GROUP BY YEAR(oo.evaluated), DATE_FORMAT(oo.evaluated, '%m')
-					ORDER BY YEAR(oo.evaluated), DATE_FORMAT(oo.evaluated, '%m');";
+		$sql = "SELECT YEAR(last_updated) AS yr, DATE_FORMAT(last_updated, '%m') AS mo, AVG(level) AS average
+					FROM outcome 
+					WHERE last_updated >= DATE_SUB(NOW(),INTERVAL 1 YEAR)
+					GROUP BY YEAR(last_updated), DATE_FORMAT(last_updated, '%m')
+					ORDER BY YEAR(last_updated), DATE_FORMAT(last_updated, '%m');";
 		$dbRecords = $this->getDBIF()->query($sql)->fetchAll();
 		if (!empty($dbRecords)) {
 			$seriesPos = count($seriesNames);
@@ -543,11 +542,10 @@ class Assessment extends AppModel {
 			}
 			$graphData['series'][$i] = [];
 		}
-		$oSql = "SELECT ot.name, YEAR(oo.evaluated) AS yr, DATE_FORMAT(oo.evaluated, '%m') AS mo, AVG(oo.level) AS average
-					FROM outcome AS ot, organization_outcome as oo
-					WHERE oo.organization_id IN (SELECT organization_id FROM member WHERE id=$memberId) AND oo.evaluated >= DATE_SUB(NOW(),INTERVAL 1 YEAR) AND ot.id=oo.outcome_id
-					GROUP BY ot.name, YEAR(oo.evaluated), DATE_FORMAT(oo.evaluated, '%m'), ot.name
-					ORDER BY ot.sort_order, ot.name, YEAR(oo.evaluated), DATE_FORMAT(oo.evaluated, '%m');";
+		$oSql = "SELECT name, YEAR(last_updated) AS yr, DATE_FORMAT(last_updated, '%m') AS mo, AVG(level) AS average
+					FROM outcome WHERE  last_updated >= DATE_SUB(NOW(),INTERVAL 1 YEAR)
+					GROUP BY name, YEAR(last_updated), DATE_FORMAT(last_updated, '%m'), name
+					ORDER BY sort_order, name, YEAR(last_updated), DATE_FORMAT(last_updated, '%m');";
 		$dbRecords = $this->getDBIF()->query($oSql)->fetchAll();
 		foreach ($dbRecords as $rec) {
 			if ((int)$rec["yr"] < $startYr) {
@@ -674,11 +672,11 @@ class Assessment extends AppModel {
 		/**
 		 * Append the single overall outcomes series.
 		 */
-		$sql = "SELECT YEAR(oo.evaluated) AS yr, DATE_FORMAT(oo.evaluated, '%m') AS mo, AVG(oo.level) AS average
-					FROM outcome AS ot, organization_outcome as oo
-					WHERE oo.organization_id IN (SELECT organization_id FROM member WHERE id=$memberId) AND oo.evaluated >= DATE_SUB(NOW(),INTERVAL 1 YEAR)
-					GROUP BY YEAR(oo.evaluated), DATE_FORMAT(oo.evaluated, '%m')
-					ORDER BY YEAR(oo.evaluated), DATE_FORMAT(oo.evaluated, '%m');";
+		$sql = "SELECT YEAR(last_updated) AS yr, DATE_FORMAT(last_updated, '%m') AS mo, AVG(level) AS average
+					FROM outcome AS ot, outcome_report as oo
+					WHERE last_updated >= DATE_SUB(NOW(),INTERVAL 1 YEAR)
+					GROUP BY YEAR(last_updated), DATE_FORMAT(last_updated, '%m')
+					ORDER BY YEAR(last_updated), DATE_FORMAT(last_updated, '%m');";
 		$dbRecords = $this->getDBIF()->query($sql)->fetchAll();
 		if (!empty($dbRecords)) {
 			$seriesPos = count($seriesNames);
@@ -827,6 +825,8 @@ class Assessment extends AppModel {
 
 	public function getYear($organizationId) {
 		$result = new Result();
+		$model = new Organization();
+		$orgIds = $model->getDescendantIds($organizationId);
 		$seriesNames = [];
 		$graphData = $this->initializeYearGraphData();
 
@@ -834,7 +834,7 @@ class Assessment extends AppModel {
 		 */
 		$eSql = "SELECT i.name, YEAR(a.last_saved) AS yr, DATE_FORMAT(a.last_saved, '%m') AS mo, COUNT(a.id) AS nAssessments
 					FROM assessment AS a, instrument AS i
-					WHERE a.instrument_id=i.id AND a.member_id IN (SELECT id FROM member WHERE organization_id=$organizationId)
+					WHERE a.instrument_id=i.id AND a.member_id IN (SELECT id FROM member WHERE organization_id IN ($orgIds))
 					GROUP BY i.name, YEAR(a.last_saved), DATE_FORMAT(a.last_saved, '%m')
 					ORDER BY i.name, YEAR(a.last_saved), DATE_FORMAT(a.last_saved, '%m');";
 		$dbRecords = $this->getDBIF()->query($eSql, ['oid' => $organizationId])->fetchAll();

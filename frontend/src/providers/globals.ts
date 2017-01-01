@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {LoadingController, AlertController, Events} from "ionic-angular";
+import {LoadingController, AlertController} from "ionic-angular";
 
 @Injectable()
 export class Globals {
@@ -20,9 +20,12 @@ export class Globals {
     public readonly URL_API = '/assets/api/';
     public readonly MESSAGE_DURATION = 14000;
 
+    public appEvents: Array<any>;
+    public outcomes: Array<any>;
+
     public alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
-    constructor(private loading: LoadingController, private alerts: AlertController, private events: Events) {
+    constructor(private loading: LoadingController, private alerts: AlertController) {
     }
 
     public safeName(str) {
@@ -34,7 +37,7 @@ export class Globals {
         return str;
     }
 
-    public findObjectById(items:Array<any>, id) {
+    public findObjectById(items: Array<any>, id) {
         if (items && items.length > 0) {
             for (let item of items) {
                 if (item.id && item.id == id) {

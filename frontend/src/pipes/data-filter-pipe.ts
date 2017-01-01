@@ -1,5 +1,6 @@
 import * as _ from "lodash";
 import {Pipe, PipeTransform} from "@angular/core";
+import {Globals} from "../providers/globals";
 import {Config} from "../providers/config";
 
 @Pipe({
@@ -7,7 +8,7 @@ import {Config} from "../providers/config";
 })
 export class DataFilterPipe implements PipeTransform {
 
-    constructor(private config: Config) {
+    constructor(private config: Config, private globals: Globals) {
     }
 
     match(query, val) {
@@ -39,13 +40,32 @@ export class DataFilterPipe implements PipeTransform {
         return match;
     }
 
+    matchEvent(query, rec) {
+        let match = false;
+        if (rec) {
+            if (rec.eventId) {
+                match = match || this.match(query, this.globals.appEvents[rec.eventId]['name']);
+                if (!match) {
+                    match = match || this.match(query, this.globals.appEvents[rec.eventId]['description']);
+                }
+                if (!match) {
+                    match = match || this.match(query, this.globals.appEvents[rec.eventId]['category']);
+                }
+            }
+            if (rec.occurred) {
+                match = match || this.match(query, rec.occurred);
+            }
+        }
+        return match;
+    }
+
     matchResource(query, rec) {
         let match = false;
         if (rec) {
             if (rec.name) {
                 match = match || this.match(query, rec.name);
             }
-            if (rec.number) {
+            if (!match && rec.number) {
                 match = match || this.match(query, rec.number);
             }
             if (!match && rec.summary) {
@@ -107,6 +127,9 @@ export class DataFilterPipe implements PipeTransform {
                 match = match || this.matchOrganization(query, row);
                 match = match || this.matchOrganization(query, row.organization);
                 match = match || this.matchAssessment(query, row.lastAssessment);
+                match = match || this.matchResource(query, row.resource);
+                match = match || this.matchEvent(query, row);
+                match = match || this.matchEvent(query, row.event);
                 return match;
             });
         }

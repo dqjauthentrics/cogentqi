@@ -2,41 +2,18 @@
 namespace App\Controllers;
 
 use App\Components\Result;
-use App\Models\OrganizationOutcome;
 use App\Models\Outcome;
 use App\Models\OutcomeAlignment;
+use App\Models\OutcomeReport;
 
 class OutcomeController extends ControllerBase {
-
-	/**
-	 * Finds and returns a level record in the list of database records for the given organization and outcome, returning an array pair in the form:
-	 *   [outcomeId, level]
-	 *
-	 * NB: If no record is found, a pair will still be returned with a level of 0.
-	 *
-	 * @parma OrganizationOutcome[] $orgOutLevels
-	 *
-	 * @param int $orgId
-	 * @param int $outcomeId
-	 *
-	 * @return int[]
-	 */
-	private function findLevel($orgOutLevelRecs, $orgId, $outcomeId) {
-		/** @var OrganizationOutcome $orgOutLevelRec */
-		foreach ($orgOutLevelRecs as $orgOutLevelRec) {
-			if ($orgOutLevelRec->organization_id == $orgId && $orgOutLevelRec->outcome_id == $outcomeId) {
-				return [(int)$outcomeId, $orgOutLevelRec->level];
-			}
-		}
-		return [(int)$outcomeId, 0];
-	}
 
 	/**
 	 * Return a list.
 	 */
 	public function listAction() {
 		$outcome = new Outcome();
-		$data = $outcome->get();
+		$data = $outcome->get(null,true,'id','1=1',[],['minimal' => TRUE]);
 		$result = new Result($this);
 		$result->sendNormal($data);
 	}
@@ -54,53 +31,6 @@ class OutcomeController extends ControllerBase {
 		$outcome = $outcome->map(['singleOrgId' => $organizationId]);
 		$result = new Result($this);
 		$result->sendNormal($outcome);
-	}
-
-	/**
-	 * Returns a list of outcomes with current organization levels and optional alignments.  Levels are an array for each organization, with
-	 * each element in the form [outcomeId, level].
-	 *
-	 * @param int $organizationId
-	 * @param int $includeAlignments
-	 */
-	public function byOrganizationAction($organizationId, $includeAlignments = 0) {
-		$result = new Result($this);
-		$outcomeModel = new Outcome();
-		$outcomeRecs = $outcomeModel->get(NULL, FALSE, 'sort_order');
-		$organizationId = (int)$organizationId;
-		$childIds = $outcomeModel->getReadConnection()->query('SELECT retrieveOrgDescendantIds(' . $organizationId . ') AS ids')->fetch();
-		$childIds = $childIds[0];
-
-		$queryBuilder = new \Phalcon\Mvc\Model\Query\Builder([
-			'models'  => ['App\Models\Organization'],
-			'columns' => ['id', 'name', 'retrieveOrgDescendantIds(id) AS child_ids'],
-		]);
-		$organizationRecs = $queryBuilder->where("id IN ($childIds)")->orderBy('id<>' . $organizationId . ',parent_id,name')->getQuery()->execute();
-		$orgOutLevelRecs = OrganizationOutcome::query()->where("organization_id IN ($childIds)")->orderBy('organization_id,evaluated DESC')->execute();
-
-		$orgLevels = [];
-		$outcomes = [];
-		$firstPass = TRUE;
-		$hasLevels = $orgOutLevelRecs !== FALSE;
-		foreach ($organizationRecs as $organizationRec) {
-			$orgId = (int)$organizationRec["id"];
-			/** @var Outcome $outcomeRec */
-			foreach ($outcomeRecs as $outcomeRec) {
-				if ($firstPass) {
-					$outcomes[] = $outcomeRec->map(['alignments' => $includeAlignments]);
-				}
-				if (empty($orgLevels[$orgId])) {
-					$orgLevels[$orgId] = ['id' => $orgId, 'n' => $organizationRec["name"], 'lv' => []];
-				}
-				$orgLevels[$orgId]['lv'][] = $hasLevels ? $this->findLevel($orgOutLevelRecs, $orgId, $outcomeRec->id) : 0;
-			}
-			$firstPass = FALSE;
-		}
-		$levels = [];
-		foreach ($orgLevels as $orgId => $orgLevel) { // change from associative to indexed array
-			$levels[] = $orgLevel;
-		}
-		$result->sendNormal(['outcomes' => $outcomes, 'orgLevels' => $levels]);
 	}
 
 	/**
@@ -169,68 +99,56 @@ class OutcomeController extends ControllerBase {
 	}
 
 	/**
-	 * @param int   $outcomeId
-	 * @param array $levels
+	 * @param OutcomeReport $report
+	 * @param Outcome $outcome
+	 * @param int $userId
+	 * @param int $level
 	 *
-	 * @return int
+	 * @throws \Exception
 	 */
-	private function findFormLevel($outcomeId, $levels) {
-		if (!empty($levels)) {
-			foreach ($levels as $level) {
-				if ($level[0] == $outcomeId) {
-					return $level[1];
-				}
-			}
-		}
-		return 0;
-	}
-
-	/**
-	 * Save given levels for given outcome record and organization.
-	 *
-	 * NB: This assumes that the levels provided in the form are in the same order as the sort_order column in the database.
-	 */
-	public function saveLevelsAction() {
-		$result = new Result($this);
-		$model = new OrganizationOutcome();
-		$this->beginTransaction($model);
+	private function saveOutcomeLevel($report, $outcome, $userId, $level) {
+		$this->beginTransaction($report);
 		try {
-			$user = $this->currentUser();
-			$formData = $this->getInputData('orgLevels');
-			if (!empty($formData['id']) && !empty($formData['lv'])) {
-				$outcomes = Outcome::find(['order' => 'sort_order']);
-				$idx = 0;
-				foreach ($outcomes as $outcome) {
-					$dbRecord = OrganizationOutcome::findFirst([
-						'conditions' => 'outcome_id=:out: AND organization_id=:oid:',
-						'bind'       => ['out' => $outcome->id, 'oid' => (int)$formData['id']],
-						'order'      => 'evaluated DESC',
-					]);
-					$updater = [
-						'organization_id' => (int)$formData['id'],
-						'outcome_id'      => $outcome->id,
-						'evaluator_id'    => $user->id,
-						'evaluated'       => $outcome->dbDateTime(),
-						'level'           => $this->findFormLevel($outcome->id, $formData['lv'])
-					];
-					if (!empty($dbRecord)) {
-						$updateResult = $dbRecord->update($updater);
-					}
-					else {
-						$dbRecord = new OrganizationOutcome();
-						$updateResult = $dbRecord->save($updater);
-					}
-					if (!$updateResult) {
-						throw new \Exception($dbRecord->errorMessagesAsString());
-					}
-					$idx++;
-				}
-				$result->setNormal();
-				$this->commitTransaction();
+			$this->beginTransaction($report);
+			$updateResult = $report->save([
+				'outcome_id'   => $outcome->id,
+				'evaluator_id' => $userId,
+				'evaluated'    => $outcome->dbDateTime(),
+				'level'        => $level
+			]);
+			if (!$updateResult) {
+				throw new \Exception($report->errorMessagesAsString());
+			}
+			$outcome->level = $level;
+			if (!$outcome->save()) {
+				throw new \Exception($report->errorMessagesAsString());
 			}
 		}
 		catch (\Exception $exception) {
 			$this->rollbackTransaction();
+			throw new \Exception($exception);
+		}
+		$this->commitTransaction();
+	}
+
+	/**
+	 * Save given levels for given outcome record and organization.
+	 */
+	public function saveLevelAction() {
+		$result = new Result($this);
+		try {
+			$user = $this->currentUser();
+			$formData = $this->getInputData('data');
+			if (!empty($formData['id']) && !empty($formData['level'])) {
+				$outcome = Outcome::findFirst($formData['id']);
+				if ($outcome) {
+					$report = new OutcomeReport();
+					$this->saveOutcomeLevel($report, $outcome, $user->id, (int)$formData['level']);
+				}
+				$result->setNormal();
+			}
+		}
+		catch (\Exception $exception) {
 			$result->sendError(Result::CODE_EXCEPTION, $exception->getMessage());
 		}
 		$result->sendNormal();

@@ -109,7 +109,7 @@ class Organization extends AppModel {
 	public function initialize() {
 		$this->hasMany('id', 'Member', 'organization_id', ['alias' => 'Member']);
 		$this->hasMany('id', 'Organization', 'parent_id', ['alias' => 'Organization']);
-		$this->hasMany('id', 'OrganizationOutcome', 'organization_id', ['alias' => 'OrganizationOutcome']);
+		$this->hasMany('id', 'OutcomeReport', 'organization_id', ['alias' => 'OutcomeReport']);
 		$this->belongsTo('parent_id', 'Organization', 'id', ['alias' => 'Organization']);
 	}
 

@@ -21,8 +21,12 @@ export class PlanItemProvider extends DataModel {
         return this.getData('/year/' + organizationId + '/' + status);
     }
 
-    forMember(memberId) {
-        return this.getData('/forMember/' + memberId);
+    forMember(organizationId, memberId) {
+        return this.getData('/list/' + organizationId + '/' + memberId);
+    }
+
+    forOrganization(organizationId) {
+        return this.getData('/list/' + organizationId);
     }
 
 }

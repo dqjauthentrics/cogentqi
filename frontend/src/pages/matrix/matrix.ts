@@ -23,7 +23,9 @@ export class MatrixPage {
     constructor(private nav: NavController, private globals: Globals, public session: SessionProvider, private assessmentData: AssessmentProvider,
                 public instrumentData: InstrumentProvider, private memberData: MemberProvider) {
 
-        this.organizationId = this.session.user.organizationId;
+        if (session.user) {
+            this.organizationId = this.session.user.organizationId;
+        }
     }
 
     ngOnInit() {
@@ -42,18 +44,20 @@ export class MatrixPage {
 
     loadMatrix(instrumentId) {
         let comp = this;
-        if (!comp.instrument || comp.instrument.id != comp.instrumentId) {
+        if (!comp.instrument || comp.instrument.id !== comp.instrumentId) {
             comp.assessmentData.loadMatrix(comp.organizationId, comp.instrument.id).then(matrix => {
                 comp.matrix = matrix;
                 comp.instrumentId = comp.instrument.id;
                 comp.instrumentData.currentSectionIdx = comp.instrumentData.SECTION_ALL;
                 comp.segments = [{text: 'All', value: comp.instrumentData.SECTION_ALL}];
                 let idx = 0;
-                for (let questionGroup of comp.instrument.questionGroups) {
-                    comp.segments.push({text: questionGroup.tag, value: idx});
-                    idx++
+                if (comp.instrument.questionGroups) {
+                    for (let questionGroup of comp.instrument.questionGroups) {
+                        comp.segments.push({text: questionGroup.tag, value: idx});
+                        idx++
+                    }
+                    comp.segments.push({text: 'Summary', value: comp.instrumentData.SECTION_SUMMARY});
                 }
-                comp.segments.push({text: 'Summary', value: comp.instrumentData.SECTION_SUMMARY});
                 comp.loading = false;
             });
         }

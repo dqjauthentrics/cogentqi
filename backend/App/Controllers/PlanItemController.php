@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Components\Result;
+use App\Models\Organization;
 use App\Models\PlanItem;
 
 class PlanItemController extends ControllerBase {
@@ -9,9 +10,57 @@ class PlanItemController extends ControllerBase {
 	/**
 	 * Return a list.
 	 */
-	public function indexAction() {
-		$planItem = new PlanItem();
-		$data = $planItem->get();
+	public function listAction($organizationId, $memberId = 0) {
+		$data = [];
+		$model = new Organization();
+		$orgIds = $model->getDescendantIds($organizationId);
+
+		$member = new PlanItem();
+		$sql = "SELECT pi.id, pi.plan_item_status_id, r.name, r.id AS resourceId, r.summary, m.id AS moduleId, 
+					b.image AS badgeImage, b.name AS badgeName, b.id AS badgeId,
+					m.first_name, m.middle_name, m.last_name, m.id AS memberId, m.role_id
+			FROM plan_item pi, member AS m, module AS md, resource r
+			LEFT OUTER JOIN badge AS b ON (b.id=r.badge_id)
+			WHERE pi.status_stamp >= DATE_SUB(NOW(), INTERVAL 1 YEAR) AND md.resource_id=r.id AND m.id=pi.member_id AND pi.module_id=md.id";
+		if (empty($memberId)) {
+			$sql .= " AND m.organization_id IN ($orgIds)";
+			$dbRecords = $member->getReadConnection()->query($sql)->fetchAll();
+		}
+		else {
+			$sql .= " AND m.id=$memberId";
+			$dbRecords = $member->getReadConnection()->query($sql)->fetchAll();
+		}
+		if (!empty($dbRecords)) {
+			foreach ($dbRecords as $rec) {
+				$dataRec = [
+					'id'               => $rec['id'],
+					'statusStamp'      => $rec['status_stamp'],
+					'module'           => [
+						'id' => $rec['moduleId']
+					],
+					'planItemStatusId' => $rec['plan_item_status_id'],
+					'badge'            => [
+						'id'    => $rec['badgeId'],
+						'image' => $rec['badgeImage'],
+					],
+					'resource'         => [
+						'name'    => $rec['name'],
+						'id'      => $rec['resourceId'],
+						'summary' => $rec['summary'],
+					],
+				];
+				if (empty($memberId)) {
+					$dataRec['member'] = [
+						'id'         => $rec['memberId'],
+						'roleId'     => $rec['role_id'],
+						'firstName'  => $rec['first_name'],
+						'lastName'   => $rec['last_name'],
+						'middleName' => $rec['middle_name'],
+					];
+				}
+				$data[] = $dataRec;
+			}
+		}
 		$result = new Result($this);
 		$result->sendNormal($data);
 	}

@@ -34,7 +34,7 @@ class MemberController extends ControllerBase {
 			}
 			/** @var Member $member */
 			foreach ($members as $member) {
-				$data[] = $member->map(['lastAssessment' => TRUE, 'badges' => TRUE, 'assessments' => TRUE, 'notes' => FALSE, 'events' => FALSE, 'minimal' => TRUE]);
+				$data[] = $member->map(['lastAssessment' => TRUE, 'badges' => TRUE, 'assessments' => FALSE, 'notes' => FALSE, 'events' => FALSE, 'minimal' => TRUE]);
 			}
 		}
 		catch (\Exception $exception) {

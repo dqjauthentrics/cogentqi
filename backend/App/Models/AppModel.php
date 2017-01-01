@@ -106,17 +106,18 @@ class AppModel extends \Phalcon\Mvc\Model {
 	 * @param string          $orderBy
 	 * @param string          $where
 	 * @param array           $whereParams
+	 * @param array           $mapOptions
 	 *
 	 * @return AppModel[]|AppModel|array|null
 	 */
-	public function get($id = NULL, $mapIt = TRUE, $orderBy = 'id', $where = '1=1', $whereParams = []) {
+	public function get($id = NULL, $mapIt = TRUE, $orderBy = 'id', $where = '1=1', $whereParams = [], $mapOptions = []) {
 		$data = !empty($id) ? NULL : [];
 		/** @var AppModel $record */
 		if (empty($id)) {
 			$records = $this->query()->where($where, $whereParams)->orderBy($orderBy)->execute();
 			if ($mapIt) {
 				foreach ($records as $record) {
-					$data[] = $record->map();
+					$data[] = $record->map($mapOptions);
 				}
 			}
 			else {
