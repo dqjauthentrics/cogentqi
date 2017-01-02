@@ -30,30 +30,35 @@ export class Globals {
     }
 
     roleName(roleId) {
-        try {
-            if (roleId && this.roles[roleId]) {
-                return this.roles[roleId].name;
+        if (this.roles && roleId) {
+            try {
+                if (roleId && this.roles[roleId]) {
+                    return this.roles[roleId].name;
+                }
             }
+            catch (exception) {
+                console.error("CONFIGURATION ROLE ERROR:", exception);
+            }
+            return roleId;
         }
-        catch (exception) {
-            console.error("CONFIGURATION ROLE ERROR:", exception);
-        }
-        return roleId;
+        return '';
     }
 
     appRoleId(roleId) {
-        try {
-            if (roleId && this.roles[roleId]) {
-                if (
-                    this.roles[roleId].appRoleId === this.APP_ROLE_PROFESSIONAL ||
-                    this.roles[roleId].appRoleId === this.APP_ROLE_MANAGER ||
-                    this.roles[roleId].appRoleId === this.APP_ROLE_ADMINISTRATOR
-                )
-                    return this.roles[roleId].appRoleId;
+        if (this.roles && roleId) {
+            try {
+                if (roleId && this.roles[roleId]) {
+                    if (
+                        this.roles[roleId].appRoleId === this.APP_ROLE_PROFESSIONAL ||
+                        this.roles[roleId].appRoleId === this.APP_ROLE_MANAGER ||
+                        this.roles[roleId].appRoleId === this.APP_ROLE_ADMINISTRATOR
+                    )
+                        return this.roles[roleId].appRoleId;
+                }
             }
-        }
-        catch (exception) {
-            console.error("CONFIGURATION ROLE ERROR:", exception);
+            catch (exception) {
+                console.error("CONFIGURATION ROLE ERROR:", exception);
+            }
         }
         return this.APP_ROLE_PROFESSIONAL;
     }
