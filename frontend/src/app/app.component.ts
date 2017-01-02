@@ -25,7 +25,7 @@ export class CogicApp {
                 public instrumentData: InstrumentProvider, public eventProvider: EventProvider) {
         this.listenToLoginEvents();
         this.session.checkLogin();
-        this.rootPage = (this.session.isLoggedIn ? TabsPage : LoginPage);
+        this.rootPage = (this.session.user && this.session.isLoggedIn ? TabsPage : LoginPage);
     }
 
     listenToLoginEvents() {
@@ -35,7 +35,9 @@ export class CogicApp {
             this.globals.tabMode = this.session.user.roleId === this.globals.APP_ROLE_PROFESSIONAL ? 'professional' : 'admin';
         });
         this.events.subscribe('session:logout', () => {
+            console.log('logout requested');
             this.rootPage = LoginPage;
+            //this.nav.setRoot(LoginPage);
         });
     }
 

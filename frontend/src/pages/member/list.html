@@ -4,66 +4,6 @@
 
 <ion-content class="dashboard member-list">
     <ion-card>
-        <table class="table table-striped listing" [mfData]="members | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
-               [(mfSortBy)]="sortBy"
-               [(mfSortOrder)]="sortOrder">
-            <thead>
-            <tr>
-                <th colspan="3">
-                    <mfDefaultSorter [by]="sortName">Member</mfDefaultSorter>
-                </th>
-                <th>
-                    <mfDefaultSorter by="roleName">Role</mfDefaultSorter>
-                </th>
-                <th>
-                    <mfDefaultSorter [by]="sortBadges">Badges</mfDefaultSorter>
-                </th>
-                <th>
-                    <mfDefaultSorter [by]="sortLastAssessment">Last Assessment</mfDefaultSorter>
-                </th>
-            </tr>
-            <tr>
-                <th colspan="7">
-                    <ion-searchbar [(ngModel)]="filterQuery" placeholder="filter"></ion-searchbar>
-                </th>
-            </tr>
-            <tr [hidden]="!loading">
-                <td colspan="4">
-                    <loading-indicator [loading]="loading"></loading-indicator>
-                </td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let member of mf.data" class="order">
-                <td>
-                    <avatar (click)="goToDetail(member)" *ngIf="member.avatar" [id]="member.id" [size]="'list'"></avatar>
-                </td>
-                <td style="width:20px;">
-                    <a [href]="'mailto:' + (member && member.email? member.email : '')">
-                        <app-icon name="mail"></app-icon>
-                    </a>
-                </td>
-                <td>
-                    <a (click)="goToDetail(member)">{{member|namify:false}}</a>
-                </td>
-                <td>
-                    {{config.roleName(member.roleId)}}
-                </td>
-                <td>
-                    <micro-badge-count [n]="member.badges ? member.badges.length : 0"></micro-badge-count>
-                </td>
-                <td>
-                    <assessment-item [assessment]="member.lastAssessment" [showMember]="false" [showIcon]="false"></assessment-item>
-                </td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <td colspan="4">
-                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
-                </td>
-            </tr>
-            </tfoot>
-        </table>
+        <member-list [rowsOnPage]="5" [organizationId]="organizationId"></member-list>
     </ion-card>
 </ion-content>

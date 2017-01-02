@@ -29,6 +29,7 @@ import {EditorButtonBar} from "../components/editor-button-bar";
 import {HeaderBar} from "../components/header-bar";
 import {InfoBadge} from "../components/info-badge";
 import {LoadingIndicator} from "../components/loading-indicator";
+import {MemberList} from "../pages/member/_list";
 import {MicroBadgeCount} from "../components/micro-badge-count";
 import {MicroBadge} from "../components/micro-badge";
 import {PageMenu} from "../components/page-menu";
@@ -158,6 +159,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         MemberContactCard,
         MemberDetailPage,
         MemberEventsCard,
+        MemberList,
         MemberListPage,
         MemberNotesPage,
         MemberProgressPage,
@@ -221,6 +223,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         MemberContactCard,
         MemberDetailPage,
         MemberEventsCard,
+        MemberList,
         MemberListPage,
         MemberNotesPage,
         MemberProgressPage,

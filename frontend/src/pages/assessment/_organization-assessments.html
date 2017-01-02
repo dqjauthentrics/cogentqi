@@ -3,19 +3,19 @@
     <thead>
     <tr>
         <th *ngIf="!instrument">
-            <mfDefaultSorter [by]="sortName">Instrument</mfDefaultSorter>
+            <mfDefaultSorter [by]="sortName">{{'Instrument'|translate}}</mfDefaultSorter>
         </th>
         <th>
-            <mfDefaultSorter [by]="sortMember">Member</mfDefaultSorter>
+            <mfDefaultSorter [by]="sortMember">{{'Member'|translate}}</mfDefaultSorter>
         </th>
         <th>
-            <mfDefaultSorter [by]="sortAssessor">Assessor</mfDefaultSorter>
+            <mfDefaultSorter [by]="sortAssessor">{{'Assessor'|translate}}</mfDefaultSorter>
         </th>
         <th>
-            <mfDefaultSorter [by]="sortModified">Last Modified</mfDefaultSorter>
+            <mfDefaultSorter [by]="sortModified">{{'Last Modified'|translate}}</mfDefaultSorter>
         </th>
         <th colspan="2">
-            <mfDefaultSorter [by]="sortScore">Score</mfDefaultSorter>
+            <mfDefaultSorter [by]="sortScore">{{'Competency'|translate}}</mfDefaultSorter>
         </th>
     </tr>
     <tr>
@@ -35,12 +35,12 @@
             {{assessment.instrument.name}}
         </td>
         <td>
-            <avatar *ngIf="assessment.member.avatar" [id]="assessment.member.id" [size]="'list'"></avatar>
+            <avatar [id]="assessment.member.id" [size]="'list'"></avatar>
             {{assessment.member|namify:false}}
         </td>
-        <td clas="assessor">
+        <td class="assessor">
             <div *ngIf="assessment.assessor.id != assessment.member.id">
-                <avatar *ngIf="assessment.assessor.avatar" [id]="assessment.assessor.id" [size]="'list'"></avatar>
+                <avatar [id]="assessment.assessor.id" [size]="'list'"></avatar>
                 {{assessment.assessor|namify:false}}
             </div>
             <div *ngIf="assessment.assessor.id == assessment.member.id">
@@ -51,7 +51,7 @@
             {{assessment.lastModified|date:'short'}}
         </td>
         <td>
-            {{assessment.score}}
+            {{assessment.rank}}
         </td>
         <td class="list-drilldown">
             <i [class]="icon.getClass('drilldown')"></i>

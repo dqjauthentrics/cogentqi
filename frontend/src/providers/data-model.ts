@@ -98,7 +98,7 @@ export class DataModel {
     displayError(err) {
         console.log(err);
         let toast = this.toastCtrl.create({
-            message: 'Sorry.  An error occurred on the server.' + (err.status != 500 ? err.message : ''),
+            message: 'Sorry.  An error occurred on the server.' + (err.status !== 500 ? err.message : ''),
             position: 'middle',
             showCloseButton: true,
             closeButtonText: 'Dismiss',
@@ -122,7 +122,7 @@ export class DataModel {
                 return Promise.resolve(this.list);
             }
         }
-        let url = '/list' + (typeof args == 'string' ? args : '');
+        let url = '/list' + (typeof args === 'string' ? args : '');
         return this.getData(url).then(
             data => {
                 this.list = data;

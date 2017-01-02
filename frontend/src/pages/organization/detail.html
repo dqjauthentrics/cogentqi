@@ -4,8 +4,8 @@
 
 <ion-content class="outer-content organization-list">
     <ion-grid>
-        <ion-row responsive-md>
-            <ion-col width-33>
+        <ion-row responsive-lg>
+            <ion-col width-50>
                 <ion-card class="organization">
                     <ion-row responsive-sm>
                         <ion-col>
@@ -18,9 +18,15 @@
                             </div>
                         </ion-col>
                     </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <h1>{{'Members'|translate}}</h1>
+                            <member-list [includeLastAssessment]="false" [rowsOnPage]="5" [organizationId]="organization.id"></member-list>
+                        </ion-col>
+                    </ion-row>
                 </ion-card>
             </ion-col>
-            <ion-col width-67>
+            <ion-col width-50>
                 <ion-card>
                     <h1>{{'Assessments'|translate}}</h1>
                     <organization-assessments [organizationId]="organization.id"></organization-assessments>

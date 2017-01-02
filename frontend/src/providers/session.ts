@@ -18,42 +18,54 @@ export class SessionProvider {
     }
 
     validate(jsonInfo, refresh) {
-        this.loginError = null;
-        if (this.globals.debug) {
-            console.log('SessionProvider:validate(entry)');
-        }
-        if (jsonInfo && jsonInfo.data) {
-            if (!jsonInfo.status) {
-                if (this.globals.debug) {
-                    console.log('SessionProvider:validate(logout)');
+        try {
+            this.loginError = null;
+            if (this.globals.debug) {
+                console.log('SessionProvider:validate(entry)', jsonInfo);
+            }
+            if (jsonInfo) {
+                if (!jsonInfo.status) {
+                    if (this.globals.debug) {
+                        console.log('SessionProvider:validate(logout)');
+                        if (jsonInfo.code === 404) {
+                            this.loginError = 'Sorry.  Unable to located member with those credentials.';
+                        }
+                        else {
+                            this.loginError = 'Sorry. Unable to connect to server.';
+                        }
+                        this.logout();
+                    }
+                }
+                else {
+                    if (this.globals.debug) {
+                        console.log('SessionProvider:valid login()', jsonInfo);
+                    }
+                    this.user = jsonInfo.data;
+                    if (this.user.id) {
+                        this.storage.set('user', JSON.stringify(this.user));
+                        this.isLoggedIn = true;
+                        if (this.globals.debug) {
+                            console.log('SessionProvider:validate(logged in, published)');
+                        }
+                        this.events.publish('session:login');
+                    }
+                    else {
+                        this.loginError = 'Unable to locate user with those credentials.';
+                        this.logout();
+                    }
+                }
+            }
+            else {
+                if (!refresh) {
+                    this.loginError = 'Unable to log into server.';
                 }
                 if (this.isLoggedIn) {
                     this.logout();
                 }
             }
-            else {
-                this.user = jsonInfo.data;
-                if (this.user.id) {
-                    this.storage.set('user', JSON.stringify(this.user));
-                    this.isLoggedIn = true;
-                    if (this.globals.debug) {
-                        console.log('SessionProvider:validate(logged in, published)');
-                    }
-                    this.events.publish('session:login');
-                }
-                else {
-                    this.loginError = 'Unable to locate user with those credentials.';
-                    this.logout();
-                }
-            }
         }
-        else {
-            if (!refresh) {
-                this.loginError = 'Unable to log into server.';
-            }
-            if (this.isLoggedIn) {
-                this.logout();
-            }
+        catch (exception) {
+            console.error('LOGIN ERROR', exception);
         }
     }
 
@@ -89,6 +101,7 @@ export class SessionProvider {
         this.isLoggedIn = false;
         this.storage.remove('user');
         this.user = null;
+        this.globals.dismissLoading();
         if (this.globals.debug) {
             console.log('SessionProvider:logout(publish)');
         }
