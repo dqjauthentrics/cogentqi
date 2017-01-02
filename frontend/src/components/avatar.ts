@@ -3,7 +3,7 @@ import {Config} from "../providers/config";
 
 @Component({
     selector: 'avatar',
-    template: `<img *ngIf="src" [src]="src(id)" [class]="'avatar-'+size" alt=""/>`
+    template: `<img *ngIf="src && id" [src]="src(id)" [class]="'avatar-'+size" alt=""/>`
 })
 
 export class Avatar {
