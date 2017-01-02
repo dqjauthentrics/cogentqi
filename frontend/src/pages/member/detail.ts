@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
-import {Config} from "../../providers/config";
+import {Globals} from "../../providers/globals";
 import {MemberProvider} from "../../providers/member";
 import {AssessmentDetailPage} from "../assessment/detail";
 import {MemberProgressPage} from "./progress";
@@ -15,7 +15,7 @@ export class MemberDetailPage {
     public dirty: boolean = false;
     public saving: boolean = false;
 
-    constructor(private nav: NavController, private navParams: NavParams, private memberData: MemberProvider, public config: Config) {
+    constructor(private nav: NavController, private navParams: NavParams, private memberData: MemberProvider, public globals: Globals) {
         this.member = this.navParams.data;
         if (this.member) {
             memberData.getSingle(this.member.id).then(member => {

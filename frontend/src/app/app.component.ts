@@ -3,6 +3,7 @@ import {Events, Nav, Platform, App} from "ionic-angular";
 import {Config} from "../providers/config";
 import {Globals} from "../providers/globals";
 import {InstrumentProvider} from "../providers/instrument";
+import {RoleProvider} from "../providers/role";
 import {EventProvider} from "../providers/event";
 import {SessionProvider} from "../providers/session";
 import {LoginPage} from "../pages/login/login";
@@ -21,18 +22,31 @@ export class CogicApp {
 
     rootPage: any = LoginPage;
 
-    constructor(private _app: App, private events: Events, private globals: Globals, private session: SessionProvider, platform: Platform, private config: Config,
-                public instrumentData: InstrumentProvider, public eventProvider: EventProvider) {
+    constructor(private _app: App,
+                private events: Events,
+                private globals: Globals,
+                private session: SessionProvider,
+                private platform: Platform,
+                private config: Config,
+                public instrumentData: InstrumentProvider,
+                public eventProvider: EventProvider,
+                public roleProvider: RoleProvider) {
         this.listenToLoginEvents();
         this.session.checkLogin();
         this.rootPage = (this.session.user && this.session.isLoggedIn ? TabsPage : LoginPage);
+
+        this.roleProvider.getAll(null, false).then((roles) => {
+            if (roles) {
+                this.globals.roles = roles;
+            }
+        });
     }
 
     listenToLoginEvents() {
         this.events.subscribe('session:login', () => {
             this.rootPage = TabsPage;
             this.instrumentData.getAll(null, false);
-            this.globals.tabMode = this.session.user.roleId === this.globals.APP_ROLE_PROFESSIONAL ? 'professional' : 'admin';
+            this.globals.tabMode = this.globals.appRoleId(this.session.user.roleId) === this.globals.APP_ROLE_PROFESSIONAL ? 'professional' : 'admin';
         });
         this.events.subscribe('session:logout', () => {
             console.log('logout requested');

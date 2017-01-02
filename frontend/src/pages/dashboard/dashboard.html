@@ -6,7 +6,7 @@
     <div class="info">
         <span class="name">{{user|namify:true}}</span><span class="job"
                                                             [hidden]="(!user || !user.jobTItle || user.jobTitle.length === 0)">, {{user?.jobTitle}}</span><span
-            class="role">, {{config.roleName(user?.roleId)}}</span><span class="org">, {{user?.organizationName}}</span>
+            class="role">, {{globals.roleName(user?.roleId)}}</span><span class="org">, {{user?.organizationName}}</span>
     </div>
     <div class="clearfix"></div>
     <div class="watermark">

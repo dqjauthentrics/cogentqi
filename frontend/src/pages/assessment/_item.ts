@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {NavController} from "ionic-angular";
-import {Config} from "../../providers/config";
+import {Globals} from "../../providers/globals";
 import {AssessmentDetailPage} from "./detail";
 
 @Component({
@@ -13,7 +13,7 @@ export class AssessmentItem {
     @Input() showMember: boolean = true;
     @Input() showIcon: boolean = true;
 
-    constructor(private nav: NavController, public config: Config) {
+    constructor(private nav: NavController, public globals: Globals) {
     }
 
     goToAssessment(assessment) {

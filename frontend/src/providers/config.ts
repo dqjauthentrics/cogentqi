@@ -18,7 +18,6 @@ export class Config {
     public logoPrint: string = '/assets/site/default/images/logoPrint.png';
     public isAdmin: boolean = false;
     public translations: Object;
-    public roles: Object;
     public language: string = "us-en";
 
     constructor(private http: Http) {
@@ -50,18 +49,6 @@ export class Config {
         return window && window.location && window.location.hostname && window.location.hostname.indexOf('.com') > 0;
     }
 
-    roleName(roleId) {
-        try {
-            if (roleId && this.roles[roleId]) {
-                return this.roles[roleId];
-            }
-        }
-        catch (exception) {
-            console.error("CONFIGURATION ROLE ERROR:", exception);
-        }
-        return roleId;
-    }
-
     load() {
         if (this.data) {
             return Promise.resolve(this.data);
@@ -80,9 +67,6 @@ export class Config {
                 }
                 if (jsonObject.translations) {
                     this.translations = jsonObject.translations;
-                }
-                if (jsonObject.roles) {
-                    this.roles = jsonObject.roles;
                 }
                 resolve(this.data);
             });

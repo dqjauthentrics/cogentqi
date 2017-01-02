@@ -1,23 +1,18 @@
-.customerBg, .tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
-    background-color: #0173BA !important;
+.toolbar-background-md {
+    border-color: #DE3A41;
+    background: #DE3A41;
 }
 
-.bar.bar-assertive, .assertive {
-    border: none;
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    background-color: #0A549D;
+    border-color: #0A549D;
+    color: #FFF;
 }
 
-.cycle a {
-    color: #444 !important;
+.pagination > li > a, .pagination > li > span {
+    color: #0A549D;
 }
-
-.tab-item:hover {
-    color: yellow !important;
-}
-
-.card {
-    background: #DDD;
-}
-
-.tabs-assertive > .tabs, .tabs.tabs-assertive {
-    border-color: #0173BA;
+.range-md .range-knob {
+    top: 0;
+    background: #0A549D;
 }

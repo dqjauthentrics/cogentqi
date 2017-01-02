@@ -9,9 +9,13 @@ class RoleController extends ControllerBase {
 	/**
 	 * Return a list.
 	 */
-	public function indexAction() {
+	public function listAction() {
 		$role = new Role();
-		$data = $role->get();
+		$data = [];
+		$roles = $role->get(null,false,'id','1=1',[],[]);
+		foreach ($roles as $role) {
+			$data[$role->id] = ['appRoleId' => $role->app_role_id, 'name' => $role->name];
+		}
 		$result = new Result($this);
 		$result->sendNormal($data);
 	}

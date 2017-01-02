@@ -56,6 +56,7 @@ import {OutcomeProvider} from "../providers/outcome";
 import {PDF} from "../providers/pdf";
 import {PlanItemProvider} from "../providers/plan-item";
 import {ResourceProvider} from "../providers/resource";
+import {RoleProvider} from "../providers/role";
 import {ScheduleProvider} from "../providers/schedule";
 import {SessionProvider} from "../providers/session";
 /**
@@ -80,7 +81,6 @@ import {ConfigSettingsPage} from "../pages/configuration/settings/config";
 import {ConfigurationPage} from "../pages/configuration/index";
 import {DashboardPage} from "../pages/dashboard/dashboard";
 import {EventListPage} from "../pages/event/list";
-import {HelpPage} from "../pages/help/help";
 import {InstrumentViewPage} from "../pages/instrument/view";
 import {LoginPage} from "../pages/login/login";
 import {MatrixPage} from "../pages/matrix/matrix";
@@ -147,7 +147,6 @@ import {TabsPage} from "../pages/tabs/tabs";
         EventListPage,
         FilterArrayPipe,
         HeaderBar,
-        HelpPage,
         Icon,
         InfoBadge,
         InstrumentViewPage,
@@ -214,7 +213,6 @@ import {TabsPage} from "../pages/tabs/tabs";
         ConfigurationPage,
         DashboardPage,
         EventListPage,
-        HelpPage,
         InstrumentViewPage,
         LoginPage,
         MatrixPage,
@@ -267,6 +265,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         Phone,
         PlanItemProvider,
         ResourceProvider,
+        RoleProvider,
         ScheduleProvider,
         SessionProvider,
         Space2break,

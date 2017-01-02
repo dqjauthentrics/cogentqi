@@ -1,14 +1,13 @@
 import * as _ from "lodash";
 import {Pipe, PipeTransform} from "@angular/core";
 import {Globals} from "../providers/globals";
-import {Config} from "../providers/config";
 
 @Pipe({
     name: "dataFilter"
 })
 export class DataFilterPipe implements PipeTransform {
 
-    constructor(private config: Config, private globals: Globals) {
+    constructor(private globals: Globals) {
     }
 
     match(query, val) {
@@ -34,7 +33,7 @@ export class DataFilterPipe implements PipeTransform {
                 match = match || this.match(query, rec.email);
             }
             if (!match && rec.roleId) {
-                match = match || this.match(query, this.config.roleName(rec.roleId));
+                match = match || this.match(query, this.globals.roleName(rec.roleId));
             }
         }
         return match;

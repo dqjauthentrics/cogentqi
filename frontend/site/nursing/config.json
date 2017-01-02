@@ -1,0 +1,16 @@
+{
+  "name": "Nursing Care, Inc.",
+  "appName": "CogentQI",
+  "copyright": "Copyright \u00a9 2015, CogentQI.com.  All rights reserved.",
+  "trademarkName": "CogentQI&#8482;",
+  "translations" : {
+    "us-en": {
+      "Assessment": "Evaluation",
+      "Assessments": "Evaluations",
+      "Assessments to Date": "Evaluations to Date",
+      "Assessment Deletion Confirmation": "Evaluation Deletion Confirmation",
+      "Are you sure you wish to PERMANENTLY remove this assessment?": "Are you sure you wish to PERMANENTLY remove this evaluation?",
+      "Partially Aligned": "Somewhat Aligned"
+    }
+  }
+}
