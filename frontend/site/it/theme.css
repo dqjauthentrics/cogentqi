@@ -3,12 +3,12 @@ body {
 }
 
 .customerBg {
-    background: #FFF url(/frontend/site/it/images/bg-top-nav.png) !important;
+    background: #FFF url(/assets/site/it/images/bg-top-nav.png) !important;
     background-size: 100% 100% !important;
 }
 
 ion-header-bar {
-    background: #FFF url(/frontend/site/it/images/bg-top-nav.png) !important;
+    background: #FFF url(/assets/site/it/images/bg-top-nav.png) !important;
 }
 
 ion-header-bar img {
@@ -16,80 +16,29 @@ ion-header-bar img {
 }
 
 ion-content {
-    background: #FFF url(/frontend/site/it/images/bg.gif) !important;
+    background: #FFF url(/assets/site/it/images/bg.gif) !important;
     background-size: 100% 100% !important;
 }
 
-ion-header-bar a {
-    color: #1fa3d0 !important;
+.toolbar-background-md {
+    border-color: #168FBE;
+    background: #168FBE;
 }
 
-.tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
-    background: #1fa3d0 !important;
+a, .dashboard .cycle a, .tabs-md .tab-button[aria-selected=true] {
+    color: #067FAE !important;
 }
 
-.bar.bar-assertive .title {
-    color: #1fa3d0;
-}
-
-.bar-assertive .button.button-clear {
-    color: #1fa3d0;
-}
-
-.cycle a {
-    color: #606060 !important;
-}
-
-.dashname {
-    color: #606060;
-}
-
-.tab-item-active {
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    background-color: #56CFFE;
+    border-color: #56CFFE;
     color: #FFF;
 }
 
-.tab-item:hover {
-    color: #FFF !important;
+.pagination > li > a, .pagination > li > span {
+    color: #56CFFE;
 }
-
-
-.slider0 span.pointer {
-    border-top: 1em solid gray;
-    color: #FFF;
+.range-md .range-knob {
+    top: 0;
+    background: #067FAE;
 }
-
-.slider1 span.pointer {
-    border-top: 1em solid #BB4444 !important;
-    color: #FFF !important;
-}
-
-.slider2 span.pointer {
-    border-top: 1em solid darkgreen !important;
-    color: #FFF !important;
-}
-
-.slider3 span.pointer {
-    border-top: 1em solid #68A !important;
-    color: #FFF !important;
-}
-
-.levelBg0 {
-    background: #AAA !important;
-    color: #FFF !important;
-}
-
-.levelBg1 {
-    background: #BB4444 !important;
-    color: #FFF !important;
-}
-
-.levelBg2 {
-    background: darkgreen !important;
-    color: #FFF !important;
-}
-
-.levelBg3 {
-    background: #68A !important;
-    color: #FFF !important;
-}
-

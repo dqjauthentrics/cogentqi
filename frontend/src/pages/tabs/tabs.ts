@@ -44,7 +44,7 @@ export class TabsPage {
     /**
      */
     constructor(private navParams: NavParams, private nav: NavController, private globals: Globals, private session: SessionProvider) {
-        let pageSet = this.session.user && this.session.user.roleId !== this.globals.APP_ROLE_PROFESSIONAL ? this.mainPages : this.profPages;
+        let pageSet = this.session.user && this.globals.appRoleId(this.session.user.roleId) !== this.globals.APP_ROLE_PROFESSIONAL ? this.mainPages : this.profPages;
         for (let i = 0; i < pageSet.length; i++) {
             if (!pageSet[i].show) {
                 pageSet.splice(i, 1);

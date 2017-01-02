@@ -22,10 +22,40 @@ export class Globals {
 
     public appEvents: Array<any>;
     public outcomes: Array<any>;
+    public roles: Array<any>;
 
     public alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
     constructor(private loading: LoadingController, private alerts: AlertController) {
+    }
+
+    roleName(roleId) {
+        try {
+            if (roleId && this.roles[roleId]) {
+                return this.roles[roleId].name;
+            }
+        }
+        catch (exception) {
+            console.error("CONFIGURATION ROLE ERROR:", exception);
+        }
+        return roleId;
+    }
+
+    appRoleId(roleId) {
+        try {
+            if (roleId && this.roles[roleId]) {
+                if (
+                    this.roles[roleId].appRoleId === this.APP_ROLE_PROFESSIONAL ||
+                    this.roles[roleId].appRoleId === this.APP_ROLE_MANAGER ||
+                    this.roles[roleId].appRoleId === this.APP_ROLE_ADMINISTRATOR
+                )
+                    return this.roles[roleId].appRoleId;
+            }
+        }
+        catch (exception) {
+            console.error("CONFIGURATION ROLE ERROR:", exception);
+        }
+        return this.APP_ROLE_PROFESSIONAL;
     }
 
     public safeName(str) {

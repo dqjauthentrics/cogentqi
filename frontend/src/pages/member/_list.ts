@@ -4,7 +4,7 @@ import {MemberProvider} from "../../providers/member";
 import {SessionProvider} from "../../providers/session";
 import {MemberDetailPage} from "./detail";
 import {IconProvider} from "../../providers/icon";
-import {Config} from "../../providers/config";
+import {Globals} from "../../providers/globals";
 
 @Component({
     selector: 'member-list',
@@ -13,7 +13,7 @@ import {Config} from "../../providers/config";
 export class MemberList {
     @Input() organizationId: number;
     @Input() rowsOnPage: number = 5;
-    @Input() includeLastAssessment:boolean = true;
+    @Input() includeLastAssessment: boolean = true;
 
     public members: Array<any>;
     public filterQuery = "";
@@ -21,7 +21,7 @@ export class MemberList {
     public sortOrder = "desc";
     public loading: boolean;
 
-    constructor(private nav: NavController, public session: SessionProvider, public config: Config, public memberProvider: MemberProvider, public icon: IconProvider) {
+    constructor(private nav: NavController, public session: SessionProvider, public globals: Globals, public memberProvider: MemberProvider, public icon: IconProvider) {
         this.loading = true;
     }
 
