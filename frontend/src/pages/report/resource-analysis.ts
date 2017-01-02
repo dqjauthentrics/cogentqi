@@ -30,7 +30,6 @@ export class ReportResourceAnalysis {
                 if (questionGroups) {
                     let questionCount = 0;
                     let questionIdToIndex = {};
-                    console.log('resourceData', resourceData, questionGroups);
                     questionGroups.forEach(function (group) {
                         group.questions.forEach(function (question) {
                             questionIdToIndex[question.id] = questionCount;

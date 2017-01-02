@@ -88,17 +88,13 @@ export class MatrixPage {
     }
 
     goToMember(id: number) {
-        console.log('looking for member: ', id);
         this.memberData.getSingle(id).then(member => {
-            console.log('going to member: ', member);
             this.nav.push(MemberDetailPage, member);
         });
     }
 
     goToAssessment(id: number) {
-        console.log('looking for assessment: ', id);
         this.assessmentData.getSingle(id).then(assessment => {
-            console.log('going to assessment: ', assessment);
             this.nav.push(AssessmentDetailPage, assessment);
         });
     }

@@ -5,7 +5,7 @@ import {LoadingController, AlertController} from "ionic-angular";
 export class Globals {
     public tabMode: string = 'professional';
     public static isProduction: boolean = true;
-    public debug: boolean = true;
+    public debug: boolean = false;
     public loadingObject: any = null;
 
     public readonly APP_ROLE_PROFESSIONAL = 'P';

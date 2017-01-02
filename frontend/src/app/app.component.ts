@@ -49,9 +49,7 @@ export class CogicApp {
             this.globals.tabMode = this.globals.appRoleId(this.session.user.roleId) === this.globals.APP_ROLE_PROFESSIONAL ? 'professional' : 'admin';
         });
         this.events.subscribe('session:logout', () => {
-            console.log('logout requested');
             this.rootPage = LoginPage;
-            //this.nav.setRoot(LoginPage);
         });
     }
 

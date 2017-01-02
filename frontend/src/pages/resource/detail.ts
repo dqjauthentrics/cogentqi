@@ -28,7 +28,6 @@ export class ResourceDetailPage {
     }
 
     theContent() {
-        console.log('content len=', this.content ? this.content.length : 'null');
         return this.content;
     }
 

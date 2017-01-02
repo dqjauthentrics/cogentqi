@@ -35,7 +35,6 @@ export class PlanItemList {
             let namifier = new Namify();
             name = namifier.transform(planItem.member, false);
         }
-        console.log('name:', name);
         return name;
     }
 }

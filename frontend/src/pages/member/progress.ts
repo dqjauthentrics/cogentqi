@@ -59,13 +59,12 @@ export class MemberProgressPage {
             this.instrument = this.globals.findObjectById(this.instrumentData.list, instrumentId);
             this.assessmentProvider.retrieveIndividualProgressByMonth(this.member.id).then(
                 (data: any) => {
-                    console.log('data', data);
                     if (data) {
                         for (let i = 0; i < data.series.length; i++) {
-                            if (data.series[i].grouping == 0 || data.series[i].grouping == 2) {
+                            if (data.series[i].grouping === 0 || data.series[i].grouping === 2) {
                                 this.configs[0].series.push(data.series[i]);
                             }
-                            if (data.series[i].grouping == 1 || data.series[i].grouping == 2) {
+                            if (data.series[i].grouping === 1 || data.series[i].grouping === 2) {
                                 data.series[i].visible = true;
                                 this.configs[1].series.push(data.series[i]);
                             }

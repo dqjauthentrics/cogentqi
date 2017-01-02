@@ -29,7 +29,6 @@ export class ReportResourceEfficacy {
     ngOnInit() {
         let comp = this;
         this.resourceProvider.getData('/efficacy').then((data: any) => {
-            console.log('efficacy data', data);
             comp.data = data;
             comp.renderCharts();
         });
