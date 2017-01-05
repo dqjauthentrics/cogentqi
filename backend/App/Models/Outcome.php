@@ -83,7 +83,7 @@ class Outcome extends AppModel {
 	 */
 	public function map($options = ['alignments' => TRUE, 'singleOrgId' => NULL]) {
 		$map = parent::map();
-		if ($options['alignments']) {
+		if (!empty($options['alignments'])) {
 			$jsonAlignments = [];
 			/**
 			 * @var OutcomeAlignment $alignmentRecord

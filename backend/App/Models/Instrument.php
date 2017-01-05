@@ -5,7 +5,6 @@ namespace App\Models;
  * Class Instrument
  * @package App\Models
  *
- * @method QuestionType getQuestionType()
  * @method \Phalcon\Mvc\Model\Resultset\Simple getSchedule()
  *
  * @method Instrument $instrument
