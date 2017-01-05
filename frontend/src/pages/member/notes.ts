@@ -1,7 +1,6 @@
 import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
 import {Globals} from "../../providers/globals";
-import {MemberProvider} from "../../providers/member";
 import {MemberNoteProvider} from "../../providers/member-note";
 
 @Component({
@@ -12,7 +11,7 @@ export class MemberNotesPage {
     public notes;
     public newNote = {memberId: 0, content: ''};
 
-    constructor(private nav: NavController, private navParams: NavParams, private globals: Globals, private memberData: MemberProvider, private memberNoteProvider: MemberNoteProvider) {
+    constructor(private nav: NavController, private navParams: NavParams, private globals: Globals, private memberNoteProvider: MemberNoteProvider) {
         this.member = this.navParams.data;
         this.newNote.memberId = this.member.id;
         this.memberNoteProvider.getForMember(this.member.id).then((notes) => {
@@ -32,16 +31,19 @@ export class MemberNotesPage {
     }
 
     add() {
-        if (!this.newNote.content || this.newNote.content.length == 0) {
+        if (!this.newNote.content || this.newNote.content.length === 0) {
             this.globals.alertWarning('You must enter some note text before saving it.');
         }
         else {
-            this.memberData.add(this.newNote, true);
+            this.newNote.memberId = this.member.id;
+            this.memberNoteProvider.update(this.newNote, false).then((note) => {
+                this.notes.push(note);
+            });
         }
     }
 
     flag(note) {
-        note.flag = note.flag == 1 ? 0 : 1;
+        note.flag = note.flag === 1 ? 0 : 1;
         note.saving = true;
         this.memberNoteProvider.update(note, false).then(() => {
             note.saving = false;
@@ -59,7 +61,7 @@ export class MemberNotesPage {
     }
 
     thumbsUp(note) {
-        note.flag = note.flag == 2 ? 0 : 2;
+        note.flag = note.flag === 2 ? 0 : 2;
         note.saving = true;
         this.memberNoteProvider.update(note, false).then(() => {
             note.saving = false;

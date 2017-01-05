@@ -68,8 +68,11 @@ try {
 }
 catch (\Exception $e) {
 	$result = new \App\Components\Result($this);
+	//if (empty($result->message)) {
+		$result->message = 'WTF:'.$e->getMessage();
+	//}
 	$result->data = [
-		'message' => $e->getMessage(),
+		'message' => 'MAIN:' . $e->getMessage(),
 		'class'   => get_class($e),
 		'file'    => $e->getFile(),
 		'line'    => $e->getLine(),

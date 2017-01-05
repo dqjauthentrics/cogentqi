@@ -75,12 +75,17 @@ export class SessionProvider {
         }
         return new Promise(resolve => {
             this.http.post('/assets/api/session/refreshUser', null, null).subscribe(res => {
-                let jsonResponse = res.json();
-                this.validate(jsonResponse, true);
-                if (this.globals.debug) {
-                    console.log('SessionProvider:refreshUser(validated)');
+                try {
+                    let jsonResponse = res.json();
+                    this.validate(jsonResponse, true);
+                    if (this.globals.debug) {
+                        console.log('SessionProvider:refreshUser(validated)');
+                    }
+                    resolve(jsonResponse);
                 }
-                resolve(jsonResponse);
+                catch (exception) {
+                    console.error("COGIC LOGIN ERROR:", res, exception);
+                }
             });
         });
     }
@@ -89,11 +94,18 @@ export class SessionProvider {
         return new Promise(resolve => {
             this.globals.showLoading('Logging in...');
             let data = {username: username, password: password};
-            this.http.post('/assets/api/session/login', data, null).subscribe(res => {
-                let jsonResponse = res.json();
-                this.validate(jsonResponse, false);
-                resolve(jsonResponse);
-            });
+            this.http.post('/assets/api/session/login', data, null)
+                .subscribe(res => {
+                    try {
+                        let jsonResponse = res.json();
+                        resolve(jsonResponse);
+                    }
+                    catch (exception) {
+                        console.error("COGIC LOGIN ERROR:", res, exception);
+                    }
+                })
+        }).then((jsonResponse) => {
+            this.validate(jsonResponse, false);
         });
     }
 
@@ -109,24 +121,32 @@ export class SessionProvider {
     }
 
     checkLogin() {
-        if (this.globals.debug) {
-            console.log('SessionProvider:checkLogin(entry)');
-        }
-        return this.storage.get('user').then((value) => {
-            if (value) {
-                this.user = JSON.parse(value);
-                if (this.user.id) {
-                    this.isLoggedIn = true;
+        try {
+            if (this.globals.debug) {
+                console.log('SessionProvider:checkLogin(entry)');
+            }
+            return this.storage.get('user').then((value) => {
+                if (value) {
+                    this.user = JSON.parse(value);
                     if (this.globals.debug) {
-                        console.log('SessionProvider:checkLogin(publish login)');
+                        console.log('SessionProvider:checkLogin(user)', this.user);
                     }
-                    this.events.publish('session:login');
+                    if (this.user.id) {
+                        this.isLoggedIn = true;
+                        if (this.globals.debug) {
+                            console.log('SessionProvider:checkLogin(publish login)');
+                        }
+                        this.events.publish('session:login');
+                    }
                 }
-            }
-            else {
-                this.isLoggedIn = false;
-            }
-            return value;
-        });
+                else {
+                    this.isLoggedIn = false;
+                }
+                return value;
+            });
+        }
+        catch (exception) {
+            console.error("COGIC LOGIN ERROR:", exception);
+        }
     }
 }

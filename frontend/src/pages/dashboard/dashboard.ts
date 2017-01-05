@@ -49,6 +49,7 @@ export class DashboardPage {
             comp.loadingEventTypes = true;
             this.user = comp.session.user;
             this.translator = new Translate(this.config);
+
             comp.assessmentProvider.retrieveYearAverage(this.user.organizationId).then((data:any) => {;
                 this.renderAssessmentsGauge(data.score);
             });

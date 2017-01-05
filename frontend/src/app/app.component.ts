@@ -31,22 +31,38 @@ export class CogicApp {
                 public instrumentData: InstrumentProvider,
                 public eventProvider: EventProvider,
                 public roleProvider: RoleProvider) {
-        this.listenToLoginEvents();
-        this.session.checkLogin();
-        this.rootPage = (this.session.user && this.session.isLoggedIn ? TabsPage : LoginPage);
+
+        try {
+            this.listenToLoginEvents();
+            this.session.checkLogin();
+            this.rootPage = (this.session.user && this.session.isLoggedIn ? TabsPage : LoginPage);
+        }
+        catch (exception) {
+            console.error('COGIC APP ERROR:', exception);
+        }
 
         this.roleProvider.getAll(null, false).then((roles) => {
-            if (roles) {
-                this.globals.roles = roles;
+            try {
+                if (roles) {
+                    this.globals.roles = roles;
+                }
+            }
+            catch (exception) {
+                console.error('COGIC APP ERROR:', exception);
             }
         });
     }
 
     listenToLoginEvents() {
         this.events.subscribe('session:login', () => {
-            this.rootPage = TabsPage;
-            this.instrumentData.getAll(null, false);
-            this.globals.tabMode = this.globals.appRoleId(this.session.user.roleId) === this.globals.APP_ROLE_PROFESSIONAL ? 'professional' : 'admin';
+            try {
+                this.rootPage = TabsPage;
+                this.instrumentData.getAll(null, false);
+                this.globals.tabMode = this.globals.appRoleId(this.session.user.roleId) === this.globals.APP_ROLE_PROFESSIONAL ? 'professional' : 'admin';
+            }
+            catch (exception) {
+                console.error('COGIC APP ERROR:', exception);
+            }
         });
         this.events.subscribe('session:logout', () => {
             this.rootPage = LoginPage;
@@ -56,12 +72,17 @@ export class CogicApp {
     ngOnInit() {
         // Establish theme styles.
         //
-        let head = document.getElementsByTagName('head')[0];
-        let link = document.createElement('link');
-        let style = head.getElementsByTagName('style')[0];
-        link.href = this.config.css;
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        head.insertBefore(link, style);
+        try {
+            let head = document.getElementsByTagName('head')[0];
+            let link = document.createElement('link');
+            let style = head.getElementsByTagName('style')[0];
+            link.href = this.config.css;
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            head.insertBefore(link, style);
+        }
+        catch (exception) {
+            console.error('COGIC APP ERROR:', exception);
+        }
     }
 }

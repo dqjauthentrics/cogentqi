@@ -20,7 +20,7 @@ class Result {
 		self::CODE_INVALID_REQUEST => 'Invalid request.',
 		self::CODE_NOT_FOUND       => 'Not found.',
 		self::CODE_NOT_ALLOWED     => 'Permission denied.',
-		self::CODE_EXCEPTION       => 'Error.',
+		self::CODE_EXCEPTION       => '',
 	];
 
 	/**
@@ -76,7 +76,7 @@ class Result {
 	public function setException($exception, $data = FALSE) {
 		$this->status = self::STATUS_ERROR;
 		$this->code = 500;
-		$this->message = $exception->getMessage();
+		$this->message = 'RESULT: '.$exception->getMessage();
 		if ($data !== FALSE) {
 			$this->data = $data;
 		}

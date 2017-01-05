@@ -5,7 +5,7 @@ import {LoadingController, AlertController} from "ionic-angular";
 export class Globals {
     public tabMode: string = 'professional';
     public static isProduction: boolean = true;
-    public debug: boolean = false;
+    public debug: boolean = true;
     public loadingObject: any = null;
 
     public readonly APP_ROLE_PROFESSIONAL = 'P';
@@ -42,6 +42,18 @@ export class Globals {
             return roleId;
         }
         return '';
+    }
+
+    appEventsAsArray() {
+        let events: Array<any> = [];
+        if (this.appEvents) {
+            for (let id in this.appEvents) {
+                let event = this.appEvents[id];
+                event.id = id;
+                events.push(event);
+            }
+        }
+        return events;
     }
 
     appRoleId(roleId) {

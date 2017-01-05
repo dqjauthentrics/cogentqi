@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {EventProvider} from "../../../providers/event";
+import {Globals} from "../../../providers/globals";
 import {ConfigEventsPage} from "./config";
 import {IconProvider} from "../../../providers/icon";
 
@@ -9,18 +10,13 @@ import {IconProvider} from "../../../providers/icon";
 })
 export class ConfigEventsListPage {
     public events = [];
-    public loading: boolean = false;
     public filterQuery = "";
     public rowsOnPage = 5;
     public sortBy = "orderedOn";
     public sortOrder = "desc";
 
-    constructor(private nav: NavController, eventData: EventProvider, public icon: IconProvider) {
-        this.loading = true;
-        eventData.getAll(null, false).then(events => {
-            this.events = events;
-            this.loading = false;
-        });
+    constructor(private nav: NavController, private globals: Globals, private eventData: EventProvider, public icon: IconProvider) {
+        this.events = this.globals.appEventsAsArray();
     }
 
     configureEvent(event) {

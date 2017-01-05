@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Components\Result;
@@ -51,7 +52,7 @@ class MemberNoteController extends ControllerBase {
 	public function updateAction() {
 		$result = new Result();
 		try {
-			$noteForm = $this->getInputData('note');
+			$noteForm = $this->getInputData('data');
 			if (!empty($noteForm) && is_array($noteForm)) {
 				$noteForm['creator_id'] = $this->currentUser()->id;
 				if (empty($noteForm["id"])) {
@@ -61,9 +62,8 @@ class MemberNoteController extends ControllerBase {
 					$note = MemberNote::findFirst($noteForm["id"]);
 				}
 				if (!empty($note)) {
-					$form = $note->unmap($noteForm);
-					$form['last_modified'] = $note->dbDateTime();
-					if ($note->save($form)) {
+					$note->unmap($noteForm, $note);
+					if ($note->save()) {
 						$result->setNormal($note->map());
 					}
 					else {

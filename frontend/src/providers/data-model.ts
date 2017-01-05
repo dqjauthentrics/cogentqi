@@ -38,21 +38,21 @@ export class DataModel {
 
     checkResult(result, notify: boolean) {
         if (result.code !== 200) {
-            console.error('SERVER ERROR: ' + result.message);
+            console.error('COGIC SERVER ERROR: ' + result.message);
         }
         if (notify) {
             let toast = this.toastCtrl.create({
-                message: result && result.code != 200 ? result.message : 'Okay!',
+                message: result && result.code !== 200 ? result.message : 'Okay!',
                 duration: 4000,
                 position: 'middle',
                 showCloseButton: true,
                 closeButtonText: 'Dismiss',
                 dismissOnPageChange: true,
-                cssClass: result && result.code == 200 ? "success" : "error"
+                cssClass: result && result.code === 200 ? "success" : "error"
             });
             toast.present();
         }
-        if (result && result.code == 500 && result.message && result.message.indexOf('Not logged in') >= 0) {
+        if (result && result.code === 500 && result.message && result.message.indexOf('Not logged in') >= 0) {
             console.log('logging out...');
             this.session.logout();
         }
@@ -81,7 +81,7 @@ export class DataModel {
                         resolve(data);
                     }
                     catch (exception) {
-                        console.error(exception);
+                        console.error('COGIC DATA LOAD ERROR:', exception);
                     }
                 },
                 err => {
@@ -97,15 +97,20 @@ export class DataModel {
 
     displayError(err) {
         console.log(err);
-        let toast = this.toastCtrl.create({
-            message: 'Sorry.  An error occurred on the server.' + (err.status !== 500 ? err.message : ''),
-            position: 'middle',
-            showCloseButton: true,
-            closeButtonText: 'Dismiss',
-            dismissOnPageChange: true,
-            cssClass: "error"
-        });
-        toast.present();
+        try {
+            let toast = this.toastCtrl.create({
+                message: 'Sorry.  An error occurred on the server.' + (err.status !== 500 ? err.message : ''),
+                position: 'middle',
+                showCloseButton: true,
+                closeButtonText: 'Dismiss',
+                dismissOnPageChange: true,
+                cssClass: "error"
+            });
+            toast.present();
+        }
+        catch (exception) {
+            console.error("COGIC ERROR:", exception);
+        }
     }
 
 
@@ -119,6 +124,7 @@ export class DataModel {
         }
         else {
             if (this.list) {
+                console.log("RETURNING PROMISE:", this.list);
                 return Promise.resolve(this.list);
             }
         }
@@ -155,13 +161,18 @@ export class DataModel {
         return new Promise(resolve => {
             this.http.post(url, body, options).subscribe(
                 result => {
-                    let jsonResponse = result.json();
-                    this.checkResult(jsonResponse, notify);
-                    let data = jsonResponse.data;
-                    if (provider.globals.debug) {
-                        console.log(url + ':post returned:', data);
+                    try {
+                        let jsonResponse = result.json();
+                        this.checkResult(jsonResponse, notify);
+                        let data = jsonResponse.data;
+                        if (provider.globals.debug) {
+                            console.log(url + ':post returned:', data);
+                        }
+                        resolve(data);
                     }
-                    resolve(data);
+                    catch (exception) {
+                        console.error("COGIC POSTERROR:", exception, result);
+                    }
                 },
                 error => {
                     this.globals.alertError('There was an error on the server.');

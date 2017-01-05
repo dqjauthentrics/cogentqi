@@ -3,7 +3,7 @@
 </ion-header>
 
 <ion-content class="outer-content configuration resources">
-    <ion-card>
+    <ion-card *ngIf="events">
         <table class="table table-striped listing" [mfData]="events | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
                [(mfSortBy)]="sortBy"
                [(mfSortOrder)]="sortOrder">
@@ -12,11 +12,6 @@
                 <th colspan="7">
                     <ion-searchbar [(ngModel)]="filterQuery" placeholder="filter"></ion-searchbar>
                 </th>
-            </tr>
-            <tr [hidden]="!loading">
-                <td colspan="4">
-                    <loading-indicator [loading]="loading"></loading-indicator>
-                </td>
             </tr>
             </thead>
             <tbody>

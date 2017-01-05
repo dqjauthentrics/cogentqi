@@ -78,7 +78,7 @@ class ControllerBase extends Controller {
 	 * @return string
 	 */
 	public function getInput() {
-		return file_get_contents('php://input');
+		return @file_get_contents('php://input');
 	}
 
 	/**

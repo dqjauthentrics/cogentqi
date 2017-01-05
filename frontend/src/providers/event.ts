@@ -13,8 +13,13 @@ export class EventProvider extends DataModel {
         super('event', toastCtrl, http, globals, config, session);
 
         this.getAll(null, false).then((appEvents) => {
-            if (appEvents) {
-                this.globals.appEvents = appEvents;
+            try {
+                if (appEvents) {
+                    this.globals.appEvents = appEvents;
+                }
+            }
+            catch (exception) {
+                console.error("COGIC ERROR:", exception);
             }
         });
     }
