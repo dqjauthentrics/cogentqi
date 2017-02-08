@@ -15,8 +15,8 @@ export class OrganizationAssessments {
     @Input() organizationId: number;
     @Input() assessments: Array<any>;
     @Input() instrument: any;
+    @Input() loading: boolean;
 
-    public loading: boolean = false;
     public filterQuery = "";
     public rowsOnPage = 5;
     public sortBy = "orderedOn";

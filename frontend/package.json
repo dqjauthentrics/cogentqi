@@ -7,11 +7,16 @@
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
     "watch": "ionic-app-scripts watch",
+    "build": "ionic-app-scripts build; ionic-app-scripts minify --cleancss",
+    "minify": "ionic-app-scripts minify --cleancss",
     "serve:before": "watch",
     "emulate:before": "build",
     "deploy:before": "build",
     "build:before": "build",
     "run:before": "build"
+  },
+  "config": {
+    "cleancss": "./node_modules/@ionic/app-scripts/config/cleancss.config.js"
   },
   "dependencies": {
     "@angular/common": "2.2.1",
@@ -26,12 +31,13 @@
     "@ionic/storage": "1.1.7",
     "angular2-datatable": "^0.5.2",
     "angular2-select": "^1.0.0-alpha.12",
-    "ionic-angular": "2.0.0-rc.4",
+    "ionic-angular": "2.0.0-rc.6",
     "ionic-native": "2.2.11",
     "ionicons": "3.0.0",
     "jspdf": "^1.3.2",
     "ng2-chartjs2": "^1.2.0",
-    "ng2-inline-editor": "^0.1.1-alpha.9",
+    "ng2-inline-editor": "^0.1.1-alpha.10",
+    "ng2-lazy-trumbowyg": "^1.0.5",
     "rxjs": "5.0.0-beta.12",
     "zone.js": "0.6.26"
   },

@@ -2,24 +2,101 @@
     <header-bar [title]="'Instrument Configuration'|translate"></header-bar>
 </ion-header>
 
-<ion-content class="inster-content configuration instrument">
+<ion-content class="configuration instrument">
     <ion-card class="instrument">
         <form *ngIf="instrument">
-            <ion-item>
-                <ion-label floating primary>{{'Number'|translate}}</ion-label>
-                <ion-input [(ngModel)]="instrument.number" name="number" required></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label floating primary>{{'Name'|translate}}</ion-label>
-                <ion-input [(ngModel)]="instrument.name" name="name" required></ion-input>
-            </ion-item>
-            <p [hidden]="instrument.valid || submitted == false" danger padding-left>
-                {{'Name is required'}}
-            </p>
-            <div class="editor">
-                <label for="instDescripEditor" floating primary>{{'Summary'|translate}}</label>
-                <div id="instDescripEditor" [innerHTML]="instrument.summary"></div>
-            </div>
+            <ion-row responsive-md wrap>
+                <ion-col width-20>
+                    <ion-item class="number">
+                        <ion-label floating primary>{{'Number'|translate}}</ion-label>
+                        <ion-input [(ngModel)]="instrument.number" name="number" required></ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col width-80>
+                    <ion-item>
+                        <ion-label floating primary>{{'Name'|translate}}</ion-label>
+                        <ion-input [(ngModel)]="instrument.name" name="name" required></ion-input>
+                    </ion-item>
+                    <p [hidden]="instrument.valid || submitted == false" danger padding-left>
+                        {{'Name is required'}}
+                    </p>
+                </ion-col>
+            </ion-row>
+            <ion-row responsive-md wrap>
+                <ion-col>
+                    <div class="editor">
+                        <label for="instSummEditor" floating primary>{{'Summary'|translate}}</label>
+                        <div class="wysiwyg" id="instSummEditor" [innerHTML]="instrument.summary"></div>
+                    </div>
+                </ion-col>
+                <ion-col>
+                    <div class="editor">
+                        <label for="instDescripEditor" floating primary>{{'Description'|translate}}</label>
+                        <div class="wysiwyg" id="instDescripEditor" [innerHTML]="instrument.description"></div>
+                    </div>
+                </ion-col>
+            </ion-row>
+
+            <ion-row responsive-sm wrap class="group">
+                <ion-col *ngFor="let questionGroup of instrument.questionGroups;" [class]="'progressBar' + (questionGroup.id == group.id? ' selected':'')"
+                         (click)="goToGroup(questionGroup)">
+                    {{questionGroup.tag|ellipsify:14}}
+                </ion-col>
+            </ion-row>
+            <ion-row responsive-md wrap class="group">
+                <ion-col width-20>
+                    <ion-item class="number">
+                        <ion-label floating primary>{{'Number'|translate}}</ion-label>
+                        <ion-input [(ngModel)]="group.number" name="groupNumber" required></ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col width-80>
+                    <ion-item>
+                        <ion-label floating primary>{{'Name'|translate}}</ion-label>
+                        <ion-input [(ngModel)]="group.tag" name="groupTag" required></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row responsive-md wrap class="group">
+                <ion-col>
+                    <div class="editor">
+                        <label for="groupSummary" floating primary>{{'Summary'|translate}}</label>
+                        <div class="wysiwyg" id="groupSummary" [innerHTML]="group.summary"></div>
+                    </div>
+                </ion-col>
+                <ion-col>
+                    <div class="editor">
+                        <label for="groupDescription" floating primary>{{'Description'|translate}}</label>
+                        <div class="wysiwyg" id="groupDescription" [innerHTML]="group.description"></div>
+                    </div>
+                </ion-col>
+            </ion-row>
+
+            <ion-row responsive-sm wrap class="question">
+                <ion-col *ngFor="let groupQuestion of group.questions;" [class]="'progressBar' + (groupQuestion.id == question.id? ' selected':'')"
+                         (click)="goToQuestion(groupQuestion)">
+                    {{groupQuestion.number + ' ' + groupQuestion.name|ellipsify:14}}
+                </ion-col>
+            </ion-row>
+            <ion-row responsive-md wrap class="question">
+                <ion-col width-20>
+                    <ion-item class="number">
+                        <ion-label floating primary>{{'Number'|translate}}</ion-label>
+                        <ion-input [(ngModel)]="question.number" name="questionNumber" required></ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col width-80>
+                    <ion-item>
+                        <label for="questionName" floating primary>{{'Question'|translate}}</label>
+                        <div class="wysiwyg" id="questionName" [innerHTML]="question.name"></div>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row *ngFor="let choice of question.type?.choices;">
+                <div [innerHTML]="choice.name"></div>
+            </ion-row>
+
             <editor-button-bar (onSave)="save(instrument)" (onRemove)="remove(instrument)"></editor-button-bar>
         </form>
     </ion-card>

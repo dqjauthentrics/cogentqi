@@ -9,6 +9,8 @@ import {Config} from "../../providers/config";
 import {PDF} from "../../providers/pdf";
 import {MemberDetailPage} from "../member/detail";
 
+declare let Quill: any;
+
 @Component({
     templateUrl: 'detail.html',
 })
@@ -22,20 +24,20 @@ export class AssessmentDetailPage {
 
     constructor(private color: Color, private nav: NavController, private navParams: NavParams, private config: Config,
                 private assessmentData: AssessmentProvider, public icon: IconProvider, public instrumentData: InstrumentProvider, public pdf: PDF, public globals: Globals) {
+        let comp = this;
         this.assessment = this.navParams.data;
-        assessmentData.getSingle(this.assessment.id).then(assessment => {
-            this.assessment = assessment;
-            this.instrument = instrumentData.find(this.assessment.instrument.id);
-            if (this.instrument) {
-                for (let i = 0; i < this.instrument.questions.length; i++) {
-                    let id = this.instrument.questions[i].id;
-                    this.instrument.questions[i].response = this.assessment.responses[id].responseIndex;
+        this.assessmentData.getSingle(this.assessment.id).then(assessment => {
+            comp.assessment = assessment;
+            comp.instrument = comp.instrumentData.find(comp.assessment.instrument.id);
+            if (comp.instrument) {
+                for (let i = 0; i < comp.instrument.questions.length; i++) {
+                    let id = comp.instrument.questions[i].id;
+                    comp.instrument.questions[i].response = comp.assessment.responses[id].responseIndex;
                 }
             }
         });
-
     }
-
+    
     goToMember(member) {
         this.nav.push(MemberDetailPage, member);
     }
@@ -56,9 +58,11 @@ export class AssessmentDetailPage {
     }
 
     save() {
+        console.log(this.instrument.questions);
         for (let i = 0; i < this.instrument.questions.length; i++) {
             let id = this.instrument.questions[i].id;
             this.assessment.responses[id].responseIndex = this.instrument.questions[i].response;
+            this.assessment.responses[id].response = this.instrument.questions[i].response;
         }
         this.assessmentData.update(this.assessment, false).then(
             success => {
@@ -71,7 +75,7 @@ export class AssessmentDetailPage {
     }
 
     lock() {
-        this.assessment.locked = !this.assessment.locked;
+        this.assessment.editStatus = (this.assessment.editStatus === this.globals.STATUS_LOCKED ? this.globals.STATUS_ACTIVE : this.globals.STATUS_LOCKED);
     }
 
     goTo(slideIndex) {
@@ -80,9 +84,9 @@ export class AssessmentDetailPage {
     }
 
     swipeEvent(event) {
-        if (event.direction == 4) { // left-to-right
+        if (event.direction === 4) { // left-to-right
             let currentIndex = this.slider.getActiveIndex();
-            if (currentIndex == 0) {
+            if (currentIndex === 0) {
                 let lastIndex = this.slider.length() - 1;
                 this.slider.slideTo(lastIndex, 300);
                 this.slideIndex = lastIndex;

@@ -1,5 +1,5 @@
 <ion-header>
-    <header-bar title="{{assessment.instrument.name}}: {{assessment.member|namify:false}} {{assessment.lastModified|date:'short'}}"></header-bar>
+    <header-bar title="{{assessment.instrument.name}}: {{assessment.member|namify:false}} {{assessment.lastModified|datify:true}}"></header-bar>
 </ion-header>
 
 <ion-content class="outer-content assessment-detail" padding="true">
@@ -13,30 +13,30 @@
                 <div class="pull-left clickable"><h3 (click)="goToMember(assessment.member)">{{assessment.member|namify:false}}</h3></div>
             </ion-col>
             <ion-col>
-                Last modified {{assessment.lastModfied|date:'M/d/yyyy @ h:mm'}} by {{assessment.assessor|namify:false}}
+                Last modified {{assessment.lastModfied|datify:true}} by {{assessment.assessor|namify:false}}
                 <avatar [id]="assessment.assessor.id" [size]="'tiny'"></avatar>
             </ion-col>
             <ion-col class="button-bar">
                 <app-icon (click)="save()" name="save" [dirty]="dirty"></app-icon>
-                <app-icon (click)="lock()" name="lock" [class]="assessment.locked? 'locked':''"></app-icon>
+                <app-icon (click)="lock()" name="lock" [class]="assessment.editStatus === globals.STATUS_LOCKED? 'locked':''"></app-icon>
                 <app-icon (click)="generatePDF(instrument, assessment)" name="pdf"></app-icon>
             </ion-col>
         </ion-row>
     </ion-grid>
     <loading-indicator [hidden]="instrument?.questions?.length"></loading-indicator>
-    <ion-segment>
+    <ion-segment *ngIf="instrument && instrument.questionGroups">
         <ion-col *ngFor="let questionGroup of instrument.questionGroups; let groupIndex = index" (click)="goTo(groupIndex)"
-                 [class]="'progressBar' + (groupIndex == slideIndex? ' selected' : '')">
+                 [class]="'progressBar' + (groupIndex === slideIndex? ' selected' : '')">
             <div>{{questionGroup.tag|ellipsify:14}}</div>
         </ion-col>
     </ion-segment>
-    <ion-slides #assessmentSlider [options]="{loop:false, effect:'slide', autoHeight:true, onlyExternal:true}">
+    <ion-slides *ngIf="instrument && instrument.questionGroups" #assessmentSlider [options]="{loop:false, effect:'slide', autoHeight:true, onlyExternal:true}">
         <ion-slide *ngFor="let questionGroup of instrument.questionGroups; let groupIndex = index" (swipe)="swipeEvent($event)">
             <ion-card class="question-group">
                 <ion-card-header class="title" [innerHtml]="questionGroup.tag"></ion-card-header>
                 <ion-card-content>
                     <div *ngFor="let question of instrument.questions; let questionIndex = index">
-                        <ion-card class="question" *ngIf="(question.questionGroupId == questionGroup.id)">
+                        <ion-card class="question" *ngIf="(question.questionGroupId === questionGroup.id)">
                             <ion-card-header>
                                 <div class="title" [innerHtml]="question.name"></div>
                                 <div class="text" [innerHtml]="question.summary"></div>
@@ -47,11 +47,23 @@
                                     <ion-col>
                                         <ion-range min="0" [max]="(question.type.choices.length-1)" step="1" snaps="true"
                                                    [(ngModel)]="question.response"
-                                                   (ionChange)="setDirty()" [disabled]="assessment.locked">
+                                                   (ionChange)="setDirty()" [disabled]="assessment.editStatus === globals.STATUS_LOCKED">
                                         </ion-range>
                                     </ion-col>
                                 </ion-row>
-                                <rubric (onChange)="setDirty()" [question]="question" [enabled]="!assessment.locked"></rubric>
+                                <rubric (onChange)="setDirty()" [question]="question" [enabled]="assessment.editStatus !== globals.STATUS_LOCKED"></rubric>
+                                <ion-row responsive-lg wrap style="z-index: 9999999;">
+                                    <ion-col padding>
+                                        <div class="comments-title">{{'Assessor Comments'|translate}}</div>
+                                        <div class="comments" [innerHTML]="question.assessorComments"></div>
+                                        <div *ngIf="!question.assessorComments || question.assessorComments.length === 0">-none-</div>
+                                    </ion-col>
+                                    <ion-col padding>
+                                        <div class="comments-title">{{'Member Comments'|translate}}</div>
+                                        <div class="comments" [innerHTML]="question.memberComments"></div>
+                                        <div *ngIf="!question.memberComments || question.memberComments.length === 0">-none-</div>
+                                    </ion-col>
+                                </ion-row>
                             </ion-card-content>
                         </ion-card>
                     </div>

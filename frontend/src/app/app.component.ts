@@ -58,7 +58,6 @@ export class CogicApp {
             try {
                 this.rootPage = TabsPage;
                 this.instrumentData.getAll(null, false);
-                this.globals.tabMode = this.globals.appRoleId(this.session.user.roleId) === this.globals.APP_ROLE_PROFESSIONAL ? 'professional' : 'admin';
             }
             catch (exception) {
                 console.error('COGIC APP ERROR:', exception);

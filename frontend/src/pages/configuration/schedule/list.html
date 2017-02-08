@@ -7,7 +7,7 @@
         <ion-card-header>
             <ion-item>
                 <app-icon [name]="'schedule'"></app-icon>
-                <a (click)="configureSchedule(schedule)">{{schedule.name}} {{schedule.name}} {{schedule.starts|date}} - {{schedule.ends|date}}</a>
+                <a (click)="configureSchedule(schedule)">{{schedule.name}} {{schedule.name}} {{schedule.starts|datify:true}} - {{schedule.ends|datify:true}}</a>
             </ion-item>
         </ion-card-header>
         <ion-card-content class="outer-content">

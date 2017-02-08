@@ -7,10 +7,12 @@ import {IonicApp, IonicModule} from "ionic-angular";
  */
 import {DataTableModule} from "angular2-datatable";
 import {InlineEditorModule} from "ng2-inline-editor";
+
 /**
  * Pipes
  **/
 import {DataFilterPipe} from "../pipes/data-filter-pipe";
+import {Datify} from "../pipes/datify";
 import {Ellipsify} from "../pipes/ellipsify";
 import {FilterArrayPipe} from "../pipes/filter-array-pipe";
 import {Icon} from "../pipes/icon";
@@ -142,6 +144,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         ConfigurationPage,
         DashboardPage,
         DataFilterPipe,
+        Datify,
         EditorButtonBar,
         Ellipsify,
         EventListPage,
@@ -248,6 +251,7 @@ import {TabsPage} from "../pages/tabs/tabs";
         Color,
         Config,
         ConfigurationProvider,
+        Datify,
         EventProvider,
         Globals,
         Graph,

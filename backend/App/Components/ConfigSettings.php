@@ -29,24 +29,7 @@ class ConfigSettings {
 			'baseUri'        => '/api3/',
 		],
 		/** <== Expected by Phalcon */
-
-		'components' => [
-			'login' => ['social' => FALSE, 'register' => FALSE],
-
-			'dashboards' => [
-				'professional'  => [
-					'assessments'     => TRUE,
-					'recommendations' => TRUE,
-					'plan'            => TRUE,
-					'completed'       => TRUE
-				],
-				'manager'       => [
-				],
-				'administrator' => [
-				],
-			]
-		]
-	];
+    ];
 
 	/**
 	 * @return mixed

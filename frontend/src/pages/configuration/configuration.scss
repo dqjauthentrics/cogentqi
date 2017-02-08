@@ -20,3 +20,18 @@
     cursor: pointer;
   }
 }
+
+.configuration.instrument {
+  .progressBar {
+      border: 1em solid #EFEFEF;
+  }
+  .number {
+    width: 12rem;
+  }
+  ion-row.group {
+    padding-left: 40px !important;
+  }
+  ion-row.question {
+    padding-left: 80px !important;
+  }
+}

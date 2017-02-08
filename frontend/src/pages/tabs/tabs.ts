@@ -44,15 +44,18 @@ export class TabsPage {
     /**
      */
     constructor(private navParams: NavParams, private nav: NavController, private globals: Globals, private session: SessionProvider) {
-        let pageSet = this.session.user && this.globals.appRoleId(this.session.user.roleId) !== this.globals.APP_ROLE_PROFESSIONAL ? this.mainPages : this.profPages;
-        for (let i = 0; i < pageSet.length; i++) {
-            if (!pageSet[i].show) {
-                pageSet.splice(i, 1);
-                i--;
+        if (this.session.user && this.globals.tabMode) {
+            let pageSet = this.session.user && this.globals.tabMode !== this.globals.APP_ROLE_PROFESSIONAL ? this.mainPages : this.profPages;
+            console.log('tabs constructor: appRoleId=' + this.globals.tabMode, this.session.user, pageSet);
+            for (let i = 0; i < pageSet.length; i++) {
+                if (!pageSet[i].show) {
+                    pageSet.splice(i, 1);
+                    i--;
+                }
             }
+            this.pages = pageSet;
+            this.selectedIndex = this.navParams.data.tabIndex || 0;
         }
-        this.pages = pageSet;
-        this.selectedIndex = navParams.data.tabIndex || 0;
     }
 
     nMembers() {

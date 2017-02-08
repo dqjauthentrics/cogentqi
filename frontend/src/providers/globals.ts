@@ -5,7 +5,7 @@ import {LoadingController, AlertController} from "ionic-angular";
 export class Globals {
     public tabMode: string = 'professional';
     public static isProduction: boolean = true;
-    public debug: boolean = true;
+    public debug: boolean = false;
     public loadingObject: any = null;
 
     public readonly APP_ROLE_PROFESSIONAL = 'P';
@@ -16,6 +16,9 @@ export class Globals {
     public readonly STATUS_SUCCESS = 'success';
     public readonly STATUS_WARNING = 'warning';
     public readonly STATUS_INFO = 'info';
+
+    public readonly STATUS_ACTIVE = 'A';
+    public readonly STATUS_LOCKED = 'L';
 
     public readonly URL_API = '/assets/api/';
     public readonly MESSAGE_DURATION = 14000;
@@ -72,7 +75,7 @@ export class Globals {
                 console.error("CONFIGURATION ROLE ERROR:", exception);
             }
         }
-        return this.APP_ROLE_PROFESSIONAL;
+        return null;
     }
 
     public safeName(str) {
@@ -141,6 +144,28 @@ export class Globals {
                 },
                 {
                     text: 'Confirmed',
+                    handler: () => {
+                        cbFn();
+                    }
+                }
+            ]
+        });
+        alert.present();
+    }
+
+    public editorDialog(content, cbFn) {
+        let alert = this.alerts.create({
+            title: 'Editor',
+            inputs: [{name: 'editor', type: 'textarea'}],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+
+                },
+                {
+                    text: 'Save',
+                    role: 'cancel',
                     handler: () => {
                         cbFn();
                     }

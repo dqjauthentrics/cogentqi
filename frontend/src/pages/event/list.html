@@ -40,7 +40,7 @@
             <tbody>
             <tr *ngFor="let memberEvent of mf.data">
                 <td>
-                    {{memberEvent.occurred|date:'short'}}
+                    {{memberEvent.occurred|datify:true}}
                 </td>
                 <td class="icon" *ngIf="!event">
                     <app-icon name="event"></app-icon>

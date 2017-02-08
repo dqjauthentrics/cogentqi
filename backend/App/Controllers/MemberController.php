@@ -86,6 +86,7 @@ class MemberController extends ControllerBase {
 			$memberForm = @$this->getInputData('data');
 			$member = Member::findFirst($memberForm["id"]);
 			if (!empty($member)) {
+			    unset($memberForm['activeStart']);
 				$member->unmap($memberForm, $member);
 				if (!$member->update()) {
 					throw new \Exception($member->errorMessagesAsString());

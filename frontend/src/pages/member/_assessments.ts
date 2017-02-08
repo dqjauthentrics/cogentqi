@@ -1,4 +1,6 @@
 import {Component, Input} from "@angular/core";
+import {NavController} from "ionic-angular";
+import {AssessmentDetailPage} from "../assessment/detail";
 
 @Component({
     selector: 'member-assessments-card',
@@ -13,7 +15,7 @@ export class MemberAssessmentsCard {
     public sortBy = "orderedOn";
     public sortOrder = "desc";
 
-    constructor() {
+    constructor(private nav: NavController) {
     }
 
     sortName(event: any) {
@@ -24,4 +26,7 @@ export class MemberAssessmentsCard {
         return event.category;
     }
 
+    goToAssessment(assessment) {
+        this.nav.push(AssessmentDetailPage, assessment);
+    }
 }

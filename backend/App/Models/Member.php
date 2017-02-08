@@ -192,10 +192,10 @@ class Member extends AppModel {
 	 * @return boolean
 	 */
 	public function validation() {
-		$this->validate(new Email(['field' => 'email', 'required' => TRUE]));
-		if ($this->validationHasFailed() == TRUE) {
-			return FALSE;
-		}
+		//$this->validate(new Email(['field' => 'email', 'required' => TRUE]));
+		//if ($this->validationHasFailed() == TRUE) {
+		//	return FALSE;
+		//}
 		return TRUE;
 	}
 

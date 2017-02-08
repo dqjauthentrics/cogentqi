@@ -8,11 +8,13 @@ import {MemberProvider} from "../../providers/member";
 })
 export class OrganizationDetailPage {
     public organization: any;
+    public loading = true;
 
     constructor(private nav: NavController, private navParams: NavParams, organizationData: OrganizationProvider, memberProvider: MemberProvider) {
         this.organization = this.navParams.data;
         organizationData.getSingle(this.organization.id).then(organization => {
             this.organization = organization;
+            this.loading = false;
         });
     }
 }

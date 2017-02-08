@@ -26,11 +26,13 @@ export class MemberDetailPage {
 
     save(member) {
         this.saving = true;
-        this.memberData.update(this.member, false).then(
+        this.memberData.update(this.member, true).then(
             (success) => {
                 this.saving = false;
+                this.dirty = false;
             },
             (error) => {
+                console.error(error);
                 this.saving = false;
             });
     }

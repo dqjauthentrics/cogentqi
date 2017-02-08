@@ -32,7 +32,7 @@
             <ion-col width-67>
                 <ion-list>
                     <ion-item *ngFor="let assessment of instrument.assessments" (click)="goToAssessment(assessment)">
-                        {{assessment.instrument.name}} {{assessment.lastModified|date}}
+                        {{assessment.instrument.name}} {{assessment.lastModified|datify:true}}
                         by {{assessment.assessor.firstName}} {{assessment.assessor.lastName}}
                         <img class="avatar border border{{assessment.assessor.level}} avatar-tiny"
                              [src]="config.site + '/avatars/' + assessment.assessor.id + '.png'"

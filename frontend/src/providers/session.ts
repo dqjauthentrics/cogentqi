@@ -42,6 +42,7 @@ export class SessionProvider {
                     }
                     this.user = jsonInfo.data;
                     if (this.user.id) {
+                        this.globals.tabMode = this.globals.appRoleId(this.user.roleId);
                         this.storage.set('user', JSON.stringify(this.user));
                         this.isLoggedIn = true;
                         if (this.globals.debug) {
@@ -122,28 +123,40 @@ export class SessionProvider {
 
     checkLogin() {
         try {
+            let provider = this;
             if (this.globals.debug) {
                 console.log('SessionProvider:checkLogin(entry)');
             }
-            return this.storage.get('user').then((value) => {
-                if (value) {
-                    this.user = JSON.parse(value);
-                    if (this.globals.debug) {
-                        console.log('SessionProvider:checkLogin(user)', this.user);
+            return this.storage.get('user').then(
+                (value) => {
+                    if (provider.globals.debug) {
+                        console.log('SessionProvider:checkLogin(value)', value);
                     }
-                    if (this.user.id) {
-                        this.isLoggedIn = true;
-                        if (this.globals.debug) {
-                            console.log('SessionProvider:checkLogin(publish login)');
+                    if (value) {
+                        provider.user = JSON.parse(value);
+                        if (provider.globals.debug) {
+                            console.log('SessionProvider:checkLogin(user)', provider.user);
                         }
-                        this.events.publish('session:login');
+                        if (provider.user.id) {
+                            provider.isLoggedIn = true;
+                            if (provider.globals.debug) {
+                                console.log('SessionProvider:checkLogin(publish login)');
+                            }
+                            provider.events.publish('session:login');
+                        }
                     }
-                }
-                else {
-                    this.isLoggedIn = false;
-                }
-                return value;
-            });
+                    else {
+                        if (provider.globals.debug) {
+                            console.log('SessionProvider:checkLogin(NOT LOGGED IN)');
+                        }
+                        provider.isLoggedIn = false;
+                    }
+                    return value;
+                },
+                (reject) => {
+                    console.error('COGIC ERROR: unable to get user in storage.');
+                    provider.isLoggedIn = false;
+                });
         }
         catch (exception) {
             console.error("COGIC LOGIN ERROR:", exception);

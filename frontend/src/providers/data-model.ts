@@ -53,7 +53,7 @@ export class DataModel {
             toast.present();
         }
         if (result && result.code === 500 && result.message && result.message.indexOf('Not logged in') >= 0) {
-            console.log('logging out...');
+            console.log('loadData::logging out...');
             this.session.logout();
         }
     }
@@ -71,12 +71,12 @@ export class DataModel {
                         let jsonResponse = res.json();
                         if (jsonResponse.code !== 200) {
                             provider.globals.alertError('Sorry.  There was an error loading data from the server.  Please try again.');
-                            console.error('ERROR FOR:' + url + '::RESULT=' + jsonResponse.message);
+                            console.error('loadData::ERROR FOR:' + url + '::RESULT=' + jsonResponse.message);
                         }
                         let data = jsonResponse.data;
                         if (this.globals.debug) {
-                            console.log('jsonResponse: ', jsonResponse);
-                            console.log('data retrieved::', data);
+                            console.log('loadData(' + url + ')::jsonResponse: ', jsonResponse);
+                            console.log('loadData(' + url + ')::data retrieved::', data);
                         }
                         resolve(data);
                     }

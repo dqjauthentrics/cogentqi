@@ -17,6 +17,14 @@ assessment-item {
 }
 
 .assessment-detail {
+  #commentEditorWrap {
+    position: relative;
+    z-index: 9999;
+    padding: 20px;
+    background: #DDD;
+    float: left;
+  }
+
   .range-md .range-knob {
     width: 42px;
     height: 42px;

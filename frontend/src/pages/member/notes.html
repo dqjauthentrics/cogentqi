@@ -14,7 +14,7 @@
                                 {{note.content}}
                             </div>
                             <div class="author">
-                                - {{note.creator|namify:true}}. {{note.lastModified|date:'short'}}
+                                - {{note.creator|namify:true}}. {{note.lastModified|datify:true}}
                                 <avatar [id]="note.creator.id"></avatar>
                             </div>
                             <div class="note-tools" style="vertical-align: middle;">
