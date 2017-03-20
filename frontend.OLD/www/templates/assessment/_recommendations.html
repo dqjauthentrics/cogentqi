@@ -1,9 +1,0 @@
-<div class="recommendationsPane panel">
-    <h4 data-ng-bind-html="title"></h4>
-    <div class="item" data-ng-repeat="recommendation in items">
-        <a href="/#/resource/view/{{recommendation.id}}">
-            <i class="{{i.resource}}"></i> {{recommendation.nmb}} {{recommendation.n}}
-        </a>
-        <assessment-recommendation-ranking weight="recommendation.wt" range="[1,1,1,1,1]" n="recommendation.wt"></assessment-recommendation-ranking>
-    </div>
-</div>
