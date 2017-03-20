@@ -17,8 +17,8 @@
                 {{'Name is required'}}
             </p>
             <div class="editor">
-                <label for="outDescripEditor" floating primary>{{'Summary'|translate}}</label>
-                <div id="outDescripEditor" [innerHTML]="outcome.summary"></div>
+                <label for="outDescripEditor" floating primary>{{'Description'|translate}}</label>
+                <div id="outDescripEditor" [innerHTML]="outcome.description"></div>
             </div>
             <editor-button-bar (onSave)="save(outcome)" (onRemove)="remove(outcome)"></editor-button-bar>
         </form>

@@ -50,7 +50,6 @@ class ConfigSettings {
 				'trademarkName' => $this->config['trademarkName'],
 				'name'          => $this->config['name'],
 				'logo'          => $this->config['logo'],
-				'components'    => $this->config['components']
 			];
 			$jsonConfig = 'var configuration = ' . json_encode($clientConfig, JSON_PRETTY_PRINT) . ';';
 			@file_put_contents($jsonConfigPath, $jsonConfig);

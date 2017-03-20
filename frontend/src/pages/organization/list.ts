@@ -37,8 +37,8 @@ export class OrganizationListPage {
         this.nav.push(OrganizationDetailPage, organization);
     }
 
-    sortNameSummary(organization: any) {
-        return organization.name + ' ' + organization.summary;
+    sortNameDescription(organization: any) {
+        return organization.name + ' ' + organization.description;
     }
     sortAddress(organization: any) {
         return organization.state + ' ' + organization.city + ' ' + organization.address;

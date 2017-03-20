@@ -159,7 +159,7 @@ export class AssessmentDetailPage {
                     }
                     doc.setTextColor('#999999');
                     doc.setFontSize(12);
-                    currentTop = comp.pdfText(doc, left, '' + questionGroup.number + '. ' + questionGroup.tag, currentTop);
+                    currentTop = comp.pdfText(doc, left, '' + questionGroup.number + '. ' + questionGroup.name, currentTop);
                     for (let question of questionGroup.questions) {
                         if (currentTop > 500) {
                             let info = comp.newPage(doc, currentTop, page);
@@ -224,7 +224,7 @@ export class AssessmentDetailPage {
         let nGroups = instrument.questionGroups.length;
         for (let i = 0; i < nGroups; i++) {
             let questionGroup = instrument.questionGroups[i];
-            html += '<tr><td>' + questionGroup.tag + '</td><td></td></tr>';
+            html += '<tr><td>' + questionGroup.name + '</td><td></td></tr>';
             for (let j = 0; j < questionGroup.questions.length; j++) {
                 let question = questionGroup.questions[j];
                 if (question) {

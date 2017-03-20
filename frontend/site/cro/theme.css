@@ -1,0 +1,27 @@
+.toolbar-background-md {
+    border-color: #C0B283;
+    background: #C0B283;
+}
+
+a, .dashboard .cycle a, .tabs-md .tab-button[aria-selected=true] {
+    color: #373737 !important;
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    background-color: #DCD0C0;
+    border-color: #DCD0C0;
+    color: #666;
+}
+
+.pagination > li > a, .pagination > li > span {
+    color: #DCD0C0;
+}
+.range-md .range-knob {
+    top: 0;
+    background: #C0B283;
+}
+
+.progressBar {
+    background: #E4E4E4;
+    color: #666;
+}

@@ -53,7 +53,7 @@ export class MatrixPage {
                 let idx = 0;
                 if (comp.instrument.questionGroups) {
                     for (let questionGroup of comp.instrument.questionGroups) {
-                        comp.segments.push({text: questionGroup.tag, value: idx});
+                        comp.segments.push({text: questionGroup.name, value: idx});
                         idx++
                     }
                     comp.segments.push({text: 'Summary', value: comp.instrumentData.SECTION_SUMMARY});

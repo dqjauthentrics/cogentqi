@@ -1,0 +1,25 @@
+DELETE FROM outcome_alignment;
+DELETE FROM resource_alignment;
+DELETE FROM recommendation;
+DELETE FROM assessment_response;
+DELETE FROM assessment;
+DELETE FROM question_choice;
+DELETE FROM question;
+DELETE FROM question_group;
+
+ALTER TABLE outcome_alignment
+  AUTO_INCREMENT = 1;
+ALTER TABLE resource_alignment
+  AUTO_INCREMENT = 1;
+ALTER TABLE recommendation
+  AUTO_INCREMENT = 1;
+ALTER TABLE assessment_response
+  AUTO_INCREMENT = 1;
+ALTER TABLE assessment
+  AUTO_INCREMENT = 1;
+ALTER TABLE question_choice
+  AUTO_INCREMENT = 1;
+ALTER TABLE question
+  AUTO_INCREMENT = 1;
+ALTER TABLE question_group
+  AUTO_INCREMENT = 1;

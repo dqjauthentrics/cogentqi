@@ -54,7 +54,7 @@ export class MemberCompetencyHistoryPage {
                                 }
                                 series.push({id: i, type: 'column', name: assessment.lastModified.substr(0, 10), data: dataSet});
                             }
-                            let options = this.graph.columnGraphConfig(questionGroup.tag, '', '', 'Ranking', maxY, xLabels, series);
+                            let options = this.graph.columnGraphConfig(questionGroup.name, '', '', 'Ranking', maxY, xLabels, series);
                             let el = document.getElementById('competency-hx-' + z);
                             Highcharts.chart(el, options);
                         }

@@ -25,12 +25,6 @@ class Organization extends AppModel {
 	 *
 	 * @var string
 	 */
-	public $summary;
-
-	/**
-	 *
-	 * @var string
-	 */
 	public $description;
 
 	/**

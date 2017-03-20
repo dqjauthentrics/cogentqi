@@ -27,19 +27,19 @@
     <ion-segment *ngIf="instrument && instrument.questionGroups">
         <ion-col *ngFor="let questionGroup of instrument.questionGroups; let groupIndex = index" (click)="goTo(groupIndex)"
                  [class]="'progressBar' + (groupIndex === slideIndex? ' selected' : '')">
-            <div>{{questionGroup.tag|ellipsify:14}}</div>
+            <div>{{questionGroup.name|ellipsify:24}}</div>
         </ion-col>
     </ion-segment>
     <ion-slides *ngIf="instrument && instrument.questionGroups" #assessmentSlider [options]="{loop:false, effect:'slide', autoHeight:true, onlyExternal:true}">
         <ion-slide *ngFor="let questionGroup of instrument.questionGroups; let groupIndex = index" (swipe)="swipeEvent($event)">
             <ion-card class="question-group">
-                <ion-card-header class="title" [innerHtml]="questionGroup.tag"></ion-card-header>
+                <ion-card-header class="title" [innerHtml]="questionGroup.name"></ion-card-header>
                 <ion-card-content>
                     <div *ngFor="let question of instrument.questions; let questionIndex = index">
                         <ion-card class="question" *ngIf="(question.questionGroupId === questionGroup.id)">
                             <ion-card-header>
                                 <div class="title" [innerHtml]="question.name"></div>
-                                <div class="text" [innerHtml]="question.summary"></div>
+                                <div class="text" [innerHtml]="question.fullText"></div>
                             </ion-card-header>
                             <ion-card-content>
                                 <ion-row #sliderRow [style.padding-right]="sliderPadding(question,sliderRow)+'px'"

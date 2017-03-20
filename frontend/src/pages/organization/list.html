@@ -8,7 +8,7 @@
         <thead>
         <tr>
             <th colspan="2">
-                <mfDefaultSorter [by]="sortNameSummary">{{'Name'|translate}}</mfDefaultSorter>
+                <mfDefaultSorter [by]="sortNameDescription">{{'Name'|translate}}</mfDefaultSorter>
             </th>
             <th>
                 <mfDefaultSorter [by]="sortAddress">{{'Address'|translate}}</mfDefaultSorter>
@@ -35,7 +35,7 @@
             </td>
             <td>
                 <div class="name">{{organization.name}}</div>
-                <div class="description">{{organization.summary}}</div>
+                <div class="description">{{organization.description}}</div>
             </td>
             <td>
                 {{organization.address}} {{organization.city}} {{organization.state}} {{organization.postal}}

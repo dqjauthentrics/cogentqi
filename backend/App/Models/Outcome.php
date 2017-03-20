@@ -33,7 +33,7 @@ class Outcome extends AppModel {
 	 *
 	 * @var string
 	 */
-	public $summary;
+	public $description;
 
 	/**
 	 *

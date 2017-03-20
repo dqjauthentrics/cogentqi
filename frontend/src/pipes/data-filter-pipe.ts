@@ -67,9 +67,6 @@ export class DataFilterPipe implements PipeTransform {
             if (!match && rec.number) {
                 match = match || this.match(query, rec.number);
             }
-            if (!match && rec.summary) {
-                match = match || this.match(query, rec.summary);
-            }
             if (!match && rec.description) {
                 match = match || this.match(query, rec.description);
             }

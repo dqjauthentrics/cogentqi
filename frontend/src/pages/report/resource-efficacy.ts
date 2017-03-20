@@ -46,7 +46,7 @@ export class ReportResourceEfficacy {
                 data: resource.subsequentResponseAverages
             }
         ];
-        let options = this.graph.columnGraphConfig(resource.name, ellipse.transform(resource.summary, 120), '', 'Average Score', 5, resource.questionLabels, series);
+        let options = this.graph.columnGraphConfig(resource.name, ellipse.transform(resource.description, 120), '', 'Average Score', 5, resource.questionLabels, series);
         return Highcharts.chart(el, options);
     }
 

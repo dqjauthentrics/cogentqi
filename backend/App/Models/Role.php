@@ -32,35 +32,7 @@ class Role extends AppModel {
 	 *
 	 * @var string
 	 */
-	public $summary;
-
-	/**
-	 *
-	 * @var string
-	 */
 	public $description;
-
-	/**
-	 * Allows to query a set of records that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return Role[]
-	 */
-	public static function find($parameters = NULL) {
-		return parent::find($parameters);
-	}
-
-	/**
-	 * Allows to query the first record that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return Role
-	 */
-	public static function findFirst($parameters = NULL) {
-		return parent::findFirst($parameters);
-	}
 
 	/**
 	 * Initialize method for model.

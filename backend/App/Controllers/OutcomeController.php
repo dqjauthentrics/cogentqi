@@ -63,7 +63,7 @@ class OutcomeController extends ControllerBase {
 				$outcomeId = $formOutcome["id"];
 				$outcomeRecord = Outcome::findFirst($outcomeId);
 				/** @var Outcome $outcomeRecord */
-				if (!$outcomeRecord->update(['name' => $formOutcome['n'], 'number' => $formOutcome['nmb'], 'summary' => $formOutcome['sm']])) {
+				if (!$outcomeRecord->update(['name' => $formOutcome['n'], 'number' => $formOutcome['nmb'], 'description' => $formOutcome['sm']])) {
 					throw new \Exception($outcomeRecord->errorMessagesAsString());
 				}
 				$formAlignments = $data["alignments"];

@@ -5,14 +5,13 @@
 <ion-content class="configuration instrument">
     <ion-card class="instrument">
         <form *ngIf="instrument">
+            <h2>{{'Overview'|translate}}</h2>
             <ion-row responsive-md wrap>
-                <ion-col width-20>
+                <ion-col>
                     <ion-item class="number">
                         <ion-label floating primary>{{'Number'|translate}}</ion-label>
                         <ion-input [(ngModel)]="instrument.number" name="number" required></ion-input>
                     </ion-item>
-                </ion-col>
-                <ion-col width-80>
                     <ion-item>
                         <ion-label floating primary>{{'Name'|translate}}</ion-label>
                         <ion-input [(ngModel)]="instrument.name" name="name" required></ion-input>
@@ -21,57 +20,41 @@
                         {{'Name is required'}}
                     </p>
                 </ion-col>
-            </ion-row>
-            <ion-row responsive-md wrap>
                 <ion-col>
                     <div class="editor">
-                        <label for="instSummEditor" floating primary>{{'Summary'|translate}}</label>
-                        <div class="wysiwyg" id="instSummEditor" [innerHTML]="instrument.summary"></div>
-                    </div>
-                </ion-col>
-                <ion-col>
-                    <div class="editor">
-                        <label for="instDescripEditor" floating primary>{{'Description'|translate}}</label>
+                        <label for="instDescripEditor" floating primary>{{'Full Text'|translate}}</label>
                         <div class="wysiwyg" id="instDescripEditor" [innerHTML]="instrument.description"></div>
                     </div>
                 </ion-col>
             </ion-row>
-
+            <hr/>
+            <h2>{{'Sections'|translate}}</h2>
             <ion-row responsive-sm wrap class="group">
                 <ion-col *ngFor="let questionGroup of instrument.questionGroups;" [class]="'progressBar' + (questionGroup.id == group.id? ' selected':'')"
                          (click)="goToGroup(questionGroup)">
-                    {{questionGroup.tag|ellipsify:14}}
+                    {{questionGroup.name|ellipsify:14}}
                 </ion-col>
             </ion-row>
             <ion-row responsive-md wrap class="group">
-                <ion-col width-20>
+                <ion-col>
                     <ion-item class="number">
                         <ion-label floating primary>{{'Number'|translate}}</ion-label>
                         <ion-input [(ngModel)]="group.number" name="groupNumber" required></ion-input>
                     </ion-item>
-                </ion-col>
-                <ion-col width-80>
                     <ion-item>
                         <ion-label floating primary>{{'Name'|translate}}</ion-label>
-                        <ion-input [(ngModel)]="group.tag" name="groupTag" required></ion-input>
+                        <ion-input [(ngModel)]="group.name" name="groupName" required></ion-input>
                     </ion-item>
                 </ion-col>
-            </ion-row>
-            <ion-row responsive-md wrap class="group">
                 <ion-col>
                     <div class="editor">
-                        <label for="groupSummary" floating primary>{{'Summary'|translate}}</label>
-                        <div class="wysiwyg" id="groupSummary" [innerHTML]="group.summary"></div>
-                    </div>
-                </ion-col>
-                <ion-col>
-                    <div class="editor">
-                        <label for="groupDescription" floating primary>{{'Description'|translate}}</label>
+                        <label for="groupDescription" floating primary>{{'Full Text'|translate}}</label>
                         <div class="wysiwyg" id="groupDescription" [innerHTML]="group.description"></div>
                     </div>
                 </ion-col>
             </ion-row>
-
+            <hr/>
+            <h2>{{'Questions for'|translate}} '{{group.name}}'</h2>
             <ion-row responsive-sm wrap class="question">
                 <ion-col *ngFor="let groupQuestion of group.questions;" [class]="'progressBar' + (groupQuestion.id == question.id? ' selected':'')"
                          (click)="goToQuestion(groupQuestion)">

@@ -58,13 +58,7 @@ class Question extends AppModel {
 	 *
 	 * @var string
 	 */
-	public $summary;
-
-	/**
-	 *
-	 * @var string
-	 */
-	public $description;
+	public $full_text;
 
 	/**
 	 *
@@ -83,28 +77,6 @@ class Question extends AppModel {
 	 * @var string
 	 */
 	public $event_threshold;
-
-	/**
-	 * Allows to query a set of records that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return Question[]
-	 */
-	public static function find($parameters = NULL) {
-		return parent::find($parameters);
-	}
-
-	/**
-	 * Allows to query the first record that match the specified conditions
-	 *
-	 * @param mixed $parameters
-	 *
-	 * @return Question
-	 */
-	public static function findFirst($parameters = NULL) {
-		return parent::findFirst($parameters);
-	}
 
 	/**
 	 * Initialize method for model.

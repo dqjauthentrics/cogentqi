@@ -5,9 +5,6 @@ namespace App\Models;
  * Class Instrument
  * @package App\Models
  *
- * @method \Phalcon\Mvc\Model\Resultset\Simple getSchedule()
- *
- * @method Instrument $instrument
  */
 class Instrument extends AppModel {
 
@@ -40,12 +37,6 @@ class Instrument extends AppModel {
 	 * @var string
 	 */
 	public $description;
-
-	/**
-	 *
-	 * @var string
-	 */
-	public $summary;
 
 	/**
 	 *
