@@ -56,10 +56,16 @@ class ResourceController extends ControllerBase {
 
     public function contentAction($siteDir, $number) {
         $result = new Result($this);
-        $number = strtolower($number);
-        $path = dirname(dirname(dirname(__DIR__))) . "/learning/$siteDir/$number.html";
-        $content = @file_get_contents($path);
-        $result->setNormal($content);
+        try {
+            $number = strtolower($number);
+            $path = dirname(dirname(dirname(__DIR__))) . "/learning/$siteDir/$number.html";
+            $content = @file_get_contents($path);
+            $result->message = $path;
+            $result->setNormal($content);
+        }
+        catch (\Exception $exception) {
+            $result->setError(Result::CODE_EXCEPTION, $exception->getMessage());
+        }
         $result->send();
     }
 

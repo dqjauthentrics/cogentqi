@@ -16,13 +16,13 @@ export class ResourceDetailPage {
     constructor(private nav: NavController, private navParams: NavParams, private config: Config, private resourceData: ResourceProvider,
                 private http: Http, private globals: Globals, private sanitizer: DomSanitizer) {
         let comp = this;
-        this.globals.showLoading('Loading resource...');
+        //this.globals.showLoading('Loading resource...');
         this.resource = this.navParams.data;
         this.resourceData.getSingle(this.resource.id).then(resource => { //@todo move to resource data model
             comp.resource = resource;
-            comp.resourceData.getContent(resource).then((content) => {
+            comp.resourceData.getContent(resource).then((content: any) => {
                 comp.content = sanitizer.bypassSecurityTrustHtml(this.adjustContent(content));
-                this.globals.dismissLoading();
+                //this.globals.dismissLoading();
             });
         });
     }
@@ -31,7 +31,7 @@ export class ResourceDetailPage {
         return this.content;
     }
 
-    adjustContent(content) {
+    adjustContent(content: any) {
         if (content) {
             let pos = content.indexOf('[VID:');
             while (pos >= 0) {
