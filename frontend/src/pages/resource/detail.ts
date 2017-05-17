@@ -34,9 +34,21 @@ export class ResourceDetailPage {
     adjustContent(content: any) {
         if (content) {
             let pos = content.indexOf('[VID:');
+            let wd = window.innerWidth;
+            let ht = window.innerHeight;
+            if (ht < wd) {
+                wd = ht;
+            }
+            ht = wd / 1.2;
             while (pos >= 0) {
-                let iframe = '<div class="video-embed"><iframe style="max-width:560px; max-height:315px; margin: 0 auto;" width="560" height="315" src="https://www.youtube.com/embed/ZZZ" frameborder="0" allowfullscreen></iframe></div>';
-                //iframe = '<div class="video-embed"><object style="width:50%; max-width: 600px; min-width:250px; height:auto;" data="http://www.youtube.com/embed/ZZZ"> </object></div>';
+                // let iframe = '<div class="video-embed"><iframe style="max-width:' + wd + 'px; max-height:' + ht + 'px; margin: 0 auto;" width="' + wd + '" height="' + ht +
+                //    '" src="https://www.youtube.com/embed/ZZZ" frameborder="0" allowfullscreen></iframe></div>';
+                // iframe = '<div class="video-embed"><object style="width:' + wd + 'px; height:2000px;" data="http://www.youtube.com/embed/ZZZ"> </object></div>';
+
+                let iframe = '<div class="videoWrapper">' +
+                '<iframe width="560" height="349" src="http://www.youtube.com/embed/ZZZ?rel=0&hd=1" frameborder="0" allowfullscreen></iframe>' +
+                '</div>';
+
                 let replacer = '';
                 for (let i = pos + 5; i < content.length && content.substr(i, 1) !== ']'; i++) {
                     replacer += content.substr(i, 1);

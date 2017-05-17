@@ -5559,6 +5559,24 @@ loading-indicator > div, loading-indicator > div ion-spinner {
   height: 24px;
 }
 
+.videoWrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  /* 16:9 */
+  padding-top: 25px;
+  height: 0;
+}
+
+.videoWrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 10%;
+  width: 80%;
+  height: 90%;
+  text-align: center;
+}
+
 ion-action-sheet {
   position: absolute;
   top: 0;
