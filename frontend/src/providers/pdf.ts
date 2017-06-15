@@ -17,21 +17,16 @@ export class PDF {
     getDataUri(url, cb) {
         let image: HTMLImageElement = new Image();
         image.onload = function () {
-            try {
-                let canvas = <HTMLCanvasElement>document.getElementById('assessmentPdf');
-                let ctx = canvas.getContext('2d');
-                canvas.width = this.naturalWidth;
-                canvas.height = this.naturalHeight;
-                ctx.fillStyle = '#FFF';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                canvas.getContext('2d').drawImage(this, 0, 0);
-                cb(canvas.toDataURL('image/png'));
-            }
-            catch (exception) {
-                console.error(exception);
-            }
+            let img: any = <HTMLImageElement>this; // does not seem to remember this from creation!
+            let canvas = <HTMLCanvasElement>document.getElementById('pdf');
+            let context = canvas.getContext('2d');
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+            context.fillStyle = '#FFF';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(img, 0, 0);
+            cb(canvas.toDataURL('image/png'));
         };
         image.src = url;
     }
-
 }

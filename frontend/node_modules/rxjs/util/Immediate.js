@@ -1,8 +1,9 @@
+"use strict";
 /**
 Some credit for this helper goes to http://github.com/YuzuJS/setImmediate
 */
-"use strict";
-var root_1 = require('./root');
+Object.defineProperty(exports, "__esModule", { value: true });
+var root_1 = require("./root");
 var ImmediateDefinition = (function () {
     function ImmediateDefinition(root) {
         this.root = root;

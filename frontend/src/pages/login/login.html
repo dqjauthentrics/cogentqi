@@ -10,7 +10,7 @@
 <ion-content class="dashboard login" padding>
     <ion-card>
         <form #loginForm="ngForm" novalidate>
-            <div><img [src]="config.logoFull" alt=""></div>
+            <div style="text-align:center;"><img [src]="config.logoFull" alt=""></div>
             <h3>Log In</h3>
             <ion-item>
                 <ion-label floating primary>Email Address</ion-label>
@@ -28,11 +28,16 @@
                 {{'Password is required'}}
             </p>
             <div class="error">{{session? session.loginError : ''}}</div>
-            <ion-row responsive-md>
-                <ion-col>
-                    <button ion-button (click)="onLogin(loginForm)" type="submit">Login</button>
-                </ion-col>
-            </ion-row>
+
+            <ion-grid>
+                <ion-row nowrap padding>
+                    <ion-col col></ion-col>
+                    <ion-col col padding>
+                        <button ion-button (click)="onLogin(loginForm)" type="submit">Login</button>
+                    </ion-col>
+                    <ion-col col></ion-col>
+                </ion-row>
+            </ion-grid>
         </form>
     </ion-card>
 </ion-content>

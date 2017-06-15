@@ -1,6 +1,7 @@
 "use strict";
-var BehaviorSubject_1 = require('../BehaviorSubject');
-var multicast_1 = require('./multicast');
+Object.defineProperty(exports, "__esModule", { value: true });
+var BehaviorSubject_1 = require("../BehaviorSubject");
+var multicast_1 = require("./multicast");
 /**
  * @param value
  * @return {ConnectableObservable<T>}

@@ -1,4 +1,5 @@
 "use strict";
-var RangeObservable_1 = require('./RangeObservable');
+Object.defineProperty(exports, "__esModule", { value: true });
+var RangeObservable_1 = require("./RangeObservable");
 exports.range = RangeObservable_1.RangeObservable.create;
 //# sourceMappingURL=range.js.map

@@ -30,7 +30,7 @@
             <div>{{questionGroup.name|ellipsify:24}}</div>
         </ion-col>
     </ion-segment>
-    <ion-slides *ngIf="instrument && instrument.questionGroups" #assessmentSlider [options]="{loop:false, effect:'slide', autoHeight:true, onlyExternal:true}">
+    <ion-slides *ngIf="instrument && instrument.questionGroups" #assessmentSlider>
         <ion-slide *ngFor="let questionGroup of instrument.questionGroups; let groupIndex = index" (swipe)="swipeEvent($event)">
             <ion-card class="question-group">
                 <ion-card-header class="title" [innerHtml]="questionGroup.name"></ion-card-header>
@@ -42,28 +42,30 @@
                                 <div class="text" [innerHtml]="question.fullText"></div>
                             </ion-card-header>
                             <ion-card-content>
-                                <ion-row #sliderRow [style.padding-right]="sliderPadding(question,sliderRow)+'px'"
-                                         [style.padding-left]="sliderPadding(question,sliderRow)+'px'">
-                                    <ion-col>
-                                        <ion-range min="0" [max]="(question.type.choices.length-1)" step="1" snaps="true"
-                                                   [(ngModel)]="question.response"
-                                                   (ionChange)="setDirty()" [disabled]="assessment.editStatus === globals.STATUS_LOCKED">
-                                        </ion-range>
-                                    </ion-col>
-                                </ion-row>
-                                <rubric (onChange)="setDirty()" [question]="question" [enabled]="assessment.editStatus !== globals.STATUS_LOCKED"></rubric>
-                                <ion-row responsive-lg wrap style="z-index: 9999999;">
-                                    <ion-col padding>
-                                        <div class="comments-title">{{'Assessor Comments'|translate}}</div>
-                                        <div class="comments" [innerHTML]="question.assessorComments"></div>
-                                        <div *ngIf="!question.assessorComments || question.assessorComments.length === 0">-none-</div>
-                                    </ion-col>
-                                    <ion-col padding>
-                                        <div class="comments-title">{{'Member Comments'|translate}}</div>
-                                        <div class="comments" [innerHTML]="question.memberComments"></div>
-                                        <div *ngIf="!question.memberComments || question.memberComments.length === 0">-none-</div>
-                                    </ion-col>
-                                </ion-row>
+                                <ion-grid>
+                                    <ion-row #sliderRow [style.padding-right]="sliderPadding(question,sliderRow)+'px'"
+                                             [style.padding-left]="sliderPadding(question,sliderRow)+'px'">
+                                        <ion-col>
+                                            <ion-range min="0" [max]="(question.type.choices.length-1)" step="1" snaps="true"
+                                                       [(ngModel)]="question.response"
+                                                       (ionChange)="setDirty()" [disabled]="assessment.editStatus === globals.STATUS_LOCKED">
+                                            </ion-range>
+                                        </ion-col>
+                                    </ion-row>
+                                    <rubric (onChange)="setDirty()" [question]="question" [enabled]="assessment.editStatus !== globals.STATUS_LOCKED"></rubric>
+                                    <ion-row responsive-lg wrap style="z-index: 9999999;">
+                                        <ion-col padding>
+                                            <div class="comments-title">{{'Assessor Comments'|translate}}</div>
+                                            <div class="comments" [innerHTML]="question.assessorComments"></div>
+                                            <div *ngIf="!question.assessorComments || question.assessorComments.length === 0">-none-</div>
+                                        </ion-col>
+                                        <ion-col padding>
+                                            <div class="comments-title">{{'Member Comments'|translate}}</div>
+                                            <div class="comments" [innerHTML]="question.memberComments"></div>
+                                            <div *ngIf="!question.memberComments || question.memberComments.length === 0">-none-</div>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
                             </ion-card-content>
                         </ion-card>
                     </div>

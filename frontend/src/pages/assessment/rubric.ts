@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 
 @Component({
-    selector: '<rubric [question]="question"></rubric>',
+    selector: 'rubric',
     templateUrl: 'rubric.html',
 })
 

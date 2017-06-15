@@ -1,5 +1,5 @@
-import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
 
 @Injectable()
 export class Config {
@@ -24,6 +24,9 @@ export class Config {
         try {
             let hostname = window.location.hostname;
             let parts = hostname.split('.');
+            if (hostname === 'localhost') {
+                parts = ['cro', 'dev', 'cog'];
+            }
             if (parts.length >= 2 && parts[0]) {
                 if (parts[0] === 'admin') {
                     this.siteDir = parts[1];

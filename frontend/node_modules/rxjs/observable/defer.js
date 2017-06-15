@@ -1,4 +1,5 @@
 "use strict";
-var DeferObservable_1 = require('./DeferObservable');
+Object.defineProperty(exports, "__esModule", { value: true });
+var DeferObservable_1 = require("./DeferObservable");
 exports.defer = DeferObservable_1.DeferObservable.create;
 //# sourceMappingURL=defer.js.map

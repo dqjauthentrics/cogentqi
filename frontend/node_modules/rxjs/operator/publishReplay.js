@@ -1,6 +1,7 @@
 "use strict";
-var ReplaySubject_1 = require('../ReplaySubject');
-var multicast_1 = require('./multicast');
+Object.defineProperty(exports, "__esModule", { value: true });
+var ReplaySubject_1 = require("../ReplaySubject");
+var multicast_1 = require("./multicast");
 /**
  * @param bufferSize
  * @param windowTime

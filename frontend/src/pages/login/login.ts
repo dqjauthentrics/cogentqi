@@ -15,7 +15,6 @@ export class LoginPage {
 
     onLogin(form) {
         this.submitted = true;
-
         if (form.valid) {
             this.session.login(this.login.username, this.login.password);
         }

@@ -1,17 +1,16 @@
-import {Injectable} from "@angular/core";
-import {Events, ToastController} from "ionic-angular";
-import {Storage} from "@ionic/storage";
-import {Http} from "@angular/http";
-import {Config} from "./config";
-import {Globals} from "./globals";
+import {Injectable} from '@angular/core';
+import {Events, ToastController} from 'ionic-angular';
+import {Http} from '@angular/http';
+import {Config} from './config';
+import {Globals} from './globals';
 
 @Injectable()
 export class SessionProvider {
     public user: any = null;
     public isLoggedIn: boolean = false;
-    private storage = new Storage();
+    private storage = localStorage;
 
-    public loginError: string = 'okay';
+    public loginError: string = '';
 
     constructor(protected toastCtrl: ToastController, protected http: Http, protected globals: Globals, protected config: Config, private events: Events) {
         this.checkLogin();
@@ -43,7 +42,7 @@ export class SessionProvider {
                     this.user = jsonInfo.data;
                     if (this.user.id) {
                         this.globals.tabMode = this.globals.appRoleId(this.user.roleId);
-                        this.storage.set('user', JSON.stringify(this.user));
+                        this.storage.setItem('user', JSON.stringify(this.user));
                         this.isLoggedIn = true;
                         if (this.globals.debug) {
                             console.log('SessionProvider:validate(logged in, published)');
@@ -112,7 +111,7 @@ export class SessionProvider {
 
     logout() {
         this.isLoggedIn = false;
-        this.storage.remove('user');
+        this.storage.removeItem('user');
         this.user = null;
         this.globals.dismissLoading();
         if (this.globals.debug) {
@@ -122,44 +121,26 @@ export class SessionProvider {
     }
 
     checkLogin() {
+        let loggedIn = false;
+        if (this.globals.debug) {
+            console.log('SessionService:isLoggedIn(entry)');
+        }
         try {
-            let provider = this;
-            if (this.globals.debug) {
-                console.log('SessionProvider:checkLogin(entry)');
+            let userJson = this.storage.getItem('user');
+            if (userJson) {
+                this.user = JSON.parse(userJson);
+                if (this.globals.debug) {
+                    console.log('SessionService:isLoggedIn(stored user found):', this.user);
+                }
+                if (this.user.id) {
+                    loggedIn = true;
+                }
             }
-            return this.storage.get('user').then(
-                (value) => {
-                    if (provider.globals.debug) {
-                        console.log('SessionProvider:checkLogin(value)', value);
-                    }
-                    if (value) {
-                        provider.user = JSON.parse(value);
-                        if (provider.globals.debug) {
-                            console.log('SessionProvider:checkLogin(user)', provider.user);
-                        }
-                        if (provider.user.id) {
-                            provider.isLoggedIn = true;
-                            if (provider.globals.debug) {
-                                console.log('SessionProvider:checkLogin(publish login)');
-                            }
-                            provider.events.publish('session:login');
-                        }
-                    }
-                    else {
-                        if (provider.globals.debug) {
-                            console.log('SessionProvider:checkLogin(NOT LOGGED IN)');
-                        }
-                        provider.isLoggedIn = false;
-                    }
-                    return value;
-                },
-                (reject) => {
-                    console.error('COGIC ERROR: unable to get user in storage.');
-                    provider.isLoggedIn = false;
-                });
+            return loggedIn;
         }
         catch (exception) {
-            console.error("COGIC LOGIN ERROR:", exception);
+            console.error('ERROR: unable to test login.', exception);
         }
+        return loggedIn;
     }
 }

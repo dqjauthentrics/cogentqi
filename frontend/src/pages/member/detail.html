@@ -4,17 +4,17 @@
 
 <ion-content class="outer-content member-list">
     <ion-grid>
-        <ion-row responsive-md>
-            <ion-col>
+        <ion-row nowrap>
+            <ion-col col>
                 <div class="pull-right">
                     <app-icon (click)="save()" [dirty]="dirty" [spinning]="saving" name="save"></app-icon>
                 </div>
             </ion-col>
         </ion-row>
         <ion-row responsive-md>
-            <ion-col width-33>
+            <ion-col col col-4>
                 <ion-card class="member">
-                    <ion-row responsive-sm>
+                    <ion-row nowrap>
                         <ion-col width-33>
                             <avatar [id]="member.id" [size]="'full'"></avatar>
                         </ion-col>
@@ -34,7 +34,7 @@
                     <member-contact-card [member]="member" (dirty)="setDirty()"></member-contact-card>
                 </ion-card>
             </ion-col>
-            <ion-col width-67>
+            <ion-col col col-8>
                 <ion-card>
                     <h3>{{'Reports'|translate}}</h3>
                     <ion-row responsive-md>

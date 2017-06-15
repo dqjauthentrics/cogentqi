@@ -1,5 +1,11 @@
 {
-  "name": "nocti",
+  "name": "optrx",
   "app_id": "",
+  "proxies": [
+    {
+      "path": "/assets/api",
+      "proxyUrl": "http://cro.dev.cog/assets/api"
+    }
+  ],
   "type": "ionic-angular"
 }

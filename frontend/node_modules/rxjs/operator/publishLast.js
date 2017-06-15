@@ -1,6 +1,7 @@
 "use strict";
-var AsyncSubject_1 = require('../AsyncSubject');
-var multicast_1 = require('./multicast');
+Object.defineProperty(exports, "__esModule", { value: true });
+var AsyncSubject_1 = require("../AsyncSubject");
+var multicast_1 = require("./multicast");
 /**
  * @return {ConnectableObservable<T>}
  * @method publishLast

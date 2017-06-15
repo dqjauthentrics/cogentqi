@@ -1,6 +1,6 @@
 <ion-grid class="rubric">
-    <ion-row>
-        <ion-col *ngFor="let choice of question.type?.choices; let choiceIndex=index" (click)="setResponse(choiceIndex)"
+    <ion-row nowrap>
+        <ion-col col *ngFor="let choice of question.type?.choices; let choiceIndex=index" (click)="setResponse(choiceIndex)"
                  [class]="(choiceIndex==question.response?'active':'inactive') + (enabled?' enabled':' disabled')">
             <div class="header {{choice.iconPrefix+choiceIndex}}">{{choice.name}}</div>
             <div class="content">{{choice.rubric}}</div>

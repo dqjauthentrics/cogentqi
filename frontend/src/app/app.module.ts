@@ -2,6 +2,8 @@ import {CogicApp} from "./app.component";
 import {NgModule} from "@angular/core";
 import {APP_BASE_HREF} from "@angular/common";
 import {IonicApp, IonicModule} from "ionic-angular";
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpModule} from '@angular/http';
 /**
  * Modules
  */
@@ -192,6 +194,8 @@ import {TabsPage} from "../pages/tabs/tabs";
     ],
     imports: [
         IonicModule.forRoot(CogicApp),
+        BrowserModule,
+        HttpModule,
         DataTableModule,
         InlineEditorModule,
     ],

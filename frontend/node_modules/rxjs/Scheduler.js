@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * An execution context and a data structure to order tasks and schedule their
  * execution. Provides a notion of (potentially virtual) time, through the
@@ -42,8 +43,8 @@ var Scheduler = (function () {
         if (delay === void 0) { delay = 0; }
         return new this.SchedulerAction(this, work).schedule(state, delay);
     };
-    Scheduler.now = Date.now ? Date.now : function () { return +new Date(); };
     return Scheduler;
 }());
+Scheduler.now = Date.now ? Date.now : function () { return +new Date(); };
 exports.Scheduler = Scheduler;
 //# sourceMappingURL=Scheduler.js.map
