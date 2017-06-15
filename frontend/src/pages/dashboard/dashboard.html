@@ -10,8 +10,8 @@
     </div>
     <div class="clearfix"></div>
     <div class="watermark">
-        <ion-row responsive-sm>
-            <ion-col width-67>
+        <ion-row nowrap>
+            <ion-col col col-8>
                 <ion-card>
                     <h1 class="clickable" (click)="goToAssessments()">{{'Assessments'|translate}}</h1>
                     <div class="dash-graph" id="assessmentsChart">
@@ -19,7 +19,7 @@
                     </div>
                 </ion-card>
             </ion-col>
-            <ion-col width-33>
+            <ion-col col col-4>
                 <ion-card class="clickable" (click)="goToMatrix()">
                     <h1>{{'Competency Levels'|translate}}</h1>
                     <div class="dash-graph" id="assessmentsGauge">
@@ -29,7 +29,7 @@
             </ion-col>
         </ion-row>
         <ion-row responsive-sm>
-            <ion-col width-67>
+            <ion-col col col-8>
                 <ion-card>
                     <h1 class="clickable" (click)="goToEvents()">{{'Events'|translate}}</h1>
                     <div class="dash-graph" id="eventsChart">
@@ -37,7 +37,7 @@
                     </div>
                 </ion-card>
             </ion-col>
-            <ion-col width-33>
+            <ion-col col col-4>
                 <ion-card>
                     <h1 class="clickable" (click)="goToEvents()">{{'Events Breakdown'|translate}}</h1>
                     <div class="dash-graph" id="eventTypesPie">
@@ -47,7 +47,7 @@
             </ion-col>
         </ion-row>
         <ion-row responsive-sm>
-            <ion-col width-67>
+            <ion-col col col-8>
                 <ion-card>
                     <h1 class="clickable" (click)="goToPlanItems()">{{'Resource Completions'|translate}}</h1>
                     <div class="dash-graph" id="planItemsChart">
@@ -55,7 +55,7 @@
                     </div>
                 </ion-card>
             </ion-col>
-            <ion-col width-33>
+            <ion-col col col-4>
                 <ion-card class="clickable" (click)="goToOutcomes()">
                     <h1>{{'Current Outcome Levels'|translate}}</h1>
                     <div class="dash-graph" id="outcomesGauge"></div>

@@ -15,10 +15,10 @@
             <ion-col col col-4>
                 <ion-card class="member">
                     <ion-row nowrap>
-                        <ion-col width-33>
+                        <ion-col col col-4>
                             <avatar [id]="member.id" [size]="'full'"></avatar>
                         </ion-col>
-                        <ion-col width-67>
+                        <ion-col col col-8>
                             <h4>
                                 <inline-editor empty="-" type="text" (onSave)="setDirty()" [disabled]="!canEdit()" [(ngModel)]="member.firstName" size="10"></inline-editor>
                                 <inline-editor empty="-" type="text" (onSave)="setDirty()" [disabled]="!canEdit()" [(ngModel)]="member.middleName" size="2" min="0"></inline-editor>
@@ -38,8 +38,8 @@
                 <ion-card>
                     <h3>{{'Reports'|translate}}</h3>
                     <ion-row responsive-md>
-                        <ion-col width-10></ion-col>
-                        <ion-col width-90>
+                        <ion-col col col-1></ion-col>
+                        <ion-col col col-11>
                             <ion-row>
                                 <ion-col>
                                     <app-icon (click)="goToProgress(member)" name="line-chart"></app-icon>
