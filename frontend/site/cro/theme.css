@@ -1,3 +1,7 @@
+.ion-page > ion-content, .content-md {
+    background: #5d646f;
+}
+
 .toolbar-background-md {
     border-color: #C0B283;
     background: #C0B283;
@@ -16,6 +20,7 @@ a, .dashboard .cycle a, .tabs-md .tab-button[aria-selected=true] {
 .pagination > li > a, .pagination > li > span {
     color: #DCD0C0;
 }
+
 .range-md .range-knob {
     top: 0;
     background: #C0B283;
