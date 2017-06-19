@@ -1,0 +1,58 @@
+body {
+    color: #606060;
+}
+
+a, a:visited {
+    color: #028dc0;
+}
+
+.customerBg {
+    background: #FFF url(/frontend/site/cvs/images/bg-top-nav.png) !important;
+    background-size: 100% 100% !important;
+}
+
+ion-header-bar {
+    background: #FFF url(/frontend/site/cvs/images/bg-top-nav.png) !important;
+}
+
+ion-header-bar img {
+    vertical-align: top !important;
+}
+
+ion-content {
+    background: #FFF url(/frontend/site/cvs/images/bg.gif) !important;
+    background-size: 100% 100% !important;
+}
+
+ion-header-bar a {
+    color: #cc0000 !important;
+}
+
+.tabs-assertive.customerBg > .tabs, .tabs.tabs-assertive.customerBg {
+    background: #cc0000 !important;
+}
+
+.bar.bar-assertive .title {
+    color: #cc0000;
+}
+
+.bar-assertive .button.button-clear {
+    color: #cc0000;
+}
+
+.cycle a {
+    color: #606060 !important;
+}
+
+.dashname {
+    color: #606060;
+}
+
+.tab-item-active {
+    color: yellow;
+}
+
+.tab-item:hover {
+    color: yellow !important;
+}
+

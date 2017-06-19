@@ -304,12 +304,12 @@ class Assessment extends AppModel {
 
 		/** Get series names for assessments, then outcomes.
 		 */
-		$aSql = "SELECT qg.id,qg.tag AS name, YEAR(a.last_saved) AS yr, DATE_FORMAT(a.last_saved, '%m') AS mo, AVG(ar.response_index) AS average
+		$aSql = "SELECT qg.id,qg.name AS name, YEAR(a.last_saved) AS yr, DATE_FORMAT(a.last_saved, '%m') AS mo, AVG(ar.response_index) AS average
 				FROM question_group qg, question q, assessment a, assessment_response ar, member m, organization o
 				WHERE m.organization_id IN ($orgIds) AND m.organization_id=o.id AND m.id=a.member_id
       				AND qg.instrument_id = $instrumentId AND q.question_group_id = qg.id AND ar.question_id = q.id AND ar.assessment_id=a.id
       				AND a.last_saved >= DATE_SUB(NOW(),INTERVAL 1 YEAR)
-				GROUP BY YEAR(a.last_saved), DATE_FORMAT(a.last_saved, '%m'), qg.tag
+				GROUP BY YEAR(a.last_saved), DATE_FORMAT(a.last_saved, '%m'), qg.name
 				ORDER BY qg.sort_order, YEAR(a.last_saved) ASC, DATE_FORMAT(a.last_saved, '%m');";
 		$dbRecords = $this->getDBIF()->query($aSql)->fetchAll();
 		if (!empty($dbRecords)) {
@@ -516,14 +516,14 @@ class Assessment extends AppModel {
 
 		/** Get series names for assessments, then outcomes.
 		 */
-		$aSql = "SELECT qg.id,qg.tag AS name, YEAR(a.last_saved) AS yr, DATE_FORMAT(a.last_saved, '%m') AS mo, AVG(ar.response_index) AS average
+		$aSql = "SELECT qg.id,qg.name AS name, YEAR(a.last_saved) AS yr, DATE_FORMAT(a.last_saved, '%m') AS mo, AVG(ar.response_index) AS average
 				FROM question_group qg, question q, assessment a, assessment_response ar, member m, organization o
 				WHERE m.id=$memberId AND m.id=a.member_id
       				AND q.question_group_id = qg.id AND ar.question_id = q.id AND ar.assessment_id=a.id
       				AND a.last_saved >= DATE_SUB(NOW(),INTERVAL 1 YEAR)
-				GROUP BY YEAR(a.last_saved), DATE_FORMAT(a.last_saved, '%m'), qg.tag
-				ORDER BY qg.sort_order, YEAR(a.last_saved) ASC, DATE_FORMAT(a.last_saved, '%m');";
-		$dbRecords = $this->getDBIF()->query($aSql)->fetchAll();
+				GROUP BY YEAR(a.last_saved), DATE_FORMAT(a.last_saved, '%m'), qg.id, qg.name
+				ORDER BY qg.sort_order, YEAR(a.last_saved) ASC, DATE_FORMAT(a.last_saved, '%m')";
+        $dbRecords = $this->getDBIF()->query($aSql)->fetchAll();
 		if (!empty($dbRecords)) {
 			$i = 0;
 			foreach ($dbRecords as $rec) {
@@ -542,10 +542,10 @@ class Assessment extends AppModel {
 			}
 			$graphData['series'][$i] = [];
 		}
-		$oSql = "SELECT name, YEAR(last_updated) AS yr, DATE_FORMAT(last_updated, '%m') AS mo, AVG(level) AS average
+		$oSql = "SELECT sort_order, name, YEAR(last_updated) AS yr, DATE_FORMAT(last_updated, '%m') AS mo, AVG(level) AS average
 					FROM outcome WHERE  last_updated >= DATE_SUB(NOW(),INTERVAL 1 YEAR)
-					GROUP BY name, YEAR(last_updated), DATE_FORMAT(last_updated, '%m'), name
-					ORDER BY sort_order, name, YEAR(last_updated), DATE_FORMAT(last_updated, '%m');";
+					GROUP BY sort_order, name, YEAR(last_updated), DATE_FORMAT(last_updated, '%m'), name
+					ORDER BY sort_order, name, YEAR(last_updated), DATE_FORMAT(last_updated, '%m')";
 		$dbRecords = $this->getDBIF()->query($oSql)->fetchAll();
 		foreach ($dbRecords as $rec) {
 			if ((int)$rec["yr"] < $startYr) {
@@ -584,8 +584,8 @@ class Assessment extends AppModel {
 					FROM plan_item pi, module AS md, resource r
 					WHERE pi.plan_item_status_id='C' AND pi.member_id=$memberId AND pi.status_stamp >= DATE_SUB(NOW(), INTERVAL 1 YEAR) AND md.resource_id=r.id
 						AND pi.module_id=md.id
-					GROUP BY YEAR(pi.status_stamp), DATE_FORMAT(pi.status_stamp, '%m')
-					ORDER BY YEAR(pi.status_stamp), DATE_FORMAT(pi.status_stamp, '%m');";
+					GROUP BY r.name, YEAR(pi.status_stamp), DATE_FORMAT(pi.status_stamp, '%m')
+					ORDER BY r.name, YEAR(pi.status_stamp), DATE_FORMAT(pi.status_stamp, '%m');";
 		$dbRecords = $this->getDBIF()->query($sql)->fetchAll();
 		if (!empty($dbRecords)) {
 			$seriesPos = 0;
@@ -672,7 +672,7 @@ class Assessment extends AppModel {
 		/**
 		 * Append the single overall outcomes series.
 		 */
-		$sql = "SELECT YEAR(last_updated) AS yr, DATE_FORMAT(last_updated, '%m') AS mo, AVG(level) AS average
+		$sql = "SELECT YEAR(last_updated) AS yr, DATE_FORMAT(last_updated, '%m') AS mo, AVG(oo.level) AS average
 					FROM outcome AS ot, outcome_report AS oo
 					WHERE last_updated >= DATE_SUB(NOW(),INTERVAL 1 YEAR)
 					GROUP BY YEAR(last_updated), DATE_FORMAT(last_updated, '%m')

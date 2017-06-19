@@ -1,0 +1,43 @@
+body {
+}
+
+.ion-page > ion-content, .content-md {
+}
+
+.toolbar-background-md {
+    border-color: #EEE;
+    background: #EEE;
+    color: #666;
+}
+
+.toolbar-title-md {
+    color: #666;
+}
+
+.bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default, ion-navbar button {
+    color: #666;
+}
+
+a, .dashboard .cycle a, .tabs-md .tab-button[aria-selected=true] {
+    color: #373737 !important;
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    background-color: #EEE;
+    border-color: #EEE;
+    color: #666;
+}
+
+.pagination > li > a, .pagination > li > span {
+    color: #EEE;
+}
+
+.range-md .range-knob {
+    top: 0;
+    background: #888;
+}
+
+.progressBar {
+    background: #E4E4E4;
+    color: #666;
+}

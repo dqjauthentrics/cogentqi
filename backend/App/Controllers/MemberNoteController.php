@@ -83,13 +83,11 @@ class MemberNoteController extends ControllerBase {
 
 	/**
 	 */
-	public function deleteAction() {
+	public function deleteAction($memberNoteId) {
 		$result = new Result();
 		$memberNote = new MemberNote();
 		$this->beginTransaction($memberNote);
 		try {
-			$data = $this->getInputData();
-			$memberNoteId = $data['memberNoteId'];
 			$memberNote = MemberNote::findFirst($memberNoteId);
 			if (!empty($memberNote)) {
 				if ($memberNote->delete()) {

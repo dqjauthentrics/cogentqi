@@ -19,7 +19,7 @@ DELETE FROM plan_item;
 DELETE FROM question;
 DELETE FROM question_group;
 
-INSERT INTO question_group (instrument_id, tag, number, sort_order) VALUES (1, 'Guest safety', 'A', 1);
+INSERT INTO question_group (instrument_id, name, number, sort_order) VALUES (1, 'Guest safety', 'A', 1);
 SET @qg = LAST_INSERT_ID();
 INSERT INTO question (question_group_id, question_type_id, sort_order, number, name, summary)
 VALUES (@qg, 1, 1, '1', 'Regulation Compliance', 'Complies with federal, local, and company health and safety regulations.');
@@ -36,7 +36,7 @@ VALUES (@qg, 1, 5, '5', 'Area Knowledge', 'Recommend stourist attractions and ac
 INSERT INTO question (question_group_id, question_type_id, sort_order, number, name, summary)
 VALUES (@qg, 1, 6, '6', 'Prevention Safeguards', 'Identifies activities that are suspicious and implement loss prevention safeguards.');
 
-INSERT INTO question_group (instrument_id, tag, number, sort_order) VALUES (1, 'Policies and procedures', '2', 2);
+INSERT INTO question_group (instrument_id, name, number, sort_order) VALUES (1, 'Policies and procedures', '2', 2);
 SET @qg = LAST_INSERT_ID();
 INSERT INTO question (question_group_id, question_type_id, sort_order, number, name, summary)
 VALUES (@qg, 1, 7, '1', 'Reservations', 'Employs effective reservation procedures to meet guest needs and maximize occupancy.
@@ -53,7 +53,7 @@ INSERT INTO question (question_group_id, question_type_id, sort_order, number, n
 VALUES (@qg, 1, 10, '4', 'Telephone System Skills',
         'Understands basic telephone courtesy and language for answering and closing calls, placing callers on hold, transferring calls, and taking messages.');
 
-INSERT INTO question_group (instrument_id, tag, number, sort_order) VALUES (1, 'Guest Satisfaction', '3', 3);
+INSERT INTO question_group (instrument_id, name, number, sort_order) VALUES (1, 'Guest Satisfaction', '3', 3);
 SET @qg = LAST_INSERT_ID();
 INSERT INTO question (question_group_id, question_type_id, sort_order, number, name, summary)
 VALUES (@qg, 1, 11, '1', 'Customer Assistance',
@@ -109,7 +109,7 @@ UPDATE assessment SET assessor_id = (SELECT id FROM member WHERE role_id = 'D' O
 WHERE member_id IN (SELECT id FROM member WHERE role_id IN ('R'));
 
 
-INSERT INTO question_group (instrument_id, tag, number, sort_order) VALUES (2, 'Staff Management', 'A', 1);
+INSERT INTO question_group (instrument_id, name, number, sort_order) VALUES (2, 'Staff Management', 'A', 1);
 SET @qg = LAST_INSERT_ID();
 INSERT INTO question (question_group_id, question_type_id, sort_order, number, name, summary)
 VALUES (@qg, 1, 1, '1', 'Work Schedule Management', 'Anticipates and ensures full, but optimal coverage of room attendant needs.');
@@ -123,7 +123,7 @@ INSERT INTO question (question_group_id, question_type_id, sort_order, number, n
 VALUES (@qg, 1, 4, '4', 'Performs Regular Progress Reviews',
         'Ensures that regular performance reviews are conducted for every staff member.');
 
-INSERT INTO question_group (instrument_id, tag, number, sort_order) VALUES (2, 'Linen Service', '2', 2);
+INSERT INTO question_group (instrument_id, name, number, sort_order) VALUES (2, 'Linen Service', '2', 2);
 SET @qg = LAST_INSERT_ID();
 INSERT INTO question (question_group_id, question_type_id, sort_order, number, name, summary)
 VALUES (@qg, 1, 5, '1', 'Procedures', 'Establishes and updates procedures for the linen service.');
@@ -137,7 +137,7 @@ INSERT INTO question (question_group_id, question_type_id, sort_order, number, n
 VALUES (@qg, 1, 7, '4', 'Restaurant Support',
         'Works collaboratively with restaurants to ensure laundry is cleaned and delivered in a timely manner.');
 
-INSERT INTO question_group (instrument_id, tag, number, sort_order) VALUES (2, 'Guest Satisfaction', '3', 3);
+INSERT INTO question_group (instrument_id, name, number, sort_order) VALUES (2, 'Guest Satisfaction', '3', 3);
 SET @qg = LAST_INSERT_ID();
 INSERT INTO question (question_group_id, question_type_id, sort_order, number, name, summary)
 VALUES (@qg, 1, 8, '1', 'Customer Assistance', 'Assists customers with special cleaning requests, as needed.');

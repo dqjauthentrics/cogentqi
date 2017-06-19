@@ -29,6 +29,7 @@ export class AssessmentDetailPage {
         this.assessmentData.getSingle(this.assessment.id).then(assessment => {
             comp.assessment = assessment;
             comp.instrument = comp.instrumentData.find(comp.assessment.instrument.id);
+            console.log('assessment', comp.assessment);
             if (comp.instrument) {
                 for (let i = 0; i < comp.instrument.questions.length; i++) {
                     let id = comp.instrument.questions[i].id;

@@ -16,7 +16,7 @@
   }
 
   .ion-input-select--large::after {
-    content: "HELLO THERE";
+    content: "";
   }
 
   .ion-input-select {
@@ -143,10 +143,11 @@
     vertical-align: middle;
   }
 
-  .matrix table table {
+  #matrix {
     border: none;
     padding: 0;
-    margin: 0;
+    margin: 0 auto;
+    overflow: auto;
   }
 
   .matrix td {

@@ -120,14 +120,14 @@ class AssessmentController extends ControllerBase {
 	}
 
 	/**
-	 * @param int $memberId
-	 * @param int $assessorId
 	 */
-	public function updateAction($memberId, $assessorId) {
+	public function updateAction() {
 		$result = new Result();
 		try {
 			$formAssessment = $this->getInputData('data');
-			$assessmentModel = new Assessment();
+            $memberId = $formAssessment['memberId'];
+            $assessorId = $formAssessment['assessorId'];
+            $assessmentModel = new Assessment();
 			if (!empty($formAssessment)) {
 				$result = $assessmentModel->saveExisting($this, $formAssessment);
 			}

@@ -222,6 +222,7 @@ class Member extends AppModel {
 	 */
 	public function map($options = ['lastAssessment' => TRUE, 'badges' => TRUE, 'assessments' => TRUE, 'notes' => FALSE, 'events' => FALSE, 'minimal' => FALSE]) {
 		$map = parent::map($options);
+		$map['appRoleId'] = $this->role->app_role_id;
 		unset($map['password']);
 		unset($map['username']);
 		unset($map['avatar']); // @todo Remove avatars from DB?

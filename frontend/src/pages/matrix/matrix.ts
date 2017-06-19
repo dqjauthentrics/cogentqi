@@ -1,12 +1,12 @@
-import {Component} from "@angular/core";
-import {NavController} from "ionic-angular";
-import {Globals} from "../../providers/globals";
-import {AssessmentProvider} from "../../providers/assessment";
-import {SessionProvider} from "../../providers/session";
-import {InstrumentProvider} from "../../providers/instrument";
-import {MemberProvider} from "../../providers/member";
-import {MemberDetailPage} from "../member/detail";
-import {AssessmentDetailPage} from "../assessment/detail";
+import {Component} from '@angular/core';
+import {NavController} from 'ionic-angular';
+import {Globals} from '../../providers/globals';
+import {AssessmentProvider} from '../../providers/assessment';
+import {SessionProvider} from '../../providers/session';
+import {InstrumentProvider} from '../../providers/instrument';
+import {MemberProvider} from '../../providers/member';
+import {MemberDetailPage} from '../member/detail';
+import {AssessmentDetailPage} from '../assessment/detail';
 
 @Component({
     templateUrl: 'matrix.html',
@@ -53,10 +53,10 @@ export class MatrixPage {
                 let idx = 0;
                 if (comp.instrument.questionGroups) {
                     for (let questionGroup of comp.instrument.questionGroups) {
-                        comp.segments.push({text: questionGroup.name, value: idx});
+                        comp.segments.push({number: questionGroup.number, text: questionGroup.name, value: idx});
                         idx++
                     }
-                    comp.segments.push({text: 'Summary', value: comp.instrumentData.SECTION_SUMMARY});
+                    comp.segments.push({number: '', text: 'Summary', value: comp.instrumentData.SECTION_SUMMARY});
                 }
                 comp.loading = false;
             });
@@ -64,11 +64,8 @@ export class MatrixPage {
     }
 
     changeInstrument(id) {
-        let tmp = this.instrumentData.find(id);
-        if (tmp) {
-            this.instrument = tmp;
-            this.loadMatrix(this.instrument.id);
-        }
+        this.instrument = this.instrumentData.find(id);
+        this.loadMatrix(this.instrument.id);
     }
 
     showCell(response) {

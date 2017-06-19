@@ -24,7 +24,7 @@
                     <div (click)="goToAssessment(assessment)">
                         <span [hidden]="!prefix">{{prefix}}, </span>
                         <span class="name">{{assessment.instrument.name}}, {{assessment.schedule.name}}</span>
-                        {{assessment.lastModified|datify:true}}, {{assessment.lastModified|datify:true}}
+                        {{assessment.lastModified}}, {{assessment.lastModified|datify:true}}
                     </div>
                 </td>
             </tr>

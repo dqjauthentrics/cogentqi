@@ -8,59 +8,63 @@
             <a (click)="goToOrganization(matrix?.org.parent_id)" *ngIf="matrix?.org.id != session.user.organizationId">
                 <app-icon name="level-up"></app-icon>
             </a>
-            {{matrix?.org.name}}
-            <select class="ion-input-select--large" [(ngModel)]="instrument.id" (change)="changeInstrument($event.target.value)">
+            <div>{{matrix?.org.name}}</div>
+            <select class="ion-input-select--large" [(ngModel)]="instrumentId" (change)="changeInstrument($event.target.value)">
                 <option *ngFor="let instr of instrumentData.list" [value]="instr.id">{{instr.name}}</option>
             </select>
         </div>
     </ion-row>
-    <ion-row *ngIf="segments" responsive-sm>
+    <ion-segment *ngIf="segments" wrap>
         <ion-col *ngFor="let segment of segments; let i=index;" [class]="'progressBar' + (segment.value == instrumentData.currentSectionIdx? ' selected':'')"
                  (click)="goToGroup(segment.value)">
-            {{segment.text|ellipsify:14}}
+            {{segment.number}}{{segment.number?.length > 0? '.':''}} {{segment.text|ellipsify:14}}
         </ion-col>
-    </ion-row>
+    </ion-segment>
     <loading-indicator [loading]="loading"></loading-indicator>
-    <ion-row *ngIf="matrix" responsive-md>
-        <table id="matrix" class="matrix">
-            <thead>
-            <tr>
-                <th style="font-style: italic;">{{'Staff Assessments'|translate}}</th>
-                <th *ngFor="let hdr of matrix.hdrs" [class]="'rotate ' + getCellClass(hdr)" [hidden]="!showCell(hdr)">
-                    <div><span>{{hdr[1]|ellipsify:24}}</span></div>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let row of matrix.rows; let i=index;" (click)="goToRow(matrix.mType, row)" [class]="(i==matrix.rows.length-1?'average':'clickable')">
-                <td [class]="'leftHeader' + (row.mid == -1 || row.oid == -1? 'average':'')">
-                    <div [ngSwitch]="(matrix.mType == 'M' ? row.mid : row.oid)">
-                        <div *ngSwitchCase="'-1'" style="text-align: right;">
-                            {{row.n}}
-                        </div>
-                        <div *ngSwitchDefault>
-                            <div [ngSwitch]="matrix.mType">
-                                <div *ngSwitchCase="'M'">
-                                    <div *ngIf="row.mid > 0">
-                                        <avatar [id]="row.mid" [size]="'tiny'"></avatar>
-                                        {{row.n}}
-                                    </div>
-                                    <div *ngIf="row.mid < 0">
-                                        {{row.n}}
-                                    </div>
-                                </div>
-                                <div *ngSwitchCase="'O'">
+    <ion-grid>
+        <ion-row *ngIf="matrix">
+            <ion-col style="overflow:auto;">
+                <table id="matrix" class="matrix">
+                    <thead>
+                    <tr>
+                        <th style="font-style: italic;">{{'Staff Assessments'|translate}}</th>
+                        <th *ngFor="let hdr of matrix.hdrs" [class]="'rotate ' + getCellClass(hdr)" [hidden]="!showCell(hdr)">
+                            <div><span>{{hdr[1]|ellipsify:24}}</span></div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let row of matrix.rows; let i=index;" (click)="goToRow(matrix.mType, row)" [class]="(i==matrix.rows.length-1?'average':'clickable')">
+                        <td [class]="'leftHeader' + (row.mid == -1 || row.oid == -1? 'average':'')">
+                            <div [ngSwitch]="(matrix.mType == 'M' ? row.mid : row.oid)">
+                                <div *ngSwitchCase="'-1'" style="text-align: right;">
                                     {{row.n}}
                                 </div>
+                                <div *ngSwitchDefault>
+                                    <div [ngSwitch]="matrix.mType">
+                                        <div *ngSwitchCase="'M'">
+                                            <div *ngIf="row.mid > 0">
+                                                <avatar [id]="row.mid" [size]="'tiny'"></avatar>
+                                                {{row.n}}
+                                            </div>
+                                            <div *ngIf="row.mid < 0">
+                                                {{row.n}}
+                                            </div>
+                                        </div>
+                                        <div *ngSwitchCase="'O'">
+                                            {{row.n}}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </td>
-                <td *ngFor="let response of row.rsp" [class]="getCellClass(response)" [hidden]="!showCell(response)">
-                    <div [class]="getScoreClass(response)">{{response[1]|round}}</div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </ion-row>
+                        </td>
+                        <td *ngFor="let response of row.rsp" [class]="getCellClass(response)" [hidden]="!showCell(response)">
+                            <div [class]="getScoreClass(response)">{{response[1]|round}}</div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

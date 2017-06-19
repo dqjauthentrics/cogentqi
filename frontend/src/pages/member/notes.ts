@@ -1,7 +1,7 @@
-import {Component} from "@angular/core";
-import {NavController, NavParams} from "ionic-angular";
-import {Globals} from "../../providers/globals";
-import {MemberNoteProvider} from "../../providers/member-note";
+import {Component} from '@angular/core';
+import {NavController, NavParams} from 'ionic-angular';
+import {Globals} from '../../providers/globals';
+import {MemberNoteProvider} from '../../providers/member-note';
 
 @Component({
     templateUrl: 'notes.html'
@@ -25,7 +25,7 @@ export class MemberNotesPage {
 
     save(note) {
         note.saving = true;
-        this.memberNoteProvider.remove(note, false).then(() => {
+        this.memberNoteProvider.remove(note.id, false).then(() => {
             note.saving = false;
         });
     }
@@ -54,8 +54,13 @@ export class MemberNotesPage {
         let comp = this;
         this.globals.confirm('Remove this note, permanently?', function () {
             note.saving = true;
-            comp.memberNoteProvider.remove(note, false).then(() => {
-                note.saving = false;
+            comp.memberNoteProvider.remove(note.id, false).then(() => {
+                for (let i = 0; i < comp.notes.length; i++) {
+                    if (comp.notes[i].id === note.id) {
+                        comp.notes.splice(i, 1);
+                        break;
+                    }
+                }
             });
         });
     }

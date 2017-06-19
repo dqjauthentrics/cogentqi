@@ -67,7 +67,7 @@ try {
 	echo $application->handle()->getContent();
 }
 catch (\Exception $e) {
-	$result = new \App\Components\Result($this);
+	$result = new \App\Components\Result(NULL);
 	//if (empty($result->message)) {
 		$result->message = 'WTF:'.$e->getMessage();
 	//}

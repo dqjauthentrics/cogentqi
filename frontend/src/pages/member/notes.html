@@ -3,45 +3,47 @@
 </ion-header>
 
 <ion-content class="outer-content member-notes">
-    <ion-row responsive-sm>
-        <ion-col>
-            <ion-card>
-                <h3>{{'Notes for'|translate}} {{member.firstName}}</h3>
-                <ion-list class="notes">
-                    <ion-item *ngFor="let note of notes">
-                        <div [class]="'note item ' + (note.flag == 1? 'important': (note.flag == 2? 'okay':''))">
-                            <div class="content" editable-textarea="note.content" (change)="setDirty(note)">
-                                {{note.content}}
+    <ion-grid>
+        <ion-row wrap>
+            <ion-col>
+                <ion-card>
+                    <h3>{{'Notes for'|translate}} {{member.firstName}}</h3>
+                    <ion-list class="notes">
+                        <ion-item *ngFor="let note of notes">
+                            <div [class]="'note item ' + (note.flag == 1? 'important': (note.flag == 2? 'okay':''))">
+                                <div class="content" editable-textarea="note.content" (change)="setDirty(note)">
+                                    {{note.content}}
+                                </div>
+                                <div class="author">
+                                    - {{note.creator|namify:true}}. {{note.lastModified|datify:true}}
+                                    <avatar [id]="note.creator.id"></avatar>
+                                </div>
+                                <div class="note-tools" style="vertical-align: middle;">
+                                    <app-icon name="save" size="small" (click)="save(note)" [hidden]="!note.dirty"></app-icon>
+                                    <app-icon name="flag" size="small" (click)="flag(note)" [color]="note.flag == 1? 'red':''"></app-icon>
+                                    <app-icon name="okay" size="small" (click)="thumbsUp(note)" [color]="note.flag == 2? 'green':''"></app-icon>
+                                    <app-icon name="remove" size="small" (click)="remove(note)"></app-icon>
+                                </div>
                             </div>
-                            <div class="author">
-                                - {{note.creator|namify:true}}. {{note.lastModified|datify:true}}
-                                <avatar [id]="note.creator.id"></avatar>
-                            </div>
-                            <div class="note-tools" style="vertical-align: middle;">
-                                <app-icon name="save" size="small" (click)="save(note)" [hidden]="!note.dirty"></app-icon>
-                                <app-icon name="flag" size="small" (click)="flag(note)" [color]="note.flag == 1? 'red':''"></app-icon>
-                                <app-icon name="okay" size="small" (click)="thumbsUp(note)" [color]="note.flag == 2? 'green':''"></app-icon>
-                                <app-icon name="remove" size="small" (click)="remove(note)"></app-icon>
-                            </div>
-                        </div>
-                    </ion-item>
-                </ion-list>
-            </ion-card>
-        </ion-col>
-        <ion-col>
-            <ion-card>
-                <h3>{{'Jot a Note about'|translate}} {{member.firstName}}</h3>
+                        </ion-item>
+                    </ion-list>
+                </ion-card>
+            </ion-col>
+            <ion-col>
+                <ion-card>
+                    <h3>{{'Jot a Note about'|translate}} {{member.firstName}}</h3>
 
-                <div class="note" style="width:100%; height:auto; float:left; padding:1em;">
+                    <div class="note" style="width:100%; height:auto; float:left; padding:1em;">
                         <textarea style="width:100%; min-height:200px;" [(ngModel)]="newNote.content"
                                   data-ng-bind-html="data.newNote.content" [placeholder]="'Enter note text here.'|translate"
                         ></textarea>
-                </div>
-                <button ion-button [title]="'Add this note to the list.'|translate" (click)="add()">
-                    <app-icon class="add"></app-icon>
-                    {{'Add Note'|translate}}
-                </button>
-            </ion-card>
-        </ion-col>
-    </ion-row>
+                    </div>
+                    <button ion-button [title]="'Add this note to the list.'|translate" (click)="add()">
+                        <app-icon class="add"></app-icon>
+                        {{'Add Note'|translate}}
+                    </button>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

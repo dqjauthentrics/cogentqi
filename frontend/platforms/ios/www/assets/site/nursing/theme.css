@@ -1,0 +1,28 @@
+
+ion-content.dashboard, ion-content.login {
+    background: url("/assets/site/nursing/images/bgOpaque.jpg") top left no-repeat;
+    background-size: cover;
+}
+
+.toolbar-background-md {
+    border-color: #d47e0a;
+    background: #d47e0a;
+}
+
+a, .tabs-md .tab-button[aria-selected=true] {
+    color: #2EB08A !important;
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    background-color: #2EB08A;
+    border-color: #2EB08A;
+    color: #FFF;
+}
+
+.pagination > li > a, .pagination > li > span {
+    color: #2EB08A;
+}
+.range-md .range-knob {
+    top: 0;
+    background: #2EB08A;
+}
