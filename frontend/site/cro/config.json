@@ -5,6 +5,10 @@
   "trademarkName": "CogentQI&#8482;",
   "translations": {
     "us-en": {
+      "resources are": "training is",
+      "Resources": "Training",
+      "Resource": "Training",
+      "resource": "training",
       "Assessment": "Evaluation",
       "Assessments": "Evaluations",
       "Assessments to Date": "Evaluations to Date",

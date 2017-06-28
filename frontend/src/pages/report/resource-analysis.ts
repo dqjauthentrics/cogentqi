@@ -6,6 +6,7 @@ import {IconProvider} from "../../providers/icon";
 import {InstrumentProvider} from "../../providers/instrument";
 import {ResourceProvider} from "../../providers/resource";
 import {Graph} from "../../providers/graph";
+import {Translate} from "../../pipes/translate";
 
 declare let Highcharts;
 
@@ -19,7 +20,7 @@ export class ReportResourceAnalysis {
     data: any;
 
     constructor(private nav: NavController, private globals: Globals, private session: SessionProvider, public icon: IconProvider,
-                public resourceProvider: ResourceProvider, public instrumentProvider: InstrumentProvider, public graph: Graph) {
+                public resourceProvider: ResourceProvider, public instrumentProvider: InstrumentProvider, public graph: Graph, private translate: Translate) {
         let comp = this;
         let resources = [];
         let questionNames = [];
@@ -67,10 +68,10 @@ export class ReportResourceAnalysis {
         if (this.data) {
             let options = {
                 title: {
-                    text: 'Resource Competency Coverage Analysis'
+                    text: this.translate.transform('Resource Competency Coverage Analysis')
                 },
                 subtitle: {
-                    text: 'resources available for each competency'
+                    text: this.translate.transform('resources available for each competency')
                 },
                 chart: {
                     type: 'column'

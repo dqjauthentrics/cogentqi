@@ -5,8 +5,8 @@
             <app-icon [name]="item.icon"></app-icon>
         </td>
         <td>
-            <div class="name">{{item.name}}</div>
-            <div class="description" [innerHTML]="item.description"></div>
+            <div class="name">{{item.name|translate}}</div>
+            <div class="description" [innerHTML]="item.description|translate"></div>
         </td>
         <td class="list-drilldown">
             <i [class]="icon.getClass('drilldown')"></i>
